@@ -1,0 +1,18 @@
+/* Box Shadow */
+.is-style-group-box-shadow {
+	border-radius: 8px;
+	box-shadow: var(--wp--preset--shadow--small);
+	padding: var(--wp--preset--spacing--large);
+	transition: box-shadow 120ms ease;
+}
+
+.is-style-group-box-shadow:hover {
+	box-shadow: var(--wp--preset--shadow--medium);
+}
+
+/* Icon bubble support for card-icon-text pattern background Groups. */
+.wp-block-group.is-style-icon-bubble.has-background {
+	flex-shrink: 0;
+	padding: 0;
+	width: 64px;
+}

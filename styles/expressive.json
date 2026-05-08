@@ -1,0 +1,205 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/theme.json",
+	"version": 3,
+	"title": "Expressive",
+	"settings": {
+		"color": {
+			"palette": [
+				{
+					"slug": "primary",
+					"name": "Primary",
+					"color": "#D040E0"
+				},
+				{
+					"slug": "surface-base",
+					"name": "Surface Base",
+					"color": "#FFFFFF"
+				},
+				{
+					"slug": "surface-muted",
+					"name": "Surface Muted",
+					"color": "#F9FAFB"
+				},
+				{
+					"slug": "surface-subtle",
+					"name": "Surface Subtle",
+					"color": "#F3F4F6"
+				},
+				{
+					"slug": "surface-subtle-hover",
+					"name": "Surface Subtle Hover",
+					"color": "#E5E7EB"
+				},
+				{
+					"slug": "border",
+					"name": "Border",
+					"color": "#D1D5DB"
+				},
+				{
+					"slug": "input-border",
+					"name": "Input Border",
+					"color": "#9CA3AF"
+				},
+				{
+					"slug": "text-heading",
+					"name": "Text Heading",
+					"color": "#030712"
+				},
+				{
+					"slug": "text-body",
+					"name": "Text Body",
+					"color": "#374151"
+				},
+				{
+					"slug": "text-muted",
+					"name": "Text Muted",
+					"color": "#6B7280"
+				}
+			]
+		},
+		"typography": {
+			"fontFamilies": [
+				{
+					"slug": "sans",
+					"name": "Inter",
+					"fontFamily": "Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans'",
+					"fontFace": [
+						{
+							"fontFamily": "\"Inter\"",
+							"fontStyle": "normal",
+							"fontWeight": "400",
+							"src": [
+								"file:./assets/fonts/inter/inter-400-normal.woff2"
+							],
+							"fontDisplay": "swap"
+						},
+						{
+							"fontFamily": "\"Inter\"",
+							"fontStyle": "italic",
+							"fontWeight": "400",
+							"src": [
+								"file:./assets/fonts/inter/inter-400-italic.woff2"
+							],
+							"fontDisplay": "swap"
+						},
+						{
+							"fontFamily": "\"Inter\"",
+							"fontStyle": "normal",
+							"fontWeight": "500",
+							"src": [
+								"file:./assets/fonts/inter/inter-500-normal.woff2"
+							],
+							"fontDisplay": "swap"
+						},
+						{
+							"fontFamily": "\"Inter\"",
+							"fontStyle": "italic",
+							"fontWeight": "500",
+							"src": [
+								"file:./assets/fonts/inter/inter-500-italic.woff2"
+							],
+							"fontDisplay": "swap"
+						},
+						{
+							"fontFamily": "\"Inter\"",
+							"fontStyle": "normal",
+							"fontWeight": "600",
+							"src": [
+								"file:./assets/fonts/inter/inter-600-normal.woff2"
+							],
+							"fontDisplay": "swap"
+						},
+						{
+							"fontFamily": "\"Inter\"",
+							"fontStyle": "italic",
+							"fontWeight": "600",
+							"src": [
+								"file:./assets/fonts/inter/inter-600-italic.woff2"
+							],
+							"fontDisplay": "swap"
+						},
+						{
+							"fontFamily": "\"Inter\"",
+							"fontStyle": "normal",
+							"fontWeight": "700",
+							"src": [
+								"file:./assets/fonts/inter/inter-700-normal.woff2"
+							],
+							"fontDisplay": "swap"
+						},
+						{
+							"fontFamily": "\"Inter\"",
+							"fontStyle": "italic",
+							"fontWeight": "700",
+							"src": [
+								"file:./assets/fonts/inter/inter-700-italic.woff2"
+							],
+							"fontDisplay": "swap"
+						}
+					]
+				},
+				{
+					"fontFamily": "'Space Grotesk', sans-serif",
+					"name": "Space Grotesk",
+					"slug": "space-grotesk",
+					"fontFace": [
+						{
+							"fontDisplay": "swap",
+							"fontFamily": "'Space Grotesk'",
+							"fontStyle": "normal",
+							"fontWeight": "300 700",
+							"src": [
+								"file:./assets/fonts/space-grotesk/SpaceGrotesk-Variable.woff2"
+							]
+						}
+					]
+				}
+			]
+		}
+	},
+	"styles": {
+		"typography": {
+			"lineHeight": "1.55"
+		},
+		"elements": {
+			"heading": {
+				"typography": {
+					"fontFamily": "var(--wp--preset--font-family--space-grotesk)",
+					"fontWeight": "700",
+					"lineHeight": "1.15",
+					"letterSpacing": "-0.025em"
+				}
+			},
+			"h1": {
+				"typography": {
+					"fontSize": "var(--wp--preset--font-size--display-2-xl)"
+				}
+			},
+			"h2": {
+				"typography": {
+					"fontSize": "var(--wp--preset--font-size--display-xl)"
+				}
+			},
+			"h3": {
+				"typography": {
+					"fontSize": "var(--wp--preset--font-size--display)"
+				}
+			},
+			"h4": {
+				"typography": {
+					"fontSize": "var(--wp--preset--font-size--huge)"
+				}
+			},
+			"h5": {
+				"typography": {
+					"fontSize": "var(--wp--preset--font-size--extra-large)"
+				}
+			},
+			"h6": {
+				"typography": {
+					"fontSize": "var(--wp--preset--font-size--large)"
+				}
+			}
+		}
+	}
+}

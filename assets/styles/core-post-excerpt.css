@@ -1,0 +1,16 @@
+/* Truncate — shared base */
+[class*="is-style-excerpt-truncate-"] .wp-block-post-excerpt__excerpt {
+	-webkit-box-orient: vertical;
+	display: -webkit-box;
+	overflow: hidden;
+}
+
+/* Truncate 2 Lines */
+.is-style-excerpt-truncate-2 .wp-block-post-excerpt__excerpt {
+	-webkit-line-clamp: 2;
+}
+
+/* Truncate 3 Lines */
+.is-style-excerpt-truncate-3 .wp-block-post-excerpt__excerpt {
+	-webkit-line-clamp: 3;
+}

@@ -1,0 +1,175 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/theme.json",
+	"version": 3,
+	"title": "Editorial",
+	"settings": {
+		"color": {
+			"palette": [
+				{
+					"slug": "primary",
+					"name": "Primary",
+					"color": "#E8456B"
+				},
+				{
+					"slug": "surface-base",
+					"name": "Surface Base",
+					"color": "#FAFAF8"
+				},
+				{
+					"slug": "surface-muted",
+					"name": "Surface Muted",
+					"color": "#F5F3EF"
+				},
+				{
+					"slug": "surface-subtle",
+					"name": "Surface Subtle",
+					"color": "#EFEDE8"
+				},
+				{
+					"slug": "surface-subtle-hover",
+					"name": "Surface Subtle Hover",
+					"color": "#E8E5DF"
+				},
+				{
+					"slug": "border",
+					"name": "Border",
+					"color": "#E7E5E4"
+				},
+				{
+					"slug": "input-border",
+					"name": "Input Border",
+					"color": "#D6D3D1"
+				},
+				{
+					"slug": "text-heading",
+					"name": "Text Heading",
+					"color": "#1C1917"
+				},
+				{
+					"slug": "text-body",
+					"name": "Text Body",
+					"color": "#44403C"
+				},
+				{
+					"slug": "text-muted",
+					"name": "Text Muted",
+					"color": "#78716C"
+				}
+			]
+		},
+		"typography": {
+			"fontFamilies": [
+				{
+					"slug": "sans",
+					"name": "Inter",
+					"fontFamily": "Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans'",
+					"fontFace": [
+						{
+							"fontFamily": "\"Inter\"",
+							"fontStyle": "normal",
+							"fontWeight": "400",
+							"src": [
+								"file:./assets/fonts/inter/inter-400-normal.woff2"
+							],
+							"fontDisplay": "swap"
+						},
+						{
+							"fontFamily": "\"Inter\"",
+							"fontStyle": "italic",
+							"fontWeight": "400",
+							"src": [
+								"file:./assets/fonts/inter/inter-400-italic.woff2"
+							],
+							"fontDisplay": "swap"
+						},
+						{
+							"fontFamily": "\"Inter\"",
+							"fontStyle": "normal",
+							"fontWeight": "500",
+							"src": [
+								"file:./assets/fonts/inter/inter-500-normal.woff2"
+							],
+							"fontDisplay": "swap"
+						},
+						{
+							"fontFamily": "\"Inter\"",
+							"fontStyle": "italic",
+							"fontWeight": "500",
+							"src": [
+								"file:./assets/fonts/inter/inter-500-italic.woff2"
+							],
+							"fontDisplay": "swap"
+						},
+						{
+							"fontFamily": "\"Inter\"",
+							"fontStyle": "normal",
+							"fontWeight": "600",
+							"src": [
+								"file:./assets/fonts/inter/inter-600-normal.woff2"
+							],
+							"fontDisplay": "swap"
+						},
+						{
+							"fontFamily": "\"Inter\"",
+							"fontStyle": "italic",
+							"fontWeight": "600",
+							"src": [
+								"file:./assets/fonts/inter/inter-600-italic.woff2"
+							],
+							"fontDisplay": "swap"
+						},
+						{
+							"fontFamily": "\"Inter\"",
+							"fontStyle": "normal",
+							"fontWeight": "700",
+							"src": [
+								"file:./assets/fonts/inter/inter-700-normal.woff2"
+							],
+							"fontDisplay": "swap"
+						},
+						{
+							"fontFamily": "\"Inter\"",
+							"fontStyle": "italic",
+							"fontWeight": "700",
+							"src": [
+								"file:./assets/fonts/inter/inter-700-italic.woff2"
+							],
+							"fontDisplay": "swap"
+						}
+					]
+				},
+				{
+					"fontFamily": "'Source Serif 4', Georgia, 'Times New Roman', serif",
+					"name": "Source Serif 4",
+					"slug": "source-serif",
+					"fontFace": [
+						{
+							"fontDisplay": "swap",
+							"fontFamily": "'Source Serif 4'",
+							"fontStyle": "normal",
+							"fontWeight": "700",
+							"src": [
+								"file:./assets/fonts/source-serif/SourceSerif4-700.woff2"
+							]
+						}
+					]
+				}
+			]
+		}
+	},
+	"styles": {
+		"typography": {
+			"lineHeight": "1.65"
+		},
+		"elements": {
+			"heading": {
+				"typography": {
+					"fontFamily": "var(--wp--preset--font-family--source-serif)",
+					"fontWeight": "700",
+					"lineHeight": "1.2",
+					"letterSpacing": "-0.02em"
+				}
+			}
+		}
+	}
+}

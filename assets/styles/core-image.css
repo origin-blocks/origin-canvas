@@ -1,0 +1,19 @@
+/* Rounded Full */
+.is-style-rounded-full img {
+	aspect-ratio: 1 / 1;
+	border-radius: 9999px;
+	object-fit: cover;
+}
+
+/* Boxed */
+.is-style-media-boxed img {
+	border: 1px solid var(--wp--preset--color--border);
+	border-radius: 8px;
+	box-shadow: var(--wp--preset--shadow--small);
+}
+
+/* Card Blog Post — top-corner radius matches card outer radius */
+.origin-card-blog-image img {
+	border-top-left-radius: var(--wp--custom--radius--medium);
+	border-top-right-radius: var(--wp--custom--radius--medium);
+}

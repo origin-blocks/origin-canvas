@@ -1,0 +1,123 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/theme.json",
+	"version": 3,
+	"title": "DM Sans",
+	"styles": {
+		"typography": {
+			"fontFamily": "var(--wp--preset--font-family--dm-sans)",
+			"fontWeight": "400",
+			"lineHeight": "1.6"
+		},
+		"elements": {
+			"heading": {
+				"typography": {
+					"fontFamily": "var(--wp--preset--font-family--dm-sans)",
+					"fontWeight": "700",
+					"lineHeight": "1.2",
+					"letterSpacing": "-0.015em"
+				}
+			}
+		}
+	},
+	"settings": {
+		"typography": {
+			"fontFamilies": [
+				{
+					"slug": "sans",
+					"name": "Inter",
+					"fontFamily": "Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans'",
+					"fontFace": [
+						{
+							"fontFamily": "\"Inter\"",
+							"fontStyle": "normal",
+							"fontWeight": "400",
+							"src": [
+								"file:./assets/fonts/inter/inter-400-normal.woff2"
+							],
+							"fontDisplay": "swap"
+						},
+						{
+							"fontFamily": "\"Inter\"",
+							"fontStyle": "italic",
+							"fontWeight": "400",
+							"src": [
+								"file:./assets/fonts/inter/inter-400-italic.woff2"
+							],
+							"fontDisplay": "swap"
+						},
+						{
+							"fontFamily": "\"Inter\"",
+							"fontStyle": "normal",
+							"fontWeight": "500",
+							"src": [
+								"file:./assets/fonts/inter/inter-500-normal.woff2"
+							],
+							"fontDisplay": "swap"
+						},
+						{
+							"fontFamily": "\"Inter\"",
+							"fontStyle": "italic",
+							"fontWeight": "500",
+							"src": [
+								"file:./assets/fonts/inter/inter-500-italic.woff2"
+							],
+							"fontDisplay": "swap"
+						},
+						{
+							"fontFamily": "\"Inter\"",
+							"fontStyle": "normal",
+							"fontWeight": "600",
+							"src": [
+								"file:./assets/fonts/inter/inter-600-normal.woff2"
+							],
+							"fontDisplay": "swap"
+						},
+						{
+							"fontFamily": "\"Inter\"",
+							"fontStyle": "italic",
+							"fontWeight": "600",
+							"src": [
+								"file:./assets/fonts/inter/inter-600-italic.woff2"
+							],
+							"fontDisplay": "swap"
+						},
+						{
+							"fontFamily": "\"Inter\"",
+							"fontStyle": "normal",
+							"fontWeight": "700",
+							"src": [
+								"file:./assets/fonts/inter/inter-700-normal.woff2"
+							],
+							"fontDisplay": "swap"
+						},
+						{
+							"fontFamily": "\"Inter\"",
+							"fontStyle": "italic",
+							"fontWeight": "700",
+							"src": [
+								"file:./assets/fonts/inter/inter-700-italic.woff2"
+							],
+							"fontDisplay": "swap"
+						}
+					]
+				},
+				{
+					"fontFamily": "DM Sans, sans-serif",
+					"name": "DM Sans",
+					"slug": "dm-sans",
+					"fontFace": [
+						{
+							"fontDisplay": "swap",
+							"fontFamily": "DM Sans",
+							"fontStyle": "normal",
+							"fontWeight": "400 800",
+							"src": [
+								"file:./assets/fonts/dm-sans/DMSans-VariableFont_opsz,wght.woff2"
+							]
+						}
+					]
+				}
+			]
+		}
+	}
+}

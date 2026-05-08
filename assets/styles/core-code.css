@@ -1,0 +1,15 @@
+/* Overflow */
+.wp-block-code code {
+	overflow-wrap: normal;
+	overflow-x: auto;
+	white-space: pre;
+}
+
+/* Dark */
+.is-style-dark-code {
+	background: var(--wp--custom--dark--bg);
+	border: none;
+	border-radius: 8px;
+	color: var(--wp--custom--dark--text);
+	padding: 24px;
+}

@@ -1,0 +1,10 @@
+/* Origin Author — post author name and bio styling. */
+.wp-block-post-author.is-style-origin-author .wp-block-post-author__name {
+	font-weight: 600;
+	margin-bottom: var(--wp--preset--spacing--small);
+}
+
+.wp-block-post-author.is-style-origin-author .wp-block-post-author__bio {
+	font-size: var(--wp--preset--font-size--regular);
+	font-weight: 400;
+}
