@@ -3,13 +3,31 @@ name: Release
 on:
   push:
     tags:
-      - 'v*'
+      - '[0-9]*.[0-9]*.[0-9]*'
 
 permissions:
   contents: write
 
 jobs:
+  verify-master:
+    name: Verify release tag is on master
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout theme repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Confirm tagged commit is on master
+        shell: bash
+        run: |
+          git fetch origin +refs/heads/master:refs/remotes/origin/master
+          tag_commit="$(git rev-parse "${GITHUB_REF_NAME}^{commit}")"
+          git merge-base --is-ancestor "$tag_commit" origin/master
+
   release:
+    needs: verify-master
     uses: origin-blocks/theme-workflows/.github/workflows/build-release.yml@v1
     with:
       theme-name: origin

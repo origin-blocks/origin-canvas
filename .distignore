@@ -9,5 +9,9 @@
 /dist/
 /docs/
 /node_modules/
+/origin-blocks.json
 /package-lock.json
 /package.json
+/.idea/
+/.vscode/
+*.swp
