@@ -70,6 +70,14 @@ Document anything new here so we are not hunting across repos for the current ru
 
 ## 7. Release packaging
 
+Release source of truth:
+
+- Development starts in the private repository.
+- Public release work is synced into `origin-blocks/origin-theme` without private history.
+- Public follows GitFlow: `develop` is the integration branch, `master` is the release branch.
+- Release tags are plain SemVer (`0.1.0`, not `v0.1.0`) and must be created only in the public repository from commits contained in `master`.
+- The private repository must not publish theme releases.
+
 Build release zips with `bin/package-theme.sh`, not by zipping the working tree. The script uses `git archive` so `.gitattributes` can exclude internal docs and development-only files.
 
 `docs/plans/*` is a pipeline workspace path, not a theme package artifact. It must remain uncommitted by pipeline agents and is excluded from release archives through `export-ignore`.
