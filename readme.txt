@@ -32,13 +32,6 @@ Built for solo developers, freelancers, and small teams — the people whose tim
 
 [Support](https://github.com/origin-blocks/origin-theme/issues) is available on GitHub Issues.
 
-== Plugin Support ==
-
-Origin includes support for the following plugins:
-
-* [WooCommerce](https://wordpress.org/plugins/woocommerce/)
-* [Origin Blocks](https://wordpress.org/plugins/origin-blocks/)
-
 == License ==
 
 Copyright 2025 Origin. Distributed under the terms of the GNU GPL.
@@ -51,7 +44,7 @@ You should have received a copy of the GNU General Public License along with thi
 
 == Theme Screenshot ==
 
-Theme screenshot image "Iceland Aurora Borealis Northern Lights" (landscape-water-nature-wilderness-snow-winter-1209671-pxhere.com.jpg) from [PxHere.com](https://pxhere.com/en/photo/1209671) licensed under [CC0 1.0 Universal (CC0 1.0)](https://creativecommons.org/publicdomain/zero/1.0/).
+Theme screenshot image "Hartwell Tea Co. case-study image" (assets/images/cards/card-image-text-1.webp), AI-generated for Origin using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
 == Images ==
 
@@ -91,5 +84,5 @@ Inline icons in card patterns are sourced from [Lucide](https://lucide.dev) ([so
 
 == Changelog ==
 
-= 1.0 - 21 July 2025 =
+= 0.1 - 9 May 2026 =
 * Initial release.

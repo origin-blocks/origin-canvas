@@ -9,7 +9,7 @@
  */
 
 ?>
-<!-- wp:template-part {"slug":"header","area":"header"} /-->
+<!-- wp:pattern {"slug":"origin/header-default"} /-->
 
 <!-- wp:group {"tagName":"main","align":"full","style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"layout":{"type":"default"}} -->
 <main class="wp-block-group alignfull" style="margin-top:0;margin-bottom:0"><!-- wp:pattern {"slug":"origin/page-home-01"} /--></main>

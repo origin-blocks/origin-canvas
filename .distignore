@@ -1,0 +1,13 @@
+/.DS_Store
+/.distignore
+/.gitattributes
+/.github/
+/.gitignore
+/CONTRIBUTING.md
+/bin/package-theme.sh
+/build/
+/dist/
+/docs/
+/node_modules/
+/package-lock.json
+/package.json

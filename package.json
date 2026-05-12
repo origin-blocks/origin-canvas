@@ -1,0 +1,9 @@
+{
+  "name": "origin-theme",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Origin WordPress block theme release package metadata",
+  "scripts": {
+    "package": "bash bin/package-theme.sh"
+  }
+}

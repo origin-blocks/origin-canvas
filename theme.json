@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.wp.org/wp/6.5/theme.json",
+	"$schema": "https://schemas.wp.org/wp/7.0/theme.json",
 	"version": 3,
 	"settings": {
 		"appearanceTools": true,
@@ -978,6 +978,11 @@
 			"name": "sidebar",
 			"title": "Sidebar",
 			"area": "uncategorized"
+		},
+		{
+			"name": "mobile-menu",
+			"title": "Mobile Menu",
+			"area": "navigation-overlay"
 		}
 	],
 	"customTemplates": [

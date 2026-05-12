@@ -1,0 +1,9 @@
+/docs/** export-ignore
+/.github/** export-ignore
+/bin/package-theme.sh export-ignore
+/CONTRIBUTING.md export-ignore
+/.distignore export-ignore
+/.gitattributes export-ignore
+/.gitignore export-ignore
+/package-lock.json export-ignore
+/package.json export-ignore
