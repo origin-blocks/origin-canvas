@@ -42,10 +42,6 @@ This program is distributed in the hope that it will be useful, but WITHOUT ANY 
 
 You should have received a copy of the GNU General Public License along with this program. If not, see http://www.gnu.org/copyleft/gpl.html.
 
-== Theme Screenshot ==
-
-Theme screenshot image "Hartwell Tea Co. case-study image" (assets/images/cards/card-image-text-1.webp), AI-generated for Origin using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
-
 == Images ==
 
 Pattern image "Hartwell Tea Co. case-study image" (assets/images/cards/card-image-text-1.webp), AI-generated for Origin using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
@@ -84,5 +80,5 @@ Inline icons in card patterns are sourced from [Lucide](https://lucide.dev) ([so
 
 == Changelog ==
 
-= 0.1 - 9 May 2026 =
+= 0.1.0 - 12 May 2026 =
 * Initial release.
