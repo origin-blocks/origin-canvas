@@ -320,6 +320,10 @@ if ( ! function_exists( 'origin_register_block_styles' ) ) {
 				array( 'name' => 'list-check', 'label' => __( 'Check', 'origin' ) ),
 				array( 'name' => 'list-check-circle', 'label' => __( 'Check Circle', 'origin' ) ),
 			),
+			'core/navigation'    => array(
+				array( 'name' => 'origin-hover-accent', 'label' => __( 'Hover Accent', 'origin' ) ),
+				array( 'name' => 'origin-hover-pill', 'label' => __( 'Hover Pill', 'origin' ) ),
+			),
 			'core/separator'     => array(
 				array( 'name' => 'separator-dotted', 'label' => __( 'Dotted', 'origin' ) ),
 				array( 'name' => 'separator-thin', 'label' => __( 'Thin', 'origin' ) ),

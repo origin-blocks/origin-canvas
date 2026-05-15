@@ -1,4 +1,73 @@
+/* Navigation hover style variations for desktop, non-overlay menus. */
+.wp-block-navigation.is-style-origin-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-navigation-item > .wp-block-navigation-item__content,
+.wp-block-navigation.is-style-origin-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-navigation-item > .wp-block-navigation-submenu__toggle,
+.wp-block-navigation.is-style-origin-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-navigation-item > .wp-block-navigation-item__content,
+.wp-block-navigation.is-style-origin-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-navigation-item > .wp-block-navigation-submenu__toggle {
+	transition: color 0.15s ease;
+}
+
+.wp-block-navigation.is-style-origin-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-navigation-item:hover > .wp-block-navigation-item__content,
+.wp-block-navigation.is-style-origin-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-navigation-item:hover > .wp-block-navigation-submenu__toggle,
+.wp-block-navigation.is-style-origin-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-navigation-item:focus-within > .wp-block-navigation-item__content,
+.wp-block-navigation.is-style-origin-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-navigation-item:focus-within > .wp-block-navigation-submenu__toggle,
+.wp-block-navigation.is-style-origin-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-navigation-item.current-menu-item > .wp-block-navigation-item__content,
+.wp-block-navigation.is-style-origin-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-navigation-item.current-menu-item > .wp-block-navigation-submenu__toggle,
+.wp-block-navigation.is-style-origin-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-navigation-item.current-menu-ancestor > .wp-block-navigation-item__content,
+.wp-block-navigation.is-style-origin-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-navigation-item.current-menu-ancestor > .wp-block-navigation-submenu__toggle,
+.wp-block-navigation.is-style-origin-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-navigation-item > .wp-block-navigation-item__content:focus-visible,
+.wp-block-navigation.is-style-origin-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-navigation-item > .wp-block-navigation-submenu__toggle:focus-visible {
+	color: var(--wp--preset--color--primary);
+}
+
+.wp-block-navigation.is-style-origin-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-navigation-item {
+	border-radius: 999px;
+	isolation: isolate;
+	position: relative;
+}
+
+.wp-block-navigation.is-style-origin-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-navigation-item::before {
+	background-color: rgba(17, 24, 39, 0.04);
+	background-color: color-mix(in srgb, currentColor 4%, transparent);
+	border-radius: inherit;
+	content: "";
+	inset: -0.35em -0.75em;
+	opacity: 0;
+	pointer-events: none;
+	position: absolute;
+	transition: opacity 0.15s ease;
+	z-index: 0;
+}
+
+.wp-block-navigation.is-style-origin-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-navigation-item:hover::before,
+.wp-block-navigation.is-style-origin-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-navigation-item:focus-within::before,
+.wp-block-navigation.is-style-origin-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-navigation-item.current-menu-item::before,
+.wp-block-navigation.is-style-origin-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-navigation-item.current-menu-ancestor::before {
+	opacity: 1;
+}
+
+.wp-block-navigation.is-style-origin-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-navigation-item > .wp-block-navigation-item__content,
+.wp-block-navigation.is-style-origin-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-navigation-item > .wp-block-navigation-submenu__toggle {
+	position: relative;
+	z-index: 1;
+}
+
+.wp-block-navigation.is-style-origin-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-navigation-item:hover > .wp-block-navigation-item__content,
+.wp-block-navigation.is-style-origin-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-navigation-item:hover > .wp-block-navigation-submenu__toggle,
+.wp-block-navigation.is-style-origin-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-navigation-item:focus-within > .wp-block-navigation-item__content,
+.wp-block-navigation.is-style-origin-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-navigation-item:focus-within > .wp-block-navigation-submenu__toggle,
+.wp-block-navigation.is-style-origin-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-navigation-item.current-menu-item > .wp-block-navigation-item__content,
+.wp-block-navigation.is-style-origin-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-navigation-item.current-menu-item > .wp-block-navigation-submenu__toggle,
+.wp-block-navigation.is-style-origin-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-navigation-item.current-menu-ancestor > .wp-block-navigation-item__content,
+.wp-block-navigation.is-style-origin-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-navigation-item.current-menu-ancestor > .wp-block-navigation-submenu__toggle {
+	color: inherit;
+	text-decoration: none;
+}
+
 /* Navigation submenu presentation is outside current block/theme.json controls. */
+.wp-block-navigation__responsive-container:not(.is-menu-open) {
+	--origin-navigation-nested-submenu-offset: 6px;
+}
+
 .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container {
 	background: var(--wp--preset--color--surface-base);
 	border: none;
@@ -45,19 +114,71 @@
 	transform: rotate(-180deg);
 }
 
+/* Submenu hover text inherits by default; style variants override below. */
+.wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-item:hover > .wp-block-navigation-item__content,
+.wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-item:hover > .wp-block-navigation-submenu__toggle,
+.wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-item:focus-within > .wp-block-navigation-item__content,
+.wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-item:focus-within > .wp-block-navigation-submenu__toggle,
+.wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-item.current-menu-item > .wp-block-navigation-item__content,
+.wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-item.current-menu-item > .wp-block-navigation-submenu__toggle,
+.wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-item.current-menu-ancestor > .wp-block-navigation-item__content,
+.wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-item.current-menu-ancestor > .wp-block-navigation-submenu__toggle,
 .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-item__content:hover,
 .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-submenu__toggle:hover,
-.wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-submenu__toggle:hover .wp-block-navigation__submenu-icon {
+.wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-submenu__toggle:hover .wp-block-navigation__submenu-icon,
+.wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-submenu__toggle:focus-visible,
+.wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-submenu__toggle:focus-visible .wp-block-navigation__submenu-icon {
+	color: inherit;
+	text-decoration: none;
+}
+
+.wp-block-navigation.is-style-origin-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-item:hover > .wp-block-navigation-item__content,
+.wp-block-navigation.is-style-origin-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-item:hover > .wp-block-navigation-submenu__toggle,
+.wp-block-navigation.is-style-origin-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-item:focus-within > .wp-block-navigation-item__content,
+.wp-block-navigation.is-style-origin-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-item:focus-within > .wp-block-navigation-submenu__toggle,
+.wp-block-navigation.is-style-origin-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-item.current-menu-item > .wp-block-navigation-item__content,
+.wp-block-navigation.is-style-origin-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-item.current-menu-item > .wp-block-navigation-submenu__toggle,
+.wp-block-navigation.is-style-origin-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-item.current-menu-ancestor > .wp-block-navigation-item__content,
+.wp-block-navigation.is-style-origin-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-item.current-menu-ancestor > .wp-block-navigation-submenu__toggle,
+.wp-block-navigation.is-style-origin-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-item__content:hover,
+.wp-block-navigation.is-style-origin-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-submenu__toggle:hover,
+.wp-block-navigation.is-style-origin-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-submenu__toggle:hover .wp-block-navigation__submenu-icon,
+.wp-block-navigation.is-style-origin-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-submenu__toggle:focus-visible,
+.wp-block-navigation.is-style-origin-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-submenu__toggle:focus-visible .wp-block-navigation__submenu-icon {
 	color: var(--wp--preset--color--primary);
+}
+
+.wp-block-navigation.is-style-origin-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation-submenu__toggle,
+.wp-block-navigation.is-style-origin-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation-submenu__toggle:hover,
+.wp-block-navigation.is-style-origin-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation-submenu__toggle:focus,
+.wp-block-navigation.is-style-origin-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation-submenu__toggle:focus-visible {
+	background: transparent;
+	border: none;
+	box-shadow: none;
+	color: inherit;
+}
+
+.wp-block-navigation.is-style-origin-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-item {
+	border-radius: 8px;
+	transition: background-color 0.15s ease;
+}
+
+.wp-block-navigation.is-style-origin-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-item:hover,
+.wp-block-navigation.is-style-origin-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-item:focus-within,
+.wp-block-navigation.is-style-origin-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-item.current-menu-item,
+.wp-block-navigation.is-style-origin-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-item.current-menu-ancestor {
+	background-color: rgba(17, 24, 39, 0.04);
+	background-color: color-mix(in srgb, currentColor 4%, transparent);
 }
 
 .wp-block-navigation__responsive-container:not(.is-menu-open) .has-child {
 	position: relative;
 }
 
+/* Shared by default Navigation, Hover Accent, and Hover Pill variants. */
 .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation__submenu-container {
 	left: 100%;
-	margin-left: 0;
+	margin-left: var(--origin-navigation-nested-submenu-offset);
 	margin-top: calc(var(--wp--preset--spacing--small) * -1);
 	opacity: 0;
 	pointer-events: none;
@@ -76,8 +197,8 @@
 	align-items: center;
 	display: flex;
 	flex-wrap: nowrap;
-	margin-right: calc(-1 * var(--wp--preset--spacing--small));
-	padding-right: calc(var(--wp--preset--spacing--medium) + var(--wp--preset--spacing--small));
+	margin-right: 0;
+	padding-right: 0;
 }
 
 .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .has-child > .wp-block-navigation-item__content {
