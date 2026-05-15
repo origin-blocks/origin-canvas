@@ -1,6 +1,7 @@
 /docs/** export-ignore
 /.github/** export-ignore
-/bin/package-theme.sh export-ignore
+/bin export-ignore
+/bin/** export-ignore
 /CONTRIBUTING.md export-ignore
 /.distignore export-ignore
 /.gitattributes export-ignore

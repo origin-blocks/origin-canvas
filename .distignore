@@ -6,7 +6,7 @@
 /.github/
 /.gitignore
 /CONTRIBUTING.md
-/bin/package-theme.sh
+/bin/
 /build/
 /dist/
 /docs/
