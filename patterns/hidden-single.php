@@ -1,7 +1,7 @@
 <?php
 /**
  * Title: Hidden: Single
- * Slug: origin/hidden-single
+ * Slug: origin-canvas/hidden-single
  * Categories: hidden
  * Inserter: no
  *
@@ -9,7 +9,7 @@
  */
 
 ?>
-<!-- wp:pattern {"slug":"origin/header-default"} /-->
+<!-- wp:pattern {"slug":"origin-canvas/header-default"} /-->
 
 <!-- wp:group {"tagName":"main","style":{"spacing":{"blockGap":"var:preset|spacing|extra-large","margin":{"top":"var:preset|spacing|massive","bottom":"var:preset|spacing|titan"}}},"layout":{"type":"default"}} -->
 <main class="wp-block-group" style="margin-top:var(--wp--preset--spacing--massive);margin-bottom:var(--wp--preset--spacing--titan)"><!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|compact"}},"layout":{"type":"constrained"}} -->
@@ -47,15 +47,15 @@
 <hr class="wp-block-separator has-text-color has-border-color has-alpha-channel-opacity has-border-background-color has-background is-style-wide" style="margin-top:var(--wp--preset--spacing--jumbo);margin-bottom:var(--wp--preset--spacing--jumbo)"/>
 <!-- /wp:separator -->
 
-<!-- wp:post-author {"showBio":true,"isLink":true,"avatarSize":120,"className":"is-style-origin-author"} /-->
+<!-- wp:post-author {"showBio":true,"isLink":true,"avatarSize":120,"className":"is-style-origin-canvas-author"} /-->
 
 <!-- wp:separator {"className":"is-style-wide","style":{"spacing":{"margin":{"top":"var:preset|spacing|jumbo","bottom":"var:preset|spacing|jumbo"}}},"backgroundColor":"border"} -->
 <hr class="wp-block-separator has-text-color has-border-color has-alpha-channel-opacity has-border-background-color has-background is-style-wide" style="margin-top:var(--wp--preset--spacing--jumbo);margin-bottom:var(--wp--preset--spacing--jumbo)"/>
 <!-- /wp:separator -->
 
-<!-- wp:pattern {"slug":"origin/hidden-comments"} /--></div>
+<!-- wp:pattern {"slug":"origin-canvas/hidden-comments"} /--></div>
 <!-- /wp:group -->
 </main>
 <!-- /wp:group -->
 
-<!-- wp:template-part {"slug":"footer","theme":"origin","area":"footer"} /-->
+<!-- wp:template-part {"slug":"footer","theme":"origin-canvas","area":"footer"} /-->

@@ -1,6 +1,6 @@
-=== Origin ===
+=== Origin Canvas ===
 
-Contributors: origin
+Contributors: originblocks
 
 Tags: blog, block-patterns, block-styles, custom-colors, custom-logo, custom-menu, editor-style, featured-images, full-site-editing, full-width-template, grid-layout, style-variations, threaded-comments, three-columns, translation-ready
 
@@ -14,7 +14,7 @@ A Full Site Editing WordPress block theme for sites that look designed, not asse
 
 == Description ==
 
-Build a WordPress site that looks designed, not assembled. Origin is a Full Site Editing block theme with typography, spacing, and patterns already considered — so a fresh install looks finished, not raw. Eleven style variations ship in the box, and the core blocks read from the same tokens as the templates and patterns, so any section you drop in lands the same way. The cohesive WordPress block theme — no plugin stack required.
+Build a WordPress site that looks designed, not assembled. Origin Canvas is a Full Site Editing block theme with typography, spacing, and patterns already considered — so a fresh install looks finished, not raw. Eleven style variations ship in the box, and the core blocks read from the same tokens as the templates and patterns, so any section you drop in lands the same way. The cohesive WordPress block theme — no plugin stack required.
 
 Built for solo developers, freelancers, and small teams — the people whose time is the budget. Pairs with the free Origin Blocks plugin when you want extra blocks designed against the same tokens.
 
@@ -26,11 +26,11 @@ Built for solo developers, freelancers, and small teams — the people whose tim
 
 == Documentation ==
 
-[Documentation](https://origin-blocks.github.io/origin-theme/) is available.
+[Documentation](https://origin-blocks.github.io/origin-canvas/) is available.
 
 == Support ==
 
-[Support](https://github.com/origin-blocks/origin-theme/issues) is available on GitHub Issues.
+[Support](https://github.com/origin-blocks/origin-canvas/issues) is available on GitHub Issues.
 
 == License ==
 
@@ -44,27 +44,27 @@ You should have received a copy of the GNU General Public License along with thi
 
 == Theme Screenshot ==
 
-Theme screenshot image "Hartwell Tea Co. case-study image" (assets/images/cards/card-image-text-1.webp), AI-generated for Origin using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+Theme screenshot image "Hartwell Tea Co. case-study image" (assets/images/cards/card-image-text-1.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
 == Images ==
 
-Pattern image "Hartwell Tea Co. case-study image" (assets/images/cards/card-image-text-1.webp), AI-generated for Origin using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+Pattern image "Hartwell Tea Co. case-study image" (assets/images/cards/card-image-text-1.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
-Pattern image "Westmount Property case-study image" (assets/images/cards/card-image-text-2.webp), AI-generated for Origin using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+Pattern image "Westmount Property case-study image" (assets/images/cards/card-image-text-2.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
-Pattern image "Linden & Lark Florist case-study image" (assets/images/cards/card-image-text-3.webp), AI-generated for Origin using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+Pattern image "Linden & Lark Florist case-study image" (assets/images/cards/card-image-text-3.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
-Pattern image "Studio notes image" (assets/images/cards/card-blog-3.webp), AI-generated for Origin using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+Pattern image "Studio notes image" (assets/images/cards/card-blog-3.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
-Pattern image "Week-one client brief image" (assets/images/cards/card-blog-1.webp), AI-generated for Origin using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+Pattern image "Week-one client brief image" (assets/images/cards/card-blog-1.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
-Pattern image "Shared studio worktable image" (patterns/images/workspace-laptop.webp), AI-generated for Origin using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+Pattern image "Shared studio worktable image" (patterns/images/workspace-laptop.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
-Pattern image "Claire Bennett team card image" (assets/images/cards/card-team-1.webp), AI-generated for Origin using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+Pattern image "Claire Bennett team card image" (assets/images/cards/card-team-1.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
-Pattern image "Sarah Jenkins testimonial avatar image" (assets/images/cards/card-testimonial-1.webp), AI-generated for Origin using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+Pattern image "Sarah Jenkins testimonial avatar image" (assets/images/cards/card-testimonial-1.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
-Pattern image "Hero split studio interior cover image" (patterns/images/architecture-interior.webp), AI-generated for Origin using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+Pattern image "Hero split studio interior cover image" (patterns/images/architecture-interior.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
 == Fonts ==
 

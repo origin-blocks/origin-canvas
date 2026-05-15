@@ -1,7 +1,7 @@
 <?php
 /**
  * Title: Comments
- * Slug: origin/hidden-comments
+ * Slug: origin-canvas/hidden-comments
  * Categories: hidden
  * Inserter: no
  *

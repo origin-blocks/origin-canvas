@@ -13,7 +13,7 @@
 }
 
 /* Card Blog Post — top-corner radius matches card outer radius */
-.origin-card-blog-image img {
+.origin-canvas-card-blog-image img {
 	border-top-left-radius: var(--wp--custom--radius--medium);
 	border-top-right-radius: var(--wp--custom--radius--medium);
 }

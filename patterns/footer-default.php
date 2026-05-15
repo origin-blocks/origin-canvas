@@ -1,7 +1,7 @@
 <?php
 /**
  * Title: Footer
- * Slug: origin/footer-default
+ * Slug: origin-canvas/footer-default
  * Categories: footer
  * Block Types: core/template-part/footer
  * Inserter: true

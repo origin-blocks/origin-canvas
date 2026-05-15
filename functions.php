@@ -3,42 +3,42 @@
  * Origin theme bootstrap file. Keeps the PHP layer lean so block templates
  * remain the source of truth for layout decisions.
  *
- * @package Origin
+ * @package Origin_Canvas
  */
 
-if ( ! defined( 'ORIGIN_VERSION' ) ) {
-	$origin_theme = wp_get_theme();
-	define( 'ORIGIN_VERSION', $origin_theme->get( 'Version' ) );
+if ( ! defined( 'ORIGIN_CANVAS_VERSION' ) ) {
+	$origin_canvas_theme = wp_get_theme();
+	define( 'ORIGIN_CANVAS_VERSION', $origin_canvas_theme->get( 'Version' ) );
 }
 
-if ( ! function_exists( 'origin_setup' ) ) {
+if ( ! function_exists( 'origin_canvas_setup' ) ) {
 	/**
 	 * Register core theme supports.
 	 */
-	function origin_setup() {
+	function origin_canvas_setup() {
 		add_theme_support( 'wp-block-styles' );
 		add_theme_support( 'responsive-embeds' );
 		add_theme_support( 'editor-styles' );
 		add_editor_style( 'style.css' );
 	}
 }
-add_action( 'after_setup_theme', 'origin_setup' );
+add_action( 'after_setup_theme', 'origin_canvas_setup' );
 
-if ( ! function_exists( 'origin_enqueue_styles' ) ) {
+if ( ! function_exists( 'origin_canvas_enqueue_styles' ) ) {
 	/**
 	 * Enqueue the base stylesheet so classic scripts inherit typography defaults.
 	 */
-	function origin_enqueue_styles() {
-		wp_enqueue_style( 'origin-style', get_stylesheet_uri(), array(), ORIGIN_VERSION );
+	function origin_canvas_enqueue_styles() {
+		wp_enqueue_style( 'origin-canvas-style', get_stylesheet_uri(), array(), ORIGIN_CANVAS_VERSION );
 	}
 }
-add_action( 'wp_enqueue_scripts', 'origin_enqueue_styles' );
+add_action( 'wp_enqueue_scripts', 'origin_canvas_enqueue_styles' );
 
-if ( ! function_exists( 'origin_register_custom_patterns' ) ) {
+if ( ! function_exists( 'origin_canvas_register_custom_patterns' ) ) {
 	/**
 	 * Ensure custom patterns are available when the editor cache lags behind.
 	 */
-	function origin_register_custom_patterns() {
+	function origin_canvas_register_custom_patterns() {
 		if ( ! function_exists( 'register_block_pattern' ) ) {
 			return;
 		}
@@ -49,20 +49,20 @@ if ( ! function_exists( 'origin_register_custom_patterns' ) ) {
 
 		$registry = WP_Block_Patterns_Registry::get_instance();
 		$patterns = array(
-			'origin/hidden-single-right-sidebar' => array(
-				'title' => __( 'Hidden: Single Right Sidebar', 'origin' ),
+			'origin-canvas/hidden-single-right-sidebar' => array(
+				'title' => __( 'Hidden: Single Right Sidebar', 'origin-canvas' ),
 				'inserter' => false,
 				'categories' => array( 'hidden' ),
 				'file' => 'patterns/hidden-single-right-sidebar.php',
 			),
-			'origin/process-numbered' => array(
-				'title' => __( 'Process Numbered', 'origin' ),
+			'origin-canvas/process-numbered' => array(
+				'title' => __( 'Process Numbered', 'origin-canvas' ),
 				'inserter' => true,
-				'categories' => array( 'origin/features' ),
+				'categories' => array( 'origin-canvas/features' ),
 				'file' => 'patterns/process-numbered.php',
 			),
-			'origin/cta-band' => array(
-				'title' => __( 'CTA Band', 'origin' ),
+			'origin-canvas/cta-band' => array(
+				'title' => __( 'CTA Band', 'origin-canvas' ),
 				'inserter' => true,
 				'categories' => array( 'call-to-action' ),
 				'file' => 'patterns/cta-band.php',
@@ -99,21 +99,21 @@ if ( ! function_exists( 'origin_register_custom_patterns' ) ) {
 		}
 	}
 }
-add_action( 'init', 'origin_register_custom_patterns' );
+add_action( 'init', 'origin_canvas_register_custom_patterns' );
 
-if ( ! function_exists( 'origin_register_pattern_categories' ) ) {
+if ( ! function_exists( 'origin_canvas_register_pattern_categories' ) ) {
 	/**
 	 * Register Origin-namespaced block pattern categories.
 	 */
-	function origin_register_pattern_categories() {
+	function origin_canvas_register_pattern_categories() {
 		$categories = array(
-			'origin/hero'     => array( 'label' => __( 'Hero', 'origin' ) ),
-			'origin/page'     => array( 'label' => __( 'Pages', 'origin' ) ),
-			'origin/features' => array( 'label' => __( 'Features', 'origin' ) ),
-			'origin/stats'    => array( 'label' => __( 'Stats', 'origin' ) ),
-			'origin/text'     => array( 'label' => __( 'Text', 'origin' ) ),
-			'origin/team'     => array( 'label' => __( 'Team', 'origin' ) ),
-			'origin/pricing'  => array( 'label' => __( 'Pricing', 'origin' ) ),
+			'origin-canvas/hero'     => array( 'label' => __( 'Hero', 'origin-canvas' ) ),
+			'origin-canvas/page'     => array( 'label' => __( 'Pages', 'origin-canvas' ) ),
+			'origin-canvas/features' => array( 'label' => __( 'Features', 'origin-canvas' ) ),
+			'origin-canvas/stats'    => array( 'label' => __( 'Stats', 'origin-canvas' ) ),
+			'origin-canvas/text'     => array( 'label' => __( 'Text', 'origin-canvas' ) ),
+			'origin-canvas/team'     => array( 'label' => __( 'Team', 'origin-canvas' ) ),
+			'origin-canvas/pricing'  => array( 'label' => __( 'Pricing', 'origin-canvas' ) ),
 		);
 
 		foreach ( $categories as $slug => $props ) {
@@ -121,9 +121,9 @@ if ( ! function_exists( 'origin_register_pattern_categories' ) ) {
 		}
 	}
 }
-add_action( 'init', 'origin_register_pattern_categories', 9 );
+add_action( 'init', 'origin_canvas_register_pattern_categories', 9 );
 
-if ( ! function_exists( 'origin_featured_image_fallback' ) ) {
+if ( ! function_exists( 'origin_canvas_featured_image_fallback' ) ) {
 	/**
 	 * Render a placeholder when a featured image is missing in curated loops.
 	 *
@@ -131,11 +131,11 @@ if ( ! function_exists( 'origin_featured_image_fallback' ) ) {
 	 * @param array  $block         Block data.
 	 * @return string
 	 */
-	function origin_featured_image_fallback( $block_content, $block ) {
+	function origin_canvas_featured_image_fallback( $block_content, $block ) {
 		$attrs = $block['attrs'] ?? array();
 		$class_name = $attrs['className'] ?? '';
 
-		if ( strpos( $class_name, 'origin-featured-fallback' ) === false ) {
+		if ( strpos( $class_name, 'origin-canvas-featured-fallback' ) === false ) {
 			return $block_content;
 		}
 
@@ -145,7 +145,7 @@ if ( ! function_exists( 'origin_featured_image_fallback' ) ) {
 		}
 
 		$classes = preg_split( '/\s+/', $class_name, -1, PREG_SPLIT_NO_EMPTY );
-		$classes[] = 'origin-featured-fallback';
+		$classes[] = 'origin-canvas-featured-fallback';
 		$class_string = implode( ' ', array_unique( $classes ) );
 
 		$classes = array( 'wp-block-post-featured-image', $class_string );
@@ -187,7 +187,7 @@ if ( ! function_exists( 'origin_featured_image_fallback' ) ) {
 
 		if ( ! empty( $attrs['isLink'] ) && $post ) {
 			$link_open = sprintf(
-				'<a class="origin-featured-fallback__link" href="%s" aria-label="%s">',
+				'<a class="origin-canvas-featured-fallback__link" href="%s" aria-label="%s">',
 				esc_url( get_permalink( $post ) ),
 				esc_attr( get_the_title( $post ) )
 			);
@@ -195,16 +195,16 @@ if ( ! function_exists( 'origin_featured_image_fallback' ) ) {
 		}
 
 		return sprintf(
-			'<figure %1$s>%2$s<span class="origin-featured-fallback__media" aria-hidden="true"></span>%3$s</figure>',
+			'<figure %1$s>%2$s<span class="origin-canvas-featured-fallback__media" aria-hidden="true"></span>%3$s</figure>',
 			$wrapper_attributes,
 			$link_open,
 			$link_close
 		);
 	}
 }
-add_filter( 'render_block_core/post-featured-image', 'origin_featured_image_fallback', 10, 2 );
+add_filter( 'render_block_core/post-featured-image', 'origin_canvas_featured_image_fallback', 10, 2 );
 
-if ( ! function_exists( 'origin_adjust_post_author_avatar' ) ) {
+if ( ! function_exists( 'origin_canvas_adjust_post_author_avatar' ) ) {
 	/**
 	 * Adjust the Post Author avatar size with high-DPI support.
 	 *
@@ -212,7 +212,7 @@ if ( ! function_exists( 'origin_adjust_post_author_avatar' ) ) {
 	 * @param array  $block Block metadata and attributes.
 	 * @return string
 	 */
-	function origin_adjust_post_author_avatar( $block_content, $block ) {
+	function origin_canvas_adjust_post_author_avatar( $block_content, $block ) {
 		if ( is_author() ) {
 			return $block_content;
 		}
@@ -300,57 +300,57 @@ if ( ! function_exists( 'origin_adjust_post_author_avatar' ) ) {
 		);
 	}
 }
-add_filter( 'render_block_core/post-author', 'origin_adjust_post_author_avatar', 10, 2 );
+add_filter( 'render_block_core/post-author', 'origin_canvas_adjust_post_author_avatar', 10, 2 );
 
-if ( ! function_exists( 'origin_register_block_styles' ) ) {
+if ( ! function_exists( 'origin_canvas_register_block_styles' ) ) {
 	/**
 	 * Register block style variations.
 	 *
 	 * @return void
 	 */
-	function origin_register_block_styles() {
+	function origin_canvas_register_block_styles() {
 		$block_styles = array(
 			'core/button'        => array(
-				array( 'name' => 'outline-strong', 'label' => __( 'Outline Strong', 'origin' ) ),
+				array( 'name' => 'outline-strong', 'label' => __( 'Outline Strong', 'origin-canvas' ) ),
 			),
 			'core/post-author'   => array(
-				array( 'name' => 'origin-author', 'label' => __( 'Origin Author', 'origin' ) ),
+				array( 'name' => 'origin-canvas-author', 'label' => __( 'Origin Canvas Author', 'origin-canvas' ) ),
 			),
 			'core/list'          => array(
-				array( 'name' => 'list-check', 'label' => __( 'Check', 'origin' ) ),
-				array( 'name' => 'list-check-circle', 'label' => __( 'Check Circle', 'origin' ) ),
+				array( 'name' => 'list-check', 'label' => __( 'Check', 'origin-canvas' ) ),
+				array( 'name' => 'list-check-circle', 'label' => __( 'Check Circle', 'origin-canvas' ) ),
 			),
 			'core/navigation'    => array(
-				array( 'name' => 'origin-hover-accent', 'label' => __( 'Hover Accent', 'origin' ) ),
-				array( 'name' => 'origin-hover-pill', 'label' => __( 'Hover Pill', 'origin' ) ),
+				array( 'name' => 'origin-canvas-hover-accent', 'label' => __( 'Hover Accent', 'origin-canvas' ) ),
+				array( 'name' => 'origin-canvas-hover-pill', 'label' => __( 'Hover Pill', 'origin-canvas' ) ),
 			),
 			'core/separator'     => array(
-				array( 'name' => 'separator-dotted', 'label' => __( 'Dotted', 'origin' ) ),
-				array( 'name' => 'separator-thin', 'label' => __( 'Thin', 'origin' ) ),
+				array( 'name' => 'separator-dotted', 'label' => __( 'Dotted', 'origin-canvas' ) ),
+				array( 'name' => 'separator-thin', 'label' => __( 'Thin', 'origin-canvas' ) ),
 			),
 			'core/image'         => array(
-				array( 'name' => 'rounded-full', 'label' => __( 'Rounded Full', 'origin' ) ),
-				array( 'name' => 'media-boxed', 'label' => __( 'Boxed', 'origin' ) ),
+				array( 'name' => 'rounded-full', 'label' => __( 'Rounded Full', 'origin-canvas' ) ),
+				array( 'name' => 'media-boxed', 'label' => __( 'Boxed', 'origin-canvas' ) ),
 			),
 			'core/post-terms'    => array(
-				array( 'name' => 'term-button', 'label' => __( 'Pill', 'origin' ) ),
+				array( 'name' => 'term-button', 'label' => __( 'Pill', 'origin-canvas' ) ),
 			),
 			'core/post-excerpt'  => array(
-				array( 'name' => 'excerpt-truncate-2', 'label' => __( 'Truncate 2 Lines', 'origin' ) ),
-				array( 'name' => 'excerpt-truncate-3', 'label' => __( 'Truncate 3 Lines', 'origin' ) ),
+				array( 'name' => 'excerpt-truncate-2', 'label' => __( 'Truncate 2 Lines', 'origin-canvas' ) ),
+				array( 'name' => 'excerpt-truncate-3', 'label' => __( 'Truncate 3 Lines', 'origin-canvas' ) ),
 			),
 			'core/code'          => array(
-				array( 'name' => 'dark-code', 'label' => __( 'Dark', 'origin' ) ),
+				array( 'name' => 'dark-code', 'label' => __( 'Dark', 'origin-canvas' ) ),
 			),
 			'core/preformatted'  => array(
-				array( 'name' => 'preformatted-dark', 'label' => __( 'Dark', 'origin' ) ),
+				array( 'name' => 'preformatted-dark', 'label' => __( 'Dark', 'origin-canvas' ) ),
 			),
 			'core/cover'         => array(
-				array( 'name' => 'blur-image-less', 'label' => __( 'Blur Image Less', 'origin' ) ),
-				array( 'name' => 'blur-image-more', 'label' => __( 'Blur Image More', 'origin' ) ),
+				array( 'name' => 'blur-image-less', 'label' => __( 'Blur Image Less', 'origin-canvas' ) ),
+				array( 'name' => 'blur-image-more', 'label' => __( 'Blur Image More', 'origin-canvas' ) ),
 			),
 			'core/video'         => array(
-				array( 'name' => 'media-boxed', 'label' => __( 'Boxed', 'origin' ) ),
+				array( 'name' => 'media-boxed', 'label' => __( 'Boxed', 'origin-canvas' ) ),
 			),
 		);
 
@@ -361,16 +361,16 @@ if ( ! function_exists( 'origin_register_block_styles' ) ) {
 		}
 	}
 }
-add_action( 'init', 'origin_register_block_styles' );
+add_action( 'init', 'origin_canvas_register_block_styles' );
 
-if ( ! function_exists( 'origin_enqueue_block_styles' ) ) {
+if ( ! function_exists( 'origin_canvas_enqueue_block_styles' ) ) {
 	/**
 	 * Enqueue per-block CSS only when the block is used on the page.
 	 *
 	 * Scans assets/styles/ for CSS files named {namespace}-{block}.css
 	 * (e.g. core-list.css) and registers them via wp_enqueue_block_style().
 	 */
-	function origin_enqueue_block_styles() {
+	function origin_canvas_enqueue_block_styles() {
 		$files = glob( get_template_directory() . '/assets/styles/*.css' );
 
 		if ( empty( $files ) ) {
@@ -384,7 +384,7 @@ if ( ! function_exists( 'origin_enqueue_block_styles' ) ) {
 			wp_enqueue_block_style(
 				$block_name,
 				array(
-					'handle' => "origin-block-{$filename}",
+					'handle' => "origin-canvas-block-{$filename}",
 					'src'    => get_theme_file_uri( "assets/styles/{$filename}.css" ),
 					'path'   => get_theme_file_path( "assets/styles/{$filename}.css" ),
 				)
@@ -392,6 +392,6 @@ if ( ! function_exists( 'origin_enqueue_block_styles' ) ) {
 		}
 	}
 }
-add_action( 'init', 'origin_enqueue_block_styles' );
+add_action( 'init', 'origin_canvas_enqueue_block_styles' );
 
 require get_template_directory() . '/inc/icons.php';

@@ -1,7 +1,7 @@
 <?php
 /**
  * Title: Hidden: Page (Constrained)
- * Slug: origin/hidden-page-constrained
+ * Slug: origin-canvas/hidden-page-constrained
  * Categories: hidden
  * Inserter: no
  *
@@ -9,7 +9,7 @@
  */
 
 ?>
-<!-- wp:pattern {"slug":"origin/header-default"} /-->
+<!-- wp:pattern {"slug":"origin-canvas/header-default"} /-->
 
 <!-- wp:group {"tagName":"main","style":{"spacing":{"blockGap":"var:preset|spacing|extra-large","margin":{"top":"var:preset|spacing|massive","bottom":"var:preset|spacing|titan"}}},"layout":{"type":"constrained"}} -->
 <main class="wp-block-group" style="margin-top:var(--wp--preset--spacing--massive);margin-bottom:var(--wp--preset--spacing--titan)"><!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|medium"}},"layout":{"type":"constrained"}} -->

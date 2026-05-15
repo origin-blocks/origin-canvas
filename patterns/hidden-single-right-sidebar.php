@@ -1,7 +1,7 @@
 <?php
 /**
  * Title: Hidden: Single Right Sidebar
- * Slug: origin/hidden-single-right-sidebar
+ * Slug: origin-canvas/hidden-single-right-sidebar
  * Categories: hidden
  * Inserter: no
  *
@@ -9,7 +9,7 @@
  */
 
 ?>
-<!-- wp:pattern {"slug":"origin/header-default"} /-->
+<!-- wp:pattern {"slug":"origin-canvas/header-default"} /-->
 
 <!-- wp:group {"tagName":"main","style":{"spacing":{"blockGap":"var:preset|spacing|extra-large","margin":{"top":"var:preset|spacing|massive","bottom":"var:preset|spacing|titan"}}},"layout":{"type":"constrained"}} -->
 <main class="wp-block-group" style="margin-top:var(--wp--preset--spacing--massive);margin-bottom:var(--wp--preset--spacing--titan)"><!-- wp:columns {"align":"wide","style":{"spacing":{"blockGap":{"top":"var:preset|spacing|extra-large","left":"var:preset|spacing|jumbo"}}}} -->
@@ -50,7 +50,7 @@
 <hr class="wp-block-separator has-text-color has-border-color has-alpha-channel-opacity has-border-background-color has-background is-style-wide" style="margin-top:var(--wp--preset--spacing--jumbo);margin-bottom:var(--wp--preset--spacing--jumbo)"/>
 <!-- /wp:separator -->
 
-<!-- wp:post-author {"showBio":true,"isLink":true,"avatarSize":120,"className":"is-style-origin-author"} /-->
+<!-- wp:post-author {"showBio":true,"isLink":true,"avatarSize":120,"className":"is-style-origin-canvas-author"} /-->
 
 <!-- wp:separator {"className":"is-style-wide","style":{"spacing":{"margin":{"top":"var:preset|spacing|jumbo","bottom":"var:preset|spacing|jumbo"}}},"backgroundColor":"border"} -->
 <hr class="wp-block-separator has-text-color has-border-color has-alpha-channel-opacity has-border-background-color has-background is-style-wide" style="margin-top:var(--wp--preset--spacing--jumbo);margin-bottom:var(--wp--preset--spacing--jumbo)"/>
@@ -92,9 +92,9 @@
 <!-- /wp:column -->
 
 <!-- wp:column {"width":"33.33%"} -->
-<div class="wp-block-column" style="flex-basis:33.33%"><!-- wp:template-part {"slug":"sidebar","theme":"origin","area":"sidebar"} /--></div>
+<div class="wp-block-column" style="flex-basis:33.33%"><!-- wp:template-part {"slug":"sidebar","theme":"origin-canvas","area":"sidebar"} /--></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns --></main>
 <!-- /wp:group -->
 
-<!-- wp:template-part {"slug":"footer","theme":"origin","area":"footer"} /-->
+<!-- wp:template-part {"slug":"footer","theme":"origin-canvas","area":"footer"} /-->

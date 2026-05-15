@@ -1,7 +1,7 @@
 <?php
 /**
  * Title: Hidden: 404
- * Slug: origin/hidden-404
+ * Slug: origin-canvas/hidden-404
  * Categories: hidden
  * Inserter: no
  *
@@ -9,7 +9,7 @@
  */
 
 ?>
-<!-- wp:pattern {"slug":"origin/header-default"} /-->
+<!-- wp:pattern {"slug":"origin-canvas/header-default"} /-->
 
 <!-- wp:group {"tagName":"main","style":{"spacing":{"blockGap":"var:preset|spacing|extra-large","margin":{"top":"var:preset|spacing|massive","bottom":"var:preset|spacing|titan"}}},"layout":{"type":"constrained"}} -->
 <main class="wp-block-group" style="margin-top:var(--wp--preset--spacing--massive);margin-bottom:var(--wp--preset--spacing--titan)"><!-- wp:group -->
@@ -25,4 +25,4 @@
 <!-- /wp:group --></main>
 <!-- /wp:group -->
 
-<!-- wp:template-part {"slug":"footer","theme":"origin","area":"footer"} /-->
+<!-- wp:template-part {"slug":"footer","theme":"origin-canvas","area":"footer"} /-->

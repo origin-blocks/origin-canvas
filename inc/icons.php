@@ -1,22 +1,22 @@
 <?php
 /**
  * Inline Lucide SVG icon helper, exposed via a render_block filter on
- * core/paragraph blocks bearing the `is-style-origin-icon-<slug>` className.
+ * core/paragraph blocks bearing the `is-style-origin-canvas-icon-<slug>` className.
  *
  * Icons are sourced from Lucide (https://lucide.dev), ISC License.
  * See readme.txt for attribution.
  *
- * @package Origin
+ * @package Origin_Canvas
  */
 
-if ( ! function_exists( 'origin_icon' ) ) {
+if ( ! function_exists( 'origin_canvas_icon' ) ) {
 	/**
 	 * Return an inline Lucide SVG icon by name, or empty string if unknown.
 	 *
 	 * @param string $name Lucide icon slug.
 	 * @return string Inline <svg>…</svg> markup, or empty string if unknown.
 	 */
-	function origin_icon( $name ) {
+	function origin_canvas_icon( $name ) {
 		$icons = array(
 			'zap'                => '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg>',
 			'compass'            => '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16.24 7.76-1.804 5.411a2 2 0 0 1-1.265 1.265L7.76 16.24l1.804-5.411a2 2 0 0 1 1.265-1.265z"/><circle cx="12" cy="12" r="10"/></svg>',
@@ -34,28 +34,28 @@ if ( ! function_exists( 'origin_icon' ) ) {
 	}
 }
 
-if ( ! function_exists( 'origin_icon_render_marker' ) ) {
+if ( ! function_exists( 'origin_canvas_icon_render_marker' ) ) {
 	/**
 	 * Replace marker core/paragraph blocks with inline Lucide SVG.
 	 *
 	 * A marker is any core/paragraph whose className starts with
-	 * `is-style-origin-icon-`. The slug after the prefix names the icon.
+	 * `is-style-origin-canvas-icon-`. The slug after the prefix names the icon.
 	 * Non-marker paragraphs pass through unchanged.
 	 *
 	 * @param string $block_content Rendered HTML for the paragraph.
 	 * @param array  $block         Parsed block data.
 	 * @return string
 	 */
-	function origin_icon_render_marker( $block_content, $block ) {
+	function origin_canvas_icon_render_marker( $block_content, $block ) {
 		if ( empty( $block['attrs']['className'] ) ) {
 			return $block_content;
 		}
 		$class_name = $block['attrs']['className'];
-		if ( strpos( $class_name, 'is-style-origin-icon-' ) !== 0 ) {
+		if ( strpos( $class_name, 'is-style-origin-canvas-icon-' ) !== 0 ) {
 			return $block_content;
 		}
-		$slug = substr( $class_name, strlen( 'is-style-origin-icon-' ) );
-		$svg  = origin_icon( $slug );
+		$slug = substr( $class_name, strlen( 'is-style-origin-canvas-icon-' ) );
+		$svg  = origin_canvas_icon( $slug );
 		if ( '' === $svg ) {
 			return $block_content;
 		}
@@ -78,4 +78,4 @@ if ( ! function_exists( 'origin_icon_render_marker' ) ) {
 		);
 	}
 }
-add_filter( 'render_block_core/paragraph', 'origin_icon_render_marker', 10, 2 );
+add_filter( 'render_block_core/paragraph', 'origin_canvas_icon_render_marker', 10, 2 );

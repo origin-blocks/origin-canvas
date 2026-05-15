@@ -840,7 +840,7 @@
 			},
 			"core/post-author": {
 				"variations": {
-					"origin-author": {
+					"origin-canvas-author": {
 						"color": {
 							"text": "var(--wp--preset--color--text-heading)"
 						},
@@ -1038,56 +1038,56 @@
 	],
 	"patterns": [
 		{
-			"slug": "origin/header-default",
+			"slug": "origin-canvas/header-default",
 			"title": "Header",
 			"categories": [
 				"header"
 			]
 		},
 		{
-			"slug": "origin/footer-default",
+			"slug": "origin-canvas/footer-default",
 			"title": "Footer",
 			"categories": [
 				"footer"
 			]
 		},
 		{
-			"slug": "origin/hidden-home",
+			"slug": "origin-canvas/hidden-home",
 			"title": "Hidden: Home",
 			"inserter": false
 		},
 		{
-			"slug": "origin/hidden-page",
+			"slug": "origin-canvas/hidden-page",
 			"title": "Hidden: Page",
 			"inserter": false
 		},
 		{
-			"slug": "origin/hidden-single",
+			"slug": "origin-canvas/hidden-single",
 			"title": "Hidden: Single",
 			"inserter": false
 		},
 		{
-			"slug": "origin/hidden-comments",
+			"slug": "origin-canvas/hidden-comments",
 			"title": "Hidden: Comments",
 			"inserter": false
 		},
 		{
-			"slug": "origin/hidden-single-right-sidebar",
+			"slug": "origin-canvas/hidden-single-right-sidebar",
 			"title": "Hidden: Single Right Sidebar",
 			"inserter": false
 		},
 		{
-			"slug": "origin/hidden-archive",
+			"slug": "origin-canvas/hidden-archive",
 			"title": "Hidden: Archive",
 			"inserter": false
 		},
 		{
-			"slug": "origin/hidden-search",
+			"slug": "origin-canvas/hidden-search",
 			"title": "Hidden: Search",
 			"inserter": false
 		},
 		{
-			"slug": "origin/hidden-404",
+			"slug": "origin-canvas/hidden-404",
 			"title": "Hidden: 404",
 			"inserter": false
 		}

@@ -18,7 +18,7 @@
 
 /* Hero Cover support: WP 7 block controls do not express this overlay's
    custom track sizing, child self-placement, or mobile min-height reset. */
-.origin-cover-story__layout {
+.origin-canvas-cover-story__layout {
 	align-items: stretch;
 	display: grid;
 	gap: var(--wp--preset--spacing--large);
@@ -27,26 +27,26 @@
 	min-height: 520px;
 }
 
-.origin-cover-story__card {
+.origin-canvas-cover-story__card {
 	width: 100%;
 }
 
-.origin-cover-story__masthead {
+.origin-canvas-cover-story__masthead {
 	align-self: start;
 	justify-self: start;
 }
 
-.origin-cover-story__studio-line {
+.origin-canvas-cover-story__studio-line {
 	align-self: end;
 	justify-self: end;
 }
 
 @media (max-width: 781px) {
-	.origin-cover-story__frame {
+	.origin-canvas-cover-story__frame {
 		min-height: auto !important;
 	}
 
-	.origin-cover-story__layout {
+	.origin-canvas-cover-story__layout {
 		grid-template-columns: 1fr;
 		min-height: 0;
 	}

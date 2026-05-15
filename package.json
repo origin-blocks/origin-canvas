@@ -1,8 +1,8 @@
 {
-  "name": "origin-theme",
+  "name": "origin-canvas",
   "version": "1.0.0",
   "private": true,
-  "description": "Origin WordPress block theme release package metadata",
+  "description": "Origin Canvas WordPress block theme release package metadata",
   "scripts": {
     "package": "bash bin/package-theme.sh"
   }

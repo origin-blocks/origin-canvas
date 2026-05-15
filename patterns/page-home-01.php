@@ -1,9 +1,9 @@
 <?php
 /**
  * Title: Demo Home Page 01
- * Slug: origin/page-home-01
+ * Slug: origin-canvas/page-home-01
  * Description: A full page design for the Demo Home Page 01 screenshot.
- * Categories: origin/page
+ * Categories: origin-canvas/page
  * Keywords: page, layout, design, template, home
  * Viewport Width: 1500
  * Block Types:
@@ -14,10 +14,10 @@
  */
 
 ?>
-<!-- wp:pattern {"slug":"origin/hero-cover"} /-->
-<!-- wp:pattern {"slug":"origin/breath-statement"} /-->
-<!-- wp:pattern {"slug":"origin/work-index"} /-->
-<!-- wp:pattern {"slug":"origin/stat-band"} /-->
-<!-- wp:pattern {"slug":"origin/process-numbered"} /-->
-<!-- wp:pattern {"slug":"origin/feature-split"} /-->
-<!-- wp:pattern {"slug":"origin/cta-band"} /-->
+<!-- wp:pattern {"slug":"origin-canvas/hero-cover"} /-->
+<!-- wp:pattern {"slug":"origin-canvas/breath-statement"} /-->
+<!-- wp:pattern {"slug":"origin-canvas/work-index"} /-->
+<!-- wp:pattern {"slug":"origin-canvas/stat-band"} /-->
+<!-- wp:pattern {"slug":"origin-canvas/process-numbered"} /-->
+<!-- wp:pattern {"slug":"origin-canvas/feature-split"} /-->
+<!-- wp:pattern {"slug":"origin-canvas/cta-band"} /-->
