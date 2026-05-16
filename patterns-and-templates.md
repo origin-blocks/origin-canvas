@@ -1,6 +1,6 @@
 # Patterns and Templates
 
-Origin includes patterns and templates so you can start from designed sections and site structures instead of building every layout from scratch.
+Origin Canvas includes patterns and templates so you can start from designed sections and site structures instead of building every layout from scratch.
 
 ## Patterns
 

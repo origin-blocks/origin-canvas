@@ -1,6 +1,6 @@
 # Style Variations
 
-Origin includes style variations that let you change the visual direction of the site without changing the underlying templates.
+Origin Canvas includes style variations that let you change the visual direction of the site without changing the underlying templates.
 
 ## What Style Variations Change
 
@@ -16,7 +16,7 @@ Browse the available styles, choose the variation that best fits the site, then 
 
 ## Included Variations
 
-Origin includes a base style plus color and typography variations.
+Origin Canvas includes a base style plus color and typography variations.
 
 Use color variations when you want a different palette. Use typography variations when you want a different type direction while keeping the same general structure.
 

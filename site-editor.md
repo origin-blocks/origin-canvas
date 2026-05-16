@@ -1,6 +1,6 @@
 # Working in the Site Editor
 
-Origin is a block theme, so most site-wide editing happens in the WordPress Site Editor.
+Origin Canvas is a block theme, so most site-wide editing happens in the WordPress Site Editor.
 
 ## Styles
 

@@ -1,6 +1,6 @@
-# Origin Theme
+# Origin Canvas
 
-Origin Theme is a Full Site Editing WordPress block theme for sites that look designed, not assembled. It gives you a cohesive starting point for building with WordPress templates, patterns, styles, and blocks.
+Origin Canvas is a Full Site Editing WordPress block theme for sites that look designed, not assembled. It gives you a cohesive starting point for building with WordPress templates, patterns, styles, and blocks.
 
 ## Start Here
 
@@ -10,8 +10,6 @@ Origin Theme is a Full Site Editing WordPress block theme for sites that look de
 - [Patterns and Templates](patterns-and-templates.md)
 - [Support](support.md)
 
-## What Origin Includes
+## What Origin Canvas Includes
 
-Origin includes templates for common WordPress views, reusable template parts for site sections, editable patterns for page layouts, and style variations for changing the overall look of the theme.
-
-The theme also includes local fonts and assets so its default styles, templates, and patterns can work together without relying on a plugin stack.
+Origin Canvas includes templates for common WordPress views, reusable template parts for site sections, editable patterns for page layouts, and style variations for changing the overall look of the theme.

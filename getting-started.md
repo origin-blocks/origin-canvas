@@ -1,18 +1,18 @@
 # Getting Started
 
-Use this guide to install Origin, activate the theme, and make your first edit in the WordPress Site Editor.
+Use this guide to install Origin Canvas, activate the theme, and make your first edit in the WordPress Site Editor.
 
-## Install Origin
+## Install Origin Canvas
 
 In your WordPress dashboard, go to Appearance > Themes > Add New > Upload Theme.
 
-Choose the Origin theme ZIP file, then select Install Now.
+Choose the Origin Canvas theme ZIP file, then select Install Now.
 
 ## Activate the Theme
 
 After WordPress finishes installing the theme, select Activate.
 
-Origin becomes the active theme for your site and its templates, patterns, styles, and theme settings become available in the editor.
+Origin Canvas becomes the active theme for your site and its templates, patterns, styles, and theme settings become available in the editor.
 
 ## Open the Site Editor
 
