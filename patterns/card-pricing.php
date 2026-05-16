@@ -37,11 +37,11 @@
 <p class="has-text-body-color has-text-color has-regular-font-size"><?php echo esc_html__( 'A focused site for a small business that knows what it wants to say.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
-<!-- wp:list {"style":{"spacing":{"blockGap":"var:preset|spacing|small","margin":{"top":"var:preset|spacing|large"}}},"fontSize":"small"} -->
-<ul class="wp-block-list has-small-font-size" style="margin-top:var(--wp--preset--spacing--large)"><!-- wp:list-item --><li><span aria-hidden="true">&check;</span> <?php echo esc_html__( 'Up to five pages', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
-<!-- wp:list-item --><li><span aria-hidden="true">&check;</span> <?php echo esc_html__( 'Logo refresh', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
-<!-- wp:list-item --><li><span aria-hidden="true">&check;</span> <?php echo esc_html__( 'Two rounds of revisions', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
-<!-- wp:list-item --><li><span aria-hidden="true">&check;</span> <?php echo esc_html__( 'Two-week delivery', 'origin-canvas' ); ?></li><!-- /wp:list-item --></ul>
+<!-- wp:list {"className":"is-style-list-check","style":{"spacing":{"blockGap":"var:preset|spacing|small","margin":{"top":"var:preset|spacing|large"}}},"fontSize":"small"} -->
+<ul class="wp-block-list is-style-list-check has-small-font-size" style="margin-top:var(--wp--preset--spacing--large)"><!-- wp:list-item --><li><?php echo esc_html__( 'Up to five pages', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
+<!-- wp:list-item --><li><?php echo esc_html__( 'Logo refresh', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
+<!-- wp:list-item --><li><?php echo esc_html__( 'Two rounds of revisions', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
+<!-- wp:list-item --><li><?php echo esc_html__( 'Two-week delivery', 'origin-canvas' ); ?></li><!-- /wp:list-item --></ul>
 <!-- /wp:list -->
 
 <!-- wp:buttons {"style":{"spacing":{"margin":{"top":"var:preset|spacing|large"}}},"layout":{"type":"flex","justifyContent":"stretch"}} -->
@@ -66,11 +66,11 @@
 <p class="has-text-body-color has-text-color has-regular-font-size"><?php echo esc_html__( 'Our standard engagement: brand work, site, and a hand-written launch checklist.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
-<!-- wp:list {"style":{"spacing":{"blockGap":"var:preset|spacing|small","margin":{"top":"var:preset|spacing|large"}}},"fontSize":"small"} -->
-<ul class="wp-block-list has-small-font-size" style="margin-top:var(--wp--preset--spacing--large)"><!-- wp:list-item --><li><span aria-hidden="true">&check;</span> <?php echo esc_html__( 'Up to twelve pages', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
-<!-- wp:list-item --><li><span aria-hidden="true">&check;</span> <?php echo esc_html__( 'Full identity (mark, colour, type)', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
-<!-- wp:list-item --><li><span aria-hidden="true">&check;</span> <?php echo esc_html__( 'Photography direction', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
-<!-- wp:list-item --><li><span aria-hidden="true">&check;</span> <?php echo esc_html__( 'Four-week delivery', 'origin-canvas' ); ?></li><!-- /wp:list-item --></ul>
+<!-- wp:list {"className":"is-style-list-check","style":{"spacing":{"blockGap":"var:preset|spacing|small","margin":{"top":"var:preset|spacing|large"}}},"fontSize":"small"} -->
+<ul class="wp-block-list is-style-list-check has-small-font-size" style="margin-top:var(--wp--preset--spacing--large)"><!-- wp:list-item --><li><?php echo esc_html__( 'Up to twelve pages', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
+<!-- wp:list-item --><li><?php echo esc_html__( 'Full identity (mark, colour, type)', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
+<!-- wp:list-item --><li><?php echo esc_html__( 'Photography direction', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
+<!-- wp:list-item --><li><?php echo esc_html__( 'Four-week delivery', 'origin-canvas' ); ?></li><!-- /wp:list-item --></ul>
 <!-- /wp:list -->
 
 <!-- wp:buttons {"style":{"spacing":{"margin":{"top":"var:preset|spacing|large"}}},"layout":{"type":"flex","justifyContent":"stretch"}} -->
@@ -95,11 +95,11 @@
 <p class="has-text-body-color has-text-color has-regular-font-size"><?php echo esc_html__( 'For clients who treat their site like a living thing, not a one-off project.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
-<!-- wp:list {"style":{"spacing":{"blockGap":"var:preset|spacing|small","margin":{"top":"var:preset|spacing|large"}}},"fontSize":"small"} -->
-<ul class="wp-block-list has-small-font-size" style="margin-top:var(--wp--preset--spacing--large)"><!-- wp:list-item --><li><span aria-hidden="true">&check;</span> <?php echo esc_html__( 'Up to eight hours a month', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
-<!-- wp:list-item --><li><span aria-hidden="true">&check;</span> <?php echo esc_html__( 'Quarterly review calls', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
-<!-- wp:list-item --><li><span aria-hidden="true">&check;</span> <?php echo esc_html__( 'Priority response', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
-<!-- wp:list-item --><li><span aria-hidden="true">&check;</span> <?php echo esc_html__( 'Six-month minimum', 'origin-canvas' ); ?></li><!-- /wp:list-item --></ul>
+<!-- wp:list {"className":"is-style-list-check","style":{"spacing":{"blockGap":"var:preset|spacing|small","margin":{"top":"var:preset|spacing|large"}}},"fontSize":"small"} -->
+<ul class="wp-block-list is-style-list-check has-small-font-size" style="margin-top:var(--wp--preset--spacing--large)"><!-- wp:list-item --><li><?php echo esc_html__( 'Up to eight hours a month', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
+<!-- wp:list-item --><li><?php echo esc_html__( 'Quarterly review calls', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
+<!-- wp:list-item --><li><?php echo esc_html__( 'Priority response', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
+<!-- wp:list-item --><li><?php echo esc_html__( 'Six-month minimum', 'origin-canvas' ); ?></li><!-- /wp:list-item --></ul>
 <!-- /wp:list -->
 
 <!-- wp:buttons {"style":{"spacing":{"margin":{"top":"var:preset|spacing|large"}}},"layout":{"type":"flex","justifyContent":"stretch"}} -->
