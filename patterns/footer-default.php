@@ -84,7 +84,7 @@
 <!-- wp:group {"align":"wide","className":"has-text-body-color has-text-color has-link-color","style":{"spacing":{"padding":{"top":"0"}}}} -->
 <div class="wp-block-group alignwide has-text-body-color has-text-color has-link-color" style="padding-top:0"><!-- wp:group {"layout":{"type":"flex","justifyContent":"space-between","verticalAlignment":"center"}} -->
 <div class="wp-block-group"><!-- wp:paragraph {"style":{"elements":{"link":{"color":{"text":"var:preset|color|text-body"}}}},"textColor":"text-body","fontSize":"small"} -->
-<p class="has-text-body-color has-text-color has-link-color has-small-font-size">© 2026. Built with care.</p>
+<p class="has-text-body-color has-text-color has-link-color has-small-font-size">&copy; 2026. Built with care.</p>
 <!-- /wp:paragraph -->
 <!-- wp:social-links {"iconColor":"text-body","size":"has-normal-icon-size","className":"has-icon-color is-style-logos-only","style":{"spacing":{"margin":{"right":"0","left":"0"}}},"layout":{"type":"flex","justifyContent":"right"}} -->
 <ul class="wp-block-social-links has-normal-icon-size has-icon-color is-style-logos-only" style="margin-right:0;margin-left:0"><!-- wp:social-link {"url":"#","service":"x"} /-->

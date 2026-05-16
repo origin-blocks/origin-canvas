@@ -157,7 +157,7 @@ textarea:disabled {
 }
 
 .origin-canvas-post-excerpt .wp-block-post-excerpt__more-link::after {
-	content: "→";
+	content: "\2192";
 }
 
 .origin-canvas-post-grid-card {
