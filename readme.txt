@@ -10,13 +10,15 @@ Requires PHP: 7.4
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.html
 
-A Full Site Editing WordPress block theme for sites that look designed, not assembled. Templates, patterns, typography, and color — one coherent system, no plugin stack required.
+A Full Site Editing WordPress block theme for sites that look designed, not assembled. Templates, patterns, typography, and color — one coherent system.
 
 == Description ==
 
-Build a WordPress site that looks designed, not assembled. Origin Canvas is a Full Site Editing block theme with typography, spacing, and patterns already considered — so a fresh install looks finished, not raw. Eleven style variations ship in the box, and the core blocks read from the same tokens as the templates and patterns, so any section you drop in lands the same way. The cohesive WordPress block theme — no plugin stack required.
+For solo developers, freelancers, and small teams building polished sites without starting from zero.
 
-Built for solo developers, freelancers, and small teams — the people whose time is the budget. Pairs with the free Origin Blocks plugin when you want extra blocks designed against the same tokens.
+Start closer to finished. Balanced type, deliberate spacing, flexible templates, and cohesive patterns give every build a clear design foundation from the first page.
+
+Choose from eleven style variations, shape the site in the editor, and keep momentum without losing the design thread.
 
 == Installation ==
 
