@@ -10,7 +10,7 @@ Requires PHP: 7.4
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.html
 
-A Full Site Editing WordPress block theme for sites that look designed, not assembled. Templates, patterns, typography, and color — one coherent system.
+A Full Site Editing WordPress block theme for sites that look designed, not assembled. Templates, patterns, typography, and color - one coherent system.
 
 == Description ==
 
