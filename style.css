@@ -501,7 +501,7 @@ textarea:disabled {
 	padding: 0.875rem 0.5rem;
 }
 
-/* Table default font size — must be in CSS because core/table block.json
+/* Table default font size - must be in CSS because core/table block.json
    rewrites theme.json selectors to target inner <table>, making wrapper
    defaults impossible via theme.json. */
 .wp-block-table > table {

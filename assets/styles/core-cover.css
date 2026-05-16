@@ -1,4 +1,4 @@
-/* Blur — shared overflow containment */
+/* Blur - shared overflow containment */
 .is-style-blur-image-less,
 .is-style-blur-image-more {
 	overflow: hidden;
