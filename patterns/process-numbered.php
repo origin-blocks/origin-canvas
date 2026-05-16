@@ -23,7 +23,7 @@
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-body","fontSize":"regular-plus"} -->
-<p class="has-text-body-color has-text-color has-regular-plus-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Four weeks from kickoff to launch on most projects. We tell you what we&#8217;ll do, what we won&#8217;t, and what it&#8217;ll cost — in plain language.', 'origin-canvas' ); ?></p>
+<p class="has-text-body-color has-text-color has-regular-plus-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Four weeks from kickoff to launch on most projects. We tell you what we&#8217;ll do, what we won&#8217;t, and what it&#8217;ll cost - in plain language.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group -->
 
@@ -40,7 +40,7 @@
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"textColor":"text-body","fontSize":"regular"} -->
-<p class="has-text-body-color has-text-color has-regular-font-size"><?php echo esc_html__( 'We tell you what we&#8217;ll do, what we won&#8217;t, and what it&#8217;ll cost — on a single page, before any work begins.', 'origin-canvas' ); ?></p>
+<p class="has-text-body-color has-text-color has-regular-font-size"><?php echo esc_html__( 'We tell you what we&#8217;ll do, what we won&#8217;t, and what it&#8217;ll cost - on a single page, before any work begins.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group --></div>
 <!-- /wp:group --></div>

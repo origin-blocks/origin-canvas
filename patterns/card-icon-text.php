@@ -57,7 +57,7 @@
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"textColor":"text-body","fontSize":"regular"} -->
-<p class="has-text-body-color has-text-color has-regular-font-size"><?php echo esc_html__( 'We tell you what we&#8217;ll do, what we won&#8217;t, and what it&#8217;ll cost — in plain language, on a single page.', 'origin-canvas' ); ?></p>
+<p class="has-text-body-color has-text-color has-regular-font-size"><?php echo esc_html__( 'We tell you what we&#8217;ll do, what we won&#8217;t, and what it&#8217;ll cost - in plain language, on a single page.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group --></div>
 <!-- /wp:group --></div>

@@ -30,18 +30,18 @@
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"textColor":"text-heading","fontSize":"display","style":{"spacing":{"margin":{"top":"0","bottom":"0"}},"typography":{"fontWeight":"700","lineHeight":"1"}}} -->
-<p class="has-text-heading-color has-text-color has-display-font-size" style="margin-top:0;margin-bottom:0;font-weight:700;line-height:1"><?php echo wp_kses_post( __( '£2,400 <span style="font-size:var(--wp--preset--font-size--regular);font-weight:400;color:var(--wp--preset--color--text-body);">one-off</span>', 'origin-canvas' ) ); ?></p>
+<p class="has-text-heading-color has-text-color has-display-font-size" style="margin-top:0;margin-bottom:0;font-weight:700;line-height:1"><?php echo wp_kses_post( __( '&pound;2,400 <span style="font-size:var(--wp--preset--font-size--regular);font-weight:400;color:var(--wp--preset--color--text-body);">one-off</span>', 'origin-canvas' ) ); ?></p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"textColor":"text-body","fontSize":"regular"} -->
 <p class="has-text-body-color has-text-color has-regular-font-size"><?php echo esc_html__( 'A focused site for a small business that knows what it wants to say.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
-<!-- wp:list {"style":{"spacing":{"blockGap":"var:preset|spacing|small","margin":{"top":"var:preset|spacing|large"}}},"fontSize":"small"} -->
-<ul class="wp-block-list has-small-font-size" style="margin-top:var(--wp--preset--spacing--large)"><!-- wp:list-item --><li><?php echo esc_html__( '✓ Up to five pages', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
-<!-- wp:list-item --><li><?php echo esc_html__( '✓ Logo refresh', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
-<!-- wp:list-item --><li><?php echo esc_html__( '✓ Two rounds of revisions', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
-<!-- wp:list-item --><li><?php echo esc_html__( '✓ Two-week delivery', 'origin-canvas' ); ?></li><!-- /wp:list-item --></ul>
+<!-- wp:list {"className":"is-style-list-check","style":{"spacing":{"blockGap":"var:preset|spacing|small","margin":{"top":"var:preset|spacing|large"}}},"fontSize":"small"} -->
+<ul class="wp-block-list is-style-list-check has-small-font-size" style="margin-top:var(--wp--preset--spacing--large)"><!-- wp:list-item --><li><?php echo esc_html__( 'Up to five pages', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
+<!-- wp:list-item --><li><?php echo esc_html__( 'Logo refresh', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
+<!-- wp:list-item --><li><?php echo esc_html__( 'Two rounds of revisions', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
+<!-- wp:list-item --><li><?php echo esc_html__( 'Two-week delivery', 'origin-canvas' ); ?></li><!-- /wp:list-item --></ul>
 <!-- /wp:list -->
 
 <!-- wp:buttons {"style":{"spacing":{"margin":{"top":"var:preset|spacing|large"}}},"layout":{"type":"flex","justifyContent":"stretch"}} -->
@@ -59,18 +59,18 @@
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"textColor":"text-heading","fontSize":"display","style":{"spacing":{"margin":{"top":"0","bottom":"0"}},"typography":{"fontWeight":"700","lineHeight":"1"}}} -->
-<p class="has-text-heading-color has-text-color has-display-font-size" style="margin-top:0;margin-bottom:0;font-weight:700;line-height:1"><?php echo wp_kses_post( __( '£6,000 <span style="font-size:var(--wp--preset--font-size--regular);font-weight:400;color:var(--wp--preset--color--text-body);">one-off</span>', 'origin-canvas' ) ); ?></p>
+<p class="has-text-heading-color has-text-color has-display-font-size" style="margin-top:0;margin-bottom:0;font-weight:700;line-height:1"><?php echo wp_kses_post( __( '&pound;6,000 <span style="font-size:var(--wp--preset--font-size--regular);font-weight:400;color:var(--wp--preset--color--text-body);">one-off</span>', 'origin-canvas' ) ); ?></p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"textColor":"text-body","fontSize":"regular"} -->
 <p class="has-text-body-color has-text-color has-regular-font-size"><?php echo esc_html__( 'Our standard engagement: brand work, site, and a hand-written launch checklist.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
-<!-- wp:list {"style":{"spacing":{"blockGap":"var:preset|spacing|small","margin":{"top":"var:preset|spacing|large"}}},"fontSize":"small"} -->
-<ul class="wp-block-list has-small-font-size" style="margin-top:var(--wp--preset--spacing--large)"><!-- wp:list-item --><li><?php echo esc_html__( '✓ Up to twelve pages', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
-<!-- wp:list-item --><li><?php echo esc_html__( '✓ Full identity (mark, colour, type)', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
-<!-- wp:list-item --><li><?php echo esc_html__( '✓ Photography direction', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
-<!-- wp:list-item --><li><?php echo esc_html__( '✓ Four-week delivery', 'origin-canvas' ); ?></li><!-- /wp:list-item --></ul>
+<!-- wp:list {"className":"is-style-list-check","style":{"spacing":{"blockGap":"var:preset|spacing|small","margin":{"top":"var:preset|spacing|large"}}},"fontSize":"small"} -->
+<ul class="wp-block-list is-style-list-check has-small-font-size" style="margin-top:var(--wp--preset--spacing--large)"><!-- wp:list-item --><li><?php echo esc_html__( 'Up to twelve pages', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
+<!-- wp:list-item --><li><?php echo esc_html__( 'Full identity (mark, colour, type)', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
+<!-- wp:list-item --><li><?php echo esc_html__( 'Photography direction', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
+<!-- wp:list-item --><li><?php echo esc_html__( 'Four-week delivery', 'origin-canvas' ); ?></li><!-- /wp:list-item --></ul>
 <!-- /wp:list -->
 
 <!-- wp:buttons {"style":{"spacing":{"margin":{"top":"var:preset|spacing|large"}}},"layout":{"type":"flex","justifyContent":"stretch"}} -->
@@ -88,18 +88,18 @@
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"textColor":"text-heading","fontSize":"display","style":{"spacing":{"margin":{"top":"0","bottom":"0"}},"typography":{"fontWeight":"700","lineHeight":"1"}}} -->
-<p class="has-text-heading-color has-text-color has-display-font-size" style="margin-top:0;margin-bottom:0;font-weight:700;line-height:1"><?php echo wp_kses_post( __( '£1,800 <span style="font-size:var(--wp--preset--font-size--regular);font-weight:400;color:var(--wp--preset--color--text-body);">per month</span>', 'origin-canvas' ) ); ?></p>
+<p class="has-text-heading-color has-text-color has-display-font-size" style="margin-top:0;margin-bottom:0;font-weight:700;line-height:1"><?php echo wp_kses_post( __( '&pound;1,800 <span style="font-size:var(--wp--preset--font-size--regular);font-weight:400;color:var(--wp--preset--color--text-body);">per month</span>', 'origin-canvas' ) ); ?></p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"textColor":"text-body","fontSize":"regular"} -->
 <p class="has-text-body-color has-text-color has-regular-font-size"><?php echo esc_html__( 'For clients who treat their site like a living thing, not a one-off project.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
-<!-- wp:list {"style":{"spacing":{"blockGap":"var:preset|spacing|small","margin":{"top":"var:preset|spacing|large"}}},"fontSize":"small"} -->
-<ul class="wp-block-list has-small-font-size" style="margin-top:var(--wp--preset--spacing--large)"><!-- wp:list-item --><li><?php echo esc_html__( '✓ Up to eight hours a month', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
-<!-- wp:list-item --><li><?php echo esc_html__( '✓ Quarterly review calls', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
-<!-- wp:list-item --><li><?php echo esc_html__( '✓ Priority response', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
-<!-- wp:list-item --><li><?php echo esc_html__( '✓ Six-month minimum', 'origin-canvas' ); ?></li><!-- /wp:list-item --></ul>
+<!-- wp:list {"className":"is-style-list-check","style":{"spacing":{"blockGap":"var:preset|spacing|small","margin":{"top":"var:preset|spacing|large"}}},"fontSize":"small"} -->
+<ul class="wp-block-list is-style-list-check has-small-font-size" style="margin-top:var(--wp--preset--spacing--large)"><!-- wp:list-item --><li><?php echo esc_html__( 'Up to eight hours a month', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
+<!-- wp:list-item --><li><?php echo esc_html__( 'Quarterly review calls', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
+<!-- wp:list-item --><li><?php echo esc_html__( 'Priority response', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
+<!-- wp:list-item --><li><?php echo esc_html__( 'Six-month minimum', 'origin-canvas' ); ?></li><!-- /wp:list-item --></ul>
 <!-- /wp:list -->
 
 <!-- wp:buttons {"style":{"spacing":{"margin":{"top":"var:preset|spacing|large"}}},"layout":{"type":"flex","justifyContent":"stretch"}} -->

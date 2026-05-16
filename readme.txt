@@ -10,7 +10,7 @@ Requires PHP: 7.4
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.html
 
-A Full Site Editing WordPress block theme for sites that look designed, not assembled. Templates, patterns, typography, and color — one coherent system.
+A Full Site Editing WordPress block theme for sites that look designed, not assembled. Templates, patterns, typography, and color - one coherent system.
 
 == Description ==
 
@@ -85,6 +85,9 @@ The following fonts are loaded locally from the theme's assets:
 Inline icons in card patterns are sourced from [Lucide](https://lucide.dev) ([source](https://github.com/lucide-icons/lucide)) licensed under the [ISC License](https://lucide.dev/license).
 
 == Changelog ==
+
+= 1.0.1 - 16 May 2026 =
+* Cleaned up pattern character handling so separators, arrows, checks, and currency render consistently in release packages.
 
 = 1.0.0 - 15 May 2026 =
 * Initial release.

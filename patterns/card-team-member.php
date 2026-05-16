@@ -30,6 +30,6 @@
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"align":"center","style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-muted","fontSize":"small"} -->
-<p class="has-text-align-center has-text-muted-color has-text-color has-small-font-size" style="margin-top:0;margin-bottom:0"><a href="#"><?php echo esc_html__( 'LinkedIn', 'origin-canvas' ); ?></a> · <a href="#"><?php echo esc_html__( 'Twitter', 'origin-canvas' ); ?></a> · <a href="#"><?php echo esc_html__( 'Email', 'origin-canvas' ); ?></a></p>
+<p class="has-text-align-center has-text-muted-color has-text-color has-small-font-size" style="margin-top:0;margin-bottom:0"><a href="#"><?php echo esc_html__( 'LinkedIn', 'origin-canvas' ); ?></a> &middot; <a href="#"><?php echo esc_html__( 'Twitter', 'origin-canvas' ); ?></a> &middot; <a href="#"><?php echo esc_html__( 'Email', 'origin-canvas' ); ?></a></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group -->

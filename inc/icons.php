@@ -14,7 +14,7 @@ if ( ! function_exists( 'origin_canvas_icon' ) ) {
 	 * Return an inline Lucide SVG icon by name, or empty string if unknown.
 	 *
 	 * @param string $name Lucide icon slug.
-	 * @return string Inline <svg>…</svg> markup, or empty string if unknown.
+	 * @return string Inline <svg>...</svg> markup, or empty string if unknown.
 	 */
 	function origin_canvas_icon( $name ) {
 		$icons = array(
