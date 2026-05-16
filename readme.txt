@@ -86,5 +86,8 @@ Inline icons in card patterns are sourced from [Lucide](https://lucide.dev) ([so
 
 == Changelog ==
 
+= 1.0.1 - 16 May 2026 =
+* Cleaned up pattern character handling so separators, arrows, checks, and currency render consistently in release packages.
+
 = 1.0.0 - 15 May 2026 =
 * Initial release.
