@@ -1,20 +1,20 @@
 /* Check */
-ul.wp-block-list.is-style-list-check,
-ul.wp-block-list.is-style-list-check ul {
+ul.wp-block-list.is-style-origin-canvas-list-check,
+ul.wp-block-list.is-style-origin-canvas-list-check ul {
 	list-style: none;
 	padding-inline-start: 0;
 }
 
-ul.wp-block-list.is-style-list-check li {
+ul.wp-block-list.is-style-origin-canvas-list-check li {
 	padding-inline-start: 1.75em;
 	position: relative;
 }
 
-ul.wp-block-list.is-style-list-check li + li {
+ul.wp-block-list.is-style-origin-canvas-list-check li + li {
 	margin-top: 8px;
 }
 
-ul.wp-block-list.is-style-list-check li::before {
+ul.wp-block-list.is-style-origin-canvas-list-check li::before {
 	content: "";
 	background-color: var(--wp--preset--color--primary);
 	display: inline-block;
@@ -32,22 +32,22 @@ ul.wp-block-list.is-style-list-check li::before {
 }
 
 /* Check Circle */
-ul.wp-block-list.is-style-list-check-circle,
-ul.wp-block-list.is-style-list-check-circle ul {
+ul.wp-block-list.is-style-origin-canvas-list-check-circle,
+ul.wp-block-list.is-style-origin-canvas-list-check-circle ul {
 	list-style: none;
 	padding-inline-start: 0;
 }
 
-ul.wp-block-list.is-style-list-check-circle li {
+ul.wp-block-list.is-style-origin-canvas-list-check-circle li {
 	padding-inline-start: 1.75em;
 	position: relative;
 }
 
-ul.wp-block-list.is-style-list-check-circle li + li {
+ul.wp-block-list.is-style-origin-canvas-list-check-circle li + li {
 	margin-top: 8px;
 }
 
-ul.wp-block-list.is-style-list-check-circle li::before {
+ul.wp-block-list.is-style-origin-canvas-list-check-circle li::before {
 	content: "";
 	background-color: var(--wp--preset--color--primary);
 	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M7.5 12.5l3 3 6-6' stroke='%23fff' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");

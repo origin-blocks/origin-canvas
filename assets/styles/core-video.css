@@ -1,5 +1,5 @@
 /* Boxed */
-.is-style-media-boxed video {
+.is-style-origin-canvas-media-boxed video {
 	border: 1px solid var(--wp--preset--color--border);
 	border-radius: 8px;
 	box-shadow: var(--wp--preset--shadow--small);

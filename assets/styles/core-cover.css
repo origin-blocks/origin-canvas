@@ -1,17 +1,17 @@
 /* Blur - shared overflow containment */
-.is-style-blur-image-less,
-.is-style-blur-image-more {
+.is-style-origin-canvas-blur-image-less,
+.is-style-origin-canvas-blur-image-more {
 	overflow: hidden;
 }
 
 /* Blur Less */
-.is-style-blur-image-less > .wp-block-cover__image-background {
+.is-style-origin-canvas-blur-image-less > .wp-block-cover__image-background {
 	filter: blur(3px);
 	transform: scale(1.1);
 }
 
 /* Blur More */
-.is-style-blur-image-more > .wp-block-cover__image-background {
+.is-style-origin-canvas-blur-image-more > .wp-block-cover__image-background {
 	filter: blur(10px);
 	transform: scale(1.3);
 }

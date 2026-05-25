@@ -6,7 +6,7 @@
 }
 
 /* Dark */
-.is-style-dark-code {
+.is-style-origin-canvas-dark-code {
 	background: var(--wp--custom--dark--bg);
 	border: none;
 	border-radius: 8px;
