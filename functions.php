@@ -311,46 +311,46 @@ if ( ! function_exists( 'origin_canvas_register_block_styles' ) ) {
 	function origin_canvas_register_block_styles() {
 		$block_styles = array(
 			'core/button'        => array(
-				array( 'name' => 'outline-strong', 'label' => __( 'Outline Strong', 'origin-canvas' ) ),
+				array( 'name' => 'origin-canvas-outline-strong', 'label' => __( 'Outline Strong', 'origin-canvas' ) ),
 			),
 			'core/post-author'   => array(
 				array( 'name' => 'origin-canvas-author', 'label' => __( 'Origin Canvas Author', 'origin-canvas' ) ),
 			),
 			'core/list'          => array(
-				array( 'name' => 'list-check', 'label' => __( 'Check', 'origin-canvas' ) ),
-				array( 'name' => 'list-check-circle', 'label' => __( 'Check Circle', 'origin-canvas' ) ),
+				array( 'name' => 'origin-canvas-list-check', 'label' => __( 'Check', 'origin-canvas' ) ),
+				array( 'name' => 'origin-canvas-list-check-circle', 'label' => __( 'Check Circle', 'origin-canvas' ) ),
 			),
 			'core/navigation'    => array(
 				array( 'name' => 'origin-canvas-hover-accent', 'label' => __( 'Hover Accent', 'origin-canvas' ) ),
 				array( 'name' => 'origin-canvas-hover-pill', 'label' => __( 'Hover Pill', 'origin-canvas' ) ),
 			),
 			'core/separator'     => array(
-				array( 'name' => 'separator-dotted', 'label' => __( 'Dotted', 'origin-canvas' ) ),
-				array( 'name' => 'separator-thin', 'label' => __( 'Thin', 'origin-canvas' ) ),
+				array( 'name' => 'origin-canvas-separator-dotted', 'label' => __( 'Dotted', 'origin-canvas' ) ),
+				array( 'name' => 'origin-canvas-separator-thin', 'label' => __( 'Thin', 'origin-canvas' ) ),
 			),
 			'core/image'         => array(
-				array( 'name' => 'rounded-full', 'label' => __( 'Rounded Full', 'origin-canvas' ) ),
-				array( 'name' => 'media-boxed', 'label' => __( 'Boxed', 'origin-canvas' ) ),
+				array( 'name' => 'origin-canvas-rounded-full', 'label' => __( 'Rounded Full', 'origin-canvas' ) ),
+				array( 'name' => 'origin-canvas-media-boxed', 'label' => __( 'Boxed', 'origin-canvas' ) ),
 			),
 			'core/post-terms'    => array(
-				array( 'name' => 'term-button', 'label' => __( 'Pill', 'origin-canvas' ) ),
+				array( 'name' => 'origin-canvas-term-button', 'label' => __( 'Pill', 'origin-canvas' ) ),
 			),
 			'core/post-excerpt'  => array(
-				array( 'name' => 'excerpt-truncate-2', 'label' => __( 'Truncate 2 Lines', 'origin-canvas' ) ),
-				array( 'name' => 'excerpt-truncate-3', 'label' => __( 'Truncate 3 Lines', 'origin-canvas' ) ),
+				array( 'name' => 'origin-canvas-excerpt-truncate-2', 'label' => __( 'Truncate 2 Lines', 'origin-canvas' ) ),
+				array( 'name' => 'origin-canvas-excerpt-truncate-3', 'label' => __( 'Truncate 3 Lines', 'origin-canvas' ) ),
 			),
 			'core/code'          => array(
-				array( 'name' => 'dark-code', 'label' => __( 'Dark', 'origin-canvas' ) ),
+				array( 'name' => 'origin-canvas-dark-code', 'label' => __( 'Dark', 'origin-canvas' ) ),
 			),
 			'core/preformatted'  => array(
-				array( 'name' => 'preformatted-dark', 'label' => __( 'Dark', 'origin-canvas' ) ),
+				array( 'name' => 'origin-canvas-preformatted-dark', 'label' => __( 'Dark', 'origin-canvas' ) ),
 			),
 			'core/cover'         => array(
-				array( 'name' => 'blur-image-less', 'label' => __( 'Blur Image Less', 'origin-canvas' ) ),
-				array( 'name' => 'blur-image-more', 'label' => __( 'Blur Image More', 'origin-canvas' ) ),
+				array( 'name' => 'origin-canvas-blur-image-less', 'label' => __( 'Blur Image Less', 'origin-canvas' ) ),
+				array( 'name' => 'origin-canvas-blur-image-more', 'label' => __( 'Blur Image More', 'origin-canvas' ) ),
 			),
 			'core/video'         => array(
-				array( 'name' => 'media-boxed', 'label' => __( 'Boxed', 'origin-canvas' ) ),
+				array( 'name' => 'origin-canvas-media-boxed', 'label' => __( 'Boxed', 'origin-canvas' ) ),
 			),
 		);
 

@@ -1,5 +1,5 @@
 /* Dotted */
-hr.is-style-separator-dotted {
+hr.is-style-origin-canvas-separator-dotted {
 	border: none;
 	height: 1px;
 	background: repeating-linear-gradient(90deg, currentColor, currentColor 2px, transparent 2px, transparent 5px);
@@ -9,7 +9,7 @@ hr.is-style-separator-dotted {
 }
 
 /* Thin */
-hr.is-style-separator-thin {
+hr.is-style-origin-canvas-separator-thin {
 	border: none;
 	border-top: 1px solid currentColor;
 	opacity: 1;

@@ -4,11 +4,11 @@ Contributors: originblocks
 
 Tags: blog, block-patterns, block-styles, custom-colors, custom-logo, custom-menu, editor-style, featured-images, full-site-editing, full-width-template, grid-layout, style-variations, threaded-comments, three-columns, translation-ready
 
-Requires at least: 6.0
-Tested up to: 6.9
+Requires at least: 7.0
+Tested up to: 7.0
 Requires PHP: 7.4
-License: GPLv3
-License URI: http://www.gnu.org/licenses/gpl.html
+License: GNU General Public License v3 or later
+License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
 A Full Site Editing WordPress block theme for sites that look designed, not assembled. Templates, patterns, typography, and color - one coherent system.
 
@@ -36,13 +36,13 @@ Choose from eleven style variations, shape the site in the editor, and keep mome
 
 == License ==
 
-Copyright 2025 Origin. Distributed under the terms of the GNU GPL.
+Copyright 2026 Origin. Distributed under the terms of the GNU General Public License v3 or later.
 
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 
 This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
-You should have received a copy of the GNU General Public License along with this program. If not, see http://www.gnu.org/copyleft/gpl.html.
+You should have received a copy of the GNU General Public License along with this program. If not, see https://www.gnu.org/licenses/gpl-3.0.html.
 
 == Theme Screenshot ==
 
@@ -85,6 +85,10 @@ The following fonts are loaded locally from the theme's assets:
 Inline icons in card patterns are sourced from [Lucide](https://lucide.dev) ([source](https://github.com/lucide-icons/lucide)) licensed under the [ISC License](https://lucide.dev/license).
 
 == Changelog ==
+
+= 1.0.2 - 28 May 2026 =
+* Prefixed custom block style names and pattern classes to avoid generic is-style-* class collisions.
+* Improved list marker alignment and reduced Code block typography scale.
 
 = 1.0.1 - 16 May 2026 =
 * Cleaned up pattern character handling so separators, arrows, checks, and currency render consistently in release packages.

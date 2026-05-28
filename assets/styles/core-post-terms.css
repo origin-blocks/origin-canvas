@@ -1,11 +1,11 @@
 /* Pill */
-.is-style-term-button {
+.is-style-origin-canvas-term-button {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 8px;
 }
 
-.is-style-term-button a {
+.is-style-origin-canvas-term-button a {
 	background: var(--wp--preset--color--surface-subtle-hover);
 	border-radius: 9999px;
 	color: var(--wp--preset--color--text-body);
@@ -17,15 +17,15 @@
 	transition: background 120ms ease;
 }
 
-.is-style-term-button a:hover {
+.is-style-origin-canvas-term-button a:hover {
 	background: var(--wp--preset--color--border);
 }
 
-.is-style-term-button .wp-block-post-terms__separator {
+.is-style-origin-canvas-term-button .wp-block-post-terms__separator {
 	display: none;
 }
 
-.is-style-term-button .wp-block-post-terms__prefix {
+.is-style-origin-canvas-term-button .wp-block-post-terms__prefix {
 	align-self: center;
 	line-height: 1;
 }

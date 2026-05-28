@@ -26,8 +26,8 @@
 <div class="wp-block-button"><a class="wp-block-button__link wp-element-button"><?php echo esc_html__( 'Email us', 'origin-canvas' ); ?></a></div>
 <!-- /wp:button -->
 
-<!-- wp:button {"className":"is-style-outline-strong"} -->
-<div class="wp-block-button is-style-outline-strong"><a class="wp-block-button__link wp-element-button"><?php echo esc_html__( 'Book a call', 'origin-canvas' ); ?></a></div>
+<!-- wp:button {"className":"is-style-origin-canvas-outline-strong"} -->
+<div class="wp-block-button is-style-origin-canvas-outline-strong"><a class="wp-block-button__link wp-element-button"><?php echo esc_html__( 'Book a call', 'origin-canvas' ); ?></a></div>
 <!-- /wp:button --></div>
 <!-- /wp:buttons --></div>
 <!-- /wp:group --></section>
