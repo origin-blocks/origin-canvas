@@ -525,6 +525,11 @@
 					"fontWeight": "500"
 				}
 			},
+			"core/code": {
+				"typography": {
+					"fontSize": "var(--wp--preset--font-size--small)"
+				}
+			},
 			"core/navigation": {
 				"elements": {
 					"link": {

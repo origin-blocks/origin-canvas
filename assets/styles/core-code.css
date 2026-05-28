@@ -1,5 +1,6 @@
 /* Overflow */
 .wp-block-code code {
+	font-size: inherit;
 	overflow-wrap: normal;
 	overflow-x: auto;
 	white-space: pre;
