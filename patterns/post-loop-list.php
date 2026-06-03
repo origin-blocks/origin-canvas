@@ -34,7 +34,7 @@
 <!-- wp:group {"layout":{"type":"constrained"}} -->
 <div class="wp-block-group"><!-- wp:query-no-results -->
 <!-- wp:paragraph {"align":"center"} -->
-<p class="has-text-align-center">No posts were found.</p>
+<p class="has-text-align-center"><?php echo esc_html__( 'No posts were found.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 <!-- /wp:query-no-results --></div>
 <!-- /wp:group -->
