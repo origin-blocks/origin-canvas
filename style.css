@@ -153,6 +153,7 @@ textarea:disabled {
 	display: inline-flex;
 	font-weight: 600;
 	gap: 0.25rem;
+	text-decoration: none;
 }
 
 .origin-canvas-post-excerpt .wp-block-post-excerpt__more-link::after {
