@@ -830,6 +830,13 @@
 				}
 			},
 			"core/post-author": {
+				"elements": {
+					"link": {
+						"color": {
+							"text": "var(--wp--preset--color--text-heading)"
+						}
+					}
+				},
 				"variations": {
 					"origin-canvas-author": {
 						"color": {
