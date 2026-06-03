@@ -375,7 +375,7 @@
 		"elements": {
 			"link": {
 				"color": {
-					"text": "var(--wp--preset--color--text-heading)"
+					"text": "var(--wp--preset--color--primary)"
 				}
 			},
 			"heading": {
@@ -676,6 +676,9 @@
 				},
 				"elements": {
 					"link": {
+						"color": {
+							"text": "var(--wp--preset--color--text-heading)"
+						},
 						"typography": {
 							"textDecoration": "none"
 						},
@@ -693,6 +696,9 @@
 				},
 				"elements": {
 					"link": {
+						"color": {
+							"text": "var(--wp--preset--color--text-body)"
+						},
 						"typography": {
 							"textDecoration": "none"
 						}
@@ -731,6 +737,9 @@
 				},
 				"elements": {
 					"link": {
+						"color": {
+							"text": "var(--wp--preset--color--text-heading)"
+						},
 						"typography": {
 							"textDecoration": "none"
 						}

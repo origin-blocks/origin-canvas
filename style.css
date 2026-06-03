@@ -62,15 +62,14 @@ ol.wp-block-list,
 }
 
 a {
-	color: inherit;
 	text-decoration: none;
 }
 
-.wp-block-post-content a,
-.wp-block-post-excerpt a,
-.wp-block-comment-content a,
-.textwidget a,
-.widget_text a {
+:root .wp-block-post-content a,
+:root .wp-block-post-excerpt a,
+:root .wp-block-comment-content a,
+:root .textwidget a,
+:root .widget_text a {
 	text-decoration: underline;
 }
 
