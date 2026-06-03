@@ -66,6 +66,14 @@ a {
 	text-decoration: none;
 }
 
+.wp-block-post-content a,
+.wp-block-post-excerpt a,
+.wp-block-comment-content a,
+.textwidget a,
+.widget_text a {
+	text-decoration: underline;
+}
+
 mark.has-inline-color:not([style*="background" i]):not(.has-background):not([class*="-background-color"]) {
 	background-color: transparent;
 }
