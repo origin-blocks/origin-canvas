@@ -82,7 +82,7 @@ The following fonts are loaded locally from the theme's assets:
 
 == Icons ==
 
-Inline icons in card patterns are sourced from [Lucide](https://lucide.dev) ([source](https://github.com/lucide-icons/lucide)) licensed under the [ISC License](https://lucide.dev/license).
+The check icon used by the Check list block style is sourced from [Lucide](https://lucide.dev) ([source](https://github.com/lucide-icons/lucide)) licensed under the [ISC License](https://lucide.dev/license).
 
 == Changelog ==
 
