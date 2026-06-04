@@ -7,8 +7,6 @@
  * Block Types: core/post-content
  * Inserter: true
  *
- * Note: paragraphs styled with the is-style-origin-canvas-icon-* class are icon-name markers, not user-facing text. inc/icons.php replaces them with inline SVG at render, so the slug words are intentionally left untranslated.
- *
  * @package Origin
  */
 
