@@ -318,6 +318,7 @@ if ( ! function_exists( 'origin_canvas_register_block_styles' ) ) {
 			),
 			'core/list'          => array(
 				array( 'name' => 'origin-canvas-list-check', 'label' => __( 'Check', 'origin-canvas' ) ),
+				array( 'name' => 'origin-canvas-list-check-circle', 'label' => __( 'Check Circle', 'origin-canvas' ) ),
 			),
 			'core/navigation'    => array(
 				array( 'name' => 'origin-canvas-hover-accent', 'label' => __( 'Hover Accent', 'origin-canvas' ) ),
