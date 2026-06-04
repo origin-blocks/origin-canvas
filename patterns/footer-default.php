@@ -23,17 +23,17 @@
 <p class="has-text-heading-color has-text-color has-regular-font-size" style="margin-bottom:var(--wp--preset--spacing--small);font-style:normal;font-weight:600"><?php echo esc_html__( 'Studio', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 <!-- wp:group {"className":"has-small-font-size","layout":{"type":"constrained"}} -->
-<div class="wp-block-group has-small-font-size"><!-- wp:paragraph {"style":{"elements":{"link":{"color":{"text":"var:preset|color|text-body"},":hover":{"color":{"text":"var:preset|color|primary"}}}},"typography":{"textDecoration":"none"}},"textColor":"text-body"} -->
-<p class="has-text-body-color has-text-color has-link-color" style="text-decoration:none"><?php echo wp_kses_post( __( '<a href="#">Work</a>', 'origin-canvas' ) ); ?></p>
+<div class="wp-block-group has-small-font-size"><!-- wp:paragraph {"textColor":"text-body"} -->
+<p class="has-text-body-color has-text-color"><?php echo esc_html__( 'Work', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
-<!-- wp:paragraph {"style":{"elements":{"link":{"color":{"text":"var:preset|color|text-body"},":hover":{"color":{"text":"var:preset|color|primary"}}}},"typography":{"textDecoration":"none"}},"textColor":"text-body"} -->
-<p class="has-text-body-color has-text-color has-link-color" style="text-decoration:none"><?php echo wp_kses_post( __( '<a href="#">Process</a>', 'origin-canvas' ) ); ?></p>
+<!-- wp:paragraph {"textColor":"text-body"} -->
+<p class="has-text-body-color has-text-color"><?php echo esc_html__( 'Process', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
-<!-- wp:paragraph {"style":{"elements":{"link":{"color":{"text":"var:preset|color|text-body"},":hover":{"color":{"text":"var:preset|color|primary"}}}},"typography":{"textDecoration":"none"}},"textColor":"text-body"} -->
-<p class="has-text-body-color has-text-color has-link-color" style="text-decoration:none"><?php echo wp_kses_post( __( '<a href="#">Pricing</a>', 'origin-canvas' ) ); ?></p>
+<!-- wp:paragraph {"textColor":"text-body"} -->
+<p class="has-text-body-color has-text-color"><?php echo esc_html__( 'Pricing', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
-<!-- wp:paragraph {"style":{"elements":{"link":{"color":{"text":"var:preset|color|text-body"},":hover":{"color":{"text":"var:preset|color|primary"}}}},"typography":{"textDecoration":"none"}},"textColor":"text-body"} -->
-<p class="has-text-body-color has-text-color has-link-color" style="text-decoration:none"><?php echo wp_kses_post( __( '<a href="#">Get in touch</a>', 'origin-canvas' ) ); ?></p>
+<!-- wp:paragraph {"textColor":"text-body"} -->
+<p class="has-text-body-color has-text-color"><?php echo esc_html__( 'Get in touch', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group --></div>
 <!-- /wp:column -->
@@ -42,17 +42,17 @@
 <p class="has-text-heading-color has-text-color has-regular-font-size" style="margin-bottom:var(--wp--preset--spacing--small);font-style:normal;font-weight:600"><?php echo esc_html__( 'Studio notes', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 <!-- wp:group {"className":"has-small-font-size","layout":{"type":"constrained"}} -->
-<div class="wp-block-group has-small-font-size"><!-- wp:paragraph {"style":{"elements":{"link":{"color":{"text":"var:preset|color|text-body"},":hover":{"color":{"text":"var:preset|color|primary"}}}},"typography":{"textDecoration":"none"}},"textColor":"text-body"} -->
-<p class="has-text-body-color has-text-color has-link-color" style="text-decoration:none"><?php echo wp_kses_post( __( '<a href="#">About</a>', 'origin-canvas' ) ); ?></p>
+<div class="wp-block-group has-small-font-size"><!-- wp:paragraph {"textColor":"text-body"} -->
+<p class="has-text-body-color has-text-color"><?php echo esc_html__( 'About', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
-<!-- wp:paragraph {"style":{"elements":{"link":{"color":{"text":"var:preset|color|text-body"},":hover":{"color":{"text":"var:preset|color|primary"}}}},"typography":{"textDecoration":"none"}},"textColor":"text-body"} -->
-<p class="has-text-body-color has-text-color has-link-color" style="text-decoration:none"><?php echo wp_kses_post( __( '<a href="#">Journal</a>', 'origin-canvas' ) ); ?></p>
+<!-- wp:paragraph {"textColor":"text-body"} -->
+<p class="has-text-body-color has-text-color"><?php echo esc_html__( 'Journal', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
-<!-- wp:paragraph {"style":{"elements":{"link":{"color":{"text":"var:preset|color|text-body"},":hover":{"color":{"text":"var:preset|color|primary"}}}},"typography":{"textDecoration":"none"}},"textColor":"text-body"} -->
-<p class="has-text-body-color has-text-color has-link-color" style="text-decoration:none"><?php echo wp_kses_post( __( '<a href="#">Quarterly notes</a>', 'origin-canvas' ) ); ?></p>
+<!-- wp:paragraph {"textColor":"text-body"} -->
+<p class="has-text-body-color has-text-color"><?php echo esc_html__( 'Quarterly notes', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
-<!-- wp:paragraph {"style":{"elements":{"link":{"color":{"text":"var:preset|color|text-body"},":hover":{"color":{"text":"var:preset|color|primary"}}}},"typography":{"textDecoration":"none"}},"textColor":"text-body"} -->
-<p class="has-text-body-color has-text-color has-link-color" style="text-decoration:none"><?php echo wp_kses_post( __( '<a href="#">Field notes</a>', 'origin-canvas' ) ); ?></p>
+<!-- wp:paragraph {"textColor":"text-body"} -->
+<p class="has-text-body-color has-text-color"><?php echo esc_html__( 'Field notes', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group --></div>
 <!-- /wp:column -->
@@ -61,17 +61,17 @@
 <p class="has-text-heading-color has-text-color has-regular-font-size" style="margin-bottom:var(--wp--preset--spacing--small);font-style:normal;font-weight:600"><?php echo esc_html__( 'Useful things', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 <!-- wp:group {"className":"has-small-font-size","layout":{"type":"constrained"}} -->
-<div class="wp-block-group has-small-font-size"><!-- wp:paragraph {"style":{"elements":{"link":{"color":{"text":"var:preset|color|text-body"},":hover":{"color":{"text":"var:preset|color|primary"}}}},"typography":{"textDecoration":"none"}},"textColor":"text-body"} -->
-<p class="has-text-body-color has-text-color has-link-color" style="text-decoration:none"><?php echo wp_kses_post( __( '<a href="#">Reading list</a>', 'origin-canvas' ) ); ?></p>
+<div class="wp-block-group has-small-font-size"><!-- wp:paragraph {"textColor":"text-body"} -->
+<p class="has-text-body-color has-text-color"><?php echo esc_html__( 'Reading list', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
-<!-- wp:paragraph {"style":{"elements":{"link":{"color":{"text":"var:preset|color|text-body"},":hover":{"color":{"text":"var:preset|color|primary"}}}},"typography":{"textDecoration":"none"}},"textColor":"text-body"} -->
-<p class="has-text-body-color has-text-color has-link-color" style="text-decoration:none"><?php echo wp_kses_post( __( '<a href="#">Tools we use</a>', 'origin-canvas' ) ); ?></p>
+<!-- wp:paragraph {"textColor":"text-body"} -->
+<p class="has-text-body-color has-text-color"><?php echo esc_html__( 'Tools we use', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
-<!-- wp:paragraph {"style":{"elements":{"link":{"color":{"text":"var:preset|color|text-body"},":hover":{"color":{"text":"var:preset|color|primary"}}}},"typography":{"textDecoration":"none"}},"textColor":"text-body"} -->
-<p class="has-text-body-color has-text-color has-link-color" style="text-decoration:none"><?php echo wp_kses_post( __( '<a href="#">Past clients</a>', 'origin-canvas' ) ); ?></p>
+<!-- wp:paragraph {"textColor":"text-body"} -->
+<p class="has-text-body-color has-text-color"><?php echo esc_html__( 'Past clients', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
-<!-- wp:paragraph {"style":{"elements":{"link":{"color":{"text":"var:preset|color|text-body"},":hover":{"color":{"text":"var:preset|color|primary"}}}},"typography":{"textDecoration":"none"}},"textColor":"text-body"} -->
-<p class="has-text-body-color has-text-color has-link-color" style="text-decoration:none"><?php echo wp_kses_post( __( '<a href="#">Contact</a>', 'origin-canvas' ) ); ?></p>
+<!-- wp:paragraph {"textColor":"text-body"} -->
+<p class="has-text-body-color has-text-color"><?php echo esc_html__( 'Contact', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group --></div>
 <!-- /wp:column --></div>
