@@ -393,5 +393,3 @@ if ( ! function_exists( 'origin_canvas_enqueue_block_styles' ) ) {
 	}
 }
 add_action( 'init', 'origin_canvas_enqueue_block_styles' );
-
-require get_template_directory() . '/inc/icons.php';
