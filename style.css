@@ -65,6 +65,10 @@ a {
 	text-decoration: none;
 }
 
+.origin-canvas-links-plain a {
+	text-decoration: none;
+}
+
 mark.has-inline-color:not([style*="background" i]):not(.has-background):not([class*="-background-color"]) {
 	background-color: transparent;
 }
