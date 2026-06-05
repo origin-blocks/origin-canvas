@@ -18,7 +18,7 @@
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"align":"center","style":{"elements":{"link":{"color":{"text":"var:preset|color|text-body"}}},"spacing":{"margin":{"bottom":"var:preset|spacing|huge"}}},"textColor":"text-body","fontSize":"medium"} -->
-<p class="has-text-align-center has-text-body-color has-text-color has-link-color has-medium-font-size" style="margin-bottom:var(--wp--preset--spacing--huge)">We couldn't find the page you're looking for. It may have been moved or deleted. Please use the search bar or menu to locate your content.</p>
+<p class="has-text-align-center has-text-body-color has-text-color has-link-color has-medium-font-size" style="margin-bottom:var(--wp--preset--spacing--huge)"><?php echo esc_html__( "We couldn't find the page you're looking for. It may have been moved or deleted. Please use the search bar or menu to locate your content.", 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
 <!-- wp:search {"label":"Search","showLabel":false,"width":100,"widthUnit":"%","buttonText":"Search"} /--></div>

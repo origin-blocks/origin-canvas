@@ -82,9 +82,15 @@ The following fonts are loaded locally from the theme's assets:
 
 == Icons ==
 
-Inline icons in card patterns are sourced from [Lucide](https://lucide.dev) ([source](https://github.com/lucide-icons/lucide)) licensed under the [ISC License](https://lucide.dev/license).
+The check icon used by the Check list block style is sourced from [Lucide](https://lucide.dev) ([source](https://github.com/lucide-icons/lucide)) licensed under the [ISC License](https://lucide.dev/license).
 
 == Changelog ==
+
+= 1.0.3 - 04 June 2026 =
+* Made all user-facing pattern strings translation-ready (card-info, card-icon-text, footer, 404, post loop).
+* Underlined links within post content, excerpts, and comment content for readability and accessibility.
+* Replaced the custom card icons with the native Icon Block so icons can be changed, recoloured, and resized in the editor.
+* Removed unused files and styles, and corrected icon licensing attribution.
 
 = 1.0.2 - 28 May 2026 =
 * Prefixed custom block style names and pattern classes to avoid generic is-style-* class collisions.
