@@ -1,0 +1,18 @@
+<?php
+/**
+ * Title: Hidden: Blog
+ * Slug: origin-canvas/hidden-blog
+ * Categories: hidden
+ * Inserter: no
+ *
+ * @package Origin
+ */
+
+?>
+<!-- wp:pattern {"slug":"origin-canvas/header-default"} /-->
+
+<!-- wp:group {"tagName":"main","align":"full","style":{"spacing":{"blockGap":"var:preset|spacing|extra-large","margin":{"top":"var:preset|spacing|massive","bottom":"var:preset|spacing|titan"}}},"layout":{"type":"constrained"}} -->
+<main class="wp-block-group alignfull" style="margin-top:var(--wp--preset--spacing--massive);margin-bottom:var(--wp--preset--spacing--titan)"><!-- wp:pattern {"slug":"origin-canvas/post-loop-grid"} /--></main>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"footer","theme":"origin-canvas","area":"footer"} /-->
