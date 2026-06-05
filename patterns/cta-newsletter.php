@@ -41,8 +41,8 @@
 <!-- /wp:column --></div>
 <!-- /wp:columns -->
 
-<!-- wp:paragraph {"align":"center","style":{"elements":{"link":{"color":{"text":"var:preset|color|text-muted"}}}},"textColor":"text-muted","fontSize":"small"} -->
-<p class="has-text-align-center has-text-muted-color has-text-color has-link-color has-small-font-size"><?php printf(
+<!-- wp:paragraph {"align":"center","className":"origin-canvas-links-plain","style":{"elements":{"link":{"color":{"text":"var:preset|color|text-muted"}}}},"textColor":"text-muted","fontSize":"small"} -->
+<p class="origin-canvas-links-plain has-text-align-center has-text-muted-color has-text-color has-link-color has-small-font-size"><?php printf(
 	/* translators: %s: link to the privacy policy */
 	esc_html__( 'We care about your data. Read our %s.', 'origin-canvas' ),
 	'<a href="#">' . esc_html__( 'Privacy Policy', 'origin-canvas' ) . '</a>'
