@@ -86,6 +86,11 @@ The check icon used by the Check list block style is sourced from [Lucide](https
 
 == Changelog ==
 
+= 1.0.4 - 05 June 2026 =
+* Underlined links in standalone paragraph and list blocks so links are clear outside post content.
+* Refined two demo links (team social row, newsletter privacy) to a subtle darker colour with hover instead of an underline.
+* Fixed the blog posts index to show the post loop instead of the homepage design; removed the redundant home template.
+
 = 1.0.3 - 04 June 2026 =
 * Made all user-facing pattern strings translation-ready (card-info, card-icon-text, footer, 404, post loop).
 * Underlined links within post content, excerpts, and comment content for readability and accessibility.
