@@ -86,6 +86,12 @@ The check icon used by the Check list block style is sourced from [Lucide](https
 
 == Changelog ==
 
+= 1.0.3 - 04 June 2026 =
+* Made all user-facing pattern strings translation-ready (card-info, card-icon-text, footer, 404, post loop).
+* Underlined links within post content, excerpts, and comment content for readability and accessibility.
+* Replaced the custom card icons with the native Icon Block so icons can be changed, recoloured, and resized in the editor.
+* Removed unused files and styles, and corrected icon licensing attribution.
+
 = 1.0.2 - 28 May 2026 =
 * Prefixed custom block style names and pattern classes to avoid generic is-style-* class collisions.
 * Improved list marker alignment and reduced Code block typography scale.
