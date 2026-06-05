@@ -636,6 +636,13 @@
 					"margin": {
 						"bottom": "var(--wp--preset--spacing--large)"
 					}
+				},
+				"elements": {
+					"link": {
+						"typography": {
+							"textDecoration": "underline"
+						}
+					}
 				}
 			},
 			"core/list-item": {
@@ -646,7 +653,14 @@
 				}
 			},
 			"core/paragraph": {
-				"css": "&.has-background { padding: var(--wp--preset--spacing--compact) var(--wp--preset--spacing--medium); }"
+				"css": "&.has-background { padding: var(--wp--preset--spacing--compact) var(--wp--preset--spacing--medium); }",
+				"elements": {
+					"link": {
+						"typography": {
+							"textDecoration": "underline"
+						}
+					}
+				}
 			},
 			"core/post-template": {
 				"css": "& > li > * + * { margin-block-start: var(--wp--preset--spacing--extra-large); } & > li > .wp-block-post-featured-image + * { margin-block-start: 0; }",
