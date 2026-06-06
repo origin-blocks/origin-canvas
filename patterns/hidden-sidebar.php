@@ -31,6 +31,6 @@
 <h3 class="wp-block-heading has-text-heading-color has-text-color has-small-font-size" style="margin-bottom:var(--wp--preset--spacing--small);font-weight:500"><?php esc_html_e( 'Tags', 'origin-canvas' ); ?></h3>
 <!-- /wp:heading -->
 
-<!-- wp:tag-cloud {"numberOfTags":10,"style":{"elements":{"link":{"color":{"text":"var:preset|color|text-heading"},":hover":{"color":{"text":"var:preset|color|primary"}}}}},"textColor":"text-heading"} /--></div>
+<!-- wp:tag-cloud {"numberOfTags":10,"smallestFontSize":"0.75rem","largestFontSize":"0.75rem","style":{"elements":{"link":{"color":{"text":"var:preset|color|text-heading"},":hover":{"color":{"text":"var:preset|color|primary"}}}}},"textColor":"text-heading"} /--></div>
 <!-- /wp:group --></div>
 <!-- /wp:group -->
