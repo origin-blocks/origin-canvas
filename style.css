@@ -61,6 +61,26 @@ ol.wp-block-list,
 	list-style-type: decimal;
 }
 
+/* Comment bodies are freeform HTML with no layout container, so the global
+   margin + list-style resets above are not otherwise restored here. */
+.wp-block-comment-content > * + * {
+	margin-block-start: var(--wp--preset--spacing--medium);
+}
+
+.wp-block-comment-content ul,
+.wp-block-comment-content ol {
+	list-style-position: outside;
+	padding-inline-start: var(--wp--preset--spacing--medium);
+}
+
+.wp-block-comment-content ul {
+	list-style-type: disc;
+}
+
+.wp-block-comment-content ol {
+	list-style-type: decimal;
+}
+
 a {
 	text-decoration: none;
 }
