@@ -10,7 +10,9 @@
 	border-radius: var(--wp--custom--radius--medium);
 	color: var(--wp--preset--color--text-heading);
 	display: inline-flex;
-	font-size: var(--wp--preset--font-size--extra-small);
+	/* Core renders an inline font-size:Npt per tag (count-weighted); the chip
+	   is a uniform UI element, so the variation size must win. */
+	font-size: var(--wp--preset--font-size--extra-small) !important;
 	padding: 6px 8px;
 	text-decoration: none;
 	transition: background 120ms ease, color 120ms ease;
