@@ -354,8 +354,6 @@ textarea:disabled {
 	border: 1px solid var(--wp--preset--color--border);
 	border-radius: var(--wp--custom--radius--medium);
 	display: inline-flex;
-	font-weight: 600;
-	line-height: 1;
 	padding: var(--wp--preset--spacing--extra-small) var(--wp--preset--spacing--small);
 	text-decoration: none;
 }
