@@ -351,16 +351,6 @@ textarea:disabled {
 	}
 }
 
-/* Post author */
-.wp-block-post-author__avatar,
-.wp-block-post-author__avatar img {
-	border-radius: 999px;
-}
-
-.wp-block-post-author__avatar img {
-	object-fit: cover;
-}
-
 /* Comments */
 .wp-block-comments {
 	display: flex;
