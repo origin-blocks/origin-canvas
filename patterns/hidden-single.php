@@ -47,15 +47,17 @@
 <hr class="wp-block-separator has-text-color has-border-color has-alpha-channel-opacity has-border-background-color has-background is-style-wide" style="margin-top:var(--wp--preset--spacing--jumbo);margin-bottom:var(--wp--preset--spacing--jumbo)"/>
 <!-- /wp:separator -->
 
-<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|medium"}},"layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"top"}} -->
-<div class="wp-block-group"><!-- wp:avatar {"size":120,"isLink":true,"style":{"border":{"radius":"60px"}}} /-->
+<!-- wp:columns {"verticalAlignment":"top","style":{"spacing":{"blockGap":{"top":"var:preset|spacing|medium","left":"var:preset|spacing|medium"}}}} -->
+<div class="wp-block-columns are-vertically-aligned-top"><!-- wp:column {"verticalAlignment":"top","width":"140px"} -->
+<div class="wp-block-column is-vertically-aligned-top" style="flex-basis:140px"><!-- wp:avatar {"size":120,"isLink":true,"style":{"border":{"radius":"60px"}}} /--></div>
+<!-- /wp:column -->
 
-<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|small"}},"layout":{"type":"constrained"}} -->
-<div class="wp-block-group"><!-- wp:post-author-name {"isLink":true,"style":{"typography":{"fontStyle":"normal","fontWeight":"600"},"elements":{"link":{"color":{"text":"var:preset|color|text-heading"},":hover":{"color":{"text":"var:preset|color|primary"}}}}},"textColor":"text-heading","fontSize":"regular"} /-->
+<!-- wp:column {"verticalAlignment":"top"} -->
+<div class="wp-block-column is-vertically-aligned-top"><!-- wp:post-author-name {"isLink":true,"style":{"typography":{"fontStyle":"normal","fontWeight":"600"},"elements":{"link":{"color":{"text":"var:preset|color|text-heading"},":hover":{"color":{"text":"var:preset|color|primary"}}}}},"textColor":"text-heading","fontSize":"regular"} /-->
 
 <!-- wp:post-author-biography {"fontSize":"regular"} /--></div>
-<!-- /wp:group --></div>
-<!-- /wp:group -->
+<!-- /wp:column --></div>
+<!-- /wp:columns -->
 
 <!-- wp:separator {"className":"is-style-wide","style":{"spacing":{"margin":{"top":"var:preset|spacing|jumbo","bottom":"var:preset|spacing|jumbo"}}},"backgroundColor":"border"} -->
 <hr class="wp-block-separator has-text-color has-border-color has-alpha-channel-opacity has-border-background-color has-background is-style-wide" style="margin-top:var(--wp--preset--spacing--jumbo);margin-bottom:var(--wp--preset--spacing--jumbo)"/>
