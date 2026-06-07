@@ -987,6 +987,7 @@
 				}
 			},
 			"core/comment-content": {
+				"css": "& > * + * { margin-block-start: var(--wp--preset--spacing--medium); }",
 				"elements": {
 					"link": {
 						"typography": {
