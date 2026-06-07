@@ -16,3 +16,12 @@
 .wp-block-post-author.is-style-origin-canvas-author .wp-block-post-author__name a:hover {
 	color: var(--wp--preset--color--primary);
 }
+
+.wp-block-post-author.is-style-origin-canvas-author .wp-block-post-author__avatar,
+.wp-block-post-author.is-style-origin-canvas-author .wp-block-post-author__avatar img {
+	border-radius: 999px;
+}
+
+.wp-block-post-author.is-style-origin-canvas-author .wp-block-post-author__avatar img {
+	object-fit: cover;
+}
