@@ -79,6 +79,11 @@
 	z-index: 20;
 }
 
+/* Top-level submenu clears the hover-pill badge (which extends 0.35em below the item). */
+.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-navigation-item > .wp-block-navigation__submenu-container {
+	margin-top: 0.5em;
+}
+
 .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-item__content {
 	border-radius: 6px;
 	padding: var(--wp--preset--spacing--small) var(--wp--preset--spacing--medium);
