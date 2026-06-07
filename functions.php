@@ -215,9 +215,6 @@ if ( ! function_exists( 'origin_canvas_register_block_styles' ) ) {
 			'core/button'        => array(
 				array( 'name' => 'origin-canvas-outline-strong', 'label' => __( 'Outline Strong', 'origin-canvas' ) ),
 			),
-			'core/post-author'   => array(
-				array( 'name' => 'origin-canvas-author', 'label' => __( 'Origin Canvas Author', 'origin-canvas' ) ),
-			),
 			'core/list'          => array(
 				array( 'name' => 'origin-canvas-list-check', 'label' => __( 'Check', 'origin-canvas' ) ),
 				array( 'name' => 'origin-canvas-list-check-circle', 'label' => __( 'Check Circle', 'origin-canvas' ) ),
