@@ -8,3 +8,11 @@
 	font-size: var(--wp--preset--font-size--regular);
 	font-weight: 400;
 }
+
+.wp-block-post-author.is-style-origin-canvas-author .wp-block-post-author__name a {
+	text-decoration: none;
+}
+
+.wp-block-post-author.is-style-origin-canvas-author .wp-block-post-author__name a:hover {
+	color: var(--wp--preset--color--primary);
+}
