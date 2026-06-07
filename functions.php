@@ -335,6 +335,9 @@ if ( ! function_exists( 'origin_canvas_register_block_styles' ) ) {
 			'core/post-terms'    => array(
 				array( 'name' => 'origin-canvas-term-button', 'label' => __( 'Pill', 'origin-canvas' ) ),
 			),
+			'core/tag-cloud'     => array(
+				array( 'name' => 'origin-canvas-tag-chip', 'label' => __( 'Chip', 'origin-canvas' ) ),
+			),
 			'core/post-excerpt'  => array(
 				array( 'name' => 'origin-canvas-excerpt-truncate-2', 'label' => __( 'Truncate 2 Lines', 'origin-canvas' ) ),
 				array( 'name' => 'origin-canvas-excerpt-truncate-3', 'label' => __( 'Truncate 3 Lines', 'origin-canvas' ) ),
