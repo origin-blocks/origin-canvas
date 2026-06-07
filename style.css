@@ -331,9 +331,7 @@ textarea:disabled {
 }
 
 .origin-canvas-sidebar .wp-block-latest-posts__featured-image {
-	border-radius: var(--wp--custom--radius--medium);
 	margin-bottom: var(--wp--preset--spacing--extra-small);
-	overflow: hidden;
 }
 
 .origin-canvas-sidebar .wp-block-latest-posts__post-date,
