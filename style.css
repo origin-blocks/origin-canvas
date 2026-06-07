@@ -336,7 +336,7 @@ textarea:disabled {
 
 .origin-canvas-sidebar .wp-block-latest-posts__post-date,
 .origin-canvas-sidebar .wp-block-latest-comments__comment-date {
-	color: var(--wp--preset--color--text-body);
+	color: var(--wp--preset--color--text-muted);
 	font-size: var(--wp--preset--font-size--extra-small);
 	font-weight: 500;
 }
