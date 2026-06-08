@@ -882,6 +882,18 @@
 				"color": {
 					"text": "var(--wp--preset--color--text-body)"
 				},
+				"elements": {
+					"link": {
+						"color": {
+							"text": "var(--wp--preset--color--text-body)"
+						},
+						":hover": {
+							"color": {
+								"text": "var(--wp--preset--color--primary)"
+							}
+						}
+					}
+				},
 				"spacing": {
 					"margin": {
 						"top": "0"
