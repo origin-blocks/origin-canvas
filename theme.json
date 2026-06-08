@@ -882,6 +882,18 @@
 				"color": {
 					"text": "var(--wp--preset--color--text-body)"
 				},
+				"elements": {
+					"link": {
+						"color": {
+							"text": "var(--wp--preset--color--text-body)"
+						},
+						":hover": {
+							"color": {
+								"text": "var(--wp--preset--color--primary)"
+							}
+						}
+					}
+				},
 				"spacing": {
 					"margin": {
 						"top": "0"
@@ -893,16 +905,16 @@
 			},
 			"core/comment-reply-link": {
 				"color": {
-					"text": "var(--wp--preset--color--primary)"
+					"text": "var(--wp--preset--color--text-heading)"
 				},
 				"elements": {
 					"link": {
 						"color": {
-							"text": "var(--wp--preset--color--primary)"
+							"text": "var(--wp--preset--color--text-heading)"
 						},
 						":hover": {
 							"color": {
-								"text": "var(--wp--preset--color--text-heading)"
+								"text": "var(--wp--preset--color--primary)"
 							}
 						}
 					}
