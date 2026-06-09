@@ -13,8 +13,8 @@
 <div class="wp-block-comments"><!-- wp:comments-title /-->
 
 <!-- wp:comment-template -->
-<!-- wp:columns {"style":{"spacing":{"margin":{"bottom":"var:preset|spacing|huge"}}}} -->
-<div class="wp-block-columns" style="margin-bottom:var(--wp--preset--spacing--huge)"><!-- wp:column {"width":"80px"} -->
+<!-- wp:columns -->
+<div class="wp-block-columns"><!-- wp:column {"width":"80px"} -->
 <div class="wp-block-column" style="flex-basis:80px"><!-- wp:avatar {"size":48,"style":{"border":{"radius":"999px"}}} /--></div>
 <!-- /wp:column -->
 
