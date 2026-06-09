@@ -30,8 +30,8 @@
 <div class="wp-block-button"><a class="wp-block-button__link wp-element-button"><?php echo esc_html__( 'See recent work', 'origin-canvas' ); ?></a></div>
 <!-- /wp:button -->
 
-<!-- wp:button {"className":"is-style-outline","style":{"border":{"color":"#F3F4F6"},"color":{"text":"#F3F4F6"}}} -->
-<div class="wp-block-button is-style-outline"><a class="wp-block-button__link has-text-color has-border-color wp-element-button" style="border-color:#F3F4F6;color:#F3F4F6"><?php echo esc_html__( 'Email us', 'origin-canvas' ); ?></a></div>
+<!-- wp:button {"className":"is-style-origin-canvas-outline-light"} -->
+<div class="wp-block-button is-style-origin-canvas-outline-light"><a class="wp-block-button__link wp-element-button"><?php echo esc_html__( 'Email us', 'origin-canvas' ); ?></a></div>
 <!-- /wp:button --></div>
 <!-- /wp:buttons --></div>
 <!-- /wp:group --></section>
