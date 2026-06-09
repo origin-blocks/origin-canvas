@@ -383,10 +383,12 @@ textarea:disabled {
 	margin-bottom: var(--wp--preset--spacing--small);
 }
 
-/* Comment cards. WP's block comment-template renders each comment as
-   <li class="comment depth-N"> and nests replies in an UNCLASSED <ol> inside
-   the parent <li>. We card ONLY the comment wrappers (li.comment) so that
-   lists the author writes inside a comment body keep normal bullets. */
+/* Comment cards. The block comment-template renders each comment as
+   <li class="comment depth-N"> and nests replies in an UNCLASSED <ol> that is a
+   direct child of the parent <li>. We card ONLY li.comment wrappers, so lists an
+   author writes inside a comment body keep normal bullets. The card BOX (radius +
+   padding) is defined once for every comment; only fill/shadow/indent differ by
+   depth, so nested cards can never lose their radius or padding. */
 
 /* List chrome on the comment lists only (top-level template + nested unclassed <ol>). */
 .wp-block-comment-template,
@@ -396,8 +398,8 @@ textarea:disabled {
 	padding-inline-start: 0;
 }
 
-/* Top-level comment card. Broader/softer shadow (medium) per design. */
-.wp-block-comment-template > li.comment {
+/* Base card box — applies to EVERY comment (top-level and nested). */
+.wp-block-comment-template li.comment {
 	background: var(--wp--preset--color--surface-base);
 	border-radius: var(--wp--custom--radius--medium);
 	box-shadow: var(--wp--preset--shadow--medium);
@@ -414,8 +416,8 @@ textarea:disabled {
 	margin-block-start: var(--wp--preset--spacing--medium);
 }
 
-/* Nested reply card: lighter fill, no shadow, indented. Depth signalled by
-   fill, not stacked shadows. Applies to any comment inside a comment (depth 2+). */
+/* Nested reply card: only the deltas — lighter fill, no shadow, indented.
+   Radius + padding are inherited from the base rule above. */
 .wp-block-comment-template li.comment li.comment {
 	background: var(--wp--preset--color--surface-muted);
 	box-shadow: none;
