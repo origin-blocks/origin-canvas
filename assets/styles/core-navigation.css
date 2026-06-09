@@ -88,11 +88,11 @@
 
 .wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-navigation-item > .wp-block-navigation__submenu-container::before {
 	content: "";
-	position: absolute;
 	bottom: 100%;
-	left: 0;
-	right: 0;
 	height: 0.5em;
+	left: 0;
+	position: absolute;
+	right: 0;
 }
 
 .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-item__content {
