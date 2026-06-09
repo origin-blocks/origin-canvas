@@ -81,6 +81,18 @@ ol.wp-block-list,
 	list-style-type: decimal;
 }
 
+/* Contain long unbreakable strings so they wrap inside the card. */
+.wp-block-comment-content {
+	overflow-wrap: break-word;
+	word-break: break-word;
+}
+
+/* Preformatted/code wraps inside the card instead of overflowing. */
+.wp-block-comment-content pre {
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
 a {
 	text-decoration: none;
 }
@@ -381,6 +393,57 @@ textarea:disabled {
 	font-size: var(--wp--preset--font-size--medium);
 	font-weight: 600;
 	margin-bottom: var(--wp--preset--spacing--small);
+}
+
+/* Comment cards. The block comment-template renders each comment as
+   <li class="comment depth-N"> and nests replies in an UNCLASSED <ol> that is a
+   direct child of the parent <li>. We card ONLY li.comment wrappers, so lists an
+   author writes inside a comment body keep normal bullets. The card BOX (radius +
+   padding) is defined once for every comment; only fill/shadow/indent differ by
+   depth, so nested cards can never lose their radius or padding. */
+
+/* List chrome on the comment lists only (top-level template + nested unclassed <ol>). */
+.wp-block-comment-template,
+.wp-block-comment-template li.comment > ol {
+	list-style: none;
+	margin: 0;
+	padding-inline-start: 0;
+}
+
+/* Base card box — applies to EVERY comment (top-level and nested). */
+.wp-block-comment-template li.comment {
+	background: var(--wp--preset--color--surface-base);
+	border-radius: var(--wp--custom--radius--medium);
+	box-shadow: var(--wp--preset--shadow--medium);
+	padding: var(--wp--preset--spacing--large);
+}
+
+/* Gap between sibling top-level cards (replaces removed margin-bottom:huge). */
+.wp-block-comment-template > li.comment + li.comment {
+	margin-block-start: var(--wp--preset--spacing--medium);
+}
+
+/* Nested reply list: separate it from the parent comment body. */
+.wp-block-comment-template li.comment > ol {
+	margin-block-start: var(--wp--preset--spacing--medium);
+}
+
+/* Nested reply card: only the deltas — lighter fill, no shadow, indented.
+   Radius + padding are inherited from the base rule above. */
+.wp-block-comment-template li.comment li.comment {
+	background: var(--wp--preset--color--surface-muted);
+	box-shadow: none;
+	margin-inline-start: var(--wp--preset--spacing--large);
+}
+
+/* Gap between sibling nested cards. */
+.wp-block-comment-template li.comment li.comment + li.comment {
+	margin-block-start: var(--wp--preset--spacing--medium);
+}
+
+/* Cap indent from depth 3 down so deep threads stay readable on narrow widths. */
+.wp-block-comment-template li.comment li.comment li.comment {
+	margin-inline-start: var(--wp--preset--spacing--medium);
 }
 
 .wp-block-post-comments-form .comment-form {
