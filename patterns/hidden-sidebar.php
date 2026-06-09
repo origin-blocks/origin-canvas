@@ -9,8 +9,8 @@
  */
 
 ?>
-<!-- wp:group {"className":"origin-canvas-sidebar","style":{"spacing":{"blockGap":"var:preset|spacing|large"}},"fontSize":"regular","layout":{"type":"constrained","justifyContent":"left"}} -->
-<div class="wp-block-group origin-canvas-sidebar has-regular-font-size"><!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|medium"}},"layout":{"type":"default"}} -->
+<!-- wp:group {"className":"origin-canvas-sidebar","style":{"spacing":{"blockGap":"var:preset|spacing|large"}},"fontSize":"small","layout":{"type":"constrained","justifyContent":"left"}} -->
+<div class="wp-block-group origin-canvas-sidebar has-small-font-size"><!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|medium"}},"layout":{"type":"default"}} -->
 <div class="wp-block-group"><!-- wp:heading {"level":3,"style":{"typography":{"fontWeight":"600"},"spacing":{"margin":{"bottom":"var:preset|spacing|small"}}},"textColor":"text-heading","fontSize":"regular"} -->
 <h3 class="wp-block-heading has-text-heading-color has-text-color has-regular-font-size" style="margin-bottom:var(--wp--preset--spacing--small);font-weight:600"><?php esc_html_e( 'Recent Posts', 'origin-canvas' ); ?></h3>
 <!-- /wp:heading -->
