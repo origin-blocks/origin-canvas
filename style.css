@@ -383,6 +383,49 @@ textarea:disabled {
 	margin-bottom: var(--wp--preset--spacing--small);
 }
 
+/* Comment cards: each comment <li> (top-level + WP's auto-generated nested
+   reply <li>s) becomes a card. Styling the <li> is the only hook that reaches
+   the reply items, which are not present in the pattern markup. */
+.wp-block-comment-template,
+.wp-block-comment-template .children {
+	list-style: none;
+	margin: 0;
+	padding-inline-start: 0;
+}
+
+.wp-block-comment-template li {
+	background: var(--wp--preset--color--surface-base);
+	border-radius: var(--wp--custom--radius--medium);
+	box-shadow: var(--wp--preset--shadow--small);
+	padding: var(--wp--preset--spacing--large);
+}
+
+.wp-block-comment-template > li + li {
+	margin-block-start: var(--wp--preset--spacing--medium);
+}
+
+/* Nested replies: lighter fill, no shadow, indented one step and separated
+   from the parent comment body. Depth is signalled by fill, not stacked
+   shadows, so deep threads stay calm. */
+.wp-block-comment-template .children {
+	margin-block-start: var(--wp--preset--spacing--medium);
+}
+
+.wp-block-comment-template .children > li {
+	background: var(--wp--preset--color--surface-muted);
+	box-shadow: none;
+	margin-inline-start: var(--wp--preset--spacing--large);
+}
+
+.wp-block-comment-template .children > li + li {
+	margin-block-start: var(--wp--preset--spacing--medium);
+}
+
+/* Cap the indent from level 2 down so deep threads stay readable on narrow widths. */
+.wp-block-comment-template .children .children > li {
+	margin-inline-start: var(--wp--preset--spacing--medium);
+}
+
 .wp-block-post-comments-form .comment-form {
 	display: flex;
 	flex-direction: column;
