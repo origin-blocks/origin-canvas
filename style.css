@@ -89,8 +89,8 @@ ol.wp-block-list,
 
 /* Preformatted/code wraps inside the card instead of overflowing. */
 .wp-block-comment-content pre {
-	white-space: pre-wrap;
 	overflow-wrap: break-word;
+	white-space: pre-wrap;
 }
 
 a {
@@ -354,12 +354,12 @@ textarea:disabled {
 .origin-canvas-sidebar .wp-block-categories-list,
 .origin-canvas-sidebar .wp-block-archives-list,
 .origin-canvas-sidebar .wp-block-latest-comments {
-	list-style: none;
-	margin: 0;
-	padding: 0;
 	display: flex;
 	flex-direction: column;
 	gap: var(--wp--preset--spacing--small);
+	list-style: none;
+	margin: 0;
+	padding: 0;
 }
 
 .origin-canvas-sidebar .wp-block-latest-posts__featured-image {
