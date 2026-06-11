@@ -233,7 +233,64 @@ if ( ! function_exists( 'origin_canvas_register_block_styles' ) ) {
 				array( 'name' => 'origin-canvas-media-boxed', 'label' => __( 'Boxed', 'origin-canvas' ) ),
 			),
 			'core/post-terms'    => array(
-				array( 'name' => 'origin-canvas-term-button', 'label' => __( 'Pill', 'origin-canvas' ) ),
+				array(
+					'name'       => 'origin-canvas-term-chip',
+					'label'      => __( 'Chip', 'origin-canvas' ),
+					'style_data' => array(
+						'elements' => array(
+							'link' => array(
+								'color'      => array(
+									'text'       => 'var:preset|color|text-heading',
+									'background' => 'var:preset|color|surface-muted',
+								),
+								'border'     => array(
+									'radius' => 'var:custom|radius|medium',
+								),
+								'spacing'    => array(
+									'padding' => array(
+										'top'    => '6px',
+										'right'  => '8px',
+										'bottom' => '6px',
+										'left'   => '8px',
+									),
+								),
+								'typography' => array(
+									'fontSize' => 'var:preset|font-size|extra-small',
+								),
+								':hover'     => array(
+									'color' => array(
+										'text'       => 'var:preset|color|surface-base',
+										'background' => 'var:preset|color|primary',
+									),
+								),
+							),
+						),
+					),
+				),
+				array(
+					'name'       => 'origin-canvas-term-inline',
+					'label'      => __( 'Inline', 'origin-canvas' ),
+					'style_data' => array(
+						'color'    => array(
+							'text' => 'var:preset|color|text-body',
+						),
+						'elements' => array(
+							'link' => array(
+								'color'      => array(
+									'text' => 'var:preset|color|text-heading',
+								),
+								'typography' => array(
+									'textDecoration' => 'none',
+								),
+								':hover'     => array(
+									'color' => array(
+										'text' => 'var:preset|color|primary',
+									),
+								),
+							),
+						),
+					),
+				),
 			),
 			'core/tag-cloud'     => array(
 				array( 'name' => 'origin-canvas-tag-chip', 'label' => __( 'Chip', 'origin-canvas' ) ),
