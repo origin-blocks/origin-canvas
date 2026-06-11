@@ -1,24 +1,14 @@
-/* Chip */
+/* Chip — structural only; colours/background/radius/padding/font-size are delivered
+   via register_block_style style_data (see functions.php). */
 .is-style-origin-canvas-term-chip {
 	display: flex;
 	flex-wrap: wrap;
 	gap: var(--wp--preset--spacing--small);
 }
 
-.wp-block-post-terms.is-style-origin-canvas-term-chip a {
-	background: var(--wp--preset--color--surface-muted);
-	border-radius: var(--wp--custom--radius--medium);
-	color: var(--wp--preset--color--text-heading);
+.is-style-origin-canvas-term-chip a {
 	display: inline-flex;
-	font-size: var(--wp--preset--font-size--extra-small);
-	padding: 6px 8px;
-	text-decoration: none;
 	transition: background 120ms ease, color 120ms ease;
-}
-
-.wp-block-post-terms.is-style-origin-canvas-term-chip a:hover {
-	background: var(--wp--preset--color--primary);
-	color: var(--wp--preset--color--surface-base);
 }
 
 .is-style-origin-canvas-term-chip .wp-block-post-terms__separator {
