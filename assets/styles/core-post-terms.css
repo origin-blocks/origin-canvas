@@ -20,21 +20,13 @@
 	line-height: 1;
 }
 
-/* Inline (three-tone: body base/separators, muted prefix, heading links, primary hover) */
-.wp-block-post-terms.is-style-origin-canvas-term-inline {
-	color: var(--wp--preset--color--text-body);
-}
-
-.wp-block-post-terms.is-style-origin-canvas-term-inline .wp-block-post-terms__prefix {
+/* Inline — structural only; main/link colours + link hover are delivered via
+   register_block_style style_data (see functions.php). The prefix span has no
+   theme.json hook, so its "one lighter" tone stays here. */
+.is-style-origin-canvas-term-inline .wp-block-post-terms__prefix {
 	color: var(--wp--preset--color--text-muted);
 }
 
-.wp-block-post-terms.is-style-origin-canvas-term-inline a {
-	color: var(--wp--preset--color--text-heading);
-	text-decoration: none;
+.is-style-origin-canvas-term-inline a {
 	transition: color 120ms ease;
-}
-
-.wp-block-post-terms.is-style-origin-canvas-term-inline a:hover {
-	color: var(--wp--preset--color--primary);
 }
