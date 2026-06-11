@@ -1,31 +1,31 @@
-/* Pill */
-.is-style-origin-canvas-term-button {
+/* Chip */
+.is-style-origin-canvas-term-chip {
 	display: flex;
 	flex-wrap: wrap;
-	gap: 8px;
+	gap: var(--wp--preset--spacing--small);
 }
 
-.is-style-origin-canvas-term-button a {
-	background: var(--wp--preset--color--surface-subtle-hover);
-	border-radius: 9999px;
-	color: var(--wp--preset--color--text-body);
-	display: inline-block;
+.is-style-origin-canvas-term-chip a {
+	background: var(--wp--preset--color--surface-muted);
+	border-radius: var(--wp--custom--radius--medium);
+	color: var(--wp--preset--color--text-heading);
+	display: inline-flex;
 	font-size: var(--wp--preset--font-size--extra-small);
-	font-weight: 500;
-	padding: 4px 12px;
+	padding: 6px 8px;
 	text-decoration: none;
-	transition: background 120ms ease;
+	transition: background 120ms ease, color 120ms ease;
 }
 
-.is-style-origin-canvas-term-button a:hover {
-	background: var(--wp--preset--color--border);
+.is-style-origin-canvas-term-chip a:hover {
+	background: var(--wp--preset--color--primary);
+	color: var(--wp--preset--color--surface-base);
 }
 
-.is-style-origin-canvas-term-button .wp-block-post-terms__separator {
+.is-style-origin-canvas-term-chip .wp-block-post-terms__separator {
 	display: none;
 }
 
-.is-style-origin-canvas-term-button .wp-block-post-terms__prefix {
+.is-style-origin-canvas-term-chip .wp-block-post-terms__prefix {
 	align-self: center;
 	line-height: 1;
 }
