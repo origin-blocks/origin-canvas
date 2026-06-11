@@ -29,3 +29,18 @@
 	align-self: center;
 	line-height: 1;
 }
+
+/* Inline (two-tone: muted prefix, heading links, primary hover) */
+.is-style-origin-canvas-term-inline {
+	color: var(--wp--preset--color--text-muted);
+}
+
+.is-style-origin-canvas-term-inline a {
+	color: var(--wp--preset--color--text-heading);
+	text-decoration: none;
+	transition: color 120ms ease;
+}
+
+.is-style-origin-canvas-term-inline a:hover {
+	color: var(--wp--preset--color--primary);
+}
