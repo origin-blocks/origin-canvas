@@ -353,3 +353,43 @@ if ( ! function_exists( 'origin_canvas_enqueue_block_styles' ) ) {
 	}
 }
 add_action( 'init', 'origin_canvas_enqueue_block_styles' );
+
+if ( ! function_exists( 'origin_canvas_enqueue_block_styles_editor' ) ) {
+	/**
+	 * Enqueue every per-block stylesheet into the block editor canvas.
+	 *
+	 * The front-end loader (origin_canvas_enqueue_block_styles) uses
+	 * wp_enqueue_block_style(), which on block themes takes the on-demand path
+	 * and returns before registering its editor (enqueue_block_assets) hook —
+	 * so per-block CSS never reaches the editor iframe. The editor should preview
+	 * every variation, so enqueue all of them here, admin-side only.
+	 *
+	 * Same handle/src scheme as the front-end loader, so WP dedupes by handle
+	 * and the editor loads byte-identical CSS.
+	 */
+	function origin_canvas_enqueue_block_styles_editor() {
+		if ( ! is_admin() ) {
+			return;
+		}
+
+		$files = glob( get_template_directory() . '/assets/styles/*.css' );
+
+		if ( empty( $files ) ) {
+			return;
+		}
+
+		foreach ( $files as $file ) {
+			$filename = basename( $file, '.css' );
+
+			// TODO: if -rtl.css files are ever added, mirror the front-end
+			// loader's RTL handling here via wp_style_add_data().
+			wp_enqueue_style(
+				"origin-canvas-block-{$filename}",
+				get_theme_file_uri( "assets/styles/{$filename}.css" ),
+				array(),
+				ORIGIN_CANVAS_VERSION
+			);
+		}
+	}
+}
+add_action( 'enqueue_block_assets', 'origin_canvas_enqueue_block_styles_editor' );
