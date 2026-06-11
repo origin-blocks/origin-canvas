@@ -347,6 +347,7 @@ if ( ! function_exists( 'origin_canvas_enqueue_block_styles' ) ) {
 					'handle' => "origin-canvas-block-{$filename}",
 					'src'    => get_theme_file_uri( "assets/styles/{$filename}.css" ),
 					'path'   => get_theme_file_path( "assets/styles/{$filename}.css" ),
+					'ver'    => ORIGIN_CANVAS_VERSION,
 				)
 			);
 		}
