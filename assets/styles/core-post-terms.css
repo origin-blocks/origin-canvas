@@ -5,7 +5,7 @@
 	gap: var(--wp--preset--spacing--small);
 }
 
-.is-style-origin-canvas-term-chip a {
+.wp-block-post-terms.is-style-origin-canvas-term-chip a {
 	background: var(--wp--preset--color--surface-muted);
 	border-radius: var(--wp--custom--radius--medium);
 	color: var(--wp--preset--color--text-heading);
@@ -16,7 +16,7 @@
 	transition: background 120ms ease, color 120ms ease;
 }
 
-.is-style-origin-canvas-term-chip a:hover {
+.wp-block-post-terms.is-style-origin-canvas-term-chip a:hover {
 	background: var(--wp--preset--color--primary);
 	color: var(--wp--preset--color--surface-base);
 }
