@@ -30,17 +30,21 @@
 	line-height: 1;
 }
 
-/* Inline (two-tone: muted prefix, heading links, primary hover) */
-.is-style-origin-canvas-term-inline {
+/* Inline (three-tone: body base/separators, muted prefix, heading links, primary hover) */
+.wp-block-post-terms.is-style-origin-canvas-term-inline {
+	color: var(--wp--preset--color--text-body);
+}
+
+.wp-block-post-terms.is-style-origin-canvas-term-inline .wp-block-post-terms__prefix {
 	color: var(--wp--preset--color--text-muted);
 }
 
-.is-style-origin-canvas-term-inline a {
+.wp-block-post-terms.is-style-origin-canvas-term-inline a {
 	color: var(--wp--preset--color--text-heading);
 	text-decoration: none;
 	transition: color 120ms ease;
 }
 
-.is-style-origin-canvas-term-inline a:hover {
+.wp-block-post-terms.is-style-origin-canvas-term-inline a:hover {
 	color: var(--wp--preset--color--primary);
 }
