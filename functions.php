@@ -234,6 +234,7 @@ if ( ! function_exists( 'origin_canvas_register_block_styles' ) ) {
 			),
 			'core/post-terms'    => array(
 				array( 'name' => 'origin-canvas-term-chip', 'label' => __( 'Chip', 'origin-canvas' ) ),
+				array( 'name' => 'origin-canvas-term-inline', 'label' => __( 'Inline', 'origin-canvas' ) ),
 			),
 			'core/tag-cloud'     => array(
 				array( 'name' => 'origin-canvas-tag-chip', 'label' => __( 'Chip', 'origin-canvas' ) ),
