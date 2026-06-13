@@ -54,14 +54,14 @@
 }
 
 /* Bubble — the content column reads as a soft chat bubble. Flat (no shadow),
-   surface-muted fill, --radii-lg (16px), 16/20 padding. */
+   surface-muted fill, --radii-lg (16px), compact/medium padding, small gap above. */
 .wp-block-comments .wp-block-comment-content {
 	background: var(--wp--preset--color--surface-muted);
 	border-radius: var(--wp--custom--radius--large);
 	color: var(--wp--preset--color--text-body);
-	margin-top: var(--wp--preset--spacing--extra-small);
+	margin-top: var(--wp--preset--spacing--small);
 	overflow-wrap: break-word;
-	padding: 16px 20px;
+	padding: var(--wp--preset--spacing--compact) var(--wp--preset--spacing--medium);
 }
 
 /* Head meta — base/semibold heading-colour author, sm/muted date 4px under it.
@@ -98,12 +98,12 @@
 	color: var(--wp--preset--color--primary);
 }
 
-/* Reply link — sits 8px under the bubble and lines up with the comment TEXT, not
-   the bubble's outer edge: padding-left equals the bubble's inner padding (20px).
-   sm / semibold / muted at rest; primary on hover; no underline at rest. */
+/* Reply link — sits 8px (small) under the bubble and lines up with the comment
+   TEXT, not the bubble's outer edge: padding-left equals the bubble's horizontal
+   padding (medium). sm / semibold / muted at rest; primary on hover; no underline. */
 .wp-block-comments .wp-block-comment-reply-link {
 	margin-top: var(--wp--preset--spacing--small);
-	padding-left: 20px;
+	padding-left: var(--wp--preset--spacing--medium);
 }
 
 .wp-block-comments .wp-block-comment-reply-link a {
@@ -142,30 +142,32 @@
 	font-size: var(--wp--preset--font-size--small);
 }
 
-/* Field-group rhythm — 20px between the <p class="comment-form-*"> groups; the
-   submit group sits 16px below the last field. */
+/* Field-group rhythm — medium between the <p class="comment-form-*"> groups; the
+   submit group sits compact below the checkbox row. */
 .wp-block-comments .wp-block-post-comments-form .comment-form > p {
 	margin-block: 0;
 }
 
 .wp-block-comments .wp-block-post-comments-form .comment-form > p + p {
-	margin-top: 20px;
+	margin-top: var(--wp--preset--spacing--medium);
 }
 
 .wp-block-comments .wp-block-post-comments-form .comment-form > .form-submit {
-	margin-top: 16px;
+	margin-top: var(--wp--preset--spacing--compact);
 }
 
-/* Labels — sm / medium weight, 8px gap to the input below. */
+/* Labels — sm / medium weight / text-heading, 8px gap to the input below. */
 .wp-block-comments .wp-block-post-comments-form .comment-form label {
+	color: var(--wp--preset--color--text-heading);
 	display: block;
 	font-size: var(--wp--preset--font-size--small);
 	font-weight: 500;
 	margin-bottom: var(--wp--preset--spacing--small);
 }
 
-/* Text inputs + textarea — white field, hairline border, hover (darker border +
-   e1) and focus ring. The cookies-consent checkbox is excluded (rebuilt below). */
+/* Text inputs + textarea — white field, hairline border, compact/medium padding,
+   44px min-height, hover (text-muted border) and focus ring. The cookies-consent
+   checkbox is excluded (rebuilt below). */
 .wp-block-comments .wp-block-post-comments-form input[type="text"],
 .wp-block-comments .wp-block-post-comments-form input[type="email"],
 .wp-block-comments .wp-block-post-comments-form input[type="url"],
@@ -173,15 +175,17 @@
 	background: var(--wp--preset--color--surface-base);
 	border: 1px solid var(--wp--preset--color--input-border);
 	border-radius: var(--wp--custom--radius--medium);
+	min-height: 44px;
+	padding: var(--wp--preset--spacing--compact) var(--wp--preset--spacing--medium);
 	transition: box-shadow 120ms ease, border-color 120ms ease;
 }
 
-/* Hover — the system's missing input hover: darker (border-token) edge + e1. */
+/* Hover — the system's missing input hover: text-muted edge + e1. */
 .wp-block-comments .wp-block-post-comments-form input[type="text"]:hover,
 .wp-block-comments .wp-block-post-comments-form input[type="email"]:hover,
 .wp-block-comments .wp-block-post-comments-form input[type="url"]:hover,
 .wp-block-comments .wp-block-post-comments-form textarea:hover {
-	border-color: var(--wp--preset--color--border);
+	border-color: var(--wp--preset--color--text-muted);
 	box-shadow: var(--wp--preset--shadow--small);
 }
 
