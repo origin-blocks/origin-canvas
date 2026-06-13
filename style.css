@@ -347,7 +347,7 @@ textarea:disabled {
 .origin-canvas-sidebar {
 	display: flex;
 	flex-direction: column;
-	gap: var(--wp--preset--spacing--large);
+	gap: var(--wp--preset--spacing--medium);
 }
 
 .origin-canvas-sidebar .wp-block-latest-posts__list,
