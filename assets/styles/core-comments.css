@@ -1,0 +1,129 @@
+/* Quiet bubbles — comments.
+   All selectors scoped under .wp-block-comments so nothing leaks to other blocks.
+   Existing theme tokens only; the single 12px bubble radius is a one-off component
+   value (the radius scale is 4/8/16, so 12px has no token and is used literally).
+   Pink hover/tint use inline color-mix(... primary ...) — the theme's existing
+   precedent — rather than a new token. */
+
+/* Section / title
+   Core renders the title inline (e.g. "One response to ..."); it does NOT emit a
+   separate count element, so there is no pill count to style — title colour only. */
+.wp-block-comments {
+	margin-top: var(--wp--preset--spacing--large);
+}
+
+.wp-block-comments-title {
+	color: var(--wp--preset--color--text-heading);
+}
+
+/* Comment row layout
+   Each comment is a .wp-block-comment-template list item holding a flex columns
+   row: a fixed avatar column + the content column. The avatar is forced circular
+   here so the inlined right-sidebar pattern's 24px radius is overridden too. */
+.wp-block-comments .wp-block-comment-template {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.wp-block-comments .wp-block-comment-template > li {
+	margin-bottom: var(--wp--preset--spacing--large);
+}
+
+.wp-block-comments .wp-block-avatar img {
+	background: var(--wp--preset--color--border);
+	border-radius: 999px;
+}
+
+/* Bubble — the content column reads as a soft chat bubble. */
+.wp-block-comments .wp-block-comment-content {
+	background: var(--wp--preset--color--surface-muted);
+	border-radius: 12px;
+	color: var(--wp--preset--color--text-body);
+	margin-top: var(--wp--preset--spacing--extra-small);
+	padding: 16px 20px;
+}
+
+/* Head meta — bold heading-colour author, muted date.
+   Core emits no "Author" text badge; the only post-author hook is .bypostauthor on
+   the list item, so the post author's NAME is accented pink (no markup added). */
+.wp-block-comments .wp-block-comment-author-name {
+	color: var(--wp--preset--color--text-heading);
+	font-weight: 600;
+}
+
+.wp-block-comments .wp-block-comment-author-name a {
+	color: inherit;
+	text-decoration: none;
+}
+
+.wp-block-comments .wp-block-comment-date,
+.wp-block-comments .wp-block-comment-date a {
+	color: var(--wp--preset--color--text-muted);
+	text-decoration: none;
+}
+
+.wp-block-comments .bypostauthor > .wp-block-columns .wp-block-comment-author-name,
+.wp-block-comments .bypostauthor > .wp-block-columns .wp-block-comment-author-name a {
+	color: var(--wp--preset--color--primary);
+}
+
+/* Reply link — muted bold, primary on hover. */
+.wp-block-comments .wp-block-comment-reply-link a {
+	color: var(--wp--preset--color--text-muted);
+	font-weight: 600;
+	text-decoration: none;
+	transition: color 120ms ease;
+}
+
+.wp-block-comments .wp-block-comment-reply-link a:hover {
+	color: color-mix(in srgb, var(--wp--preset--color--primary) 85%, white);
+}
+
+/* Nested replies — core wraps child comments in .children; indent + gap. */
+.wp-block-comments .children {
+	list-style: none;
+	margin: var(--wp--preset--spacing--compact) 0 0;
+	padding-left: 56px;
+}
+
+/* Composer — surface-muted card, white rounded textarea, pill primary submit. */
+.wp-block-comments .wp-block-post-comments-form {
+	background: var(--wp--preset--color--surface-muted);
+	border-radius: 12px;
+	padding: var(--wp--preset--spacing--medium);
+}
+
+.wp-block-comments .wp-block-post-comments-form textarea {
+	background: var(--wp--preset--color--surface-base);
+	border: 1px solid var(--wp--preset--color--input-border);
+	border-radius: var(--wp--custom--radius--medium);
+	transition: box-shadow 120ms ease, border-color 120ms ease;
+}
+
+/* Local textarea-hover (NOT a global input-hover token — honours the design's
+   hover note without touching the token layer). */
+.wp-block-comments .wp-block-post-comments-form textarea:hover {
+	box-shadow: var(--wp--preset--shadow--small);
+}
+
+.wp-block-comments .wp-block-post-comments-form textarea:focus {
+	border-color: var(--wp--preset--color--primary);
+	box-shadow: 0 0 0 3px color-mix(in srgb, var(--wp--preset--color--primary) 25%, transparent);
+	outline: none;
+}
+
+.wp-block-comments .wp-block-post-comments-form input[type="submit"] {
+	background: var(--wp--preset--color--primary);
+	border: 0;
+	border-radius: 999px;
+	box-shadow: var(--wp--preset--shadow--small);
+	color: #fff;
+	cursor: pointer;
+	transition: background 120ms ease, box-shadow 120ms ease;
+}
+
+.wp-block-comments .wp-block-post-comments-form input[type="submit"]:hover {
+	background: color-mix(in srgb, var(--wp--preset--color--primary) 85%, white);
+	box-shadow: var(--wp--preset--shadow--medium);
+}
