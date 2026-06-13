@@ -1,0 +1,64 @@
+/* Post Navigation Link — "Stacked" variation.
+   All selectors scoped under .is-style-origin-canvas-postnav-stacked so nothing
+   leaks to other blocks. Existing theme tokens only; no new token definitions, no
+   !important. The block renders a <div> wrapper (carrying the variation +
+   alignment + type classes) containing the <a> link, inside which core emits plain
+   <span class="post-navigation-link__label"> and <span class="post-navigation-link__title">
+   (only when showTitle + linkLabel). Those spans are NOT theme.json elements, so the
+   eyebrow-above-title layout can only be expressed in CSS.
+
+   Customisation surfaces, by design:
+   - Native block settings (colour, font-size, textAlign, arrow, label, showTitle…)
+     keep working; the rules here are variation-specificity DEFAULTS the block panel
+     can override.
+   - The base class owns the always-on structure (eyebrow on its own line, title
+     weight/colour/hover, type-based default alignment).
+   - oc-postnav--caps and oc-postnav--muted-label are removable modifier classes
+     (Advanced → Additional CSS classes) for the opinionated eyebrow treatment. */
+
+/* Title (the linked post title / the link itself) — variation-default size/weight
+   and the heading-colour → primary hover. A user's block colour/font-size setting
+   still overrides these. */
+.is-style-origin-canvas-postnav-stacked {
+	font-size: var(--wp--preset--font-size--regular-plus);
+	font-weight: 600;
+	line-height: 1.2;
+}
+
+.is-style-origin-canvas-postnav-stacked a {
+	color: var(--wp--preset--color--text-heading);
+	text-decoration: none;
+	transition: color 120ms ease;
+}
+
+.is-style-origin-canvas-postnav-stacked a:hover {
+	color: var(--wp--preset--color--primary);
+}
+
+/* Eyebrow label on its own line above the title — the non-negotiable base layout. */
+.is-style-origin-canvas-postnav-stacked .post-navigation-link__label {
+	display: block;
+	font-size: var(--wp--preset--font-size--extra-small);
+	font-weight: 500;
+	line-height: 1.2;
+	margin-bottom: var(--wp--preset--spacing--small);
+}
+
+/* Toggleable modifier — uppercase eyebrow. Remove oc-postnav--caps to get normal-case. */
+.is-style-origin-canvas-postnav-stacked.oc-postnav--caps .post-navigation-link__label {
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+}
+
+/* Toggleable modifier — muted eyebrow colour. Remove oc-postnav--muted-label to let
+   the eyebrow inherit the block/native colour. */
+.is-style-origin-canvas-postnav-stacked.oc-postnav--muted-label .post-navigation-link__label {
+	color: var(--wp--preset--color--text-muted);
+}
+
+/* Default alignment: right-align the NEXT link so the design's Previous-left /
+   Next-right reads without requiring textAlign. The :not() guards mean an explicit
+   user textAlign (has-text-align-left/center) always wins → the setting still works. */
+.is-style-origin-canvas-postnav-stacked.post-navigation-link-next:not(.has-text-align-left):not(.has-text-align-center) {
+	text-align: right;
+}
