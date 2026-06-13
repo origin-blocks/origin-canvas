@@ -47,26 +47,17 @@
 	border-radius: 999px;
 }
 
-/* Content-column rhythm. The pattern's Columns block applies a uniform `compact`
-   blockGap as margin-block-start on every column child (name/date/bubble/reply),
-   which otherwise loosens the reply link away from its bubble and floats it toward
-   the NEXT comment. Zero that inherited gap on the content column, then set each
-   child's gap explicitly below: date 4px under name, bubble 8px, reply 8px. */
-.wp-block-comments .wp-block-comment-template > li > .wp-block-columns > .wp-block-column > * {
-	margin-block: 0;
-}
+/* Content-column children (name, date, bubble, reply) are direct children of an
+   is-layout-flow column with NO blockGap, so they have no inherited vertical margin
+   — each gap below is exactly what we set, nothing to fight. */
 
-/* Bubble — the content column reads as a soft chat bubble. Flat (no shadow),
-   surface-muted fill, --radii-lg (16px), compact/medium padding, 8px (small) above.
-   Column-child path used so the 8px top gap beats the zeroed blockGap reset. */
-.wp-block-comments .wp-block-comment-template > li > .wp-block-columns > .wp-block-column > .wp-block-comment-content {
-	margin-top: var(--wp--preset--spacing--small);
-}
-
+/* Bubble — flat (no shadow), surface-muted fill, --radii-lg, compact/medium padding,
+   8px (small) above (under the date). */
 .wp-block-comments .wp-block-comment-content {
 	background: var(--wp--preset--color--surface-muted);
 	border-radius: var(--wp--custom--radius--large);
 	color: var(--wp--preset--color--text-body);
+	margin-top: var(--wp--preset--spacing--small);
 	overflow-wrap: break-word;
 	padding: var(--wp--preset--spacing--compact) var(--wp--preset--spacing--medium);
 }
@@ -96,9 +87,7 @@
 	text-decoration: none;
 }
 
-/* Date sits 4px under the name; specificity matches the column-child reset above
-   (same > .wp-block-column > path) so it wins on source order. */
-.wp-block-comments .wp-block-comment-template > li > .wp-block-columns > .wp-block-column > .wp-block-comment-date {
+.wp-block-comments .wp-block-comment-date {
 	margin-top: var(--wp--preset--spacing--extra-small);
 }
 
@@ -107,16 +96,11 @@
 	color: var(--wp--preset--color--primary);
 }
 
-/* Reply link — sits 8px (small) under ITS OWN bubble (not floating toward the next
-   comment) and lines up with the comment TEXT, not the bubble's outer edge:
-   padding-left equals the bubble's horizontal padding (medium). Column-child path so
-   the 8px top gap beats the zeroed blockGap reset. sm / semibold / muted at rest;
+/* Reply link — 8px (small) under its bubble, left edge on the comment TEXT
+   (padding-left = bubble horizontal padding, medium). sm / semibold / muted;
    primary on hover; no underline. */
-.wp-block-comments .wp-block-comment-template > li > .wp-block-columns > .wp-block-column > .wp-block-comment-reply-link {
-	margin-top: var(--wp--preset--spacing--small);
-}
-
 .wp-block-comments .wp-block-comment-reply-link {
+	margin-top: var(--wp--preset--spacing--small);
 	padding-left: var(--wp--preset--spacing--medium);
 }
 
@@ -220,7 +204,11 @@
 	gap: var(--wp--preset--spacing--compact);
 }
 
-.wp-block-comments .wp-block-post-comments-form .comment-form-cookies-consent input[type="checkbox"] {
+/* The ID (#wp-comment-cookies-consent) is included deliberately: WordPress core's
+   own block stylesheet sets `#wp-comment-cookies-consent { margin-top: .35em }`,
+   an ID rule that beats any class selector and shoves the box up. Matching the ID
+   here out-ranks it cleanly (no !important) and lets flex centring do the work. */
+.wp-block-comments .wp-block-post-comments-form .comment-form-cookies-consent input[type="checkbox"]#wp-comment-cookies-consent {
 	appearance: none;
 	-webkit-appearance: none;
 	background: var(--wp--preset--color--surface-base);
@@ -235,13 +223,13 @@
 	width: 20px;
 }
 
-.wp-block-comments .wp-block-post-comments-form .comment-form-cookies-consent input[type="checkbox"]:checked {
+.wp-block-comments .wp-block-post-comments-form .comment-form-cookies-consent input[type="checkbox"]#wp-comment-cookies-consent:checked {
 	background: var(--wp--preset--color--primary);
 	border-color: var(--wp--preset--color--primary);
 }
 
 /* Checkmark glyph, drawn so it scales with the 20px box. */
-.wp-block-comments .wp-block-post-comments-form .comment-form-cookies-consent input[type="checkbox"]:checked::after {
+.wp-block-comments .wp-block-post-comments-form .comment-form-cookies-consent input[type="checkbox"]#wp-comment-cookies-consent:checked::after {
 	border: solid #fff;
 	border-width: 0 2px 2px 0;
 	content: "";
@@ -253,7 +241,7 @@
 	width: 5px;
 }
 
-.wp-block-comments .wp-block-post-comments-form .comment-form-cookies-consent input[type="checkbox"]:focus-visible {
+.wp-block-comments .wp-block-post-comments-form .comment-form-cookies-consent input[type="checkbox"]#wp-comment-cookies-consent:focus-visible {
 	box-shadow: 0 0 0 3px color-mix(in srgb, var(--wp--preset--color--primary) 25%, transparent);
 	outline: none;
 }
