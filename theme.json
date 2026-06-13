@@ -1011,7 +1011,7 @@
 				},
 				"spacing": {
 					"margin": {
-						"bottom": "var(--wp--preset--spacing--small)"
+						"bottom": "var(--wp--preset--spacing--large)"
 					}
 				},
 				"typography": {
