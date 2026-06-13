@@ -2,7 +2,7 @@
    All selectors scoped under .wp-block-comments so nothing leaks to other blocks.
    Existing theme tokens only. Where the brief asks for a fixed px the spacing scale
    has no token for (16/20/24/32px — medium+ are clamps), the literal is used (same
-   precedent as the bubble's 16/20 padding). Pink hover/tint use inline
+   precedent as the bubble's 16/20 padding). Hover/tint use inline
    color-mix(... primary ...) — the theme's existing precedent — rather than a new
    token. Comments are resting content: surface fill / hairline only, never shadows
    on bubbles. */
@@ -66,7 +66,7 @@
 
 /* Head meta — base/semibold heading-colour author, sm/muted date 4px under it.
    Core emits no "Author" text badge; the only post-author hook is .bypostauthor on
-   the list item, so the post author's NAME is accented pink (no markup added).
+   the list item, so the post author's NAME is accented with primary (no markup added).
    overflow-wrap guards a long unbroken unicode name so it wraps cleanly inside the
    content column instead of forcing the row wide. */
 .wp-block-comments .wp-block-comment-author-name {
@@ -127,13 +127,48 @@
 	padding-left: 56px;
 }
 
-/* Composer — surface-muted card, white rounded textarea, pill primary submit. */
+/* Composer — surface-muted card (resting content, flat, no shadow), --radii-lg. */
 .wp-block-comments .wp-block-post-comments-form {
 	background: var(--wp--preset--color--surface-muted);
-	border-radius: 12px;
+	border-radius: var(--wp--custom--radius--large);
 	padding: var(--wp--preset--spacing--medium);
 }
 
+/* Form type scale — the block ships at base (regular); nothing in the form may
+   exceed body size except the heading. Helper notes are sm/muted. */
+.wp-block-comments .wp-block-post-comments-form .comment-notes,
+.wp-block-comments .wp-block-post-comments-form .comment-notes #email-notes {
+	color: var(--wp--preset--color--text-muted);
+	font-size: var(--wp--preset--font-size--small);
+}
+
+/* Field-group rhythm — 20px between the <p class="comment-form-*"> groups; the
+   submit group sits 16px below the last field. */
+.wp-block-comments .wp-block-post-comments-form .comment-form > p {
+	margin-block: 0;
+}
+
+.wp-block-comments .wp-block-post-comments-form .comment-form > p + p {
+	margin-top: 20px;
+}
+
+.wp-block-comments .wp-block-post-comments-form .comment-form > .form-submit {
+	margin-top: 16px;
+}
+
+/* Labels — sm / medium weight, 8px gap to the input below. */
+.wp-block-comments .wp-block-post-comments-form .comment-form label {
+	display: block;
+	font-size: var(--wp--preset--font-size--small);
+	font-weight: 500;
+	margin-bottom: var(--wp--preset--spacing--small);
+}
+
+/* Text inputs + textarea — white field, hairline border, hover (darker border +
+   e1) and focus ring. The cookies-consent checkbox is excluded (rebuilt below). */
+.wp-block-comments .wp-block-post-comments-form input[type="text"],
+.wp-block-comments .wp-block-post-comments-form input[type="email"],
+.wp-block-comments .wp-block-post-comments-form input[type="url"],
 .wp-block-comments .wp-block-post-comments-form textarea {
 	background: var(--wp--preset--color--surface-base);
 	border: 1px solid var(--wp--preset--color--input-border);
@@ -141,18 +176,81 @@
 	transition: box-shadow 120ms ease, border-color 120ms ease;
 }
 
-/* Local textarea-hover (NOT a global input-hover token — honours the design's
-   hover note without touching the token layer). */
+/* Hover — the system's missing input hover: darker (border-token) edge + e1. */
+.wp-block-comments .wp-block-post-comments-form input[type="text"]:hover,
+.wp-block-comments .wp-block-post-comments-form input[type="email"]:hover,
+.wp-block-comments .wp-block-post-comments-form input[type="url"]:hover,
 .wp-block-comments .wp-block-post-comments-form textarea:hover {
+	border-color: var(--wp--preset--color--border);
 	box-shadow: var(--wp--preset--shadow--small);
 }
 
+.wp-block-comments .wp-block-post-comments-form input[type="text"]:focus,
+.wp-block-comments .wp-block-post-comments-form input[type="email"]:focus,
+.wp-block-comments .wp-block-post-comments-form input[type="url"]:focus,
 .wp-block-comments .wp-block-post-comments-form textarea:focus {
 	border-color: var(--wp--preset--color--primary);
 	box-shadow: 0 0 0 3px color-mix(in srgb, var(--wp--preset--color--primary) 25%, transparent);
 	outline: none;
 }
 
+/* Cookies-consent — rebuild the broken native checkbox. Row = flex with a 12px
+   gap; the 20px box nudged down 2px to sit on the label's first line. */
+.wp-block-comments .wp-block-post-comments-form .comment-form-cookies-consent {
+	align-items: flex-start;
+	display: flex;
+	gap: var(--wp--preset--spacing--compact);
+}
+
+.wp-block-comments .wp-block-post-comments-form .comment-form-cookies-consent input[type="checkbox"] {
+	appearance: none;
+	-webkit-appearance: none;
+	background: var(--wp--preset--color--surface-base);
+	border: 1px solid var(--wp--preset--color--input-border);
+	border-radius: var(--wp--custom--radius--small);
+	cursor: pointer;
+	flex: 0 0 auto;
+	height: 20px;
+	margin: 2px 0 0;
+	position: relative;
+	transition: background 120ms ease, border-color 120ms ease;
+	width: 20px;
+}
+
+.wp-block-comments .wp-block-post-comments-form .comment-form-cookies-consent input[type="checkbox"]:checked {
+	background: var(--wp--preset--color--primary);
+	border-color: var(--wp--preset--color--primary);
+}
+
+/* Checkmark glyph, drawn so it scales with the 20px box. */
+.wp-block-comments .wp-block-post-comments-form .comment-form-cookies-consent input[type="checkbox"]:checked::after {
+	border: solid #fff;
+	border-width: 0 2px 2px 0;
+	content: "";
+	height: 9px;
+	left: 6px;
+	position: absolute;
+	top: 3px;
+	transform: rotate(45deg);
+	width: 5px;
+}
+
+.wp-block-comments .wp-block-post-comments-form .comment-form-cookies-consent input[type="checkbox"]:focus-visible {
+	box-shadow: 0 0 0 3px color-mix(in srgb, var(--wp--preset--color--primary) 25%, transparent);
+	outline: none;
+}
+
+/* Consent label — base / normal weight / secondary (body) colour; the label has
+   no bottom gap here since it is a checkbox caption, not a field label. */
+.wp-block-comments .wp-block-post-comments-form .comment-form-cookies-consent label {
+	color: var(--wp--preset--color--text-body);
+	font-size: var(--wp--preset--font-size--regular);
+	font-weight: 400;
+	margin-bottom: 0;
+}
+
+/* Submit — the primary pill button is left as-is; only its container spacing
+   (above) was set. */
 .wp-block-comments .wp-block-post-comments-form input[type="submit"] {
 	background: var(--wp--preset--color--primary);
 	border: 0;
