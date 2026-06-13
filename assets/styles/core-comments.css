@@ -1,25 +1,32 @@
 /* Quiet bubbles — comments.
    All selectors scoped under .wp-block-comments so nothing leaks to other blocks.
-   Existing theme tokens only; the single 12px bubble radius is a one-off component
-   value (the radius scale is 4/8/16, so 12px has no token and is used literally).
-   Pink hover/tint use inline color-mix(... primary ...) — the theme's existing
-   precedent — rather than a new token. */
+   Existing theme tokens only. Where the brief asks for a fixed px the spacing scale
+   has no token for (16/20/24/32px — medium+ are clamps), the literal is used (same
+   precedent as the bubble's 16/20 padding). Pink hover/tint use inline
+   color-mix(... primary ...) — the theme's existing precedent — rather than a new
+   token. Comments are resting content: surface fill / hairline only, never shadows
+   on bubbles. */
 
 /* Section / title
    Core renders the title inline (e.g. "One response to ..."); it does NOT emit a
-   separate count element, so there is no pill count to style — title colour only. */
+   separate count element, so there is no pill count to style — title colour only.
+   The heading aligns to the avatar gutter (no left inset) with clear space before
+   the first comment. */
 .wp-block-comments {
 	margin-top: var(--wp--preset--spacing--large);
 }
 
 .wp-block-comments-title {
 	color: var(--wp--preset--color--text-heading);
+	margin-bottom: 32px;
 }
 
 /* Comment row layout
    Each comment is a .wp-block-comment-template list item holding a flex columns
-   row: a fixed avatar column + the content column. The avatar is forced circular
-   here so the inlined right-sidebar pattern's 24px radius is overridden too. */
+   row: a fixed 40px avatar gutter + a content column, 16px between them. The avatar
+   is top-aligned to the name (not block-centred) and forced circular here so the
+   inlined right-sidebar pattern's 24px radius is overridden too. 24px between
+   sibling comments (fixed, so it does not grow on wide screens). */
 .wp-block-comments .wp-block-comment-template {
 	list-style: none;
 	margin: 0;
@@ -27,7 +34,18 @@
 }
 
 .wp-block-comments .wp-block-comment-template > li {
-	margin-bottom: var(--wp--preset--spacing--large);
+	margin-bottom: 24px;
+}
+
+/* Avatar gutter + content alignment. The pattern hardcodes a 56px column and a
+   12px blockGap; override to the brief's 40px gutter / 16px gap, top-aligned. */
+.wp-block-comments .wp-block-comment-template > li > .wp-block-columns {
+	align-items: flex-start;
+	gap: 16px;
+}
+
+.wp-block-comments .wp-block-comment-template > li > .wp-block-columns > .wp-block-column:first-child {
+	flex: 0 0 40px;
 }
 
 .wp-block-comments .wp-block-avatar img {
@@ -35,21 +53,28 @@
 	border-radius: 999px;
 }
 
-/* Bubble — the content column reads as a soft chat bubble. */
+/* Bubble — the content column reads as a soft chat bubble. Flat (no shadow),
+   surface-muted fill, --radii-lg (16px), 16/20 padding. */
 .wp-block-comments .wp-block-comment-content {
 	background: var(--wp--preset--color--surface-muted);
-	border-radius: 12px;
+	border-radius: var(--wp--custom--radius--large);
 	color: var(--wp--preset--color--text-body);
 	margin-top: var(--wp--preset--spacing--extra-small);
+	overflow-wrap: break-word;
 	padding: 16px 20px;
 }
 
-/* Head meta — bold heading-colour author, muted date.
+/* Head meta — base/semibold heading-colour author, sm/muted date 4px under it.
    Core emits no "Author" text badge; the only post-author hook is .bypostauthor on
-   the list item, so the post author's NAME is accented pink (no markup added). */
+   the list item, so the post author's NAME is accented pink (no markup added).
+   overflow-wrap guards a long unbroken unicode name so it wraps cleanly inside the
+   content column instead of forcing the row wide. */
 .wp-block-comments .wp-block-comment-author-name {
 	color: var(--wp--preset--color--text-heading);
+	font-size: var(--wp--preset--font-size--regular);
 	font-weight: 600;
+	overflow-wrap: break-word;
+	word-break: break-word;
 }
 
 .wp-block-comments .wp-block-comment-author-name a {
@@ -60,7 +85,12 @@
 .wp-block-comments .wp-block-comment-date,
 .wp-block-comments .wp-block-comment-date a {
 	color: var(--wp--preset--color--text-muted);
+	font-size: var(--wp--preset--font-size--small);
 	text-decoration: none;
+}
+
+.wp-block-comments .wp-block-comment-date {
+	margin-top: var(--wp--preset--spacing--extra-small);
 }
 
 .wp-block-comments .bypostauthor > .wp-block-columns .wp-block-comment-author-name,
@@ -68,19 +98,29 @@
 	color: var(--wp--preset--color--primary);
 }
 
-/* Reply link — muted bold, primary on hover. */
+/* Reply link — sits 8px under the bubble and lines up with the comment TEXT, not
+   the bubble's outer edge: padding-left equals the bubble's inner padding (20px).
+   sm / semibold / muted at rest; primary on hover; no underline at rest. */
+.wp-block-comments .wp-block-comment-reply-link {
+	margin-top: var(--wp--preset--spacing--small);
+	padding-left: 20px;
+}
+
 .wp-block-comments .wp-block-comment-reply-link a {
 	color: var(--wp--preset--color--text-muted);
+	font-size: var(--wp--preset--font-size--small);
 	font-weight: 600;
 	text-decoration: none;
 	transition: color 120ms ease;
 }
 
 .wp-block-comments .wp-block-comment-reply-link a:hover {
-	color: color-mix(in srgb, var(--wp--preset--color--primary) 85%, white);
+	color: var(--wp--preset--color--primary);
 }
 
-/* Nested replies — core wraps child comments in .children; indent + gap. */
+/* Nested replies — core wraps child comments in .children; indent under the parent
+   content edge (40px gutter + 16px gap = 56px) so a reply's avatar lines up under
+   the parent comment's content. */
 .wp-block-comments .children {
 	list-style: none;
 	margin: var(--wp--preset--spacing--compact) 0 0;
