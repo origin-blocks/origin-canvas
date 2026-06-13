@@ -62,3 +62,19 @@
 .is-style-origin-canvas-postnav-stacked.post-navigation-link-next:not(.has-text-align-left):not(.has-text-align-center) {
 	text-align: right;
 }
+
+/* Arrow (only present if the user enables it). Core renders it as a <span> sibling
+   of the <a>, OUTSIDE the link, while the eyebrow __label is block-level inside the
+   link — so by default the arrow centres against the whole two-line stack and reads
+   as orphaned. Lay the wrapper out as a flex row with the arrow aligned to the first
+   (eyebrow) line so the arrow sits beside the prefix/suffix, not on its own line. */
+.is-style-origin-canvas-postnav-stacked:has(> .wp-block-post-navigation-link__arrow-previous),
+.is-style-origin-canvas-postnav-stacked:has(> .wp-block-post-navigation-link__arrow-next) {
+	align-items: baseline;
+	display: flex;
+	gap: var(--wp--preset--spacing--small);
+}
+
+/* Next arrow follows the link, so keep source order (arrow already after the <a>);
+   previous arrow precedes it (already before the <a>). The flex row above handles
+   both — the arrow just needs to align to the eyebrow line, which baseline does. */
