@@ -139,10 +139,17 @@
 	color: var(--wp--preset--color--primary);
 }
 
-/* Composer — surface-muted card (resting content, flat, no shadow), --radii-lg. */
+/* Composer — surface-muted card (resting content, flat, no shadow), --radii-lg.
+   The reply form (#respond.comment-respond.wp-block-post-comments-form) is the last
+   direct child of .wp-block-comments, after the comment list (and pagination when
+   present). Separating it is the FORM's responsibility, so the gap lives here as a
+   top margin (not a trailing margin on the list, which would mis-handle the
+   pagination case and leave dangling space when comments are closed). `large`
+   matches the heading -> list gap for consistent region rhythm. */
 .wp-block-comments .wp-block-post-comments-form {
 	background: var(--wp--preset--color--surface-muted);
 	border-radius: var(--wp--custom--radius--large);
+	margin-top: var(--wp--preset--spacing--large);
 	padding: var(--wp--preset--spacing--medium);
 }
 
