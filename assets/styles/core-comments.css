@@ -8,17 +8,11 @@
    on bubbles. */
 
 /* Section / title
-   Core renders the title inline (e.g. "One response to ..."); it does NOT emit a
-   separate count element, so there is no pill count to style — title colour only.
-   The heading aligns to the avatar gutter (no left inset) with clear space before
-   the first comment. */
+   Title colour + the gap below it (margin-bottom: large) live in theme.json
+   (core/comments-title), the FSE-native home — that block style out-specifies a
+   plain class selector here, so it is the source of truth for the heading. */
 .wp-block-comments {
 	margin-top: var(--wp--preset--spacing--large);
-}
-
-.wp-block-comments-title {
-	color: var(--wp--preset--color--text-heading);
-	margin-bottom: 32px;
 }
 
 /* Comment row layout
@@ -53,13 +47,26 @@
 	border-radius: 999px;
 }
 
+/* Content-column rhythm. The pattern's Columns block applies a uniform `compact`
+   blockGap as margin-block-start on every column child (name/date/bubble/reply),
+   which otherwise loosens the reply link away from its bubble and floats it toward
+   the NEXT comment. Zero that inherited gap on the content column, then set each
+   child's gap explicitly below: date 4px under name, bubble 8px, reply 8px. */
+.wp-block-comments .wp-block-comment-template > li > .wp-block-columns > .wp-block-column > * {
+	margin-block: 0;
+}
+
 /* Bubble — the content column reads as a soft chat bubble. Flat (no shadow),
-   surface-muted fill, --radii-lg (16px), compact/medium padding, small gap above. */
+   surface-muted fill, --radii-lg (16px), compact/medium padding, 8px (small) above.
+   Column-child path used so the 8px top gap beats the zeroed blockGap reset. */
+.wp-block-comments .wp-block-comment-template > li > .wp-block-columns > .wp-block-column > .wp-block-comment-content {
+	margin-top: var(--wp--preset--spacing--small);
+}
+
 .wp-block-comments .wp-block-comment-content {
 	background: var(--wp--preset--color--surface-muted);
 	border-radius: var(--wp--custom--radius--large);
 	color: var(--wp--preset--color--text-body);
-	margin-top: var(--wp--preset--spacing--small);
 	overflow-wrap: break-word;
 	padding: var(--wp--preset--spacing--compact) var(--wp--preset--spacing--medium);
 }
@@ -89,7 +96,9 @@
 	text-decoration: none;
 }
 
-.wp-block-comments .wp-block-comment-date {
+/* Date sits 4px under the name; specificity matches the column-child reset above
+   (same > .wp-block-column > path) so it wins on source order. */
+.wp-block-comments .wp-block-comment-template > li > .wp-block-columns > .wp-block-column > .wp-block-comment-date {
 	margin-top: var(--wp--preset--spacing--extra-small);
 }
 
@@ -98,11 +107,16 @@
 	color: var(--wp--preset--color--primary);
 }
 
-/* Reply link — sits 8px (small) under the bubble and lines up with the comment
-   TEXT, not the bubble's outer edge: padding-left equals the bubble's horizontal
-   padding (medium). sm / semibold / muted at rest; primary on hover; no underline. */
-.wp-block-comments .wp-block-comment-reply-link {
+/* Reply link — sits 8px (small) under ITS OWN bubble (not floating toward the next
+   comment) and lines up with the comment TEXT, not the bubble's outer edge:
+   padding-left equals the bubble's horizontal padding (medium). Column-child path so
+   the 8px top gap beats the zeroed blockGap reset. sm / semibold / muted at rest;
+   primary on hover; no underline. */
+.wp-block-comments .wp-block-comment-template > li > .wp-block-columns > .wp-block-column > .wp-block-comment-reply-link {
 	margin-top: var(--wp--preset--spacing--small);
+}
+
+.wp-block-comments .wp-block-comment-reply-link {
 	padding-left: var(--wp--preset--spacing--medium);
 }
 
@@ -199,9 +213,9 @@
 }
 
 /* Cookies-consent — rebuild the broken native checkbox. Row = flex with a 12px
-   gap; the 20px box nudged down 2px to sit on the label's first line. */
+   gap; box and (single-line) label centred on the same line. */
 .wp-block-comments .wp-block-post-comments-form .comment-form-cookies-consent {
-	align-items: flex-start;
+	align-items: center;
 	display: flex;
 	gap: var(--wp--preset--spacing--compact);
 }
@@ -215,7 +229,7 @@
 	cursor: pointer;
 	flex: 0 0 auto;
 	height: 20px;
-	margin: 2px 0 0;
+	margin: 0;
 	position: relative;
 	transition: background 120ms ease, border-color 120ms ease;
 	width: 20px;
