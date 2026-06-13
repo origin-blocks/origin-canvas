@@ -343,13 +343,13 @@ textarea:disabled {
 	width: 100%;
 }
 
-/* Sidebar */
-.origin-canvas-sidebar {
-	display: flex;
-	flex-direction: column;
-	gap: var(--wp--preset--spacing--large);
-}
-
+/* Sidebar.
+   Widget-to-widget spacing is owned by the group's blockGap (the pattern /
+   theme.json), which WordPress emits as constrained-layout `> * + *
+   margin-block-start`. No flex/gap is set on the wrapper here: a hard flex `gap`
+   would STACK with that constrained margin (they are additive), doubling the gap.
+   The rules below target inner block sub-elements that have no theme.json/blockGap
+   hook, so they legitimately stay CSS. */
 .origin-canvas-sidebar .wp-block-latest-posts__list,
 .origin-canvas-sidebar .wp-block-categories-list,
 .origin-canvas-sidebar .wp-block-archives-list,
