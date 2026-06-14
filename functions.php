@@ -292,6 +292,9 @@ if ( ! function_exists( 'origin_canvas_register_block_styles' ) ) {
 					),
 				),
 			),
+			'core/post-navigation-link' => array(
+				array( 'name' => 'origin-canvas-postnav-stacked', 'label' => __( 'Stacked', 'origin-canvas' ) ),
+			),
 			'core/tag-cloud'     => array(
 				array( 'name' => 'origin-canvas-tag-chip', 'label' => __( 'Chip', 'origin-canvas' ) ),
 			),
