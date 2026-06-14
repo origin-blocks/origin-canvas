@@ -30,7 +30,7 @@
 	background-color: color-mix(in srgb, currentColor 4%, transparent);
 	border-radius: inherit;
 	content: "";
-	inset: -0.35em -0.75em;
+	inset: -0.5em -1em;
 	opacity: 0;
 	pointer-events: none;
 	position: absolute;
@@ -79,17 +79,17 @@
 	z-index: 20;
 }
 
-/* Top-level submenu clears the hover-pill badge (which extends 0.35em below the item),
+/* Top-level submenu clears the hover-pill badge (which extends 0.5em below the item),
    offset via translate so its box still starts at the item's bottom edge (no layout gap),
    and a transparent ::before bridges the visual gap so hover stays continuous (no dead-zone). */
 .wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-navigation-item > .wp-block-navigation__submenu-container {
-	transform: translateY(0.5em);
+	transform: translateY(0.65em);
 }
 
 .wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-navigation-item > .wp-block-navigation__submenu-container::before {
 	content: "";
 	bottom: 100%;
-	height: 0.5em;
+	height: 0.65em;
 	left: 0;
 	position: absolute;
 	right: 0;
