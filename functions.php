@@ -397,3 +397,34 @@ if ( ! function_exists( 'origin_canvas_enqueue_block_styles_editor' ) ) {
 	}
 }
 add_action( 'enqueue_block_assets', 'origin_canvas_enqueue_block_styles_editor' );
+
+if ( ! function_exists( 'origin_canvas_rewrite_legacy_card_image_paths' ) ) {
+	/**
+	 * TRANSITIONAL back-compat shim — REMOVE IN 1.3.0.
+	 *
+	 * Card pattern images moved from /assets/images/cards/ to /patterns/images/
+	 * in 1.1.0 (commit 1de024e). wp:image / wp:cover are static blocks, so sites
+	 * that inserted these patterns under 1.0.x have the OLD absolute URL frozen in
+	 * their post content and show broken images after updating.
+	 *
+	 * This rewrites the legacy path to the new one at RENDER time only. It does NOT
+	 * touch the database / user content (non-destructive, reversible) and does NOT
+	 * resurrect the old directory. Sunset: delete this function + its add_filter in
+	 * 1.3.0, by which point affected content will have re-saved or moved on.
+	 *
+	 * @param string $block_content Rendered block HTML.
+	 * @return string Block HTML with the legacy card-image path rewritten.
+	 */
+	function origin_canvas_rewrite_legacy_card_image_paths( $block_content ) {
+		if ( false === strpos( $block_content, '/assets/images/cards/' ) ) {
+			return $block_content;
+		}
+
+		return str_replace(
+			'/assets/images/cards/',
+			'/patterns/images/',
+			$block_content
+		);
+	}
+}
+add_filter( 'render_block', 'origin_canvas_rewrite_legacy_card_image_paths' );
