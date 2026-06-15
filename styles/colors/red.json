@@ -54,6 +54,11 @@
 					"slug": "text-muted",
 					"color": "#6B7280",
 					"name": "Text Muted"
+				},
+				{
+					"slug": "on-dark",
+					"color": "#F3F4F6",
+					"name": "On Dark"
 				}
 			]
 		}

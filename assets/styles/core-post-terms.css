@@ -1,31 +1,32 @@
-/* Pill */
-.is-style-origin-canvas-term-button {
+/* Chip — structural only; colours/background/radius/padding/font-size are delivered
+   via register_block_style style_data (see functions.php). */
+.is-style-origin-canvas-term-chip {
 	display: flex;
 	flex-wrap: wrap;
-	gap: 8px;
+	gap: var(--wp--preset--spacing--small);
 }
 
-.is-style-origin-canvas-term-button a {
-	background: var(--wp--preset--color--surface-subtle-hover);
-	border-radius: 9999px;
-	color: var(--wp--preset--color--text-body);
-	display: inline-block;
-	font-size: var(--wp--preset--font-size--extra-small);
-	font-weight: 500;
-	padding: 4px 12px;
-	text-decoration: none;
-	transition: background 120ms ease;
+.is-style-origin-canvas-term-chip a {
+	display: inline-flex;
+	transition: background 120ms ease, color 120ms ease;
 }
 
-.is-style-origin-canvas-term-button a:hover {
-	background: var(--wp--preset--color--border);
-}
-
-.is-style-origin-canvas-term-button .wp-block-post-terms__separator {
+.is-style-origin-canvas-term-chip .wp-block-post-terms__separator {
 	display: none;
 }
 
-.is-style-origin-canvas-term-button .wp-block-post-terms__prefix {
+.is-style-origin-canvas-term-chip .wp-block-post-terms__prefix {
 	align-self: center;
 	line-height: 1;
+}
+
+/* Inline — structural only; main/link colours + link hover are delivered via
+   register_block_style style_data (see functions.php). The prefix span has no
+   theme.json hook, so its "one lighter" tone stays here. */
+.is-style-origin-canvas-term-inline .wp-block-post-terms__prefix {
+	color: var(--wp--preset--color--text-muted);
+}
+
+.is-style-origin-canvas-term-inline a {
+	transition: color 120ms ease;
 }

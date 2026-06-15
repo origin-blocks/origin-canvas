@@ -86,6 +86,17 @@ The check icon used by the Check list block style is sourced from [Lucide](https
 
 == Changelog ==
 
+= 1.1.0 - 15 June 2026 =
+* Redesigned the single-post comments as quiet bubble cards with clearer thread rhythm, nested-reply indentation, and a tidier reply form.
+* Added a name-led author card to single posts, with the avatar and name balanced in lockstep.
+* Added a Stacked variation for post navigation (previous/next), with an eyebrow label and refined single-post spacing.
+* Added Chip and Inline style variations for post tags and the tag cloud, selectable and recolourable in the editor.
+* Refined the sidebar: flattened structure, left-aligned with a cleaner spacing rhythm, lighter dates, and a tuned recent-posts layout.
+* Enlarged the primary navigation hover pill and aligned the submenu clearance to sit neatly below it.
+* Added token-driven outline buttons (including an on-dark variant for the dark hero) and refined button hover states.
+* Loaded per-block stylesheets into the block editor canvas so the editor preview matches the front end.
+* Various comment, sidebar, and link colour refinements, plus consistent alphabetical CSS property ordering.
+
 = 1.0.4 - 05 June 2026 =
 * Underlined links in standalone paragraph and list blocks so links are clear outside post content.
 * Refined two demo links (team social row, newsletter privacy) to a subtle darker colour with hover instead of an underline.

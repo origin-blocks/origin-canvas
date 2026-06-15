@@ -14,7 +14,7 @@
 ?>
 <!-- wp:group {"backgroundColor":"surface-muted","style":{"border":{"radius":"var:custom|radius|medium"},"spacing":{"padding":{"top":"0","right":"0","bottom":"var:preset|spacing|large","left":"0"},"blockGap":"var:preset|spacing|medium"}},"layout":{"type":"constrained"}} -->
 <div class="wp-block-group has-surface-muted-background-color has-background" style="border-radius:var(--wp--custom--radius--medium);padding-top:0;padding-right:0;padding-bottom:var(--wp--preset--spacing--large);padding-left:0"><!-- wp:image {"aspectRatio":"3/2","linkDestination":"none","className":"origin-canvas-card-blog-image"} -->
-<figure class="wp-block-image origin-canvas-card-blog-image"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/cards/card-blog-1.webp" alt="<?php esc_attr_e( 'A blank client brief, notebook, pencil, and clipped papers on a pale desk.', 'origin-canvas' ); ?>" style="aspect-ratio:3/2"/></figure>
+<figure class="wp-block-image origin-canvas-card-blog-image"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/card-blog-1.webp" alt="<?php esc_attr_e( 'A blank client brief, notebook, pencil, and clipped papers on a pale desk.', 'origin-canvas' ); ?>" style="aspect-ratio:3/2"/></figure>
 <!-- /wp:image -->
 
 <!-- wp:group {"style":{"spacing":{"padding":{"left":"var:preset|spacing|large","right":"var:preset|spacing|large"},"blockGap":"0"}},"layout":{"type":"constrained"}} -->

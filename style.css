@@ -7,7 +7,7 @@ Description: A Full Site Editing WordPress block theme for sites that look desig
 Requires at least: 7.0
 Tested up to: 7.0
 Requires PHP: 7.4
-Version: 1.0.4
+Version: 1.1.0
 License: GNU General Public License v3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 Text Domain: origin-canvas
@@ -59,6 +59,38 @@ ul.wp-block-list,
 ol.wp-block-list,
 .wp-block-list ol {
 	list-style-type: decimal;
+}
+
+/* Comment bodies are freeform HTML with no layout container, so the global
+   margin + list-style resets above are not otherwise restored here. */
+.wp-block-comment-content > * + * {
+	margin-block-start: var(--wp--preset--spacing--medium);
+}
+
+.wp-block-comment-content ul,
+.wp-block-comment-content ol {
+	list-style-position: outside;
+	padding-inline-start: var(--wp--preset--spacing--medium);
+}
+
+.wp-block-comment-content ul {
+	list-style-type: disc;
+}
+
+.wp-block-comment-content ol {
+	list-style-type: decimal;
+}
+
+/* Contain long unbreakable strings so they wrap inside the card. */
+.wp-block-comment-content {
+	overflow-wrap: break-word;
+	word-break: break-word;
+}
+
+/* Preformatted/code wraps inside the card instead of overflowing. */
+.wp-block-comment-content pre {
+	overflow-wrap: break-word;
+	white-space: pre-wrap;
 }
 
 a {
@@ -311,71 +343,34 @@ textarea:disabled {
 	width: 100%;
 }
 
-/* Sidebar */
-.origin-canvas-sidebar {
-	display: flex;
-	flex-direction: column;
-	gap: var(--wp--preset--spacing--large);
-}
-
-.origin-canvas-sidebar a:hover {
-	color: var(--wp--preset--color--primary);
-}
-
-.origin-canvas-sidebar .wp-block-heading {
-	color: var(--wp--preset--color--text-heading);
-	font-size: var(--wp--preset--font-size--small);
-	font-weight: 600;
-	margin-bottom: var(--wp--preset--spacing--small);
-}
-
+/* Sidebar.
+   Widget-to-widget spacing is owned by the group's blockGap (the pattern /
+   theme.json), which WordPress emits as constrained-layout `> * + *
+   margin-block-start`. No flex/gap is set on the wrapper here: a hard flex `gap`
+   would STACK with that constrained margin (they are additive), doubling the gap.
+   The rules below target inner block sub-elements that have no theme.json/blockGap
+   hook, so they legitimately stay CSS. */
 .origin-canvas-sidebar .wp-block-latest-posts__list,
 .origin-canvas-sidebar .wp-block-categories-list,
 .origin-canvas-sidebar .wp-block-archives-list,
 .origin-canvas-sidebar .wp-block-latest-comments {
-	list-style: none;
-	margin: 0;
-	padding: 0;
 	display: flex;
 	flex-direction: column;
 	gap: var(--wp--preset--spacing--small);
+	list-style: none;
+	margin: 0;
+	padding: 0;
 }
 
 .origin-canvas-sidebar .wp-block-latest-posts__featured-image {
-	border-radius: var(--wp--custom--radius--medium);
 	margin-bottom: var(--wp--preset--spacing--extra-small);
-	overflow: hidden;
 }
 
 .origin-canvas-sidebar .wp-block-latest-posts__post-date,
 .origin-canvas-sidebar .wp-block-latest-comments__comment-date {
-	color: var(--wp--preset--color--text-body);
+	color: var(--wp--preset--color--text-muted);
 	font-size: var(--wp--preset--font-size--extra-small);
 	font-weight: 500;
-}
-
-.origin-canvas-sidebar .wp-block-tag-cloud {
-	display: flex;
-	flex-wrap: wrap;
-	gap: var(--wp--preset--spacing--small);
-}
-
-.origin-canvas-sidebar .wp-block-tag-cloud a {
-	background: var(--wp--preset--color--surface-muted);
-	border: 1px solid var(--wp--preset--color--border);
-	border-radius: var(--wp--custom--radius--medium);
-	color: var(--wp--preset--color--text-heading);
-	display: inline-flex;
-	font-size: var(--wp--preset--font-size--extra-small);
-	font-weight: 600;
-	line-height: 1;
-	padding: var(--wp--preset--spacing--extra-small) var(--wp--preset--spacing--small);
-	text-decoration: none;
-}
-
-.origin-canvas-sidebar .wp-block-tag-cloud a:hover {
-	background: var(--wp--preset--color--surface-subtle-hover);
-	color: var(--wp--preset--color--text-heading);
 }
 
 @media (max-width: 781px) {
@@ -385,77 +380,6 @@ textarea:disabled {
 		padding-top: var(--wp--preset--spacing--huge);
 	}
 }
-
-/* Post author */
-.wp-block-post-author__avatar,
-.wp-block-post-author__avatar img {
-	border-radius: 999px;
-}
-
-.wp-block-post-author__avatar img {
-	object-fit: cover;
-}
-
-/* Comments */
-.wp-block-comments {
-	display: flex;
-	flex-direction: column;
-	gap: var(--wp--preset--spacing--large);
-}
-
-.wp-block-comments .comment-reply-title {
-	color: var(--wp--preset--color--text-heading);
-	font-size: var(--wp--preset--font-size--medium);
-	font-weight: 600;
-	margin-bottom: var(--wp--preset--spacing--small);
-}
-
-.wp-block-post-comments-form .comment-form {
-	display: flex;
-	flex-direction: column;
-	gap: var(--wp--preset--spacing--medium);
-}
-
-.wp-block-post-comments-form .comment-form > p {
-	margin: 0;
-}
-
-.wp-block-post-comments-form .comment-form-comment,
-.wp-block-post-comments-form .comment-form-author,
-.wp-block-post-comments-form .comment-form-email,
-.wp-block-post-comments-form .comment-form-url {
-	display: flex;
-	flex-direction: column;
-	gap: var(--wp--preset--spacing--extra-small);
-}
-
-.wp-block-post-comments-form label {
-	color: var(--wp--preset--color--text-heading);
-	font-weight: 500;
-}
-
-.wp-block-post-comments-form .comment-form-cookies-consent {
-	align-items: center;
-	display: flex;
-	gap: var(--wp--preset--spacing--small);
-	margin-top: 0;
-}
-
-.wp-block-post-comments-form .comment-form-cookies-consent #wp-comment-cookies-consent {
-	margin-block: 0;
-}
-
-.wp-block-post-comments-form .comment-form-cookies-consent label {
-	color: var(--wp--preset--color--text-body);
-	font-size: var(--wp--preset--font-size--small);
-	font-weight: 500;
-}
-
-.wp-block-post-comments-form .form-submit {
-	align-self: flex-start;
-}
-
-/* Submit button inherits core button tokens from theme.json. */
 
 /* Pagination */
 .wp-block-query-pagination,

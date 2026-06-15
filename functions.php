@@ -204,104 +204,6 @@ if ( ! function_exists( 'origin_canvas_featured_image_fallback' ) ) {
 }
 add_filter( 'render_block_core/post-featured-image', 'origin_canvas_featured_image_fallback', 10, 2 );
 
-if ( ! function_exists( 'origin_canvas_adjust_post_author_avatar' ) ) {
-	/**
-	 * Adjust the Post Author avatar size with high-DPI support.
-	 *
-	 * @param string $block_content Rendered block HTML.
-	 * @param array  $block Block metadata and attributes.
-	 * @return string
-	 */
-	function origin_canvas_adjust_post_author_avatar( $block_content, $block ) {
-		if ( is_author() ) {
-			return $block_content;
-		}
-
-		if ( strpos( $block_content, 'wp-block-post-author__avatar' ) === false ) {
-			return $block_content;
-		}
-
-		$display_size = 120;
-		if ( is_array( $block ) && isset( $block['attrs']['avatarSize'] ) && is_numeric( $block['attrs']['avatarSize'] ) ) {
-			$display_size = (int) $block['attrs']['avatarSize'];
-		}
-		$author_id = 0;
-
-		if ( is_array( $block ) && isset( $block['context']['postId'] ) ) {
-			$author_id = (int) get_post_field( 'post_author', $block['context']['postId'] );
-		}
-
-		if ( ! $author_id ) {
-			$author_id = (int) get_the_author_meta( 'ID' );
-		}
-
-		if ( ! $author_id ) {
-			$author_id = (int) get_query_var( 'author' );
-		}
-
-		if ( ! $author_id ) {
-			return $block_content;
-		}
-
-		$fetch_size = $display_size * 2;
-
-		$avatar_html = get_avatar( $author_id, $fetch_size );
-		if ( ! $avatar_html ) {
-			return $block_content;
-		}
-
-		$avatar_html = preg_replace(
-			'/\b(width|height)=([\"\'])\d+\2/',
-			'$1=${2}' . $display_size . '${2}',
-			$avatar_html
-		);
-		$avatar_html = preg_replace(
-			'/\bavatar-\d+\b/',
-			'avatar-' . $display_size,
-			$avatar_html
-		);
-
-		if ( strpos( $avatar_html, 'wp-content' ) !== false ) {
-			preg_match( '/src="([^"]+)"/', $avatar_html, $src_matches );
-			if ( ! empty( $src_matches[1] ) ) {
-				$current_url = $src_matches[1];
-				$url_1x = preg_replace( '/-\d+x\d+(\.[^.]+)$/', '-' . $display_size . 'x' . $display_size . '$1', $current_url );
-				$url_2x = $current_url;
-
-				$upload_dir = wp_get_upload_dir();
-				$path_1x = str_replace( $upload_dir['baseurl'], $upload_dir['basedir'], $url_1x );
-				$path_2x = str_replace( $upload_dir['baseurl'], $upload_dir['basedir'], $url_2x );
-
-				if ( file_exists( $path_1x ) && file_exists( $path_2x ) ) {
-					$avatar_html = preg_replace(
-						'/(<img[^>]+src="[^"]+")([^>]*>)/',
-						'$1 srcset="' . esc_url( $url_1x ) . ' 1x, ' . esc_url( $url_2x ) . ' 2x"$2',
-						$avatar_html
-					);
-				} elseif ( file_exists( $path_1x ) ) {
-					$original_url = preg_replace( '/-\d+x\d+(\.[^.]+)$/', '$1', $url_1x );
-					$original_path = str_replace( $upload_dir['baseurl'], $upload_dir['basedir'], $original_url );
-
-					if ( file_exists( $original_path ) ) {
-						$avatar_html = preg_replace(
-							'/(<img[^>]+src="[^"]+")([^>]*>)/',
-							'$1 srcset="' . esc_url( $url_1x ) . ' 1x, ' . esc_url( $original_url ) . ' 2x"$2',
-							$avatar_html
-						);
-					}
-				}
-			}
-		}
-
-		return preg_replace(
-			'/(<div class="wp-block-post-author__avatar">).*?(<\/div>)/s',
-			'$1' . $avatar_html . '$2',
-			$block_content
-		);
-	}
-}
-add_filter( 'render_block_core/post-author', 'origin_canvas_adjust_post_author_avatar', 10, 2 );
-
 if ( ! function_exists( 'origin_canvas_register_block_styles' ) ) {
 	/**
 	 * Register block style variations.
@@ -312,9 +214,7 @@ if ( ! function_exists( 'origin_canvas_register_block_styles' ) ) {
 		$block_styles = array(
 			'core/button'        => array(
 				array( 'name' => 'origin-canvas-outline-strong', 'label' => __( 'Outline Strong', 'origin-canvas' ) ),
-			),
-			'core/post-author'   => array(
-				array( 'name' => 'origin-canvas-author', 'label' => __( 'Origin Canvas Author', 'origin-canvas' ) ),
+				array( 'name' => 'origin-canvas-outline-light', 'label' => __( 'Outline Light', 'origin-canvas' ) ),
 			),
 			'core/list'          => array(
 				array( 'name' => 'origin-canvas-list-check', 'label' => __( 'Check', 'origin-canvas' ) ),
@@ -333,7 +233,70 @@ if ( ! function_exists( 'origin_canvas_register_block_styles' ) ) {
 				array( 'name' => 'origin-canvas-media-boxed', 'label' => __( 'Boxed', 'origin-canvas' ) ),
 			),
 			'core/post-terms'    => array(
-				array( 'name' => 'origin-canvas-term-button', 'label' => __( 'Pill', 'origin-canvas' ) ),
+				array(
+					'name'       => 'origin-canvas-term-chip',
+					'label'      => __( 'Chip', 'origin-canvas' ),
+					'style_data' => array(
+						'elements' => array(
+							'link' => array(
+								'color'      => array(
+									'text'       => 'var:preset|color|text-heading',
+									'background' => 'var:preset|color|surface-muted',
+								),
+								'border'     => array(
+									'radius' => 'var:custom|radius|medium',
+								),
+								'spacing'    => array(
+									'padding' => array(
+										'top'    => '6px',
+										'right'  => '8px',
+										'bottom' => '6px',
+										'left'   => '8px',
+									),
+								),
+								'typography' => array(
+									'fontSize' => 'var:preset|font-size|extra-small',
+								),
+								':hover'     => array(
+									'color' => array(
+										'text'       => 'var:preset|color|surface-base',
+										'background' => 'var:preset|color|primary',
+									),
+								),
+							),
+						),
+					),
+				),
+				array(
+					'name'       => 'origin-canvas-term-inline',
+					'label'      => __( 'Inline', 'origin-canvas' ),
+					'style_data' => array(
+						'color'    => array(
+							'text' => 'var:preset|color|text-body',
+						),
+						'elements' => array(
+							'link' => array(
+								'color'      => array(
+									'text' => 'var:preset|color|text-heading',
+								),
+								'typography' => array(
+									'textDecoration' => 'none',
+								),
+								':hover'     => array(
+									'color' => array(
+										'text' => 'var:preset|color|primary',
+									),
+								),
+							),
+						),
+					),
+				),
+			),
+			'core/post-navigation-link' => array(
+				array( 'name' => 'origin-canvas-postnav-stacked', 'label' => __( 'Stacked', 'origin-canvas' ) ),
+			),
+			'core/tag-cloud'     => array(
+				array( 'name' => 'origin-canvas-tag-chip', 'label' => __( 'Chip', 'origin-canvas' ) ),
 			),
 			'core/post-excerpt'  => array(
 				array( 'name' => 'origin-canvas-excerpt-truncate-2', 'label' => __( 'Truncate 2 Lines', 'origin-canvas' ) ),
@@ -387,9 +350,50 @@ if ( ! function_exists( 'origin_canvas_enqueue_block_styles' ) ) {
 					'handle' => "origin-canvas-block-{$filename}",
 					'src'    => get_theme_file_uri( "assets/styles/{$filename}.css" ),
 					'path'   => get_theme_file_path( "assets/styles/{$filename}.css" ),
+					'ver'    => ORIGIN_CANVAS_VERSION,
 				)
 			);
 		}
 	}
 }
 add_action( 'init', 'origin_canvas_enqueue_block_styles' );
+
+if ( ! function_exists( 'origin_canvas_enqueue_block_styles_editor' ) ) {
+	/**
+	 * Enqueue every per-block stylesheet into the block editor canvas.
+	 *
+	 * The front-end loader (origin_canvas_enqueue_block_styles) uses
+	 * wp_enqueue_block_style(), which on block themes takes the on-demand path
+	 * and returns before registering its editor (enqueue_block_assets) hook —
+	 * so per-block CSS never reaches the editor iframe. The editor should preview
+	 * every variation, so enqueue all of them here, admin-side only.
+	 *
+	 * Same handle/src scheme as the front-end loader, so WP dedupes by handle
+	 * and the editor loads byte-identical CSS.
+	 */
+	function origin_canvas_enqueue_block_styles_editor() {
+		if ( ! is_admin() ) {
+			return;
+		}
+
+		$files = glob( get_template_directory() . '/assets/styles/*.css' );
+
+		if ( empty( $files ) ) {
+			return;
+		}
+
+		foreach ( $files as $file ) {
+			$filename = basename( $file, '.css' );
+
+			// TODO: if -rtl.css files are ever added, mirror the front-end
+			// loader's RTL handling here via wp_style_add_data().
+			wp_enqueue_style(
+				"origin-canvas-block-{$filename}",
+				get_theme_file_uri( "assets/styles/{$filename}.css" ),
+				array(),
+				ORIGIN_CANVAS_VERSION
+			);
+		}
+	}
+}
+add_action( 'enqueue_block_assets', 'origin_canvas_enqueue_block_styles_editor' );
