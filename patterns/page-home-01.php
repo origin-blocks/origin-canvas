@@ -1,8 +1,8 @@
 <?php
 /**
- * Title: Demo Home Page 01
+ * Title: Home
  * Slug: origin-canvas/page-home-01
- * Description: A full page design for the Demo Home Page 01 screenshot.
+ * Description: A full home page layout — insert into a Page and set it as your static front page.
  * Categories: origin-canvas/page
  * Keywords: page, layout, design, template, home
  * Viewport Width: 1500
