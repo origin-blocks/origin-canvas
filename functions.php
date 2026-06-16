@@ -403,14 +403,17 @@ if ( ! function_exists( 'origin_canvas_rewrite_legacy_card_image_paths' ) ) {
 	 * TRANSITIONAL back-compat shim — REMOVE IN 1.3.0.
 	 *
 	 * Card pattern images moved from /assets/images/cards/ to /patterns/images/
-	 * in 1.1.0 (commit 1de024e). wp:image / wp:cover are static blocks, so sites
-	 * that inserted these patterns under 1.0.x have the OLD absolute URL frozen in
-	 * their post content and show broken images after updating.
+	 * (commit 1de024e). core/image and core/cover are static blocks, so sites that
+	 * inserted these patterns under the previously-published 1.0.4 have the OLD
+	 * absolute URL frozen in their post content and would show broken images after
+	 * the move ships.
 	 *
-	 * This rewrites the legacy path to the new one at RENDER time only. It does NOT
-	 * touch the database / user content (non-destructive, reversible) and does NOT
-	 * resurrect the old directory. Sunset: delete this function + its add_filter in
-	 * 1.3.0, by which point affected content will have re-saved or moved on.
+	 * Rewrites the legacy path to the new one at RENDER time only. It does NOT touch
+	 * the database / user content (non-destructive, reversible) and does NOT
+	 * resurrect the old directory. Scoped to the only two block types that carry
+	 * these URLs (image + cover) — not a generic render_block filter — to stay well
+	 * inside theme territory. Sunset: delete this function + the two add_filter calls
+	 * below in 1.3.0, by which point affected content will have re-saved or moved on.
 	 *
 	 * @param string $block_content Rendered block HTML.
 	 * @return string Block HTML with the legacy card-image path rewritten.
@@ -427,4 +430,5 @@ if ( ! function_exists( 'origin_canvas_rewrite_legacy_card_image_paths' ) ) {
 		);
 	}
 }
-add_filter( 'render_block', 'origin_canvas_rewrite_legacy_card_image_paths' );
+add_filter( 'render_block_core/image', 'origin_canvas_rewrite_legacy_card_image_paths' );
+add_filter( 'render_block_core/cover', 'origin_canvas_rewrite_legacy_card_image_paths' );
