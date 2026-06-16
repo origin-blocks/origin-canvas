@@ -20,9 +20,110 @@ if ( ! function_exists( 'origin_canvas_setup' ) ) {
 		add_theme_support( 'responsive-embeds' );
 		add_theme_support( 'editor-styles' );
 		add_editor_style( 'style.css' );
+
+		/*
+		 * Starter content (FRESH installs only — core ignores it on sites that
+		 * already have content). Seeds a user-OWNED "Home" Page from the
+		 * page-home-01 design and sets it as the static front page, so the
+		 * (front-page.html-less) template hierarchy renders that Page.
+		 *
+		 * The Home page's post_content is injected, fully expanded and
+		 * single-sourced from the page-home-01 pattern, via the
+		 * `get_theme_starter_content` filter below (patterns aren't registered
+		 * yet at after_setup_theme time, so the content is built lazily there).
+		 */
+		add_theme_support(
+			'starter-content',
+			array(
+				'posts'   => array(
+					'home' => array(
+						'post_type'  => 'page',
+						'post_title' => _x( 'Home', 'Theme starter content', 'origin-canvas' ),
+						// post_content is filled in by origin_canvas_starter_content_home_blocks().
+					),
+				),
+				'options' => array(
+					'show_on_front' => 'page',
+					'page_on_front' => '{{home}}',
+				),
+			)
+		);
 	}
 }
 add_action( 'after_setup_theme', 'origin_canvas_setup' );
+
+if ( ! function_exists( 'origin_canvas_expand_pattern_blocks' ) ) {
+	/**
+	 * Return a registered pattern's block markup with any nested wp:pattern
+	 * references expanded into their own block markup (recursively).
+	 *
+	 * Single source of truth: the content comes straight from the registered
+	 * patterns (the same /patterns/*.php files WordPress registers, with their
+	 * PHP — image URLs, i18n — already executed), so seeded content can never
+	 * drift from the pattern. Expanding nested refs yields FULL blocks (not
+	 * pattern references), which is what gives the user genuine ownership of the
+	 * seeded Home page rather than a theme-controlled live render.
+	 *
+	 * @param string $slug  Registered pattern slug.
+	 * @param int    $depth Recursion guard.
+	 * @return string Expanded block markup, or '' if the pattern is unknown.
+	 */
+	function origin_canvas_expand_pattern_blocks( $slug, $depth = 0 ) {
+		if ( $depth > 10 || ! class_exists( 'WP_Block_Patterns_Registry' ) ) {
+			return '';
+		}
+
+		$registry = WP_Block_Patterns_Registry::get_instance();
+		if ( ! $registry->is_registered( $slug ) ) {
+			return '';
+		}
+
+		$pattern = $registry->get_registered( $slug );
+		$content = isset( $pattern['content'] ) ? $pattern['content'] : '';
+
+		// Expand any nested wp:pattern references in place.
+		return preg_replace_callback(
+			'#<!--\s*wp:pattern\s*(\{.*?\})\s*/-->#s',
+			static function ( $matches ) use ( $depth ) {
+				$attrs = json_decode( $matches[1], true );
+				if ( empty( $attrs['slug'] ) ) {
+					return $matches[0];
+				}
+				$expanded = origin_canvas_expand_pattern_blocks( $attrs['slug'], $depth + 1 );
+				return '' !== $expanded ? $expanded : $matches[0];
+			},
+			$content
+		);
+	}
+}
+
+if ( ! function_exists( 'origin_canvas_starter_content_home_blocks' ) ) {
+	/**
+	 * Inject the Home page's starter-content blocks, expanded from page-home-01.
+	 *
+	 * Runs on the `get_theme_starter_content` filter (Customizer/install time,
+	 * after `init`), by which point page-home-01 and its sections are
+	 * registered, so they can be expanded to full block markup. If expansion
+	 * fails (e.g. patterns not yet available), the Home page is left without
+	 * content rather than seeding a broken pattern reference.
+	 *
+	 * @param array $content Prepared starter content.
+	 * @return array
+	 */
+	function origin_canvas_starter_content_home_blocks( $content ) {
+		if ( empty( $content['posts']['home'] ) || ! empty( $content['posts']['home']['post_content'] ) ) {
+			return $content;
+		}
+
+		$blocks = origin_canvas_expand_pattern_blocks( 'origin-canvas/page-home-01' );
+		if ( '' !== $blocks ) {
+			$content['posts']['home']['post_content'] = $blocks;
+		}
+
+		return $content;
+	}
+}
+add_filter( 'get_theme_starter_content', 'origin_canvas_starter_content_home_blocks' );
 
 if ( ! function_exists( 'origin_canvas_enqueue_styles' ) ) {
 	/**
