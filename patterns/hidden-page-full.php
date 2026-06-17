@@ -9,7 +9,7 @@
  */
 
 ?>
-<!-- wp:pattern {"slug":"origin-canvas/header-default"} /-->
+<!-- wp:template-part {"slug":"header","theme":"origin-canvas","area":"header"} /-->
 
 <!-- wp:group {"tagName":"main","style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"layout":{"type":"default"}} -->
 <main class="wp-block-group" style="margin-top:0;margin-bottom:0"><!-- wp:post-content {"layout":{"type":"constrained"}} /--></main>
