@@ -2,7 +2,7 @@
 /**
  * Title: Card Icon Text
  * Slug: origin-canvas/card-icon-text
- * Categories: features
+ * Categories: origin-canvas/card
  * Keywords: cards, icons, features, two column, horizontal
  * Block Types: core/post-content
  * Inserter: true

@@ -2,7 +2,7 @@
 /**
  * Title: Card Info
  * Slug: origin-canvas/card-info
- * Categories: features
+ * Categories: origin-canvas/card
  * Keywords: cards, features, icons, grid, info, three column, six cards
  * Block Types: core/post-content
  * Inserter: true

@@ -2,7 +2,7 @@
 /**
  * Title: Card Stat
  * Slug: origin-canvas/card-stat
- * Categories: features
+ * Categories: origin-canvas/card
  * Keywords: stats, numbers, metrics, four column, kpi
  * Block Types: core/post-content
  * Inserter: true
