@@ -2,7 +2,7 @@
 /**
  * Title: Card Image Text
  * Slug: origin-canvas/card-image-text
- * Categories: features
+ * Categories: origin-canvas/card
  * Keywords: cards, image, articles, two column, content
  * Block Types: core/post-content
  * Inserter: true
