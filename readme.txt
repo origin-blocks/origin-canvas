@@ -86,7 +86,7 @@ The check icon used by the Check list block style is sourced from [Lucide](https
 
 == Changelog ==
 
-= 1.1.0 - 15 June 2026 =
+= 1.1.0 - 17 June 2026 =
 * Redesigned the single-post comments as quiet bubble cards with clearer thread rhythm, nested-reply indentation, and a tidier reply form.
 * Added a name-led author card to single posts, with the avatar and name balanced in lockstep.
 * Added a Stacked variation for post navigation (previous/next), with an eyebrow label and refined single-post spacing.
@@ -96,6 +96,11 @@ The check icon used by the Check list block style is sourced from [Lucide](https
 * Added token-driven outline buttons (including an on-dark variant for the dark hero) and refined button hover states.
 * Loaded per-block stylesheets into the block editor canvas so the editor preview matches the front end.
 * Various comment, sidebar, and link colour refinements, plus consistent alphabetical CSS property ordering.
+* Switched the homepage to a user-owned front page: the Home design is now an insertable pattern you place into a Page and set as your static front page, so you fully own and can edit its content (removed the theme-locked front-page template).
+* Wired the site header as a single global template part, so editing the header once updates it across every template — matching how the footer already worked.
+* Normalized vertical spacing between Home page sections so each section's padding controls its own spacing (removed a doubled gap between stacked sections).
+* Added a Cards pattern category and fixed four card patterns that previously appeared under Uncategorized.
+* Added a transitional compatibility shim that rewrites legacy card image paths so existing content keeps rendering after the asset move (sunset planned for a later release).
 
 = 1.0.4 - 05 June 2026 =
 * Underlined links in standalone paragraph and list blocks so links are clear outside post content.
