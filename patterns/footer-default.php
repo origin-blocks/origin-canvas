@@ -9,8 +9,8 @@
  * @package Origin
  */
 ?>
-<!-- wp:group {"tagName":"footer","metadata":{"name":"Footer"},"align":"full","style":{"spacing":{"padding":{"top":"var:preset|spacing|colossal","bottom":"var:preset|spacing|colossal"}},"border":{"top":{"color":"var:preset|color|border","width":"1px"}}},"backgroundColor":"surface-base","layout":{"inherit":true,"type":"constrained"}} -->
-<footer class="wp-block-group alignfull has-surface-base-background-color has-background" style="border-top-color:var(--wp--preset--color--border);border-top-width:1px;padding-top:var(--wp--preset--spacing--colossal);padding-bottom:var(--wp--preset--spacing--colossal)"><!-- wp:columns {"align":"wide"} -->
+<!-- wp:group {"tagName":"footer","metadata":{"name":"Footer"},"align":"full","style":{"spacing":{"padding":{"top":"var:preset|spacing|huge","bottom":"var:preset|spacing|large"}},"border":{"top":{"color":"var:preset|color|border","width":"1px"}}},"backgroundColor":"surface-base","layout":{"inherit":true,"type":"constrained"}} -->
+<footer class="wp-block-group alignfull has-surface-base-background-color has-background" style="border-top-color:var(--wp--preset--color--border);border-top-width:1px;padding-top:var(--wp--preset--spacing--huge);padding-bottom:var(--wp--preset--spacing--large)"><!-- wp:columns {"align":"wide"} -->
 <div class="wp-block-columns alignwide"><!-- wp:column {"width":"35%","className":"stack-16"} -->
 <div class="wp-block-column stack-16" style="flex-basis:35%"><!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"var:preset|spacing|small"}}},"textColor":"text-body","fontSize":"small"} -->
 <p class="has-text-body-color has-text-color has-small-font-size" style="margin-top:var(--wp--preset--spacing--small)"><?php echo esc_html__( 'A small studio for brand and web work. Three of us, one project a month.', 'origin-canvas' ); ?></p>
