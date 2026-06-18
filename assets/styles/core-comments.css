@@ -1,39 +1,11 @@
-/* Quiet bubbles — comments.
-   All selectors scoped under .wp-block-comments so nothing leaks to other blocks.
-   Existing theme tokens only. Where the brief asks for a fixed px the spacing scale
-   has no token for (16/20/24/32px — medium+ are clamps), the literal is used (same
-   precedent as the bubble's 16/20 padding). Hover/tint use inline
-   color-mix(... primary ...) — the theme's existing precedent — rather than a new
-   token. Comments are resting content: surface fill / hairline only, never shadows
-   on bubbles. */
+/* Comments */
 
-/* Section / title
-   Title colour + the gap below it (margin-bottom: large) live in theme.json
-   (core/comments-title), the FSE-native home — that block style out-specifies a
-   plain class selector here, so it is the source of truth for the heading. */
+/* Section title */
 .wp-block-comments {
 	margin-top: var(--wp--preset--spacing--large);
 }
 
-/* Comment row layout
-   Each comment is a .wp-block-comment-template list item holding a flex columns
-   row: a fixed 40px avatar gutter + a content column, 16px between them. The avatar
-   is top-aligned to the name (not block-centred) and forced circular here so the
-   inlined right-sidebar pattern's 24px radius is overridden too. 24px between
-   sibling comments (fixed, so it does not grow on wide screens). */
-/* Comment-thread rhythm (single coherent model, keyed off the real core DOM).
-   Core's comment-template renders:
-     <ol.wp-block-comment-template>
-       <li.comment depth-1>
-         <div.wp-block-columns> … the comment row …
-         <ol>                       UNCLASSED nested-reply wrapper (sibling of the row)
-           <li.comment depth-2> … same shape, recursively …
-   So nesting is a plain <ol> inside the <li>, NOT a .children element. The rhythm:
-     - 24px between every pair of sibling comments, at ANY depth (li + li);
-     - 24px above a nested <ol> so the first reply clears the parent's reply link
-       (this is the gap that was missing where nesting began);
-     - nested replies indent by 56px (40px avatar gutter + 16px row gap) so a
-       reply's avatar lines up under the parent comment's content edge. */
+/* Comment thread */
 .wp-block-comments .wp-block-comment-template,
 .wp-block-comments .wp-block-comment-template ol {
 	list-style: none;
@@ -41,21 +13,18 @@
 	padding: 0;
 }
 
-/* Separation between sibling comments — works top-level and nested. */
+/* Comment spacing */
 .wp-block-comments .wp-block-comment-template li + li {
 	margin-top: 24px;
 }
 
-/* Nested-reply wrapper: indent + a 24px gap above the first reply. */
+/* Nested replies */
 .wp-block-comments .wp-block-comment-template li > ol {
 	margin-top: 24px;
 	padding-left: 56px;
 }
 
-/* Avatar gutter + content alignment. The pattern hardcodes a 56px column and a
-   12px blockGap; override to the brief's 40px gutter / 16px gap, top-aligned. Keyed
-   off every comment row (li.comment > .wp-block-columns) so nested replies at any
-   depth get the identical gutter — not just depth-1. */
+/* Avatar gutter */
 .wp-block-comments li.comment > .wp-block-columns {
 	align-items: flex-start;
 	gap: 16px;
@@ -70,12 +39,9 @@
 	border-radius: 999px;
 }
 
-/* Content-column children (name, date, bubble, reply) are direct children of an
-   is-layout-flow column with NO blockGap, so they have no inherited vertical margin
-   — each gap below is exactly what we set, nothing to fight. */
+/* Content column */
 
-/* Bubble — flat (no shadow), surface-muted fill, --radii-lg, compact/medium padding,
-   8px (small) above (under the date). */
+/* Comment bubble */
 .wp-block-comments .wp-block-comment-content {
 	background: var(--wp--preset--color--surface-muted);
 	border-radius: var(--wp--custom--radius--large);
@@ -85,11 +51,7 @@
 	padding: var(--wp--preset--spacing--compact) var(--wp--preset--spacing--medium);
 }
 
-/* Head meta — base/semibold heading-colour author, sm/muted date 4px under it.
-   Core emits no "Author" text badge; the only post-author hook is .bypostauthor on
-   the list item, so the post author's NAME is accented with primary (no markup added).
-   overflow-wrap guards a long unbroken unicode name so it wraps cleanly inside the
-   content column instead of forcing the row wide. */
+/* Comment meta */
 .wp-block-comments .wp-block-comment-author-name {
 	color: var(--wp--preset--color--text-heading);
 	font-size: var(--wp--preset--font-size--regular);
@@ -119,9 +81,7 @@
 	color: var(--wp--preset--color--primary);
 }
 
-/* Reply link — 8px (small) under its bubble, left edge on the comment TEXT
-   (padding-left = bubble horizontal padding, medium). sm / semibold / muted;
-   primary on hover; no underline. */
+/* Reply link */
 .wp-block-comments .wp-block-comment-reply-link {
 	margin-top: var(--wp--preset--spacing--small);
 	padding-left: var(--wp--preset--spacing--medium);
@@ -139,13 +99,7 @@
 	color: var(--wp--preset--color--primary);
 }
 
-/* Composer — surface-muted card (resting content, flat, no shadow), --radii-lg.
-   The reply form (#respond.comment-respond.wp-block-post-comments-form) is the last
-   direct child of .wp-block-comments, after the comment list (and pagination when
-   present). Separating it is the FORM's responsibility, so the gap lives here as a
-   top margin (not a trailing margin on the list, which would mis-handle the
-   pagination case and leave dangling space when comments are closed). `large`
-   matches the heading -> list gap for consistent region rhythm. */
+/* Comment form */
 .wp-block-comments .wp-block-post-comments-form {
 	background: var(--wp--preset--color--surface-muted);
 	border-radius: var(--wp--custom--radius--large);
@@ -153,16 +107,14 @@
 	padding: var(--wp--preset--spacing--medium);
 }
 
-/* Form type scale — the block ships at base (regular); nothing in the form may
-   exceed body size except the heading. Helper notes are sm/muted. */
+/* Form type scale */
 .wp-block-comments .wp-block-post-comments-form .comment-notes,
 .wp-block-comments .wp-block-post-comments-form .comment-notes #email-notes {
 	color: var(--wp--preset--color--text-muted);
 	font-size: var(--wp--preset--font-size--small);
 }
 
-/* Field-group rhythm — medium between the <p class="comment-form-*"> groups; the
-   submit group sits compact below the checkbox row. */
+/* Field groups */
 .wp-block-comments .wp-block-post-comments-form .comment-form > p {
 	margin-block: 0;
 }
@@ -175,7 +127,7 @@
 	margin-top: var(--wp--preset--spacing--compact);
 }
 
-/* Labels — sm / medium weight / text-heading, 8px gap to the input below. */
+/* Field labels */
 .wp-block-comments .wp-block-post-comments-form .comment-form label {
 	color: var(--wp--preset--color--text-heading);
 	display: block;
@@ -184,9 +136,7 @@
 	margin-bottom: var(--wp--preset--spacing--small);
 }
 
-/* Text inputs + textarea — white field, hairline border, compact/medium padding,
-   44px min-height, hover (text-muted border) and focus ring. The cookies-consent
-   checkbox is excluded (rebuilt below). */
+/* Inputs */
 .wp-block-comments .wp-block-post-comments-form input[type="text"],
 .wp-block-comments .wp-block-post-comments-form input[type="email"],
 .wp-block-comments .wp-block-post-comments-form input[type="url"],
@@ -199,7 +149,7 @@
 	transition: box-shadow 120ms ease, border-color 120ms ease;
 }
 
-/* Hover — the system's missing input hover: text-muted edge + e1. */
+/* Input hover */
 .wp-block-comments .wp-block-post-comments-form input[type="text"]:hover,
 .wp-block-comments .wp-block-post-comments-form input[type="email"]:hover,
 .wp-block-comments .wp-block-post-comments-form input[type="url"]:hover,
@@ -217,18 +167,13 @@
 	outline: none;
 }
 
-/* Cookies-consent — rebuild the broken native checkbox. Row = flex with a 12px
-   gap; box and (single-line) label centred on the same line. */
+/* Cookies consent */
 .wp-block-comments .wp-block-post-comments-form .comment-form-cookies-consent {
 	align-items: center;
 	display: flex;
 	gap: var(--wp--preset--spacing--compact);
 }
 
-/* The ID (#wp-comment-cookies-consent) is included deliberately: WordPress core's
-   own block stylesheet sets `#wp-comment-cookies-consent { margin-top: .35em }`,
-   an ID rule that beats any class selector and shoves the box up. Matching the ID
-   here out-ranks it cleanly (no !important) and lets flex centring do the work. */
 .wp-block-comments .wp-block-post-comments-form .comment-form-cookies-consent input[type="checkbox"]#wp-comment-cookies-consent {
 	appearance: none;
 	-webkit-appearance: none;
@@ -249,7 +194,7 @@
 	border-color: var(--wp--preset--color--primary);
 }
 
-/* Checkmark glyph, drawn so it scales with the 20px box. */
+/* Checkmark */
 .wp-block-comments .wp-block-post-comments-form .comment-form-cookies-consent input[type="checkbox"]#wp-comment-cookies-consent:checked::after {
 	border: solid #fff;
 	border-width: 0 2px 2px 0;
@@ -267,8 +212,7 @@
 	outline: none;
 }
 
-/* Consent label — base / normal weight / secondary (body) colour; the label has
-   no bottom gap here since it is a checkbox caption, not a field label. */
+/* Consent label */
 .wp-block-comments .wp-block-post-comments-form .comment-form-cookies-consent label {
 	color: var(--wp--preset--color--text-body);
 	font-size: var(--wp--preset--font-size--regular);
@@ -276,8 +220,7 @@
 	margin-bottom: 0;
 }
 
-/* Submit — the primary pill button is left as-is; only its container spacing
-   (above) was set. */
+/* Submit */
 .wp-block-comments .wp-block-post-comments-form input[type="submit"] {
 	background: var(--wp--preset--color--primary);
 	border: 0;
