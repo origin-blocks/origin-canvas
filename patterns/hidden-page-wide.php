@@ -9,7 +9,7 @@
  */
 
 ?>
-<!-- wp:pattern {"slug":"origin-canvas/header-default"} /-->
+<!-- wp:template-part {"slug":"header","theme":"origin-canvas","area":"header"} /-->
 
 <!-- wp:group {"tagName":"main","style":{"spacing":{"blockGap":"var:preset|spacing|extra-large","margin":{"top":"var:preset|spacing|massive","bottom":"var:preset|spacing|titan"}}},"layout":{"type":"default"}} -->
 <main class="wp-block-group" style="margin-top:var(--wp--preset--spacing--massive);margin-bottom:var(--wp--preset--spacing--titan)"><!-- wp:group {"align":"wide","style":{"spacing":{"blockGap":"var:preset|spacing|medium"}},"layout":{"type":"constrained"}} -->

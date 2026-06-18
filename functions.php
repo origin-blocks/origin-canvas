@@ -114,6 +114,7 @@ if ( ! function_exists( 'origin_canvas_register_pattern_categories' ) ) {
 			'origin-canvas/text'     => array( 'label' => __( 'Text', 'origin-canvas' ) ),
 			'origin-canvas/team'     => array( 'label' => __( 'Team', 'origin-canvas' ) ),
 			'origin-canvas/pricing'  => array( 'label' => __( 'Pricing', 'origin-canvas' ) ),
+			'origin-canvas/card'     => array( 'label' => __( 'Cards', 'origin-canvas' ) ),
 		);
 
 		foreach ( $categories as $slug => $props ) {
@@ -397,3 +398,38 @@ if ( ! function_exists( 'origin_canvas_enqueue_block_styles_editor' ) ) {
 	}
 }
 add_action( 'enqueue_block_assets', 'origin_canvas_enqueue_block_styles_editor' );
+
+if ( ! function_exists( 'origin_canvas_rewrite_legacy_card_image_paths' ) ) {
+	/**
+	 * TRANSITIONAL back-compat shim — REMOVE IN 1.3.0.
+	 *
+	 * Card pattern images moved from /assets/images/cards/ to /patterns/images/
+	 * (commit 1de024e). core/image and core/cover are static blocks, so sites that
+	 * inserted these patterns under the previously-published 1.0.4 have the OLD
+	 * absolute URL frozen in their post content and would show broken images after
+	 * the move ships.
+	 *
+	 * Rewrites the legacy path to the new one at RENDER time only. It does NOT touch
+	 * the database / user content (non-destructive, reversible) and does NOT
+	 * resurrect the old directory. Scoped to the only two block types that carry
+	 * these URLs (image + cover) — not a generic render_block filter — to stay well
+	 * inside theme territory. Sunset: delete this function + the two add_filter calls
+	 * below in 1.3.0, by which point affected content will have re-saved or moved on.
+	 *
+	 * @param string $block_content Rendered block HTML.
+	 * @return string Block HTML with the legacy card-image path rewritten.
+	 */
+	function origin_canvas_rewrite_legacy_card_image_paths( $block_content ) {
+		if ( false === strpos( $block_content, '/assets/images/cards/' ) ) {
+			return $block_content;
+		}
+
+		return str_replace(
+			'/assets/images/cards/',
+			'/patterns/images/',
+			$block_content
+		);
+	}
+}
+add_filter( 'render_block_core/image', 'origin_canvas_rewrite_legacy_card_image_paths' );
+add_filter( 'render_block_core/cover', 'origin_canvas_rewrite_legacy_card_image_paths' );
