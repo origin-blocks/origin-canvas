@@ -18,8 +18,8 @@
 <!-- /wp:heading -->
 
 <!-- wp:buttons {"layout":{"type":"flex"}} -->
-<div class="wp-block-buttons"><!-- wp:button -->
-<div class="wp-block-button"><a class="wp-block-button__link wp-element-button"><?php echo esc_html__( 'Start a conversation', 'origin-canvas' ); ?> <span aria-hidden="true">&rarr;</span></a></div>
+<div class="wp-block-buttons"><!-- wp:button {"className":"is-style-origin-canvas-fill-primary"} -->
+<div class="wp-block-button is-style-origin-canvas-fill-primary"><a class="wp-block-button__link wp-element-button"><?php echo esc_html__( 'Start a conversation', 'origin-canvas' ); ?> <span aria-hidden="true">&rarr;</span></a></div>
 <!-- /wp:button --></div>
 <!-- /wp:buttons --></div>
 <!-- /wp:group --></section>
