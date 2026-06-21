@@ -25,6 +25,12 @@ Apply in order, top to bottom. The first matching rule wins.
 - **Promote to pink:** select the button → Styles → "Fill Primary". In a pattern, add `is-style-origin-canvas-fill-primary` to both the `wp:button` block comment and the rendered `wp-block-button` class.
 - **Back to dark:** deselect the variation (the bare button is ink by default).
 
+## Per-pattern concrete rules
+
+Spotlight decisions are **hardcoded into the pattern**, never left to a "one pink per viewport" runtime judgment. A coder builds a pattern in isolation with no knowledge of what else sits on the assembled page, so the correct accent must be a concrete default in the markup. These per-pattern rules override the viewport clause of the decision tree above.
+
+- **Pricing (`card-pricing.php`):** the featured/recommended column = pink top indicator **and** pink primary button (`is-style-origin-canvas-fill-primary`); side columns = `is-style-outline`. Pink appears exactly once. Baked into the pattern; no viewport reasoning.
+
 ---
 
 *Source: "Invert button default to ink" plan, Origin Canvas. This note is also the spec for the later per-pattern pink-spotlight sweep.*
