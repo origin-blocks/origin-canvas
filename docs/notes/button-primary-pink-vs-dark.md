@@ -9,16 +9,14 @@
 
 > Why pink is a variation, not the default: the default look should be the calm, reusable one. Pink is a focal accent — making it opt-in keeps "one screen, one pink" achievable and means a plain button is never accidentally loud. (See `when-to-use-a-block-variation.md`: the default stays the default; the loud look is a pre-applied variation.)
 
-## Pink-usage decision tree (deterministic)
+## The rule
 
-Apply in order, top to bottom. The first matching rule wins.
+> A pattern's primary button is PINK only if the pattern has its own pink "this is special" cue (e.g. a featured/recommended indicator) OR it sits on a dark background (where dark fill is invisible). Otherwise it ships DARK, and the user promotes their own single spotlight.
 
-1. **On a dark section?** → pink.
-2. **Secondary action?** → outline (surface-skinned to the background).
-3. **Primary on a light surface?** → DARK by default. Promote to pink **only** if it is the single highest-intent action in that viewport.
-4. **Two pink candidates in one viewport?** → the lesser one stays dark.
-
-**For standalone patterns specifically:** default to DARK and pre-apply pink only where the pattern's whole purpose is one decision (a hero or closing-CTA pattern). When in doubt → dark. A user can one-click promote dark→pink; they can't un-see two clashing pinks.
+- Pink pairs with an existing pink cue in the **same** pattern, or is forced by a dark background. It is never decided by what else happens to be on the assembled page.
+- Coders build patterns context-free, so the accent is always a concrete default baked into the markup — not a runtime judgment.
+- Standalone heroes and CTA patterns ship **DARK** (unless they are on a dark background).
+- Pink stays rare and earned.
 
 ## How to apply / reverse
 
@@ -27,10 +25,11 @@ Apply in order, top to bottom. The first matching rule wins.
 
 ## Per-pattern concrete rules
 
-Spotlight decisions are **hardcoded into the pattern**, never left to a "one pink per viewport" runtime judgment. A coder builds a pattern in isolation with no knowledge of what else sits on the assembled page, so the correct accent must be a concrete default in the markup. These per-pattern rules override the viewport clause of the decision tree above.
+These are examples of the rule above — each is a concrete default baked into the pattern because a pink cue is present or the background is dark.
 
-- **Pricing (`card-pricing.php`):** the featured/recommended column = pink top indicator **and** pink primary button (`is-style-origin-canvas-fill-primary`); side columns = `is-style-outline`. Pink appears exactly once. Baked into the pattern; no viewport reasoning.
+- **Pricing (`card-pricing.php`):** the featured/recommended column has a pink cue (the pink top indicator), so its primary button is pink (`is-style-origin-canvas-fill-primary`); side columns = `is-style-outline`. Pink appears exactly once.
+- **Dark backgrounds (`hero-dark.php`, `cta-banner.php`):** the primary button is pink because dark fill would be invisible on the dark section.
 
 ---
 
-*Source: "Invert button default to ink" plan, Origin Canvas. This note is also the spec for the later per-pattern pink-spotlight sweep.*
+*Source: "Invert button default to ink" plan, Origin Canvas.*
