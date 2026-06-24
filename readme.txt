@@ -86,6 +86,10 @@ The check icon used by the Check list block style is sourced from [Lucide](https
 
 == Changelog ==
 
+= 1.2.0 - 20 June 2026 =
+* Buttons now default to a solid dark (ink) fill; pink is now an opt-in 'Fill Primary' button style. Existing plain buttons will appear dark after updating — reapply the Fill Primary style to restore pink.
+* Promoted the primary button to pink on the dark hero and dark call-to-action banner, where the ink fill would be invisible.
+
 = 1.1.0 - 17 June 2026 =
 * Redesigned the single-post comments as quiet bubble cards with clearer thread rhythm, nested-reply indentation, and a tidier reply form.
 * Added a name-led author card to single posts, with the avatar and name balanced in lockstep.

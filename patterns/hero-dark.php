@@ -26,8 +26,8 @@
 <!-- /wp:paragraph -->
 
 <!-- wp:buttons {"style":{"spacing":{"blockGap":"var:preset|spacing|compact","margin":{"top":"var:preset|spacing|extra-large"}}},"layout":{"type":"flex","justifyContent":"center","orientation":"horizontal"}} -->
-<div class="wp-block-buttons is-content-justification-center is-layout-flex" style="margin-top:var(--wp--preset--spacing--extra-large)"><!-- wp:button -->
-<div class="wp-block-button"><a class="wp-block-button__link wp-element-button"><?php echo esc_html__( 'See recent work', 'origin-canvas' ); ?></a></div>
+<div class="wp-block-buttons is-content-justification-center is-layout-flex" style="margin-top:var(--wp--preset--spacing--extra-large)"><!-- wp:button {"className":"is-style-origin-canvas-fill-primary"} -->
+<div class="wp-block-button is-style-origin-canvas-fill-primary"><a class="wp-block-button__link wp-element-button"><?php echo esc_html__( 'See recent work', 'origin-canvas' ); ?></a></div>
 <!-- /wp:button -->
 
 <!-- wp:button {"className":"is-style-origin-canvas-outline-light"} -->
