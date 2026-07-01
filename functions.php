@@ -360,45 +360,36 @@ if ( ! function_exists( 'origin_canvas_enqueue_block_styles' ) ) {
 }
 add_action( 'init', 'origin_canvas_enqueue_block_styles' );
 
-if ( ! function_exists( 'origin_canvas_enqueue_block_styles_editor' ) ) {
+if ( ! function_exists( 'origin_canvas_add_block_editor_styles' ) ) {
 	/**
-	 * Enqueue every per-block stylesheet into the block editor canvas.
+	 * Inject every per-block stylesheet into the block editor canvas.
 	 *
-	 * The front-end loader (origin_canvas_enqueue_block_styles) uses
-	 * wp_enqueue_block_style(), which on block themes takes the on-demand path
-	 * and returns before registering its editor (enqueue_block_assets) hook —
-	 * so per-block CSS never reaches the editor iframe. The editor should preview
-	 * every variation, so enqueue all of them here, admin-side only.
+	 * The front-end loader (origin_canvas_enqueue_block_styles) registers per-block
+	 * CSS on-demand via wp_enqueue_block_style(), which does not reach the iframed
+	 * editor canvas. add_editor_style() is the block-theme-idiomatic way to get CSS
+	 * into that iframe, so the editor previews every block style variation.
 	 *
-	 * Same handle/src scheme as the front-end loader, so WP dedupes by handle
-	 * and the editor loads byte-identical CSS.
+	 * Paths must be theme-relative (not absolute URIs); strip the template-dir
+	 * prefix from each globbed file before handing it to add_editor_style().
 	 */
-	function origin_canvas_enqueue_block_styles_editor() {
-		if ( ! is_admin() ) {
-			return;
-		}
-
+	function origin_canvas_add_block_editor_styles() {
 		$files = glob( get_template_directory() . '/assets/styles/*.css' );
 
 		if ( empty( $files ) ) {
 			return;
 		}
 
-		foreach ( $files as $file ) {
-			$filename = basename( $file, '.css' );
+		$prefix = trailingslashit( get_template_directory() );
+		$paths  = array();
 
-			// TODO: if -rtl.css files are ever added, mirror the front-end
-			// loader's RTL handling here via wp_style_add_data().
-			wp_enqueue_style(
-				"origin-canvas-block-{$filename}",
-				get_theme_file_uri( "assets/styles/{$filename}.css" ),
-				array(),
-				ORIGIN_CANVAS_VERSION
-			);
+		foreach ( $files as $file ) {
+			$paths[] = str_replace( $prefix, '', $file );
 		}
+
+		add_editor_style( $paths );
 	}
 }
-add_action( 'enqueue_block_assets', 'origin_canvas_enqueue_block_styles_editor' );
+add_action( 'after_setup_theme', 'origin_canvas_add_block_editor_styles' );
 
 if ( ! function_exists( 'origin_canvas_rewrite_legacy_card_image_paths' ) ) {
 	/**
