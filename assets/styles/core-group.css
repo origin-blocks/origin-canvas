@@ -16,3 +16,22 @@
 	padding: 0;
 	width: 64px;
 }
+
+/*
+ * Canvas Grid — bespoke landing-hero backdrop. Layered radials (cool top glow +
+ * faint pink corner) over a subtle 48px grid. A plain pattern class (not a
+ * registered block style), applied only by hero-canvas, so it stays out of the
+ * editor's group Styles panel.
+ */
+.wp-block-group.origin-canvas-canvas-grid {
+	background-color: var(--wp--preset--color--surface-base);
+	background-image:
+		radial-gradient(120% 75% at 50% -18%, var(--wp--preset--color--surface-subtle) 0%, rgba(238, 242, 246, 0) 60%),
+		radial-gradient(38% 50% at 88% 2%, rgba(255, 67, 135, 0.07) 0%, transparent 70%),
+		linear-gradient(to right, rgba(17, 24, 39, 0.04) 1px, transparent 1px),
+		linear-gradient(to bottom, rgba(17, 24, 39, 0.04) 1px, transparent 1px);
+	background-repeat: no-repeat, no-repeat, repeat, repeat;
+	background-size: cover, cover, 48px 48px, 48px 48px;
+	overflow: hidden;
+	position: relative;
+}
