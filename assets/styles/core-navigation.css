@@ -250,3 +250,11 @@
 .wp-block-navigation-submenu__toggle[aria-expanded="true"] ~ .wp-block-navigation__submenu-container {
 	display: flex;
 }
+
+/* Lift the main-nav submenu flyout above adjacent page content (e.g. a hero
+   below the sticky header) so the dropdown is never occluded. Scoped to the
+   main nav so unrelated navigations are unaffected. */
+.origin-canvas-main-nav .wp-block-navigation__submenu-container {
+	position: relative;
+	z-index: 20;
+}
