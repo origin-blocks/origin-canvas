@@ -439,3 +439,18 @@ textarea:disabled {
 .wp-block-table[class*="-font-size"] > table {
 	font-size: inherit;
 }
+
+/* Sticky header: when the header contains a sticky child, make the header
+   wrapper itself the sticky element (its containing block is the page flow, so
+   it can travel), admin-bar-aware, above page content. Front end only. */
+body:not(.wp-admin) header:has(> .is-position-sticky) {
+	position: sticky;
+	top: calc(0px + var(--wp-admin--admin-bar--height, 0px));
+	z-index: 100;
+}
+
+@media (max-width: 600px) {
+	header:has(> .is-position-sticky) {
+		top: 0;
+	}
+}
