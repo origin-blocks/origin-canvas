@@ -264,3 +264,31 @@
 	position: relative;
 	z-index: 20;
 }
+
+/* ==========================================================================
+   MOBILE OVERLAY (scoped to .origin-canvas-mobile-nav / .origin-canvas-mobile-menu)
+   The mobile nav renders as a plain vertical <nav> (overlayMenu:never) with no
+   .is-menu-open wrapper, so everything below is scoped to the theme hook classes.
+   These blocks follow every desktop rule above so their specificity + source
+   order win where they must (e.g. the flyout-card reset).
+   ========================================================================== */
+
+/* Mobile chevron: 20px, ink, rotation keyed off the SIBLING toggle button
+   (the icon span is a sibling of the button, not its child). transform-origin
+   + transition come from the shared stabilized-spin base above. */
+.origin-canvas-mobile-nav .wp-block-navigation__submenu-icon svg {
+	height: 20px;
+	width: 20px;
+}
+
+.origin-canvas-mobile-nav .wp-block-navigation__submenu-icon svg path {
+	fill: none;
+	stroke: currentColor;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+	stroke-width: 2;
+}
+
+.origin-canvas-mobile-nav .wp-block-navigation-submenu__toggle[aria-expanded="true"] ~ .wp-block-navigation__submenu-icon svg {
+	transform: rotate(180deg);
+}
