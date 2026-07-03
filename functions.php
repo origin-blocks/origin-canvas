@@ -439,10 +439,14 @@ if ( ! function_exists( 'origin_canvas_swap_nav_chevron' ) ) {
 	 *
 	 * Core renders its caret on a 12-unit viewBox (path "M1.50002 4L6.00002 8L10.5 4"),
 	 * whose geometry CSS cannot reshape into Lucide's. We swap the whole SVG at render
-	 * time for the Lucide chevron-down (path "m6 9 6 6 6-6") on its normal 0 0 24 24
-	 * viewBox. The swap is UNGATED so the desktop dropdown AND the mobile overlay share
-	 * one identical glyph; per-surface SIZE is handled in CSS (desktop 11px, mobile
-	 * 20px), so no viewBox cropping is needed here.
+	 * time for the Lucide chevron-down (path "m6 9 6 6 6-6"). The swap is UNGATED so
+	 * the desktop dropdown AND the mobile overlay share one identical glyph.
+	 *
+	 * The Lucide arrow occupies only the middle band of its native 0 0 24 24 viewBox
+	 * (x 6→18, y 9→15), so at the small display sizes here (11px desktop / 20px mobile)
+	 * a full-viewBox glyph reads tiny and appears off-centre against the close ✕. We
+	 * therefore emit the SAME path in a TIGHT viewBox cropped to the arrow ("5 8 14 8")
+	 * so it fills the icon box at both sizes; per-surface box size stays in CSS.
 	 *
 	 * @param string $block_content Rendered navigation block HTML.
 	 * @param array  $block         Parsed block (unused; kept for the filter signature).
@@ -453,7 +457,7 @@ if ( ! function_exists( 'origin_canvas_swap_nav_chevron' ) ) {
 			return $block_content;
 		}
 
-		$lucide_chevron = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6"></path></svg>';
+		$lucide_chevron = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6"></path></svg>';
 
 		return preg_replace(
 			'#<svg[^>]*viewBox="0 0 12 12"[^>]*>\s*<path d="M1\.50002 4L6\.00002 8L10\.5 4"[^>]*>\s*</path>\s*</svg>#',
