@@ -418,3 +418,24 @@
 		transition: none;
 	}
 }
+
+/* Overlay close (✕) button — 44x44 tap target, soft rounded hover background,
+   24px glyph. Scoped to the mobile menu part. No negative margin: Step 3's gutter
+   fix already lands the ✕ on the shared right-hand axis. */
+.origin-canvas-mobile-menu .wp-block-navigation-overlay-close {
+	border-radius: 10px;
+	color: var(--wp--preset--color--text-heading);
+	height: 44px;
+	transition: background-color 0.15s ease;
+	width: 44px;
+}
+
+.origin-canvas-mobile-menu .wp-block-navigation-overlay-close:hover,
+.origin-canvas-mobile-menu .wp-block-navigation-overlay-close:focus-visible {
+	background-color: var(--wp--preset--color--surface-muted);
+}
+
+.origin-canvas-mobile-menu .wp-block-navigation-overlay-close svg {
+	height: 24px;
+	width: 24px;
+}
