@@ -292,3 +292,93 @@
 .origin-canvas-mobile-nav .wp-block-navigation-submenu__toggle[aria-expanded="true"] ~ .wp-block-navigation__submenu-icon svg {
 	transform: rotate(180deg);
 }
+
+/* Full-width left-aligned column so rows and their dividers span the menu. */
+.origin-canvas-mobile-nav,
+.origin-canvas-mobile-nav .wp-block-navigation {
+	width: 100%;
+}
+
+.origin-canvas-mobile-nav .wp-block-navigation__container {
+	align-items: stretch;
+	gap: 0;
+	justify-content: flex-start;
+	width: 100%;
+}
+
+.origin-canvas-mobile-nav .wp-block-navigation-item {
+	width: 100%;
+}
+
+/* Cancel core's floating flyout card and rebuild the submenu as a flat,
+   left-indented inline list. The `.wp-block-navigation` in the selector matches
+   the 3-class specificity of the desktop :not(.is-menu-open) flyout rule; being
+   later in source, this wins. 1.25rem = 20px indent per level (compounds to
+   20/40px); intentional literal, no spacing token maps to 20px. */
+.origin-canvas-mobile-nav .wp-block-navigation .wp-block-navigation__submenu-container {
+	background: transparent;
+	border: 0;
+	border-radius: 0;
+	box-shadow: none;
+	flex-direction: column;
+	font-size: inherit;
+	gap: 0;
+	min-width: 0;
+	padding: 0;
+	padding-inline-start: 1.25rem;
+	position: static;
+	width: 100%;
+}
+
+/* Parent row: toggle button + sibling chevron on one line; submenu <ul> wraps
+   to the next line via flex-basis:100%. */
+.origin-canvas-mobile-nav .has-child {
+	align-items: center;
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.origin-canvas-mobile-nav .has-child > .wp-block-navigation__submenu-container {
+	flex-basis: 100%;
+}
+
+/* Rows: full-width flex with a comfortable tap target. */
+.origin-canvas-mobile-nav .wp-block-navigation-item__content {
+	align-items: center;
+	display: flex;
+	flex: 1;
+	min-height: 52px;
+	padding: var(--wp--preset--spacing--small) 0;
+}
+
+.origin-canvas-mobile-nav .wp-block-navigation-item:not(.has-child) .wp-block-navigation-item__content {
+	width: 100%;
+}
+
+/* Uniform dark ink for every label + chevron at every depth. */
+.origin-canvas-mobile-nav .wp-block-navigation-item__label,
+.origin-canvas-mobile-nav .wp-block-navigation__submenu-icon {
+	color: var(--wp--preset--color--text-heading);
+}
+
+.origin-canvas-mobile-nav .wp-block-navigation-item__label {
+	font-weight: 500;
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+}
+
+/* Hover shifts the label to primary. */
+.origin-canvas-mobile-nav .wp-block-navigation-item__content:hover .wp-block-navigation-item__label,
+.origin-canvas-mobile-nav a.wp-block-navigation-item__content:hover .wp-block-navigation-item__label {
+	color: var(--wp--preset--color--primary);
+}
+
+.origin-canvas-mobile-nav .wp-block-navigation-item__content:focus-visible {
+	outline: 2px solid var(--wp--preset--color--primary);
+	outline-offset: 2px;
+}
+
+/* Row dividers on TOP-LEVEL items only (direct children of the overlay list). */
+.origin-canvas-mobile-nav .wp-block-navigation__container > .wp-block-navigation-item {
+	border-bottom: 1px solid var(--wp--preset--color--border);
+}
