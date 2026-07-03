@@ -346,13 +346,20 @@ if ( ! function_exists( 'origin_canvas_enqueue_block_styles' ) ) {
 			$filename   = basename( $file, '.css' );
 			$block_name = str_replace( 'core-', 'core/', $filename );
 
+			// Version each stylesheet by its on-disk mtime so any change gets a fresh
+			// URL; browsers otherwise cache the file under the fixed theme version and
+			// serve stale CSS across edits. Fall back to the theme version if the file
+			// cannot be stat-ed.
+			$mtime = file_exists( $file ) ? filemtime( $file ) : false;
+			$ver   = $mtime ? $mtime : ORIGIN_CANVAS_VERSION;
+
 			wp_enqueue_block_style(
 				$block_name,
 				array(
 					'handle' => "origin-canvas-block-{$filename}",
 					'src'    => get_theme_file_uri( "assets/styles/{$filename}.css" ),
 					'path'   => get_theme_file_path( "assets/styles/{$filename}.css" ),
-					'ver'    => ORIGIN_CANVAS_VERSION,
+					'ver'    => $ver,
 				)
 			);
 		}
@@ -425,3 +432,38 @@ if ( ! function_exists( 'origin_canvas_rewrite_legacy_card_image_paths' ) ) {
 }
 add_filter( 'render_block_core/image', 'origin_canvas_rewrite_legacy_card_image_paths' );
 add_filter( 'render_block_core/cover', 'origin_canvas_rewrite_legacy_card_image_paths' );
+
+if ( ! function_exists( 'origin_canvas_swap_nav_chevron' ) ) {
+	/**
+	 * Replace core's submenu caret SVG with the Lucide `chevron-down` glyph.
+	 *
+	 * Core renders its caret on a 12-unit viewBox (path "M1.50002 4L6.00002 8L10.5 4"),
+	 * whose geometry CSS cannot reshape into Lucide's. We swap the whole SVG at render
+	 * time for the Lucide chevron-down (path "m6 9 6 6 6-6"). The swap is UNGATED so
+	 * the desktop dropdown AND the mobile overlay share one identical glyph.
+	 *
+	 * The Lucide arrow occupies only the middle band of its native 0 0 24 24 viewBox
+	 * (x 6→18, y 9→15), so at the small display sizes here (11px desktop / 20px mobile)
+	 * a full-viewBox glyph reads tiny and appears off-centre against the close ✕. We
+	 * therefore emit the SAME path in a TIGHT viewBox cropped to the arrow ("5 8 14 8")
+	 * so it fills the icon box at both sizes; per-surface box size stays in CSS.
+	 *
+	 * @param string $block_content Rendered navigation block HTML.
+	 * @param array  $block         Parsed block (unused; kept for the filter signature).
+	 * @return string Navigation HTML with the caret swapped for Lucide chevron-down.
+	 */
+	function origin_canvas_swap_nav_chevron( $block_content, $block = array() ) {
+		if ( false === strpos( $block_content, 'M1.50002 4L6.00002 8L10.5 4' ) ) {
+			return $block_content;
+		}
+
+		$lucide_chevron = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6"></path></svg>';
+
+		return preg_replace(
+			'#<svg[^>]*viewBox="0 0 12 12"[^>]*>\s*<path d="M1\.50002 4L6\.00002 8L10\.5 4"[^>]*>\s*</path>\s*</svg>#',
+			$lucide_chevron,
+			$block_content
+		);
+	}
+}
+add_filter( 'render_block_core/navigation', 'origin_canvas_swap_nav_chevron', 10, 2 );

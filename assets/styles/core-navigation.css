@@ -110,19 +110,24 @@
 	transition: color 0.15s ease;
 }
 
+/* Desktop caret box. The swapped Lucide glyph is cropped tight to its arrow, so
+   it fills this box; keep the desktop caret compact (smaller than mobile's 20px). */
 .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-icon {
-	height: 11px;
+	height: 9px;
 	margin-bottom: 0.1em;
-	width: 11px;
+	width: 9px;
 }
 
 .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-icon svg {
 	stroke-width: 2;
 }
 
+/* Shared stabilized-spin base for BOTH surfaces: rotate the SVG about its own
+   centre so the chevron spins in place. This one base serves desktop and mobile;
+   only the rotation TRIGGER selector differs per surface (see below). */
 .wp-block-navigation .wp-block-navigation__submenu-icon svg {
-	transform-origin: 50% 50%;
-	transition: transform 0.2s ease;
+	transform-origin: center;
+	transition: transform 0.26s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .wp-block-navigation-submenu__toggle[aria-expanded="true"] .wp-block-navigation__submenu-icon svg,
@@ -260,4 +265,184 @@
 .origin-canvas-main-nav .wp-block-navigation__submenu-container {
 	position: relative;
 	z-index: 20;
+}
+
+/* ==========================================================================
+   MOBILE OVERLAY (scoped to .origin-canvas-mobile-nav / .origin-canvas-mobile-menu)
+   The mobile nav renders as a plain vertical <nav> (overlayMenu:never) with no
+   .is-menu-open wrapper, so everything below is scoped to the theme hook classes.
+   These blocks follow every desktop rule above so their specificity + source
+   order win where they must (e.g. the flyout-card reset).
+   ========================================================================== */
+
+/* Mobile chevron: 20px, ink, rotation keyed off the SIBLING toggle button
+   (the icon span is a sibling of the button, not its child). transform-origin
+   + transition come from the shared stabilized-spin base above. */
+.origin-canvas-mobile-nav .wp-block-navigation__submenu-icon svg {
+	height: 20px;
+	width: 20px;
+}
+
+.origin-canvas-mobile-nav .wp-block-navigation__submenu-icon svg path {
+	fill: none;
+	stroke: currentColor;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+	stroke-width: 2;
+}
+
+.origin-canvas-mobile-nav .wp-block-navigation-submenu__toggle[aria-expanded="true"] ~ .wp-block-navigation__submenu-icon svg {
+	transform: rotate(180deg);
+}
+
+/* Full-width left-aligned column so rows and their dividers span the menu. */
+.origin-canvas-mobile-nav,
+.origin-canvas-mobile-nav .wp-block-navigation {
+	width: 100%;
+}
+
+.origin-canvas-mobile-nav .wp-block-navigation__container {
+	align-items: stretch;
+	gap: 0;
+	justify-content: flex-start;
+	width: 100%;
+}
+
+.origin-canvas-mobile-nav .wp-block-navigation-item {
+	width: 100%;
+}
+
+/* Cancel core's floating flyout card and rebuild the submenu as a flat,
+   left-indented inline list. The `.wp-block-navigation` in the selector matches
+   the 3-class specificity of the desktop :not(.is-menu-open) flyout rule; being
+   later in source, this wins. 1.25rem = 20px indent per level (compounds to
+   20/40px); intentional literal, no spacing token maps to 20px. */
+.origin-canvas-mobile-nav .wp-block-navigation .wp-block-navigation__submenu-container {
+	background: transparent;
+	border: 0;
+	border-radius: 0;
+	box-shadow: none;
+	flex-direction: column;
+	font-size: inherit;
+	gap: 0;
+	min-width: 0;
+	padding: 0;
+	padding-inline-start: 1.25rem;
+	position: static;
+	width: 100%;
+}
+
+/* Parent row: toggle button + sibling chevron on one line; submenu <ul> wraps
+   to the next line via flex-basis:100%. */
+.origin-canvas-mobile-nav .has-child {
+	align-items: center;
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.origin-canvas-mobile-nav .has-child > .wp-block-navigation__submenu-container {
+	flex-basis: 100%;
+}
+
+/* Rows: full-width flex with a comfortable tap target. */
+.origin-canvas-mobile-nav .wp-block-navigation-item__content {
+	align-items: center;
+	display: flex;
+	flex: 1;
+	min-height: 52px;
+	padding: var(--wp--preset--spacing--small) 0;
+}
+
+.origin-canvas-mobile-nav .wp-block-navigation-item:not(.has-child) .wp-block-navigation-item__content {
+	width: 100%;
+}
+
+/* Uniform dark ink for every label + chevron at every depth. */
+.origin-canvas-mobile-nav .wp-block-navigation-item__label,
+.origin-canvas-mobile-nav .wp-block-navigation__submenu-icon {
+	color: var(--wp--preset--color--text-heading);
+}
+
+.origin-canvas-mobile-nav .wp-block-navigation-item__label {
+	font-weight: 500;
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+}
+
+/* Hover shifts the label to primary. */
+.origin-canvas-mobile-nav .wp-block-navigation-item__content:hover .wp-block-navigation-item__label,
+.origin-canvas-mobile-nav a.wp-block-navigation-item__content:hover .wp-block-navigation-item__label {
+	color: var(--wp--preset--color--primary);
+}
+
+.origin-canvas-mobile-nav .wp-block-navigation-item__content:focus-visible {
+	outline: 2px solid var(--wp--preset--color--primary);
+	outline-offset: 2px;
+}
+
+/* Row dividers on TOP-LEVEL items only (direct children of the overlay list). */
+.origin-canvas-mobile-nav .wp-block-navigation__container > .wp-block-navigation-item {
+	border-bottom: 1px solid var(--wp--preset--color--border);
+}
+
+/* Chevron alignment: line the chevron glyph CENTRE up with the header hamburger's
+   glyph centre so the overlay reads as a continuation of the header. The hamburger
+   glyph (24px) is right-aligned to the large gutter, so its centre sits 12px past
+   the gutter edge (36px from the viewport at a 390px width). The 20px chevron glyph
+   centre should land on that same axis → its right edge 26px from the viewport,
+   i.e. 2px past the gutter edge → margin-inline-end:2px (with start:auto to push
+   it to the row's right edge first). */
+.origin-canvas-mobile-nav .wp-block-navigation__submenu-icon {
+	margin-inline-end: 2px;
+	margin-inline-start: auto;
+}
+
+/* Reveal motion — Option B. Core toggles display:none->flex (the global collapse
+   rules above), so height snaps; we layer a fade + slight slide so the open still
+   reads as motion. A true grid-height animation is not achievable on core markup. */
+.origin-canvas-mobile-nav .wp-block-navigation-submenu__toggle ~ .wp-block-navigation__submenu-container {
+	opacity: 0;
+	transform: translateY(-4px);
+	transition: opacity 0.22s ease, transform 0.22s ease;
+}
+
+.origin-canvas-mobile-nav .wp-block-navigation-submenu__toggle[aria-expanded="true"] ~ .wp-block-navigation__submenu-container {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+.origin-canvas-mobile-nav .wp-block-navigation-item__label {
+	transition: color 0.12s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.origin-canvas-mobile-nav .wp-block-navigation__submenu-icon svg,
+	.origin-canvas-mobile-nav .wp-block-navigation-submenu__toggle ~ .wp-block-navigation__submenu-container,
+	.origin-canvas-mobile-nav .wp-block-navigation-item__label {
+		transition: none;
+	}
+}
+
+/* Overlay close (✕) button — 44x44 tap target, soft rounded hover background,
+   24px glyph. margin-inline-end:-10px pulls the centred 24px glyph out to the
+   large gutter edge so it aligns with the header hamburger (whose 24px glyph is
+   right-aligned to that same gutter). Without it the glyph sits (44-24)/2 = 10px
+   inside the button, landing 10px left of the hamburger axis. */
+.origin-canvas-mobile-menu .wp-block-navigation-overlay-close {
+	border-radius: 10px;
+	color: var(--wp--preset--color--text-heading);
+	height: 44px;
+	margin-inline-end: -10px;
+	transition: background-color 0.15s ease;
+	width: 44px;
+}
+
+.origin-canvas-mobile-menu .wp-block-navigation-overlay-close:hover,
+.origin-canvas-mobile-menu .wp-block-navigation-overlay-close:focus-visible {
+	background-color: var(--wp--preset--color--surface-muted);
+}
+
+.origin-canvas-mobile-menu .wp-block-navigation-overlay-close svg {
+	height: 24px;
+	width: 24px;
 }
