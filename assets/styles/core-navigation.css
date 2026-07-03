@@ -110,10 +110,12 @@
 	transition: color 0.15s ease;
 }
 
+/* Desktop caret box. The swapped Lucide glyph is cropped tight to its arrow, so
+   it fills this box; keep the desktop caret compact (smaller than mobile's 20px). */
 .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-icon {
-	height: 11px;
+	height: 9px;
 	margin-bottom: 0.1em;
-	width: 11px;
+	width: 9px;
 }
 
 .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-icon svg {
