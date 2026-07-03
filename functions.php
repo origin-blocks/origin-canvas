@@ -432,3 +432,34 @@ if ( ! function_exists( 'origin_canvas_rewrite_legacy_card_image_paths' ) ) {
 }
 add_filter( 'render_block_core/image', 'origin_canvas_rewrite_legacy_card_image_paths' );
 add_filter( 'render_block_core/cover', 'origin_canvas_rewrite_legacy_card_image_paths' );
+
+if ( ! function_exists( 'origin_canvas_swap_nav_chevron' ) ) {
+	/**
+	 * Replace core's submenu caret SVG with the Lucide `chevron-down` glyph.
+	 *
+	 * Core renders its caret on a 12-unit viewBox (path "M1.50002 4L6.00002 8L10.5 4"),
+	 * whose geometry CSS cannot reshape into Lucide's. We swap the whole SVG at render
+	 * time for the Lucide chevron-down (path "m6 9 6 6 6-6") on its normal 0 0 24 24
+	 * viewBox. The swap is UNGATED so the desktop dropdown AND the mobile overlay share
+	 * one identical glyph; per-surface SIZE is handled in CSS (desktop 11px, mobile
+	 * 20px), so no viewBox cropping is needed here.
+	 *
+	 * @param string $block_content Rendered navigation block HTML.
+	 * @param array  $block         Parsed block (unused; kept for the filter signature).
+	 * @return string Navigation HTML with the caret swapped for Lucide chevron-down.
+	 */
+	function origin_canvas_swap_nav_chevron( $block_content, $block = array() ) {
+		if ( false === strpos( $block_content, 'M1.50002 4L6.00002 8L10.5 4' ) ) {
+			return $block_content;
+		}
+
+		$lucide_chevron = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6"></path></svg>';
+
+		return preg_replace(
+			'#<svg[^>]*viewBox="0 0 12 12"[^>]*>\s*<path d="M1\.50002 4L6\.00002 8L10\.5 4"[^>]*>\s*</path>\s*</svg>#',
+			$lucide_chevron,
+			$block_content
+		);
+	}
+}
+add_filter( 'render_block_core/navigation', 'origin_canvas_swap_nav_chevron', 10, 2 );
