@@ -392,3 +392,29 @@
 	margin-inline-end: 12px;
 	margin-inline-start: auto;
 }
+
+/* Reveal motion — Option B. Core toggles display:none->flex (the global collapse
+   rules above), so height snaps; we layer a fade + slight slide so the open still
+   reads as motion. A true grid-height animation is not achievable on core markup. */
+.origin-canvas-mobile-nav .wp-block-navigation-submenu__toggle ~ .wp-block-navigation__submenu-container {
+	opacity: 0;
+	transform: translateY(-4px);
+	transition: opacity 0.22s ease, transform 0.22s ease;
+}
+
+.origin-canvas-mobile-nav .wp-block-navigation-submenu__toggle[aria-expanded="true"] ~ .wp-block-navigation__submenu-container {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+.origin-canvas-mobile-nav .wp-block-navigation-item__label {
+	transition: color 0.12s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.origin-canvas-mobile-nav .wp-block-navigation__submenu-icon svg,
+	.origin-canvas-mobile-nav .wp-block-navigation-submenu__toggle ~ .wp-block-navigation__submenu-container,
+	.origin-canvas-mobile-nav .wp-block-navigation-item__label {
+		transition: none;
+	}
+}
