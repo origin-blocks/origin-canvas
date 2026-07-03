@@ -385,13 +385,15 @@
 	border-bottom: 1px solid var(--wp--preset--color--border);
 }
 
-/* Chevron alignment: margin-inline-start:auto pushes the chevron to the row's
-   right edge; margin-inline-end:12px pulls its 20px box centre inward so it
-   shares a vertical axis with the close-✕ glyph centre (the 44px ✕ button centres
-   its 24px glyph 22px in from the padding edge; the flush 20px chevron centres
-   10px in — 22 − 10 = 12). */
+/* Chevron alignment: line the chevron glyph CENTRE up with the header hamburger's
+   glyph centre so the overlay reads as a continuation of the header. The hamburger
+   glyph (24px) is right-aligned to the large gutter, so its centre sits 12px past
+   the gutter edge (36px from the viewport at a 390px width). The 20px chevron glyph
+   centre should land on that same axis → its right edge 26px from the viewport,
+   i.e. 2px past the gutter edge → margin-inline-end:2px (with start:auto to push
+   it to the row's right edge first). */
 .origin-canvas-mobile-nav .wp-block-navigation__submenu-icon {
-	margin-inline-end: 12px;
+	margin-inline-end: 2px;
 	margin-inline-start: auto;
 }
 
@@ -422,12 +424,15 @@
 }
 
 /* Overlay close (✕) button — 44x44 tap target, soft rounded hover background,
-   24px glyph. Scoped to the mobile menu part. No negative margin: Step 3's gutter
-   fix already lands the ✕ on the shared right-hand axis. */
+   24px glyph. margin-inline-end:-10px pulls the centred 24px glyph out to the
+   large gutter edge so it aligns with the header hamburger (whose 24px glyph is
+   right-aligned to that same gutter). Without it the glyph sits (44-24)/2 = 10px
+   inside the button, landing 10px left of the hamburger axis. */
 .origin-canvas-mobile-menu .wp-block-navigation-overlay-close {
 	border-radius: 10px;
 	color: var(--wp--preset--color--text-heading);
 	height: 44px;
+	margin-inline-end: -10px;
 	transition: background-color 0.15s ease;
 	width: 44px;
 }
