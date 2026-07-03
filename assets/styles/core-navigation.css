@@ -382,3 +382,13 @@
 .origin-canvas-mobile-nav .wp-block-navigation__container > .wp-block-navigation-item {
 	border-bottom: 1px solid var(--wp--preset--color--border);
 }
+
+/* Chevron alignment: margin-inline-start:auto pushes the chevron to the row's
+   right edge; margin-inline-end:12px pulls its 20px box centre inward so it
+   shares a vertical axis with the close-✕ glyph centre (the 44px ✕ button centres
+   its 24px glyph 22px in from the padding edge; the flush 20px chevron centres
+   10px in — 22 − 10 = 12). */
+.origin-canvas-mobile-nav .wp-block-navigation__submenu-icon {
+	margin-inline-end: 12px;
+	margin-inline-start: auto;
+}
