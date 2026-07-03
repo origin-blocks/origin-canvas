@@ -346,13 +346,20 @@ if ( ! function_exists( 'origin_canvas_enqueue_block_styles' ) ) {
 			$filename   = basename( $file, '.css' );
 			$block_name = str_replace( 'core-', 'core/', $filename );
 
+			// Version each stylesheet by its on-disk mtime so any change gets a fresh
+			// URL; browsers otherwise cache the file under the fixed theme version and
+			// serve stale CSS across edits. Fall back to the theme version if the file
+			// cannot be stat-ed.
+			$mtime = file_exists( $file ) ? filemtime( $file ) : false;
+			$ver   = $mtime ? $mtime : ORIGIN_CANVAS_VERSION;
+
 			wp_enqueue_block_style(
 				$block_name,
 				array(
 					'handle' => "origin-canvas-block-{$filename}",
 					'src'    => get_theme_file_uri( "assets/styles/{$filename}.css" ),
 					'path'   => get_theme_file_path( "assets/styles/{$filename}.css" ),
-					'ver'    => ORIGIN_CANVAS_VERSION,
+					'ver'    => $ver,
 				)
 			);
 		}
