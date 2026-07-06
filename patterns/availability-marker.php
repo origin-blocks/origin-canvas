@@ -2,7 +2,7 @@
 /**
  * Title: Availability Marker
  * Slug: origin-canvas/availability-marker
- * Categories: origin-canvas/text
+ * Categories: text
  * Keywords: availability, marker, status, studio
  * Block Types: core/post-content
  * Inserter: true
