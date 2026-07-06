@@ -222,16 +222,24 @@
 
 /* Submit */
 .wp-block-comments .wp-block-post-comments-form input[type="submit"] {
-	background: var(--wp--preset--color--primary);
+	background: var(--wp--preset--color--text-heading);
 	border: 0;
 	border-radius: 999px;
-	box-shadow: var(--wp--preset--shadow--small);
-	color: #fff;
+	color: var(--wp--preset--color--surface-base);
 	cursor: pointer;
-	transition: background 120ms ease, box-shadow 120ms ease;
+	transition: background 120ms ease;
 }
 
 .wp-block-comments .wp-block-post-comments-form input[type="submit"]:hover {
-	background: color-mix(in srgb, var(--wp--preset--color--primary) 85%, white);
-	box-shadow: var(--wp--preset--shadow--medium);
+	background: color-mix(in srgb, var(--wp--preset--color--text-heading) 88%, #000);
+}
+
+.wp-block-comments .wp-block-post-comments-form input[type="submit"]:active {
+	background: color-mix(in srgb, var(--wp--preset--color--text-heading) 80%, #000);
+}
+
+.wp-block-comments .wp-block-post-comments-form input[type="submit"]:focus-visible {
+	background: color-mix(in srgb, var(--wp--preset--color--text-heading) 88%, #000);
+	box-shadow: 0 0 0 var(--wp--preset--spacing--extra-small) color-mix(in srgb, var(--wp--preset--color--primary) 25%, transparent);
+	outline: none;
 }
