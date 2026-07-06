@@ -22,8 +22,8 @@
 <!-- /wp:column -->
 
 <!-- wp:column {"verticalAlignment":"center","width":"50%","backgroundColor":"surface-muted","style":{"spacing":{"padding":{"top":"var:preset|spacing|colossal","bottom":"var:preset|spacing|colossal","left":"var:preset|spacing|jumbo","right":"var:preset|spacing|jumbo"}}}} -->
-<div class="wp-block-column is-vertically-aligned-center has-surface-muted-background-color has-background" style="padding-top:var(--wp--preset--spacing--colossal);padding-right:var(--wp--preset--spacing--jumbo);padding-bottom:var(--wp--preset--spacing--colossal);padding-left:var(--wp--preset--spacing--jumbo);flex-basis:50%"><!-- wp:paragraph {"align":"left","style":{"typography":{"textTransform":"uppercase","fontWeight":"500","letterSpacing":"0.08em"},"spacing":{"margin":{"bottom":"var:preset|spacing|small"}}},"textColor":"primary","fontSize":"small"} -->
-<p class="has-text-align-left has-primary-color has-text-color has-small-font-size" style="margin-bottom:var(--wp--preset--spacing--small);font-weight:500;letter-spacing:0.08em;text-transform:uppercase"><?php echo esc_html__( 'WHAT WE DO', 'origin-canvas' ); ?></p>
+<div class="wp-block-column is-vertically-aligned-center has-surface-muted-background-color has-background" style="padding-top:var(--wp--preset--spacing--colossal);padding-right:var(--wp--preset--spacing--jumbo);padding-bottom:var(--wp--preset--spacing--colossal);padding-left:var(--wp--preset--spacing--jumbo);flex-basis:50%"><!-- wp:paragraph {"align":"left","style":{"typography":{"textTransform":"uppercase","fontWeight":"600","letterSpacing":"0.08em"},"spacing":{"margin":{"bottom":"var:preset|spacing|small"}}},"textColor":"primary","fontSize":"small"} -->
+<p class="has-text-align-left has-primary-color has-text-color has-small-font-size" style="margin-bottom:var(--wp--preset--spacing--small);font-weight:600;letter-spacing:0.08em;text-transform:uppercase"><?php echo esc_html__( 'WHAT WE DO', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading {"textAlign":"left","level":1,"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}}} -->

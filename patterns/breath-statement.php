@@ -2,7 +2,7 @@
 /**
  * Title: Breath Statement
  * Slug: origin-canvas/breath-statement
- * Categories: origin-canvas/text
+ * Categories: text
  * Keywords: statement, editorial, intro, text, home
  * Block Types: core/post-content
  * Viewport Width: 1500

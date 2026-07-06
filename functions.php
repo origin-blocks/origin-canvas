@@ -111,7 +111,6 @@ if ( ! function_exists( 'origin_canvas_register_pattern_categories' ) ) {
 			'origin-canvas/page'     => array( 'label' => __( 'Pages', 'origin-canvas' ) ),
 			'origin-canvas/features' => array( 'label' => __( 'Features', 'origin-canvas' ) ),
 			'origin-canvas/stats'    => array( 'label' => __( 'Stats', 'origin-canvas' ) ),
-			'origin-canvas/text'     => array( 'label' => __( 'Text', 'origin-canvas' ) ),
 			'origin-canvas/team'     => array( 'label' => __( 'Team', 'origin-canvas' ) ),
 			'origin-canvas/pricing'  => array( 'label' => __( 'Pricing', 'origin-canvas' ) ),
 			'origin-canvas/card'     => array( 'label' => __( 'Cards', 'origin-canvas' ) ),
