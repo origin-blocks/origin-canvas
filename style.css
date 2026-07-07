@@ -407,7 +407,7 @@ textarea:disabled {
 .wp-block-query-pagination .page-numbers.current,
 .wp-block-comments-pagination .page-numbers.current {
 	align-items: center;
-	background: var(--wp--preset--color--primary);
+	background: var(--wp--preset--color--text-heading);
 	border-radius: var(--wp--custom--radius--medium);
 	color: var(--wp--preset--color--surface-base);
 	cursor: default;
