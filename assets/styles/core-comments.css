@@ -208,6 +208,7 @@
 }
 
 .wp-block-comments .wp-block-post-comments-form .comment-form-cookies-consent input[type="checkbox"]#wp-comment-cookies-consent:focus-visible {
+	border-color: var(--wp--preset--color--text-heading);
 	box-shadow: 0 0 0 3px var(--wp--custom--ring--ink);
 	outline: none;
 }
