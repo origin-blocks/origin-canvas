@@ -19,6 +19,5 @@
 }
 
 .is-style-origin-canvas-tag-chip a:hover {
-	background: var(--wp--preset--color--primary);
-	color: var(--wp--preset--color--surface-base);
+	background: var(--wp--preset--color--border);
 }
