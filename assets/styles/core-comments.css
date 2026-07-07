@@ -162,8 +162,8 @@
 .wp-block-comments .wp-block-post-comments-form input[type="email"]:focus,
 .wp-block-comments .wp-block-post-comments-form input[type="url"]:focus,
 .wp-block-comments .wp-block-post-comments-form textarea:focus {
-	border-color: var(--wp--preset--color--primary);
-	box-shadow: 0 0 0 3px color-mix(in srgb, var(--wp--preset--color--primary) 25%, transparent);
+	border-color: var(--wp--preset--color--text-heading);
+	box-shadow: 0 0 0 3px var(--wp--custom--ring--ink);
 	outline: none;
 }
 
