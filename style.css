@@ -143,6 +143,7 @@ textarea {
 	color: var(--wp--preset--color--text-body);
 	font-size: var(--wp--preset--font-size--regular);
 	padding: var(--wp--preset--spacing--compact) var(--wp--preset--spacing--medium);
+	transition: box-shadow 120ms ease, border-color 120ms ease;
 	width: 100%;
 }
 
@@ -160,8 +161,8 @@ textarea:hover:not(:disabled):not(:focus) {
 input:not([type="button"]):not([type="reset"]):not([type="submit"]):not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="file"]):focus,
 select:focus,
 textarea:focus {
-	border-color: var(--wp--preset--color--primary);
-	box-shadow: 0 0 0 var(--wp--preset--spacing--extra-small) color-mix(in srgb, var(--wp--preset--color--primary) 25%, transparent);
+	border-color: var(--wp--preset--color--text-heading);
+	box-shadow: 0 0 0 var(--wp--preset--spacing--extra-small) var(--wp--custom--ring--ink);
 	outline: none;
 }
 
