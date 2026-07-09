@@ -89,17 +89,6 @@
 	vertical-align: middle;
 }
 
-.wp-block-comments .origin-canvas-author-badge::before {
-	background-color: var(--wp--preset--color--primary);
-	border-radius: 999px;
-	content: "";
-	display: inline-block;
-	height: 6px;
-	margin-inline-end: 6px;
-	vertical-align: middle;
-	width: 6px;
-}
-
 /* Reply link */
 .wp-block-comments .wp-block-comment-reply-link {
 	margin-top: var(--wp--preset--spacing--small);
