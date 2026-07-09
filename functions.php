@@ -472,7 +472,7 @@ if ( ! function_exists( 'origin_canvas_comment_author_badge' ) ) {
 	 * Append an "Author" pill badge to the comment author name when the
 	 * commenter is the post author — the same relationship core marks with
 	 * the .bypostauthor class. Text is ink on a primary-tracking tint per
-	 * the badges/pills design rule; the primary brand cue is the CSS dot.
+	 * the badges/pills design rule.
 	 *
 	 * Disable via: add_filter( 'origin_canvas_render_author_badge', '__return_false' );
 	 *
