@@ -84,8 +84,9 @@
 	display: inline-block;
 	font-size: var(--wp--preset--font-size--extra-small);
 	font-weight: 600;
+	line-height: 1;
 	margin-inline-start: var(--wp--preset--spacing--small);
-	padding: 1px 10px;
+	padding: 4px 10px;
 	vertical-align: middle;
 }
 
