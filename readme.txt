@@ -86,7 +86,7 @@ The check icon used by the Check list block style is sourced from [Lucide](https
 
 == Changelog ==
 
-= 1.3.0 - 9 July 2026 =
+= 1.2.0 - 9 July 2026 =
 * Buttons now default to a solid dark (ink) fill; pink is now an opt-in 'Fill Primary' button style. Existing plain buttons will appear dark after updating — reapply the Fill Primary style to restore pink.
 * Promoted the primary button to pink on the dark hero and dark call-to-action banner, where the ink fill would be invisible.
 * Completed the primary-as-accent colour model: body/comment links, pagination current page, comment and search submit buttons, form focus rings, and tag-chip hover now rest on ink/neutral tones, with pink reserved for hovers and deliberate accents. Fixes tag-chip and badge contrast (AA).
