@@ -87,9 +87,9 @@ The check icon used by the Check list block style is sourced from [Lucide](https
 == Changelog ==
 
 = 1.2.0 - 9 July 2026 =
-* Buttons now default to a solid dark (ink) fill; pink is now an opt-in 'Fill Primary' button style. Existing plain buttons will appear dark after updating — reapply the Fill Primary style to restore pink.
+* Switched the default button fill to solid dark (ink) and made pink an opt-in 'Fill Primary' style. Existing plain buttons will appear dark after updating — reapply Fill Primary to restore pink.
 * Promoted the primary button to pink on the dark hero and dark call-to-action banner, where the ink fill would be invisible.
-* Completed the primary-as-accent colour model: body/comment links, pagination current page, comment and search submit buttons, form focus rings, and tag-chip hover now rest on ink/neutral tones, with pink reserved for hovers and deliberate accents. Fixes tag-chip and badge contrast (AA).
+* Completed the primary-as-accent colour model: moved body/comment links, pagination current page, comment and search submit buttons, form focus rings, and tag-chip hover to ink/neutral tones, reserving pink for hovers and deliberate accents. Fixes tag-chip and badge contrast (AA).
 * Added an "Author" pill badge on comments written by the post author — ink text on a faint primary tint that follows your colour style variation. Developers can disable it via the new origin_canvas_render_author_badge filter.
 * Added support for the editor's sticky Position setting on the site header — when enabled, the whole header sticks and submenus layer correctly above page content.
 * Reworked mobile navigation: tap-to-expand inline accordion submenus, Lucide chevron icons on desktop and mobile, and aligned close/expand controls.
