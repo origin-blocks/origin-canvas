@@ -111,7 +111,6 @@ if ( ! function_exists( 'origin_canvas_register_pattern_categories' ) ) {
 			'origin-canvas/page'     => array( 'label' => __( 'Pages', 'origin-canvas' ) ),
 			'origin-canvas/features' => array( 'label' => __( 'Features', 'origin-canvas' ) ),
 			'origin-canvas/stats'    => array( 'label' => __( 'Stats', 'origin-canvas' ) ),
-			'origin-canvas/text'     => array( 'label' => __( 'Text', 'origin-canvas' ) ),
 			'origin-canvas/team'     => array( 'label' => __( 'Team', 'origin-canvas' ) ),
 			'origin-canvas/pricing'  => array( 'label' => __( 'Pricing', 'origin-canvas' ) ),
 			'origin-canvas/card'     => array( 'label' => __( 'Cards', 'origin-canvas' ) ),
@@ -216,6 +215,7 @@ if ( ! function_exists( 'origin_canvas_register_block_styles' ) ) {
 			'core/button'        => array(
 				array( 'name' => 'origin-canvas-outline-strong', 'label' => __( 'Outline Strong', 'origin-canvas' ) ),
 				array( 'name' => 'origin-canvas-outline-light', 'label' => __( 'Outline Light', 'origin-canvas' ) ),
+				array( 'name' => 'origin-canvas-fill-primary', 'label' => __( 'Fill Primary', 'origin-canvas' ) ),
 			),
 			'core/list'          => array(
 				array( 'name' => 'origin-canvas-list-check', 'label' => __( 'Check', 'origin-canvas' ) ),
@@ -345,13 +345,20 @@ if ( ! function_exists( 'origin_canvas_enqueue_block_styles' ) ) {
 			$filename   = basename( $file, '.css' );
 			$block_name = str_replace( 'core-', 'core/', $filename );
 
+			// Version each stylesheet by its on-disk mtime so any change gets a fresh
+			// URL; browsers otherwise cache the file under the fixed theme version and
+			// serve stale CSS across edits. Fall back to the theme version if the file
+			// cannot be stat-ed.
+			$mtime = file_exists( $file ) ? filemtime( $file ) : false;
+			$ver   = $mtime ? $mtime : ORIGIN_CANVAS_VERSION;
+
 			wp_enqueue_block_style(
 				$block_name,
 				array(
 					'handle' => "origin-canvas-block-{$filename}",
 					'src'    => get_theme_file_uri( "assets/styles/{$filename}.css" ),
 					'path'   => get_theme_file_path( "assets/styles/{$filename}.css" ),
-					'ver'    => ORIGIN_CANVAS_VERSION,
+					'ver'    => $ver,
 				)
 			);
 		}
@@ -359,45 +366,36 @@ if ( ! function_exists( 'origin_canvas_enqueue_block_styles' ) ) {
 }
 add_action( 'init', 'origin_canvas_enqueue_block_styles' );
 
-if ( ! function_exists( 'origin_canvas_enqueue_block_styles_editor' ) ) {
+if ( ! function_exists( 'origin_canvas_add_block_editor_styles' ) ) {
 	/**
-	 * Enqueue every per-block stylesheet into the block editor canvas.
+	 * Inject every per-block stylesheet into the block editor canvas.
 	 *
-	 * The front-end loader (origin_canvas_enqueue_block_styles) uses
-	 * wp_enqueue_block_style(), which on block themes takes the on-demand path
-	 * and returns before registering its editor (enqueue_block_assets) hook —
-	 * so per-block CSS never reaches the editor iframe. The editor should preview
-	 * every variation, so enqueue all of them here, admin-side only.
+	 * The front-end loader (origin_canvas_enqueue_block_styles) registers per-block
+	 * CSS on-demand via wp_enqueue_block_style(), which does not reach the iframed
+	 * editor canvas. add_editor_style() is the block-theme-idiomatic way to get CSS
+	 * into that iframe, so the editor previews every block style variation.
 	 *
-	 * Same handle/src scheme as the front-end loader, so WP dedupes by handle
-	 * and the editor loads byte-identical CSS.
+	 * Paths must be theme-relative (not absolute URIs); strip the template-dir
+	 * prefix from each globbed file before handing it to add_editor_style().
 	 */
-	function origin_canvas_enqueue_block_styles_editor() {
-		if ( ! is_admin() ) {
-			return;
-		}
-
+	function origin_canvas_add_block_editor_styles() {
 		$files = glob( get_template_directory() . '/assets/styles/*.css' );
 
 		if ( empty( $files ) ) {
 			return;
 		}
 
-		foreach ( $files as $file ) {
-			$filename = basename( $file, '.css' );
+		$prefix = trailingslashit( get_template_directory() );
+		$paths  = array();
 
-			// TODO: if -rtl.css files are ever added, mirror the front-end
-			// loader's RTL handling here via wp_style_add_data().
-			wp_enqueue_style(
-				"origin-canvas-block-{$filename}",
-				get_theme_file_uri( "assets/styles/{$filename}.css" ),
-				array(),
-				ORIGIN_CANVAS_VERSION
-			);
+		foreach ( $files as $file ) {
+			$paths[] = str_replace( $prefix, '', $file );
 		}
+
+		add_editor_style( $paths );
 	}
 }
-add_action( 'enqueue_block_assets', 'origin_canvas_enqueue_block_styles_editor' );
+add_action( 'after_setup_theme', 'origin_canvas_add_block_editor_styles' );
 
 if ( ! function_exists( 'origin_canvas_rewrite_legacy_card_image_paths' ) ) {
 	/**
@@ -433,3 +431,87 @@ if ( ! function_exists( 'origin_canvas_rewrite_legacy_card_image_paths' ) ) {
 }
 add_filter( 'render_block_core/image', 'origin_canvas_rewrite_legacy_card_image_paths' );
 add_filter( 'render_block_core/cover', 'origin_canvas_rewrite_legacy_card_image_paths' );
+
+if ( ! function_exists( 'origin_canvas_swap_nav_chevron' ) ) {
+	/**
+	 * Replace core's submenu caret SVG with the Lucide `chevron-down` glyph.
+	 *
+	 * Core renders its caret on a 12-unit viewBox (path "M1.50002 4L6.00002 8L10.5 4"),
+	 * whose geometry CSS cannot reshape into Lucide's. We swap the whole SVG at render
+	 * time for the Lucide chevron-down (path "m6 9 6 6 6-6"). The swap is UNGATED so
+	 * the desktop dropdown AND the mobile overlay share one identical glyph.
+	 *
+	 * The Lucide arrow occupies only the middle band of its native 0 0 24 24 viewBox
+	 * (x 6→18, y 9→15), so at the small display sizes here (11px desktop / 20px mobile)
+	 * a full-viewBox glyph reads tiny and appears off-centre against the close ✕. We
+	 * therefore emit the SAME path in a TIGHT viewBox cropped to the arrow ("5 8 14 8")
+	 * so it fills the icon box at both sizes; per-surface box size stays in CSS.
+	 *
+	 * @param string $block_content Rendered navigation block HTML.
+	 * @param array  $block         Parsed block (unused; kept for the filter signature).
+	 * @return string Navigation HTML with the caret swapped for Lucide chevron-down.
+	 */
+	function origin_canvas_swap_nav_chevron( $block_content, $block = array() ) {
+		if ( false === strpos( $block_content, 'M1.50002 4L6.00002 8L10.5 4' ) ) {
+			return $block_content;
+		}
+
+		$lucide_chevron = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6"></path></svg>';
+
+		return preg_replace(
+			'#<svg[^>]*viewBox="0 0 12 12"[^>]*>\s*<path d="M1\.50002 4L6\.00002 8L10\.5 4"[^>]*>\s*</path>\s*</svg>#',
+			$lucide_chevron,
+			$block_content
+		);
+	}
+}
+add_filter( 'render_block_core/navigation', 'origin_canvas_swap_nav_chevron', 10, 2 );
+
+if ( ! function_exists( 'origin_canvas_comment_author_badge' ) ) {
+	/**
+	 * Append an "Author" pill badge to the comment author name when the
+	 * commenter is the post author — the same relationship core marks with
+	 * the .bypostauthor class. Text is ink on a primary-tracking tint per
+	 * the badges/pills design rule.
+	 *
+	 * Disable via: add_filter( 'origin_canvas_render_author_badge', '__return_false' );
+	 *
+	 * @param string   $block_content Rendered block HTML.
+	 * @param array    $parsed_block  Parsed block array (unused).
+	 * @param WP_Block $block         Block instance carrying commentId context.
+	 * @return string Filtered block HTML.
+	 */
+	function origin_canvas_comment_author_badge( $block_content, $parsed_block, $block ) {
+		if ( '' === $block_content || empty( $block->context['commentId'] ) ) {
+			return $block_content;
+		}
+
+		if ( false !== strpos( $block_content, 'origin-canvas-author-badge' ) ) {
+			return $block_content;
+		}
+
+		$comment = get_comment( $block->context['commentId'] );
+		if ( ! $comment || ! $comment->user_id ) {
+			return $block_content;
+		}
+
+		$post = get_post( $comment->comment_post_ID );
+		if ( ! $post || (int) $comment->user_id !== (int) $post->post_author ) {
+			return $block_content;
+		}
+
+		if ( ! apply_filters( 'origin_canvas_render_author_badge', true, $comment ) ) {
+			return $block_content;
+		}
+
+		$badge = '<span class="origin-canvas-author-badge">' . esc_html__( 'Author', 'origin-canvas' ) . '</span>';
+
+		$closing = strrpos( $block_content, '</div>' );
+		if ( false === $closing ) {
+			return $block_content;
+		}
+
+		return substr_replace( $block_content, $badge, $closing, 0 );
+	}
+}
+add_filter( 'render_block_core/comment-author-name', 'origin_canvas_comment_author_badge', 10, 3 );

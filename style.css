@@ -7,7 +7,7 @@ Description: A Full Site Editing WordPress block theme for sites that look desig
 Requires at least: 7.0
 Tested up to: 7.0
 Requires PHP: 7.4
-Version: 1.1.0
+Version: 1.3.0
 License: GNU General Public License v3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 Text Domain: origin-canvas
@@ -143,6 +143,7 @@ textarea {
 	color: var(--wp--preset--color--text-body);
 	font-size: var(--wp--preset--font-size--regular);
 	padding: var(--wp--preset--spacing--compact) var(--wp--preset--spacing--medium);
+	transition: box-shadow 120ms ease, border-color 120ms ease;
 	width: 100%;
 }
 
@@ -160,8 +161,8 @@ textarea:hover:not(:disabled):not(:focus) {
 input:not([type="button"]):not([type="reset"]):not([type="submit"]):not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="file"]):focus,
 select:focus,
 textarea:focus {
-	border-color: var(--wp--preset--color--primary);
-	box-shadow: 0 0 0 var(--wp--preset--spacing--extra-small) color-mix(in srgb, var(--wp--preset--color--primary) 25%, transparent);
+	border-color: var(--wp--preset--color--text-heading);
+	box-shadow: 0 0 0 var(--wp--preset--spacing--extra-small) var(--wp--custom--ring--ink);
 	outline: none;
 }
 
@@ -194,72 +195,6 @@ textarea:disabled {
 
 .origin-canvas-post-excerpt .wp-block-post-excerpt__more-link::after {
 	content: "\2192";
-}
-
-.origin-canvas-post-grid-card {
-	border-radius: var(--wp--preset--spacing--large);
-	isolation: isolate;
-	overflow: hidden;
-	position: relative;
-	transition: transform 0.2s ease;
-}
-
-.origin-canvas-post-grid-card:hover {
-	transform: translateY(-2px);
-}
-
-.origin-canvas-post-grid-card .wp-block-post-featured-image img {
-	aspect-ratio: 16 / 9;
-	display: block;
-	height: auto;
-	object-fit: cover;
-	vertical-align: bottom;
-	width: 100%;
-}
-
-.origin-canvas-post-grid-content {
-	background: var(--wp--preset--color--surface-muted);
-	display: flex;
-	flex-direction: column;
-	height: 100%;
-}
-
-.origin-canvas-post-grid-category {
-	background: var(--wp--preset--color--surface-muted);
-	border-radius: var(--wp--preset--spacing--large);
-	color: var(--wp--preset--color--primary);
-	display: inline-flex;
-	font-size: var(--wp--preset--font-size--extra-small);
-	font-weight: 600;
-	letter-spacing: 0.08em;
-	padding: var(--wp--preset--spacing--4) var(--wp--preset--spacing--8);
-	text-transform: uppercase;
-}
-
-.origin-canvas-post-grid-title a::after {
-	content: "";
-	inset: 0;
-	position: absolute;
-}
-
-.origin-canvas-post-grid-excerpt .wp-block-post-excerpt__excerpt {
-	-webkit-line-clamp: 3;
-}
-
-.origin-canvas-post-grid-footer {
-	align-items: center;
-	display: flex;
-	justify-content: space-between;
-}
-
-.origin-canvas-post-grid-arrow .wp-block-read-more {
-	align-items: center;
-	display: inline-flex;
-	gap: var(--wp--preset--spacing--8);
-}
-
-.origin-canvas-post-grid-arrow .wp-block-read-more:hover {
-	transform: translateX(var(--wp--preset--spacing--4));
 }
 
 /* Featured image fallback */
@@ -406,7 +341,7 @@ textarea:disabled {
 .wp-block-query-pagination .page-numbers.current,
 .wp-block-comments-pagination .page-numbers.current {
 	align-items: center;
-	background: var(--wp--preset--color--primary);
+	background: var(--wp--preset--color--text-heading);
 	border-radius: var(--wp--custom--radius--medium);
 	color: var(--wp--preset--color--surface-base);
 	cursor: default;
@@ -438,4 +373,19 @@ textarea:disabled {
 
 .wp-block-table[class*="-font-size"] > table {
 	font-size: inherit;
+}
+
+/* Sticky header: when the header contains a sticky child, make the header
+   wrapper itself the sticky element (its containing block is the page flow, so
+   it can travel), admin-bar-aware, above page content. Front end only. */
+body:not(.wp-admin) header:has(> .is-position-sticky) {
+	position: sticky;
+	top: calc(0px + var(--wp-admin--admin-bar--height, 0px));
+	z-index: 100;
+}
+
+@media (max-width: 600px) {
+	header:has(> .is-position-sticky) {
+		top: 0;
+	}
 }
