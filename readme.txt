@@ -93,7 +93,7 @@ The check icon used by the Check list block style is sourced from [Lucide](https
 * Added an "Author" pill badge on comments written by the post author — ink text on a faint primary tint that follows your colour style variation. Developers can disable it via the new origin_canvas_render_author_badge filter.
 * Added support for the editor's sticky Position setting on the site header — when enabled, the whole header sticks and submenus layer correctly above page content.
 * Reworked mobile navigation: tap-to-expand inline accordion submenus, Lucide chevron icons on desktop and mobile, and aligned close/expand controls.
-* Fixed nested list spacing compounding: list rhythm is now content-scoped with margin-top-only gaps, so deeply nested items no longer over-space; pattern/chrome lists use tight default spacing.
+* Fixed nested list spacing compounding: scoped list rhythm to post content with margin-top-only gaps, so deeply nested items no longer over-space; pattern/chrome lists use tight default spacing.
 * Refined single-post typography: two-tier byline (ink author, muted date), category lead rendered as an uppercase eyebrow, and section eyebrows raised to 600 weight.
 * Added the Hero Canvas landing hero and renamed the Studio page pattern.
 * Cleaned up unused legacy post-grid styles left over from a superseded pattern; removed a duplicate Text pattern category; de-underlined post-loop dates and titles.
