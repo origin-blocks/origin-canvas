@@ -76,9 +76,18 @@
 	margin-top: var(--wp--preset--spacing--extra-small);
 }
 
-.wp-block-comments .bypostauthor > .wp-block-columns .wp-block-comment-author-name,
-.wp-block-comments .bypostauthor > .wp-block-columns .wp-block-comment-author-name a {
-	color: var(--wp--preset--color--primary);
+/* Author badge */
+.wp-block-comments .origin-canvas-author-badge {
+	background: color-mix(in srgb, var(--wp--preset--color--primary) 10%, var(--wp--preset--color--surface-base));
+	border-radius: 999px;
+	color: var(--wp--preset--color--text-heading);
+	display: inline-block;
+	font-size: var(--wp--preset--font-size--extra-small);
+	font-weight: 600;
+	line-height: 1;
+	margin-inline-start: var(--wp--preset--spacing--small);
+	padding: 4px 10px;
+	vertical-align: middle;
 }
 
 /* Reply link */

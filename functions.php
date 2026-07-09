@@ -466,3 +466,52 @@ if ( ! function_exists( 'origin_canvas_swap_nav_chevron' ) ) {
 	}
 }
 add_filter( 'render_block_core/navigation', 'origin_canvas_swap_nav_chevron', 10, 2 );
+
+if ( ! function_exists( 'origin_canvas_comment_author_badge' ) ) {
+	/**
+	 * Append an "Author" pill badge to the comment author name when the
+	 * commenter is the post author — the same relationship core marks with
+	 * the .bypostauthor class. Text is ink on a primary-tracking tint per
+	 * the badges/pills design rule.
+	 *
+	 * Disable via: add_filter( 'origin_canvas_render_author_badge', '__return_false' );
+	 *
+	 * @param string   $block_content Rendered block HTML.
+	 * @param array    $parsed_block  Parsed block array (unused).
+	 * @param WP_Block $block         Block instance carrying commentId context.
+	 * @return string Filtered block HTML.
+	 */
+	function origin_canvas_comment_author_badge( $block_content, $parsed_block, $block ) {
+		if ( '' === $block_content || empty( $block->context['commentId'] ) ) {
+			return $block_content;
+		}
+
+		if ( false !== strpos( $block_content, 'origin-canvas-author-badge' ) ) {
+			return $block_content;
+		}
+
+		$comment = get_comment( $block->context['commentId'] );
+		if ( ! $comment || ! $comment->user_id ) {
+			return $block_content;
+		}
+
+		$post = get_post( $comment->comment_post_ID );
+		if ( ! $post || (int) $comment->user_id !== (int) $post->post_author ) {
+			return $block_content;
+		}
+
+		if ( ! apply_filters( 'origin_canvas_render_author_badge', true, $comment ) ) {
+			return $block_content;
+		}
+
+		$badge = '<span class="origin-canvas-author-badge">' . esc_html__( 'Author', 'origin-canvas' ) . '</span>';
+
+		$closing = strrpos( $block_content, '</div>' );
+		if ( false === $closing ) {
+			return $block_content;
+		}
+
+		return substr_replace( $block_content, $badge, $closing, 0 );
+	}
+}
+add_filter( 'render_block_core/comment-author-name', 'origin_canvas_comment_author_badge', 10, 3 );
