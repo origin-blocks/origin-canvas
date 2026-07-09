@@ -798,13 +798,6 @@
 					}
 				}
 			},
-			"core/list-item": {
-				"spacing": {
-					"margin": {
-						"bottom": "var(--wp--preset--spacing--small)"
-					}
-				}
-			},
 			"core/paragraph": {
 				"css": "&.has-background { padding: var(--wp--preset--spacing--compact) var(--wp--preset--spacing--medium); }",
 				"elements": {
