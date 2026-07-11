@@ -472,3 +472,14 @@ body.admin-bar .wp-block-navigation__responsive-container.is-menu-open.disable-d
 body.admin-bar .wp-block-navigation__responsive-container.is-menu-open.disable-default-overlay .origin-canvas-mobile-menu {
 	min-height: calc(100vh - var(--wp-admin--admin-bar--height, 0px)) !important;
 }
+
+/* Safe-area guard. The overlay is position:fixed at the viewport top, so in
+   full-bleed contexts (PWA/standalone, or if viewport-fit=cover is ever added to
+   the viewport meta — the theme does not set it today) the ✕ would crowd the
+   notch/status bar. env() computes to the 0px fallback in normal browsing, so
+   this is inert everywhere else. Stacks additively with the admin-bar margin
+   above by design: the two obstructions overlap, and over-clearing by a few px
+   beats a max() that could under-clear and hide the close button. */
+.wp-block-navigation__responsive-container.is-menu-open.disable-default-overlay .wp-block-navigation__responsive-dialog {
+	padding-top: env(safe-area-inset-top, 0px);
+}
