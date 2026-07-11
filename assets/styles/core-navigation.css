@@ -446,3 +446,23 @@
 	height: 24px;
 	width: 24px;
 }
+
+/* Admin-bar offset — core parity for custom overlays. Core drops its DEFAULT
+   overlay's dialog by the admin-bar height (navigation/style.css guards that rule
+   with :not(.disable-default-overlay)), but custom overlay template parts get
+   nothing: the fixed overlay stays pinned to the viewport top while the admin bar
+   pushes the whole page — header and hamburger included — 46px (32px >782px) down.
+   The close ✕ then floats an admin-bar-height above the hamburger it replaces.
+   Mirror core's behaviour: the overlay keeps covering the bar (z-index 100000 vs
+   99999) and the dialog drops by the bar height so open/close stay on one axis.
+   Logged out, body.admin-bar is absent and both rules are inert. */
+body.admin-bar .wp-block-navigation__responsive-container.is-menu-open.disable-default-overlay .wp-block-navigation__responsive-dialog {
+	margin-top: var(--wp-admin--admin-bar--height, 0px);
+}
+
+/* The overlay part sets min-height:100vh inline; with the dialog dropped by the
+   bar height that totals 100vh + 46px inside a 100vh overflow:auto container —
+   46px of pointless scroll. Shrink to fit (!important to beat the inline style). */
+body.admin-bar .wp-block-navigation__responsive-container.is-menu-open.disable-default-overlay .origin-canvas-mobile-menu {
+	min-height: calc(100vh - var(--wp-admin--admin-bar--height, 0px)) !important;
+}
