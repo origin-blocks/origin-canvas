@@ -461,16 +461,22 @@
    The close ✕ then floats an admin-bar-height above the hamburger it replaces.
    Mirror core's behaviour: the overlay keeps covering the bar (z-index 100000 vs
    99999) and the dialog drops by the bar height so open/close stay on one axis.
-   Logged out, body.admin-bar is absent and both rules are inert. */
+   Logged out, body.admin-bar is absent and both rules are inert. These selectors
+   bind to core-internal classes (verified against WP 7.0.1); if a core release
+   renames them the rules simply go inert — fail-safe back to core behaviour. */
 body.admin-bar .wp-block-navigation__responsive-container.is-menu-open.disable-default-overlay .wp-block-navigation__responsive-dialog {
 	margin-top: var(--wp-admin--admin-bar--height, 0px);
 }
 
 /* The overlay part sets min-height:100vh inline; with the dialog dropped by the
    bar height that totals 100vh + 46px inside a 100vh overflow:auto container —
-   46px of pointless scroll. Shrink to fit (!important to beat the inline style). */
+   46px of pointless scroll. Shrink to fit (!important to beat the inline style).
+   dvh tracks the visible viewport as mobile browser chrome expands/collapses
+   (100vh is the larger chrome-collapsed height); vh line stays as the fallback
+   for browsers without dvh support. */
 body.admin-bar .wp-block-navigation__responsive-container.is-menu-open.disable-default-overlay .origin-canvas-mobile-menu {
 	min-height: calc(100vh - var(--wp-admin--admin-bar--height, 0px)) !important;
+	min-height: calc(100dvh - var(--wp-admin--admin-bar--height, 0px)) !important;
 }
 
 /* Safe-area guard. The overlay is position:fixed at the viewport top, so in
