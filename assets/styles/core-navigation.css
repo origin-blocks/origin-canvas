@@ -427,12 +427,18 @@
    24px glyph. margin-inline-end:-10px pulls the centred 24px glyph out to the
    large gutter edge so it aligns with the header hamburger (whose 24px glyph is
    right-aligned to that same gutter). Without it the glyph sits (44-24)/2 = 10px
-   inside the button, landing 10px left of the hamburger axis. */
+   inside the button, landing 10px left of the hamburger axis.
+   top:-2px is the vertical half of the same swap: the hamburger glyph centre sits
+   at 32px header padding + 12 = 44px, the ✕ centre at 24px overlay padding + 22 =
+   46px. Relative positioning (not negative margin) so the 44px flex row keeps its
+   size and centring while the glyph lands exactly on the hamburger's axis. */
 .origin-canvas-mobile-menu .wp-block-navigation-overlay-close {
 	border-radius: 10px;
 	color: var(--wp--preset--color--text-heading);
 	height: 44px;
 	margin-inline-end: -10px;
+	position: relative;
+	top: -2px;
 	transition: background-color 0.15s ease;
 	width: 44px;
 }
