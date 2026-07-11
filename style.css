@@ -61,8 +61,10 @@ ol.wp-block-list,
 	list-style-type: decimal;
 }
 
-/* Comment bodies are freeform HTML with no layout container, so the global
-   margin + list-style resets above are not otherwise restored here. */
+/**
+ * Comment bodies are freeform HTML with no layout container, so the global
+ * margin + list-style resets above are not otherwise restored here.
+ */
 .wp-block-comment-content > * + * {
 	margin-block-start: var(--wp--preset--spacing--medium);
 }
@@ -278,13 +280,16 @@ textarea:disabled {
 	width: 100%;
 }
 
-/* Sidebar.
-   Widget-to-widget spacing is owned by the group's blockGap (the pattern /
-   theme.json), which WordPress emits as constrained-layout `> * + *
-   margin-block-start`. No flex/gap is set on the wrapper here: a hard flex `gap`
-   would STACK with that constrained margin (they are additive), doubling the gap.
-   The rules below target inner block sub-elements that have no theme.json/blockGap
-   hook, so they legitimately stay CSS. */
+/**
+ * Sidebar.
+ *
+ * Widget-to-widget spacing is owned by the group's blockGap (the pattern /
+ * theme.json), which WordPress emits as constrained-layout `> * + *
+ * margin-block-start`. No flex/gap is set on the wrapper here: a hard flex
+ * `gap` would STACK with that constrained margin (they are additive),
+ * doubling the gap. The rules below target inner block sub-elements that
+ * have no theme.json/blockGap hook, so they legitimately stay CSS.
+ */
 .origin-canvas-sidebar .wp-block-latest-posts__list,
 .origin-canvas-sidebar .wp-block-categories-list,
 .origin-canvas-sidebar .wp-block-archives-list,
@@ -364,9 +369,11 @@ textarea:disabled {
 	padding: 0.875rem 0.5rem;
 }
 
-/* Table default font size - must be in CSS because core/table block.json
-   rewrites theme.json selectors to target inner <table>, making wrapper
-   defaults impossible via theme.json. */
+/**
+ * Table default font size - must be in CSS because core/table block.json
+ * rewrites theme.json selectors to target inner <table>, making wrapper
+ * defaults impossible via theme.json.
+ */
 .wp-block-table > table {
 	font-size: var(--wp--preset--font-size--small);
 }
@@ -375,9 +382,11 @@ textarea:disabled {
 	font-size: inherit;
 }
 
-/* Sticky header: when the header contains a sticky child, make the header
-   wrapper itself the sticky element (its containing block is the page flow, so
-   it can travel), admin-bar-aware, above page content. Front end only. */
+/**
+ * Sticky header: when the header contains a sticky child, make the header
+ * wrapper itself the sticky element (its containing block is the page flow, so
+ * it can travel), admin-bar-aware, above page content. Front end only.
+ */
 body:not(.wp-admin) header:has(> .is-position-sticky) {
 	position: sticky;
 	top: calc(0px + var(--wp-admin--admin-bar--height, 0px));
