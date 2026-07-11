@@ -370,6 +370,18 @@ textarea:disabled {
 }
 
 /**
+ * Pagination number links stay plain (opt-in underline system). The selector applies in
+ * both contexts, but only has an EFFECT in the block editor: core adds an underline to
+ * .wp-block-query-pagination-numbers a solely via the block's editor.css. On the front end
+ * the numbers are already undecorated (the global `a { text-decoration: none }` reset), so
+ * this rule is a no-op there. Loaded into the editor iframe via add_editor_style('style.css').
+ */
+.wp-block-query-pagination-numbers .page-numbers,
+.wp-block-comments-pagination-numbers .page-numbers {
+	text-decoration: none;
+}
+
+/**
  * Table default font size - must be in CSS because core/table block.json
  * rewrites theme.json selectors to target inner <table>, making wrapper
  * defaults impossible via theme.json.
