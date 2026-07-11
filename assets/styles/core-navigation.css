@@ -427,12 +427,18 @@
    24px glyph. margin-inline-end:-10px pulls the centred 24px glyph out to the
    large gutter edge so it aligns with the header hamburger (whose 24px glyph is
    right-aligned to that same gutter). Without it the glyph sits (44-24)/2 = 10px
-   inside the button, landing 10px left of the hamburger axis. */
+   inside the button, landing 10px left of the hamburger axis.
+   top:-2px is the vertical half of the same swap: the hamburger glyph centre sits
+   at 32px header padding + 12 = 44px, the ✕ centre at 24px overlay padding + 22 =
+   46px. Relative positioning (not negative margin) so the 44px flex row keeps its
+   size and centring while the glyph lands exactly on the hamburger's axis. */
 .origin-canvas-mobile-menu .wp-block-navigation-overlay-close {
 	border-radius: 10px;
 	color: var(--wp--preset--color--text-heading);
 	height: 44px;
 	margin-inline-end: -10px;
+	position: relative;
+	top: -2px;
 	transition: background-color 0.15s ease;
 	width: 44px;
 }
@@ -445,4 +451,41 @@
 .origin-canvas-mobile-menu .wp-block-navigation-overlay-close svg {
 	height: 24px;
 	width: 24px;
+}
+
+/* Admin-bar offset — core parity for custom overlays. Core drops its DEFAULT
+   overlay's dialog by the admin-bar height (navigation/style.css guards that rule
+   with :not(.disable-default-overlay)), but custom overlay template parts get
+   nothing: the fixed overlay stays pinned to the viewport top while the admin bar
+   pushes the whole page — header and hamburger included — 46px (32px >782px) down.
+   The close ✕ then floats an admin-bar-height above the hamburger it replaces.
+   Mirror core's behaviour: the overlay keeps covering the bar (z-index 100000 vs
+   99999) and the dialog drops by the bar height so open/close stay on one axis.
+   Logged out, body.admin-bar is absent and both rules are inert. These selectors
+   bind to core-internal classes (verified against WP 7.0.1); if a core release
+   renames them the rules simply go inert — fail-safe back to core behaviour. */
+body.admin-bar .wp-block-navigation__responsive-container.is-menu-open.disable-default-overlay .wp-block-navigation__responsive-dialog {
+	margin-top: var(--wp-admin--admin-bar--height, 0px);
+}
+
+/* The overlay part sets min-height:100vh inline; with the dialog dropped by the
+   bar height that totals 100vh + 46px inside a 100vh overflow:auto container —
+   46px of pointless scroll. Shrink to fit (!important to beat the inline style).
+   dvh tracks the visible viewport as mobile browser chrome expands/collapses
+   (100vh is the larger chrome-collapsed height); vh line stays as the fallback
+   for browsers without dvh support. */
+body.admin-bar .wp-block-navigation__responsive-container.is-menu-open.disable-default-overlay .origin-canvas-mobile-menu {
+	min-height: calc(100vh - var(--wp-admin--admin-bar--height, 0px)) !important;
+	min-height: calc(100dvh - var(--wp-admin--admin-bar--height, 0px)) !important;
+}
+
+/* Safe-area guard. The overlay is position:fixed at the viewport top, so in
+   full-bleed contexts (PWA/standalone, or if viewport-fit=cover is ever added to
+   the viewport meta — the theme does not set it today) the ✕ would crowd the
+   notch/status bar. env() computes to the 0px fallback in normal browsing, so
+   this is inert everywhere else. Stacks additively with the admin-bar margin
+   above by design: the two obstructions overlap, and over-clearing by a few px
+   beats a max() that could under-clear and hide the close button. */
+.wp-block-navigation__responsive-container.is-menu-open.disable-default-overlay .wp-block-navigation__responsive-dialog {
+	padding-top: env(safe-area-inset-top, 0px);
 }
