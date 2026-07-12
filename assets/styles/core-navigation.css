@@ -553,23 +553,27 @@ body.admin-bar .wp-block-navigation__responsive-container.is-menu-open.disable-d
  * JS state), so core's openSubmenusOnClick handling resolves each submenu-parent
  * row to .has-child.open-always in the editor vs .has-child.open-on-click on the
  * front end. Only .open-always carries competing core rules (block-library/style.css)
- * that beat this file's flex:1 row rule on specificity — collapsing parent rows to
- * content-width/centered in the editor only, so the full-bleed dividers above them
- * read as short centered lines instead of full-width. Core ships TWO such rules in
- * one comma-list, matched against depth (live-verified against both a depth-1 and a
- * depth-2 .has-child row):
- *   .has-child.open-always > .wp-block-navigation-item__content            (0-4-0)
- *   .has-child.open-always .wp-block-navigation__submenu-container
- *     > .wp-block-navigation-item > .wp-block-navigation-item__content     (0-6-0)
- * The second (nested-descendant) branch is more specific than a same-shape direct
- * fix would be, so both branches are mirrored below at matching-or-higher
- * specificity — a single direct-child selector is not enough once a .has-child row
- * is itself nested inside another .has-child's submenu.
+ * that beat this file's rules on specificity — collapsing parent rows to
+ * content-width/centered and adding extra vertical gaps in the editor only, so the
+ * full-bleed dividers above them read as short centered lines with a floating gap
+ * instead of full-width. Core ships this as several rules across two properties
+ * (width-related: flex-grow/flex-basis; spacing: gap), live-verified against both a
+ * depth-1 and a depth-2 .has-child row via getBoundingClientRect + computed-style
+ * checks in the actual editor iframe (not static file reading).
  *
  * Scoped to body.editor-styles-wrapper / body.block-editor-iframe__body (the
  * block-editor canvas iframe's own body classes, per core's navigation/editor.css
  * precedent) so this is completely inert on the front end, where .open-on-click
  * never matches core's rule and rows are already correct.
+ *
+ * IMPORTANT — do NOT wrap the body classes in :where(): live-tested and confirmed
+ * :where() contributes zero specificity, which silently drops these rules to the
+ * SAME specificity as some of core's competing .has-child.open-always declarations
+ * (both 0-3-0 for the gap case below) — a tie that core wins on source order,
+ * making the override a no-op despite loading later and despite `first.matches()`
+ * returning true. Plain repeated selectors (one branch per body class) keep the
+ * `body` element + class contributing real specificity on every declaration here,
+ * which is required to reliably beat core's compound selectors.
  *
  * Depends on core's open-always/open-on-click modifier-class strategy for
  * openSubmenusOnClick (WP core internal, not public API). If a future core
@@ -577,8 +581,10 @@ body.admin-bar .wp-block-navigation__responsive-container.is-menu-open.disable-d
  * content-width/centered in the editor — re-check via computed flex-grow on
  * .has-child > .wp-block-navigation-item__content if editor parity regresses.
  */
-:where(body.editor-styles-wrapper, body.block-editor-iframe__body) .origin-canvas-mobile-nav .has-child.open-always > .wp-block-navigation-item__content,
-:where(body.editor-styles-wrapper, body.block-editor-iframe__body) .origin-canvas-mobile-nav .has-child.open-always .wp-block-navigation__submenu-container > .wp-block-navigation-item > .wp-block-navigation-item__content {
+body.editor-styles-wrapper .origin-canvas-mobile-nav .has-child.open-always > .wp-block-navigation-item__content,
+body.block-editor-iframe__body .origin-canvas-mobile-nav .has-child.open-always > .wp-block-navigation-item__content,
+body.editor-styles-wrapper .origin-canvas-mobile-nav .has-child.open-always .wp-block-navigation__submenu-container > .wp-block-navigation-item > .wp-block-navigation-item__content,
+body.block-editor-iframe__body .origin-canvas-mobile-nav .has-child.open-always .wp-block-navigation__submenu-container > .wp-block-navigation-item > .wp-block-navigation-item__content {
 	flex-grow: 1;
 	width: 100%;
 }
@@ -601,6 +607,29 @@ body.admin-bar .wp-block-navigation__responsive-container.is-menu-open.disable-d
  * floor after flex-basis sizing rather than folded into the basis/grow
  * calculation, so it isn't subject to the same resolution gap.
  */
-:where(body.editor-styles-wrapper, body.block-editor-iframe__body) .origin-canvas-mobile-nav .has-child.open-always > .wp-block-navigation__submenu-container {
+body.editor-styles-wrapper .origin-canvas-mobile-nav .has-child.open-always > .wp-block-navigation__submenu-container,
+body.block-editor-iframe__body .origin-canvas-mobile-nav .has-child.open-always > .wp-block-navigation__submenu-container {
 	min-width: 100%;
+}
+
+/**
+ * A further symptom of the same open-always/open-on-click divergence: core's
+ * .has-child.open-always rule (block-library/style.css) also sets
+ * gap: var(--wp--style--block-gap, 2em) on the row itself (between its
+ * __content and its wrapped-to-a-new-line submenu-container) and again on
+ * the submenu-container (between sibling items inside it). --wp--style--
+ * block-gap resolves to the theme's clamp(1.5rem, 3vw, 2rem) default here
+ * (32px at this viewport), visible in the editor as extra vertical space
+ * above every nested submenu block that the front end never shows (there
+ * .open-on-click never matches .has-child.open-always, so this rule is
+ * simply absent). The theme's own gap:0 rules (core-navigation.css:320,343)
+ * are lower specificity than core's .has-child.open-always compound and
+ * lose in the editor the same way the width rules did, so both are
+ * mirrored here at matching specificity.
+ */
+body.editor-styles-wrapper .origin-canvas-mobile-nav .has-child.open-always,
+body.block-editor-iframe__body .origin-canvas-mobile-nav .has-child.open-always,
+body.editor-styles-wrapper .origin-canvas-mobile-nav .has-child.open-always > .wp-block-navigation__submenu-container,
+body.block-editor-iframe__body .origin-canvas-mobile-nav .has-child.open-always > .wp-block-navigation__submenu-container {
+	gap: 0;
 }
