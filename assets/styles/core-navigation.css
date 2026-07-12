@@ -552,15 +552,24 @@ body.admin-bar .wp-block-navigation__responsive-container.is-menu-open.disable-d
  * The Site Editor renders this part statically (no .is-menu-open / fixed-overlay
  * JS state), so core's openSubmenusOnClick handling resolves each submenu-parent
  * row to .has-child.open-always in the editor vs .has-child.open-on-click on the
- * front end. Only .open-always carries a competing core rule
- * (`.wp-block-navigation .has-child.open-always > .wp-block-navigation-item__content
- * { flex-grow: 0 }`, block-library/style.css) that beats this file's flex:1 row
- * rule on specificity — collapsing parent rows to content-width/centered in the
- * editor only, so the full-bleed dividers above them read as short centered lines
- * instead of full-width. Scoped to body.editor-styles-wrapper (the block-editor
- * canvas iframe's own body class, per core's navigation/editor.css precedent) so
- * this is completely inert on the front end, where .open-on-click never matches
- * core's rule and rows are already correct.
+ * front end. Only .open-always carries competing core rules (block-library/style.css)
+ * that beat this file's flex:1 row rule on specificity — collapsing parent rows to
+ * content-width/centered in the editor only, so the full-bleed dividers above them
+ * read as short centered lines instead of full-width. Core ships TWO such rules in
+ * one comma-list, matched against depth (live-verified against both a depth-1 and a
+ * depth-2 .has-child row):
+ *   .has-child.open-always > .wp-block-navigation-item__content            (0-4-0)
+ *   .has-child.open-always .wp-block-navigation__submenu-container
+ *     > .wp-block-navigation-item > .wp-block-navigation-item__content     (0-6-0)
+ * The second (nested-descendant) branch is more specific than a same-shape direct
+ * fix would be, so both branches are mirrored below at matching-or-higher
+ * specificity — a single direct-child selector is not enough once a .has-child row
+ * is itself nested inside another .has-child's submenu.
+ *
+ * Scoped to body.editor-styles-wrapper / body.block-editor-iframe__body (the
+ * block-editor canvas iframe's own body classes, per core's navigation/editor.css
+ * precedent) so this is completely inert on the front end, where .open-on-click
+ * never matches core's rule and rows are already correct.
  *
  * Depends on core's open-always/open-on-click modifier-class strategy for
  * openSubmenusOnClick (WP core internal, not public API). If a future core
@@ -568,7 +577,30 @@ body.admin-bar .wp-block-navigation__responsive-container.is-menu-open.disable-d
  * content-width/centered in the editor — re-check via computed flex-grow on
  * .has-child > .wp-block-navigation-item__content if editor parity regresses.
  */
-:where(body.editor-styles-wrapper, body.block-editor-iframe__body) .origin-canvas-mobile-nav .has-child.open-always > .wp-block-navigation-item__content {
+:where(body.editor-styles-wrapper, body.block-editor-iframe__body) .origin-canvas-mobile-nav .has-child.open-always > .wp-block-navigation-item__content,
+:where(body.editor-styles-wrapper, body.block-editor-iframe__body) .origin-canvas-mobile-nav .has-child.open-always .wp-block-navigation__submenu-container > .wp-block-navigation-item > .wp-block-navigation-item__content {
 	flex-grow: 1;
 	width: 100%;
+}
+
+/**
+ * Nested .has-child rows only: once the fix above gives a parent row's own
+ * __content flex-grow:1 on its .has-child.open-always row (flex-wrap:wrap,
+ * two children: __content + its .wp-block-navigation__submenu-container,
+ * flex-basis:100% per core-navigation.css:361-363), __content consumes the
+ * full first flex line and the submenu-container wraps to its own line. Live
+ * DOM testing (getBoundingClientRect + forced inline style overrides in the
+ * actual editor iframe — repeated after each change to rule out stylesheet
+ * caching) found flex-basis, flex-grow, and width (percentage OR keyword)
+ * ALL have zero measurable effect on this element's rendered width there —
+ * a genuine flex-sizing resolution gap specific to a flex-basis:100% item on
+ * a *wrapped* line inside this editor's nested block-editor-block-list__layout
+ * structure, not reproducible from the CSS alone. min-width, tested the same
+ * way, is the only property that measurably worked (confirmed both as a
+ * literal px value and as min-width:100%, live) — min-width is applied as a
+ * floor after flex-basis sizing rather than folded into the basis/grow
+ * calculation, so it isn't subject to the same resolution gap.
+ */
+:where(body.editor-styles-wrapper, body.block-editor-iframe__body) .origin-canvas-mobile-nav .has-child.open-always > .wp-block-navigation__submenu-container {
+	min-width: 100%;
 }
