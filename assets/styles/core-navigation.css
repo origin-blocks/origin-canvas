@@ -590,6 +590,23 @@ body.block-editor-iframe__body .origin-canvas-mobile-nav .has-child.open-always 
 }
 
 /**
+ * .has-child row itself: core's .has-child.open-always rule (block-library/
+ * style.css) sets gap: var(--wp--style--block-gap, 2em) between its two
+ * flex-wrap children (__content + its submenu-container) — resolves to the
+ * theme's clamp(1.5rem, 3vw, 2rem) default here (32px), visible in the
+ * editor as a floating gap above every nested submenu block that the front
+ * end never shows (.open-on-click never matches .has-child.open-always
+ * there, so this core rule is simply absent). Zeroed to match the theme's
+ * own front-end-targeting gap:0 (core-navigation.css:320), which is lower
+ * specificity than core's compound and loses in the editor the same way
+ * the width rules above did.
+ */
+body.editor-styles-wrapper .origin-canvas-mobile-nav .has-child.open-always,
+body.block-editor-iframe__body .origin-canvas-mobile-nav .has-child.open-always {
+	gap: 0;
+}
+
+/**
  * Nested .has-child rows only: once the fix above gives a parent row's own
  * __content flex-grow:1 on its .has-child.open-always row (flex-wrap:wrap,
  * two children: __content + its .wp-block-navigation__submenu-container,
@@ -605,31 +622,13 @@ body.block-editor-iframe__body .origin-canvas-mobile-nav .has-child.open-always 
  * way, is the only property that measurably worked (confirmed both as a
  * literal px value and as min-width:100%, live) — min-width is applied as a
  * floor after flex-basis sizing rather than folded into the basis/grow
- * calculation, so it isn't subject to the same resolution gap.
+ * calculation, so it isn't subject to the same resolution gap. Also zeroes
+ * this same submenu-container's OWN gap (core sets it a second time, between
+ * sibling items inside the container) to match the theme's front-end-
+ * targeting gap:0 (core-navigation.css:343), for the same reason as above.
  */
-body.editor-styles-wrapper .origin-canvas-mobile-nav .has-child.open-always > .wp-block-navigation__submenu-container,
-body.block-editor-iframe__body .origin-canvas-mobile-nav .has-child.open-always > .wp-block-navigation__submenu-container {
-	min-width: 100%;
-}
-
-/**
- * A further symptom of the same open-always/open-on-click divergence: core's
- * .has-child.open-always rule (block-library/style.css) also sets
- * gap: var(--wp--style--block-gap, 2em) on the row itself (between its
- * __content and its wrapped-to-a-new-line submenu-container) and again on
- * the submenu-container (between sibling items inside it). --wp--style--
- * block-gap resolves to the theme's clamp(1.5rem, 3vw, 2rem) default here
- * (32px at this viewport), visible in the editor as extra vertical space
- * above every nested submenu block that the front end never shows (there
- * .open-on-click never matches .has-child.open-always, so this rule is
- * simply absent). The theme's own gap:0 rules (core-navigation.css:320,343)
- * are lower specificity than core's .has-child.open-always compound and
- * lose in the editor the same way the width rules did, so both are
- * mirrored here at matching specificity.
- */
-body.editor-styles-wrapper .origin-canvas-mobile-nav .has-child.open-always,
-body.block-editor-iframe__body .origin-canvas-mobile-nav .has-child.open-always,
 body.editor-styles-wrapper .origin-canvas-mobile-nav .has-child.open-always > .wp-block-navigation__submenu-container,
 body.block-editor-iframe__body .origin-canvas-mobile-nav .has-child.open-always > .wp-block-navigation__submenu-container {
 	gap: 0;
+	min-width: 100%;
 }
