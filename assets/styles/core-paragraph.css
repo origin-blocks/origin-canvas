@@ -1,5 +1,7 @@
-/* Process numbers need CSS because core/paragraph lacks WP 7 width and
-   flex-basis dimensions controls for this marker. */
+/**
+ * Process numbers need CSS because core/paragraph lacks WP 7 width and
+ * flex-basis dimensions controls for this marker.
+ */
 .origin-canvas-process-step-number {
 	flex: 0 0 36px;
 	min-width: 36px;

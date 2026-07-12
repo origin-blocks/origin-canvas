@@ -17,7 +17,7 @@
 	width: 64px;
 }
 
-/*
+/**
  * Canvas Grid — bespoke landing-hero backdrop. Layered radials (cool top glow +
  * faint pink corner) over a subtle 48px grid. A plain pattern class (not a
  * registered block style), applied only by hero-canvas, so it stays out of the
