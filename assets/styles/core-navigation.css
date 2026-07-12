@@ -380,9 +380,33 @@
 	outline-offset: 2px;
 }
 
-/* Row dividers on TOP-LEVEL items only (direct children of the overlay list). */
-.origin-canvas-mobile-nav .wp-block-navigation__container > .wp-block-navigation-item {
+/* Hairline divider under EVERY row at EVERY depth (handoff: "dividers run under
+   every row"). Drawn by a ::after on the row content — NOT a border on the li: an
+   expanded parent li wraps its whole open group, so an li border falls below that
+   group instead of under the parent's own 52px row. The row content is inset by the
+   submenu container's compounding padding-inline-start (20px/level), so a plain
+   border-bottom would be indented; inset-inline:-100vw overshoots both gutters and
+   overflow-x:clip on the (position:relative) nav wrapper trims it back to the menu
+   edge — full-bleed at every depth, and inset-inline keeps it correct under RTL.
+   bottom:0 anchors the line to each row's real bottom, so it tracks taller wrapped
+   rows. (A negative margin pull was tried and fails: flexbox absorbs it on the
+   flex:1 submenu rows.) */
+.origin-canvas-mobile-nav {
+	overflow-x: clip;
+	position: relative;
+}
+
+.origin-canvas-mobile-nav .wp-block-navigation-item__content {
+	position: relative;
+}
+
+.origin-canvas-mobile-nav .wp-block-navigation-item__content::after {
 	border-bottom: 1px solid var(--wp--preset--color--border);
+	bottom: 0;
+	content: "";
+	inset-inline: -100vw;
+	pointer-events: none;
+	position: absolute;
 }
 
 /* Chevron alignment: line the chevron glyph CENTRE up with the header hamburger's
