@@ -545,3 +545,30 @@ body.admin-bar .wp-block-navigation__responsive-container.is-menu-open.disable-d
 .wp-block-navigation__responsive-container.is-menu-open.disable-default-overlay .wp-block-navigation__responsive-dialog {
 	padding-top: env(safe-area-inset-top, 0px);
 }
+
+/**
+ * EDITOR CANVAS PARITY (mobile overlay)
+ *
+ * The Site Editor renders this part statically (no .is-menu-open / fixed-overlay
+ * JS state), so core's openSubmenusOnClick handling resolves each submenu-parent
+ * row to .has-child.open-always in the editor vs .has-child.open-on-click on the
+ * front end. Only .open-always carries a competing core rule
+ * (`.wp-block-navigation .has-child.open-always > .wp-block-navigation-item__content
+ * { flex-grow: 0 }`, block-library/style.css) that beats this file's flex:1 row
+ * rule on specificity — collapsing parent rows to content-width/centered in the
+ * editor only, so the full-bleed dividers above them read as short centered lines
+ * instead of full-width. Scoped to body.editor-styles-wrapper (the block-editor
+ * canvas iframe's own body class, per core's navigation/editor.css precedent) so
+ * this is completely inert on the front end, where .open-on-click never matches
+ * core's rule and rows are already correct.
+ *
+ * Depends on core's open-always/open-on-click modifier-class strategy for
+ * openSubmenusOnClick (WP core internal, not public API). If a future core
+ * upgrade renames/restructures this, rows will silently return to
+ * content-width/centered in the editor — re-check via computed flex-grow on
+ * .has-child > .wp-block-navigation-item__content if editor parity regresses.
+ */
+:where(body.editor-styles-wrapper, body.block-editor-iframe__body) .origin-canvas-mobile-nav .has-child.open-always > .wp-block-navigation-item__content {
+	flex-grow: 1;
+	width: 100%;
+}
