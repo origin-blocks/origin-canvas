@@ -1,5 +1,7 @@
-/* Chip — structural only; colours/background/radius/padding/font-size are delivered
-   via register_block_style style_data (see functions.php). */
+/**
+ * Chip — structural only; colours/background/radius/padding/font-size are
+ * delivered via register_block_style style_data (see functions.php).
+ */
 .is-style-origin-canvas-term-chip {
 	display: flex;
 	flex-wrap: wrap;
@@ -20,9 +22,11 @@
 	line-height: 1;
 }
 
-/* Inline — structural only; main/link colours + link hover are delivered via
-   register_block_style style_data (see functions.php). The prefix span has no
-   theme.json hook, so its "one lighter" tone stays here. */
+/**
+ * Inline — structural only; main/link colours + link hover are delivered via
+ * register_block_style style_data (see functions.php). The prefix span has no
+ * theme.json hook, so its "one lighter" tone stays here.
+ */
 .is-style-origin-canvas-term-inline .wp-block-post-terms__prefix {
 	color: var(--wp--preset--color--text-muted);
 }
