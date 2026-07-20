@@ -266,8 +266,7 @@ if ( ! function_exists( 'origin_canvas_register_block_styles' ) ) {
 								),
 								':hover'     => array(
 									'color' => array(
-										'text'       => 'var:preset|color|surface-base',
-										'background' => 'var:preset|color|primary',
+										'background' => 'var:preset|color|border',
 									),
 								),
 							),
