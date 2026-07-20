@@ -1,3 +1,16 @@
+/* Badge — ink on the 10% primary tint, pill, no dot. Ink (not primary) text:
+   the tint is token-derived, and primary-on-tint fails AA (~2.7:1). */
+p.is-style-origin-canvas-badge {
+	background: color-mix(in srgb, var(--wp--preset--color--primary) 10%, var(--wp--preset--color--surface-base));
+	border-radius: 999px;
+	color: var(--wp--preset--color--text-heading);
+	font-size: var(--wp--preset--font-size--extra-small);
+	font-weight: 600;
+	line-height: 1;
+	padding: 4px 14px;
+	width: fit-content;
+}
+
 /**
  * Process numbers need CSS because core/paragraph lacks WP 7 width and
  * flex-basis dimensions controls for this marker.
