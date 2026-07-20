@@ -163,8 +163,8 @@ textarea:hover:not(:disabled):not(:focus) {
 input:not([type="button"]):not([type="reset"]):not([type="submit"]):not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="file"]):focus,
 select:focus,
 textarea:focus {
-	border-color: var(--wp--preset--color--text-heading);
-	box-shadow: 0 0 0 var(--wp--preset--spacing--extra-small) var(--wp--custom--ring--ink);
+	border-color: var(--wp--preset--color--primary);
+	box-shadow: 0 0 0 var(--wp--preset--spacing--extra-small) color-mix(in srgb, var(--wp--preset--color--primary) 25%, transparent);
 	outline: none;
 }
 
@@ -175,6 +175,66 @@ textarea:disabled {
 	border-color: var(--wp--preset--color--input-border);
 	color: var(--wp--preset--color--text-body);
 	cursor: not-allowed;
+}
+
+/* Checkboxes and radios */
+input[type="checkbox"],
+input[type="radio"] {
+	appearance: none;
+	-webkit-appearance: none;
+	background: var(--wp--preset--color--surface-base);
+	border: 1px solid var(--wp--preset--color--input-border);
+	cursor: pointer;
+	height: 20px;
+	margin: 0;
+	position: relative;
+	transition: background 120ms ease, border-color 120ms ease, box-shadow 120ms ease;
+	width: 20px;
+}
+
+input[type="checkbox"] {
+	border-radius: var(--wp--custom--radius--small);
+}
+
+input[type="radio"] {
+	border-radius: 50%;
+}
+
+input[type="checkbox"]:checked,
+input[type="radio"]:checked {
+	background: var(--wp--preset--color--primary);
+	border-color: var(--wp--preset--color--primary);
+}
+
+input[type="checkbox"]:checked::after {
+	border: solid #fff;
+	border-width: 0 2px 2px 0;
+	content: "";
+	height: 9px;
+	left: 6px;
+	position: absolute;
+	top: 3px;
+	transform: rotate(45deg);
+	width: 5px;
+}
+
+input[type="radio"]:checked::after {
+	background: #fff;
+	border-radius: 50%;
+	content: "";
+	height: 8px;
+	left: 50%;
+	position: absolute;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	width: 8px;
+}
+
+input[type="checkbox"]:focus-visible,
+input[type="radio"]:focus-visible {
+	border-color: var(--wp--preset--color--primary);
+	box-shadow: 0 0 0 var(--wp--preset--spacing--extra-small) color-mix(in srgb, var(--wp--preset--color--primary) 25%, transparent);
+	outline: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
