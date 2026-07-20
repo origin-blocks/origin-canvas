@@ -116,6 +116,11 @@
 	padding: var(--wp--preset--spacing--medium);
 }
 
+/* Reply title stays at the component weight (D5 exception) */
+.wp-block-comments .wp-block-post-comments-form .comment-reply-title {
+	font-weight: 600;
+}
+
 /* Form type scale */
 .wp-block-comments .wp-block-post-comments-form .comment-notes,
 .wp-block-comments .wp-block-post-comments-form .comment-notes #email-notes {
