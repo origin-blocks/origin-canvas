@@ -13,6 +13,16 @@
 	transition: background 120ms ease, color 120ms ease;
 }
 
+/**
+ * Chips are UI, never prose: inside post-content the content-link underline
+ * rule ties the style_data exclusion on specificity and wins on source order
+ * (the style_data selector is :where()-wrapped), so the exclusion must carry
+ * real specificity of its own.
+ */
+.wp-block-post-terms.is-style-origin-canvas-term-chip a {
+	text-decoration: none;
+}
+
 .is-style-origin-canvas-term-chip .wp-block-post-terms__separator {
 	display: none;
 }

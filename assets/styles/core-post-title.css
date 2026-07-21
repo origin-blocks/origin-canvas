@@ -1,0 +1,9 @@
+/**
+ * theme.json ships textDecoration:none on post-title links, but inside
+ * post-content (inserter patterns dropped into a page) the content-link
+ * underline rule ties it on specificity and wins on source order. Titles
+ * are UI, never prose — make the exclusion decisive where the tie exists.
+ */
+.wp-block-post-content .wp-block-post-title a {
+	text-decoration: none;
+}
