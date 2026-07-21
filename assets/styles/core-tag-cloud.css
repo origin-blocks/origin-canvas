@@ -23,3 +23,9 @@
 .is-style-origin-canvas-tag-chip a:hover {
 	background: var(--wp--preset--color--border);
 }
+
+/* Same in-content guard as term-chip: the base rule above only ties
+   post-content's underline on specificity, so make the exclusion decisive. */
+.wp-block-tag-cloud.is-style-origin-canvas-tag-chip a {
+	text-decoration: none;
+}

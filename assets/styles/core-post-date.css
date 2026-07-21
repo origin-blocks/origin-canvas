@@ -1,0 +1,8 @@
+/**
+ * The grid date link (C21) relies on the global no-underline default, which
+ * post-content's content-link underline overrides when a loop pattern is
+ * inserted into a page. Dates are UI, never prose — exclude them there.
+ */
+.wp-block-post-content .wp-block-post-date a {
+	text-decoration: none;
+}
