@@ -1,0 +1,9 @@
+/**
+ * theme.json ships textDecoration:none on site-title links, but inside
+ * post-content (footer-dark on the landing page composition) the
+ * content-link underline rule ties it on specificity and wins on source
+ * order. Same guard as post-title/post-date (see those files).
+ */
+.wp-block-post-content .wp-block-site-title a {
+	text-decoration: none;
+}
