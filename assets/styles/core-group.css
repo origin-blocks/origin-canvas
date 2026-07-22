@@ -227,3 +227,77 @@
 .origin-canvas-wire-blk--grow2 {
 	flex: 2;
 }
+
+/**
+ * Built-on-the-system section — pink bullet markers and the theme.json
+ * tokens panel for page-landing-01. Pattern-only classes; every fill is a
+ * palette token or ink-tinted color-mix so the panel tracks variations.
+ */
+.origin-canvas-bullet-mark {
+	background: var(--wp--preset--color--primary);
+	border-radius: 2px;
+	flex-shrink: 0;
+	height: 6px;
+	margin-top: 8px;
+	width: 6px;
+}
+
+/* Radius clipping for the panel's square-cornered bar (no JSON overflow analogue). */
+.origin-canvas-tokens-panel {
+	overflow: hidden;
+}
+
+.origin-canvas-token-palrow {
+	display: flex;
+	gap: 10px;
+}
+
+.origin-canvas-token-palrow > .wp-block-group {
+	flex: 1;
+}
+
+.origin-canvas-token-sw {
+	border-radius: var(--wp--custom--radius--small);
+	box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--wp--preset--color--text-heading) 8%, transparent);
+	height: 34px;
+}
+
+.origin-canvas-token-scale {
+	align-items: flex-end;
+	display: flex;
+	gap: 10px;
+}
+
+.origin-canvas-token-bar {
+	background: var(--wp--preset--color--surface-subtle);
+	border-radius: 3px 3px 0 0;
+	width: 26px;
+}
+
+.origin-canvas-token-bar--1 {
+	height: 14px;
+}
+
+.origin-canvas-token-bar--2 {
+	height: 22px;
+}
+
+.origin-canvas-token-bar--3 {
+	height: 32px;
+}
+
+.origin-canvas-token-bar--4 {
+	height: 44px;
+}
+
+.origin-canvas-token-bar--5 {
+	height: 58px;
+}
+
+.origin-canvas-token-bar--6 {
+	height: 74px;
+}
+
+.origin-canvas-token-bar--7 {
+	height: 92px;
+}
