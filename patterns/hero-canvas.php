@@ -22,8 +22,8 @@
 <!-- /wp:heading -->
 
 <!-- wp:group {"layout":{"type":"constrained","contentSize":"600px"}} -->
-<div class="wp-block-group"><!-- wp:paragraph {"align":"center","textColor":"text-body","fontSize":"regular-plus"} -->
-<p class="has-text-align-center has-text-body-color has-text-color has-regular-plus-font-size"><?php echo esc_html__( 'A Full Site Editing theme where templates, patterns, typography, and color work as one system, so every build starts closer to finished.', 'origin-canvas' ); ?></p>
+<div class="wp-block-group"><!-- wp:paragraph {"align":"center","textColor":"text-body","fontSize":"medium"} -->
+<p class="has-text-align-center has-text-body-color has-text-color has-medium-font-size"><?php echo esc_html__( 'A Full Site Editing theme where templates, patterns, typography, and color work as one system, so every build starts closer to finished.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group -->
 
