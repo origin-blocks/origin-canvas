@@ -7,3 +7,53 @@
 	min-width: 36px;
 	white-space: nowrap;
 }
+
+/**
+ * Landing specimen faces — pattern-only, specimen-scoped. These faces exist
+ * so page-landing-01's style-variation cards can PREVIEW each variation's
+ * type while the Default variation is active. They are not theme font
+ * presets; the variations themselves register their own faces via
+ * theme.json/styles JSON. Relative URLs are rewritten for the editor canvas
+ * by add_editor_style().
+ */
+@font-face {
+	font-display: swap;
+	font-family: "Source Serif 4";
+	font-style: normal;
+	font-weight: 700;
+	src: url("../fonts/source-serif/SourceSerif4-700.woff2") format("woff2");
+}
+
+@font-face {
+	font-display: swap;
+	font-family: "Space Grotesk";
+	font-style: normal;
+	font-weight: 400 700;
+	src: url("../fonts/space-grotesk/SpaceGrotesk-Variable.woff2") format("woff2");
+}
+
+@font-face {
+	font-display: swap;
+	font-family: "DM Sans";
+	font-style: normal;
+	font-weight: 400 700;
+	src: url("../fonts/dm-sans/DMSans-VariableFont_opsz,wght.woff2") format("woff2");
+}
+
+/* Specimen font classes — pattern-only (page-landing-01 variation cards). */
+.origin-canvas-specimen-serif {
+	font-family: "Source Serif 4", Georgia, serif;
+}
+
+.origin-canvas-specimen-grotesk {
+	font-family: "Space Grotesk", var(--wp--preset--font-family--sans);
+}
+
+.origin-canvas-specimen-dmsans {
+	font-family: "DM Sans", var(--wp--preset--font-family--sans);
+}
+
+/* Mono micro-labels — pattern-only (slugs, hex chips, captions). */
+.origin-canvas-mono {
+	font-family: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, monospace;
+}
