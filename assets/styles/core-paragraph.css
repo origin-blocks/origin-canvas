@@ -57,3 +57,25 @@
 .origin-canvas-mono {
 	font-family: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, monospace;
 }
+
+/**
+ * Ecosystem status chip — pattern-only (page-landing-01 product cards).
+ * Paragraph blocks have no JSON border support, so the pill chrome lives
+ * here; the --dark modifier remaps border/text to dark-surface color-mix
+ * tints for the Agency card.
+ */
+.origin-canvas-status-chip {
+	border: 1px solid var(--wp--preset--color--border);
+	border-radius: 999px;
+	color: var(--wp--preset--color--text-muted);
+	font-size: 11px;
+	letter-spacing: 0.09em;
+	padding: 3px 10px;
+	text-transform: uppercase;
+	width: fit-content;
+}
+
+.origin-canvas-status-chip--dark {
+	border-color: color-mix(in srgb, var(--wp--custom--dark--text) 22%, transparent);
+	color: color-mix(in srgb, var(--wp--custom--dark--text) 62%, transparent);
+}

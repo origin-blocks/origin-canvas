@@ -301,3 +301,16 @@
 .origin-canvas-token-bar--7 {
 	height: 92px;
 }
+
+/**
+ * Ecosystem status dot — pink live-product marker for page-landing-01.
+ * Pattern-only; pink dots ship ONLY on live products (coming-soon cards
+ * carry the label chip alone).
+ */
+.origin-canvas-status-dot {
+	background: var(--wp--preset--color--primary);
+	border-radius: 999px;
+	flex: none;
+	height: 8px;
+	width: 8px;
+}
