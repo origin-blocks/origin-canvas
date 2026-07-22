@@ -314,39 +314,3 @@
 	height: 8px;
 	width: 8px;
 }
-
-/**
- * Landing marketing header + brand mark — pattern-only (page-landing-01).
- * Sticky/backdrop-blur have no JSON analogue (theme.json does not enable
- * settings.position.sticky), so they live here. The brand mark is an ink
- * square with a pink ::after square, both token-driven so they reskin with
- * variations. The WP admin bar can overlap top:0 for logged-in viewers —
- * standard marketing-pattern trade-off.
- */
-.origin-canvas-landing-header {
-	-webkit-backdrop-filter: saturate(180%) blur(12px);
-	backdrop-filter: saturate(180%) blur(12px);
-	position: sticky;
-	top: 0;
-	z-index: 50;
-}
-
-.origin-canvas-brand-mark {
-	background: var(--wp--preset--color--text-heading);
-	border-radius: var(--wp--custom--radius--small);
-	flex-shrink: 0;
-	height: 26px;
-	position: relative;
-	width: 26px;
-}
-
-.origin-canvas-brand-mark::after {
-	background: var(--wp--preset--color--primary);
-	border-radius: 2px;
-	content: "";
-	height: 12px;
-	left: 7px;
-	position: absolute;
-	top: 7px;
-	width: 12px;
-}
