@@ -217,12 +217,6 @@ if ( ! function_exists( 'origin_canvas_register_block_styles' ) ) {
 				array( 'name' => 'origin-canvas-outline-light', 'label' => __( 'Outline Light', 'origin-canvas' ) ),
 				array( 'name' => 'origin-canvas-fill-primary', 'label' => __( 'Fill Primary', 'origin-canvas' ) ),
 			),
-			'core/paragraph'     => array(
-				array( 'name' => 'origin-canvas-badge', 'label' => __( 'Badge', 'origin-canvas' ) ),
-			),
-			'core/group'         => array(
-				array( 'name' => 'origin-canvas-badge', 'label' => __( 'Badge', 'origin-canvas' ) ),
-			),
 			'core/list'          => array(
 				array( 'name' => 'origin-canvas-list-check', 'label' => __( 'Check', 'origin-canvas' ) ),
 				array( 'name' => 'origin-canvas-list-check-circle', 'label' => __( 'Check Circle', 'origin-canvas' ) ),
