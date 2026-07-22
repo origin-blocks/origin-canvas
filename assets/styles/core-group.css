@@ -164,3 +164,66 @@
 	height: 38px;
 	width: 38px;
 }
+
+/**
+ * Template wireframes — schematic template cards for page-landing-01.
+ * Pattern-only classes drawn entirely with empty groups; ink-tinted
+ * color-mix fills track the active variation.
+ */
+.origin-canvas-wire {
+	background: var(--wp--preset--color--surface-subtle);
+	border-radius: var(--wp--custom--radius--medium);
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	height: 168px;
+	padding: 13px;
+}
+
+.origin-canvas-wire-head {
+	background: color-mix(in srgb, var(--wp--preset--color--text-heading) 10%, transparent);
+	border-radius: 3px;
+	flex: none;
+	height: 18px;
+}
+
+.origin-canvas-wire-body {
+	display: flex;
+	flex: 1;
+	gap: 8px;
+	min-height: 0;
+}
+
+.origin-canvas-wire-body--center {
+	justify-content: center;
+}
+
+.origin-canvas-wire-body--col {
+	flex-direction: column;
+}
+
+.origin-canvas-wire-body--grid {
+	display: grid;
+	gap: 8px;
+	grid-template-columns: 1fr 1fr;
+	grid-template-rows: 1fr 1fr;
+}
+
+.origin-canvas-wire-blk {
+	background: var(--wp--preset--color--surface-base);
+	border-radius: 3px;
+	flex: 1;
+}
+
+.origin-canvas-wire-blk--alt {
+	background: color-mix(in srgb, var(--wp--preset--color--text-heading) 8%, transparent);
+}
+
+.origin-canvas-wire-blk--w60 {
+	flex: none;
+	width: 60%;
+}
+
+.origin-canvas-wire-blk--grow2 {
+	flex: 2;
+}
