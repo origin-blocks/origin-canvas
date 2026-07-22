@@ -55,7 +55,10 @@
 .origin-canvas-wash-tile {
 	background-color: var(--wp--preset--color--surface-base);
 	border-radius: var(--wp--custom--radius--large);
-	min-height: clamp(240px, 26vw, 320px);
+	/* !important so the editor-placeholder-suppressing inline min-height:240px
+	   (on the block, see pattern) does not flatten the responsive clamp on the
+	   front end. Inline styles beat plain stylesheet rules; !important wins back. */
+	min-height: clamp(240px, 26vw, 320px) !important;
 	overflow: hidden;
 }
 
@@ -141,7 +144,7 @@
 	}
 
 	.origin-canvas-wash-tile {
-		min-height: 170px;
+		min-height: 170px !important;
 	}
 }
 
