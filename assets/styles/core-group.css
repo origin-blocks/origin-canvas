@@ -36,3 +36,111 @@
 	overflow: hidden;
 	position: relative;
 }
+
+/**
+ * Landing pattern board — full-bleed 12-column wash-tile grid, used only by
+ * page-landing-01. Plain pattern classes (not registered block styles), like
+ * origin-canvas-canvas-grid above. Geometry mirrors the landing mockup;
+ * colors route through palette tokens and color-mix tints so tiles reskin
+ * with style variations.
+ */
+.origin-canvas-pattern-board {
+	display: grid;
+	gap: 20px;
+	grid-template-columns: repeat(12, minmax(0, 1fr));
+	margin-top: 56px;
+	padding-inline: clamp(20px, 3.5vw, 48px);
+}
+
+.origin-canvas-wash-tile {
+	background-color: var(--wp--preset--color--surface-base);
+	border-radius: var(--wp--custom--radius--large);
+	min-height: clamp(240px, 26vw, 320px);
+	overflow: hidden;
+}
+
+.origin-canvas-wash-hero {
+	background-image:
+		radial-gradient(70% 80% at 22% 20%, color-mix(in srgb, var(--wp--preset--color--primary) 20%, transparent), transparent 60%),
+		radial-gradient(60% 70% at 84% 86%, color-mix(in srgb, var(--wp--preset--color--primary) 10%, transparent), transparent 62%),
+		linear-gradient(150deg, var(--wp--preset--color--surface-base) 0%, var(--wp--preset--color--surface-subtle) 100%);
+	grid-column: span 5;
+}
+
+.origin-canvas-wash-features {
+	background-image:
+		radial-gradient(65% 75% at 80% 22%, color-mix(in srgb, var(--wp--preset--color--primary) 12%, transparent), transparent 60%),
+		linear-gradient(160deg, var(--wp--preset--color--surface-base) 0%, var(--wp--preset--color--surface-subtle) 100%);
+	grid-column: span 4;
+}
+
+.origin-canvas-wash-testimonial {
+	background-image:
+		radial-gradient(72% 72% at 24% 26%, color-mix(in srgb, var(--wp--preset--color--primary) 16%, transparent), transparent 58%),
+		linear-gradient(180deg, var(--wp--preset--color--surface-base) 0%, var(--wp--preset--color--surface-subtle-hover) 100%);
+	grid-column: span 3;
+}
+
+.origin-canvas-wash-pricing {
+	background-image:
+		radial-gradient(60% 70% at 26% 78%, color-mix(in srgb, var(--wp--preset--color--primary) 13%, transparent), transparent 56%),
+		linear-gradient(180deg, var(--wp--preset--color--surface-base) 0%, var(--wp--preset--color--surface-subtle) 100%);
+	grid-column: span 4;
+}
+
+.origin-canvas-wash-cta {
+	background-image:
+		radial-gradient(72% 80% at 80% 30%, color-mix(in srgb, var(--wp--preset--color--primary) 22%, transparent), transparent 60%),
+		radial-gradient(60% 70% at 20% 84%, color-mix(in srgb, var(--wp--preset--color--primary) 8%, transparent), transparent 58%),
+		linear-gradient(135deg, var(--wp--preset--color--surface-base) 0%, var(--wp--preset--color--surface-subtle) 100%);
+	grid-column: span 4;
+}
+
+.origin-canvas-wash-editor {
+	background-image:
+		radial-gradient(60% 70% at 50% 24%, color-mix(in srgb, var(--wp--preset--color--primary) 10%, transparent), transparent 60%),
+		linear-gradient(180deg, var(--wp--preset--color--surface-base) 0%, var(--wp--preset--color--surface-subtle) 100%);
+	grid-column: span 4;
+}
+
+@media (max-width: 1100px) {
+	.origin-canvas-pattern-board {
+		grid-template-columns: repeat(6, minmax(0, 1fr));
+	}
+
+	.origin-canvas-wash-hero,
+	.origin-canvas-wash-editor {
+		grid-column: span 6;
+	}
+
+	.origin-canvas-wash-features,
+	.origin-canvas-wash-testimonial,
+	.origin-canvas-wash-pricing,
+	.origin-canvas-wash-cta {
+		grid-column: span 3;
+	}
+}
+
+@media (max-width: 640px) {
+	.origin-canvas-pattern-board {
+		gap: 14px;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		margin-top: 40px;
+	}
+
+	.origin-canvas-wash-hero,
+	.origin-canvas-wash-editor {
+		grid-column: span 2;
+	}
+
+	.origin-canvas-wash-features,
+	.origin-canvas-wash-testimonial,
+	.origin-canvas-wash-pricing,
+	.origin-canvas-wash-cta {
+		grid-column: span 1;
+	}
+
+	.origin-canvas-wash-tile {
+		min-height: 170px;
+	}
+}
