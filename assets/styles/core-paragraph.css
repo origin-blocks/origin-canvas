@@ -1,18 +1,3 @@
-/* Badge — pattern-only utility class (NOT a registered block style: a pill is one
-   arbitrary use of a paragraph, so it must not clutter every paragraph's Styles list).
-   Applied via Additional CSS Classes, like origin-canvas-canvas-grid. Ink on the 10%
-   primary tint, pill, no dot — ink (not primary) text: primary-on-tint fails AA (~2.7:1). */
-.origin-canvas-badge {
-	background: color-mix(in srgb, var(--wp--preset--color--primary) 10%, var(--wp--preset--color--surface-base));
-	border-radius: 999px;
-	color: var(--wp--preset--color--text-heading);
-	font-size: var(--wp--preset--font-size--extra-small);
-	font-weight: 600;
-	line-height: 1;
-	padding: 7px 14px;
-	width: fit-content;
-}
-
 /**
  * Process numbers need CSS because core/paragraph lacks WP 7 width and
  * flex-basis dimensions controls for this marker.
