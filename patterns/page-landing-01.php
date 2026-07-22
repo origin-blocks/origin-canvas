@@ -37,7 +37,7 @@
 <!-- /wp:paragraph --></div>
 <!-- /wp:group -->
 
-<!-- wp:group {"align":"full","className":"origin-canvas-pattern-board","layout":{"type":"default"}} -->
+<!-- wp:group {"align":"full","className":"origin-canvas-pattern-board","style":{"spacing":{"blockGap":"0"}},"layout":{"type":"default"}} -->
 <div class="wp-block-group alignfull origin-canvas-pattern-board"><!-- wp:group {"className":"origin-canvas-wash-tile origin-canvas-wash-hero"} -->
 <div class="wp-block-group origin-canvas-wash-tile origin-canvas-wash-hero"></div>
 <!-- /wp:group -->
