@@ -311,7 +311,10 @@
  * carry the label chip alone).
  */
 .origin-canvas-status-dot {
-	background: var(--wp--preset--color--primary);
+	/* No background here: each ecosystem card sets its own per-product identity
+	   hue as a literal hex via the block's style.color.background (a CD-sanctioned
+	   exception to the token/primary rule — the dot is that product's brand color
+	   shown as itself, so it must NOT track the chosen primary). Shape only. */
 	border-radius: 999px;
 	flex: none;
 	height: 8px;
