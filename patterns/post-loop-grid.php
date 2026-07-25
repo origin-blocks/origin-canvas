@@ -2,7 +2,7 @@
 /**
  * Title: Post Loop Grid
  * Slug: origin-canvas/post-loop-grid
- * Categories: posts
+ * Categories: origin-canvas/posts
  * Keywords: loop, blog, posts, grid, query
  * Block Types: core/query
  *

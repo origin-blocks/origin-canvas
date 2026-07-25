@@ -3,7 +3,7 @@
  * Title: Card Blog Post
  * Slug: origin-canvas/card-blog-post
  * Description: A single blog post card with image, category, title, excerpt, and meta. Pair with the Blog Post Grid pattern (a dynamic query loop) for multiple posts, or insert manually inside a Columns block.
- * Categories: query
+ * Categories: origin-canvas/card
  * Keywords: card, blog, post, article, query
  * Block Types: core/post-content
  * Inserter: true

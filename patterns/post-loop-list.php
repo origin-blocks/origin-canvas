@@ -2,7 +2,7 @@
 /**
  * Title: Post Loop List
  * Slug: origin-canvas/post-loop-list
- * Categories: posts
+ * Categories: origin-canvas/posts
  * Keywords: loop, blog, posts, list, query
  * Block Types: core/query
  *
