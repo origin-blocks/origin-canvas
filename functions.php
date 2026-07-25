@@ -109,6 +109,8 @@ if ( ! function_exists( 'origin_canvas_register_pattern_categories' ) ) {
 		$categories = array(
 			'origin-canvas/hero'     => array( 'label' => __( 'Hero', 'origin-canvas' ) ),
 			'origin-canvas/page'     => array( 'label' => __( 'Pages', 'origin-canvas' ) ),
+			'origin-canvas/text'        => array( 'label' => __( 'Text', 'origin-canvas' ) ),
+			'origin-canvas/testimonial' => array( 'label' => __( 'Testimonials', 'origin-canvas' ) ),
 			'origin-canvas/features' => array( 'label' => __( 'Features', 'origin-canvas' ) ),
 			'origin-canvas/stats'    => array( 'label' => __( 'Stats', 'origin-canvas' ) ),
 			'origin-canvas/team'     => array( 'label' => __( 'Team', 'origin-canvas' ) ),

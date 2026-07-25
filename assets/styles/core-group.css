@@ -36,3 +36,287 @@
 	overflow: hidden;
 	position: relative;
 }
+
+/**
+ * Landing pattern board — full-bleed 12-column wash-tile grid, used only by
+ * page-landing-01. Plain pattern classes (not registered block styles), like
+ * origin-canvas-canvas-grid above. Geometry mirrors the landing mockup;
+ * colors route through palette tokens and color-mix tints so tiles reskin
+ * with style variations.
+ */
+.origin-canvas-pattern-board {
+	display: grid;
+	gap: 20px;
+	grid-template-columns: repeat(12, minmax(0, 1fr));
+	margin-top: 56px;
+	padding-inline: clamp(20px, 3.5vw, 48px);
+}
+
+.origin-canvas-wash-tile {
+	background-color: var(--wp--preset--color--surface-base);
+	border-radius: var(--wp--custom--radius--large);
+	/* !important so the editor-placeholder-suppressing inline min-height:240px
+	   (on the block, see pattern) does not flatten the responsive clamp on the
+	   front end. Inline styles beat plain stylesheet rules; !important wins back. */
+	min-height: clamp(240px, 26vw, 320px) !important;
+	overflow: hidden;
+}
+
+.origin-canvas-wash-hero {
+	background-image:
+		radial-gradient(70% 80% at 22% 20%, color-mix(in srgb, var(--wp--preset--color--primary) 20%, transparent), transparent 60%),
+		radial-gradient(60% 70% at 84% 86%, color-mix(in srgb, var(--wp--preset--color--primary) 10%, transparent), transparent 62%),
+		linear-gradient(150deg, var(--wp--preset--color--surface-base) 0%, var(--wp--preset--color--surface-subtle) 100%);
+	grid-column: span 5;
+}
+
+.origin-canvas-wash-features {
+	background-image:
+		radial-gradient(65% 75% at 80% 22%, color-mix(in srgb, var(--wp--preset--color--primary) 12%, transparent), transparent 60%),
+		linear-gradient(160deg, var(--wp--preset--color--surface-base) 0%, var(--wp--preset--color--surface-subtle) 100%);
+	grid-column: span 4;
+}
+
+.origin-canvas-wash-testimonial {
+	background-image:
+		radial-gradient(72% 72% at 24% 26%, color-mix(in srgb, var(--wp--preset--color--primary) 16%, transparent), transparent 58%),
+		linear-gradient(180deg, var(--wp--preset--color--surface-base) 0%, var(--wp--preset--color--surface-subtle-hover) 100%);
+	grid-column: span 3;
+}
+
+.origin-canvas-wash-pricing {
+	background-image:
+		radial-gradient(60% 70% at 26% 78%, color-mix(in srgb, var(--wp--preset--color--primary) 13%, transparent), transparent 56%),
+		linear-gradient(180deg, var(--wp--preset--color--surface-base) 0%, var(--wp--preset--color--surface-subtle) 100%);
+	grid-column: span 4;
+}
+
+.origin-canvas-wash-cta {
+	background-image:
+		radial-gradient(72% 80% at 80% 30%, color-mix(in srgb, var(--wp--preset--color--primary) 22%, transparent), transparent 60%),
+		radial-gradient(60% 70% at 20% 84%, color-mix(in srgb, var(--wp--preset--color--primary) 8%, transparent), transparent 58%),
+		linear-gradient(135deg, var(--wp--preset--color--surface-base) 0%, var(--wp--preset--color--surface-subtle) 100%);
+	grid-column: span 4;
+}
+
+.origin-canvas-wash-editor {
+	background-image:
+		radial-gradient(60% 70% at 50% 24%, color-mix(in srgb, var(--wp--preset--color--primary) 10%, transparent), transparent 60%),
+		linear-gradient(180deg, var(--wp--preset--color--surface-base) 0%, var(--wp--preset--color--surface-subtle) 100%);
+	grid-column: span 4;
+}
+
+@media (max-width: 1100px) {
+	.origin-canvas-pattern-board {
+		grid-template-columns: repeat(6, minmax(0, 1fr));
+	}
+
+	.origin-canvas-wash-hero,
+	.origin-canvas-wash-editor {
+		grid-column: span 6;
+	}
+
+	.origin-canvas-wash-features,
+	.origin-canvas-wash-testimonial,
+	.origin-canvas-wash-pricing,
+	.origin-canvas-wash-cta {
+		grid-column: span 3;
+	}
+}
+
+@media (max-width: 640px) {
+	.origin-canvas-pattern-board {
+		gap: 14px;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		margin-top: 40px;
+	}
+
+	.origin-canvas-wash-hero,
+	.origin-canvas-wash-editor {
+		grid-column: span 2;
+	}
+
+	.origin-canvas-wash-features,
+	.origin-canvas-wash-testimonial,
+	.origin-canvas-wash-pricing,
+	.origin-canvas-wash-cta {
+		grid-column: span 1;
+	}
+
+	.origin-canvas-wash-tile {
+		min-height: 170px !important;
+	}
+}
+
+/**
+ * Style-variation specimens — swatch circles and preset dots for the
+ * page-landing-01 variations section. Pattern-only classes; the inset ring
+ * is an ink-tinted color-mix so it tracks the active variation.
+ */
+.origin-canvas-sw {
+	border-radius: 999px;
+	box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--wp--preset--color--text-heading) 15%, transparent);
+	height: 20px;
+	width: 20px;
+}
+
+.origin-canvas-preset-dot {
+	border-radius: 999px;
+	box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--wp--preset--color--text-heading) 12%, transparent);
+	flex: none;
+	height: 38px;
+	width: 38px;
+}
+
+/**
+ * Template wireframes — schematic template cards for page-landing-01.
+ * Pattern-only classes drawn entirely with empty groups; ink-tinted
+ * color-mix fills track the active variation.
+ */
+.origin-canvas-wire {
+	background: var(--wp--preset--color--surface-subtle);
+	border-radius: var(--wp--custom--radius--medium);
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	height: 168px;
+	padding: 13px;
+}
+
+.origin-canvas-wire-head {
+	background: color-mix(in srgb, var(--wp--preset--color--text-heading) 10%, transparent);
+	border-radius: 3px;
+	flex: none;
+	height: 18px;
+}
+
+.origin-canvas-wire-body {
+	display: flex;
+	flex: 1;
+	gap: 8px;
+	min-height: 0;
+}
+
+.origin-canvas-wire-body--center {
+	justify-content: center;
+}
+
+.origin-canvas-wire-body--col {
+	flex-direction: column;
+}
+
+.origin-canvas-wire-body--grid {
+	display: grid;
+	gap: 8px;
+	grid-template-columns: 1fr 1fr;
+	grid-template-rows: 1fr 1fr;
+}
+
+.origin-canvas-wire-blk {
+	background: var(--wp--preset--color--surface-base);
+	border-radius: 3px;
+	flex: 1;
+}
+
+.origin-canvas-wire-blk--alt {
+	background: color-mix(in srgb, var(--wp--preset--color--text-heading) 8%, transparent);
+}
+
+.origin-canvas-wire-blk--w60 {
+	flex: none;
+	width: 60%;
+}
+
+.origin-canvas-wire-blk--grow2 {
+	flex: 2;
+}
+
+/**
+ * Built-on-the-system section — pink bullet markers and the theme.json
+ * tokens panel for page-landing-01. Pattern-only classes; every fill is a
+ * palette token or ink-tinted color-mix so the panel tracks variations.
+ */
+.origin-canvas-bullet-mark {
+	background: var(--wp--preset--color--primary);
+	border-radius: 2px;
+	flex-shrink: 0;
+	height: 6px;
+	margin-top: 8px;
+	width: 6px;
+}
+
+/* Radius clipping for the panel's square-cornered bar (no JSON overflow analogue). */
+.origin-canvas-tokens-panel {
+	overflow: hidden;
+}
+
+.origin-canvas-token-palrow {
+	display: flex;
+	gap: 10px;
+}
+
+.origin-canvas-token-palrow > .wp-block-group {
+	flex: 1;
+}
+
+.origin-canvas-token-sw {
+	border-radius: var(--wp--custom--radius--small);
+	box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--wp--preset--color--text-heading) 8%, transparent);
+	height: 34px;
+}
+
+.origin-canvas-token-scale {
+	align-items: flex-end;
+	display: flex;
+	gap: 10px;
+}
+
+.origin-canvas-token-bar {
+	background: var(--wp--preset--color--surface-subtle);
+	border-radius: 3px 3px 0 0;
+	width: 26px;
+}
+
+.origin-canvas-token-bar--1 {
+	height: 14px;
+}
+
+.origin-canvas-token-bar--2 {
+	height: 22px;
+}
+
+.origin-canvas-token-bar--3 {
+	height: 32px;
+}
+
+.origin-canvas-token-bar--4 {
+	height: 44px;
+}
+
+.origin-canvas-token-bar--5 {
+	height: 58px;
+}
+
+.origin-canvas-token-bar--6 {
+	height: 74px;
+}
+
+.origin-canvas-token-bar--7 {
+	height: 92px;
+}
+
+/**
+ * Ecosystem status dot — pink live-product marker for page-landing-01.
+ * Pattern-only; pink dots ship ONLY on live products (coming-soon cards
+ * carry the label chip alone).
+ */
+.origin-canvas-status-dot {
+	/* No background here: each ecosystem card sets its own per-product identity
+	   hue as a literal hex via the block's style.color.background (a CD-sanctioned
+	   exception to the token/primary rule — the dot is that product's brand color
+	   shown as itself, so it must NOT track the chosen primary). Shape only. */
+	border-radius: 999px;
+	flex: none;
+	height: 8px;
+	width: 8px;
+}
