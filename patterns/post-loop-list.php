@@ -2,9 +2,13 @@
 /**
  * Title: Post Loop List
  * Slug: origin-canvas/post-loop-list
+ * Description: A stacked list query loop of recent posts.
  * Categories: origin-canvas/posts
- * Keywords: loop, blog, posts, list, query
+ * Keywords: loop, blog, query, archive
+ * Viewport Width: 1500
  * Block Types: core/query
+ * Post Types:
+ * Inserter: true
  *
  * @package Origin
  */

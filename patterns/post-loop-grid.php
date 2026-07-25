@@ -2,9 +2,13 @@
 /**
  * Title: Post Loop Grid
  * Slug: origin-canvas/post-loop-grid
+ * Description: A responsive grid query loop of recent posts.
  * Categories: origin-canvas/posts
- * Keywords: loop, blog, posts, grid, query
+ * Keywords: loop, blog, query, archive
+ * Viewport Width: 1500
  * Block Types: core/query
+ * Post Types:
+ * Inserter: true
  *
  * @package Origin
  */
