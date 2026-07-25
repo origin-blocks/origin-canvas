@@ -6,7 +6,7 @@
  * Categories: origin-canvas/features
  * Keywords: image, alternating, two column, services
  * Viewport Width: 1500
- * Block Types: core/post-content
+ * Block Types:
  * Post Types:
  * Inserter: true
  *

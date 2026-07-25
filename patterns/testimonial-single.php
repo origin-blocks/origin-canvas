@@ -6,7 +6,7 @@
  * Categories: origin-canvas/testimonial
  * Keywords: quote, client, centered, review
  * Viewport Width: 1500
- * Block Types: core/post-content
+ * Block Types:
  * Post Types:
  * Inserter: true
  *
