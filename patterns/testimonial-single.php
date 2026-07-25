@@ -20,8 +20,8 @@
 <p class="has-text-align-center has-primary-color has-text-color has-extra-small-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--medium);font-weight:600;letter-spacing:0.08em;text-transform:uppercase"><?php echo esc_html__( 'In their words', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
-<!-- wp:paragraph {"align":"center","style":{"typography":{"fontWeight":"600","lineHeight":"1"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"primary","fontSize":"display"} -->
-<p class="has-text-align-center has-primary-color has-text-color has-display-font-size" style="margin-top:0;margin-bottom:0;font-weight:600;line-height:1"><?php echo esc_html__( '"', 'origin-canvas' ); ?></p>
+<!-- wp:paragraph {"align":"center","style":{"typography":{"fontWeight":"700","lineHeight":"0.6"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"primary","fontSize":"display"} -->
+<p class="has-text-align-center has-primary-color has-text-color has-display-font-size" style="margin-top:0;margin-bottom:0;font-weight:700;line-height:0.6"><?php echo esc_html__( '&#8220;', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"align":"center","style":{"typography":{"lineHeight":"1.25","fontWeight":"500"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-heading","fontSize":"huge"} -->
