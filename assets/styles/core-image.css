@@ -1,3 +1,10 @@
+/* An image in a flex row keeps its size instead of being squeezed (and going
+   oblong) when a narrow container runs out of space. Where an image should
+   flex, override this per-instance. */
+html .is-layout-flex .wp-block-image {
+	flex-shrink: 0;
+}
+
 /* Rounded Full */
 .is-style-origin-canvas-rounded-full img {
 	aspect-ratio: 1 / 1;
