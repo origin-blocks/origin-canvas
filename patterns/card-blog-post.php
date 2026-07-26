@@ -6,7 +6,7 @@
  * Categories: origin-canvas/card
  * Keywords: article, query, excerpt, meta
  * Viewport Width: 1500
- * Block Types: core/post-content
+ * Block Types:
  * Post Types:
  * Inserter: true
  *
