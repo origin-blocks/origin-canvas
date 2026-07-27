@@ -20,12 +20,12 @@
 <p class="has-text-align-center has-primary-color has-text-color has-extra-small-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--medium);font-weight:600;letter-spacing:0.08em;text-transform:uppercase"><?php echo esc_html__( 'In their words', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
-<!-- wp:paragraph {"align":"center","style":{"typography":{"fontWeight":"700","lineHeight":"0.6"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"primary","fontSize":"display"} -->
-<p class="has-text-align-center has-primary-color has-text-color has-display-font-size" style="margin-top:0;margin-bottom:0;font-weight:700;line-height:0.6"><?php echo esc_html__( '&#8220;', 'origin-canvas' ); ?></p>
-<!-- /wp:paragraph -->
+<!-- wp:html -->
+<div style="text-align:center"><svg width="34" height="27" viewBox="0 0 40 32" fill="var(--wp--preset--color--primary)" aria-hidden="true" focusable="false"><path d="M0 32V18.5C0 8.6 5.7 1.7 15.2 0l2 4.3C11.6 6 8.6 9.4 8.4 14.2H16V32H0zm22 0V18.5C22 8.6 27.7 1.7 37.2 0l2 4.3C33.6 6 30.6 9.4 30.4 14.2H38V32H22z"></path></svg></div>
+<!-- /wp:html -->
 
 <!-- wp:paragraph {"align":"center","style":{"typography":{"lineHeight":"1.25","fontWeight":"500"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-heading","fontSize":"huge"} -->
-<p class="has-text-align-center has-text-heading-color has-text-color has-huge-font-size" style="margin-top:0;margin-bottom:0;font-weight:500;line-height:1.25"><?php echo esc_html__( '"They asked the questions our last designer didn\'t. The site finally feels like ours, not a template we tried to make fit."', 'origin-canvas' ); ?></p>
+<p class="has-text-align-center has-text-heading-color has-text-color has-huge-font-size" style="margin-top:0;margin-bottom:0;font-weight:500;line-height:1.25"><?php echo esc_html__( 'They asked the questions our last designer didn\'t. The site finally feels like ours, not a template we tried to make fit.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
 <!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|medium","margin":{"top":"var:preset|spacing|extra-large"}}},"layout":{"type":"flex","orientation":"vertical","justifyContent":"center","verticalAlignment":"center"}} -->
