@@ -32,8 +32,8 @@
 <svg width="28" height="22" viewBox="0 0 40 32" fill="var(--wp--preset--color--primary)" aria-hidden="true" focusable="false"><path d="M0 32V18.5C0 8.6 5.7 1.7 15.2 0l2 4.3C11.6 6 8.6 9.4 8.4 14.2H16V32H0zm22 0V18.5C22 8.6 27.7 1.7 37.2 0l2 4.3C33.6 6 30.6 9.4 30.4 14.2H38V32H22z"></path></svg>
 <!-- /wp:html -->
 
-<!-- wp:paragraph {"style":{"typography":{"fontWeight":"500","lineHeight":"1.55"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-heading","fontSize":"regular-plus"} -->
-<p class="has-text-heading-color has-text-color has-regular-plus-font-size" style="margin-top:0;margin-bottom:0;font-weight:500;line-height:1.55"><?php echo esc_html__( 'Six weeks, three rounds, and a brand we can actually grow into. Easy to brief and easier to live with.', 'origin-canvas' ); ?></p>
+<!-- wp:paragraph {"style":{"typography":{"fontWeight":"500","lineHeight":"1.55"},"spacing":{"margin":{"top":"20px","bottom":"0"}}},"textColor":"text-heading","fontSize":"regular-plus"} -->
+<p class="has-text-heading-color has-text-color has-regular-plus-font-size" style="margin-top:20px;margin-bottom:0;font-weight:500;line-height:1.55"><?php echo esc_html__( 'Six weeks, three rounds, and a brand we can actually grow into. Easy to brief and easier to live with.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
 <!-- wp:group {"style":{"border":{"top":{"color":"var:preset|color|border","style":"solid","width":"1px"}},"spacing":{"padding":{"top":"var:preset|spacing|medium"},"margin":{"top":"var:preset|spacing|large"},"blockGap":"var:preset|spacing|compact"}},"layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"center"}} -->
@@ -60,8 +60,8 @@
 <svg width="28" height="22" viewBox="0 0 40 32" fill="var(--wp--preset--color--primary)" aria-hidden="true" focusable="false"><path d="M0 32V18.5C0 8.6 5.7 1.7 15.2 0l2 4.3C11.6 6 8.6 9.4 8.4 14.2H16V32H0zm22 0V18.5C22 8.6 27.7 1.7 37.2 0l2 4.3C33.6 6 30.6 9.4 30.4 14.2H38V32H22z"></path></svg>
 <!-- /wp:html -->
 
-<!-- wp:paragraph {"style":{"typography":{"fontWeight":"500","lineHeight":"1.55"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-heading","fontSize":"regular-plus"} -->
-<p class="has-text-heading-color has-text-color has-regular-plus-font-size" style="margin-top:0;margin-bottom:0;font-weight:500;line-height:1.55"><?php echo esc_html__( 'The site is fast, it ranks, and our team updates it without calling anyone. Exactly what we asked for.', 'origin-canvas' ); ?></p>
+<!-- wp:paragraph {"style":{"typography":{"fontWeight":"500","lineHeight":"1.55"},"spacing":{"margin":{"top":"20px","bottom":"0"}}},"textColor":"text-heading","fontSize":"regular-plus"} -->
+<p class="has-text-heading-color has-text-color has-regular-plus-font-size" style="margin-top:20px;margin-bottom:0;font-weight:500;line-height:1.55"><?php echo esc_html__( 'The site is fast, it ranks, and our team updates it without calling anyone. Exactly what we asked for.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
 <!-- wp:group {"style":{"border":{"top":{"color":"var:preset|color|border","style":"solid","width":"1px"}},"spacing":{"padding":{"top":"var:preset|spacing|medium"},"margin":{"top":"var:preset|spacing|large"},"blockGap":"var:preset|spacing|compact"}},"layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"center"}} -->
@@ -88,8 +88,8 @@
 <svg width="28" height="22" viewBox="0 0 40 32" fill="var(--wp--preset--color--primary)" aria-hidden="true" focusable="false"><path d="M0 32V18.5C0 8.6 5.7 1.7 15.2 0l2 4.3C11.6 6 8.6 9.4 8.4 14.2H16V32H0zm22 0V18.5C22 8.6 27.7 1.7 37.2 0l2 4.3C33.6 6 30.6 9.4 30.4 14.2H38V32H22z"></path></svg>
 <!-- /wp:html -->
 
-<!-- wp:paragraph {"style":{"typography":{"fontWeight":"500","lineHeight":"1.55"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-heading","fontSize":"regular-plus"} -->
-<p class="has-text-heading-color has-text-color has-regular-plus-font-size" style="margin-top:0;margin-bottom:0;font-weight:500;line-height:1.55"><?php echo esc_html__( 'A single page that does more work than our old five. They left out everything that was not earning its place.', 'origin-canvas' ); ?></p>
+<!-- wp:paragraph {"style":{"typography":{"fontWeight":"500","lineHeight":"1.55"},"spacing":{"margin":{"top":"20px","bottom":"0"}}},"textColor":"text-heading","fontSize":"regular-plus"} -->
+<p class="has-text-heading-color has-text-color has-regular-plus-font-size" style="margin-top:20px;margin-bottom:0;font-weight:500;line-height:1.55"><?php echo esc_html__( 'A single page that does more work than our old five. They left out everything that was not earning its place.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
 <!-- wp:group {"style":{"border":{"top":{"color":"var:preset|color|border","style":"solid","width":"1px"}},"spacing":{"padding":{"top":"var:preset|spacing|medium"},"margin":{"top":"var:preset|spacing|large"},"blockGap":"var:preset|spacing|compact"}},"layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"center"}} -->
