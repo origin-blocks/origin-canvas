@@ -328,9 +328,10 @@
  * the block markup stays a plain, valid core/group; size variants via modifiers.
  */
 .origin-canvas-quote-mark {
-	aspect-ratio: 40 / 32;
+	align-self: flex-start;
 	background-color: var(--wp--preset--color--primary);
 	flex: none;
+	height: 27px;
 	-webkit-mask: url('../../patterns/images/quote-mark.svg') no-repeat center / contain;
 	mask: url('../../patterns/images/quote-mark.svg') no-repeat center / contain;
 	width: 34px;
@@ -338,6 +339,7 @@
 
 /* with-image uses the slightly smaller 32px mark */
 .origin-canvas-quote-mark.origin-canvas-quote-mark--sm {
+	height: 26px;
 	width: 32px;
 }
 
