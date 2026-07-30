@@ -24,9 +24,9 @@
 
 <!-- wp:column {"verticalAlignment":"center","width":"62%"} -->
 <div class="wp-block-column is-vertically-aligned-center" style="flex-basis:62%"><!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|medium"}},"layout":{"type":"constrained"}} -->
-<div class="wp-block-group"><!-- wp:html -->
-<div style="text-align:left"><svg width="32" height="26" viewBox="0 0 40 32" fill="var(--wp--preset--color--primary)" aria-hidden="true" focusable="false"><path d="M0 32V18.5C0 8.6 5.7 1.7 15.2 0l2 4.3C11.6 6 8.6 9.4 8.4 14.2H16V32H0zm22 0V18.5C22 8.6 27.7 1.7 37.2 0l2 4.3C33.6 6 30.6 9.4 30.4 14.2H38V32H22z"></path></svg></div>
-<!-- /wp:html -->
+<div class="wp-block-group"><!-- wp:group {"style":{"dimensions":{"minHeight":"26px"}},"layout":{"type":"constrained","contentSize":"32px"},"className":"origin-canvas-quote-mark"} -->
+<div class="wp-block-group origin-canvas-quote-mark" style="min-height:26px;width:32px"></div>
+<!-- /wp:group -->
 
 <!-- wp:paragraph {"style":{"typography":{"lineHeight":"1.28","fontWeight":"500"},"spacing":{"margin":{"top":"16px","bottom":"22px"}}},"textColor":"text-heading","fontSize":"huge"} -->
 <p class="has-text-heading-color has-text-color has-huge-font-size" style="margin-top:16px;margin-bottom:22px;font-weight:500;line-height:1.28"><?php echo esc_html__( 'They sent invoices in plain English and launched on the day they said they would. That alone made the project feel calm.', 'origin-canvas' ); ?></p>
