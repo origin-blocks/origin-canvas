@@ -97,6 +97,24 @@ Per-field rules:
 - **Keywords:** 3–6 comma-separated terms from the pattern's title / category / obvious
   synonyms; do not repeat words already in the Title or Slug.
 
+## 6. Tokens over hardcodes — NEVER put bespoke px in a pattern
+Every **colour** = palette slug. Every **spacing** = spacing preset slug. Every **font size** =
+font-size preset slug. The theme's scales are fluid (`clamp()`); hardcoding px in a pattern
+silently opts that value out of fluid type/spacing and out of every style variation.
+
+- Inline hex is permitted ONLY for dark sections (`#111827` bg, `#F3F4F6` text), since
+  `custom.dark.*` is not a palette, and for sanctioned per-product identity marks.
+- **If a design hands you a value that isn't on the scale, do NOT hardcode it.** Snap it to
+  the nearest scale step and tell the designer to update their board, or file a `theme.json`
+  change to add the step. Those are the only two options.
+- Font-size scale (px): 13 · 14 · 16 · 18 · 20 · 24 · 30 · 36 · 48 · 60 · 72
+  (`extra-small` · `small` · `regular` · `regular-plus` · `medium` · `large` · `extra-large` ·
+  `huge` · `display` · `display-xl` · `display-2xl`). There is no 15, 19, 22, 23 or 34.
+- Spacing presets are fluid ranges — pick the token whose max matches the design value; do not
+  replace a token with a flat px to hit a number exactly.
+- A `max-width` **measure** (reading-line cap on a heading/body) is the exception: it is a
+  typographic constraint, not a responsive gap, and may be a flat value.
+
 ## Sources of truth
 Pattern taxonomy & batch plan: `origin-business-plan/theme/master-pattern-library.md`.
 Metadata / roles / AI-facing tags: `origin-business-plan/plans/patterns-strategy.md`.
