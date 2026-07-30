@@ -42,8 +42,8 @@
 <!-- /wp:paragraph --></div>
 <!-- /wp:group -->
 
-<!-- wp:paragraph {"style":{"typography":{"fontWeight":"500"},"spacing":{"margin":{"top":"20px","bottom":"0"}}},"textColor":"primary","fontSize":"regular"} -->
-<p class="has-primary-color has-text-color has-regular-font-size" style="margin-top:20px;margin-bottom:0;font-weight:500"><?php echo esc_html__( 'Read the case study', 'origin-canvas' ); ?></p>
+<!-- wp:paragraph {"style":{"typography":{"fontWeight":"600"},"spacing":{"margin":{"top":"20px","bottom":"0"}}},"textColor":"text-heading","fontSize":"regular"} -->
+<p class="has-text-heading-color has-text-color has-regular-font-size" style="margin-top:20px;margin-bottom:0;font-weight:600"><?php echo esc_html__( 'Read the case study', 'origin-canvas' ); ?> <mark style="background-color:rgba(0, 0, 0, 0)" class="has-inline-color has-primary-color">&rarr;</mark></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group --></div>
 <!-- /wp:column --></div>
