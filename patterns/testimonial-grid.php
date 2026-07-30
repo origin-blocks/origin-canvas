@@ -58,7 +58,7 @@
 
 <!-- wp:group {"style":{"border":{"top":{"color":"var:preset|color|border","style":"solid","width":"1px"}},"spacing":{"padding":{"top":"var:preset|spacing|medium"},"margin":{"top":"var:preset|spacing|large"},"blockGap":"var:preset|spacing|compact"}},"layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"center"}} -->
 <div class="wp-block-group" style="border-top-color:var(--wp--preset--color--border);border-top-style:solid;border-top-width:1px;margin-top:var(--wp--preset--spacing--large);padding-top:var(--wp--preset--spacing--medium)"><!-- wp:image {"aspectRatio":"1","scale":"cover","width":"48px","height":"48px","sizeSlug":"full","linkDestination":"none","className":"is-style-origin-canvas-rounded-full"} -->
-<figure class="wp-block-image size-full is-resized is-style-origin-canvas-rounded-full"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/card-image-text-2.webp" alt="<?php esc_attr_e( 'A printed house photograph and floor plan on a pale stone work surface.', 'origin-canvas' ); ?>" style="aspect-ratio:1;object-fit:cover;width:48px;height:48px"/></figure>
+<figure class="wp-block-image size-full is-resized is-style-origin-canvas-rounded-full"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/avatar-daniel-cross.webp" alt="<?php esc_attr_e( 'Portrait of Daniel Cross, Director at Westmount Property.', 'origin-canvas' ); ?>" style="aspect-ratio:1;object-fit:cover;width:48px;height:48px"/></figure>
 <!-- /wp:image -->
 
 <!-- wp:group {"style":{"spacing":{"blockGap":"0"}},"layout":{"type":"constrained"}} -->

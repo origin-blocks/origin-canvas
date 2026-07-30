@@ -64,6 +64,8 @@ Pattern image "Shared studio worktable image" (patterns/images/workspace-laptop.
 
 Pattern image "Claire Bennett team card image" (patterns/images/card-team-1.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
+Pattern image "Daniel Cross testimonial portrait" (patterns/images/avatar-daniel-cross.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+
 Pattern image "Sarah Jenkins testimonial avatar image" (patterns/images/card-testimonial-1.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
 Pattern image "Hero split studio interior cover image" (patterns/images/architecture-interior.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
