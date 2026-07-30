@@ -324,11 +324,24 @@
 /**
  * Testimonial quote mark — the brand double-quote glyph as a CSS mask so its
  * colour tracks the primary preset (like the inline SVG did) while avoiding the
- * core/html editor sandbox. Aspect 40:32; size set per pattern via a width.
+ * core/html editor sandbox. The class owns ALL sizing (width + aspect-ratio) so
+ * the block markup stays a plain, valid core/group; size variants via modifiers.
  */
 .origin-canvas-quote-mark {
 	aspect-ratio: 40 / 32;
 	background-color: var(--wp--preset--color--primary);
+	flex: none;
 	-webkit-mask: url('../../patterns/images/quote-mark.svg') no-repeat center / contain;
 	mask: url('../../patterns/images/quote-mark.svg') no-repeat center / contain;
+	width: 34px;
+}
+
+/* with-image uses the slightly smaller 32px mark */
+.origin-canvas-quote-mark.origin-canvas-quote-mark--sm {
+	width: 32px;
+}
+
+/* single centres its mark; with-image leaves it flush-left (default). */
+.origin-canvas-quote-mark.origin-canvas-quote-mark--center {
+	margin-inline: auto;
 }

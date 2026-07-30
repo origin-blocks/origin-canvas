@@ -20,8 +20,8 @@
 <p class="has-text-align-center has-primary-color has-text-color has-extra-small-font-size" style="margin-top:0;margin-bottom:26px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase"><?php echo esc_html__( 'In their words', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
-<!-- wp:group {"style":{"dimensions":{"minHeight":"27px"},"spacing":{"margin":{"top":"0","bottom":"22px"}}},"layout":{"type":"constrained","contentSize":"34px","justifyContent":"center"},"className":"origin-canvas-quote-mark"} -->
-<div class="wp-block-group origin-canvas-quote-mark" style="min-height:27px;margin-top:0;margin-bottom:22px;width:34px;margin-inline:auto"></div>
+<!-- wp:group {"style":{"spacing":{"margin":{"top":"0","bottom":"22px"}}},"className":"origin-canvas-quote-mark origin-canvas-quote-mark--center"} -->
+<div class="wp-block-group origin-canvas-quote-mark origin-canvas-quote-mark--center" style="margin-top:0;margin-bottom:22px"></div>
 <!-- /wp:group -->
 
 <!-- wp:paragraph {"align":"center","style":{"typography":{"lineHeight":"1.25","fontWeight":"500"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-heading","fontSize":"huge"} -->
