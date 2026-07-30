@@ -327,23 +327,28 @@
  * core/html editor sandbox. The class owns ALL sizing (width + aspect-ratio) so
  * the block markup stays a plain, valid core/group; size variants via modifiers.
  */
-.origin-canvas-quote-mark {
+.wp-block-group.origin-canvas-quote-mark {
 	align-self: flex-start;
 	background-color: var(--wp--preset--color--primary);
 	flex: none;
 	height: 27px;
+	/* Defeat WP's constrained-layout .wp-container > * auto-centring (which uses
+	   !important at (0,1,1) specificity) so the mark sits flush-left by default
+	   (with-image); single opts into centring via --center. The doubled class
+	   selector (0,2,0) out-specifies the container rule. */
+	margin-inline: 0 !important;
 	-webkit-mask: url('../../patterns/images/quote-mark.svg') no-repeat center / contain;
 	mask: url('../../patterns/images/quote-mark.svg') no-repeat center / contain;
 	width: 34px;
 }
 
 /* with-image uses the slightly smaller 32px mark */
-.origin-canvas-quote-mark.origin-canvas-quote-mark--sm {
+.wp-block-group.origin-canvas-quote-mark.origin-canvas-quote-mark--sm {
 	height: 26px;
 	width: 32px;
 }
 
 /* single centres its mark; with-image leaves it flush-left (default). */
-.origin-canvas-quote-mark.origin-canvas-quote-mark--center {
-	margin-inline: auto;
+.wp-block-group.origin-canvas-quote-mark.origin-canvas-quote-mark--center {
+	margin-inline: auto !important;
 }
