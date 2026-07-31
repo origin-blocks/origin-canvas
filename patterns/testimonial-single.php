@@ -20,9 +20,9 @@
 <p class="has-text-align-center has-primary-color has-text-color has-extra-small-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--large);font-weight:600;letter-spacing:0.08em;text-transform:uppercase"><?php echo esc_html__( 'In their words', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
-<!-- wp:html -->
-<div style="margin-bottom:var(--wp--preset--spacing--medium)"><svg style="display:block;margin-inline:auto" width="34" height="27" viewBox="0 0 40 32" fill="var(--wp--preset--color--primary)" aria-hidden="true" focusable="false"><path d="M0 32V18.5C0 8.6 5.7 1.7 15.2 0l2 4.3C11.6 6 8.6 9.4 8.4 14.2H16V32H0zm22 0V18.5C22 8.6 27.7 1.7 37.2 0l2 4.3C33.6 6 30.6 9.4 30.4 14.2H38V32H22z"></path></svg></div>
-<!-- /wp:html -->
+<!-- wp:group {"style":{"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|medium"}}},"className":"origin-canvas-quote-mark origin-canvas-quote-mark--center"} -->
+<div class="wp-block-group origin-canvas-quote-mark origin-canvas-quote-mark--center" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--medium)"></div>
+<!-- /wp:group -->
 
 <!-- wp:paragraph {"align":"center","style":{"typography":{"lineHeight":"1.35","fontWeight":"500","letterSpacing":"-0.01em"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-heading","fontSize":"huge"} -->
 <p class="has-text-align-center has-text-heading-color has-text-color has-huge-font-size" style="margin-top:0;margin-bottom:0;font-weight:500;letter-spacing:-0.01em;line-height:1.35"><?php echo esc_html__( 'They asked the questions our last designer didn\'t. The site finally feels like ours, not a template we tried to make fit.', 'origin-canvas' ); ?></p>
