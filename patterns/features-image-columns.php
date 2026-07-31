@@ -29,12 +29,12 @@
 <p class="has-primary-color has-text-color has-extra-small-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--medium);font-weight:600;letter-spacing:0.08em;text-transform:uppercase"><?php echo esc_html__( 'Before pixels', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
-<!-- wp:heading {"level":2,"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"fontSize":"display"} -->
-<h2 class="wp-block-heading has-display-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Type and tone come first', 'origin-canvas' ); ?></h2>
+<!-- wp:heading {"level":2,"style":{"spacing":{"margin":{"top":"var:preset|spacing|medium","bottom":"var:preset|spacing|medium"}}},"fontSize":"display"} -->
+<h2 class="wp-block-heading has-display-font-size" style="margin-top:var(--wp--preset--spacing--medium);margin-bottom:var(--wp--preset--spacing--medium)"><?php echo esc_html__( 'Type and tone come first', 'origin-canvas' ); ?></h2>
 <!-- /wp:heading -->
 
-<!-- wp:paragraph {"textColor":"text-body","fontSize":"regular-plus"} -->
-<p class="has-text-body-color has-text-color has-regular-plus-font-size"><?php echo esc_html__( 'Voice, type, and color get settled before we draw a single page. The writing leads and the layout follows.', 'origin-canvas' ); ?></p>
+<!-- wp:paragraph {"style":{"typography":{"lineHeight":"1.6"}},"textColor":"text-body","fontSize":"regular-plus"} -->
+<p class="has-text-body-color has-text-color has-regular-plus-font-size" style="line-height:1.6"><?php echo esc_html__( 'Voice, type, and color get settled before we draw a single page. The writing leads and the layout follows.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"style":{"typography":{"fontWeight":"600"},"spacing":{"margin":{"top":"var:preset|spacing|large","bottom":"0"}}},"textColor":"text-heading","fontSize":"regular"} -->
@@ -51,12 +51,12 @@
 <p class="has-primary-color has-text-color has-extra-small-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--medium);font-weight:600;letter-spacing:0.08em;text-transform:uppercase"><?php echo esc_html__( 'How we pace it', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
-<!-- wp:heading {"level":2,"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"fontSize":"display"} -->
-<h2 class="wp-block-heading has-display-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'One project at a time', 'origin-canvas' ); ?></h2>
+<!-- wp:heading {"level":2,"style":{"spacing":{"margin":{"top":"var:preset|spacing|medium","bottom":"var:preset|spacing|medium"}}},"fontSize":"display"} -->
+<h2 class="wp-block-heading has-display-font-size" style="margin-top:var(--wp--preset--spacing--medium);margin-bottom:var(--wp--preset--spacing--medium)"><?php echo esc_html__( 'One project at a time', 'origin-canvas' ); ?></h2>
 <!-- /wp:heading -->
 
-<!-- wp:paragraph {"textColor":"text-body","fontSize":"regular-plus"} -->
-<p class="has-text-body-color has-text-color has-regular-plus-font-size"><?php echo esc_html__( 'We take on roughly a project a month, so the work in front of us always gets our full attention.', 'origin-canvas' ); ?></p>
+<!-- wp:paragraph {"style":{"typography":{"lineHeight":"1.6"}},"textColor":"text-body","fontSize":"regular-plus"} -->
+<p class="has-text-body-color has-text-color has-regular-plus-font-size" style="line-height:1.6"><?php echo esc_html__( 'We take on roughly a project a month, so the work in front of us always gets our full attention.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"style":{"typography":{"fontWeight":"600"},"spacing":{"margin":{"top":"var:preset|spacing|large","bottom":"0"}}},"textColor":"text-heading","fontSize":"regular"} -->
