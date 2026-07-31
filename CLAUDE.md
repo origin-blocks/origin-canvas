@@ -114,6 +114,19 @@ silently opts that value out of fluid type/spacing and out of every style variat
   replace a token with a flat px to hit a number exactly.
 - A `max-width` **measure** (reading-line cap on a heading/body) is the exception: it is a
   typographic constraint, not a responsive gap, and may be a flat value.
+- **Element dimensions are also outside this rule.** The rule governs *design tokens* —
+  colour, spacing, type. It does not govern the intrinsic size of a thing: an avatar
+  (48/64/180px), an icon bubble, a wireframe box, a fixed media column. Those are layout
+  dimensions, not scale steps, and there is no token scale for them. Where several patterns
+  share a dimension, put it in a class so they cannot drift apart (see
+  `.origin-canvas-quote-mark`), rather than repeating the number in each pattern.
+- **Never inline an `<svg>` in pattern content.** `<svg>` is not in WordPress's KSES
+  allowlist, so it is stripped on insert for any user without `unfiltered_html` — Editors,
+  Authors, and most multisite roles would get the pattern with the graphic missing. Ship
+  decorative glyphs from the theme layer instead: a data-URI `mask-image` on an empty group,
+  coloured with `background-color: var(--wp--preset--color--primary)` so it tracks the
+  palette. `core-list.css` (check icon) and `core-group.css` (quote mark) are the reference
+  implementations.
 
 ## Sources of truth
 Pattern taxonomy & batch plan: `origin-business-plan/theme/master-pattern-library.md`.
