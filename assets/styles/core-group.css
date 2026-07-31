@@ -328,6 +328,11 @@
  * without unfiltered_html. Delivered from CSS, it survives for every role and its
  * colour follows the active palette. The class owns the sizing so the pattern
  * markup stays a plain core/group.
+ *
+ * The patterns also set a matching minHeight on the block. That is not a
+ * duplicate for styling — an empty group draws the editor's block placeholder in
+ * the canvas, and a native dimension is what suppresses it. Keep the two in step:
+ * minHeight mirrors the height below (27px, or 26px for the small variant).
  */
 .wp-block-group.origin-canvas-quote-mark {
 	background-color: var(--wp--preset--color--primary);
@@ -365,6 +370,9 @@
 	height: 100%;
 }
 
-.wp-block-group.origin-canvas-testimonial-card > p {
-	flex: 1;
+/* The quote is the card's first child; it takes the slack so the attribution
+   row sits on the baseline of the tallest card. Scoped to the flex layout so an
+   edit away from a flex card cannot leave a stray flex value behind. */
+.wp-block-group.origin-canvas-testimonial-card.is-layout-flex > p:first-child {
+	flex: 1 1 auto;
 }

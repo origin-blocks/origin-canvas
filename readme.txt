@@ -96,6 +96,8 @@ The following fonts are loaded locally from the theme's assets:
 
 The check icon used by the Check list block style is sourced from [Lucide](https://lucide.dev) ([source](https://github.com/lucide-icons/lucide)) licensed under the [ISC License](https://lucide.dev/license).
 
+The quotation-mark glyph used by the testimonial patterns (embedded as a data-URI mask in assets/styles/core-group.css) is original artwork created for Origin Canvas, released by Origin under GPLv3.
+
 == Changelog ==
 
 = 1.2.0 - 9 July 2026 =
