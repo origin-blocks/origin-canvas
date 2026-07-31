@@ -24,8 +24,8 @@
 
 <!-- wp:column {"verticalAlignment":"center"} -->
 <div class="wp-block-column is-vertically-aligned-center"><!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|medium"}},"layout":{"type":"constrained"}} -->
-<div class="wp-block-group"><!-- wp:group {"className":"origin-canvas-quote-mark origin-canvas-quote-mark--sm"} -->
-<div class="wp-block-group origin-canvas-quote-mark origin-canvas-quote-mark--sm"></div>
+<div class="wp-block-group"><!-- wp:group {"style":{"dimensions":{"minHeight":"26px"}},"className":"origin-canvas-quote-mark origin-canvas-quote-mark--sm"} -->
+<div class="wp-block-group origin-canvas-quote-mark origin-canvas-quote-mark--sm" style="min-height:26px"></div>
 <!-- /wp:group -->
 
 <!-- wp:paragraph {"style":{"typography":{"lineHeight":"1.4","fontWeight":"500","letterSpacing":"-0.01em"},"spacing":{"margin":{"top":"var:preset|spacing|medium","bottom":"var:preset|spacing|medium"}}},"textColor":"text-heading","fontSize":"large"} -->

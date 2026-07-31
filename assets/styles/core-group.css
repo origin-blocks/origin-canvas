@@ -355,3 +355,16 @@
 	height: 26px;
 	width: 32px;
 }
+
+/**
+ * Testimonial grid card. The card fills its stretched column and the quote takes
+ * the free space, so attribution rows line up across cards of differing quote
+ * length. Columns alone only equalise the columns, not the cards inside them.
+ */
+.wp-block-group.origin-canvas-testimonial-card {
+	height: 100%;
+}
+
+.wp-block-group.origin-canvas-testimonial-card > p {
+	flex: 1;
+}
