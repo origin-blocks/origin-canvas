@@ -79,3 +79,7 @@
 	border-color: color-mix(in srgb, var(--wp--custom--dark--text) 22%, transparent);
 	color: color-mix(in srgb, var(--wp--custom--dark--text) 62%, transparent);
 }
+
+.origin-canvas-step-numeral {
+	font-variant-numeric: tabular-nums;
+}
