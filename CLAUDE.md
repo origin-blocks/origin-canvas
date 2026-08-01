@@ -93,6 +93,18 @@ Per-field rules:
 - **Keywords:** 3–6 comma-separated terms from the pattern's title / category / obvious
   synonyms; do not repeat words already in the Title or Slug.
 
+### 7. Every heading inside a pattern carries an explicit `fontSize` preset
+A `wp:heading` in a pattern must always set `"fontSize"` (and the matching
+`has-<preset>-font-size` class on the tag). **Never** leave a pattern heading bare.
+
+Bare headings are for **authored content only** — they inherit `styles.elements.h1…h6` from
+`theme.json`, which is tuned for someone typing prose into the editor. A pattern is designed
+composition: its heading sizes are a design decision, not an authoring default.
+
+The consequence of getting this wrong is silent and wide: changing an element default in
+`theme.json` restyles every bare pattern heading at once. A heading-ladder change intended
+for authored content must **never** move a shipped pattern's rendering.
+
 ## Sources of truth
 Pattern taxonomy & batch plan: `origin-business-plan/theme/master-pattern-library.md`.
 Metadata / roles / AI-facing tags: `origin-business-plan/plans/patterns-strategy.md`.
