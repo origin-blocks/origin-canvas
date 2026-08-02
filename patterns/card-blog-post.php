@@ -4,7 +4,7 @@
  * Slug: origin-canvas/card-blog-post
  * Description: A single blog post card with image, category, title, excerpt, and meta. Pair with the Blog Post Grid pattern (a dynamic query loop) for multiple posts, or insert manually inside a Columns block.
  * Categories: origin-canvas/card
- * Keywords: article, journal, excerpt, meta
+ * Keywords: article, journal, teaser, snippet
  * Viewport Width: 1500
  * Block Types:
  * Post Types:

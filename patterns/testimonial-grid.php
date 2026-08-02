@@ -4,7 +4,7 @@
  * Slug: origin-canvas/testimonial-grid
  * Description: A grid of testimonial quotes from multiple clients with author attribution.
  * Categories: origin-canvas/testimonial
- * Keywords: quote, clients, review, social proof
+ * Keywords: review, endorsement, praise, three
  * Viewport Width: 1500
  * Block Types:
  * Post Types:

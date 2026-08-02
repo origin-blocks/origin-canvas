@@ -3,7 +3,7 @@
  * Title: Card Pricing
  * Slug: origin-canvas/card-pricing
  * Categories: origin-canvas/pricing
- * Keywords: cards, pricing, plans, three column, tiered, featured
+ * Keywords: cards, plans, tiered, featured
  * Block Types: core/post-content
  * Inserter: true
  *

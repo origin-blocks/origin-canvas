@@ -3,7 +3,7 @@
  * Title: CTA Card
  * Slug: origin-canvas/cta-card
  * Categories: call-to-action
- * Keywords: cta, call to action, card, centered, surface, conversion
+ * Keywords: conversion, centered, surface, prompt
  * Block Types: core/post-content
  * Inserter: true
  *

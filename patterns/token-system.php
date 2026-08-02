@@ -4,7 +4,7 @@
  * Slug: origin-canvas/token-system
  * Description: A built-on-the-system section with a design-token panel for the theme landing page.
  * Categories: origin-canvas/features
- * Keywords: tokens, design system, panel, marketing
+ * Keywords: tokens, variables, marketing, scale
  * Viewport Width: 1500
  * Block Types:
  * Post Types:

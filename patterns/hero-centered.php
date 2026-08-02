@@ -3,7 +3,7 @@
  * Title: Hero Centered
  * Slug: origin-canvas/hero-centered
  * Categories: origin-canvas/hero
- * Keywords: hero, landing, intro, centered
+ * Keywords: landing, intro, banner, masthead
  * Block Types: core/post-content
  * Inserter: true
  *

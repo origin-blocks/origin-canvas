@@ -4,7 +4,7 @@
  * Slug: origin-canvas/cta-closing
  * Description: A dark closing call-to-action band for the end of the theme landing page.
  * Categories: call-to-action
- * Keywords: cta, closing, conversion, dark, download
+ * Keywords: conversion, download, footer, final
  * Viewport Width: 1500
  * Block Types:
  * Post Types:

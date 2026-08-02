@@ -4,7 +4,7 @@
  * Slug: origin-canvas/lead-statement
  * Description: A two-tone editorial lead statement for the top of the theme landing page.
  * Categories: origin-canvas/text
- * Keywords: intro, statement, editorial, marketing
+ * Keywords: intro, marketing, opening, manifesto
  * Viewport Width: 1500
  * Block Types:
  * Post Types:

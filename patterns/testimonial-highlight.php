@@ -4,7 +4,7 @@
  * Slug: origin-canvas/testimonial-highlight
  * Description: A single highlighted testimonial quote with author attribution.
  * Categories: origin-canvas/testimonial
- * Keywords: quote, review, highlight, author
+ * Keywords: review, featured, endorsement, pullquote
  * Viewport Width: 1500
  * Block Types:
  * Post Types:

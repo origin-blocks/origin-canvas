@@ -4,7 +4,7 @@
  * Slug: origin-canvas/pattern-showcase
  * Description: A full-bleed gradient tile board showcasing the pattern library on the theme landing page.
  * Categories: origin-canvas/features
- * Keywords: showcase, board, gradient, marketing, library
+ * Keywords: marketing, gallery, preview, catalogue
  * Viewport Width: 1500
  * Block Types:
  * Post Types:

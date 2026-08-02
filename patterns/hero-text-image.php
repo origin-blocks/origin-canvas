@@ -3,7 +3,7 @@
  * Title: Hero Text + Image
  * Slug: origin-canvas/hero-text-image
  * Categories: origin-canvas/hero
- * Keywords: hero, landing, intro, image, two-column
+ * Keywords: landing, intro, masthead, media
  * Block Types: core/post-content
  * Inserter: true
  *

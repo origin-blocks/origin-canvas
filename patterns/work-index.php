@@ -3,7 +3,7 @@
  * Title: Work Index
  * Slug: origin-canvas/work-index
  * Categories: origin-canvas/features
- * Keywords: work, portfolio, index, projects, home
+ * Keywords: portfolio, projects, home, casestudies
  * Block Types: core/post-content
  * Viewport Width: 1500
  * Inserter: true

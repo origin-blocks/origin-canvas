@@ -4,7 +4,7 @@
  * Slug: origin-canvas/features-3-col-icons
  * Description: A three-column feature section with icon bubbles, descriptions, and links.
  * Categories: origin-canvas/features
- * Keywords: icons, services, three column, cards
+ * Keywords: services, benefits, cards, capabilities
  * Viewport Width: 1500
  * Block Types:
  * Post Types:

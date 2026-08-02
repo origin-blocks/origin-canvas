@@ -4,7 +4,7 @@
  * Slug: origin-canvas/product-grid
  * Description: A six-card product ecosystem grid with per-product identity dots and pricing.
  * Categories: origin-canvas/pricing
- * Keywords: products, ecosystem, grid, pricing, plans
+ * Keywords: products, plans, licences, tiers
  * Viewport Width: 1500
  * Block Types:
  * Post Types:

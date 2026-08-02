@@ -4,7 +4,7 @@
  * Slug: origin-canvas/features-grid
  * Description: A two-column grid of feature cards, each with an icon bubble and short description.
  * Categories: origin-canvas/features
- * Keywords: grid, services, cards, two column
+ * Keywords: services, benefits, capabilities, tiles
  * Viewport Width: 1500
  * Block Types:
  * Post Types:

@@ -3,7 +3,7 @@
  * Title: CTA Newsletter
  * Slug: origin-canvas/cta-newsletter
  * Categories: call-to-action
- * Keywords: cta, call to action, newsletter, email, subscribe, signup, conversion
+ * Keywords: email, subscribe, signup, conversion
  * Block Types: core/post-content
  * Inserter: true
  *

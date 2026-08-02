@@ -3,7 +3,7 @@
  * Title: Feature Split
  * Slug: origin-canvas/feature-split
  * Categories: origin-canvas/features
- * Keywords: feature, split, quote, image, case study
+ * Keywords: quote, image, testimonial, alternating
  * Block Types: core/post-content
  * Viewport Width: 1500
  * Inserter: true

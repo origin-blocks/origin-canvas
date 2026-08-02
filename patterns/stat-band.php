@@ -3,7 +3,7 @@
  * Title: Stat Band
  * Slug: origin-canvas/stat-band
  * Categories: origin-canvas/stats
- * Keywords: stats, metrics, dark, numbers, home
+ * Keywords: metrics, dark, numbers, home
  * Block Types: core/post-content
  * Viewport Width: 1500
  * Inserter: true

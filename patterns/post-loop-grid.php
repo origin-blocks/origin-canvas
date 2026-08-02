@@ -4,7 +4,7 @@
  * Slug: origin-canvas/post-loop-grid
  * Description: A responsive grid query loop of recent posts.
  * Categories: origin-canvas/posts
- * Keywords: loop, blog, query, archive
+ * Keywords: blog, archive, latest, journal
  * Viewport Width: 1500
  * Block Types: core/query
  * Post Types:
