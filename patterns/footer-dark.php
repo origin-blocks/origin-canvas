@@ -2,8 +2,12 @@
 /**
  * Title: Footer Dark
  * Slug: origin-canvas/footer-dark
+ * Description: A dark site footer with a short studio note, link columns, and a legal row.
  * Categories: footer
+ * Keywords:
+ * Viewport Width: 1500
  * Block Types: core/template-part/footer
+ * Post Types:
  * Inserter: true
  *
  * @package Origin
