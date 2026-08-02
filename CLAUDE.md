@@ -97,7 +97,7 @@ Per-field rules:
 - **Keywords:** 3–6 comma-separated terms from the pattern's title / category / obvious
   synonyms; do not repeat words already in the Title or Slug.
 
-## 6. Tokens over hardcodes — NEVER put bespoke px in a pattern
+### 6. Tokens over hardcodes — NEVER put bespoke px in a pattern
 Every **colour** = palette slug. Every **spacing** = spacing preset slug. Every **font size** =
 font-size preset slug. The theme's scales are fluid (`clamp()`); hardcoding px in a pattern
 silently opts that value out of fluid type/spacing and out of every style variation.
@@ -127,6 +127,30 @@ silently opts that value out of fluid type/spacing and out of every style variat
   coloured with `background-color: var(--wp--preset--color--primary)` so it tracks the
   palette. `core-list.css` (check icon) and `core-group.css` (quote mark) are the reference
   implementations.
+### 7. Every heading inside a pattern carries an explicit `fontSize` preset
+A `wp:heading` in a pattern must always set `"fontSize"` (and the matching
+`has-<preset>-font-size` class on the tag). **Never** leave a pattern heading bare.
+
+Bare headings are for **authored content only** — they inherit `styles.elements.h1…h6` from
+`theme.json`, which is tuned for someone typing prose into the editor. A pattern is designed
+composition: its heading sizes are a design decision, not an authoring default.
+
+The consequence of getting this wrong is silent and wide: changing an element default in
+`theme.json` restyles every bare pattern heading at once. A heading-ladder change intended
+for authored content must **never** move a shipped pattern's rendering.
+
+### 8. Shared components are judged against every page that uses them
+A change to a template part (header, footer) or to a widely-reused pattern must be justified
+against that component's **full usage across the theme** — never against one page composition.
+
+A value that is right for a single marketing layout is not thereby right for the component.
+A page can't restyle global chrome anyway: header and footer are template parts, so "the
+landing page wants a tighter header" is a request for a *different header*, not an edit to the
+shared one. Design the component family on its own terms first, then assign per template.
+
+Corollary for spacing: when a raw value has an exact equivalent on the scale, tokenising it is
+a no-op and always correct. When it does not, do **not** snap it silently — a near-miss token
+changes the rendering. Report the gap and get a ruling.
 
 ## Sources of truth
 Pattern taxonomy & batch plan: `origin-business-plan/theme/master-pattern-library.md`.

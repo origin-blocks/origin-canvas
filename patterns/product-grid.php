@@ -36,13 +36,13 @@
 <div class="wp-block-group origin-canvas-status-dot has-background" style="background-color:#FF4387;min-height:8px"></div>
 <!-- /wp:group -->
 
-<!-- wp:paragraph {"className":"origin-canvas-status-chip origin-canvas-mono","style":{"spacing":{"margin":{"top":"0","bottom":"0"}}}} -->
-<p class="origin-canvas-status-chip origin-canvas-mono" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Available now', 'origin-canvas' ); ?></p>
+<!-- wp:paragraph {"className":"origin-canvas-status-chip","style":{"spacing":{"margin":{"top":"0","bottom":"0"}}}} -->
+<p class="origin-canvas-status-chip" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Available now', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group -->
 
-<!-- wp:heading {"level":3,"style":{"typography":{"fontSize":"1.3125rem"},"spacing":{"margin":{"top":"0","bottom":"10px"}}}} -->
-<h3 class="wp-block-heading" style="margin-top:0;margin-bottom:10px;font-size:1.3125rem"><?php echo esc_html__( 'Origin Theme', 'origin-canvas' ); ?></h3>
+<!-- wp:heading {"level":3,"style":{"spacing":{"margin":{"top":"0","bottom":"10px"}}},"fontSize":"medium"} -->
+<h3 class="wp-block-heading has-medium-font-size" style="margin-top:0;margin-bottom:10px"><?php echo esc_html__( 'Origin Theme', 'origin-canvas' ); ?></h3>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"style":{"typography":{"fontSize":"0.90625rem","lineHeight":"1.55"},"spacing":{"margin":{"top":"0","bottom":"22px"}}},"textColor":"text-body"} -->
@@ -70,13 +70,13 @@
 <div class="wp-block-group origin-canvas-status-dot has-background" style="background-color:#16A34A;min-height:8px"></div>
 <!-- /wp:group -->
 
-<!-- wp:paragraph {"className":"origin-canvas-status-chip origin-canvas-mono","style":{"spacing":{"margin":{"top":"0","bottom":"0"}}}} -->
-<p class="origin-canvas-status-chip origin-canvas-mono" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Available now', 'origin-canvas' ); ?></p>
+<!-- wp:paragraph {"className":"origin-canvas-status-chip","style":{"spacing":{"margin":{"top":"0","bottom":"0"}}}} -->
+<p class="origin-canvas-status-chip" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Available now', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group -->
 
-<!-- wp:heading {"level":3,"style":{"typography":{"fontSize":"1.3125rem"},"spacing":{"margin":{"top":"0","bottom":"10px"}}}} -->
-<h3 class="wp-block-heading" style="margin-top:0;margin-bottom:10px;font-size:1.3125rem"><?php echo esc_html__( 'Origin Blocks', 'origin-canvas' ); ?></h3>
+<!-- wp:heading {"level":3,"style":{"spacing":{"margin":{"top":"0","bottom":"10px"}}},"fontSize":"medium"} -->
+<h3 class="wp-block-heading has-medium-font-size" style="margin-top:0;margin-bottom:10px"><?php echo esc_html__( 'Origin Blocks', 'origin-canvas' ); ?></h3>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"style":{"typography":{"fontSize":"0.90625rem","lineHeight":"1.55"},"spacing":{"margin":{"top":"0","bottom":"22px"}}},"textColor":"text-body"} -->
@@ -103,13 +103,13 @@
 <div class="wp-block-group" style="margin-bottom:22px"><!-- wp:group {"className":"origin-canvas-status-dot","style":{"color":{"background":"#EA580C"},"dimensions":{"minHeight":"8px"}}} -->
 <div class="wp-block-group origin-canvas-status-dot has-background" style="background-color:#EA580C;min-height:8px"></div>
 <!-- /wp:group -->
-<!-- wp:paragraph {"className":"origin-canvas-status-chip origin-canvas-mono","style":{"spacing":{"margin":{"top":"0","bottom":"0"}}}} -->
-<p class="origin-canvas-status-chip origin-canvas-mono" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Coming soon', 'origin-canvas' ); ?></p>
+<!-- wp:paragraph {"className":"origin-canvas-status-chip","style":{"spacing":{"margin":{"top":"0","bottom":"0"}}}} -->
+<p class="origin-canvas-status-chip" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Coming soon', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group -->
 
-<!-- wp:heading {"level":3,"style":{"typography":{"fontSize":"1.3125rem"},"spacing":{"margin":{"top":"0","bottom":"10px"}}}} -->
-<h3 class="wp-block-heading" style="margin-top:0;margin-bottom:10px;font-size:1.3125rem"><?php echo esc_html__( 'Origin Blocks Pro', 'origin-canvas' ); ?></h3>
+<!-- wp:heading {"level":3,"style":{"spacing":{"margin":{"top":"0","bottom":"10px"}}},"fontSize":"medium"} -->
+<h3 class="wp-block-heading has-medium-font-size" style="margin-top:0;margin-bottom:10px"><?php echo esc_html__( 'Origin Blocks Pro', 'origin-canvas' ); ?></h3>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"style":{"typography":{"fontSize":"0.90625rem","lineHeight":"1.55"},"spacing":{"margin":{"top":"0","bottom":"22px"}}},"textColor":"text-body"} -->
@@ -138,13 +138,13 @@
 <div class="wp-block-group" style="margin-bottom:22px"><!-- wp:group {"className":"origin-canvas-status-dot","style":{"color":{"background":"#7C3AED"},"dimensions":{"minHeight":"8px"}}} -->
 <div class="wp-block-group origin-canvas-status-dot has-background" style="background-color:#7C3AED;min-height:8px"></div>
 <!-- /wp:group -->
-<!-- wp:paragraph {"className":"origin-canvas-status-chip origin-canvas-mono","style":{"spacing":{"margin":{"top":"0","bottom":"0"}}}} -->
-<p class="origin-canvas-status-chip origin-canvas-mono" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Coming soon', 'origin-canvas' ); ?></p>
+<!-- wp:paragraph {"className":"origin-canvas-status-chip","style":{"spacing":{"margin":{"top":"0","bottom":"0"}}}} -->
+<p class="origin-canvas-status-chip" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Coming soon', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group -->
 
-<!-- wp:heading {"level":3,"style":{"typography":{"fontSize":"1.3125rem"},"spacing":{"margin":{"top":"0","bottom":"10px"}}}} -->
-<h3 class="wp-block-heading" style="margin-top:0;margin-bottom:10px;font-size:1.3125rem"><?php echo esc_html__( 'Origin Patterns Pro', 'origin-canvas' ); ?></h3>
+<!-- wp:heading {"level":3,"style":{"spacing":{"margin":{"top":"0","bottom":"10px"}}},"fontSize":"medium"} -->
+<h3 class="wp-block-heading has-medium-font-size" style="margin-top:0;margin-bottom:10px"><?php echo esc_html__( 'Origin Patterns Pro', 'origin-canvas' ); ?></h3>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"style":{"typography":{"fontSize":"0.90625rem","lineHeight":"1.55"},"spacing":{"margin":{"top":"0","bottom":"22px"}}},"textColor":"text-body"} -->
@@ -181,13 +181,13 @@
 <div class="wp-block-group" style="margin-bottom:22px"><!-- wp:group {"className":"origin-canvas-status-dot","style":{"color":{"background":"#2563EB"},"dimensions":{"minHeight":"8px"}}} -->
 <div class="wp-block-group origin-canvas-status-dot has-background" style="background-color:#2563EB;min-height:8px"></div>
 <!-- /wp:group -->
-<!-- wp:paragraph {"className":"origin-canvas-status-chip origin-canvas-mono","style":{"spacing":{"margin":{"top":"0","bottom":"0"}}}} -->
-<p class="origin-canvas-status-chip origin-canvas-mono" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Coming soon', 'origin-canvas' ); ?></p>
+<!-- wp:paragraph {"className":"origin-canvas-status-chip","style":{"spacing":{"margin":{"top":"0","bottom":"0"}}}} -->
+<p class="origin-canvas-status-chip" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Coming soon', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group -->
 
-<!-- wp:heading {"level":3,"style":{"typography":{"fontSize":"1.3125rem"},"spacing":{"margin":{"top":"0","bottom":"10px"}}}} -->
-<h3 class="wp-block-heading" style="margin-top:0;margin-bottom:10px;font-size:1.3125rem"><?php echo esc_html__( 'Origin Starter Sites', 'origin-canvas' ); ?></h3>
+<!-- wp:heading {"level":3,"style":{"spacing":{"margin":{"top":"0","bottom":"10px"}}},"fontSize":"medium"} -->
+<h3 class="wp-block-heading has-medium-font-size" style="margin-top:0;margin-bottom:10px"><?php echo esc_html__( 'Origin Starter Sites', 'origin-canvas' ); ?></h3>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"style":{"typography":{"fontSize":"0.90625rem","lineHeight":"1.55"},"spacing":{"margin":{"top":"0","bottom":"22px"}}},"textColor":"text-body"} -->
@@ -214,13 +214,13 @@
 <div class="wp-block-group" style="margin-bottom:22px"><!-- wp:group {"className":"origin-canvas-status-dot","style":{"color":{"background":"#9AA2B1"},"dimensions":{"minHeight":"8px"}}} -->
 <div class="wp-block-group origin-canvas-status-dot has-background" style="background-color:#9AA2B1;min-height:8px"></div>
 <!-- /wp:group -->
-<!-- wp:paragraph {"className":"origin-canvas-status-chip origin-canvas-status-chip--dark origin-canvas-mono","style":{"spacing":{"margin":{"top":"0","bottom":"0"}}}} -->
-<p class="origin-canvas-status-chip origin-canvas-status-chip--dark origin-canvas-mono" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Coming soon', 'origin-canvas' ); ?></p>
+<!-- wp:paragraph {"className":"origin-canvas-status-chip origin-canvas-status-chip--dark","style":{"spacing":{"margin":{"top":"0","bottom":"0"}}}} -->
+<p class="origin-canvas-status-chip origin-canvas-status-chip--dark" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Coming soon', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group -->
 
-<!-- wp:heading {"level":3,"style":{"typography":{"fontSize":"1.3125rem"},"spacing":{"margin":{"top":"0","bottom":"10px"}},"color":{"text":"var(--wp--custom--dark--text)"}}} -->
-<h3 class="wp-block-heading has-text-color" style="color:var(--wp--custom--dark--text);margin-top:0;margin-bottom:10px;font-size:1.3125rem"><?php echo esc_html__( 'Agency License', 'origin-canvas' ); ?></h3>
+<!-- wp:heading {"level":3,"style":{"spacing":{"margin":{"top":"0","bottom":"10px"}},"color":{"text":"var(--wp--custom--dark--text)"}},"fontSize":"medium"} -->
+<h3 class="wp-block-heading has-text-color has-medium-font-size" style="color:var(--wp--custom--dark--text);margin-top:0;margin-bottom:10px"><?php echo esc_html__( 'Agency License', 'origin-canvas' ); ?></h3>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"style":{"typography":{"fontSize":"0.90625rem","lineHeight":"1.55"},"spacing":{"margin":{"top":"0","bottom":"22px"}},"color":{"text":"color-mix(in srgb, var(--wp--custom--dark--text) 72%, transparent)"}}} -->

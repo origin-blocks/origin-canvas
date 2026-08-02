@@ -17,8 +17,8 @@
 <p class="has-text-align-center has-primary-color has-text-color has-small-font-size" style="margin-bottom:var(--wp--preset--spacing--small);font-weight:600;letter-spacing:0.08em;text-transform:uppercase"><?php echo esc_html__( 'BRAND &amp; WEB FOR SMALL BUSINESSES', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
-<!-- wp:heading {"textAlign":"center","level":1,"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}}} -->
-<h1 class="wp-block-heading has-text-align-center" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'We help small teams launch sites that look like they were made on purpose.', 'origin-canvas' ); ?></h1>
+<!-- wp:heading {"textAlign":"center","level":1,"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"fontSize":"display-xl"} -->
+<h1 class="wp-block-heading has-display-xl-font-size has-text-align-center" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'We help small teams launch sites that look like they were made on purpose.', 'origin-canvas' ); ?></h1>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"align":"center","textColor":"text-body","fontSize":"regular-plus"} -->
