@@ -105,6 +105,19 @@ The consequence of getting this wrong is silent and wide: changing an element de
 `theme.json` restyles every bare pattern heading at once. A heading-ladder change intended
 for authored content must **never** move a shipped pattern's rendering.
 
+### 8. Shared components are judged against every page that uses them
+A change to a template part (header, footer) or to a widely-reused pattern must be justified
+against that component's **full usage across the theme** — never against one page composition.
+
+A value that is right for a single marketing layout is not thereby right for the component.
+A page can't restyle global chrome anyway: header and footer are template parts, so "the
+landing page wants a tighter header" is a request for a *different header*, not an edit to the
+shared one. Design the component family on its own terms first, then assign per template.
+
+Corollary for spacing: when a raw value has an exact equivalent on the scale, tokenising it is
+a no-op and always correct. When it does not, do **not** snap it silently — a near-miss token
+changes the rendering. Report the gap and get a ruling.
+
 ## Sources of truth
 Pattern taxonomy & batch plan: `origin-business-plan/theme/master-pattern-library.md`.
 Metadata / roles / AI-facing tags: `origin-business-plan/plans/patterns-strategy.md`.
