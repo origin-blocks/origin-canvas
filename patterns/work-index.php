@@ -192,7 +192,7 @@
 
 <!-- wp:column {"verticalAlignment":"center","width":"32%"} -->
 <div class="wp-block-column is-vertically-aligned-center" style="flex-basis:32%"><!-- wp:paragraph {"style":{"typography":{"fontWeight":"600"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-heading","fontSize":"large"} -->
-<p class="has-text-heading-color has-text-color has-large-font-size" style="margin-top:0;margin-bottom:0;font-weight:600"><?php echo esc_html__( 'Northbank Architects', 'origin-canvas' ); ?></p>
+<p class="has-text-heading-color has-text-color has-large-font-size" style="margin-top:0;margin-bottom:0;font-weight:600"><?php echo esc_html__( 'Fairview Architects', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column -->
 
