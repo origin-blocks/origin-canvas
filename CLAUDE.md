@@ -94,8 +94,13 @@ Per-field rules:
 - **Post Types:** leave empty.
 - **Inserter:** `true` for all user-facing patterns; `false` only for hidden template scaffolds
   (registered via `register_block_pattern` in `functions.php`).
-- **Keywords:** 3–6 comma-separated terms from the pattern's title / category / obvious
-  synonyms; do not repeat words already in the Title or Slug.
+- **Keywords:** 3–6 comma-separated terms a user might *type* that are **not already** in the
+  Title, Slug, Description, or Category — synonyms, alternate names, use-case words. Never
+  repeat a word that already appears in those fields: WordPress joins title, description,
+  keywords and category into ONE searched string and scores it all-or-nothing (see
+  `getItemSearchRank`), so a repeat cannot improve ranking — it only spends the budget. A
+  pattern titled "Hero Centered" is already found by "hero"; its keywords should buy
+  "banner", "masthead", "above the fold".
 
 ### 6. Tokens over hardcodes — NEVER put bespoke px in a pattern
 Every **colour** = palette slug. Every **spacing** = spacing preset slug. Every **font size** =
