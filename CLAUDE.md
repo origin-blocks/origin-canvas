@@ -86,13 +86,47 @@ Per-field rules:
 - **Viewport Width:** `1500` is the standard; deviate only with a deliberate reason.
 - **Block Types:** LEAVE EMPTY for standalone section/page patterns. Populate ONLY when the
   pattern is bound to a block context: `core/post-content` (content-area patterns),
-  `core/query` (loops), `core/template-part/header|footer` (parts).
+  `core/query` (loops), `core/template-part/header|footer` (parts). A marketing/features/
+  testimonial/hero SECTION is standalone → **empty**, NOT `core/post-content`. (`core/post-content`
+  binds the pattern to the post-content inserter only; a section is inserted anywhere, so binding it
+  is wrong.) NOTE: several existing section patterns still carry a stray `core/post-content` — that is
+  known drift to be stripped, not a convention to copy.
 - **Post Types:** leave empty.
 - **Inserter:** `true` for all user-facing patterns; `false` only for hidden template scaffolds
   (registered via `register_block_pattern` in `functions.php`).
 - **Keywords:** 3–6 comma-separated terms from the pattern's title / category / obvious
   synonyms; do not repeat words already in the Title or Slug.
 
+### 6. Tokens over hardcodes — NEVER put bespoke px in a pattern
+Every **colour** = palette slug. Every **spacing** = spacing preset slug. Every **font size** =
+font-size preset slug. The theme's scales are fluid (`clamp()`); hardcoding px in a pattern
+silently opts that value out of fluid type/spacing and out of every style variation.
+
+- Inline hex is permitted ONLY for dark sections (`#111827` bg, `#F3F4F6` text), since
+  `custom.dark.*` is not a palette, and for sanctioned per-product identity marks.
+- **If a design hands you a value that isn't on the scale, do NOT hardcode it.** Snap it to
+  the nearest scale step and tell the designer to update their board, or file a `theme.json`
+  change to add the step. Those are the only two options.
+- Font-size scale (px): 13 · 14 · 16 · 18 · 20 · 24 · 30 · 36 · 48 · 60 · 72
+  (`extra-small` · `small` · `regular` · `regular-plus` · `medium` · `large` · `extra-large` ·
+  `huge` · `display` · `display-xl` · `display-2xl`). There is no 15, 19, 22, 23 or 34.
+- Spacing presets are fluid ranges — pick the token whose max matches the design value; do not
+  replace a token with a flat px to hit a number exactly.
+- A `max-width` **measure** (reading-line cap on a heading/body) is the exception: it is a
+  typographic constraint, not a responsive gap, and may be a flat value.
+- **Element dimensions are also outside this rule.** The rule governs *design tokens* —
+  colour, spacing, type. It does not govern the intrinsic size of a thing: an avatar
+  (48/64/180px), an icon bubble, a wireframe box, a fixed media column. Those are layout
+  dimensions, not scale steps, and there is no token scale for them. Where several patterns
+  share a dimension, put it in a class so they cannot drift apart (see
+  `.origin-canvas-quote-mark`), rather than repeating the number in each pattern.
+- **Never inline an `<svg>` in pattern content.** `<svg>` is not in WordPress's KSES
+  allowlist, so it is stripped on insert for any user without `unfiltered_html` — Editors,
+  Authors, and most multisite roles would get the pattern with the graphic missing. Ship
+  decorative glyphs from the theme layer instead: a data-URI `mask-image` on an empty group,
+  coloured with `background-color: var(--wp--preset--color--primary)` so it tracks the
+  palette. `core-list.css` (check icon) and `core-group.css` (quote mark) are the reference
+  implementations.
 ### 7. Every heading inside a pattern carries an explicit `fontSize` preset
 A `wp:heading` in a pattern must always set `"fontSize"` (and the matching
 `has-<preset>-font-size` class on the tag). **Never** leave a pattern heading bare.

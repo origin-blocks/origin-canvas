@@ -320,3 +320,59 @@
 	height: 8px;
 	width: 8px;
 }
+
+/**
+ * Testimonial quote mark. The glyph is a data-URI SVG mask (the same technique as
+ * the check icon in core-list.css) rather than inline SVG in the pattern: <svg> is
+ * not in WordPress's KSES allowlist, so inline markup is stripped for any user
+ * without unfiltered_html. Delivered from CSS, it survives for every role and its
+ * colour follows the active palette. The class owns the sizing so the pattern
+ * markup stays a plain core/group.
+ *
+ * The patterns also set a matching minHeight on the block. That is not a
+ * duplicate for styling — an empty group draws the editor's block placeholder in
+ * the canvas, and a native dimension is what suppresses it. Keep the two in step:
+ * minHeight mirrors the height below (27px, or 26px for the small variant).
+ */
+.wp-block-group.origin-canvas-quote-mark {
+	background-color: var(--wp--preset--color--primary);
+	flex: none;
+	height: 27px;
+	-webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 32'%3E%3Cpath d='M0 32V18.5C0 8.6 5.7 1.7 15.2 0l2 4.3C11.6 6 8.6 9.4 8.4 14.2H16V32H0zm22 0V18.5C22 8.6 27.7 1.7 37.2 0l2 4.3C33.6 6 30.6 9.4 30.4 14.2H38V32H22z'/%3E%3C/svg%3E");
+	mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 32'%3E%3Cpath d='M0 32V18.5C0 8.6 5.7 1.7 15.2 0l2 4.3C11.6 6 8.6 9.4 8.4 14.2H16V32H0zm22 0V18.5C22 8.6 27.7 1.7 37.2 0l2 4.3C33.6 6 30.6 9.4 30.4 14.2H38V32H22z'/%3E%3C/svg%3E");
+	-webkit-mask-repeat: no-repeat;
+	mask-repeat: no-repeat;
+	-webkit-mask-size: contain;
+	mask-size: contain;
+	/* Beat the constrained-layout container rule, which auto-centres children
+	   with !important at a higher specificity than a single class. */
+	margin-inline: 0 !important;
+	width: 34px;
+}
+
+/* Centred variant — testimonial-single. */
+.wp-block-group.origin-canvas-quote-mark.origin-canvas-quote-mark--center {
+	margin-inline: auto !important;
+}
+
+/* Smaller variant — testimonial-with-image. */
+.wp-block-group.origin-canvas-quote-mark.origin-canvas-quote-mark--sm {
+	height: 26px;
+	width: 32px;
+}
+
+/**
+ * Testimonial grid card. The card fills its stretched column and the quote takes
+ * the free space, so attribution rows line up across cards of differing quote
+ * length. Columns alone only equalise the columns, not the cards inside them.
+ */
+.wp-block-group.origin-canvas-testimonial-card {
+	height: 100%;
+}
+
+/* The quote is the card's first child; it takes the slack so the attribution
+   row sits on the baseline of the tallest card. Scoped to the flex layout so an
+   edit away from a flex card cannot leave a stray flex value behind. */
+.wp-block-group.origin-canvas-testimonial-card.is-layout-flex > p:first-child {
+	flex: 1 1 auto;
+}

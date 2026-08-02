@@ -2,15 +2,19 @@
 /**
  * Title: Post Loop List
  * Slug: origin-canvas/post-loop-list
- * Categories: posts
- * Keywords: loop, blog, posts, list, query
+ * Description: A stacked list query loop of recent posts.
+ * Categories: origin-canvas/posts
+ * Keywords: loop, blog, query, archive
+ * Viewport Width: 1500
  * Block Types: core/query
+ * Post Types:
+ * Inserter: true
  *
  * @package Origin
  */
 
 ?>
-<!-- wp:query {"queryId":1,"query":{"perPage":10,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","inherit":true},"metadata":{"categories":["posts"],"patternName":"origin-canvas/post-loop-list","name":"Post Loop List"},"align":"wide","className":"origin-canvas-post-loop-list","layout":{"type":"default"}} -->
+<!-- wp:query {"queryId":1,"query":{"perPage":10,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","inherit":true},"metadata":{"categories":["origin-canvas/posts"],"patternName":"origin-canvas/post-loop-list","name":"Post Loop List"},"align":"wide","className":"origin-canvas-post-loop-list","layout":{"type":"default"}} -->
 <div class="wp-block-query alignwide origin-canvas-post-loop-list"><!-- wp:post-template {"style":{"spacing":{"blockGap":"var:preset|spacing|extra-large","margin":{"bottom":"var:preset|spacing|huge"}}},"layout":{"type":"constrained"}} -->
 <!-- wp:columns {"className":"origin-canvas-post-list-card","style":{"spacing":{"blockGap":{"top":"0","left":"var:preset|spacing|none"}},"border":{"radius":{"topLeft":"20px","topRight":"20px","bottomLeft":"20px","bottomRight":"20px"}}}} -->
 <div class="wp-block-columns origin-canvas-post-list-card" style="border-top-left-radius:20px;border-top-right-radius:20px;border-bottom-left-radius:20px;border-bottom-right-radius:20px"><!-- wp:column {"verticalAlignment":"center","width":"40%"} -->

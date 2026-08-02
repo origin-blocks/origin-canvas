@@ -86,3 +86,7 @@
 	background-color: rgb(255 255 255 / 10%);
 	color: rgb(255 255 255 / 85%);
 }
+
+.origin-canvas-step-numeral {
+	font-variant-numeric: tabular-nums;
+}
