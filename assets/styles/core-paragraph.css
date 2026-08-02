@@ -60,22 +60,29 @@
 
 /**
  * Ecosystem status chip — pattern-only (page-landing-01 product cards).
- * Paragraph blocks have no JSON border support, so the pill chrome lives
- * here; the --dark modifier remaps border/text to dark-surface color-mix
- * tints for the Agency card.
+ * Paragraph blocks have no JSON border support, so the pill chrome lives here.
+ *
+ * Borderless fill: the previous 1px hairline computed 1.28:1 against white, so
+ * the pill now reads by SHAPE and the text carries the contrast (~6.7:1). The
+ * fill is deliberately a whisper — do not "fix" it to be more visible.
+ *
+ * Anatomy follows the upstream Origin Design System badge
+ * (origin-design-system → tokens/component/badge.json, borderless clean
+ * variant). ODS semantic status colours are deliberately NOT imported.
  */
 .origin-canvas-status-chip {
-	border: 1px solid var(--wp--preset--color--border);
+	background-color: var(--wp--preset--color--surface-subtle);
 	border-radius: 999px;
-	color: var(--wp--preset--color--text-muted);
-	font-size: 11px;
-	letter-spacing: 0.09em;
+	color: var(--wp--preset--color--text-body);
+	font-size: var(--wp--preset--font-size--extra-small);
+	font-weight: 500;
+	letter-spacing: 0.08em;
 	padding: 3px 10px;
 	text-transform: uppercase;
 	width: fit-content;
 }
 
 .origin-canvas-status-chip--dark {
-	border-color: color-mix(in srgb, var(--wp--custom--dark--text) 22%, transparent);
-	color: color-mix(in srgb, var(--wp--custom--dark--text) 62%, transparent);
+	background-color: rgb(255 255 255 / 10%);
+	color: rgb(255 255 255 / 85%);
 }
