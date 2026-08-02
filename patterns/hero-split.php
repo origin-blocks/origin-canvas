@@ -3,7 +3,7 @@
  * Title: Hero Split
  * Slug: origin-canvas/hero-split
  * Categories: origin-canvas/hero
- * Keywords: hero, landing, intro, split, image, full-bleed
+ * Keywords: landing, intro, image, fullbleed
  * Block Types: core/post-content
  * Inserter: true
  *

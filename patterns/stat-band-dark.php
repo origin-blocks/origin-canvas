@@ -4,7 +4,7 @@
  * Slug: origin-canvas/stat-band-dark
  * Description: A dark metrics band with pink figures for the theme landing page.
  * Categories: origin-canvas/stats
- * Keywords: metrics, numbers, band, dark, marketing
+ * Keywords: numbers, marketing, inverted, results
  * Viewport Width: 1500
  * Block Types:
  * Post Types:

@@ -4,7 +4,7 @@
  * Slug: origin-canvas/page-landing-01
  * Description: The theme&#8217;s own marketing landing page: hero, pattern library, style variations, stats, templates, ecosystem, and closing call to action.
  * Categories: origin-canvas/page
- * Keywords: page, landing, marketing, theme, home
+ * Keywords: home, composition, fullpage, product
  * Viewport Width: 1500
  * Block Types:
  * Post Types:

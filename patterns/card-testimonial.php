@@ -4,7 +4,7 @@
  * Slug: origin-canvas/card-testimonial
  * Description: A single testimonial card with quote, avatar, name, and role. Insert inside a Columns block for a multi-testimonial layout.
  * Categories: testimonials
- * Keywords: card, testimonial, quote, social proof
+ * Keywords: endorsement, review, client, praise
  * Block Types: core/post-content
  * Inserter: true
  *

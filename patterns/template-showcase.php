@@ -4,7 +4,7 @@
  * Slug: origin-canvas/template-showcase
  * Description: A grid of template wireframe cards for the theme landing page.
  * Categories: origin-canvas/features
- * Keywords: templates, wireframes, grid, showcase, marketing
+ * Keywords: templates, wireframes, marketing, layouts
  * Viewport Width: 1500
  * Block Types:
  * Post Types:

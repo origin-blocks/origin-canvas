@@ -4,7 +4,7 @@
  * Slug: origin-canvas/features-numbered
  * Description: A numbered feature list presenting a sequence of steps or points.
  * Categories: origin-canvas/features
- * Keywords: process, list, steps, sequence
+ * Keywords: process, ordered, method, workflow
  * Viewport Width: 1500
  * Block Types:
  * Post Types:

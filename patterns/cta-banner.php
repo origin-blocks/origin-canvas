@@ -3,7 +3,7 @@
  * Title: CTA Banner
  * Slug: origin-canvas/cta-banner
  * Categories: call-to-action
- * Keywords: cta, call to action, banner, dark, single row, conversion
+ * Keywords: conversion, dark, prompt, strip
  * Block Types: core/post-content
  * Inserter: true
  *

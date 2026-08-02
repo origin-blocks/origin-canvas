@@ -3,7 +3,7 @@
  * Title: CTA Buttons
  * Slug: origin-canvas/cta-buttons
  * Categories: call-to-action
- * Keywords: cta, call to action, buttons, centered, conversion
+ * Keywords: conversion, centered, signup, prompt
  * Block Types: core/post-content
  * Inserter: true
  *

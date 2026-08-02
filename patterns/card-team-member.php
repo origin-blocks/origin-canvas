@@ -4,7 +4,7 @@
  * Slug: origin-canvas/card-team-member
  * Description: A single team member card with portrait, name, role, and social links. Insert inside a Columns block for a team grid layout.
  * Categories: origin-canvas/team
- * Keywords: card, team, member, profile, person, staff
+ * Keywords: profile, person, staff, bio, headshot
  * Block Types: core/post-content
  * Inserter: true
  *

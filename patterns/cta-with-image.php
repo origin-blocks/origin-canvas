@@ -3,7 +3,7 @@
  * Title: CTA With Image
  * Slug: origin-canvas/cta-with-image
  * Categories: call-to-action
- * Keywords: cta, call to action, image, two column, conversion
+ * Keywords: conversion, media, prompt, split
  * Block Types: core/post-content
  * Inserter: true
  *

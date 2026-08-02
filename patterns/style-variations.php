@@ -4,7 +4,7 @@
  * Slug: origin-canvas/style-variations
  * Description: A grid of style-variation preview cards (full, color, and typography presets) for the theme landing page.
  * Categories: origin-canvas/features
- * Keywords: variations, presets, palette, typography, showcase
+ * Keywords: palette, themes, swatches, styles
  * Viewport Width: 1500
  * Block Types:
  * Post Types:

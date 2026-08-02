@@ -3,7 +3,7 @@
  * Title: Hero Cover
  * Slug: origin-canvas/hero-cover
  * Categories: origin-canvas/hero
- * Keywords: hero, cover, case study, editorial, home
+ * Keywords: editorial, home, background, banner
  * Block Types: core/post-content
  * Viewport Width: 1500
  * Inserter: true

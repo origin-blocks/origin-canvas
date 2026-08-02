@@ -3,7 +3,7 @@
  * Title: CTA Inline
  * Slug: origin-canvas/cta-inline
  * Categories: call-to-action
- * Keywords: cta, call to action, inline, two column, horizontal, conversion
+ * Keywords: conversion, horizontal, prompt, compact
  * Block Types: core/post-content
  * Inserter: true
  *

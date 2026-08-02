@@ -3,7 +3,7 @@
  * Title: CTA Band
  * Slug: origin-canvas/cta-band
  * Categories: call-to-action
- * Keywords: cta, call to action, banner, home, availability
+ * Keywords: conversion, banner, home, availability
  * Block Types: core/post-content
  * Viewport Width: 1500
  * Inserter: true

@@ -4,7 +4,7 @@
  * Slug: origin-canvas/features-with-image
  * Description: A media-and-text feature section with a stacked list of steps beside an image.
  * Categories: origin-canvas/features
- * Keywords: media, stacked, steps, services
+ * Keywords: services, journey, workflow, stages
  * Viewport Width: 1500
  * Block Types:
  * Post Types:

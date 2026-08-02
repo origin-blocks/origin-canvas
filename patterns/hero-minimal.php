@@ -3,7 +3,7 @@
  * Title: Hero Minimal
  * Slug: origin-canvas/hero-minimal
  * Categories: origin-canvas/hero
- * Keywords: hero, landing, intro, minimal, restraint
+ * Keywords: landing, intro, restraint, sparse
  * Block Types: core/post-content
  * Inserter: true
  *

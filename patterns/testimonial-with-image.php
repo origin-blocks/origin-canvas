@@ -4,7 +4,7 @@
  * Slug: origin-canvas/testimonial-with-image
  * Description: A testimonial quote paired with an author photo in a two-column layout.
  * Categories: origin-canvas/testimonial
- * Keywords: quote, two column, review, portrait
+ * Keywords: review, portrait, profile, split
  * Viewport Width: 1500
  * Block Types:
  * Post Types:

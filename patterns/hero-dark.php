@@ -3,7 +3,7 @@
  * Title: Hero Dark
  * Slug: origin-canvas/hero-dark
  * Categories: origin-canvas/hero
- * Keywords: hero, landing, intro, dark, centered
+ * Keywords: landing, intro, centered, inverted
  * Block Types: core/post-content
  * Inserter: true
  *

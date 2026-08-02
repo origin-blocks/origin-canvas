@@ -3,7 +3,7 @@
  * Title: Hero Canvas
  * Slug: origin-canvas/hero-canvas
  * Categories: origin-canvas/hero
- * Keywords: hero, landing, intro, centered, theme, gradient
+ * Keywords: landing, intro, centered, gradient, theme
  * Block Types: core/post-content
  * Inserter: true
  *

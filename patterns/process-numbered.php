@@ -3,7 +3,7 @@
  * Title: Process Numbered
  * Slug: origin-canvas/process-numbered
  * Categories: origin-canvas/features
- * Keywords: process, numbered, steps, home
+ * Keywords: steps, home, method, stages
  * Block Types: core/post-content
  * Viewport Width: 1200
  * Inserter: true
