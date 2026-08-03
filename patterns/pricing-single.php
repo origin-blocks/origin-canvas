@@ -66,8 +66,8 @@
 <!-- /wp:button --></div>
 <!-- /wp:buttons -->
 
-<!-- wp:paragraph {"align":"center","textColor":"text-muted","fontSize":"small","style":{"spacing":{"margin":{"top":"var:preset|spacing|small","bottom":"0"}}}} -->
-<p class="has-text-align-center has-text-muted-color has-text-color has-small-font-size" style="margin-top:var(--wp--preset--spacing--small);margin-bottom:0"><?php echo esc_html__( 'Most projects start with a single email.', 'origin-canvas' ); ?></p>
+<!-- wp:paragraph {"align":"center","textColor":"text-muted","fontSize":"small","style":{"spacing":{"margin":{"top":"var:preset|spacing|compact","bottom":"0"}}}} -->
+<p class="has-text-align-center has-text-muted-color has-text-color has-small-font-size" style="margin-top:var(--wp--preset--spacing--compact);margin-bottom:0"><?php echo esc_html__( 'Most projects start with a single email.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group --></section>
 <!-- /wp:group -->
