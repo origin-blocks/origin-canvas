@@ -46,7 +46,7 @@
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"style":{"typography":{"fontSize":"0.90625rem","lineHeight":"1.55"},"spacing":{"margin":{"top":"0","bottom":"22px"}}},"textColor":"text-body"} -->
-<p class="has-text-body-color has-text-color" style="margin-top:0;margin-bottom:22px;font-size:0.90625rem;line-height:1.55"><?php echo esc_html__( 'A modern, opinionated FSE theme with a finished design baseline, 62 patterns, and 11 style variations, ready on install.', 'origin-canvas' ); ?></p>
+<p class="has-text-body-color has-text-color" style="margin-top:0;margin-bottom:22px;font-size:0.90625rem;line-height:1.55"><?php echo esc_html__( 'A modern, opinionated FSE theme with a finished design baseline, 54 patterns, and 11 style variations, ready on install.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group -->
 
