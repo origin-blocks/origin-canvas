@@ -390,6 +390,22 @@ input[type="radio"]:focus-visible {
 	line-height: 1.4;
 }
 
+/* Category rows. Core prints the post count as a bare text node after the
+   link - there is no element to target - so the row is sized as a flex line
+   and the count inherits the smaller rail type from the list itself. */
+.origin-canvas-sidebar-categories li {
+	align-items: baseline;
+	color: var(--wp--preset--color--text-body);
+	display: flex;
+	font-size: var(--wp--preset--font-size--extra-small);
+	gap: var(--wp--preset--spacing--small);
+	justify-content: space-between;
+}
+
+.origin-canvas-sidebar-categories li a {
+	font-size: var(--wp--preset--font-size--small);
+}
+
 .origin-canvas-sidebar .wp-block-latest-posts__post-date,
 .origin-canvas-sidebar .wp-block-latest-comments__comment-date {
 	color: var(--wp--preset--color--text-body);
