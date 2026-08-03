@@ -1159,11 +1159,6 @@
 			"area": "uncategorized"
 		},
 		{
-			"name": "sidebar-single",
-			"title": "Sidebar (Single)",
-			"area": "uncategorized"
-		},
-		{
 			"name": "mobile-menu",
 			"title": "Mobile Menu",
 			"area": "navigation-overlay"
