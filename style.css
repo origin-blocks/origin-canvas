@@ -393,19 +393,19 @@ input[type="radio"]:focus-visible {
 /* Category rows. Core prints the post count as a bare text node after the
    link - there is no element to target - so the row is sized as a flex line
    and the count inherits the smaller rail type from the list itself. */
-/* Category rows: the term-name and its count are separate blocks in a flex
-   row, so the count needs no styling of its own. The links lose the underline
-   the theme gives in-content anchors - this is chrome, not prose. */
-.origin-canvas-sidebar-categories .wp-block-term-name a {
-	text-decoration: none;
-}
-
-.origin-canvas-sidebar-categories .wp-block-term-name a:hover {
-	text-decoration: underline;
-}
-
+/* The term name and its count are separate blocks in a flex row, so the count
+   needs no styling of its own - it just must not stretch. */
 .origin-canvas-sidebar-categories .wp-block-term-count {
 	flex: none;
+}
+
+/* Term names are chrome - a category or tag, never prose - so they carry no
+   underline. The block renders as a paragraph, which puts core's
+   `:root :where(p a)` rule on the link; theme.json cannot win that (its block
+   styles match at the same specificity but load earlier), so the opt-out lives
+   here, keyed to the block rather than to the sidebar. */
+.wp-block-term-name a {
+	text-decoration: none;
 }
 
 .origin-canvas-sidebar .wp-block-latest-posts__post-date,
