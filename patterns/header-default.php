@@ -4,7 +4,7 @@
  * Slug: origin-canvas/header-default
  * Description: The site header with a logo, primary navigation, and a mobile overlay menu.
  * Categories: header
- * Keywords: nav, menu, navigation, links, masthead
+ * Keywords: masthead, topbar, brand, links
  * Viewport Width: 1500
  * Block Types: core/template-part/header
  * Post Types:

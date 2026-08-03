@@ -4,7 +4,7 @@
  * Slug: origin-canvas/pricing-single
  * Description: One centered card for a single fixed-price offer, with a two-column feature list and a reassurance line.
  * Categories: origin-canvas/pricing
- * Keywords: offer, package, fixed, sprint
+ * Keywords: package, sprint, quote, deal
  * Viewport Width: 1500
  * Block Types:
  * Post Types:
