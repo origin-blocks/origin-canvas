@@ -15,7 +15,7 @@
 <p class="has-text-heading-color has-text-color has-extra-small-font-size" style="margin-top:0;margin-bottom:0;font-weight:600;letter-spacing:0.08em;text-transform:uppercase"><?php echo esc_html__( 'Search', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
-<!-- wp:search {"label":"Search","showLabel":false,"width":100,"widthUnit":"%","buttonText":"Search","className":"origin-canvas-search-compact","style":{"spacing":{"blockGap":"var:preset|spacing|small"}}} /--></div>
+<!-- wp:search {"label":"Search","showLabel":false,"width":100,"widthUnit":"%","buttonText":"Search","className":"origin-canvas-search-compact","fontSize":"small","style":{"spacing":{"blockGap":"var:preset|spacing|small"}}} /--></div>
 <!-- /wp:group -->
 
 <!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|compact"}},"layout":{"type":"constrained"}} -->

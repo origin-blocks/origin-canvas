@@ -153,17 +153,15 @@ textarea {
  * Compact search — the sidebar rail only.
  *
  * The site-wide field above is sized for a full-width form; in a 373px rail it
- * reads oversized, so the field and its button drop to 40. Everything else is
- * unchanged: a search still has to read as a field, so the 1px input-border
- * never softens to the hairline colour. The 404 search keeps the default size.
+ * reads oversized, so the field and its button drop to 40. Only the padding is
+ * here - the block's own fontSize support handles the type, and core/search has
+ * no padding attribute to set it with. The 404 search keeps the default size.
  */
 .origin-canvas-search-compact input.wp-block-search__input:not([type="button"]):not([type="reset"]):not([type="submit"]):not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="file"]) {
-	font-size: var(--wp--preset--font-size--small);
 	padding: 8px 12px;
 }
 
 .origin-canvas-search-compact .wp-block-search__button {
-	font-size: var(--wp--preset--font-size--small);
 	padding: 8px 20px;
 }
 
