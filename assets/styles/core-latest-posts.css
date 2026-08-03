@@ -1,0 +1,17 @@
+/**
+ * Sidebar recent-posts list — pattern-only (the sidebar template part).
+ *
+ * The block renders its titles and dates itself, so the two type steps the
+ * sidebar board specifies cannot be set as block attributes: titles drop to
+ * 500 so the section heads win, and dates take the smallest step.
+ */
+.origin-canvas-sidebar-posts .wp-block-latest-posts__post-title {
+	display: block;
+	font-weight: 500;
+}
+
+.origin-canvas-sidebar-posts .wp-block-latest-posts__post-date {
+	color: var(--wp--preset--color--text-body);
+	font-size: var(--wp--preset--font-size--extra-small);
+	margin-top: var(--wp--preset--spacing--extra-small);
+}
