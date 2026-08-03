@@ -3,7 +3,7 @@
  * Title: Testimonial Single
  * Slug: origin-canvas/testimonial-single
  * Description: A single centered testimonial quote with author attribution.
- * Categories: origin-canvas/testimonial
+ * Categories: testimonials
  * Keywords: client, review, praise, solo
  * Viewport Width: 1500
  * Block Types:

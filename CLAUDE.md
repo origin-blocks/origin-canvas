@@ -16,9 +16,16 @@ shipped**; do not use it. Hidden template scaffolds use slugs `origin-canvas/hid
 Assign every pattern **exactly one** category (no comma-separated multi-category lines).
 The set is fixed — **never invent a new category** (no `landing`, no page-scoped buckets):
 
-Custom (all `origin-canvas/`): `hero`, `card`, `features`, `testimonial`, `pricing`, `text`,
-`faq`, `team`, `stats`, `contact`, `gallery`, `logos`, `author`, `page`, `posts`.
-Core WP slugs (used bare, no prefix, no custom registration): `header`, `footer`, `call-to-action`.
+**Never invent a category WordPress already provides.** Core registers `text`,
+`testimonials`, `team`, `posts`, `contact`, `gallery`, `header`, `footer`, `call-to-action`,
+`banner`, `query` and more — registering an `origin-canvas/` twin puts two near-identical
+entries in the inserter for the same thing. Check with
+`WP_Block_Pattern_Categories_Registry::get_instance()->is_registered( 'slug' )` before adding one.
+
+Core slugs (used bare, no prefix, no registration): `header`, `footer`, `call-to-action`,
+`text`, `testimonials`, `team`, `posts`, `contact`, `gallery`.
+Ours (all `origin-canvas/`, registered in `functions.php` — these have no core equivalent):
+`hero`, `card`, `features`, `pricing`, `stats`, `faq`, `logos`, `author`, `page`.
 
 To choose the one category, test in this numbered order and take the **first match**.
 **Tie-breaker: when a pattern could plausibly fit more than one, the earliest-numbered entry
@@ -27,20 +34,20 @@ that contains a CTA is `hero` (1), not `call-to-action` (14); a pricing table wi
 `pricing` (3), not `stats` (4)):
 
 1. `origin-canvas/hero` — a page-top hero section
-2. `origin-canvas/testimonial` — a quote / review
+2. `testimonials` — a quote / review (core slug, used bare)
 3. `origin-canvas/pricing` — a pricing table / tier
 4. `origin-canvas/stats` — a metrics / numbers band
-5. `origin-canvas/team` — people / team cards
+5. `team` — people / team cards (core slug, used bare)
 6. `origin-canvas/features` — a feature grid / list
 7. `origin-canvas/faq` — Q&A
-8. `origin-canvas/contact` — a contact form / details
-9. `origin-canvas/gallery` — an image gallery
+8. `contact` — a contact form / details (core slug, used bare)
+9. `gallery` — an image gallery (core slug, used bare)
 10. `origin-canvas/logos` — a logo strip
 11. `origin-canvas/author` — an author / byline card
 12. `origin-canvas/card` — a generic reusable card
-13. `origin-canvas/posts` — a query / blog loop (bare `posts` / `query` are DRIFT → use `origin-canvas/posts`)
+13. `posts` — a query / blog loop (core slug, used bare)
 14. `call-to-action` — a conversion / CTA section (newsletter signup counts here; core slug, used bare)
-15. `origin-canvas/text` — text / editorial content with no more-specific role (divider-with-text, breath statement)
+15. `text` — text / editorial content with no more-specific role (core slug, used bare)
 16. `origin-canvas/page` — a full-page composition only
 
 `header` / `footer` patterns use the bare core slugs. Custom categories are registered in
