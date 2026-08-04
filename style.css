@@ -382,12 +382,9 @@ input[type="radio"]:focus-visible {
 	margin-bottom: var(--wp--preset--spacing--extra-small);
 }
 
-/* The block renders titles and dates itself, so neither has a block attribute:
-   titles sit at 500 so the caps heads win, dates take the smallest step. */
+/* The title is an inline anchor by default; the date needs to sit under it. */
 .origin-canvas-sidebar .wp-block-latest-posts__post-title {
 	display: block;
-	font-weight: 500;
-	line-height: 1.4;
 }
 
 /* Category rows. Core prints the post count as a bare text node after the
@@ -411,9 +408,9 @@ input[type="radio"]:focus-visible {
 .origin-canvas-sidebar .wp-block-latest-posts__post-date,
 .origin-canvas-sidebar .wp-block-latest-comments__comment-date {
 	color: var(--wp--preset--color--text-body);
-	margin-top: var(--wp--preset--spacing--extra-small);
 	font-size: var(--wp--preset--font-size--extra-small);
-	font-weight: 500;
+	font-weight: 400;
+	margin-top: var(--wp--preset--spacing--extra-small);
 }
 
 @media (max-width: 781px) {

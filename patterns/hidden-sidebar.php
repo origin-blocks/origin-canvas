@@ -23,7 +23,7 @@
 <p class="has-text-heading-color has-text-color has-extra-small-font-size" style="margin-top:0;margin-bottom:0;font-weight:600;letter-spacing:0.08em;text-transform:uppercase"><?php echo esc_html__( 'Recent posts', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
-<!-- wp:latest-posts {"postsToShow":3,"displayPostDate":true,"className":"origin-canvas-sidebar-posts","style":{"spacing":{"margin":{"top":"var:preset|spacing|compact"}},"elements":{"link":{"color":{"text":"var:preset|color|text-heading"},":hover":{"color":{"text":"var:preset|color|primary"}}}}}} /--></div>
+<!-- wp:latest-posts {"postsToShow":3,"displayPostDate":true,"className":"origin-canvas-sidebar-posts","fontSize":"small","style":{"typography":{"fontWeight":"500","lineHeight":"1.4"},"spacing":{"margin":{"top":"var:preset|spacing|compact"}},"elements":{"link":{"color":{"text":"var:preset|color|text-body"},":hover":{"color":{"text":"var:preset|color|primary"}}}}}} /--></div>
 <!-- /wp:group -->
 
 <!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|compact"}},"layout":{"type":"constrained"}} -->
@@ -34,9 +34,9 @@
 <!-- wp:terms-query {"termQuery":{"perPage":10,"taxonomy":"category","order":"desc","orderBy":"count","hideEmpty":true},"className":"origin-canvas-sidebar-categories"} -->
 <div class="wp-block-terms-query origin-canvas-sidebar-categories"><!-- wp:term-template {"style":{"spacing":{"blockGap":"var:preset|spacing|small"}}} -->
 <!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|small"}},"layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"space-between"}} -->
-<div class="wp-block-group"><!-- wp:term-name {"isLink":true,"fontSize":"small","style":{"typography":{"fontWeight":"500"},"elements":{"link":{"color":{"text":"var:preset|color|text-heading"},":hover":{"color":{"text":"var:preset|color|primary"}}}}},"textColor":"text-heading"} /-->
+<div class="wp-block-group"><!-- wp:term-name {"isLink":true,"fontSize":"small","style":{"typography":{"fontWeight":"500"},"elements":{"link":{"color":{"text":"var:preset|color|text-body"},":hover":{"color":{"text":"var:preset|color|primary"}}}}},"textColor":"text-body"} /-->
 
-<!-- wp:term-count {"bracketType":"none","fontSize":"extra-small","textColor":"text-body"} /--></div>
+<!-- wp:term-count {"bracketType":"none","fontSize":"extra-small","textColor":"text-muted"} /--></div>
 <!-- /wp:group -->
 <!-- /wp:term-template --></div>
 <!-- /wp:terms-query --></div>
