@@ -408,9 +408,9 @@ input[type="radio"]:focus-visible {
 .origin-canvas-sidebar .wp-block-latest-posts__post-date,
 .origin-canvas-sidebar .wp-block-latest-comments__comment-date {
 	color: var(--wp--preset--color--text-body);
-	margin-top: var(--wp--preset--spacing--extra-small);
 	font-size: var(--wp--preset--font-size--extra-small);
-	font-weight: 500;
+	font-weight: 400;
+	margin-top: var(--wp--preset--spacing--extra-small);
 }
 
 @media (max-width: 781px) {
