@@ -12,6 +12,7 @@
 }
 
 .wp-block-accordion-heading__toggle-icon::after {
+	color: var(--wp--preset--color--text-muted);
 	content: "+";
 	font-size: var(--wp--preset--font-size--medium);
 }
@@ -24,6 +25,7 @@
 }
 
 .wp-block-accordion-item.is-open > .wp-block-accordion-heading .wp-block-accordion-heading__toggle-icon::after {
+	color: var(--wp--preset--color--text-heading);
 	content: "\2212"; /* U+2212 minus */
 }
 
