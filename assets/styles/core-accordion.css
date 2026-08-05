@@ -29,6 +29,14 @@
 	content: "\2212"; /* U+2212 minus */
 }
 
+/* Row height: core pads the button with a spacing preset this theme does not
+   define, so it falls back to 1em and collapses to a few pixels. theme.json
+   cannot reach the button, so the padding is set here to give the question a
+   comfortable target. */
+.wp-block-accordion-heading__toggle {
+	padding-block: var(--wp--preset--spacing--medium);
+}
+
 /* Hover: core underlines the question. An underline reads as "goes somewhere",
    and this one opens a panel in place, so it shifts colour instead. */
 .wp-block-accordion-heading__toggle:hover .wp-block-accordion-heading__toggle-title {
