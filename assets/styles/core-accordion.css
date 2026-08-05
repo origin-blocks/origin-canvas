@@ -6,15 +6,24 @@
    inside core's span, and because a content string is never post content, so it
    survives for authors who cannot save raw HTML. */
 .wp-block-accordion-heading__toggle-icon {
-	color: var(--wp--preset--color--text-muted);
-	font-size: 0;
+	align-items: center;
+	color: transparent;
+	display: flex;
+	justify-content: center;
+	position: relative;
 	transform: none;
 }
 
+/* Core's own character is made invisible rather than zero-sized, so the span
+   keeps its width and the replacement glyph has room to sit in. */
 .wp-block-accordion-heading__toggle-icon::after {
 	color: var(--wp--preset--color--text-muted);
 	content: "+";
 	font-size: var(--wp--preset--font-size--medium);
+	inset: 0;
+	line-height: 1;
+	position: absolute;
+	text-align: center;
 }
 
 /* Core's rotation is set from a four-class selector, so the open state has to
