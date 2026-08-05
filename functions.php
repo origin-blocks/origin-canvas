@@ -116,6 +116,7 @@ if ( ! function_exists( 'origin_canvas_register_pattern_categories' ) ) {
 			'origin-canvas/stats'    => array( 'label' => __( 'Stats', 'origin-canvas' ) ),
 			'origin-canvas/pricing'  => array( 'label' => __( 'Pricing', 'origin-canvas' ) ),
 			'origin-canvas/card'     => array( 'label' => __( 'Cards', 'origin-canvas' ) ),
+			'origin-canvas/faq'      => array( 'label' => __( 'FAQ', 'origin-canvas' ) ),
 		);
 
 		foreach ( $categories as $slug => $props ) {
