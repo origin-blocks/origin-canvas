@@ -30,7 +30,7 @@
 <div class="wp-block-column" style="flex-basis:66%">
 <!-- wp:details {"summary":"<?php echo esc_attr__( 'How long does a project take?', 'origin-canvas' ); ?>"} -->
 <details class="wp-block-details"><summary><?php echo esc_html__( 'How long does a project take?', 'origin-canvas' ); ?></summary><!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-body","fontSize":"regular-plus"} -->
-<p class="has-text-body-color has-text-color has-regular-plus-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Six to eight weeks for a five-page site, from the first call to launch day. Longer if we are writing the copy with you.', 'origin-canvas' ); ?></p>
+<p class="has-text-body-color has-text-color has-regular-plus-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Four weeks from kickoff to launch on most projects, and longer if we are writing the copy with you.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph --></details>
 <!-- /wp:details -->
 
