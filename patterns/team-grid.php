@@ -18,7 +18,7 @@
 <section class="wp-block-group alignfull" style="margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--colossal);padding-bottom:var(--wp--preset--spacing--colossal)"><!-- wp:columns {"align":"wide","style":{"spacing":{"blockGap":{"top":"var:preset|spacing|huge","left":"var:preset|spacing|extra-large"}}}} -->
 <div class="wp-block-columns alignwide"><!-- wp:column -->
 <div class="wp-block-column"><!-- wp:image {"aspectRatio":"1","linkDestination":"none","align":"center","width":"128px","height":"128px","className":"is-style-origin-canvas-rounded-full","style":{"spacing":{"margin":{"bottom":"var:preset|spacing|medium"}}}} -->
-<figure class="wp-block-image aligncenter is-resized is-style-origin-canvas-rounded-full" style="margin-bottom:var(--wp--preset--spacing--medium)"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/card-team-1.webp" alt="<?php esc_attr_e( 'Portrait of Claire Bennett.', 'origin-canvas' ); ?>" style="aspect-ratio:1;width:128px;height:128px"/></figure>
+<figure class="wp-block-image aligncenter is-resized is-style-origin-canvas-rounded-full" style="margin-bottom:var(--wp--preset--spacing--medium)"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/card-team-1.webp" alt="<?php esc_attr_e( 'Hands reviewing blank paper at a light wooden studio desk.', 'origin-canvas' ); ?>" style="aspect-ratio:1;width:128px;height:128px"/></figure>
 <!-- /wp:image -->
 
 <!-- wp:heading {"textAlign":"center","level":3,"style":{"typography":{"fontWeight":"700","letterSpacing":"-0.02em"},"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|extra-small"}}},"textColor":"text-heading","fontSize":"regular-plus"} -->
@@ -40,9 +40,8 @@
 
 <!-- wp:column -->
 <div class="wp-block-column"><!-- wp:image {"aspectRatio":"1","linkDestination":"none","align":"center","width":"128px","height":"128px","className":"is-style-origin-canvas-rounded-full","style":{"spacing":{"margin":{"bottom":"var:preset|spacing|medium"}}}} -->
-<figure class="wp-block-image aligncenter is-resized is-style-origin-canvas-rounded-full" style="margin-bottom:var(--wp--preset--spacing--medium)"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/card-team-1.webp" alt="<?php esc_attr_e( 'Portrait of Marcus Reed.', 'origin-canvas' ); ?>" style="aspect-ratio:1;width:128px;height:128px"/></figure>
+<figure class="wp-block-image aligncenter is-resized is-style-origin-canvas-rounded-full" style="margin-bottom:var(--wp--preset--spacing--medium)"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/avatar-marcus-reed.webp" alt="<?php esc_attr_e( 'Portrait of Marcus Reed.', 'origin-canvas' ); ?>" style="aspect-ratio:1;width:128px;height:128px"/></figure>
 <!-- /wp:image -->
-<?php // TODO: swap for Marcus&#8217;s portrait once shot. Reusing card-team-1 keeps the pattern valid until then. ?>
 
 <!-- wp:heading {"textAlign":"center","level":3,"style":{"typography":{"fontWeight":"700","letterSpacing":"-0.02em"},"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|extra-small"}}},"textColor":"text-heading","fontSize":"regular-plus"} -->
 <h3 class="wp-block-heading has-text-align-center has-text-heading-color has-text-color has-regular-plus-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--extra-small);font-weight:700;letter-spacing:-0.02em"><?php echo esc_html__( 'Marcus Reed', 'origin-canvas' ); ?></h3>
@@ -63,9 +62,8 @@
 
 <!-- wp:column -->
 <div class="wp-block-column"><!-- wp:image {"aspectRatio":"1","linkDestination":"none","align":"center","width":"128px","height":"128px","className":"is-style-origin-canvas-rounded-full","style":{"spacing":{"margin":{"bottom":"var:preset|spacing|medium"}}}} -->
-<figure class="wp-block-image aligncenter is-resized is-style-origin-canvas-rounded-full" style="margin-bottom:var(--wp--preset--spacing--medium)"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/card-team-1.webp" alt="<?php esc_attr_e( 'Portrait of Grace Whitfield.', 'origin-canvas' ); ?>" style="aspect-ratio:1;width:128px;height:128px"/></figure>
+<figure class="wp-block-image aligncenter is-resized is-style-origin-canvas-rounded-full" style="margin-bottom:var(--wp--preset--spacing--medium)"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/avatar-grace-whitfield.webp" alt="<?php esc_attr_e( 'Portrait of Grace Whitfield.', 'origin-canvas' ); ?>" style="aspect-ratio:1;width:128px;height:128px"/></figure>
 <!-- /wp:image -->
-<?php // TODO: swap for Grace&#8217;s portrait once shot. ?>
 
 <!-- wp:heading {"textAlign":"center","level":3,"style":{"typography":{"fontWeight":"700","letterSpacing":"-0.02em"},"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|extra-small"}}},"textColor":"text-heading","fontSize":"regular-plus"} -->
 <h3 class="wp-block-heading has-text-align-center has-text-heading-color has-text-color has-regular-plus-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--extra-small);font-weight:700;letter-spacing:-0.02em"><?php echo esc_html__( 'Grace Whitfield', 'origin-canvas' ); ?></h3>
