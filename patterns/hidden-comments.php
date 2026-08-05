@@ -13,9 +13,9 @@
 <div class="wp-block-comments"><!-- wp:comments-title /-->
 
 <!-- wp:comment-template -->
-<!-- wp:columns {"style":{"spacing":{"blockGap":{"top":"var:preset|spacing|compact","left":"var:preset|spacing|compact"}}}} -->
-<div class="wp-block-columns"><!-- wp:column {"width":"56px"} -->
-<div class="wp-block-column" style="flex-basis:56px"><!-- wp:avatar {"size":48,"style":{"border":{"radius":"999px"}}} /--></div>
+<!-- wp:columns -->
+<div class="wp-block-columns"><!-- wp:column -->
+<div class="wp-block-column"><!-- wp:avatar {"size":48,"style":{"border":{"radius":"999px"}}} /--></div>
 <!-- /wp:column -->
 
 <!-- wp:column -->

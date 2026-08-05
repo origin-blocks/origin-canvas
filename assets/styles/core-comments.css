@@ -31,7 +31,7 @@
 }
 
 .wp-block-comments li.comment > .wp-block-columns > .wp-block-column:first-child {
-	flex: 0 0 40px;
+	flex: 0 0 56px;
 }
 
 .wp-block-comments .wp-block-avatar img {
