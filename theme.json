@@ -428,6 +428,17 @@
 			}
 		},
 		"blocks": {
+			"core/accordion": {
+				"variations": {
+					"origin-canvas-accordion-minimal": {
+						"blocks": {
+							"core/accordion-item": {
+								"border": { "bottom": { "color": "var(--wp--preset--color--border)", "style": "solid", "width": "1px" } }
+							}
+						}
+					}
+				}
+			},
 			"core/button": {
 				"border": {
 					"radius": "999px"

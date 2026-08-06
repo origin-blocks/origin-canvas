@@ -11,7 +11,6 @@
 }
 
 .wp-block-accordion.is-style-origin-canvas-accordion-minimal > .wp-block-accordion-item {
-	border-bottom: 1px solid var(--wp--preset--color--border);
 	gap: 0;
 	margin-block: 0;
 }
@@ -36,6 +35,11 @@
    edge. The padding sits on the answer itself rather than the panel: a closed panel is
    hidden but keeps its place, so padding there would put an invisible band under every
    closed row. */
+/* The answer shares the question's left edge — this is a vertical reveal, not a nested
+   outline — and stops short of the marker's column on the right so the block reads as one
+   edge. The padding sits on the answer itself, not the panel: a closed panel is hidden but
+   keeps its box, so padding there puts an invisible band under every closed row. That is
+   also why this cannot move to theme.json, which can only reach the panel. */
 .wp-block-accordion.is-style-origin-canvas-accordion-minimal > .wp-block-accordion-item > .wp-block-accordion-panel > * {
 	padding-bottom: var(--wp--preset--spacing--medium);
 	padding-right: var(--wp--preset--spacing--extra-large);
