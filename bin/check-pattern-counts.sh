@@ -72,7 +72,8 @@ check() {
 		else
 			echo "  ✓  $file:$line — $actual $label"
 		fi
-	done < <(grep -Eino "[0-9]+[[:space:]]+($label|$singular)" patterns/*.php readme.txt 2>/dev/null)
+	done < <(pattern_files | xargs grep -Eino "[0-9]+[[:space:]]+($label|$singular)" -- 2>/dev/null;
+		grep -Eino "[0-9]+[[:space:]]+($label|$singular)" readme.txt 2>/dev/null | sed 's|^|readme.txt:|')
 
 	if [ "$found" -eq 0 ]; then
 		echo "  ?  no '$label' count found anywhere — did the copy change?"
