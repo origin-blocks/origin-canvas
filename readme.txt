@@ -70,9 +70,9 @@ Pattern image "Sarah Jenkins testimonial portrait" (patterns/images/avatar-sarah
 
 Pattern image "Rachel Lark testimonial portrait" (patterns/images/avatar-rachel-lark.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
-Pattern image "Marcus Reed team portrait" (patterns/images/avatar-marcus-reed.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+Pattern image "Marcus Holloway team portrait" (patterns/images/avatar-marcus-holloway.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
-Pattern image "Grace Whitfield team portrait" (patterns/images/avatar-grace-whitfield.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+Pattern image "Hannah Wright team portrait" (patterns/images/avatar-hannah-wright.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
 Pattern image "Sarah Jenkins testimonial avatar image" (patterns/images/card-testimonial-1.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
