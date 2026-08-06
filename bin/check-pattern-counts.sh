@@ -28,6 +28,16 @@ header_field() {
 	head -c 8192 "$1" | sed -nE "s|^[[:space:]]*(<\\?(php)?)?[[:space:]/*#@]*$2:[[:space:]]*(.*)$|\\3|Ip" | head -1 | sed 's/[[:space:]]*$//'
 }
 
+# WordPress skips a file entirely before it ever becomes a pattern if "Slug" or "Title"
+# is missing (both `continue`). An INVALID slug is different: core warns via
+# _doing_it_wrong but still registers the pattern, so it must stay counted here or the
+# guard would under-count a pattern the editor really does ship. Mirroring that
+# asymmetry is the point — a malformed file that WordPress silently drops must not
+# inflate the number the marketing copy is checked against.
+registers_as_pattern() {
+	[ -n "$(header_field "$1" Slug)" ] && [ -n "$(header_field "$1" Title)" ]
+}
+
 inserter_visible() {
 	local v
 	v=$(header_field "$1" Inserter)
@@ -40,7 +50,7 @@ inserter_visible() {
 
 patterns=0
 while IFS= read -r file; do
-	if inserter_visible "$file"; then
+	if registers_as_pattern "$file" && inserter_visible "$file"; then
 		patterns=$((patterns + 1))
 	fi
 done < <(pattern_files)
@@ -48,7 +58,7 @@ done < <(pattern_files)
 # Distinct categories, counted only from the patterns a user can actually insert — the
 # same set as above, so the two numbers can never disagree about what counts.
 categories=$(while IFS= read -r file; do
-	if inserter_visible "$file"; then
+	if registers_as_pattern "$file" && inserter_visible "$file"; then
 		header_field "$file" Categories
 	fi
 done < <(pattern_files) | tr ',' '\n' | sed 's/^ *//;s/ *$//' |
