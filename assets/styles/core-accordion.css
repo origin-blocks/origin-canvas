@@ -96,6 +96,14 @@
 	.wp-block-accordion.is-style-origin-canvas-accordion-minimal > .wp-block-accordion-item > .wp-block-accordion-heading > .wp-block-accordion-heading__toggle .wp-block-accordion-heading__toggle-icon::after {
 		content: none;
 	}
+
+	/* Core's rotation is suppressed above because the mask swaps the glyph instead.
+	   With the mask gone, the rotation has to come back or open and closed look
+	   identical. */
+	.wp-block-accordion.is-style-origin-canvas-accordion-minimal > .wp-block-accordion-item.is-open > .wp-block-accordion-heading > .wp-block-accordion-heading__toggle .wp-block-accordion-heading__toggle-icon {
+		transform: rotate(45deg);
+	}
+
 }
 
 /* Same reasoning for a browser without mask support: show the character rather than
@@ -108,6 +116,14 @@
 	.wp-block-accordion.is-style-origin-canvas-accordion-minimal > .wp-block-accordion-item > .wp-block-accordion-heading > .wp-block-accordion-heading__toggle .wp-block-accordion-heading__toggle-icon::after {
 		content: none;
 	}
+
+	/* Core's rotation is suppressed above because the mask swaps the glyph instead.
+	   With the mask gone, the rotation has to come back or open and closed look
+	   identical. */
+	.wp-block-accordion.is-style-origin-canvas-accordion-minimal > .wp-block-accordion-item.is-open > .wp-block-accordion-heading > .wp-block-accordion-heading__toggle .wp-block-accordion-heading__toggle-icon {
+		transform: rotate(45deg);
+	}
+
 }
 
 /* Core underlines the question on hover. An underline reads as a link to somewhere else,
