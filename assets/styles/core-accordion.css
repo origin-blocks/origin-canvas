@@ -2,14 +2,22 @@
    Every rule is scoped to the block style, so core's default accordion is untouched
    and a user who has not opted in sees core's own treatment. */
 
-/* Rows sit flush, divided by a hairline. */
+/* Rows sit flush, divided by a hairline — the hairline and the question's own padding
+   are the rhythm, so the theme's usual gap between blocks is closed up. The accordion
+   lays its rows out in normal flow, so that gap arrives as a margin and has to be
+   removed as one; `gap` alone would not reach it. */
 .wp-block-accordion.is-style-origin-canvas-accordion-minimal {
 	gap: 0;
 }
 
-.wp-block-accordion.is-style-origin-canvas-accordion-minimal .wp-block-accordion-item {
+.wp-block-accordion.is-style-origin-canvas-accordion-minimal > .wp-block-accordion-item {
 	border-bottom: 1px solid var(--wp--preset--color--border);
 	gap: 0;
+	margin-block: 0;
+}
+
+.wp-block-accordion.is-style-origin-canvas-accordion-minimal > .wp-block-accordion-item + .wp-block-accordion-item {
+	margin-block-start: 0;
 }
 
 /* Core pads the button with a spacing preset this theme does not define, so it falls
@@ -18,8 +26,11 @@
 	padding-block: var(--wp--preset--spacing--medium);
 }
 
-/* The answer keeps its inset from the row edge and clears the mark on the right. */
-.wp-block-accordion.is-style-origin-canvas-accordion-minimal .wp-block-accordion-panel {
+/* The answer keeps its inset from the row edge and clears the mark on the right.
+   Core hides a closed panel with the hidden attribute but leaves it in the grid, so the
+   padding is only applied once the panel is open — otherwise every closed row carries an
+   invisible band of space beneath it. */
+.wp-block-accordion.is-style-origin-canvas-accordion-minimal .wp-block-accordion-panel:not([hidden]) {
 	padding-bottom: var(--wp--preset--spacing--medium);
 	padding-right: var(--wp--preset--spacing--extra-large);
 }
