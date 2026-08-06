@@ -1,88 +1,109 @@
-/* Disclosure rows — shared by faq-simple and faq-two-column. */
+/* Minimal — a flat disclosure list: hairline rows, no card, a fine Lucide mark.
+   Every rule is scoped to the block style, so core's default accordion is untouched
+   and a user who has not opted in sees core's own treatment. */
 
-/* Marker: core rotates its plus into a cross when open, which reads as dismiss
-   rather than collapse. Suppress the rotation and swap the character instead.
-   The glyph is drawn on a pseudo-element because CSS cannot replace the text
-   inside core's span, and because a content string is never post content, so it
-   survives for authors who cannot save raw HTML. */
-.wp-block-accordion-heading__toggle-icon {
-	align-items: center;
-	color: transparent;
-	display: flex;
-	justify-content: center;
-	position: relative;
-	transform: none;
+/* Rows sit flush, divided by a hairline. */
+.wp-block-accordion.is-style-origin-canvas-accordion-minimal {
+	gap: 0;
 }
 
-/* Core's own character is made invisible rather than zero-sized, so the span
-   keeps its width and the replacement glyph has room to sit in. */
-.wp-block-accordion-heading__toggle-icon::after {
-	color: var(--wp--preset--color--text-muted);
-	content: "+";
-	font-size: var(--wp--preset--font-size--medium);
-	inset: 0;
-	line-height: 1;
-	position: absolute;
-	text-align: center;
+.wp-block-accordion.is-style-origin-canvas-accordion-minimal .wp-block-accordion-item {
+	border-bottom: 1px solid var(--wp--preset--color--border);
+	gap: 0;
 }
 
-/* Core's rotation is set from a four-class selector, so the open state has to
-   match it exactly; loading later is not enough to win. */
-.wp-block-accordion-item.is-open > .wp-block-accordion-heading .wp-block-accordion-heading__toggle-icon {
-	color: var(--wp--preset--color--text-heading);
-	transform: none;
-}
-
-.wp-block-accordion-item.is-open > .wp-block-accordion-heading .wp-block-accordion-heading__toggle-icon::after {
-	color: var(--wp--preset--color--text-heading);
-	content: "\2212"; /* U+2212 minus */
-}
-
-/* Row height: core pads the button with a spacing preset this theme does not
-   define, so it falls back to 1em and collapses to a few pixels. theme.json
-   cannot reach the button, so the padding is set here to give the question a
-   comfortable target. */
-.wp-block-accordion-heading__toggle {
+/* Core pads the button with a spacing preset this theme does not define, so it falls
+   back to 1em and the row collapses. */
+.wp-block-accordion.is-style-origin-canvas-accordion-minimal .wp-block-accordion-heading__toggle {
 	padding-block: var(--wp--preset--spacing--medium);
 }
 
-/* Hover: core underlines the question. An underline reads as "goes somewhere",
+/* The answer keeps its inset from the row edge and clears the mark on the right. */
+.wp-block-accordion.is-style-origin-canvas-accordion-minimal .wp-block-accordion-panel {
+	padding-bottom: var(--wp--preset--spacing--medium);
+	padding-right: var(--wp--preset--spacing--extra-large);
+}
+
+/* Marker. Core's own "+" character is made transparent rather than zero-sized, so the
+   span keeps its box; the mark itself is a Lucide glyph painted as a mask, which gives
+   an exact stroke weight instead of inheriting the question's font weight. */
+.wp-block-accordion.is-style-origin-canvas-accordion-minimal .wp-block-accordion-heading__toggle-icon {
+	color: transparent;
+	flex: none;
+	height: 20px;
+	position: relative;
+	transform: none;
+	width: 20px;
+}
+
+.wp-block-accordion.is-style-origin-canvas-accordion-minimal .wp-block-accordion-heading__toggle-icon::after {
+	background-color: var(--wp--preset--color--text-muted);
+	content: "";
+	display: block;
+	height: 20px;
+	left: 0;
+	-webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M12 5v14'/%3E%3C/svg%3E");
+	mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M12 5v14'/%3E%3C/svg%3E");
+	-webkit-mask-position: center;
+	mask-position: center;
+	-webkit-mask-repeat: no-repeat;
+	mask-repeat: no-repeat;
+	-webkit-mask-size: contain;
+	mask-size: contain;
+	position: absolute;
+	top: 0;
+	width: 20px;
+}
+
+/* Open: the mark becomes a single bar and takes the ink colour. Core rotates its glyph
+   from a four-class selector, so the scoped rule outranks it and the rotation stops. */
+.wp-block-accordion.is-style-origin-canvas-accordion-minimal .wp-block-accordion-item.is-open > .wp-block-accordion-heading .wp-block-accordion-heading__toggle-icon {
+	transform: none;
+}
+
+.wp-block-accordion.is-style-origin-canvas-accordion-minimal .wp-block-accordion-item.is-open > .wp-block-accordion-heading .wp-block-accordion-heading__toggle-icon::after {
+	background-color: var(--wp--preset--color--text-heading);
+	-webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14'/%3E%3C/svg%3E");
+	mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14'/%3E%3C/svg%3E");
+}
+
+/* Core underlines the question on hover. An underline reads as a link to somewhere else,
    and this one opens a panel in place, so it shifts colour instead. */
-.wp-block-accordion-heading__toggle:hover .wp-block-accordion-heading__toggle-title {
+.wp-block-accordion.is-style-origin-canvas-accordion-minimal .wp-block-accordion-heading__toggle:hover .wp-block-accordion-heading__toggle-title {
 	color: var(--wp--preset--color--primary);
 	text-decoration: none;
 }
 
-/* Focus: core clears the outline but never draws one of its own. */
-.wp-block-accordion-heading__toggle:focus-visible {
+/* Core clears the outline without drawing one of its own. */
+.wp-block-accordion.is-style-origin-canvas-accordion-minimal .wp-block-accordion-heading__toggle:focus-visible {
 	border-radius: var(--wp--custom--radius--small);
 	outline: 2px solid var(--wp--preset--color--primary);
 	outline-offset: 2px;
 }
 
-/* Everything above is appearance and applies to everyone. Only the easing is
-   motion, so only the easing is gated — the panel timing replaces core's while
-   staying inside the same query, or it would animate for people who asked for
-   no animation. */
+/* Everything above is appearance and applies to everyone. Only the easing is motion.
+   Core declares the open/close transition on the ITEM, not the panel, and its own rule
+   sits inside a no-preference query — but core's `.wp-block-accordion-item` selector is
+   weaker than the scoped one, so the neutralising rule below is the base state and the
+   timing is added back only for people who have not asked for less motion. */
+.wp-block-accordion.is-style-origin-canvas-accordion-minimal .wp-block-accordion-item {
+	transition: none;
+}
+
 @media (prefers-reduced-motion: no-preference) {
-	.wp-block-accordion-heading__toggle:hover .wp-block-accordion-heading__toggle-title,
-	.wp-block-accordion-heading__toggle-title {
-		transition: color 200ms ease;
+	.wp-block-accordion.is-style-origin-canvas-accordion-minimal .wp-block-accordion-heading__toggle-title,
+	.wp-block-accordion.is-style-origin-canvas-accordion-minimal .wp-block-accordion-heading__toggle-icon::after {
+		transition: background-color 200ms ease, color 200ms ease;
 	}
 
-	.wp-block-accordion-item > .wp-block-accordion-heading .wp-block-accordion-heading__toggle-icon {
-		transition: color 200ms ease;
-	}
-
-	.wp-block-accordion-item {
-		transition-duration: 260ms;
-		transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+	.wp-block-accordion.is-style-origin-canvas-accordion-minimal .wp-block-accordion-item {
+		transition: grid-template-rows 260ms cubic-bezier(0.16, 1, 0.3, 1);
 	}
 }
 
-/* faq-two-column keeps its heading in view while the questions scroll. Columns
-   has no sticky control, so this is opt-in via a class and falls back to normal
-   flow wherever it is not applied. */
+/* Sticky is NOT part of the block style. It is a separate opt-in utility for the
+   two-column FAQ layout, applied to a Columns block via Additional CSS Classes, and is
+   deliberately left unscoped. */
 @media (min-width: 782px) {
 	.origin-canvas-faq-sticky > .wp-block-column:first-child {
 		align-self: start;
