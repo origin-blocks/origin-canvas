@@ -40,14 +40,16 @@ check() {
 		found=$((found + 1))
 		local file="${hit%%:*}" rest="${hit#*:}"
 		local line="${rest%%:*}" claimed="${rest#*:}"
-		claimed="${claimed%% *}"
+		claimed="${claimed%%[!0-9]*}"
 		if [ "$claimed" != "$actual" ]; then
 			echo "  ✗  $file:$line — says $claimed $label, found $actual"
 			status=1
 		else
 			echo "  ✓  $file:$line — $actual $label"
 		fi
-	done < <(grep -no "[0-9]\+ $label" patterns/*.php readme.txt 2>/dev/null)
+	# Case-insensitive, tolerant of extra spacing, and matches the singular too, so a
+	# stale "14 Category" or "61  patterns" cannot slip past a green run.
+	done < <(grep -Eino "[0-9]+[[:space:]]+${label%s}s?" patterns/*.php readme.txt 2>/dev/null)
 
 	if [ "$found" -eq 0 ]; then
 		echo "  ?  no '$label' count found anywhere — did the copy change?"

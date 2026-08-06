@@ -156,7 +156,8 @@
    sits inside a no-preference query — but core's `.wp-block-accordion-item` selector is
    weaker than the scoped one, so the neutralising rule below is the base state and the
    timing is added back only for people who have not asked for less motion. */
-.wp-block-accordion.is-style-origin-canvas-accordion-minimal > .wp-block-accordion-item {
+.wp-block-accordion.is-style-origin-canvas-accordion-minimal > .wp-block-accordion-item,
+.wp-block-accordion.is-style-origin-canvas-accordion-minimal > .wp-block-accordion-item > .wp-block-accordion-heading > .wp-block-accordion-heading__toggle .wp-block-accordion-heading__toggle-icon {
 	transition: none;
 }
 
