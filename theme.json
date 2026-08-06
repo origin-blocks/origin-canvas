@@ -428,31 +428,6 @@
 			}
 		},
 		"blocks": {
-			"core/accordion": {
-				"spacing": {
-					"blockGap": "0"
-				}
-			},
-			"core/accordion-item": {
-				"border": {
-					"bottom": {
-						"color": "var(--wp--preset--color--border)",
-						"style": "solid",
-						"width": "1px"
-					}
-				},
-				"spacing": {
-					"blockGap": "0"
-				}
-			},
-			"core/accordion-panel": {
-				"spacing": {
-					"padding": {
-						"bottom": "var(--wp--preset--spacing--medium)",
-						"right": "var(--wp--preset--spacing--extra-large)"
-					}
-				}
-			},
 			"core/button": {
 				"border": {
 					"radius": "999px"
