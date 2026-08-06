@@ -20,9 +20,17 @@ pattern_files() {
 	find patterns -type f -name '*.php' | sort
 }
 
+# Read one header field the way WordPress does. get_file_data() matches
+# /^(?:[ \t]*<\?(?:php)?)?[ \t\/*#@]*Field:(.*)$/mi over the first 8KB — any mix of
+# spaces, tabs, slashes, asterisks, hashes or @ may precede the name, and the match is
+# case-insensitive. Anchoring on " * Field:" would miss a legally-formatted header.
+header_field() {
+	head -c 8192 "$1" | sed -nE "s|^[[:space:]]*(<\\?(php)?)?[[:space:]/*#@]*$2:[[:space:]]*(.*)$|\\3|Ip" | head -1 | sed 's/[[:space:]]*$//'
+}
+
 inserter_visible() {
 	local v
-	v=$(sed -n 's/^ \* Inserter:[[:space:]]*//p' "$1" | head -1 | tr -d '[:space:]')
+	v=$(header_field "$1" Inserter)
 	[ -z "$v" ] && return 0
 	case "$(printf '%s' "$v" | tr '[:upper:]' '[:lower:]')" in
 		yes|true) return 0 ;;
@@ -41,9 +49,9 @@ done < <(pattern_files)
 # same set as above, so the two numbers can never disagree about what counts.
 categories=$(while IFS= read -r file; do
 	if inserter_visible "$file"; then
-		grep -h '^ \* Categories:' "$file"
+		header_field "$file" Categories
 	fi
-done < <(pattern_files) | sed 's/.*Categories: *//' | tr ',' '\n' | sed 's/^ *//;s/ *$//' |
+done < <(pattern_files) | tr ',' '\n' | sed 's/^ *//;s/ *$//' |
 	grep -v '^$' | sort -u | wc -l | tr -d ' ')
 
 status=0
