@@ -41,6 +41,13 @@
 	padding-right: var(--wp--preset--spacing--extra-large);
 }
 
+/* Opening a row must not introduce space: the question's own bottom padding is the gap
+   to the answer. Core clears the theme's usual gap only while the panel is hidden, so
+   without this the answer drops away from its question the moment the row opens. */
+.wp-block-accordion.is-style-origin-canvas-accordion-minimal > .wp-block-accordion-item > .wp-block-accordion-panel {
+	margin-block-start: 0;
+}
+
 /* Marker. Core's own "+" character is made transparent rather than zero-sized, so the
    span keeps its box; the mark itself is a Lucide glyph painted as a mask, which gives
    an exact stroke weight instead of inheriting the question's font weight. */
