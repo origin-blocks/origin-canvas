@@ -215,6 +215,9 @@ if ( ! function_exists( 'origin_canvas_register_block_styles' ) ) {
 	 */
 	function origin_canvas_register_block_styles() {
 		$block_styles = array(
+			'core/accordion'     => array(
+				array( 'name' => 'origin-canvas-accordion-minimal', 'label' => __( 'Minimal', 'origin-canvas' ) ),
+			),
 			'core/button'        => array(
 				array( 'name' => 'origin-canvas-outline-strong', 'label' => __( 'Outline Strong', 'origin-canvas' ) ),
 				array( 'name' => 'origin-canvas-outline-light', 'label' => __( 'Outline Light', 'origin-canvas' ) ),
