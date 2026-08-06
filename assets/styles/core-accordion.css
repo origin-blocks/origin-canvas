@@ -85,6 +85,31 @@
 	mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14'/%3E%3C/svg%3E");
 }
 
+/* Windows high-contrast mode drops background colours, which would take the mask-drawn
+   mark with it and leave the row with no open/closed signal at all. There, core's own
+   character is shown again instead. */
+@media (forced-colors: active) {
+	.wp-block-accordion.is-style-origin-canvas-accordion-minimal > .wp-block-accordion-item > .wp-block-accordion-heading > .wp-block-accordion-heading__toggle .wp-block-accordion-heading__toggle-icon {
+		color: CanvasText;
+	}
+
+	.wp-block-accordion.is-style-origin-canvas-accordion-minimal > .wp-block-accordion-item > .wp-block-accordion-heading > .wp-block-accordion-heading__toggle .wp-block-accordion-heading__toggle-icon::after {
+		content: none;
+	}
+}
+
+/* Same reasoning for a browser without mask support: show the character rather than
+   nothing. */
+@supports not ((-webkit-mask-image: none) or (mask-image: none)) {
+	.wp-block-accordion.is-style-origin-canvas-accordion-minimal > .wp-block-accordion-item > .wp-block-accordion-heading > .wp-block-accordion-heading__toggle .wp-block-accordion-heading__toggle-icon {
+		color: var(--wp--preset--color--text-body);
+	}
+
+	.wp-block-accordion.is-style-origin-canvas-accordion-minimal > .wp-block-accordion-item > .wp-block-accordion-heading > .wp-block-accordion-heading__toggle .wp-block-accordion-heading__toggle-icon::after {
+		content: none;
+	}
+}
+
 /* Core underlines the question on hover. An underline reads as a link to somewhere else,
    and this one opens a panel in place, so it shifts colour instead. */
 .wp-block-accordion.is-style-origin-canvas-accordion-minimal > .wp-block-accordion-item > .wp-block-accordion-heading > .wp-block-accordion-heading__toggle:hover .wp-block-accordion-heading__toggle-title {

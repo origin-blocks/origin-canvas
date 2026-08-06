@@ -31,25 +31,33 @@ done | sed 's/.*Categories: *//' | tr ',' '\n' | sed 's/^ *//;s/ *$//' |
 
 status=0
 
+# Check EVERY claim, not just the first in a file: a second sentence quoting a stale
+# number would otherwise hide behind a correct one earlier in the same file.
 check() {
-	local label="$1" actual="$2" file="$3" pattern="$4"
-	local claimed
-	claimed=$(grep -o "$pattern" "$file" | head -1 | grep -o '[0-9]\+' || true)
-	if [ -z "$claimed" ]; then
-		echo "  ?  $file — no $label count found (did the copy change?)"
+	local label="$1" actual="$2" found=0
+
+	while IFS= read -r hit; do
+		found=$((found + 1))
+		local file="${hit%%:*}" rest="${hit#*:}"
+		local line="${rest%%:*}" claimed="${rest#*:}"
+		claimed="${claimed%% *}"
+		if [ "$claimed" != "$actual" ]; then
+			echo "  ✗  $file:$line — says $claimed $label, found $actual"
+			status=1
+		else
+			echo "  ✓  $file:$line — $actual $label"
+		fi
+	done < <(grep -no "[0-9]\+ $label" patterns/*.php readme.txt 2>/dev/null)
+
+	if [ "$found" -eq 0 ]; then
+		echo "  ?  no '$label' count found anywhere — did the copy change?"
 		status=1
-	elif [ "$claimed" != "$actual" ]; then
-		echo "  ✗  $file — says $claimed $label, found $actual"
-		status=1
-	else
-		echo "  ✓  $file — $actual $label"
 	fi
 }
 
 echo "Pattern inventory:"
-check patterns   "$patterns"   patterns/pattern-showcase.php '[0-9]\+ patterns'
-check categories "$categories" patterns/pattern-showcase.php '[0-9]\+ categories'
-check patterns   "$patterns"   patterns/product-grid.php     '[0-9]\+ patterns'
+check patterns   "$patterns"
+check categories "$categories"
 
 if [ "$status" -ne 0 ]; then
 	echo
