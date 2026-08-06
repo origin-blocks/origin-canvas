@@ -8,9 +8,13 @@ ZIP_PATH="$ROOT/dist/origin-canvas.zip"
 # The zip is built from HEAD, so the checks below have to describe HEAD too. A dirty
 # tree would let them pass on corrected files that are not in the archive, or fail on
 # work in progress that is not in it either.
-if ! git -C "$ROOT" diff-index --quiet HEAD -- 2>/dev/null; then
-	echo "Working tree has uncommitted changes; the package is built from HEAD." >&2
-	echo "Commit or stash them so the checks describe what is being shipped." >&2
+# Untracked files matter as much as modified ones: a committed pattern can reference an
+# image that was never added, and the archive would be built without it.
+dirty=$(git -C "$ROOT" status --porcelain --untracked-files=normal -- . ':(exclude)dist')
+if [ -n "$dirty" ]; then
+	echo "Working tree is not clean; the package is built from HEAD." >&2
+	echo "$dirty" >&2
+	echo "Commit or remove the above so the archive matches what was checked." >&2
 	exit 1
 fi
 
