@@ -34,7 +34,15 @@ status=0
 # Check EVERY claim, not just the first in a file: a second sentence quoting a stale
 # number would otherwise hide behind a correct one earlier in the same file.
 check() {
-	local label="$1" actual="$2" found=0
+	local label="$1" actual="$2" found=0 singular
+
+	# English plurals are not a suffix trim — "categories" is singular "category".
+	# Matching both, case-insensitively and with loose spacing, means a stale
+	# "14 Category" or "61  patterns" cannot slip past a green run.
+	case "$label" in
+		categories) singular="category" ;;
+		*) singular="${label%s}" ;;
+	esac
 
 	while IFS= read -r hit; do
 		found=$((found + 1))
@@ -47,9 +55,7 @@ check() {
 		else
 			echo "  ✓  $file:$line — $actual $label"
 		fi
-	# Case-insensitive, tolerant of extra spacing, and matches the singular too, so a
-	# stale "14 Category" or "61  patterns" cannot slip past a green run.
-	done < <(grep -Eino "[0-9]+[[:space:]]+${label%s}s?" patterns/*.php readme.txt 2>/dev/null)
+	done < <(grep -Eino "[0-9]+[[:space:]]+($label|$singular)" patterns/*.php readme.txt 2>/dev/null)
 
 	if [ "$found" -eq 0 ]; then
 		echo "  ?  no '$label' count found anywhere — did the copy change?"
