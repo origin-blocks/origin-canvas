@@ -13,20 +13,37 @@ cd "$(dirname "$0")/.."
 # Inserter-visible patterns: everything in patterns/ that does not opt out. WordPress
 # treats no/false/0 as opting out, and this theme writes "no"; the hidden-* filename
 # prefix is a convention, not the mechanism, so match on the header itself.
+# Mirror WordPress exactly (class-wp-theme.php): it scans patterns/ RECURSIVELY, and
+# treats Inserter as true only for "yes" or "true" — every other value, including a
+# typo, hides the pattern. An absent header defaults to visible.
+pattern_files() {
+	find patterns -type f -name '*.php' | sort
+}
+
+inserter_visible() {
+	local v
+	v=$(sed -n 's/^ \* Inserter:[[:space:]]*//p' "$1" | head -1 | tr -d '[:space:]')
+	[ -z "$v" ] && return 0
+	case "$(printf '%s' "$v" | tr '[:upper:]' '[:lower:]')" in
+		yes|true) return 0 ;;
+		*) return 1 ;;
+	esac
+}
+
 patterns=0
-for file in patterns/*.php; do
-	if grep -Eqi '^ \* Inserter: *(no|false|0) *$' "$file"; then
-		continue
+while IFS= read -r file; do
+	if inserter_visible "$file"; then
+		patterns=$((patterns + 1))
 	fi
-	patterns=$((patterns + 1))
-done
+done < <(pattern_files)
 
 # Distinct categories, counted only from the patterns a user can actually insert — the
 # same set as above, so the two numbers can never disagree about what counts.
-categories=$(for file in patterns/*.php; do
-	grep -Eqi '^ \* Inserter: *(no|false|0) *$' "$file" && continue
-	grep -h '^ \* Categories:' "$file"
-done | sed 's/.*Categories: *//' | tr ',' '\n' | sed 's/^ *//;s/ *$//' |
+categories=$(while IFS= read -r file; do
+	if inserter_visible "$file"; then
+		grep -h '^ \* Categories:' "$file"
+	fi
+done < <(pattern_files) | sed 's/.*Categories: *//' | tr ',' '\n' | sed 's/^ *//;s/ *$//' |
 	grep -v '^$' | sort -u | wc -l | tr -d ' ')
 
 status=0
