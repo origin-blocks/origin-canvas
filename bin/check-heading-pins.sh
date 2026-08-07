@@ -264,31 +264,57 @@ PY
 # 6. CSS is the last way in. A rule targeting a heading tag or a heading block's class
 #    overrides the single lever exactly as a theme.json pin would, and the structured
 #    scans above cannot see it — including the `css` strings inside theme.json.
-while IFS= read -r hit; do
-	[ -z "$hit" ] && continue
-	report "CSS sets heading weight or tracking: $hit"
-done < <(
-	{
-		grep -rnE '(^|[^-a-z])(h[1-6]|\.wp-block-(heading|post-title|query-title|comments-title|accordion-heading))[^{]*\{[^}]*(font-weight|letter-spacing)' \
-			assets/styles/ style.css 2>/dev/null || true
-		python3 - <<'PY' 2>/dev/null || true
-import json, re
-d = json.load(open('theme.json'))
+python3 - <<'PY' || status=1
+import glob, json, re, sys
+
+# Real CSS is multi-line, so the whole file is read and rule bodies are matched across
+# newlines. A line-oriented grep only catches `h2 { font-weight: 800 }` written on one
+# line, which is not how anyone writes it.
+HEADING = re.compile(
+    r'(^|[\s,>+~])(h[1-6]|\.wp-block-'
+    r'(heading|post-title|query-title|comments-title|accordion-heading))\b')
+PINNED  = re.compile(r'(^|[\s;{])(font-weight|letter-spacing)\s*:', re.M)
+RULE    = re.compile(r'([^{}]+)\{([^{}]*)\}', re.S)
+
+fail = False
+
+def scan(css, label):
+    """Report a rule only if a selector that is NOT the sanctioned exception targets a
+    heading. `.comment-reply-title, h2 { … }` must fail on the h2 half."""
+    global fail
+    for sel, body in RULE.findall(css):
+        if not PINNED.search(body):
+            continue
+        for one in sel.split(','):
+            one = one.strip()
+            if not one or 'comment-reply-title' in one:
+                continue
+            if HEADING.search(one):
+                flat = ' '.join(one.split())
+                print('  ✗  CSS sets heading weight or tracking: %s — %s' % (label, flat))
+                fail = True
+                break
+
+for path in sorted(glob.glob('assets/styles/*.css')) + ['style.css']:
+    try:
+        scan(open(path).read(), path)
+    except IOError:
+        pass
+
 def walk(node, path):
     if isinstance(node, dict):
         for k, v in node.items():
             if k == 'css' and isinstance(v, str):
-                if re.search(r'(h[1-6]|wp-block-(heading|post-title|query-title|comments-title|accordion-heading))[^{]*\{[^}]*(font-weight|letter-spacing)', v):
-                    print('theme.json css at %s' % path)
+                scan(v, 'theme.json %s' % path)
             else:
                 walk(v, '%s.%s' % (path, k))
     elif isinstance(node, list):
         for i, v in enumerate(node):
             walk(v, '%s[%d]' % (path, i))
-walk(d.get('styles', {}), 'styles')
+
+walk(json.load(open('theme.json')).get('styles', {}), 'styles')
+sys.exit(1 if fail else 0)
 PY
-	} | grep -v 'comment-reply-title' || true
-)
 
 if [ $status -eq 0 ]; then
 	echo "Heading pins:"
