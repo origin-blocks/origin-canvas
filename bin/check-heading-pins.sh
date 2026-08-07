@@ -15,24 +15,6 @@ cd "$(dirname "$0")/.."
 
 status=0
 
-# The statement register is the one exemption: being lighter than the theme's voice is
-# its identity. The exemption is per FILE AND per PROPERTY, not per file — the two
-# differ, and a blanket file skip would let breath-statement gain a tracking pin it
-# does not have.
-# Keyed on file, property AND value: the rule is that these files keep exactly what
-# they already have, so changing 500 to 800 must fail like any other new pin.
-exempt() {
-	case "$1|$2|$3" in
-		*breath-statement.php\|fontWeight\|500)            return 0 ;;
-		*breath-statement.php\|font-weight\|500)           return 0 ;;
-		*text-large-statement.php\|fontWeight\|500)        return 0 ;;
-		*text-large-statement.php\|font-weight\|500)       return 0 ;;
-		*text-large-statement.php\|letterSpacing\|-0.01em) return 0 ;;
-		*text-large-statement.php\|letter-spacing\|-0.01em) return 0 ;;
-	esac
-	return 1
-}
-
 # Every block that renders as a heading. A wp:heading-only sweep once missed twelve
 # nodes across the others, which is why they are named individually here.
 # Not listed, and deliberately so: wp:site-title renders a <p> at level 0, so the
@@ -44,36 +26,10 @@ report() {
 	status=1
 }
 
-# The legal sizes, read from theme.json rather than hardcoded, so adding a scale step
-# does not silently make this check wrong.
-PRESETS=$(python3 -c "
-import json
-d = json.load(open('theme.json'))
-print('|'.join(s['slug'] for s in d['settings']['typography']['fontSizes']))")
-
-# 1. Block comment JSON — the attribute the editor round-trips. Checked one property
-#    at a time so the exemption can be property-specific.
-for prop in fontWeight letterSpacing; do
-	while IFS= read -r hit; do
-		[ -z "$hit" ] && continue
-		file="${hit%%:*}"
-		val=$(printf '%s' "$hit" | grep -oE "\"${prop}\":\"[^\"]*\"" | head -1 | cut -d'"' -f4)
-		exempt "$file" "$prop" "$val" && continue
-		report "pins ${prop}:${val}: ${file}:$(printf '%s' "$hit" | cut -d: -f2)"
-	done < <(grep -rnoE "<!-- (${BLOCKS}) [^>]*\"${prop}\":\"[^\"]*\"" patterns/ 2>/dev/null || true)
-done
-
-# 2. Saved HTML — the half a JSON-only check misses. Removing one and leaving the
-#    other desyncs the block while the rendering silently stays wrong.
-for prop in font-weight letter-spacing; do
-	while IFS= read -r hit; do
-		[ -z "$hit" ] && continue
-		file="${hit%%:*}"
-		val=$(printf '%s' "$hit" | grep -oE "${prop}:[^;\"]*" | head -1 | cut -d: -f2)
-		exempt "$file" "$prop" "$val" && continue
-		report "rendered tag sets ${prop}:${val}: ${file}:$(printf '%s' "$hit" | cut -d: -f2)"
-	done < <(grep -rnoE "<h[1-6][^>]*style=\"[^\"]*${prop}:[^;\"]*" patterns/ 2>/dev/null || true)
-done
+# 1+2. Block comment JSON and the saved markup. The comment is PARSED as JSON rather
+#      than grepped: WordPress accepts `"fontWeight": "700"` with whitespace, and a
+#      scan tied to one serialization would miss a hand-edited pattern.
+python3 bin/lib/check-heading-blocks.py || status=1
 
 # 3. The accordion question carries its tracking on an inner span, not the block.
 #    Matched on the CLASS and the property independently, in either attribute order
@@ -84,69 +40,6 @@ while IFS= read -r hit; do
 	report "accordion span still styled: ${hit%%:*}:$(printf '%s' "$hit" | cut -d: -f2)"
 done < <(grep -rnoE '<span[^>]*toggle-title[^>]*>' patterns/ 2>/dev/null \
 	| grep -E 'style="[^"]*(font-weight|letter-spacing):' || true)
-
-# 4. A heading's size must be a preset. A hand-written clamp scales on its own terms
-#    and cannot be changed from the theme. Both halves are checked: the size can
-#    desync exactly the way weight and tracking can.
-# An allowlist, not a blacklist: the invariant is "IF a size is stated, it is a
-# preset", so anything else fails. A blacklist of clamp/digits/var would miss calc(),
-# min(), max() and a bare .875rem.
-#
-# A STATED size must be a preset; a heading is not required to state one. The two are
-# different rules and only the first is mechanical. Rule 7 requires a preset on
-# `wp:heading`, which is composed content. It does not reach `wp:post-title` in a
-# hidden-* template scaffold: that block renders the page's own title, and inheriting
-# the h1 ladder is the correct behaviour there — 7 of the 9 post-titles in this theme
-# do exactly that, while the 2 in blog loops state a size because the title is a card
-# element. Encoding "must state a size" would flag all 7 as defects.
-# The closing quote is part of the match: without it "huge-custom" satisfies a
-# "huge" alternation and a bogus size passes as a preset.
-while IFS= read -r hit; do
-	[ -z "$hit" ] && continue
-	report "size is not a preset: ${hit%%:*}:$(printf '%s' "$hit" | cut -d: -f2)"
-done < <(grep -rnoE "<!-- (${BLOCKS}) [^>]*\"fontSize\":\"[^\"]*\"" patterns/ 2>/dev/null \
-	| grep -vE "\"fontSize\":\"(${PRESETS})\"([,}]|$)" || true)
-
-# A heading's rendered tag must carry NO inline font-size at all — the preset arrives
-# as a has-<slug>-font-size class.
-while IFS= read -r hit; do
-	[ -z "$hit" ] && continue
-	report "rendered heading sets font-size inline: ${hit%%:*}:$(printf '%s' "$hit" | cut -d: -f2)"
-done < <(grep -rnoE '<h[1-6][^>]*style="[^"]*font-size:' patterns/ 2>/dev/null || true)
-
-# Rule 7 proper: a wp:heading is composed content and must state its size, so that a
-# change to the element ladder cannot restyle a shipped pattern. This applies to
-# wp:heading only — see the note above on why post-title in a scaffold is exempt.
-while IFS= read -r hit; do
-	[ -z "$hit" ] && continue
-	report "wp:heading states no fontSize: ${hit%%:*}:$(printf '%s' "$hit" | cut -d: -f2)"
-done < <(grep -rnoE '<!-- wp:heading( [^>]*)?-->' patterns/ 2>/dev/null \
-	| grep -v '"fontSize"' || true)
-
-# The attribute alone does not render: WordPress emits the size as a
-# has-<slug>-font-size class on the tag. A block that states a preset while its saved
-# markup lacks the class renders unpinned — the desync this whole script guards.
-python3 - <<'PY' || status=1
-import glob, re, sys
-fail = False
-for path in sorted(glob.glob('patterns/*.php')):
-    lines = open(path).read().split('\n')
-    for i, line in enumerate(lines):
-        # Both static heading blocks that save markup. post-title/query-title render
-        # dynamically and emit no tag here, so they cannot be checked this way.
-        for m in re.finditer(r'<!-- wp:(?:accordion-)?heading [^>]*"fontSize":"([a-z0-9-]+)"', line):
-            slug = m.group(1)
-            # WordPress kebab-cases the slug for the class and splits a digit from the
-            # letters that follow it: display-2xl becomes has-display-2-xl-font-size.
-            css = re.sub(r'(\d)([a-z])', r'\1-\2', slug)
-            window = '\n'.join(lines[i:i + 4])
-            tag = re.search(r'<h[1-6][^>]*>', window)
-            if tag and ('has-%s-font-size' % css) not in tag.group(0):
-                print('  ✗  %s:%d states %s but the tag has no has-%s-font-size class'
-                      % (path, i + 1, slug, css))
-                fail = True
-sys.exit(1 if fail else 0)
-PY
 
 # 5. Weight AND tracking live at one node. Either pinned per level defeats a variation
 #    that sets it, so both are checked and both must be present on the base.
@@ -278,8 +171,10 @@ HEADING = re.compile(
     r'(h[1-6]|wp-block-'
     r'(heading|post-title|query-title|comments-title|accordion-heading))\b')
 # `font:` is included because the shorthand sets weight — `font: 800 1rem/1.2 Inter`
-# pins a heading exactly as `font-weight` does.
-PINNED  = re.compile(r'(^|[\s;{])(font-weight|letter-spacing|font)\s*:', re.M)
+# pins a heading exactly as `font-weight` does. So does a wght axis on
+# font-variation-settings, which matters here because the theme ships variable fonts.
+PINNED  = re.compile(
+    r'(^|[\s;{])(font-weight|letter-spacing|font|font-variation-settings)\s*:', re.M)
 RULE    = re.compile(r'([^{}]+)\{([^{}]*)\}', re.S)
 
 fail = False
