@@ -169,7 +169,7 @@ import glob, json, re, sys
 # The boundary also admits a quote, so an attribute selector counts:
 # [class~="wp-block-heading"] targets the same element as .wp-block-heading.
 HEADING = re.compile(
-    r'(?:(?<=^)|(?<=[\s,>+~(.\'"]))'
+    r'(?:(?<=^)|(?<=[\s,>+~(.\'"=]))'
     # __toggle-title is the span holding the visible accordion question, so a rule on
     # it pins the heading text as surely as one on the block itself.
     r'(h[1-6]|wp-block-'
