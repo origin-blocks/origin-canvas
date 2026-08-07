@@ -20,8 +20,8 @@
 
 <!-- wp:accordion {"className":"is-style-origin-canvas-accordion-minimal"} -->
 <div role="group" class="wp-block-accordion is-style-origin-canvas-accordion-minimal"><!-- wp:accordion-item -->
-<div class="wp-block-accordion-item"><!-- wp:accordion-heading {"level":3,"style":{"typography":{"fontWeight":"600","letterSpacing":"-0.01em","lineHeight":"1.4"}},"textColor":"text-heading","fontSize":"regular-plus"} -->
-<h3 class="wp-block-accordion-heading has-icon has-icon-right has-text-heading-color has-text-color has-regular-plus-font-size" style="line-height:1.4"><button type="button" class="wp-block-accordion-heading__toggle"><span class="wp-block-accordion-heading__toggle-title" style="letter-spacing:-0.01em"><?php echo esc_html__( 'How long does a project take?', 'origin-canvas' ); ?></span><span class="wp-block-accordion-heading__toggle-icon" aria-hidden="true">+</span></button></h3>
+<div class="wp-block-accordion-item"><!-- wp:accordion-heading {"level":3,"style":{"typography":{"lineHeight":"1.4"}},"textColor":"text-heading","fontSize":"regular-plus"} -->
+<h3 class="wp-block-accordion-heading has-icon has-icon-right has-text-heading-color has-text-color has-regular-plus-font-size" style="line-height:1.4"><button type="button" class="wp-block-accordion-heading__toggle"><span class="wp-block-accordion-heading__toggle-title"><?php echo esc_html__( 'How long does a project take?', 'origin-canvas' ); ?></span><span class="wp-block-accordion-heading__toggle-icon" aria-hidden="true">+</span></button></h3>
 <!-- /wp:accordion-heading -->
 
 <!-- wp:accordion-panel -->
@@ -32,8 +32,8 @@
 <!-- /wp:accordion-item -->
 
 <!-- wp:accordion-item -->
-<div class="wp-block-accordion-item"><!-- wp:accordion-heading {"level":3,"style":{"typography":{"fontWeight":"600","letterSpacing":"-0.01em","lineHeight":"1.4"}},"textColor":"text-heading","fontSize":"regular-plus"} -->
-<h3 class="wp-block-accordion-heading has-icon has-icon-right has-text-heading-color has-text-color has-regular-plus-font-size" style="line-height:1.4"><button type="button" class="wp-block-accordion-heading__toggle"><span class="wp-block-accordion-heading__toggle-title" style="letter-spacing:-0.01em"><?php echo esc_html__( 'What do you need from us to start?', 'origin-canvas' ); ?></span><span class="wp-block-accordion-heading__toggle-icon" aria-hidden="true">+</span></button></h3>
+<div class="wp-block-accordion-item"><!-- wp:accordion-heading {"level":3,"style":{"typography":{"lineHeight":"1.4"}},"textColor":"text-heading","fontSize":"regular-plus"} -->
+<h3 class="wp-block-accordion-heading has-icon has-icon-right has-text-heading-color has-text-color has-regular-plus-font-size" style="line-height:1.4"><button type="button" class="wp-block-accordion-heading__toggle"><span class="wp-block-accordion-heading__toggle-title"><?php echo esc_html__( 'What do you need from us to start?', 'origin-canvas' ); ?></span><span class="wp-block-accordion-heading__toggle-icon" aria-hidden="true">+</span></button></h3>
 <!-- /wp:accordion-heading -->
 
 <!-- wp:accordion-panel -->
@@ -44,8 +44,8 @@
 <!-- /wp:accordion-item -->
 
 <!-- wp:accordion-item -->
-<div class="wp-block-accordion-item"><!-- wp:accordion-heading {"level":3,"style":{"typography":{"fontWeight":"600","letterSpacing":"-0.01em","lineHeight":"1.4"}},"textColor":"text-heading","fontSize":"regular-plus"} -->
-<h3 class="wp-block-accordion-heading has-icon has-icon-right has-text-heading-color has-text-color has-regular-plus-font-size" style="line-height:1.4"><button type="button" class="wp-block-accordion-heading__toggle"><span class="wp-block-accordion-heading__toggle-title" style="letter-spacing:-0.01em"><?php echo esc_html__( 'Do you work with our developer?', 'origin-canvas' ); ?></span><span class="wp-block-accordion-heading__toggle-icon" aria-hidden="true">+</span></button></h3>
+<div class="wp-block-accordion-item"><!-- wp:accordion-heading {"level":3,"style":{"typography":{"lineHeight":"1.4"}},"textColor":"text-heading","fontSize":"regular-plus"} -->
+<h3 class="wp-block-accordion-heading has-icon has-icon-right has-text-heading-color has-text-color has-regular-plus-font-size" style="line-height:1.4"><button type="button" class="wp-block-accordion-heading__toggle"><span class="wp-block-accordion-heading__toggle-title"><?php echo esc_html__( 'Do you work with our developer?', 'origin-canvas' ); ?></span><span class="wp-block-accordion-heading__toggle-icon" aria-hidden="true">+</span></button></h3>
 <!-- /wp:accordion-heading -->
 
 <!-- wp:accordion-panel -->
@@ -56,8 +56,8 @@
 <!-- /wp:accordion-item -->
 
 <!-- wp:accordion-item -->
-<div class="wp-block-accordion-item"><!-- wp:accordion-heading {"level":3,"style":{"typography":{"fontWeight":"600","letterSpacing":"-0.01em","lineHeight":"1.4"}},"textColor":"text-heading","fontSize":"regular-plus"} -->
-<h3 class="wp-block-accordion-heading has-icon has-icon-right has-text-heading-color has-text-color has-regular-plus-font-size" style="line-height:1.4"><button type="button" class="wp-block-accordion-heading__toggle"><span class="wp-block-accordion-heading__toggle-title" style="letter-spacing:-0.01em"><?php echo esc_html__( 'What happens after launch?', 'origin-canvas' ); ?></span><span class="wp-block-accordion-heading__toggle-icon" aria-hidden="true">+</span></button></h3>
+<div class="wp-block-accordion-item"><!-- wp:accordion-heading {"level":3,"style":{"typography":{"lineHeight":"1.4"}},"textColor":"text-heading","fontSize":"regular-plus"} -->
+<h3 class="wp-block-accordion-heading has-icon has-icon-right has-text-heading-color has-text-color has-regular-plus-font-size" style="line-height:1.4"><button type="button" class="wp-block-accordion-heading__toggle"><span class="wp-block-accordion-heading__toggle-title"><?php echo esc_html__( 'What happens after launch?', 'origin-canvas' ); ?></span><span class="wp-block-accordion-heading__toggle-icon" aria-hidden="true">+</span></button></h3>
 <!-- /wp:accordion-heading -->
 
 <!-- wp:accordion-panel -->
