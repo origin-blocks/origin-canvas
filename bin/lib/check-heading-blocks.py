@@ -63,6 +63,14 @@ def walk_typography(node, trail='', sizes=False):
 CSS_PIN = re.compile(
     r'(^|[\s;{])(font-weight|letter-spacing|font|font-variation-settings)\s*:', re.I | re.M)
 
+# The same selector set the stylesheet scanner uses: a heading tag, any heading block
+# class, the accordion toggle button, or the span holding the question.
+HEADING_NAME = re.compile(
+    r'(?:(?<=^)|(?<=[\s,>+~(.\'"=]))'
+    r'(h[1-6]|wp-block-'
+    r'(heading|post-title|query-title|comments-title|accordion-heading)'
+    r'(__toggle(-title)?)?)\b', re.I)
+
 
 def check_block_css(path, line_no, attrs, scoped_to_heading):
     """WordPress 7.0 stores per-block custom CSS in style.css — verified rendering:
@@ -73,18 +81,22 @@ def check_block_css(path, line_no, attrs, scoped_to_heading):
     if not isinstance(css, str):
         return
     css = re.sub(r'/\*.*?\*/', '', css, flags=re.S)
-    if not CSS_PIN.search(css):
+
+    # On a heading block the CSS is already scoped to it, so a bare declaration list
+    # or any rule inside it pins the heading.
+    if scoped_to_heading:
+        if CSS_PIN.search(css):
+            bad('%s:%d block custom CSS sets heading weight or tracking'
+                % (path, line_no))
         return
-    # The same selector set the stylesheet scanner uses: a heading tag, any heading
-    # block class, or the span holding the accordion question.
-    names = re.compile(
-        r'(?:(?<=^)|(?<=[\s,>+~(.\'"=]))'
-        r'(h[1-6]|wp-block-'
-        r'(heading|post-title|query-title|comments-title|accordion-heading)'
-        r'(__toggle(-title)?)?)\b', re.I)
-    if scoped_to_heading or names.search(css):
-        bad('%s:%d block custom CSS sets heading weight or tracking'
-            % (path, line_no))
+
+    # On any other block, the pinned declaration and the heading selector must be in
+    # the SAME rule: `& p { font-weight:700 } & .wp-block-heading { color:red }` sets
+    # no heading weight, and reporting it would be a false positive.
+    for selector, body in re.findall(r'([^{}]+)\{([^{}]*)\}', css, re.S):
+        if CSS_PIN.search(body) and HEADING_NAME.search(selector):
+            bad('%s:%d block custom CSS sets heading weight or tracking: %s'
+                % (path, line_no, ' '.join(selector.split())))
 
 
 def check_attributes(path, line_no, base, block, attrs):
@@ -250,9 +262,13 @@ for path in sorted(glob.glob('patterns/*.php')):
             continue
         check_block_css(path, line_no, attrs, scoped_to_heading=True)
         size = check_attributes(path, line_no, base, block, attrs)
-        # The rest of the file, not a fixed slice: the element is bounded by its own
-        # closing tag, which an arbitrary window can fall short of on a long heading.
-        check_saved_tag(path, line_no, base, size, source[match.end():])
+        # Only the two blocks that actually serialize a heading tag. post-title,
+        # query-title and comments-title render dynamically and save nothing, so
+        # scanning past them would judge the NEXT heading as if it were theirs.
+        if block in ('heading', 'accordion-heading'):
+            # The rest of the file, not a fixed slice: the element is bounded by its
+            # own closing tag, which a window can fall short of on a long heading.
+            check_saved_tag(path, line_no, base, size, source[match.end():])
 
 assert_exemptions()
 
