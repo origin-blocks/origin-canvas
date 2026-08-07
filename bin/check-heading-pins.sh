@@ -76,10 +76,14 @@ for prop in font-weight letter-spacing; do
 done
 
 # 3. The accordion question carries its tracking on an inner span, not the block.
+#    Matched on the CLASS and the property independently, in either attribute order
+#    and anywhere inside the style value — an exact-substring match would miss
+#    style="color:red;letter-spacing:-0.01em" or a span with another attribute first.
 while IFS= read -r hit; do
 	[ -z "$hit" ] && continue
-	report "accordion span still tracked: ${hit%%:*}:$(printf '%s' "$hit" | cut -d: -f2)"
-done < <(grep -rnoE 'toggle-title" style="letter-spacing' patterns/ 2>/dev/null || true)
+	report "accordion span still styled: ${hit%%:*}:$(printf '%s' "$hit" | cut -d: -f2)"
+done < <(grep -rnoE '<span[^>]*toggle-title[^>]*>' patterns/ 2>/dev/null \
+	| grep -E 'style="[^"]*(font-weight|letter-spacing):' || true)
 
 # 4. A heading's size must be a preset. A hand-written clamp scales on its own terms
 #    and cannot be changed from the theme. Both halves are checked: the size can
@@ -217,8 +221,27 @@ def check(styles, label, require_base):
                             fail = True
             scan_blocks(node.get('blocks', {}), here)
             for vname, vnode in (node.get('variations', {}) or {}).items():
-                if isinstance(vnode, dict):
-                    scan_blocks(vnode.get('blocks', {}), '%s.variations.%s' % (here, vname))
+                if not isinstance(vnode, dict):
+                    continue
+                vpath = '%s.variations.%s' % (here, vname)
+                # A variation node carries the same shapes as the block it varies, so
+                # it needs the same two checks — not just its nested blocks.
+                vels = vnode.get('elements', {})
+                if isinstance(vels, dict):
+                    for ename in ('heading',) + LEVELS:
+                        vtyp = vels.get(ename, {}).get('typography', {})
+                        for prop in PROPS:
+                            if prop in vtyp:
+                                print('  ✗  %s: %s scopes %s on %s — heading %s belongs '
+                                      'to styles.elements.heading'
+                                      % (label, vpath, prop, ename, prop))
+                                fail = True
+                if name in BLOCKS:
+                    for prop, path in walk(vnode, vpath):
+                        print('  ✗  %s: %s pins %s at %s — it is a heading and follows '
+                              'the variation' % (label, name, prop, path))
+                        fail = True
+                scan_blocks(vnode.get('blocks', {}), vpath)
 
     scan_blocks(styles.get('blocks', {}), '')
 
