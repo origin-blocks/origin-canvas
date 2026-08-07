@@ -166,8 +166,10 @@ import glob, json, re, sys
 # A heading may be named anywhere in a selector: after a combinator, inside :where()
 # or :is(), or welded into a compound like `.is-style-x.wp-block-heading`. The leading
 # boundary therefore allows `(` and `.` too — this theme's own CSS leans on :where().
+# The boundary also admits a quote, so an attribute selector counts:
+# [class~="wp-block-heading"] targets the same element as .wp-block-heading.
 HEADING = re.compile(
-    r'(?:(?<=^)|(?<=[\s,>+~(.]))'
+    r'(?:(?<=^)|(?<=[\s,>+~(.\'"]))'
     r'(h[1-6]|wp-block-'
     r'(heading|post-title|query-title|comments-title|accordion-heading))\b')
 # `font:` is included because the shorthand sets weight — `font: 800 1rem/1.2 Inter`
