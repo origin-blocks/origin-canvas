@@ -75,7 +75,14 @@ def check_block_css(path, line_no, attrs, scoped_to_heading):
     css = re.sub(r'/\*.*?\*/', '', css, flags=re.S)
     if not CSS_PIN.search(css):
         return
-    if scoped_to_heading or re.search(r'(^|[\s,>+~(.\'"=])(h[1-6])\b', css, re.I):
+    # The same selector set the stylesheet scanner uses: a heading tag, any heading
+    # block class, or the span holding the accordion question.
+    names = re.compile(
+        r'(?:(?<=^)|(?<=[\s,>+~(.\'"=]))'
+        r'(h[1-6]|wp-block-'
+        r'(heading|post-title|query-title|comments-title|accordion-heading)'
+        r'(__toggle-title)?)\b', re.I)
+    if scoped_to_heading or names.search(css):
         bad('%s:%d block custom CSS sets heading weight or tracking'
             % (path, line_no))
 
