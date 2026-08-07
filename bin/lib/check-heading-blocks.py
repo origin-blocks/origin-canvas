@@ -41,14 +41,30 @@ def presets():
     return {s['slug'] for s in data['settings']['typography']['fontSizes']}
 
 
+def walk_typography(node, trail=''):
+    """Every typography.<prop> at any depth. A weight under style.elements.link pins
+    linked heading text just as a direct one does — the theme.json checker already
+    walks this way, and the pattern side has to match it."""
+    if not isinstance(node, dict):
+        return
+    typography = node.get('typography')
+    if isinstance(typography, dict):
+        for prop in PROPS:
+            if prop in typography:
+                yield prop, str(typography[prop]), trail
+    for key, value in node.items():
+        if key != 'typography' and isinstance(value, dict):
+            yield from walk_typography(value, '%s.%s' % (trail, key) if trail else key)
+
+
 def check_attributes(path, line_no, base, block, attrs):
     typography = attrs.get('style', {}).get('typography', {})
 
-    for prop in PROPS:
-        if prop in typography:
-            value = str(typography[prop])
-            if (base, prop, value) not in EXEMPT:
-                bad('%s:%d pins %s:%s' % (path, line_no, prop, value))
+    for prop, value, trail in walk_typography(attrs.get('style', {})):
+        if (base, prop, value) in EXEMPT and not trail:
+            continue
+        where = ' at style.%s' % trail if trail else ''
+        bad('%s:%d pins %s:%s%s' % (path, line_no, prop, value, where))
 
     size = attrs.get('fontSize')
     if size is not None and size not in PRESETS:
@@ -71,22 +87,29 @@ def check_attributes(path, line_no, base, block, attrs):
 def check_saved_tag(path, line_no, base, size, window):
     """The comment and the saved markup must agree — a half-edit leaves the rendering
     wrong while the attributes look right."""
-    match = re.search(r'<h[1-6][^>]*>', window)
+    match = re.search(r'<(h[1-6])[^>]*>', window)
     if not match:
         return
     tag = match.group(0)
+
+    # The whole heading element, not just its opening tag: <h2><a style="font-weight">
+    # pins the text that is actually read. Bounded by the closing tag when present.
+    close = window.find('</%s>' % match.group(1), match.end())
+    element = window[match.start():close] if close != -1 else tag
 
     # Tolerant of serialization: space before the colon, upper case, and single- or
     # double-quoted style attributes. `font-weight : 800` pins exactly as tightly.
     for prop in PROPS:
         css = CSS_NAME[prop]
-        found = re.search(r'%s\s*:\s*([^;"\']+)' % css, tag, re.I)
-        if found:
+        for found in re.finditer(r'%s\s*:\s*([^;"\']+)' % css, element, re.I):
             value = found.group(1).strip()
-            if (base, prop, value) not in EXEMPT:
-                bad('%s:%d rendered tag sets %s:%s' % (path, line_no, css, value))
+            if (base, prop, value) in EXEMPT:
+                continue
+            inner = '' if found.start() < len(tag) else ' inside the heading'
+            bad('%s:%d rendered heading sets %s:%s%s'
+                % (path, line_no, css, value, inner))
 
-    if re.search(r'font-size\s*:', tag, re.I):
+    if re.search(r'font-size\s*:', element, re.I):
         bad('%s:%d rendered heading sets font-size inline' % (path, line_no))
 
     if size is not None:
