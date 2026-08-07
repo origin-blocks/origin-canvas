@@ -168,11 +168,37 @@ def assert_exemptions():
                 'exactly what it has' % (path, css, value))
 
 
+ANY_BLOCK = re.compile(r'<!-- wp:[a-z][a-z0-9-]*(/[a-z0-9-]+)? (\{.*?\})\s*/?-->', re.S)
+SCOPED = ('heading', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6')
+
+
+def check_scoped_elements(path, source):
+    """Any block can scope heading rules at style.elements.heading — a Group doing so
+    overrides every heading inside it, defeating the single lever exactly as a pin on
+    the heading itself would. The theme.json checker already covers this shape."""
+    for match in ANY_BLOCK.finditer(source):
+        try:
+            attrs = json.loads(match.group(2))
+        except ValueError:
+            continue
+        elements = attrs.get('style', {}).get('elements', {})
+        if not isinstance(elements, dict):
+            continue
+        line_no = source.count('\n', 0, match.start()) + 1
+        for name in SCOPED:
+            typography = elements.get(name, {}).get('typography', {})
+            for prop in PROPS:
+                if prop in typography:
+                    bad('%s:%d scopes %s on %s — heading %s belongs to the theme'
+                        % (path, line_no, prop, name, prop))
+
+
 PRESETS = presets()
 
 for path in sorted(glob.glob('patterns/*.php')):
     base = path.split('/')[-1]
     source = open(path).read()
+    check_scoped_elements(path, source)
     # Matched against the WHOLE file, not line by line: a block comment may be split
     # across lines, and a per-line scan would not see it at all.
     for match in COMMENT.finditer(source):
