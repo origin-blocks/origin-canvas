@@ -60,6 +60,26 @@ def walk_typography(node, trail='', sizes=False):
                 value, '%s.%s' % (trail, key) if trail else key, sizes)
 
 
+CSS_PIN = re.compile(
+    r'(^|[\s;{])(font-weight|letter-spacing|font|font-variation-settings)\s*:', re.I | re.M)
+
+
+def check_block_css(path, line_no, attrs, scoped_to_heading):
+    """WordPress 7.0 stores per-block custom CSS in style.css — verified rendering:
+    it emits `has-custom-css wp-custom-css-<hash>` on the tag. On a heading that CSS is
+    already scoped, so any weight or tracking declaration pins it; on another block,
+    only a rule naming a heading does."""
+    css = attrs.get('style', {}).get('css')
+    if not isinstance(css, str):
+        return
+    css = re.sub(r'/\*.*?\*/', '', css, flags=re.S)
+    if not CSS_PIN.search(css):
+        return
+    if scoped_to_heading or re.search(r'(^|[\s,>+~(.\'"=])(h[1-6])\b', css, re.I):
+        bad('%s:%d block custom CSS sets heading weight or tracking'
+            % (path, line_no))
+
+
 def check_attributes(path, line_no, base, block, attrs):
     typography = attrs.get('style', {}).get('typography', {})
 
@@ -191,6 +211,7 @@ def check_scoped_elements(path, source):
         if not isinstance(elements, dict):
             continue
         line_no = source.count('\n', 0, match.start()) + 1
+        check_block_css(path, line_no, attrs, scoped_to_heading=False)
         for name in SCOPED:
             typography = elements.get(name, {}).get('typography', {})
             for prop in PROPS:
@@ -220,6 +241,7 @@ for path in sorted(glob.glob('patterns/*.php')):
         except ValueError:
             bad('%s:%d block comment is not valid JSON' % (path, line_no))
             continue
+        check_block_css(path, line_no, attrs, scoped_to_heading=True)
         size = check_attributes(path, line_no, base, block, attrs)
         # The rest of the file, not a fixed slice: the element is bounded by its own
         # closing tag, which an arbitrary window can fall short of on a long heading.
