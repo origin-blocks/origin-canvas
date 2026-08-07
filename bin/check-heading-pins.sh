@@ -123,7 +123,8 @@ LEVELS = ('h1', 'h2', 'h3', 'h4', 'h5', 'h6')
 
 # Heading-role blocks. core/site-title is absent on purpose: it renders a <p> at
 # level 0, so elements.heading cannot reach it and its own weight is the only lever.
-BLOCKS = ('core/heading', 'core/post-title', 'core/query-title', 'core/comments-title')
+BLOCKS = ('core/heading', 'core/accordion-heading', 'core/post-title',
+          'core/query-title', 'core/comments-title')
 
 fail = False
 
