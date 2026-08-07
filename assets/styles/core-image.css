@@ -1,3 +1,10 @@
+/* A circular avatar keeps its size in a flex row instead of being squeezed into
+   an oblong when the container runs out of space. Scoped to the round-avatar
+   style so ordinary images in flex layouts still shrink and wrap as expected. */
+.is-layout-flex > .wp-block-image.is-style-origin-canvas-rounded-full {
+	flex-shrink: 0;
+}
+
 /* Rounded Full */
 .is-style-origin-canvas-rounded-full img {
 	aspect-ratio: 1 / 1;

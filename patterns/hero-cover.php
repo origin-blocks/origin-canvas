@@ -3,7 +3,7 @@
  * Title: Hero Cover
  * Slug: origin-canvas/hero-cover
  * Categories: origin-canvas/hero
- * Keywords: hero, cover, case study, editorial, home
+ * Keywords: editorial, home, background, banner
  * Block Types: core/post-content
  * Viewport Width: 1500
  * Inserter: true
@@ -36,7 +36,7 @@
 
 <!-- wp:group {"className":"origin-canvas-cover-story__card origin-canvas-cover-story__studio-line","backgroundColor":"surface-base","style":{"border":{"radius":"var:custom|radius|medium"},"spacing":{"padding":{"top":"var:preset|spacing|large","right":"var:preset|spacing|large","bottom":"var:preset|spacing|large","left":"var:preset|spacing|large"}}},"layout":{"type":"constrained"}} -->
 <div class="wp-block-group origin-canvas-cover-story__card origin-canvas-cover-story__studio-line has-surface-base-background-color has-background" style="border-radius:var(--wp--custom--radius--medium);padding-top:var(--wp--preset--spacing--large);padding-right:var(--wp--preset--spacing--large);padding-bottom:var(--wp--preset--spacing--large);padding-left:var(--wp--preset--spacing--large)"><!-- wp:paragraph {"style":{"typography":{"fontWeight":"600","lineHeight":"1.2"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-heading","fontSize":"regular-plus"} -->
-<p class="has-text-heading-color has-text-color has-regular-plus-font-size" style="margin-top:0;margin-bottom:0;font-weight:600;line-height:1.2"><?php echo esc_html__( 'Origin is a three-person studio. Brand identity and websites for small businesses.', 'origin-canvas' ); ?></p>
+<p class="has-text-heading-color has-text-color has-regular-plus-font-size" style="margin-top:0;margin-bottom:0;font-weight:600;line-height:1.2"><?php echo esc_html__( 'A three-person studio. Brand identity and websites for small businesses.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"var:preset|spacing|small","bottom":"0"}}},"textColor":"text-muted","fontSize":"small"} -->

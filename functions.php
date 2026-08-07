@@ -106,14 +106,17 @@ if ( ! function_exists( 'origin_canvas_register_pattern_categories' ) ) {
 	 * Register Origin-namespaced block pattern categories.
 	 */
 	function origin_canvas_register_pattern_categories() {
+		// Only categories WordPress does not already provide. Core supplies text,
+		// testimonials, team, posts, contact and gallery — using ours alongside them
+		// would show the editor two near-identical entries for the same thing.
 		$categories = array(
 			'origin-canvas/hero'     => array( 'label' => __( 'Hero', 'origin-canvas' ) ),
 			'origin-canvas/page'     => array( 'label' => __( 'Pages', 'origin-canvas' ) ),
 			'origin-canvas/features' => array( 'label' => __( 'Features', 'origin-canvas' ) ),
 			'origin-canvas/stats'    => array( 'label' => __( 'Stats', 'origin-canvas' ) ),
-			'origin-canvas/team'     => array( 'label' => __( 'Team', 'origin-canvas' ) ),
 			'origin-canvas/pricing'  => array( 'label' => __( 'Pricing', 'origin-canvas' ) ),
 			'origin-canvas/card'     => array( 'label' => __( 'Cards', 'origin-canvas' ) ),
+			'origin-canvas/faq'      => array( 'label' => __( 'FAQ', 'origin-canvas' ) ),
 		);
 
 		foreach ( $categories as $slug => $props ) {
@@ -212,6 +215,9 @@ if ( ! function_exists( 'origin_canvas_register_block_styles' ) ) {
 	 */
 	function origin_canvas_register_block_styles() {
 		$block_styles = array(
+			'core/accordion'     => array(
+				array( 'name' => 'origin-canvas-accordion-minimal', 'label' => __( 'Minimal', 'origin-canvas' ) ),
+			),
 			'core/button'        => array(
 				array( 'name' => 'origin-canvas-outline-strong', 'label' => __( 'Outline Strong', 'origin-canvas' ) ),
 				array( 'name' => 'origin-canvas-outline-light', 'label' => __( 'Outline Light', 'origin-canvas' ) ),
@@ -260,8 +266,7 @@ if ( ! function_exists( 'origin_canvas_register_block_styles' ) ) {
 								),
 								':hover'     => array(
 									'color' => array(
-										'text'       => 'var:preset|color|surface-base',
-										'background' => 'var:preset|color|primary',
+										'background' => 'var:preset|color|border',
 									),
 								),
 							),

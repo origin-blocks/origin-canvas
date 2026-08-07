@@ -3,7 +3,7 @@
  * Title: Process Numbered
  * Slug: origin-canvas/process-numbered
  * Categories: origin-canvas/features
- * Keywords: process, numbered, steps, home
+ * Keywords: steps, home, method, stages
  * Block Types: core/post-content
  * Viewport Width: 1200
  * Inserter: true
@@ -78,7 +78,7 @@
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"textColor":"text-body","fontSize":"regular"} -->
-<p class="has-text-body-color has-text-color has-regular-font-size"><?php echo esc_html__( 'Sites we ship are easy for you to update on a quiet Tuesday afternoon. No bespoke plugins, no consultancy retainer.', 'origin-canvas' ); ?></p>
+<p class="has-text-body-color has-text-color has-regular-font-size"><?php echo esc_html__( 'The sites we build are easy for you to update on a quiet Tuesday afternoon. No bespoke plugins, no consultancy retainer.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group --></div>
 <!-- /wp:group --></div>

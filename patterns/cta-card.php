@@ -3,7 +3,7 @@
  * Title: CTA Card
  * Slug: origin-canvas/cta-card
  * Categories: call-to-action
- * Keywords: cta, call to action, card, centered, surface, conversion
+ * Keywords: conversion, centered, surface, prompt
  * Block Types: core/post-content
  * Inserter: true
  *
@@ -13,8 +13,8 @@
 ?>
 <!-- wp:group {"tagName":"section","align":"full","style":{"spacing":{"padding":{"top":"var:preset|spacing|colossal","bottom":"var:preset|spacing|colossal"}}},"layout":{"type":"constrained"}} -->
 <section class="wp-block-group alignfull" style="padding-top:var(--wp--preset--spacing--colossal);padding-bottom:var(--wp--preset--spacing--colossal)"><!-- wp:group {"backgroundColor":"surface-muted","style":{"border":{"radius":"var:custom|radius|medium"},"shadow":"var:preset|shadow|small","spacing":{"padding":{"top":"var:preset|spacing|jumbo","right":"var:preset|spacing|jumbo","bottom":"var:preset|spacing|jumbo","left":"var:preset|spacing|jumbo"},"blockGap":"var:preset|spacing|large"}},"layout":{"type":"constrained","contentSize":"640px"}} -->
-<div class="wp-block-group has-surface-muted-background-color has-background" style="border-radius:var(--wp--custom--radius--medium);padding-top:var(--wp--preset--spacing--jumbo);padding-right:var(--wp--preset--spacing--jumbo);padding-bottom:var(--wp--preset--spacing--jumbo);padding-left:var(--wp--preset--spacing--jumbo);box-shadow:var(--wp--preset--shadow--small)"><!-- wp:heading {"textAlign":"center","level":2,"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}}} -->
-<h2 class="wp-block-heading has-text-align-center" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Built around a single project a month', 'origin-canvas' ); ?></h2>
+<div class="wp-block-group has-surface-muted-background-color has-background" style="border-radius:var(--wp--custom--radius--medium);padding-top:var(--wp--preset--spacing--jumbo);padding-right:var(--wp--preset--spacing--jumbo);padding-bottom:var(--wp--preset--spacing--jumbo);padding-left:var(--wp--preset--spacing--jumbo);box-shadow:var(--wp--preset--shadow--small)"><!-- wp:heading {"textAlign":"center","level":2,"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"fontSize":"display"} -->
+<h2 class="wp-block-heading has-display-font-size has-text-align-center" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Built around a single project a month', 'origin-canvas' ); ?></h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"align":"center","textColor":"text-body","fontSize":"regular-plus"} -->

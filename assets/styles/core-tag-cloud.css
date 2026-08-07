@@ -10,8 +10,10 @@
 	border-radius: var(--wp--custom--radius--medium);
 	color: var(--wp--preset--color--text-heading);
 	display: inline-flex;
-	/* Core renders an inline font-size:Npt per tag (count-weighted); the chip
-	   is a uniform UI element, so the variation size must win. */
+	/**
+	 * Core renders an inline font-size:Npt per tag (count-weighted); the chip
+	 * is a uniform UI element, so the variation size must win.
+	 */
 	font-size: var(--wp--preset--font-size--extra-small) !important;
 	padding: 6px 8px;
 	text-decoration: none;
@@ -20,4 +22,10 @@
 
 .is-style-origin-canvas-tag-chip a:hover {
 	background: var(--wp--preset--color--border);
+}
+
+/* Same in-content guard as term-chip: the base rule above only ties
+   post-content's underline on specificity, so make the exclusion decisive. */
+.wp-block-tag-cloud.is-style-origin-canvas-tag-chip a {
+	text-decoration: none;
 }

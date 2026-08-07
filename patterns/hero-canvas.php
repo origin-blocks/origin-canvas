@@ -3,7 +3,7 @@
  * Title: Hero Canvas
  * Slug: origin-canvas/hero-canvas
  * Categories: origin-canvas/hero
- * Keywords: hero, landing, intro, centered, theme, gradient
+ * Keywords: landing, intro, centered, gradient, theme
  * Block Types: core/post-content
  * Inserter: true
  *
@@ -17,13 +17,13 @@
 <p class="has-text-align-center has-primary-color has-text-color has-small-font-size" style="margin-bottom:var(--wp--preset--spacing--small);font-weight:600;letter-spacing:0.08em;text-transform:uppercase"><?php echo esc_html__( 'The Origin Canvas block theme', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
-<!-- wp:heading {"textAlign":"center","level":1,"style":{"spacing":{"margin":{"top":"0","bottom":"0"}},"typography":{"fontSize":"clamp(2.6rem, 4.8vw, 4.4rem)","letterSpacing":"-0.035em","lineHeight":"1.02","fontWeight":"800"}}} -->
-<h1 class="wp-block-heading has-text-align-center" style="margin-top:0;margin-bottom:0;font-size:clamp(2.6rem, 4.8vw, 4.4rem);font-weight:800;letter-spacing:-0.035em;line-height:1.02"><?php echo esc_html__( 'Sites that look designed, not assembled.', 'origin-canvas' ); ?></h1>
+<!-- wp:heading {"textAlign":"center","level":1,"style":{"spacing":{"margin":{"top":"0","bottom":"0"}},"typography":{"letterSpacing":"-0.035em","lineHeight":"1.02","fontWeight":"800"}},"fontSize":"display-2xl"} -->
+<h1 class="wp-block-heading has-text-align-center has-display-2-xl-font-size" style="margin-top:0;margin-bottom:0;font-weight:800;letter-spacing:-0.035em;line-height:1.02"><?php echo esc_html__( 'Sites that look designed, not assembled.', 'origin-canvas' ); ?></h1>
 <!-- /wp:heading -->
 
 <!-- wp:group {"layout":{"type":"constrained","contentSize":"600px"}} -->
-<div class="wp-block-group"><!-- wp:paragraph {"align":"center","textColor":"text-body","fontSize":"regular-plus"} -->
-<p class="has-text-align-center has-text-body-color has-text-color has-regular-plus-font-size"><?php echo esc_html__( 'A Full Site Editing theme where templates, patterns, typography, and color work as one system, so every build starts closer to finished.', 'origin-canvas' ); ?></p>
+<div class="wp-block-group"><!-- wp:paragraph {"align":"center","textColor":"text-body","fontSize":"medium"} -->
+<p class="has-text-align-center has-text-body-color has-text-color has-medium-font-size"><?php echo esc_html__( 'A Full Site Editing theme where templates, patterns, typography, and color work as one system, so every build starts closer to finished.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group -->
 

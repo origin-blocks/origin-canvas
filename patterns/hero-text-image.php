@@ -3,7 +3,7 @@
  * Title: Hero Text + Image
  * Slug: origin-canvas/hero-text-image
  * Categories: origin-canvas/hero
- * Keywords: hero, landing, intro, image, two-column
+ * Keywords: landing, intro, masthead, media
  * Block Types: core/post-content
  * Inserter: true
  *
@@ -18,8 +18,8 @@
 <p class="has-text-align-left has-primary-color has-text-color has-small-font-size" style="margin-bottom:var(--wp--preset--spacing--small);font-weight:600;letter-spacing:0.08em;text-transform:uppercase"><?php echo esc_html__( 'BRAND & WEB', 'origin-canvas' ); ?> &middot; <?php echo esc_html__( 'SINCE 2018', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
-<!-- wp:heading {"textAlign":"left","level":1,"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}}} -->
-<h1 class="wp-block-heading has-text-align-left" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Sites and identities that earn a second look.', 'origin-canvas' ); ?></h1>
+<!-- wp:heading {"textAlign":"left","level":1,"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"fontSize":"display-xl"} -->
+<h1 class="wp-block-heading has-display-xl-font-size has-text-align-left" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Sites and identities that earn a second look.', 'origin-canvas' ); ?></h1>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"align":"left","textColor":"text-body","fontSize":"regular-plus"} -->

@@ -3,7 +3,7 @@
  * Title: Availability Marker
  * Slug: origin-canvas/availability-marker
  * Categories: text
- * Keywords: availability, marker, status, studio
+ * Keywords: status, studio, badge, capacity
  * Block Types: core/post-content
  * Inserter: true
  *

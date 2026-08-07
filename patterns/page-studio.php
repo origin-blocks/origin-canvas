@@ -4,7 +4,7 @@
  * Slug: origin-canvas/page-studio
  * Description: A single-page design for a small studio or portfolio: featured work, process, and a call to action. Insert into a Page and set it as your static front page.
  * Categories: origin-canvas/page
- * Keywords: page, layout, design, template, home
+ * Keywords: layout, template, home, agency
  * Viewport Width: 1500
  * Block Types:
  * Post Types:

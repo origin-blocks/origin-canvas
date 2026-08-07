@@ -7,7 +7,7 @@ Description: A Full Site Editing WordPress block theme for sites that look desig
 Requires at least: 7.0
 Tested up to: 7.0
 Requires PHP: 7.4
-Version: 1.2.0
+Version: 1.3.0
 License: GNU General Public License v3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 Text Domain: origin-canvas
@@ -61,8 +61,10 @@ ol.wp-block-list,
 	list-style-type: decimal;
 }
 
-/* Comment bodies are freeform HTML with no layout container, so the global
-   margin + list-style resets above are not otherwise restored here. */
+/**
+ * Comment bodies are freeform HTML with no layout container, so the global
+ * margin + list-style resets above are not otherwise restored here.
+ */
 .wp-block-comment-content > * + * {
 	margin-block-start: var(--wp--preset--spacing--medium);
 }
@@ -147,6 +149,22 @@ textarea {
 	width: 100%;
 }
 
+/**
+ * Compact search — the sidebar rail only.
+ *
+ * The site-wide field above is sized for a full-width form; in a 373px rail it
+ * reads oversized, so the field and its button drop to 40. Only the padding is
+ * here - the block's own fontSize support handles the type, and core/search has
+ * no padding attribute to set it with. The 404 search keeps the default size.
+ */
+.origin-canvas-search-compact input.wp-block-search__input:not([type="button"]):not([type="reset"]):not([type="submit"]):not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="file"]) {
+	padding: 8px 12px;
+}
+
+.origin-canvas-search-compact .wp-block-search__button {
+	padding: 8px 20px;
+}
+
 input:not([type="button"]):not([type="reset"]):not([type="submit"]):not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="file"])::placeholder,
 textarea::placeholder {
 	color: var(--wp--preset--color--text-muted);
@@ -161,8 +179,8 @@ textarea:hover:not(:disabled):not(:focus) {
 input:not([type="button"]):not([type="reset"]):not([type="submit"]):not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="file"]):focus,
 select:focus,
 textarea:focus {
-	border-color: var(--wp--preset--color--text-heading);
-	box-shadow: 0 0 0 var(--wp--preset--spacing--extra-small) var(--wp--custom--ring--ink);
+	border-color: var(--wp--preset--color--primary);
+	box-shadow: 0 0 0 var(--wp--preset--spacing--extra-small) color-mix(in srgb, var(--wp--preset--color--primary) 25%, transparent);
 	outline: none;
 }
 
@@ -173,6 +191,66 @@ textarea:disabled {
 	border-color: var(--wp--preset--color--input-border);
 	color: var(--wp--preset--color--text-body);
 	cursor: not-allowed;
+}
+
+/* Checkboxes and radios */
+input[type="checkbox"],
+input[type="radio"] {
+	appearance: none;
+	-webkit-appearance: none;
+	background: var(--wp--preset--color--surface-base);
+	border: 1px solid var(--wp--preset--color--input-border);
+	cursor: pointer;
+	height: 20px;
+	margin: 0;
+	position: relative;
+	transition: background 120ms ease, border-color 120ms ease, box-shadow 120ms ease;
+	width: 20px;
+}
+
+input[type="checkbox"] {
+	border-radius: var(--wp--custom--radius--small);
+}
+
+input[type="radio"] {
+	border-radius: 50%;
+}
+
+input[type="checkbox"]:checked,
+input[type="radio"]:checked {
+	background: var(--wp--preset--color--primary);
+	border-color: var(--wp--preset--color--primary);
+}
+
+input[type="checkbox"]:checked::after {
+	border: solid #fff;
+	border-width: 0 2px 2px 0;
+	content: "";
+	height: 9px;
+	left: 6px;
+	position: absolute;
+	top: 3px;
+	transform: rotate(45deg);
+	width: 5px;
+}
+
+input[type="radio"]:checked::after {
+	background: #fff;
+	border-radius: 50%;
+	content: "";
+	height: 8px;
+	left: 50%;
+	position: absolute;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	width: 8px;
+}
+
+input[type="checkbox"]:focus-visible,
+input[type="radio"]:focus-visible {
+	border-color: var(--wp--preset--color--primary);
+	box-shadow: 0 0 0 var(--wp--preset--spacing--extra-small) color-mix(in srgb, var(--wp--preset--color--primary) 25%, transparent);
+	outline: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -278,20 +356,23 @@ textarea:disabled {
 	width: 100%;
 }
 
-/* Sidebar.
-   Widget-to-widget spacing is owned by the group's blockGap (the pattern /
-   theme.json), which WordPress emits as constrained-layout `> * + *
-   margin-block-start`. No flex/gap is set on the wrapper here: a hard flex `gap`
-   would STACK with that constrained margin (they are additive), doubling the gap.
-   The rules below target inner block sub-elements that have no theme.json/blockGap
-   hook, so they legitimately stay CSS. */
+/**
+ * Sidebar.
+ *
+ * Widget-to-widget spacing is owned by the group's blockGap (the pattern /
+ * theme.json), which WordPress emits as constrained-layout `> * + *
+ * margin-block-start`. No flex/gap is set on the wrapper here: a hard flex
+ * `gap` would STACK with that constrained margin (they are additive),
+ * doubling the gap. The rules below target inner block sub-elements that
+ * have no theme.json/blockGap hook, so they legitimately stay CSS.
+ */
 .origin-canvas-sidebar .wp-block-latest-posts__list,
 .origin-canvas-sidebar .wp-block-categories-list,
 .origin-canvas-sidebar .wp-block-archives-list,
 .origin-canvas-sidebar .wp-block-latest-comments {
 	display: flex;
 	flex-direction: column;
-	gap: var(--wp--preset--spacing--small);
+	gap: var(--wp--preset--spacing--medium);
 	list-style: none;
 	margin: 0;
 	padding: 0;
@@ -301,11 +382,35 @@ textarea:disabled {
 	margin-bottom: var(--wp--preset--spacing--extra-small);
 }
 
+/* The title is an inline anchor by default; the date needs to sit under it. */
+.origin-canvas-sidebar .wp-block-latest-posts__post-title {
+	display: block;
+}
+
+/* Category rows. Core prints the post count as a bare text node after the
+   link - there is no element to target - so the row is sized as a flex line
+   and the count inherits the smaller rail type from the list itself. */
+/* The term name and its count are separate blocks in a flex row, so the count
+   needs no styling of its own - it just must not stretch. */
+.origin-canvas-sidebar-categories .wp-block-term-count {
+	flex: none;
+}
+
+/* Term names are chrome - a category or tag, never prose - so they carry no
+   underline. The block renders as a paragraph, which puts core's
+   `:root :where(p a)` rule on the link; theme.json cannot win that (its block
+   styles match at the same specificity but load earlier), so the opt-out lives
+   here, keyed to the block rather than to the sidebar. */
+.wp-block-term-name a {
+	text-decoration: none;
+}
+
 .origin-canvas-sidebar .wp-block-latest-posts__post-date,
 .origin-canvas-sidebar .wp-block-latest-comments__comment-date {
-	color: var(--wp--preset--color--text-muted);
+	color: var(--wp--preset--color--text-body);
 	font-size: var(--wp--preset--font-size--extra-small);
-	font-weight: 500;
+	font-weight: 400;
+	margin-top: var(--wp--preset--spacing--extra-small);
 }
 
 @media (max-width: 781px) {
@@ -364,9 +469,23 @@ textarea:disabled {
 	padding: 0.875rem 0.5rem;
 }
 
-/* Table default font size - must be in CSS because core/table block.json
-   rewrites theme.json selectors to target inner <table>, making wrapper
-   defaults impossible via theme.json. */
+/**
+ * Pagination number links stay plain (opt-in underline system). The selector applies in
+ * both contexts, but only has an EFFECT in the block editor: core adds an underline to
+ * .wp-block-query-pagination-numbers a solely via the block's editor.css. On the front end
+ * the numbers are already undecorated (the global `a { text-decoration: none }` reset), so
+ * this rule is a no-op there. Loaded into the editor iframe via add_editor_style('style.css').
+ */
+.wp-block-query-pagination-numbers .page-numbers,
+.wp-block-comments-pagination-numbers .page-numbers {
+	text-decoration: none;
+}
+
+/**
+ * Table default font size - must be in CSS because core/table block.json
+ * rewrites theme.json selectors to target inner <table>, making wrapper
+ * defaults impossible via theme.json.
+ */
 .wp-block-table > table {
 	font-size: var(--wp--preset--font-size--small);
 }
@@ -375,9 +494,11 @@ textarea:disabled {
 	font-size: inherit;
 }
 
-/* Sticky header: when the header contains a sticky child, make the header
-   wrapper itself the sticky element (its containing block is the page flow, so
-   it can travel), admin-bar-aware, above page content. Front end only. */
+/**
+ * Sticky header: when the header contains a sticky child, make the header
+ * wrapper itself the sticky element (its containing block is the page flow, so
+ * it can travel), admin-bar-aware, above page content. Front end only.
+ */
 body:not(.wp-admin) header:has(> .is-position-sticky) {
 	position: sticky;
 	top: calc(0px + var(--wp-admin--admin-bar--height, 0px));
@@ -388,4 +509,32 @@ body:not(.wp-admin) header:has(> .is-position-sticky) {
 	header:has(> .is-position-sticky) {
 		top: 0;
 	}
+}
+
+/**
+ * TRANSITIONAL back-compat for the removed `display` font-family preset.
+ * REMOVE: 1.5.0 at the earliest, and only if no Display-related report has
+ * arrived since 1.3.0 shipped (the rules mirror current WordPress preset
+ * output — re-check them if core changes how font-family presets are emitted).
+ *
+ * 1.3.0 dropped the `display` preset from theme.json: its stack was
+ * byte-identical to `sans`, and matching by fontFamily string made the editor's
+ * font control tick both entries. Content or global styles saved under earlier
+ * versions may still reference it (block picks, or Display as a global font).
+ * These two rules reproduce the exact CSS WordPress generated for the preset,
+ * so that stored content keeps rendering Inter: the class rule out-ranks the
+ * typography variations' heading rules exactly as before, and the var
+ * definition keeps a global Display font resolving instead of falling through
+ * to the browser default. Non-destructive — stored content is never touched;
+ * loads in the editor canvas too via add_editor_style( 'style.css' ). Known
+ * limitation: stylesheets loading after this one can override these rules at
+ * equal specificity — deliberate targeting of a retired preset's internals is
+ * treated as the customizer's intent.
+ */
+:root {
+	--wp--preset--font-family--display: var(--wp--preset--font-family--sans);
+}
+
+.has-display-font-family {
+	font-family: var(--wp--preset--font-family--display) !important;
 }

@@ -3,7 +3,7 @@
  * Title: Hero Dark
  * Slug: origin-canvas/hero-dark
  * Categories: origin-canvas/hero
- * Keywords: hero, landing, intro, dark, centered
+ * Keywords: landing, intro, centered, inverted
  * Block Types: core/post-content
  * Inserter: true
  *
@@ -11,14 +11,14 @@
  */
 
 ?>
-<!-- wp:group {"tagName":"section","align":"full","style":{"color":{"background":"#111827","text":"#F3F4F6"},"spacing":{"padding":{"top":"var:preset|spacing|colossal","bottom":"var:preset|spacing|colossal"}}},"layout":{"type":"constrained"}} -->
-<section class="wp-block-group alignfull has-text-color has-background" style="color:#F3F4F6;background-color:#111827;padding-top:var(--wp--preset--spacing--colossal);padding-bottom:var(--wp--preset--spacing--colossal)"><!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|large"}},"layout":{"type":"constrained","contentSize":"900px"}} -->
+<!-- wp:group {"tagName":"section","align":"full","style":{"color":{"background":"var(--wp--custom--dark--bg)","text":"var(--wp--custom--dark--text)"},"spacing":{"padding":{"top":"var:preset|spacing|colossal","bottom":"var:preset|spacing|colossal"}}},"layout":{"type":"constrained"}} -->
+<section class="wp-block-group alignfull has-text-color has-background" style="color:var(--wp--custom--dark--text);background-color:var(--wp--custom--dark--bg);padding-top:var(--wp--preset--spacing--colossal);padding-bottom:var(--wp--preset--spacing--colossal)"><!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|large"}},"layout":{"type":"constrained","contentSize":"900px"}} -->
 <div class="wp-block-group"><!-- wp:paragraph {"align":"center","style":{"typography":{"textTransform":"uppercase","fontWeight":"600","letterSpacing":"0.08em"},"spacing":{"margin":{"bottom":"var:preset|spacing|small"}}},"textColor":"primary","fontSize":"small"} -->
 <p class="has-text-align-center has-primary-color has-text-color has-small-font-size" style="margin-bottom:var(--wp--preset--spacing--small);font-weight:600;letter-spacing:0.08em;text-transform:uppercase"><?php echo esc_html__( 'STUDIO', 'origin-canvas' ); ?> &middot; <?php echo esc_html__( 'EST. 2018', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
-<!-- wp:heading {"textAlign":"center","level":1,"style":{"spacing":{"margin":{"top":"0","bottom":"0"}},"color":{"text":"#F3F4F6"}}} -->
-<h1 class="wp-block-heading has-text-align-center has-text-color" style="margin-top:0;margin-bottom:0;color:#F3F4F6"><?php echo esc_html__( 'Quiet, considered work for businesses that have outgrown a templated site.', 'origin-canvas' ); ?></h1>
+<!-- wp:heading {"textAlign":"center","level":1,"style":{"spacing":{"margin":{"top":"0","bottom":"0"}},"color":{"text":"var(--wp--custom--dark--text)"}},"fontSize":"display-xl"} -->
+<h1 class="wp-block-heading has-display-xl-font-size has-text-align-center has-text-color" style="margin-top:0;margin-bottom:0;color:var(--wp--custom--dark--text)"><?php echo esc_html__( 'Quiet, considered work for businesses that have outgrown a templated site.', 'origin-canvas' ); ?></h1>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"align":"center","fontSize":"regular-plus"} -->

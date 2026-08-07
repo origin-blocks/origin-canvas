@@ -1,0 +1,10 @@
+/**
+ * Author card avatar.
+ *
+ * The card is a flex row and core/avatar exposes no width or flex attribute, so
+ * the avatar compresses to fit the row and the circle renders as an oval. The
+ * theme uses the same guard on images and groups in flex rows.
+ */
+.wp-block-avatar.origin-canvas-author-avatar {
+	flex: none;
+}

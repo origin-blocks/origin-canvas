@@ -46,27 +46,47 @@ You should have received a copy of the GNU General Public License along with thi
 
 == Theme Screenshot ==
 
-Theme screenshot image "Hartwell Tea Co. case-study image" (assets/images/cards/card-image-text-1.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+Theme screenshot image "Hartwell Tea Co. case-study image" (patterns/images/card-image-text-1.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
 == Images ==
 
-Pattern image "Hartwell Tea Co. case-study image" (assets/images/cards/card-image-text-1.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+Pattern image "Hartwell Tea Co. case-study image" (patterns/images/card-image-text-1.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
-Pattern image "Westmount Property case-study image" (assets/images/cards/card-image-text-2.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+Pattern image "Hartwell Tea packaging detail image" (patterns/images/hartwell-tea-detail.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
-Pattern image "Linden & Lark Florist case-study image" (assets/images/cards/card-image-text-3.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+Pattern image "Westmount Property case-study image" (patterns/images/card-image-text-2.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
-Pattern image "Studio notes image" (assets/images/cards/card-blog-3.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+Pattern image "Linden & Lark Florist case-study image" (patterns/images/card-image-text-3.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
-Pattern image "Week-one client brief image" (assets/images/cards/card-blog-1.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+Pattern image "Studio notes image" (patterns/images/card-blog-3.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+
+Pattern image "Week-one client brief image" (patterns/images/card-blog-1.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
 Pattern image "Shared studio worktable image" (patterns/images/workspace-laptop.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
-Pattern image "Claire Bennett team card image" (assets/images/cards/card-team-1.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+Pattern image "Desk notebook overhead image" (patterns/images/desk-notebook-overhead.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
-Pattern image "Sarah Jenkins testimonial avatar image" (assets/images/cards/card-testimonial-1.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+Pattern image "Michael Hughes testimonial portrait" (patterns/images/avatar-michael-hughes.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+
+Pattern image "Sarah Jenkins testimonial portrait" (patterns/images/avatar-sarah-jenkins.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+
+Pattern image "Emma Whitaker testimonial portrait" (patterns/images/avatar-emma-whitaker.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+
+Pattern image "Claire Bennett team portrait" (patterns/images/avatar-claire-bennett.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+
+Pattern image "Marcus Holloway team portrait" (patterns/images/avatar-marcus-holloway.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+
+Pattern image "Hannah Wright team portrait" (patterns/images/avatar-hannah-wright.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+
+Pattern image "Sarah Jenkins testimonial avatar image" (patterns/images/card-testimonial-1.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
 Pattern image "Hero split studio interior cover image" (patterns/images/architecture-interior.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+
+Pattern image "Tom Bradshaw testimonial avatar image" (patterns/images/testimonial-highlight-1.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+
+Pattern image "Studio worktable flat-lay image" (patterns/images/studio-worktable.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+
+Pattern image "Studio launch-review image" (patterns/images/studio-review.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
 == Fonts ==
 
@@ -84,7 +104,21 @@ The following fonts are loaded locally from the theme's assets:
 
 The check icon used by the Check list block style is sourced from [Lucide](https://lucide.dev) ([source](https://github.com/lucide-icons/lucide)) licensed under the [ISC License](https://lucide.dev/license).
 
+The quotation-mark glyph used by the testimonial patterns (embedded as a data-URI mask in assets/styles/core-group.css) is original artwork created for Origin Canvas, released by Origin under GPLv3.
+
 == Changelog ==
+
+= 1.3.0 - 7 August 2026 =
+* Added patterns for text sections, FAQs, teams, pricing, features and testimonials, taking the library to 61.
+* Added a "Minimal" style for the Accordion block — flat hairline rows and a fine open/close mark instead of the default card treatment. Apply it from the block's Styles panel; an Accordion you have not styled is unchanged.
+* Stepped the heading ladder so h1-h6 read as distinct levels in your content, reducing h2 to 36px and h3 to 30px from their previous larger sizes. Headings inside patterns are pinned to their own sizes and are unaffected.
+* Rebuilt the sidebar as four sections behind the theme's eyebrow treatment — search, recent posts, categories and tags — held by a single hairline, with the category list capped and ordered by post count.
+* Closed the single post with an author card carrying the avatar, name and bio, and settled the spacing between the article, the card and the comments.
+* Added a single-post template with a sidebar.
+* Replaced six pattern categories that duplicated ones WordPress already provides, so Text and Testimonials no longer appear twice in the inserter.
+* Reworked pattern keywords across the library, so searches for terms like headshot, masthead or endorsement reach the right pattern.
+* Fixed the testimonial avatar in the feature split, which rendered as an oval when its row was squeezed.
+* Retired the redundant Display font preset, which was identical to Sans and made the editor's font control tick both entries. Existing content keeps rendering Inter.
 
 = 1.2.0 - 9 July 2026 =
 * Switched the default button fill to solid dark (ink) and made pink an opt-in 'Fill Primary' style. Existing plain buttons will appear dark after updating — reapply Fill Primary to restore pink.
