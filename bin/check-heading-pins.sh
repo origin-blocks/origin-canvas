@@ -277,7 +277,9 @@ HEADING = re.compile(
     r'(?:(?<=^)|(?<=[\s,>+~(.]))'
     r'(h[1-6]|wp-block-'
     r'(heading|post-title|query-title|comments-title|accordion-heading))\b')
-PINNED  = re.compile(r'(^|[\s;{])(font-weight|letter-spacing)\s*:', re.M)
+# `font:` is included because the shorthand sets weight — `font: 800 1rem/1.2 Inter`
+# pins a heading exactly as `font-weight` does.
+PINNED  = re.compile(r'(^|[\s;{])(font-weight|letter-spacing|font)\s*:', re.M)
 RULE    = re.compile(r'([^{}]+)\{([^{}]*)\}', re.S)
 
 fail = False
