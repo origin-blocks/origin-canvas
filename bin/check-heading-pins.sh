@@ -20,8 +20,10 @@ status=0
 EXEMPT='patterns/(breath-statement|text-large-statement)\.php'
 
 # Every block that renders as a heading. A wp:heading-only sweep once missed twelve
-# nodes across the other three, which is why they are named individually here.
-BLOCKS='wp:heading|wp:accordion-heading|wp:query-title|wp:post-title'
+# nodes across the others, which is why they are named individually here.
+# Not listed, and deliberately so: wp:site-title renders a <p> at level 0, so the
+# element default cannot reach it and its block-level weight is the only lever.
+BLOCKS='wp:heading|wp:accordion-heading|wp:query-title|wp:post-title|wp:comments-title'
 
 report() {
 	printf '  ✗  %s\n' "$1"
@@ -50,11 +52,17 @@ while IFS= read -r hit; do
 done < <(grep -rnoE 'toggle-title" style="letter-spacing' patterns/ 2>/dev/null || true)
 
 # 4. A heading's size must be a preset. A hand-written clamp scales on its own terms
-#    and cannot be changed from the theme.
+#    and cannot be changed from the theme. Both halves are checked: the size can
+#    desync exactly the way weight and tracking can.
 while IFS= read -r hit; do
 	[ -z "$hit" ] && continue
 	report "raw font size on a heading: ${hit%%:*}:$(printf '%s' "$hit" | cut -d: -f2)"
-done < <(grep -rnoE "<!-- (${BLOCKS}) [^>]*\"fontSize\":\"(clamp|[0-9])" patterns/ 2>/dev/null || true)
+done < <(grep -rnoE "<!-- (${BLOCKS}) [^>]*\"fontSize\":\"(clamp|[0-9]|var)" patterns/ 2>/dev/null || true)
+
+while IFS= read -r hit; do
+	[ -z "$hit" ] && continue
+	report "raw font size on a rendered heading: ${hit%%:*}:$(printf '%s' "$hit" | cut -d: -f2)"
+done < <(grep -rnoE '<h[1-6][^>]*style="[^"]*font-size:[[:space:]]*(clamp|[0-9]|var)' patterns/ 2>/dev/null || true)
 
 # 5. Weight lives at one node. A per-level pin defeats any variation that sets it.
 python3 - <<'PY' || status=1
