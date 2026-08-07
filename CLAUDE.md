@@ -151,6 +151,38 @@ The consequence of getting this wrong is silent and wide: changing an element de
 `theme.json` restyles every bare pattern heading at once. A heading-ladder change intended
 for authored content must **never** move a shipped pattern's rendering.
 
+**The other half of the rule: patterns pin size, and NEVER weight or tracking.**
+
+Size is composition — our decision, and it must survive a change to the element ladder.
+Weight and tracking are **voice** — the site owner's decision, made once by choosing a style
+variation. Tracking rides weight (heavier wants tighter), so the two travel together and both
+live at `styles.elements.heading`, the single lever.
+
+An inline `fontWeight` on a block emits a `style="…"` attribute, which beats every
+`:root :where(…)` rule a variation can emit. One pinned heading is a heading the user cannot
+restyle — and "eleven style variations, one click to reskin" is a claim on our own landing
+page.
+
+Every heading surface, and who owns its weight:
+
+| Surface | Weight owner |
+|---|---|
+| `wp:heading` | variation |
+| `wp:accordion-heading` | variation |
+| `wp:query-title` | variation |
+| `wp:post-title` | variation |
+| `core/comments-title` | variation |
+| `core/site-title` | **the block node** — renders `<p>` at `level: 0`, so `elements.heading` cannot reach it |
+| `.comment-reply-title` | **the block node** — form furniture; pinned in `theme.json` AND `core-comments.css`, change both or neither |
+
+**The test for a new case: does it render as `h1`–`h6`?** If yes, `elements.heading` reaches
+it and weight belongs to the variation. If it renders as a `<p>` — as the site title does at
+`level: 0` — the block node is the only lever and a deliberate pin is correct.
+
+**One content exemption:** the statement register (`breath-statement`,
+`text-large-statement`) keeps `fontWeight: 500`. Being *lighter* than the theme's voice is its
+identity; following the swing would make it just another big heading.
+
 ### 8. Shared components are judged against every page that uses them
 A change to a template part (header, footer) or to a widely-reused pattern must be justified
 against that component's **full usage across the theme** — never against one page composition.
