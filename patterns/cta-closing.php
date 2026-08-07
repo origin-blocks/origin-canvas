@@ -20,8 +20,8 @@
 <p class="has-text-align-center has-primary-color has-text-color has-small-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--large);font-weight:600;letter-spacing:0.08em;text-transform:uppercase"><?php echo esc_html__( 'Ready when you are', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
-<!-- wp:heading {"textAlign":"center","level":2,"style":{"typography":{"fontSize":"clamp(2.4rem, 5vw, 3.6rem)","fontWeight":"800","letterSpacing":"-0.035em"},"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|medium"}},"color":{"text":"var(--wp--custom--dark--text)"}}} -->
-<h2 class="wp-block-heading has-text-align-center has-text-color" style="color:var(--wp--custom--dark--text);margin-top:0;margin-bottom:var(--wp--preset--spacing--medium);font-size:clamp(2.4rem, 5vw, 3.6rem);font-weight:800;letter-spacing:-0.035em"><?php echo esc_html__( 'Start closer to finished.', 'origin-canvas' ); ?></h2>
+<!-- wp:heading {"textAlign":"center","level":2,"style":{"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|medium"}},"color":{"text":"var(--wp--custom--dark--text)"}},"fontSize":"display"} -->
+<h2 class="wp-block-heading has-text-align-center has-text-color has-display-font-size" style="color:var(--wp--custom--dark--text);margin-top:0;margin-bottom:var(--wp--preset--spacing--medium)"><?php echo esc_html__( 'Start closer to finished.', 'origin-canvas' ); ?></h2>
 <!-- /wp:heading -->
 
 <!-- wp:group {"layout":{"type":"constrained","contentSize":"540px"}} -->
