@@ -270,8 +270,12 @@ import glob, json, re, sys
 # Real CSS is multi-line, so the whole file is read and rule bodies are matched across
 # newlines. A line-oriented grep only catches `h2 { font-weight: 800 }` written on one
 # line, which is not how anyone writes it.
+# A heading may be named anywhere in a selector: after a combinator, inside :where()
+# or :is(), or welded into a compound like `.is-style-x.wp-block-heading`. The leading
+# boundary therefore allows `(` and `.` too — this theme's own CSS leans on :where().
 HEADING = re.compile(
-    r'(^|[\s,>+~])(h[1-6]|\.wp-block-'
+    r'(?:(?<=^)|(?<=[\s,>+~(.]))'
+    r'(h[1-6]|wp-block-'
     r'(heading|post-title|query-title|comments-title|accordion-heading))\b')
 PINNED  = re.compile(r'(^|[\s;{])(font-weight|letter-spacing)\s*:', re.M)
 RULE    = re.compile(r'([^{}]+)\{([^{}]*)\}', re.S)
@@ -301,18 +305,25 @@ for path in sorted(glob.glob('assets/styles/*.css')) + ['style.css']:
     except IOError:
         pass
 
-def walk(node, path):
+def walk(node, path, label):
     if isinstance(node, dict):
         for k, v in node.items():
             if k == 'css' and isinstance(v, str):
-                scan(v, 'theme.json %s' % path)
+                scan(v, '%s %s' % (label, path))
             else:
-                walk(v, '%s.%s' % (path, k))
+                walk(v, '%s.%s' % (path, k), label)
     elif isinstance(node, list):
         for i, v in enumerate(node):
-            walk(v, '%s[%d]' % (path, i))
+            walk(v, '%s[%d]' % (path, i), label)
 
-walk(json.load(open('theme.json')).get('styles', {}), 'styles')
+# theme.json AND every variation file — a variation may carry css strings too, and one
+# selected at runtime overrides headings exactly as the base would.
+walk(json.load(open('theme.json')).get('styles', {}), 'styles', 'theme.json')
+for f in sorted(glob.glob('styles/**/*.json', recursive=True)):
+    try:
+        walk(json.load(open(f)).get('styles', {}), 'styles', f)
+    except ValueError:
+        pass
 sys.exit(1 if fail else 0)
 PY
 

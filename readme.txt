@@ -109,7 +109,7 @@ The quotation-mark glyph used by the testimonial patterns (embedded as a data-UR
 == Changelog ==
 
 = 1.3.1 - 7 August 2026 =
-* Lightened the default heading weight and handed heading weight to the style variations. Headings in your content and in patterns set one step lighter than before, and switching style variation reaches headings inside patterns, which previously kept their own weight. A few deliberate exceptions keep theirs: the large statement sections, the site title and the comment reply heading.
+* Lightened the default heading weight and handed heading weight to the style variations. Headings in your content set lighter than before, as do the pattern headings that were heavier than the default — the landing hero and closing call to action drop furthest, having been heavier still. Switching style variation reaches headings inside patterns, which previously kept their own weight. A few deliberate exceptions keep theirs: the large statement sections, the site title and the comment reply heading.
 * Put the landing page headings on the type scale, replacing hand-written sizes so they can be changed from the theme.
 * Fixed the landing hero asking for a weight heavier than the bundled fonts provide, which the browser had been faking.
 
