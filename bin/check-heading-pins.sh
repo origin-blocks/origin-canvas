@@ -19,14 +19,16 @@ status=0
 # its identity. The exemption is per FILE AND per PROPERTY, not per file — the two
 # differ, and a blanket file skip would let breath-statement gain a tracking pin it
 # does not have.
+# Keyed on file, property AND value: the rule is that these files keep exactly what
+# they already have, so changing 500 to 800 must fail like any other new pin.
 exempt() {
-	case "$1:$2" in
-		*breath-statement.php:fontWeight)                     return 0 ;;
-		*text-large-statement.php:fontWeight)                 return 0 ;;
-		*text-large-statement.php:letterSpacing)              return 0 ;;
-		*breath-statement.php:font-weight)                    return 0 ;;
-		*text-large-statement.php:font-weight)                return 0 ;;
-		*text-large-statement.php:letter-spacing)             return 0 ;;
+	case "$1|$2|$3" in
+		*breath-statement.php\|fontWeight\|500)            return 0 ;;
+		*breath-statement.php\|font-weight\|500)           return 0 ;;
+		*text-large-statement.php\|fontWeight\|500)        return 0 ;;
+		*text-large-statement.php\|font-weight\|500)       return 0 ;;
+		*text-large-statement.php\|letterSpacing\|-0.01em) return 0 ;;
+		*text-large-statement.php\|letter-spacing\|-0.01em) return 0 ;;
 	esac
 	return 1
 }
@@ -55,9 +57,10 @@ for prop in fontWeight letterSpacing; do
 	while IFS= read -r hit; do
 		[ -z "$hit" ] && continue
 		file="${hit%%:*}"
-		exempt "$file" "$prop" && continue
-		report "pins ${prop}: ${file}:$(printf '%s' "$hit" | cut -d: -f2)"
-	done < <(grep -rnoE "<!-- (${BLOCKS}) [^>]*\"${prop}\"" patterns/ 2>/dev/null || true)
+		val=$(printf '%s' "$hit" | grep -oE "\"${prop}\":\"[^\"]*\"" | head -1 | cut -d'"' -f4)
+		exempt "$file" "$prop" "$val" && continue
+		report "pins ${prop}:${val}: ${file}:$(printf '%s' "$hit" | cut -d: -f2)"
+	done < <(grep -rnoE "<!-- (${BLOCKS}) [^>]*\"${prop}\":\"[^\"]*\"" patterns/ 2>/dev/null || true)
 done
 
 # 2. Saved HTML — the half a JSON-only check misses. Removing one and leaving the
@@ -66,9 +69,10 @@ for prop in font-weight letter-spacing; do
 	while IFS= read -r hit; do
 		[ -z "$hit" ] && continue
 		file="${hit%%:*}"
-		exempt "$file" "$prop" && continue
-		report "rendered tag sets ${prop}: ${file}:$(printf '%s' "$hit" | cut -d: -f2)"
-	done < <(grep -rnoE "<h[1-6][^>]*style=\"[^\"]*${prop}:" patterns/ 2>/dev/null || true)
+		val=$(printf '%s' "$hit" | grep -oE "${prop}:[^;\"]*" | head -1 | cut -d: -f2)
+		exempt "$file" "$prop" "$val" && continue
+		report "rendered tag sets ${prop}:${val}: ${file}:$(printf '%s' "$hit" | cut -d: -f2)"
+	done < <(grep -rnoE "<h[1-6][^>]*style=\"[^\"]*${prop}:[^;\"]*" patterns/ 2>/dev/null || true)
 done
 
 # 3. The accordion question carries its tracking on an inner span, not the block.
@@ -128,6 +132,20 @@ BLOCKS = ('core/heading', 'core/accordion-heading', 'core/post-title',
 
 fail = False
 
+def walk(node, path):
+    """Every typography.<prop> at any depth — a pin nested under elements.link
+    overrides linked heading text just as a direct one does."""
+    if not isinstance(node, dict):
+        return
+    typ = node.get('typography')
+    if isinstance(typ, dict):
+        for prop in PROPS:
+            if prop in typ:
+                yield prop, path
+    for key, val in node.items():
+        if key != 'typography' and isinstance(val, dict):
+            yield from walk(val, '%s.%s' % (path, key))
+
 def check(styles, label, require_base):
     global fail
     e = styles.get('elements', {})
@@ -136,14 +154,19 @@ def check(styles, label, require_base):
         if bad:
             print('  ✗  %s: per-level heading %s pin: %s' % (label, prop, ', '.join(bad)))
             fail = True
-        for blk in BLOCKS:
-            if prop in styles.get('blocks', {}).get(blk, {}).get('typography', {}):
-                print('  ✗  %s: %s pins %s — it is a heading and follows the variation'
-                      % (label, blk, prop))
-                fail = True
         if require_base and e.get('heading', {}).get('typography', {}).get(prop) is None:
             print('  ✗  %s: elements.heading has no %s — the single lever is missing'
                   % (label, prop))
+            fail = True
+
+    # Heading blocks, at ANY depth beneath them.
+    for blk in BLOCKS:
+        node = styles.get('blocks', {}).get(blk)
+        if not node:
+            continue
+        for prop, path in walk(node, blk):
+            print('  ✗  %s: %s pins %s at %s — it is a heading and follows the variation'
+                  % (label, blk, prop, path))
             fail = True
 
 check(json.load(open('theme.json'))['styles'], 'theme.json', True)
