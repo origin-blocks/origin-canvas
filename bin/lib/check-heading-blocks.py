@@ -92,6 +92,10 @@ def check_attributes(path, line_no, base, block, attrs):
 def check_saved_tag(path, line_no, base, size, window):
     """The comment and the saved markup must agree — a half-edit leaves the rendering
     wrong while the attributes look right."""
+    # A browser ignores CSS comments, so `style="font-weight/**/:800"` still pins.
+    # Strip them before matching rather than allowing for them in every pattern.
+    window = re.sub(r'/\*.*?\*/', '', window, flags=re.S)
+
     match = re.search(r'<(h[1-6])[^>]*>', window)
     if not match:
         return

@@ -186,7 +186,17 @@ RULE    = re.compile(r'([^{}]+)\{([^{}]*)\}', re.S)
 
 fail = False
 
+COMMENT_CSS = re.compile(r'/\*.*?\*/', re.S)
+
+
+def strip_comments(css):
+    """A browser ignores comments, so `font-weight/**/: 800` still pins. Remove them
+    before matching rather than trying to allow for them in every pattern."""
+    return COMMENT_CSS.sub('', css)
+
+
 def scan(css, label):
+    css = strip_comments(css)
     """Report a rule only if a selector that is NOT the sanctioned exception targets a
     heading. `.comment-reply-title, h2 { … }` must fail on the h2 half."""
     global fail
@@ -223,6 +233,7 @@ def scan_scoped(css, label):
     or `& a { … }` pins the heading with no heading selector to match. Inside such a
     block, ANY weight or tracking declaration counts."""
     global fail
+    css = strip_comments(css)
     for sel, body in RULE.findall(css):
         if PINNED.search(body):
             print('  ✗  CSS sets heading weight or tracking: %s — %s (block-scoped)'
