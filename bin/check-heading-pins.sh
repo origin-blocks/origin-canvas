@@ -261,6 +261,35 @@ for f in sorted(glob.glob('styles/**/*.json', recursive=True)):
 sys.exit(1 if fail else 0)
 PY
 
+# 6. CSS is the last way in. A rule targeting a heading tag or a heading block's class
+#    overrides the single lever exactly as a theme.json pin would, and the structured
+#    scans above cannot see it — including the `css` strings inside theme.json.
+while IFS= read -r hit; do
+	[ -z "$hit" ] && continue
+	report "CSS sets heading weight or tracking: $hit"
+done < <(
+	{
+		grep -rnE '(^|[^-a-z])(h[1-6]|\.wp-block-(heading|post-title|query-title|comments-title|accordion-heading))[^{]*\{[^}]*(font-weight|letter-spacing)' \
+			assets/styles/ style.css 2>/dev/null || true
+		python3 - <<'PY' 2>/dev/null || true
+import json, re
+d = json.load(open('theme.json'))
+def walk(node, path):
+    if isinstance(node, dict):
+        for k, v in node.items():
+            if k == 'css' and isinstance(v, str):
+                if re.search(r'(h[1-6]|wp-block-(heading|post-title|query-title|comments-title|accordion-heading))[^{]*\{[^}]*(font-weight|letter-spacing)', v):
+                    print('theme.json css at %s' % path)
+            else:
+                walk(v, '%s.%s' % (path, k))
+    elif isinstance(node, list):
+        for i, v in enumerate(node):
+            walk(v, '%s[%d]' % (path, i))
+walk(d.get('styles', {}), 'styles')
+PY
+	} | grep -v 'comment-reply-title' || true
+)
+
 if [ $status -eq 0 ]; then
 	echo "Heading pins:"
 	echo "  ✓  no pattern heading pins weight or tracking (statement register excepted)"
