@@ -79,11 +79,12 @@ def check_attributes(path, line_no, base, block, attrs):
         where = ' at style.%s' % trail if trail else ' in style.typography'
         bad('%s:%d sets a raw font size%s: %s' % (path, line_no, where, value))
 
-    # Rule 7 reaches wp:heading, which is composed content. It does not reach a
-    # post-title in a hidden-* scaffold: that renders the page's own title and should
-    # inherit the h1 ladder. 7 of the 9 post-titles here do exactly that.
-    if block == 'heading' and size is None:
-        bad('%s:%d wp:heading states no fontSize' % (path, line_no))
+    # Rule 7 reaches the blocks that ARE composed content and save their own markup:
+    # wp:heading and wp:accordion-heading. It does not reach a post-title in a
+    # hidden-* scaffold, which renders the page's own title and should inherit the h1
+    # ladder — 7 of the 9 post-titles here do exactly that.
+    if block in ('heading', 'accordion-heading') and size is None:
+        bad('%s:%d wp:%s states no fontSize' % (path, line_no, block))
 
     return size
 
