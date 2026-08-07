@@ -76,15 +76,17 @@ def check_saved_tag(path, line_no, base, size, window):
         return
     tag = match.group(0)
 
+    # Tolerant of serialization: space before the colon, upper case, and single- or
+    # double-quoted style attributes. `font-weight : 800` pins exactly as tightly.
     for prop in PROPS:
         css = CSS_NAME[prop]
-        found = re.search(r'%s:\s*([^;"]+)' % css, tag)
+        found = re.search(r'%s\s*:\s*([^;"\']+)' % css, tag, re.I)
         if found:
             value = found.group(1).strip()
             if (base, prop, value) not in EXEMPT:
                 bad('%s:%d rendered tag sets %s:%s' % (path, line_no, css, value))
 
-    if re.search(r'font-size:', tag):
+    if re.search(r'font-size\s*:', tag, re.I):
         bad('%s:%d rendered heading sets font-size inline' % (path, line_no))
 
     if size is not None:
@@ -111,8 +113,19 @@ def assert_exemptions():
         # lines and indented with tabs.
         flat = re.sub(r'\s+', '', source)
         if '"%s":"%s"' % (prop, value) not in flat:
-            bad('%s no longer pins %s:%s — the statement register keeps exactly what it '
-                'has' % (path, prop, value))
+            bad('%s no longer pins %s:%s in the block — the statement register keeps '
+                'exactly what it has' % (path, prop, value))
+
+        # And in the saved markup: dropping it from one layer leaves the other lying.
+        css = CSS_NAME[prop]
+        tag = re.search(r'<h[1-6][^>]*>', source)
+        if not tag:
+            bad('%s has no heading tag to carry its %s pin' % (path, prop))
+            continue
+        found = re.search(r'%s\s*:\s*([^;"\']+)' % css, tag.group(0), re.I)
+        if not found or found.group(1).strip() != value:
+            bad('%s no longer sets %s:%s on the tag — the statement register keeps '
+                'exactly what it has' % (path, css, value))
 
 
 PRESETS = presets()

@@ -39,7 +39,7 @@ while IFS= read -r hit; do
 	[ -z "$hit" ] && continue
 	report "accordion span still styled: ${hit%%:*}:$(printf '%s' "$hit" | cut -d: -f2)"
 done < <(grep -rnoE '<span[^>]*toggle-title[^>]*>' patterns/ 2>/dev/null \
-	| grep -E 'style="[^"]*(font-weight|letter-spacing):' || true)
+	| grep -iE 'style=.[^"'"'"']*(font-weight|letter-spacing)[[:space:]]*:' || true)
 
 # 5. Weight AND tracking live at one node. Either pinned per level defeats a variation
 #    that sets it, so both are checked and both must be present on the base.
