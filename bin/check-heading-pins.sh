@@ -80,9 +80,17 @@ done < <(grep -rnoE 'toggle-title" style="letter-spacing' patterns/ 2>/dev/null 
 # 4. A heading's size must be a preset. A hand-written clamp scales on its own terms
 #    and cannot be changed from the theme. Both halves are checked: the size can
 #    desync exactly the way weight and tracking can.
-# An allowlist, not a blacklist: the invariant is "the size IS a preset", so anything
-# that is not one fails. A blacklist of clamp/digits/var would miss calc(), min(),
-# max() and a bare .875rem.
+# An allowlist, not a blacklist: the invariant is "IF a size is stated, it is a
+# preset", so anything else fails. A blacklist of clamp/digits/var would miss calc(),
+# min(), max() and a bare .875rem.
+#
+# A STATED size must be a preset; a heading is not required to state one. The two are
+# different rules and only the first is mechanical. Rule 7 requires a preset on
+# `wp:heading`, which is composed content. It does not reach `wp:post-title` in a
+# hidden-* template scaffold: that block renders the page's own title, and inheriting
+# the h1 ladder is the correct behaviour there — 7 of the 9 post-titles in this theme
+# do exactly that, while the 2 in blog loops state a size because the title is a card
+# element. Encoding "must state a size" would flag all 7 as defects.
 while IFS= read -r hit; do
 	[ -z "$hit" ] && continue
 	report "size is not a preset: ${hit%%:*}:$(printf '%s' "$hit" | cut -d: -f2)"
@@ -95,6 +103,15 @@ while IFS= read -r hit; do
 	[ -z "$hit" ] && continue
 	report "rendered heading sets font-size inline: ${hit%%:*}:$(printf '%s' "$hit" | cut -d: -f2)"
 done < <(grep -rnoE '<h[1-6][^>]*style="[^"]*font-size:' patterns/ 2>/dev/null || true)
+
+# Rule 7 proper: a wp:heading is composed content and must state its size, so that a
+# change to the element ladder cannot restyle a shipped pattern. This applies to
+# wp:heading only — see the note above on why post-title in a scaffold is exempt.
+while IFS= read -r hit; do
+	[ -z "$hit" ] && continue
+	report "wp:heading states no fontSize: ${hit%%:*}:$(printf '%s' "$hit" | cut -d: -f2)"
+done < <(grep -rnoE '<!-- wp:heading [^>]*-->' patterns/ 2>/dev/null \
+	| grep -v '"fontSize"' || true)
 
 # 5. Weight AND tracking live at one node. Either pinned per level defeats a variation
 #    that sets it, so both are checked and both must be present on the base.
@@ -147,7 +164,7 @@ PY
 if [ $status -eq 0 ]; then
 	echo "Heading pins:"
 	echo "  ✓  no pattern heading pins weight or tracking (statement register excepted)"
-	echo "  ✓  every heading size is a preset, in the block and in the saved markup"
+	echo "  ✓  every wp:heading states a size, and every stated size is a preset"
 	echo "  ✓  heading weight and tracking live only at styles.elements.heading"
 fi
 
