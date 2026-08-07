@@ -42,6 +42,13 @@ report() {
 	status=1
 }
 
+# The legal sizes, read from theme.json rather than hardcoded, so adding a scale step
+# does not silently make this check wrong.
+PRESETS=$(python3 -c "
+import json
+d = json.load(open('theme.json'))
+print('|'.join(s['slug'] for s in d['settings']['typography']['fontSizes']))")
+
 # 1. Block comment JSON — the attribute the editor round-trips. Checked one property
 #    at a time so the exemption can be property-specific.
 for prop in fontWeight letterSpacing; do
@@ -73,32 +80,67 @@ done < <(grep -rnoE 'toggle-title" style="letter-spacing' patterns/ 2>/dev/null 
 # 4. A heading's size must be a preset. A hand-written clamp scales on its own terms
 #    and cannot be changed from the theme. Both halves are checked: the size can
 #    desync exactly the way weight and tracking can.
+# An allowlist, not a blacklist: the invariant is "the size IS a preset", so anything
+# that is not one fails. A blacklist of clamp/digits/var would miss calc(), min(),
+# max() and a bare .875rem.
 while IFS= read -r hit; do
 	[ -z "$hit" ] && continue
-	report "raw font size on a heading: ${hit%%:*}:$(printf '%s' "$hit" | cut -d: -f2)"
-done < <(grep -rnoE "<!-- (${BLOCKS}) [^>]*\"fontSize\":\"(clamp|[0-9]|var)" patterns/ 2>/dev/null || true)
+	report "size is not a preset: ${hit%%:*}:$(printf '%s' "$hit" | cut -d: -f2)"
+done < <(grep -rnoE "<!-- (${BLOCKS}) [^>]*\"fontSize\":\"[^\"]*\"" patterns/ 2>/dev/null \
+	| grep -vE "\"fontSize\":\"(${PRESETS})\"" || true)
 
+# A heading's rendered tag must carry NO inline font-size at all — the preset arrives
+# as a has-<slug>-font-size class.
 while IFS= read -r hit; do
 	[ -z "$hit" ] && continue
-	report "raw font size on a rendered heading: ${hit%%:*}:$(printf '%s' "$hit" | cut -d: -f2)"
-done < <(grep -rnoE '<h[1-6][^>]*style="[^"]*font-size:[[:space:]]*(clamp|[0-9]|var)' patterns/ 2>/dev/null || true)
+	report "rendered heading sets font-size inline: ${hit%%:*}:$(printf '%s' "$hit" | cut -d: -f2)"
+done < <(grep -rnoE '<h[1-6][^>]*style="[^"]*font-size:' patterns/ 2>/dev/null || true)
 
 # 5. Weight AND tracking live at one node. Either pinned per level defeats a variation
 #    that sets it, so both are checked and both must be present on the base.
 python3 - <<'PY' || status=1
-import json, sys
-d = json.load(open('theme.json'))
-e = d['styles']['elements']
+import glob, json, sys
+
+PROPS  = ('fontWeight', 'letterSpacing')
+LEVELS = ('h1', 'h2', 'h3', 'h4', 'h5', 'h6')
+
+# Heading-role blocks. core/site-title is absent on purpose: it renders a <p> at
+# level 0, so elements.heading cannot reach it and its own weight is the only lever.
+BLOCKS = ('core/heading', 'core/post-title', 'core/query-title', 'core/comments-title')
+
 fail = False
-for prop in ('fontWeight', 'letterSpacing'):
-    bad = [k for k in ('h1','h2','h3','h4','h5','h6')
-           if prop in e.get(k, {}).get('typography', {})]
-    if bad:
-        print('  ✗  per-level heading %s pin: %s' % (prop, ', '.join(bad)))
+
+def check(styles, label, require_base):
+    global fail
+    e = styles.get('elements', {})
+    for prop in PROPS:
+        bad = [k for k in LEVELS if prop in e.get(k, {}).get('typography', {})]
+        if bad:
+            print('  ✗  %s: per-level heading %s pin: %s' % (label, prop, ', '.join(bad)))
+            fail = True
+        for blk in BLOCKS:
+            if prop in styles.get('blocks', {}).get(blk, {}).get('typography', {}):
+                print('  ✗  %s: %s pins %s — it is a heading and follows the variation'
+                      % (label, blk, prop))
+                fail = True
+        if require_base and e.get('heading', {}).get('typography', {}).get(prop) is None:
+            print('  ✗  %s: elements.heading has no %s — the single lever is missing'
+                  % (label, prop))
+            fail = True
+
+check(json.load(open('theme.json'))['styles'], 'theme.json', True)
+
+# A variation may set elements.heading — that is the whole point — but must not pin a
+# level or a heading block, which would defeat itself.
+for f in sorted(glob.glob('styles/**/*.json', recursive=True)):
+    try:
+        d = json.load(open(f))
+    except ValueError:
+        print('  ✗  %s: invalid JSON' % f)
         fail = True
-    if e['heading']['typography'].get(prop) is None:
-        print('  ✗  elements.heading has no %s — the single lever is missing' % prop)
-        fail = True
+        continue
+    check(d.get('styles', {}), f, False)
+
 sys.exit(1 if fail else 0)
 PY
 
