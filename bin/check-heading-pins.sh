@@ -95,11 +95,13 @@ done < <(grep -rnoE 'toggle-title" style="letter-spacing' patterns/ 2>/dev/null 
 # the h1 ladder is the correct behaviour there — 7 of the 9 post-titles in this theme
 # do exactly that, while the 2 in blog loops state a size because the title is a card
 # element. Encoding "must state a size" would flag all 7 as defects.
+# The closing quote is part of the match: without it "huge-custom" satisfies a
+# "huge" alternation and a bogus size passes as a preset.
 while IFS= read -r hit; do
 	[ -z "$hit" ] && continue
 	report "size is not a preset: ${hit%%:*}:$(printf '%s' "$hit" | cut -d: -f2)"
 done < <(grep -rnoE "<!-- (${BLOCKS}) [^>]*\"fontSize\":\"[^\"]*\"" patterns/ 2>/dev/null \
-	| grep -vE "\"fontSize\":\"(${PRESETS})\"" || true)
+	| grep -vE "\"fontSize\":\"(${PRESETS})\"([,}]|$)" || true)
 
 # A heading's rendered tag must carry NO inline font-size at all — the preset arrives
 # as a has-<slug>-font-size class.
@@ -126,7 +128,9 @@ fail = False
 for path in sorted(glob.glob('patterns/*.php')):
     lines = open(path).read().split('\n')
     for i, line in enumerate(lines):
-        for m in re.finditer(r'<!-- wp:heading [^>]*"fontSize":"([a-z0-9-]+)"', line):
+        # Both static heading blocks that save markup. post-title/query-title render
+        # dynamically and emit no tag here, so they cannot be checked this way.
+        for m in re.finditer(r'<!-- wp:(?:accordion-)?heading [^>]*"fontSize":"([a-z0-9-]+)"', line):
             slug = m.group(1)
             # WordPress kebab-cases the slug for the class and splits a digit from the
             # letters that follow it: display-2xl becomes has-display-2-xl-font-size.
