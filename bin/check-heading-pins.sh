@@ -117,6 +117,29 @@ while IFS= read -r hit; do
 done < <(grep -rnoE '<!-- wp:heading [^>]*-->' patterns/ 2>/dev/null \
 	| grep -v '"fontSize"' || true)
 
+# The attribute alone does not render: WordPress emits the size as a
+# has-<slug>-font-size class on the tag. A block that states a preset while its saved
+# markup lacks the class renders unpinned — the desync this whole script guards.
+python3 - <<'PY' || status=1
+import glob, re, sys
+fail = False
+for path in sorted(glob.glob('patterns/*.php')):
+    lines = open(path).read().split('\n')
+    for i, line in enumerate(lines):
+        for m in re.finditer(r'<!-- wp:heading [^>]*"fontSize":"([a-z0-9-]+)"', line):
+            slug = m.group(1)
+            # WordPress kebab-cases the slug for the class and splits a digit from the
+            # letters that follow it: display-2xl becomes has-display-2-xl-font-size.
+            css = re.sub(r'(\d)([a-z])', r'\1-\2', slug)
+            window = '\n'.join(lines[i:i + 4])
+            tag = re.search(r'<h[1-6][^>]*>', window)
+            if tag and ('has-%s-font-size' % css) not in tag.group(0):
+                print('  ✗  %s:%d states %s but the tag has no has-%s-font-size class'
+                      % (path, i + 1, slug, css))
+                fail = True
+sys.exit(1 if fail else 0)
+PY
+
 # 5. Weight AND tracking live at one node. Either pinned per level defeats a variation
 #    that sets it, so both are checked and both must be present on the base.
 python3 - <<'PY' || status=1
@@ -175,6 +198,19 @@ def check(styles, label, require_base):
                     print('  ✗  %s: %s pins %s at %s — it is a heading and follows the '
                           'variation' % (label, name, prop, path))
                     fail = True
+            else:
+                # Any block may scope element rules: styles.blocks.core/group
+                # .elements.heading.typography.fontWeight overrides every heading
+                # inside a Group and defeats the single lever just as surely.
+                els = node.get('elements', {})
+                for ename in ('heading',) + LEVELS:
+                    typ = els.get(ename, {}).get('typography', {}) if isinstance(els, dict) else {}
+                    for prop in PROPS:
+                        if prop in typ:
+                            print('  ✗  %s: %s scopes %s on %s — heading %s belongs to '
+                                  'styles.elements.heading'
+                                  % (label, here, prop, ename, prop))
+                            fail = True
             scan_blocks(node.get('blocks', {}), here)
             for vname, vnode in (node.get('variations', {}) or {}).items():
                 if isinstance(vnode, dict):
