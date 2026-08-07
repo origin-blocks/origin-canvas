@@ -129,7 +129,11 @@ def check_saved_tag(path, line_no, base, size, window):
         # WordPress splits a digit from the letters that follow it, so display-2xl
         # becomes has-display-2-xl-font-size.
         slug = re.sub(r'(\d)([a-z])', r'\1-\2', size)
-        if ('has-%s-font-size' % slug) not in tag:
+        # An exact class token, not a substring: `has-huge-font-size-bad` contains
+        # `has-huge-font-size` but WordPress would not apply the preset.
+        attr = re.search(r'class=["\']([^"\']*)["\']', tag)
+        classes = attr.group(1).split() if attr else []
+        if ('has-%s-font-size' % slug) not in classes:
             bad('%s:%d states %s but the tag has no has-%s-font-size class'
                 % (path, line_no, size, slug))
 
