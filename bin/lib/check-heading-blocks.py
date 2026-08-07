@@ -197,6 +197,11 @@ def check_scoped_elements(path, source):
                 if prop in typography:
                     bad('%s:%d scopes %s on %s — heading %s belongs to the theme'
                         % (path, line_no, prop, name, prop))
+            # A size scoped from a parent takes the heading off the scale just as a
+            # raw size on the block itself would.
+            if 'fontSize' in typography:
+                bad('%s:%d scopes a raw font size on %s: %s'
+                    % (path, line_no, name, typography['fontSize']))
 
 
 PRESETS = presets()
