@@ -263,7 +263,7 @@ if [ $status -eq 0 ]; then
 	echo "Heading pins:"
 	echo "  ✓  no pattern heading pins weight or tracking (statement register excepted)"
 	echo "  ✓  every wp:heading states a size, and every stated size is a preset"
-	echo "  ✓  heading weight and tracking live only at styles.elements.heading"
+	echo "  ✓  nothing naming a heading sets weight or tracking outside elements.heading"
 fi
 
 exit $status

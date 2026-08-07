@@ -41,20 +41,23 @@ def presets():
     return {s['slug'] for s in data['settings']['typography']['fontSizes']}
 
 
-def walk_typography(node, trail=''):
+def walk_typography(node, trail='', sizes=False):
     """Every typography.<prop> at any depth. A weight under style.elements.link pins
     linked heading text just as a direct one does — the theme.json checker already
-    walks this way, and the pattern side has to match it."""
+    walks this way, and the pattern side has to match it. With sizes=True, yields raw
+    fontSize instead, which can hide at the same depths."""
+    wanted = ('fontSize',) if sizes else PROPS
     if not isinstance(node, dict):
         return
     typography = node.get('typography')
     if isinstance(typography, dict):
-        for prop in PROPS:
+        for prop in wanted:
             if prop in typography:
                 yield prop, str(typography[prop]), trail
     for key, value in node.items():
         if key != 'typography' and isinstance(value, dict):
-            yield from walk_typography(value, '%s.%s' % (trail, key) if trail else key)
+            yield from walk_typography(
+                value, '%s.%s' % (trail, key) if trail else key, sizes)
 
 
 def check_attributes(path, line_no, base, block, attrs):
@@ -70,10 +73,11 @@ def check_attributes(path, line_no, base, block, attrs):
     if size is not None and size not in PRESETS:
         bad('%s:%d size is not a preset: %s' % (path, line_no, size))
 
-    # A raw size hidden in style.typography instead of the fontSize attribute.
-    if 'fontSize' in typography:
-        bad('%s:%d sets a raw font size in style.typography: %s'
-            % (path, line_no, typography['fontSize']))
+    # A raw size hidden in style.typography instead of the fontSize attribute — at any
+    # depth, so a size under elements.link is caught the way a weight there is.
+    for prop, value, trail in walk_typography(attrs.get('style', {}), sizes=True):
+        where = ' at style.%s' % trail if trail else ' in style.typography'
+        bad('%s:%d sets a raw font size%s: %s' % (path, line_no, where, value))
 
     # Rule 7 reaches wp:heading, which is composed content. It does not reach a
     # post-title in a hidden-* scaffold: that renders the page's own title and should
