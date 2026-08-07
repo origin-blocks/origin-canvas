@@ -18,7 +18,7 @@
 <section class="wp-block-group alignfull" style="padding-top:var(--wp--preset--spacing--huge);padding-bottom:var(--wp--preset--spacing--huge)"><!-- wp:columns {"verticalAlignment":"center","style":{"spacing":{"blockGap":{"top":"var:preset|spacing|extra-large","left":"var:preset|spacing|extra-large"}}}} -->
 <div class="wp-block-columns are-vertically-aligned-center"><!-- wp:column {"verticalAlignment":"center","width":"180px"} -->
 <div class="wp-block-column is-vertically-aligned-center" style="flex-basis:180px"><!-- wp:image {"aspectRatio":"1","scale":"cover","width":"180px","height":"180px","sizeSlug":"full","linkDestination":"none","className":"is-style-origin-canvas-rounded-full"} -->
-<figure class="wp-block-image size-full is-resized is-style-origin-canvas-rounded-full"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/avatar-rachel-lark.webp" alt="<?php esc_attr_e( 'Portrait of Rachel Lark, Owner of Linden &amp; Lark Florist.', 'origin-canvas' ); ?>" style="aspect-ratio:1;object-fit:cover;width:180px;height:180px"/></figure>
+<figure class="wp-block-image size-full is-resized is-style-origin-canvas-rounded-full"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/avatar-emma-whitaker.webp" alt="<?php esc_attr_e( 'Portrait of Emma Whitaker, Owner of Linden &amp; Lark Florist.', 'origin-canvas' ); ?>" style="aspect-ratio:1;object-fit:cover;width:180px;height:180px"/></figure>
 <!-- /wp:image --></div>
 <!-- /wp:column -->
 
@@ -34,7 +34,7 @@
 
 <!-- wp:group {"style":{"spacing":{"blockGap":"0"}},"layout":{"type":"constrained"}} -->
 <div class="wp-block-group"><!-- wp:paragraph {"style":{"typography":{"fontWeight":"600"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-heading","fontSize":"regular"} -->
-<p class="has-text-heading-color has-text-color has-regular-font-size" style="margin-top:0;margin-bottom:0;font-weight:600"><?php echo esc_html__( 'Rachel Lark', 'origin-canvas' ); ?></p>
+<p class="has-text-heading-color has-text-color has-regular-font-size" style="margin-top:0;margin-bottom:0;font-weight:600"><?php echo esc_html__( 'Emma Whitaker', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"var:preset|spacing|extra-small","bottom":"0"}}},"textColor":"text-body","fontSize":"small"} -->
