@@ -16,8 +16,20 @@ cd "$(dirname "$0")/.."
 status=0
 
 # The statement register is the one exemption: being lighter than the theme's voice is
-# its identity, so it pins weight (and, in one file, the tracking that rides with it).
-EXEMPT='patterns/(breath-statement|text-large-statement)\.php'
+# its identity. The exemption is per FILE AND per PROPERTY, not per file — the two
+# differ, and a blanket file skip would let breath-statement gain a tracking pin it
+# does not have.
+exempt() {
+	case "$1:$2" in
+		*breath-statement.php:fontWeight)                     return 0 ;;
+		*text-large-statement.php:fontWeight)                 return 0 ;;
+		*text-large-statement.php:letterSpacing)              return 0 ;;
+		*breath-statement.php:font-weight)                    return 0 ;;
+		*text-large-statement.php:font-weight)                return 0 ;;
+		*text-large-statement.php:letter-spacing)             return 0 ;;
+	esac
+	return 1
+}
 
 # Every block that renders as a heading. A wp:heading-only sweep once missed twelve
 # nodes across the others, which is why they are named individually here.
@@ -30,20 +42,27 @@ report() {
 	status=1
 }
 
-# 1. Block comment JSON — the attribute the editor round-trips.
-while IFS= read -r hit; do
-	[ -z "$hit" ] && continue
-	printf '%s' "$hit" | grep -qE "$EXEMPT" && continue
-	report "pins weight or tracking: ${hit%%:*}:$(printf '%s' "$hit" | cut -d: -f2)"
-done < <(grep -rnoE "<!-- (${BLOCKS}) [^>]*(fontWeight|letterSpacing)[^>]*>" patterns/ 2>/dev/null || true)
+# 1. Block comment JSON — the attribute the editor round-trips. Checked one property
+#    at a time so the exemption can be property-specific.
+for prop in fontWeight letterSpacing; do
+	while IFS= read -r hit; do
+		[ -z "$hit" ] && continue
+		file="${hit%%:*}"
+		exempt "$file" "$prop" && continue
+		report "pins ${prop}: ${file}:$(printf '%s' "$hit" | cut -d: -f2)"
+	done < <(grep -rnoE "<!-- (${BLOCKS}) [^>]*\"${prop}\"" patterns/ 2>/dev/null || true)
+done
 
 # 2. Saved HTML — the half a JSON-only check misses. Removing one and leaving the
 #    other desyncs the block while the rendering silently stays wrong.
-while IFS= read -r hit; do
-	[ -z "$hit" ] && continue
-	printf '%s' "$hit" | grep -qE "$EXEMPT" && continue
-	report "rendered tag still styled: ${hit%%:*}:$(printf '%s' "$hit" | cut -d: -f2)"
-done < <(grep -rnoE '<h[1-6][^>]*style="[^"]*(font-weight|letter-spacing)' patterns/ 2>/dev/null || true)
+for prop in font-weight letter-spacing; do
+	while IFS= read -r hit; do
+		[ -z "$hit" ] && continue
+		file="${hit%%:*}"
+		exempt "$file" "$prop" && continue
+		report "rendered tag sets ${prop}: ${file}:$(printf '%s' "$hit" | cut -d: -f2)"
+	done < <(grep -rnoE "<h[1-6][^>]*style=\"[^\"]*${prop}:" patterns/ 2>/dev/null || true)
+done
 
 # 3. The accordion question carries its tracking on an inner span, not the block.
 while IFS= read -r hit; do
@@ -64,26 +83,30 @@ while IFS= read -r hit; do
 	report "raw font size on a rendered heading: ${hit%%:*}:$(printf '%s' "$hit" | cut -d: -f2)"
 done < <(grep -rnoE '<h[1-6][^>]*style="[^"]*font-size:[[:space:]]*(clamp|[0-9]|var)' patterns/ 2>/dev/null || true)
 
-# 5. Weight lives at one node. A per-level pin defeats any variation that sets it.
+# 5. Weight AND tracking live at one node. Either pinned per level defeats a variation
+#    that sets it, so both are checked and both must be present on the base.
 python3 - <<'PY' || status=1
 import json, sys
 d = json.load(open('theme.json'))
 e = d['styles']['elements']
-bad = [k for k in ('h1','h2','h3','h4','h5','h6')
-       if 'fontWeight' in e.get(k, {}).get('typography', {})]
-if bad:
-    print('  ✗  per-level heading weight pin: %s' % ', '.join(bad))
-    sys.exit(1)
-if e['heading']['typography'].get('fontWeight') is None:
-    print('  ✗  elements.heading has no fontWeight — the single lever is missing')
-    sys.exit(1)
+fail = False
+for prop in ('fontWeight', 'letterSpacing'):
+    bad = [k for k in ('h1','h2','h3','h4','h5','h6')
+           if prop in e.get(k, {}).get('typography', {})]
+    if bad:
+        print('  ✗  per-level heading %s pin: %s' % (prop, ', '.join(bad)))
+        fail = True
+    if e['heading']['typography'].get(prop) is None:
+        print('  ✗  elements.heading has no %s — the single lever is missing' % prop)
+        fail = True
+sys.exit(1 if fail else 0)
 PY
 
 if [ $status -eq 0 ]; then
 	echo "Heading pins:"
 	echo "  ✓  no pattern heading pins weight or tracking (statement register excepted)"
-	echo "  ✓  every heading size is a preset"
-	echo "  ✓  heading weight lives only at styles.elements.heading"
+	echo "  ✓  every heading size is a preset, in the block and in the saved markup"
+	echo "  ✓  heading weight and tracking live only at styles.elements.heading"
 fi
 
 exit $status
