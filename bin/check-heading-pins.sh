@@ -120,7 +120,7 @@ done < <(grep -rnoE '<h[1-6][^>]*style="[^"]*font-size:' patterns/ 2>/dev/null |
 while IFS= read -r hit; do
 	[ -z "$hit" ] && continue
 	report "wp:heading states no fontSize: ${hit%%:*}:$(printf '%s' "$hit" | cut -d: -f2)"
-done < <(grep -rnoE '<!-- wp:heading [^>]*-->' patterns/ 2>/dev/null \
+done < <(grep -rnoE '<!-- wp:heading( [^>]*)?-->' patterns/ 2>/dev/null \
 	| grep -v '"fontSize"' || true)
 
 # The attribute alone does not render: WordPress emits the size as a
@@ -291,7 +291,12 @@ def scan(css, label):
             continue
         for one in sel.split(','):
             one = one.strip()
-            if not one or 'comment-reply-title' in one:
+            if not one:
+                continue
+            # Skip only a selector that IS the sanctioned reply title — not one that
+            # merely mentions it. `.comment-reply-title h2` pins a real heading, and
+            # `.not-comment-reply-title.wp-block-heading` is a different class entirely.
+            if re.search(r'(^|[\s,>+~(])\.comment-reply-title\s*$', one):
                 continue
             if HEADING.search(one):
                 flat = ' '.join(one.split())
