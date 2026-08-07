@@ -25,7 +25,7 @@ EXEMPT = {
     ('text-large-statement.php', 'letterSpacing', '-0.01em'),
 }
 
-COMMENT = re.compile(r'<!-- wp:(%s)(\s+(\{.*?\}))?\s*/?-->' % '|'.join(BLOCKS))
+COMMENT = re.compile(r'<!-- wp:(%s)(\s+(\{.*?\}))?\s*/?-->' % '|'.join(BLOCKS), re.S)
 
 fail = False
 
@@ -96,21 +96,43 @@ def check_saved_tag(path, line_no, base, size, window):
                 % (path, line_no, size, slug))
 
 
+def assert_exemptions():
+    """The statement register keeps exactly what it carries — so removing a documented
+    pin is as much a change as adding one. Without this the exemption is allow-only and
+    the register could quietly lose its identity."""
+    for base, prop, value in sorted(EXEMPT):
+        path = 'patterns/%s' % base
+        try:
+            source = open(path).read()
+        except IOError:
+            bad('%s is missing — it carries a documented %s pin' % (path, prop))
+            continue
+        # Strip ALL whitespace, not just spaces: the attributes may be split across
+        # lines and indented with tabs.
+        flat = re.sub(r'\s+', '', source)
+        if '"%s":"%s"' % (prop, value) not in flat:
+            bad('%s no longer pins %s:%s — the statement register keeps exactly what it '
+                'has' % (path, prop, value))
+
+
 PRESETS = presets()
 
 for path in sorted(glob.glob('patterns/*.php')):
     base = path.split('/')[-1]
-    lines = open(path).read().split('\n')
-    for index, line in enumerate(lines):
-        for match in COMMENT.finditer(line):
-            block, raw = match.group(1), match.group(3)
-            line_no = index + 1
-            try:
-                attrs = json.loads(raw) if raw else {}
-            except ValueError:
-                bad('%s:%d block comment is not valid JSON' % (path, line_no))
-                continue
-            size = check_attributes(path, line_no, base, block, attrs)
-            check_saved_tag(path, line_no, base, size, '\n'.join(lines[index:index + 4]))
+    source = open(path).read()
+    # Matched against the WHOLE file, not line by line: a block comment may be split
+    # across lines, and a per-line scan would not see it at all.
+    for match in COMMENT.finditer(source):
+        block, raw = match.group(1), match.group(3)
+        line_no = source.count('\n', 0, match.start()) + 1
+        try:
+            attrs = json.loads(raw) if raw else {}
+        except ValueError:
+            bad('%s:%d block comment is not valid JSON' % (path, line_no))
+            continue
+        size = check_attributes(path, line_no, base, block, attrs)
+        check_saved_tag(path, line_no, base, size, source[match.end():match.end() + 600])
+
+assert_exemptions()
 
 sys.exit(1 if fail else 0)

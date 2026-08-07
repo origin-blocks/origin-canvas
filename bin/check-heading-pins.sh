@@ -207,16 +207,42 @@ for path in sorted(glob.glob('assets/styles/*.css')) + ['style.css']:
     except IOError:
         pass
 
-def walk(node, path, label):
+HEADING_BLOCKS = ('core/heading', 'core/accordion-heading', 'core/post-title',
+                  'core/query-title', 'core/comments-title')
+
+
+def scan_scoped(css, label):
+    """CSS attached to a heading block is already scoped to it, so `& { font-weight }`
+    or `& a { … }` pins the heading with no heading selector to match. Inside such a
+    block, ANY weight or tracking declaration counts."""
+    global fail
+    for sel, body in RULE.findall(css):
+        if PINNED.search(body):
+            print('  ✗  CSS sets heading weight or tracking: %s — %s (block-scoped)'
+                  % (label, ' '.join(sel.split())))
+            fail = True
+    # A bare declaration list with no selector at all is also valid block CSS.
+    stripped = RULE.sub('', css)
+    if PINNED.search(stripped):
+        print('  ✗  CSS sets heading weight or tracking: %s — block-scoped declaration'
+              % label)
+        fail = True
+
+
+def walk(node, path, label, in_heading=False):
     if isinstance(node, dict):
         for k, v in node.items():
             if k == 'css' and isinstance(v, str):
-                scan(v, '%s %s' % (label, path))
+                if in_heading:
+                    scan_scoped(v, '%s %s' % (label, path))
+                else:
+                    scan(v, '%s %s' % (label, path))
             else:
-                walk(v, '%s.%s' % (path, k), label)
+                walk(v, '%s.%s' % (path, k), label,
+                     in_heading or k in HEADING_BLOCKS)
     elif isinstance(node, list):
         for i, v in enumerate(node):
-            walk(v, '%s[%d]' % (path, i), label)
+            walk(v, '%s[%d]' % (path, i), label, in_heading)
 
 # theme.json AND every variation file — a variation may carry css strings too, and one
 # selected at runtime overrides headings exactly as the base would.
