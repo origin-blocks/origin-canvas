@@ -112,6 +112,14 @@ def check_saved_tag(path, line_no, base, size, window):
     if re.search(r'font-size\s*:', element, re.I):
         bad('%s:%d rendered heading sets font-size inline' % (path, line_no))
 
+    # The same two shorthands the stylesheet scanner treats as pins: `font:` sets
+    # weight, and a wght axis on font-variation-settings does too.
+    for shorthand in ('font', 'font-variation-settings'):
+        for found in re.finditer(r'(^|[\s;"\'])%s\s*:\s*([^;"\']+)' % shorthand,
+                                 element, re.I):
+            bad('%s:%d rendered heading sets %s:%s'
+                % (path, line_no, shorthand, found.group(2).strip()))
+
     if size is not None:
         # WordPress splits a digit from the letters that follow it, so display-2xl
         # becomes has-display-2-xl-font-size.
@@ -167,7 +175,9 @@ for path in sorted(glob.glob('patterns/*.php')):
             bad('%s:%d block comment is not valid JSON' % (path, line_no))
             continue
         size = check_attributes(path, line_no, base, block, attrs)
-        check_saved_tag(path, line_no, base, size, source[match.end():match.end() + 600])
+        # The rest of the file, not a fixed slice: the element is bounded by its own
+        # closing tag, which an arbitrary window can fall short of on a long heading.
+        check_saved_tag(path, line_no, base, size, source[match.end():])
 
 assert_exemptions()
 
