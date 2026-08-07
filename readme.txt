@@ -108,7 +108,8 @@ The quotation-mark glyph used by the testimonial patterns (embedded as a data-UR
 
 == Changelog ==
 
-= 1.3.0 - 7 August 2026 =
+= 1.3.1 - 7 August 2026 =
+* Lightened the default heading weight and handed heading weight to the style variations. Headings in your content and in patterns set one step lighter than before, and choosing a different style variation changes every heading, including those inside patterns.
 * Added patterns for text sections, FAQs, teams, pricing, features and testimonials, taking the library to 61.
 * Added a "Minimal" style for the Accordion block — flat hairline rows and a fine open/close mark instead of the default card treatment. Apply it from the block's Styles panel; an Accordion you have not styled is unchanged.
 * Stepped the heading ladder so h1-h6 read as distinct levels in your content, reducing h2 to 36px and h3 to 30px from their previous larger sizes. Headings inside patterns are pinned to their own sizes and are unaffected.
