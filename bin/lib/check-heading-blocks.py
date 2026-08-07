@@ -172,7 +172,9 @@ def assert_exemptions():
                 'exactly what it has' % (path, css, value))
 
 
-ANY_BLOCK = re.compile(r'<!-- wp:[a-z][a-z0-9-]*(/[a-z0-9-]+)? (\{.*?\})\s*/?-->', re.S)
+# `\s+`, matching COMMENT above: WordPress accepts any whitespace — including a
+# newline — between the block name and its attributes.
+ANY_BLOCK = re.compile(r'<!-- wp:[a-z][a-z0-9-]*(/[a-z0-9-]+)?\s+(\{.*?\})\s*/?-->', re.S)
 SCOPED = ('heading', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6')
 
 
