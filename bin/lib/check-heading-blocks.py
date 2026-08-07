@@ -19,11 +19,15 @@ CSS_NAME = {'fontWeight': 'font-weight', 'letterSpacing': 'letter-spacing'}
 
 # The statement register keeps exactly what it already carries — file, property AND
 # value, so changing 500 to 800 fails like any other new pin. The two files differ.
+#
+# Keyed to the FIRST heading in each file, not the file at large: both contain exactly
+# one heading, and a second one added later must not inherit the exemption.
 EXEMPT = {
     ('breath-statement.php', 'fontWeight', '500'),
     ('text-large-statement.php', 'fontWeight', '500'),
     ('text-large-statement.php', 'letterSpacing', '-0.01em'),
 }
+EXEMPT_FILES = {name for name, _, _ in EXEMPT}
 
 COMMENT = re.compile(r'<!-- wp:(%s)(\s+(\{.*?\}))?\s*/?-->' % '|'.join(BLOCKS), re.S)
 
@@ -99,11 +103,17 @@ def check_block_css(path, line_no, attrs, scoped_to_heading):
                 % (path, line_no, ' '.join(selector.split())))
 
 
-def check_attributes(path, line_no, base, block, attrs):
+def is_exempt(base, prop, value, first):
+    """Only the FIRST heading in a statement-register file is exempt — a second one
+    added later is an ordinary heading and must not inherit the allowance."""
+    return first and (base, prop, value) in EXEMPT
+
+
+def check_attributes(path, line_no, base, block, attrs, first=True):
     typography = attrs.get('style', {}).get('typography', {})
 
     for prop, value, trail in walk_typography(attrs.get('style', {})):
-        if (base, prop, value) in EXEMPT and not trail:
+        if is_exempt(base, prop, value, first) and not trail:
             continue
         where = ' at style.%s' % trail if trail else ''
         bad('%s:%d pins %s:%s%s' % (path, line_no, prop, value, where))
@@ -128,7 +138,7 @@ def check_attributes(path, line_no, base, block, attrs):
     return size
 
 
-def check_saved_tag(path, line_no, base, size, window):
+def check_saved_tag(path, line_no, base, size, window, first=True):
     """The comment and the saved markup must agree — a half-edit leaves the rendering
     wrong while the attributes look right."""
     # A browser ignores CSS comments, so `style="font-weight/**/:800"` still pins.
@@ -151,7 +161,7 @@ def check_saved_tag(path, line_no, base, size, window):
         css = CSS_NAME[prop]
         for found in re.finditer(r'%s\s*:\s*([^;"\']+)' % css, element, re.I):
             value = found.group(1).strip()
-            if (base, prop, value) in EXEMPT:
+            if is_exempt(base, prop, value, first):
                 continue
             inner = '' if found.start() < len(tag) else ' inside the heading'
             bad('%s:%d rendered heading sets %s:%s%s'
@@ -192,11 +202,19 @@ def assert_exemptions():
         except IOError:
             bad('%s is missing — it carries a documented %s pin' % (path, prop))
             continue
-        # Strip ALL whitespace, not just spaces: the attributes may be split across
-        # lines and indented with tabs.
-        flat = re.sub(r'\s+', '', source)
-        if '"%s":"%s"' % (prop, value) not in flat:
-            bad('%s no longer pins %s:%s in the block — the statement register keeps '
+        # Parse the heading block itself. Searching the whole file would be satisfied
+        # by the same value appearing anywhere else, leaving the real heading unpinned.
+        match = COMMENT.search(source)
+        if not match or not match.group(3):
+            bad('%s has no heading block carrying its %s pin' % (path, prop))
+            continue
+        try:
+            attrs = json.loads(match.group(3))
+        except ValueError:
+            bad('%s heading block is not valid JSON' % path)
+            continue
+        if attrs.get('style', {}).get('typography', {}).get(prop) != value:
+            bad('%s no longer pins %s:%s on its heading — the statement register keeps '
                 'exactly what it has' % (path, prop, value))
 
         # And in the saved markup: dropping it from one layer leaves the other lying.
@@ -252,8 +270,11 @@ for path in sorted(glob.glob('patterns/*.php')):
     check_scoped_elements(path, source)
     # Matched against the WHOLE file, not line by line: a block comment may be split
     # across lines, and a per-line scan would not see it at all.
+    seen = 0
     for match in COMMENT.finditer(source):
         block, raw = match.group(1), match.group(3)
+        seen += 1
+        first = seen == 1
         line_no = source.count('\n', 0, match.start()) + 1
         try:
             attrs = json.loads(raw) if raw else {}
@@ -261,14 +282,14 @@ for path in sorted(glob.glob('patterns/*.php')):
             bad('%s:%d block comment is not valid JSON' % (path, line_no))
             continue
         check_block_css(path, line_no, attrs, scoped_to_heading=True)
-        size = check_attributes(path, line_no, base, block, attrs)
+        size = check_attributes(path, line_no, base, block, attrs, first)
         # Only the two blocks that actually serialize a heading tag. post-title,
         # query-title and comments-title render dynamically and save nothing, so
         # scanning past them would judge the NEXT heading as if it were theirs.
         if block in ('heading', 'accordion-heading'):
             # The rest of the file, not a fixed slice: the element is bounded by its
             # own closing tag, which a window can fall short of on a long heading.
-            check_saved_tag(path, line_no, base, size, source[match.end():])
+            check_saved_tag(path, line_no, base, size, source[match.end():], first)
 
 assert_exemptions()
 
