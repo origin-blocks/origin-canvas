@@ -159,15 +159,28 @@ def check(styles, label, require_base):
                   % (label, prop))
             fail = True
 
-    # Heading blocks, at ANY depth beneath them.
-    for blk in BLOCKS:
-        node = styles.get('blocks', {}).get(blk)
-        if not node:
-            continue
-        for prop, path in walk(node, blk):
-            print('  ✗  %s: %s pins %s at %s — it is a heading and follows the variation'
-                  % (label, blk, prop, path))
-            fail = True
+    # Heading blocks wherever they appear. They nest: this theme already carries
+    # styles.blocks.core/accordion.variations.<name>.blocks.core/accordion-item, so a
+    # heading pinned inside a block-style variation renders and must not slip past.
+    def scan_blocks(blocks, prefix):
+        global fail
+        if not isinstance(blocks, dict):
+            return
+        for name, node in blocks.items():
+            if not isinstance(node, dict):
+                continue
+            here = '%s.%s' % (prefix, name) if prefix else name
+            if name in BLOCKS:
+                for prop, path in walk(node, here):
+                    print('  ✗  %s: %s pins %s at %s — it is a heading and follows the '
+                          'variation' % (label, name, prop, path))
+                    fail = True
+            scan_blocks(node.get('blocks', {}), here)
+            for vname, vnode in (node.get('variations', {}) or {}).items():
+                if isinstance(vnode, dict):
+                    scan_blocks(vnode.get('blocks', {}), '%s.variations.%s' % (here, vname))
+
+    scan_blocks(styles.get('blocks', {}), '')
 
 check(json.load(open('theme.json'))['styles'], 'theme.json', True)
 
