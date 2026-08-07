@@ -174,14 +174,16 @@ HEADING = re.compile(
     # it pins the heading text as surely as one on the block itself.
     r'(h[1-6]|wp-block-'
     r'(heading|post-title|query-title|comments-title|accordion-heading))'
-    r'(__toggle-title)?\b',
+    r'(__toggle(-title)?)?\b',
     # Type selectors are case-insensitive in HTML: `H2 { … }` styles the same element.
     re.I)
 # `font:` is included because the shorthand sets weight — `font: 800 1rem/1.2 Inter`
 # pins a heading exactly as `font-weight` does. So does a wght axis on
 # font-variation-settings, which matters here because the theme ships variable fonts.
+# re.I because CSS property names are case-insensitive: FONT-WEIGHT pins too.
 PINNED  = re.compile(
-    r'(^|[\s;{])(font-weight|letter-spacing|font|font-variation-settings)\s*:', re.M)
+    r'(^|[\s;{])(font-weight|letter-spacing|font|font-variation-settings)\s*:',
+    re.M | re.I)
 RULE    = re.compile(r'([^{}]+)\{([^{}]*)\}', re.S)
 
 fail = False

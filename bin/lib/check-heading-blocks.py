@@ -81,7 +81,7 @@ def check_block_css(path, line_no, attrs, scoped_to_heading):
         r'(?:(?<=^)|(?<=[\s,>+~(.\'"=]))'
         r'(h[1-6]|wp-block-'
         r'(heading|post-title|query-title|comments-title|accordion-heading)'
-        r'(__toggle-title)?)\b', re.I)
+        r'(__toggle(-title)?)?)\b', re.I)
     if scoped_to_heading or names.search(css):
         bad('%s:%d block custom CSS sets heading weight or tracking'
             % (path, line_no))
