@@ -388,9 +388,9 @@
 					"text": "var(--wp--preset--color--text-heading)"
 				},
 				"typography": {
-					"fontWeight": "700",
+					"fontWeight": "600",
 					"lineHeight": "var(--wp--custom--line-height--snug)",
-					"letterSpacing": "-0.02em"
+					"letterSpacing": "-0.01em"
 				}
 			},
 			"h1": {
@@ -422,8 +422,7 @@
 			},
 			"h6": {
 				"typography": {
-					"fontSize": "var(--wp--preset--font-size--regular-plus)",
-					"fontWeight": "700"
+					"fontSize": "var(--wp--preset--font-size--regular-plus)"
 				}
 			}
 		},
@@ -1081,8 +1080,7 @@
 					}
 				},
 				"typography": {
-					"fontSize": "var(--wp--preset--font-size--large)",
-					"fontWeight": "600"
+					"fontSize": "var(--wp--preset--font-size--large)"
 				}
 			},
 			"core/comments-pagination": {
