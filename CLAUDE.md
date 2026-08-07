@@ -179,9 +179,17 @@ Every heading surface, and who owns its weight:
 it and weight belongs to the variation. If it renders as a `<p>` — as the site title does at
 `level: 0` — the block node is the only lever and a deliberate pin is correct.
 
-**One content exemption:** the statement register (`breath-statement`,
-`text-large-statement`) keeps `fontWeight: 500`. Being *lighter* than the theme's voice is its
-identity; following the swing would make it just another big heading.
+**One content exemption — the statement register.** Being *lighter* than the theme's voice is
+its identity; following the swing would make it just another big heading. Each file keeps
+exactly what it already has, and the two differ:
+
+| Pattern | Pins |
+|---|---|
+| `breath-statement` | `fontWeight: 500` only |
+| `text-large-statement` | `fontWeight: 500` **and** `letterSpacing: -0.01em` |
+
+The exemption covers weight *and* tracking, because tracking rides weight. The asymmetry is
+pre-existing; neither file gains a pin it did not already have.
 
 ### 8. Shared components are judged against every page that uses them
 A change to a template part (header, footer) or to a widely-reused pattern must be justified
