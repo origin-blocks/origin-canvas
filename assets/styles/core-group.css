@@ -248,6 +248,26 @@
  * tokens panel for page-landing-01. Pattern-only classes; every fill is a
  * palette token or ink-tinted color-mix so the panel tracks variations.
  */
+/**
+ * Style-variations group heads and the type-scale ramp.
+ *
+ * Both need `align-items: baseline`, which core's flex layout cannot express -
+ * its verticalAlignment map is top/center/bottom/stretch only. Aligning the
+ * line boxes (flex-end) leaves the glyphs up to 6px apart, because each font
+ * size carries different half-leading. The patterns therefore set no
+ * verticalAlignment at all, and these rules own it.
+ */
+.wp-block-group.origin-canvas-group-head,
+.wp-block-group.origin-canvas-type-ramp {
+	align-items: baseline;
+}
+
+/* The caption is not a specimen: it centres on the row rather than sitting on
+   the specimens' baseline. */
+.wp-block-group.origin-canvas-type-ramp .origin-canvas-mono {
+	align-self: center;
+}
+
 .origin-canvas-bullet-mark {
 	background: var(--wp--preset--color--primary);
 	border-radius: 2px;

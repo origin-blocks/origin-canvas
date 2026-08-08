@@ -173,8 +173,8 @@
 <p class="has-text-muted-color has-text-color has-extra-small-font-size" style="margin-top:0;margin-bottom:0;font-weight:600;letter-spacing:0.08em;text-transform:uppercase"><?php echo esc_html__( 'Typography &middot; sizes', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
-<!-- wp:group {"style":{"spacing":{"blockGap":"16px"}},"layout":{"type":"flex","flexWrap":"wrap","verticalAlignment":"bottom"}} -->
-<div class="wp-block-group"><!-- wp:paragraph {"style":{"typography":{"fontSize":"1.875rem","fontWeight":"700","letterSpacing":"-0.02em"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-heading"} -->
+<!-- wp:group {"className":"origin-canvas-type-ramp","style":{"spacing":{"blockGap":"16px"}},"layout":{"type":"flex","flexWrap":"wrap"}} -->
+<div class="wp-block-group origin-canvas-type-ramp"><!-- wp:paragraph {"style":{"typography":{"fontSize":"1.875rem","fontWeight":"700","letterSpacing":"-0.02em"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-heading"} -->
 <p class="has-text-heading-color has-text-color" style="margin-top:0;margin-bottom:0;font-size:1.875rem;font-weight:700;letter-spacing:-0.02em"><?php echo esc_html__( 'Aa', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
