@@ -10,9 +10,21 @@
 	box-shadow: var(--wp--preset--shadow--medium);
 }
 
-/* Icon bubble support for card-icon-text pattern background Groups. */
-.wp-block-group.is-style-origin-canvas-icon-bubble.has-background {
-	flex-shrink: 0;
+/**
+ * Icon bubble.
+ *
+ * Height, width and radius belong together here. They were split — the width in
+ * this class, the height as a minHeight on each pattern, the radius inline on the
+ * group — and drifted apart into 64x60, 64x56 and 64x52 ovals. A pattern sets the
+ * glyph inside the bubble and the ground behind it; it does not set the box.
+ *
+ * Not gated on a background: a bubble with the colour removed still needs its size,
+ * and the old gate left it collapsing to the width of its glyph.
+ */
+.wp-block-group.is-style-origin-canvas-icon-bubble {
+	border-radius: 999px;
+	flex: none;
+	height: 64px;
 	padding: 0;
 	width: 64px;
 }
