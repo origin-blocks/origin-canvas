@@ -24,7 +24,7 @@
 <h2 class="wp-block-heading has-text-align-center has-text-color has-display-xl-font-size" style="color:var(--wp--custom--dark--text);margin-top:0;margin-bottom:var(--wp--preset--spacing--medium)"><?php echo esc_html__( 'Start closer to finished.', 'origin-canvas' ); ?></h2>
 <!-- /wp:heading -->
 
-<!-- wp:group {"layout":{"type":"constrained","contentSize":"540px"}} -->
+<!-- wp:group {"layout":{"type":"constrained","contentSize":"640px"}} -->
 <div class="wp-block-group"><!-- wp:paragraph {"align":"center","style":{"color":{"text":"color-mix(in srgb, var(--wp--custom--dark--text) 72%, transparent)"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"fontSize":"regular-plus"} -->
 <p class="has-text-align-center has-text-color has-regular-plus-font-size" style="color:color-mix(in srgb, var(--wp--custom--dark--text) 72%, transparent);margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Install Origin Canvas, pick a style variation, drop in patterns. You will have a real site before you have second-guessed the font.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph --></div>
