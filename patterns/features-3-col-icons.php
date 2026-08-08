@@ -36,8 +36,8 @@
 <div class="wp-block-group is-style-origin-canvas-icon-bubble has-surface-base-background-color has-background"><!-- wp:icon {"icon":"core/styles","textColor":"primary","style":{"dimensions":{"width":"32px"}}} /--></div>
 <!-- /wp:group -->
 
-<!-- wp:heading {"level":3,"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"fontSize":"medium"} -->
-<h3 class="wp-block-heading has-medium-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Brand identity', 'origin-canvas' ); ?></h3>
+<!-- wp:heading {"level":3,"style":{"spacing":{"margin":{"bottom":"0"}}},"fontSize":"medium"} -->
+<h3 class="wp-block-heading has-medium-font-size" style="margin-bottom:0"><?php echo esc_html__( 'Brand identity', 'origin-canvas' ); ?></h3>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"textColor":"text-body","fontSize":"regular"} -->
@@ -52,8 +52,8 @@
 <div class="wp-block-group is-style-origin-canvas-icon-bubble has-surface-base-background-color has-background"><!-- wp:icon {"icon":"core/cover","textColor":"primary","style":{"dimensions":{"width":"32px"}}} /--></div>
 <!-- /wp:group -->
 
-<!-- wp:heading {"level":3,"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"fontSize":"medium"} -->
-<h3 class="wp-block-heading has-medium-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Websites', 'origin-canvas' ); ?></h3>
+<!-- wp:heading {"level":3,"style":{"spacing":{"margin":{"bottom":"0"}}},"fontSize":"medium"} -->
+<h3 class="wp-block-heading has-medium-font-size" style="margin-bottom:0"><?php echo esc_html__( 'Websites', 'origin-canvas' ); ?></h3>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"textColor":"text-body","fontSize":"regular"} -->
@@ -68,8 +68,8 @@
 <div class="wp-block-group is-style-origin-canvas-icon-bubble has-surface-base-background-color has-background"><!-- wp:icon {"icon":"core/verse","textColor":"primary","style":{"dimensions":{"width":"32px"}}} /--></div>
 <!-- /wp:group -->
 
-<!-- wp:heading {"level":3,"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"fontSize":"medium"} -->
-<h3 class="wp-block-heading has-medium-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Words that fit', 'origin-canvas' ); ?></h3>
+<!-- wp:heading {"level":3,"style":{"spacing":{"margin":{"bottom":"0"}}},"fontSize":"medium"} -->
+<h3 class="wp-block-heading has-medium-font-size" style="margin-bottom:0"><?php echo esc_html__( 'Words that fit', 'origin-canvas' ); ?></h3>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"textColor":"text-body","fontSize":"regular"} -->
