@@ -21,8 +21,8 @@
 <p class="has-primary-color has-text-color has-small-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--medium);font-weight:600;letter-spacing:0.08em;text-transform:uppercase"><?php echo esc_html__( 'Built on the system', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
-<!-- wp:heading {"level":2,"style":{"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|medium"}},"typography":{"fontSize":"clamp(2rem, 4vw, 2.6rem)"}}} -->
-<h2 class="wp-block-heading" style="font-size:clamp(2rem, 4vw, 2.6rem);margin-top:0;margin-bottom:var(--wp--preset--spacing--medium)"><?php echo esc_html__( 'Theme owns the presets. Everything else follows.', 'origin-canvas' ); ?></h2>
+<!-- wp:heading {"level":2,"style":{"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|medium"}}},"fontSize":"display"} -->
+<h2 class="wp-block-heading has-display-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--medium)"><?php echo esc_html__( 'Theme owns the presets. Everything else follows.', 'origin-canvas' ); ?></h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|large"}}},"textColor":"text-body","fontSize":"regular-plus"} -->
