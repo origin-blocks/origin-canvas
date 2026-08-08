@@ -74,9 +74,6 @@
 	background-color: var(--wp--preset--color--surface-subtle);
 	border-radius: 999px;
 	color: var(--wp--preset--color--text-body);
-	/* 12px, deliberately below the 13px scale floor: the chip is a marker on a
-	   card, not body type, and 13 crowds the label at this padding. Ruled 8 Aug. */
-	font-size: 12px;
 	font-weight: 500;
 	letter-spacing: 0.08em;
 	padding: 3px 10px;
