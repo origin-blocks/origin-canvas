@@ -15,16 +15,16 @@
 ?>
 <!-- wp:group {"tagName":"section","align":"full","style":{"spacing":{"margin":{"top":"0","bottom":"0"},"padding":{"top":"var:preset|spacing|colossal","bottom":"var:preset|spacing|colossal"},"blockGap":"0"}},"layout":{"type":"constrained"}} -->
 <section class="wp-block-group alignfull" style="margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--colossal);padding-bottom:var(--wp--preset--spacing--colossal)">
-<!-- wp:heading {"level":2,"style":{"typography":{"fontWeight":"600","letterSpacing":"-0.01em","lineHeight":"1.1"},"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|extra-large"}}},"textColor":"text-heading","fontSize":"huge"} -->
-<h2 class="wp-block-heading has-text-heading-color has-text-color has-huge-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--extra-large);font-weight:600;letter-spacing:-0.01em;line-height:1.1"><?php echo esc_html__( 'The three of us', 'origin-canvas' ); ?></h2>
+<!-- wp:heading {"level":2,"style":{"typography":{"lineHeight":"1.1"},"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|extra-large"}}},"textColor":"text-heading","fontSize":"huge"} -->
+<h2 class="wp-block-heading has-text-heading-color has-text-color has-huge-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--extra-large);line-height:1.1"><?php echo esc_html__( 'The three of us', 'origin-canvas' ); ?></h2>
 <!-- /wp:heading --><!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|large","padding":{"top":"var:preset|spacing|large","bottom":"var:preset|spacing|large"}},"border":{"bottom":{"color":"var:preset|color|border","style":"solid","width":"1px"}}},"layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"top"}} -->
 <div class="wp-block-group" style="border-bottom-color:var(--wp--preset--color--border);border-bottom-style:solid;border-bottom-width:1px;padding-top:var(--wp--preset--spacing--large);padding-bottom:var(--wp--preset--spacing--large)"><!-- wp:image {"aspectRatio":"1","linkDestination":"none","width":"128px","height":"128px","className":"is-style-origin-canvas-rounded-full","style":{"spacing":{"margin":{"top":"0","bottom":"0"}}}} -->
 <figure class="wp-block-image is-resized is-style-origin-canvas-rounded-full" style="margin-top:0;margin-bottom:0"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/avatar-claire-bennett.webp" alt="<?php esc_attr_e( 'Portrait of Claire Bennett, Founder.', 'origin-canvas' ); ?>" style="aspect-ratio:1;width:128px;height:128px"/></figure>
 <!-- /wp:image -->
 
 <!-- wp:group {"style":{"spacing":{"blockGap":"0"}},"layout":{"type":"constrained","justifyContent":"left"}} -->
-<div class="wp-block-group"><!-- wp:heading {"level":3,"style":{"typography":{"fontWeight":"600","letterSpacing":"-0.01em"},"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|extra-small"}}},"textColor":"text-heading","fontSize":"regular-plus"} -->
-<h3 class="wp-block-heading has-text-heading-color has-text-color has-regular-plus-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--extra-small);font-weight:600;letter-spacing:-0.01em"><?php echo esc_html__( 'Claire Bennett', 'origin-canvas' ); ?></h3>
+<div class="wp-block-group"><!-- wp:heading {"level":3,"style":{"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|extra-small"}}},"textColor":"text-heading","fontSize":"regular-plus"} -->
+<h3 class="wp-block-heading has-text-heading-color has-text-color has-regular-plus-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--extra-small)"><?php echo esc_html__( 'Claire Bennett', 'origin-canvas' ); ?></h3>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|small"}}},"textColor":"text-body","fontSize":"regular"} -->
@@ -47,8 +47,8 @@
 <!-- /wp:image -->
 
 <!-- wp:group {"style":{"spacing":{"blockGap":"0"}},"layout":{"type":"constrained","justifyContent":"left"}} -->
-<div class="wp-block-group"><!-- wp:heading {"level":3,"style":{"typography":{"fontWeight":"600","letterSpacing":"-0.01em"},"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|extra-small"}}},"textColor":"text-heading","fontSize":"regular-plus"} -->
-<h3 class="wp-block-heading has-text-heading-color has-text-color has-regular-plus-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--extra-small);font-weight:600;letter-spacing:-0.01em"><?php echo esc_html__( 'Marcus Holloway', 'origin-canvas' ); ?></h3>
+<div class="wp-block-group"><!-- wp:heading {"level":3,"style":{"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|extra-small"}}},"textColor":"text-heading","fontSize":"regular-plus"} -->
+<h3 class="wp-block-heading has-text-heading-color has-text-color has-regular-plus-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--extra-small)"><?php echo esc_html__( 'Marcus Holloway', 'origin-canvas' ); ?></h3>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|small"}}},"textColor":"text-body","fontSize":"regular"} -->
@@ -71,8 +71,8 @@
 <!-- /wp:image -->
 
 <!-- wp:group {"style":{"spacing":{"blockGap":"0"}},"layout":{"type":"constrained","justifyContent":"left"}} -->
-<div class="wp-block-group"><!-- wp:heading {"level":3,"style":{"typography":{"fontWeight":"600","letterSpacing":"-0.01em"},"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|extra-small"}}},"textColor":"text-heading","fontSize":"regular-plus"} -->
-<h3 class="wp-block-heading has-text-heading-color has-text-color has-regular-plus-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--extra-small);font-weight:600;letter-spacing:-0.01em"><?php echo esc_html__( 'Hannah Wright', 'origin-canvas' ); ?></h3>
+<div class="wp-block-group"><!-- wp:heading {"level":3,"style":{"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|extra-small"}}},"textColor":"text-heading","fontSize":"regular-plus"} -->
+<h3 class="wp-block-heading has-text-heading-color has-text-color has-regular-plus-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--extra-small)"><?php echo esc_html__( 'Hannah Wright', 'origin-canvas' ); ?></h3>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|small"}}},"textColor":"text-body","fontSize":"regular"} -->
