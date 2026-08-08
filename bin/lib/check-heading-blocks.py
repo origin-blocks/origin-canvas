@@ -26,22 +26,10 @@ EXEMPT = {
     ('breath-statement.php', 'fontWeight', '500'),
     ('text-large-statement.php', 'fontWeight', '500'),
     ('text-large-statement.php', 'letterSpacing', '-0.01em'),
+    ('lead-statement.php', 'fontWeight', '500'),
+    ('lead-statement.php', 'letterSpacing', '-0.01em'),
 }
 EXEMPT_FILES = {name for name, _, _ in EXEMPT}
-
-# The seven landing sections state their size with a clamp rather than a preset. They
-# were briefly snapped to presets and it flattened the page: five full-bleed sections
-# landed on the same 36px as the testimonial quote, leaving no hierarchy to read. The
-# scale's section step is sized for a 720 measure; these run past 1200, which is a
-# different job for the same number.
-#
-# Recorded as a known exception, not a fixed decision — the sizes need re-tiering
-# against the rendered page, and until then a wrong preset is worse than a clamp.
-SIZE_EXEMPT = {
-    'cta-closing.php', 'lead-statement.php', 'pattern-showcase.php',
-    'product-grid.php', 'style-variations.php', 'template-showcase.php',
-    'token-system.php',
-}
 
 COMMENT = re.compile(r'<!-- wp:(%s)(\s+(\{.*?\}))?\s*/?-->' % '|'.join(BLOCKS), re.S)
 
@@ -138,17 +126,15 @@ def check_attributes(path, line_no, base, block, attrs, first=True):
 
     # A raw size hidden in style.typography instead of the fontSize attribute — at any
     # depth, so a size under elements.link is caught the way a weight there is.
-    if base not in SIZE_EXEMPT:
-        for prop, value, trail in walk_typography(attrs.get('style', {}), sizes=True):
-            where = ' at style.%s' % trail if trail else ' in style.typography'
-            bad('%s:%d sets a raw font size%s: %s' % (path, line_no, where, value))
+    for prop, value, trail in walk_typography(attrs.get('style', {}), sizes=True):
+        where = ' at style.%s' % trail if trail else ' in style.typography'
+        bad('%s:%d sets a raw font size%s: %s' % (path, line_no, where, value))
 
     # Rule 7 reaches the blocks that ARE composed content and save their own markup:
     # wp:heading and wp:accordion-heading. It does not reach a post-title in a
     # hidden-* scaffold, which renders the page's own title and should inherit the h1
     # ladder — 7 of the 9 post-titles here do exactly that.
-    if block in ('heading', 'accordion-heading') and size is None \
-            and base not in SIZE_EXEMPT:
+    if block in ('heading', 'accordion-heading') and size is None:
         bad('%s:%d wp:%s states no fontSize' % (path, line_no, block))
 
     return size
@@ -183,7 +169,7 @@ def check_saved_tag(path, line_no, base, size, window, first=True):
             bad('%s:%d rendered heading sets %s:%s%s'
                 % (path, line_no, css, value, inner))
 
-    if re.search(r'font-size\s*:', element, re.I) and base not in SIZE_EXEMPT:
+    if re.search(r'font-size\s*:', element, re.I):
         bad('%s:%d rendered heading sets font-size inline' % (path, line_no))
 
     # The same two shorthands the stylesheet scanner treats as pins: `font:` sets
