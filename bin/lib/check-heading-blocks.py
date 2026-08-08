@@ -26,6 +26,8 @@ EXEMPT = {
     ('breath-statement.php', 'fontWeight', '500'),
     ('text-large-statement.php', 'fontWeight', '500'),
     ('text-large-statement.php', 'letterSpacing', '-0.01em'),
+    ('lead-statement.php', 'fontWeight', '500'),
+    ('lead-statement.php', 'letterSpacing', '-0.01em'),
 }
 EXEMPT_FILES = {name for name, _, _ in EXEMPT}
 
