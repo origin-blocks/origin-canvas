@@ -31,8 +31,8 @@
 
 <!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|compact"}},"layout":{"type":"constrained"}} -->
 <div class="wp-block-group"><!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|compact"}},"layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"top"}} -->
-<div class="wp-block-group"><!-- wp:group {"className":"origin-canvas-bullet-mark","style":{"dimensions":{"minHeight":"6px"}}} -->
-<div class="wp-block-group origin-canvas-bullet-mark" style="min-height:6px"></div>
+<div class="wp-block-group"><!-- wp:group {"className":"origin-canvas-bullet-mark","style":{"dimensions":{"minHeight":"6px"},"spacing":{"margin":{"top":"7.5px"}}}} -->
+<div class="wp-block-group origin-canvas-bullet-mark" style="min-height:6px;margin-top:7.5px"></div>
 <!-- /wp:group -->
 
 <!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-body","fontSize":"small"} -->
@@ -41,8 +41,8 @@
 <!-- /wp:group -->
 
 <!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|compact"}},"layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"top"}} -->
-<div class="wp-block-group"><!-- wp:group {"className":"origin-canvas-bullet-mark","style":{"dimensions":{"minHeight":"6px"}}} -->
-<div class="wp-block-group origin-canvas-bullet-mark" style="min-height:6px"></div>
+<div class="wp-block-group"><!-- wp:group {"className":"origin-canvas-bullet-mark","style":{"dimensions":{"minHeight":"6px"},"spacing":{"margin":{"top":"7.5px"}}}} -->
+<div class="wp-block-group origin-canvas-bullet-mark" style="min-height:6px;margin-top:7.5px"></div>
 <!-- /wp:group -->
 
 <!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-body","fontSize":"small"} -->
@@ -51,8 +51,8 @@
 <!-- /wp:group -->
 
 <!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|compact"}},"layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"top"}} -->
-<div class="wp-block-group"><!-- wp:group {"className":"origin-canvas-bullet-mark","style":{"dimensions":{"minHeight":"6px"}}} -->
-<div class="wp-block-group origin-canvas-bullet-mark" style="min-height:6px"></div>
+<div class="wp-block-group"><!-- wp:group {"className":"origin-canvas-bullet-mark","style":{"dimensions":{"minHeight":"6px"},"spacing":{"margin":{"top":"7.5px"}}}} -->
+<div class="wp-block-group origin-canvas-bullet-mark" style="min-height:6px;margin-top:7.5px"></div>
 <!-- /wp:group -->
 
 <!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-body","fontSize":"small"} -->
