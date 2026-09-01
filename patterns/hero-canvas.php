@@ -17,8 +17,8 @@
 <p class="has-text-align-center has-primary-color has-text-color has-small-font-size" style="margin-bottom:var(--wp--preset--spacing--small);font-weight:600;letter-spacing:0.08em;text-transform:uppercase"><?php echo esc_html__( 'The Origin Canvas block theme', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
-<!-- wp:heading {"textAlign":"center","level":1,"style":{"spacing":{"margin":{"top":"0","bottom":"0"}},"typography":{"letterSpacing":"-0.035em","lineHeight":"1.02","fontWeight":"800"}},"fontSize":"display-2xl"} -->
-<h1 class="wp-block-heading has-text-align-center has-display-2-xl-font-size" style="margin-top:0;margin-bottom:0;font-weight:800;letter-spacing:-0.035em;line-height:1.02"><?php echo esc_html__( 'Sites that look designed, not assembled.', 'origin-canvas' ); ?></h1>
+<!-- wp:heading {"textAlign":"center","level":1,"style":{"spacing":{"margin":{"top":"0","bottom":"0"}},"typography":{"lineHeight":"1.02"}},"fontSize":"display-2xl"} -->
+<h1 class="wp-block-heading has-text-align-center has-display-2-xl-font-size" style="margin-top:0;margin-bottom:0;line-height:1.02"><?php echo esc_html__( 'Sites that look designed, not assembled.', 'origin-canvas' ); ?></h1>
 <!-- /wp:heading -->
 
 <!-- wp:group {"layout":{"type":"constrained","contentSize":"600px"}} -->

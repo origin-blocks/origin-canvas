@@ -10,9 +10,21 @@
 	box-shadow: var(--wp--preset--shadow--medium);
 }
 
-/* Icon bubble support for card-icon-text pattern background Groups. */
-.wp-block-group.is-style-origin-canvas-icon-bubble.has-background {
-	flex-shrink: 0;
+/**
+ * Icon bubble.
+ *
+ * Height, width and radius belong together here. They were split — the width in
+ * this class, the height as a minHeight on each pattern, the radius inline on the
+ * group — and drifted apart into 64x60, 64x56 and 64x52 ovals. A pattern sets the
+ * glyph inside the bubble and the ground behind it; it does not set the box.
+ *
+ * Not gated on a background: a bubble with the colour removed still needs its size,
+ * and the old gate left it collapsing to the width of its glyph.
+ */
+.wp-block-group.is-style-origin-canvas-icon-bubble {
+	border-radius: 999px;
+	flex: none;
+	height: 64px;
 	padding: 0;
 	width: 64px;
 }
@@ -236,12 +248,31 @@
  * tokens panel for page-landing-01. Pattern-only classes; every fill is a
  * palette token or ink-tinted color-mix so the panel tracks variations.
  */
+/**
+ * Style-variations group heads and the type-scale ramp.
+ *
+ * Both need `align-items: baseline`, which core's flex layout cannot express -
+ * its verticalAlignment map is top/center/bottom/stretch only. Aligning the
+ * line boxes (flex-end) leaves the glyphs up to 6px apart, because each font
+ * size carries different half-leading. The patterns therefore set no
+ * verticalAlignment at all, and these rules own it.
+ */
+.wp-block-group.origin-canvas-group-head,
+.wp-block-group.origin-canvas-type-ramp {
+	align-items: baseline;
+}
+
+/* The caption is not a specimen: it centres on the row rather than sitting on
+   the specimens' baseline. */
+.wp-block-group.origin-canvas-type-ramp .origin-canvas-mono {
+	align-self: center;
+}
+
 .origin-canvas-bullet-mark {
 	background: var(--wp--preset--color--primary);
 	border-radius: 2px;
 	flex-shrink: 0;
 	height: 6px;
-	margin-top: 8px;
 	width: 6px;
 }
 

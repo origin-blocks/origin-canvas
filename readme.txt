@@ -108,6 +108,16 @@ The quotation-mark glyph used by the testimonial patterns (embedded as a data-UR
 
 == Changelog ==
 
+= 1.3.1 - 1 September 2026 =
+* Lightened the default heading weight and handed heading weight to the style variations. Headings in your content set lighter than before, as do the pattern headings that were heavier than the default — the landing hero and closing call to action drop furthest, having been heavier still. Switching style variation reaches headings inside patterns, which previously kept their own weight. A few deliberate exceptions keep theirs: the large statement sections, the site title and the comment reply heading.
+* Put every pattern heading on the type scale, replacing hand-written sizes so the fluid curve and every style variation reach them, and settled the text-led sections on one shared reading width.
+* Enlarged the icons across the theme to a single size, so the drawn mark matches the design instead of floating undersized in its disc.
+* Widened the tracking on the section eyebrows and seated each one with the heading it introduces.
+* Refined the style-variations and token-system showcase patterns: specimens sit on a shared baseline, group headers sit with the cards they label, and the status chips carry their size on the block where the editor's size control can reach it.
+* Fixed the icon bubbles rendering as ovals, and collapsing when their background colour was removed.
+* Fixed the feature cards centring their icons above left-aligned text, evened out the rule spacing in the feature list with image, and gave the same client the same role in both testimonials.
+* Fixed the landing hero asking for a weight heavier than the bundled fonts provide, which the browser had been faking.
+
 = 1.3.0 - 7 August 2026 =
 * Added patterns for text sections, FAQs, teams, pricing, features and testimonials, taking the library to 61.
 * Added a "Minimal" style for the Accordion block — flat hairline rows and a fine open/close mark instead of the default card treatment. Apply it from the block's Styles panel; an Accordion you have not styled is unchanged.
