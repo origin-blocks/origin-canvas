@@ -35,6 +35,23 @@
 	position: relative;
 }
 
+/**
+ * The isolated item is a stacking context, so the flyout's z-index: 20 (the
+ * submenu-container rule below and the main-nav lift further down) orders it
+ * only inside the item, and a later positioned box on the page, such as a
+ * post-card figure or a page title, paints over the open dropdown. While the
+ * item is open it takes that level itself, which lifts the whole item, flyout
+ * included, above the page content. Gated to the open states so items at rest
+ * stay at auto and never cover a neighbour's open flyout; core focuses the
+ * toggle on click and closes on focusout, so :focus-within holds for every
+ * open path. No wrapper can carry this instead: a z-index on the header or
+ * the nav would trap the mobile overlay under the admin bar.
+ */
+.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item.has-child:hover,
+.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item.has-child:focus-within {
+	z-index: 20;
+}
+
 .wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item::before {
 	background-color: rgba(17, 24, 39, 0.04);
 	background-color: color-mix(in srgb, currentColor 4%, transparent);
@@ -281,7 +298,10 @@
 /**
  * Lift the main-nav submenu flyout above adjacent page content (e.g. a hero
  * below the sticky header) so the dropdown is never occluded. Scoped to the
- * main nav so unrelated navigations are unaffected.
+ * main nav so unrelated navigations are unaffected. For Hover Pill the
+ * top-level item is an isolated stacking context, so this value orders the
+ * flyout only inside the item; there the open item carries the page-level
+ * lift itself (see the .has-child:hover rule near the top of this file).
  */
 .origin-canvas-main-nav .wp-block-navigation__submenu-container {
 	position: relative;
@@ -607,7 +627,7 @@ body.block-editor-iframe__body .origin-canvas-mobile-nav .has-child.open-always 
  * editor as a floating gap above every nested submenu block that the front
  * end never shows (.open-on-click never matches .has-child.open-always
  * there, so this core rule is simply absent). Zeroed to match the theme's
- * own front-end-targeting gap:0 (core-navigation.css:330), which is lower
+ * own front-end-targeting gap:0 (core-navigation.css:350), which is lower
  * specificity than core's compound and loses in the editor the same way
  * the width rules above did.
  */
@@ -620,7 +640,7 @@ body.block-editor-iframe__body .origin-canvas-mobile-nav .has-child.open-always 
  * Nested .has-child rows only: once the fix above gives a parent row's own
  * __content flex-grow:1 on its .has-child.open-always row (flex-wrap:wrap,
  * two children: __content + its .wp-block-navigation__submenu-container,
- * flex-basis:100% per core-navigation.css:371-373), __content consumes the
+ * flex-basis:100% per core-navigation.css:391-393), __content consumes the
  * full first flex line and the submenu-container wraps to its own line. Live
  * DOM testing (getBoundingClientRect + forced inline style overrides in the
  * actual editor iframe — repeated after each change to rule out stylesheet
@@ -635,7 +655,7 @@ body.block-editor-iframe__body .origin-canvas-mobile-nav .has-child.open-always 
  * calculation, so it isn't subject to the same resolution gap. Also zeroes
  * this same submenu-container's OWN gap (core sets it a second time, between
  * sibling items inside the container) to match the theme's front-end-
- * targeting gap:0 (core-navigation.css:353), for the same reason as above.
+ * targeting gap:0 (core-navigation.css:373), for the same reason as above.
  */
 body.editor-styles-wrapper .origin-canvas-mobile-nav .has-child.open-always > .wp-block-navigation__submenu-container,
 body.block-editor-iframe__body .origin-canvas-mobile-nav .has-child.open-always > .wp-block-navigation__submenu-container {
