@@ -35,6 +35,19 @@
 	position: relative;
 }
 
+/**
+ * The isolated item confines the flyout's z-index: 20 to itself, so page
+ * content positioned later in the document (a post-card figure, a page
+ * title) would paint over an open dropdown. The open item takes that level
+ * itself; items at rest stay at auto so they never cover a neighbour's open
+ * flyout. Core focuses the toggle on click and closes on focusout, so
+ * :focus-within covers click-opened menus too.
+ */
+.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item.has-child:hover,
+.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item.has-child:focus-within {
+	z-index: 20;
+}
+
 .wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item::before {
 	background-color: rgba(17, 24, 39, 0.04);
 	background-color: color-mix(in srgb, currentColor 4%, transparent);
@@ -281,7 +294,10 @@
 /**
  * Lift the main-nav submenu flyout above adjacent page content (e.g. a hero
  * below the sticky header) so the dropdown is never occluded. Scoped to the
- * main nav so unrelated navigations are unaffected.
+ * main nav so unrelated navigations are unaffected. For Hover Pill the
+ * top-level item is an isolated stacking context, so this value orders the
+ * flyout only inside the item; there the open item carries the page-level
+ * lift itself (see the .has-child:hover rule near the top of this file).
  */
 .origin-canvas-main-nav .wp-block-navigation__submenu-container {
 	position: relative;
@@ -607,7 +623,8 @@ body.block-editor-iframe__body .origin-canvas-mobile-nav .has-child.open-always 
  * editor as a floating gap above every nested submenu block that the front
  * end never shows (.open-on-click never matches .has-child.open-always
  * there, so this core rule is simply absent). Zeroed to match the theme's
- * own front-end-targeting gap:0 (core-navigation.css:330), which is lower
+ * own front-end-targeting gap:0 (the .origin-canvas-mobile-nav
+ * .wp-block-navigation__container rule), which is lower
  * specificity than core's compound and loses in the editor the same way
  * the width rules above did.
  */
@@ -620,7 +637,8 @@ body.block-editor-iframe__body .origin-canvas-mobile-nav .has-child.open-always 
  * Nested .has-child rows only: once the fix above gives a parent row's own
  * __content flex-grow:1 on its .has-child.open-always row (flex-wrap:wrap,
  * two children: __content + its .wp-block-navigation__submenu-container,
- * flex-basis:100% per core-navigation.css:371-373), __content consumes the
+ * flex-basis:100% per the .origin-canvas-mobile-nav .has-child >
+ * .wp-block-navigation__submenu-container rule), __content consumes the
  * full first flex line and the submenu-container wraps to its own line. Live
  * DOM testing (getBoundingClientRect + forced inline style overrides in the
  * actual editor iframe — repeated after each change to rule out stylesheet
@@ -635,7 +653,8 @@ body.block-editor-iframe__body .origin-canvas-mobile-nav .has-child.open-always 
  * calculation, so it isn't subject to the same resolution gap. Also zeroes
  * this same submenu-container's OWN gap (core sets it a second time, between
  * sibling items inside the container) to match the theme's front-end-
- * targeting gap:0 (core-navigation.css:353), for the same reason as above.
+ * targeting gap:0 (the .origin-canvas-mobile-nav .wp-block-navigation
+ * .wp-block-navigation__submenu-container rule), for the same reason as above.
  */
 body.editor-styles-wrapper .origin-canvas-mobile-nav .has-child.open-always > .wp-block-navigation__submenu-container,
 body.block-editor-iframe__body .origin-canvas-mobile-nav .has-child.open-always > .wp-block-navigation__submenu-container {
