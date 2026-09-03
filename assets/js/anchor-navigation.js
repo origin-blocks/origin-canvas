@@ -16,6 +16,11 @@
 
 	var root = document.documentElement;
 	var STICKY_PROPERTY = '--origin-canvas-sticky-header-height';
+	var CURRENT_CLASS = 'origin-canvas-current';
+	// Core puts `wp-block-navigation` on the block root and on its inner `ul`, and a
+	// custom overlay part renders a second Navigation block inside the first.
+	var NAV_ROOT = '.wp-block-navigation:not(.wp-block-navigation__container)';
+	var NAV_ITEM = 'li.wp-block-navigation-item';
 	var reducedMotion = window.matchMedia( '(prefers-reduced-motion: reduce)' );
 
 	/**
@@ -118,6 +123,168 @@
 	} );
 
 	/**
+	 * Current-section marker.
+	 *
+	 * Each Navigation block keeps its own record: the same-page links it owns, grouped
+	 * by target, and the items core marked as the current page at load. The nav's
+	 * current-page marker is removed while one of its sections is current and restored
+	 * when none is, so a nav shows one marker and one `aria-current` at a time.
+	 */
+	var navs = [];
+
+	function ownedBy( nav ) {
+		return function ( element ) {
+			return element.closest( NAV_ROOT ) === nav;
+		};
+	}
+
+	function documentOrder( a, b ) {
+		return a.target.compareDocumentPosition( b.target ) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1;
+	}
+
+	document.querySelectorAll( NAV_ROOT ).forEach( function ( nav ) {
+		var owns = ownedBy( nav );
+		var byTarget = new Map();
+
+		nav.querySelectorAll( NAV_ITEM + ' > a[href]' ).forEach( function ( link ) {
+			if ( ! owns( link ) ) {
+				return;
+			}
+			var target = resolveSamePageTarget( link );
+			if ( ! target ) {
+				return;
+			}
+			var entry = byTarget.get( target );
+			if ( ! entry ) {
+				entry = {
+					target: target,
+					// The region a link stands for: a section, else its Group, else
+					// the element itself, so an anchor on a heading keeps its item
+					// current while the surrounding section is on screen.
+					extent: target.closest( 'section' ) || target.closest( '.wp-block-group' ) || target,
+					links: [],
+					items: [],
+				};
+				byTarget.set( target, entry );
+			}
+			entry.links.push( link );
+			var item = link.parentElement;
+			while ( item && owns( item ) ) {
+				if ( entry.items.indexOf( item ) === -1 ) {
+					entry.items.push( item );
+				}
+				item = item.parentElement.closest( NAV_ITEM + '.has-child' );
+			}
+		} );
+
+		if ( ! byTarget.size ) {
+			return;
+		}
+
+		var pageMarked = [];
+		nav.querySelectorAll( NAV_ITEM + '.current-menu-item, ' + NAV_ITEM + '.current-menu-ancestor' ).forEach( function ( item ) {
+			if ( ! owns( item ) ) {
+				return;
+			}
+			var link = item.querySelector( ':scope > a' );
+			pageMarked.push( {
+				item: item,
+				classes: [ 'current-menu-item', 'current-menu-ancestor' ].filter( function ( name ) {
+					return item.classList.contains( name );
+				} ),
+				link: link,
+				ariaCurrent: link ? link.getAttribute( 'aria-current' ) : null,
+			} );
+		} );
+
+		navs.push( {
+			entries: Array.from( byTarget.values() ).sort( documentOrder ),
+			pageMarked: pageMarked,
+			active: null,
+		} );
+	} );
+
+	function applyCurrent( nav, active ) {
+		nav.entries.forEach( function ( entry ) {
+			entry.items.forEach( function ( item ) {
+				item.classList.remove( CURRENT_CLASS );
+			} );
+			entry.links.forEach( function ( link ) {
+				link.removeAttribute( 'aria-current' );
+			} );
+		} );
+		if ( active ) {
+			active.items.forEach( function ( item ) {
+				item.classList.add( CURRENT_CLASS );
+			} );
+			active.links.forEach( function ( link ) {
+				link.setAttribute( 'aria-current', 'location' );
+			} );
+		}
+		nav.pageMarked.forEach( function ( marked ) {
+			marked.classes.forEach( function ( name ) {
+				marked.item.classList[ active ? 'remove' : 'add' ]( name );
+			} );
+			if ( marked.link && marked.ariaCurrent !== null ) {
+				if ( active ) {
+					marked.link.removeAttribute( 'aria-current' );
+				} else {
+					marked.link.setAttribute( 'aria-current', marked.ariaCurrent );
+				}
+			}
+		} );
+		nav.active = active;
+	}
+
+	function updateCurrent() {
+		var offset = parseFloat( window.getComputedStyle( root ).scrollPaddingTop ) || 0;
+		var viewport = window.innerHeight;
+		// A section is current once its top is a quarter of the way into the visible
+		// area, and stays current while its region still reaches below the chrome.
+		var line = offset + 0.25 * ( viewport - offset );
+		var atEnd = window.scrollY + viewport >= document.scrollingElement.scrollHeight - 1;
+
+		navs.forEach( function ( nav ) {
+			var candidate = null;
+			var lastVisible = null;
+			nav.entries.forEach( function ( entry ) {
+				var top = entry.target.getBoundingClientRect().top;
+				var visible = top < viewport && entry.extent.getBoundingClientRect().bottom > offset;
+				if ( top <= line ) {
+					candidate = visible ? entry : null;
+				}
+				if ( visible ) {
+					lastVisible = entry;
+				}
+			} );
+			// At the end of the document a short last section never reaches the line,
+			// so the last region on screen wins there.
+			var active = atEnd && lastVisible ? lastVisible : candidate;
+			if ( active !== nav.active ) {
+				applyCurrent( nav, active );
+			}
+		} );
+	}
+
+	var updateScheduled = false;
+	function scheduleUpdate() {
+		if ( updateScheduled || ! navs.length ) {
+			return;
+		}
+		updateScheduled = true;
+		window.requestAnimationFrame( function () {
+			updateScheduled = false;
+			updateCurrent();
+		} );
+	}
+
+	if ( navs.length ) {
+		window.addEventListener( 'scroll', scheduleUpdate, { passive: true } );
+		window.addEventListener( 'resize', scheduleUpdate );
+		scheduleUpdate();
+	}
+
+	/**
 	 * Sticky header offset. style.css makes the `header` wrapper itself sticky when it
 	 * holds a sticky child, so the wrapper's height is the chrome height. Sticky-ness
 	 * is rendered markup and cannot change without a page load, so it is read once.
@@ -146,6 +313,7 @@
 	function syncStickyOffset() {
 		root.style.setProperty( STICKY_PROPERTY, stickyHeader.offsetHeight + 'px' );
 		realignInitialHash();
+		scheduleUpdate();
 	}
 
 	if ( stickyHeader ) {
