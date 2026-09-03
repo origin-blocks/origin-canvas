@@ -54,13 +54,17 @@
 
 	function scrollToTarget( target, hash ) {
 		var oldURL = window.location.href;
-		try {
-			window.history.pushState( null, '', hash );
-			window.dispatchEvent(
-				new HashChangeEvent( 'hashchange', { oldURL: oldURL, newURL: window.location.href } )
-			);
-		} catch ( e ) {
-			// A history that refuses the entry still gets the scroll below.
+		// A re-click on the current fragment scrolls without adding a history entry,
+		// as native fragment navigation does.
+		if ( window.location.hash !== hash ) {
+			try {
+				window.history.pushState( null, '', hash );
+				window.dispatchEvent(
+					new HashChangeEvent( 'hashchange', { oldURL: oldURL, newURL: window.location.href } )
+				);
+			} catch ( e ) {
+				// A history that refuses the entry still gets the scroll below.
+			}
 		}
 		target.scrollIntoView( {
 			behavior: reducedMotion.matches ? 'auto' : 'smooth',
