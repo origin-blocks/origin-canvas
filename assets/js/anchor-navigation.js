@@ -220,6 +220,9 @@
 	} );
 
 	function applyCurrent( nav, active ) {
+		// Order matters for a link core marked as the current page that is also a
+		// section link: clear section state, settle the page marker, then apply the
+		// active section last so that link ends with exactly one aria-current.
 		nav.entries.forEach( function ( entry ) {
 			entry.items.forEach( function ( item ) {
 				item.classList.remove( CURRENT_CLASS );
@@ -228,14 +231,6 @@
 				link.removeAttribute( 'aria-current' );
 			} );
 		} );
-		if ( active ) {
-			active.items.forEach( function ( item ) {
-				item.classList.add( CURRENT_CLASS );
-			} );
-			active.links.forEach( function ( link ) {
-				link.setAttribute( 'aria-current', 'location' );
-			} );
-		}
 		nav.pageMarked.forEach( function ( marked ) {
 			marked.classes.forEach( function ( name ) {
 				marked.item.classList[ active ? 'remove' : 'add' ]( name );
@@ -248,6 +243,14 @@
 				}
 			}
 		} );
+		if ( active ) {
+			active.items.forEach( function ( item ) {
+				item.classList.add( CURRENT_CLASS );
+			} );
+			active.links.forEach( function ( link ) {
+				link.setAttribute( 'aria-current', 'location' );
+			} );
+		}
 		nav.active = active;
 	}
 
