@@ -54,19 +54,27 @@
 
 	function scrollToTarget( target, hash ) {
 		var oldURL = window.location.href;
-		window.history.pushState( null, '', hash );
-		window.dispatchEvent(
-			new HashChangeEvent( 'hashchange', { oldURL: oldURL, newURL: window.location.href } )
-		);
+		try {
+			window.history.pushState( null, '', hash );
+			window.dispatchEvent(
+				new HashChangeEvent( 'hashchange', { oldURL: oldURL, newURL: window.location.href } )
+			);
+		} catch ( e ) {
+			// A history that refuses the entry still gets the scroll below.
+		}
 		target.scrollIntoView( {
 			behavior: reducedMotion.matches ? 'auto' : 'smooth',
 			block: 'start',
 		} );
 		// Move sequential focus to the target so keyboard users continue from the
-		// section, as they would after a native fragment jump.
+		// section, as they would after a native fragment jump. A target that is not
+		// focusable borrows tabindex="-1" until it loses focus.
 		target.focus( { preventScroll: true } );
 		if ( document.activeElement !== target ) {
 			target.setAttribute( 'tabindex', '-1' );
+			target.addEventListener( 'blur', function () {
+				target.removeAttribute( 'tabindex' );
+			}, { once: true } );
 			target.focus( { preventScroll: true } );
 		}
 	}
@@ -90,7 +98,8 @@
 		if (
 			event.defaultPrevented ||
 			event.button !== 0 ||
-			event.metaKey || event.ctrlKey || event.shiftKey || event.altKey
+			event.metaKey || event.ctrlKey || event.shiftKey || event.altKey ||
+			! ( event.target instanceof Element )
 		) {
 			return;
 		}
@@ -126,9 +135,11 @@
 	 * Current-section marker.
 	 *
 	 * Each Navigation block keeps its own record: the same-page links it owns, grouped
-	 * by target, and the items core marked as the current page at load. The nav's
-	 * current-page marker is removed while one of its sections is current and restored
-	 * when none is, so a nav shows one marker and one `aria-current` at a time.
+	 * by target, and the items core marked as the current page at load. Every link to
+	 * the current section (a submenu parent and its child can share one) is marked;
+	 * the nav's current-page marker and its `aria-current="page"` are set aside while a
+	 * section is current and restored when none is, so page and section never show
+	 * together.
 	 */
 	var navs = [];
 
