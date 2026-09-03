@@ -253,7 +253,10 @@
 		// A section is current once its top is a quarter of the way into the visible
 		// area, and stays current while its region still reaches below the chrome.
 		var line = offset + 0.25 * ( viewport - offset );
-		var atEnd = window.scrollY + viewport >= document.scrollingElement.scrollHeight - 1;
+		var scrollHeight = document.scrollingElement.scrollHeight;
+		// Only a page that scrolls has an end; a page that fits the viewport uses the
+		// line alone, so nothing is current before the reader has moved.
+		var atEnd = scrollHeight - viewport > 1 && window.scrollY + viewport >= scrollHeight - 1;
 
 		navs.forEach( function ( nav ) {
 			var candidate = null;
