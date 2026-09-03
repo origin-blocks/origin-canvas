@@ -205,11 +205,13 @@ a no-op and always correct. When it does not, do **not** snap it silently — a 
 changes the rendering. Report the gap and get a ruling.
 
 ## Sources of truth
-Pattern taxonomy & batch plan: `origin-business-plan/theme/master-pattern-library.md`.
+Pattern roadmap: GitHub issues labelled `pattern`, grouped by batch milestone at
+https://github.com/origin-blocks/origin-canvas/milestones. One issue per unbuilt pattern.
 Metadata / roles / AI-facing tags: `origin-business-plan/plans/patterns-strategy.md`.
-These live outside this repo; the rules above restate the binding parts so agents don't need it.
+The original batch plan, `origin-business-plan/theme/master-pattern-library.md`, is archived
+history. The rules above restate the binding parts so agents don't need either.
 
 ## Extending the fixed category set
-Any addition to the category list requires updating BOTH this `CLAUDE.md` AND
-`master-pattern-library.md` in the same change. The "never invent a category" rule is absolute
-for ad-hoc additions; this dual-update is the only sanctioned way to grow the set.
+Any addition to the category list requires updating this `CLAUDE.md` AND adding the matching
+`category: <slug>` label on GitHub in the same change. The "never invent a category" rule is
+absolute for ad-hoc additions; this dual-update is the only sanctioned way to grow the set.
