@@ -8,6 +8,10 @@
  * :is(container, :where(container > page-list)). The :where() branch has zero
  * specificity, so the alias weighs exactly what the bare container class did and
  * every rule keeps its cascade position for menus of either shape.
+ *
+ * origin-canvas-current marks the item whose section is in view (set on the front
+ * end by assets/js/anchor-navigation.js) and is styled wherever the current page item
+ * is: the two states share every current-menu-ancestor rule list below.
  */
 .wp-block-navigation.is-style-origin-canvas-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item > .wp-block-navigation-item__content,
 .wp-block-navigation.is-style-origin-canvas-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item > .wp-block-navigation-submenu__toggle,
@@ -23,7 +27,9 @@
 .wp-block-navigation.is-style-origin-canvas-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item.current-menu-item > .wp-block-navigation-item__content,
 .wp-block-navigation.is-style-origin-canvas-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item.current-menu-item > .wp-block-navigation-submenu__toggle,
 .wp-block-navigation.is-style-origin-canvas-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item.current-menu-ancestor > .wp-block-navigation-item__content,
+.wp-block-navigation.is-style-origin-canvas-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item.origin-canvas-current > .wp-block-navigation-item__content,
 .wp-block-navigation.is-style-origin-canvas-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item.current-menu-ancestor > .wp-block-navigation-submenu__toggle,
+.wp-block-navigation.is-style-origin-canvas-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item.origin-canvas-current > .wp-block-navigation-submenu__toggle,
 .wp-block-navigation.is-style-origin-canvas-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item > .wp-block-navigation-item__content:focus-visible,
 .wp-block-navigation.is-style-origin-canvas-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item > .wp-block-navigation-submenu__toggle:focus-visible {
 	color: var(--wp--preset--color--primary);
@@ -64,7 +70,8 @@
 .wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item:hover::before,
 .wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item:focus-within::before,
 .wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item.current-menu-item::before,
-.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item.current-menu-ancestor::before {
+.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item.current-menu-ancestor::before,
+.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item.origin-canvas-current::before {
 	opacity: 1;
 }
 
@@ -81,7 +88,9 @@
 .wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item.current-menu-item > .wp-block-navigation-item__content,
 .wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item.current-menu-item > .wp-block-navigation-submenu__toggle,
 .wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item.current-menu-ancestor > .wp-block-navigation-item__content,
-.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item.current-menu-ancestor > .wp-block-navigation-submenu__toggle {
+.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item.origin-canvas-current > .wp-block-navigation-item__content,
+.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item.current-menu-ancestor > .wp-block-navigation-submenu__toggle,
+.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item.origin-canvas-current > .wp-block-navigation-submenu__toggle {
 	color: inherit;
 	text-decoration: none;
 }
@@ -173,7 +182,9 @@
 .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-item.current-menu-item > .wp-block-navigation-item__content,
 .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-item.current-menu-item > .wp-block-navigation-submenu__toggle,
 .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-item.current-menu-ancestor > .wp-block-navigation-item__content,
+.wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-item.origin-canvas-current > .wp-block-navigation-item__content,
 .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-item.current-menu-ancestor > .wp-block-navigation-submenu__toggle,
+.wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-item.origin-canvas-current > .wp-block-navigation-submenu__toggle,
 .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-item__content:hover,
 .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-submenu__toggle:hover,
 .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-submenu__toggle:hover .wp-block-navigation__submenu-icon,
@@ -190,7 +201,9 @@
 .wp-block-navigation.is-style-origin-canvas-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-item.current-menu-item > .wp-block-navigation-item__content,
 .wp-block-navigation.is-style-origin-canvas-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-item.current-menu-item > .wp-block-navigation-submenu__toggle,
 .wp-block-navigation.is-style-origin-canvas-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-item.current-menu-ancestor > .wp-block-navigation-item__content,
+.wp-block-navigation.is-style-origin-canvas-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-item.origin-canvas-current > .wp-block-navigation-item__content,
 .wp-block-navigation.is-style-origin-canvas-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-item.current-menu-ancestor > .wp-block-navigation-submenu__toggle,
+.wp-block-navigation.is-style-origin-canvas-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-item.origin-canvas-current > .wp-block-navigation-submenu__toggle,
 .wp-block-navigation.is-style-origin-canvas-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-item__content:hover,
 .wp-block-navigation.is-style-origin-canvas-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-submenu__toggle:hover,
 .wp-block-navigation.is-style-origin-canvas-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-submenu__toggle:hover .wp-block-navigation__submenu-icon,
@@ -217,7 +230,8 @@
 .wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-item:hover,
 .wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-item:focus-within,
 .wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-item.current-menu-item,
-.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-item.current-menu-ancestor {
+.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-item.current-menu-ancestor,
+.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-item.origin-canvas-current {
 	background-color: rgba(17, 24, 39, 0.04);
 	background-color: color-mix(in srgb, currentColor 4%, transparent);
 }

@@ -506,8 +506,24 @@ body:not(.wp-admin) header:has(> .is-position-sticky) {
 }
 
 @media (max-width: 600px) {
-	header:has(> .is-position-sticky) {
+	body:not(.wp-admin) header:has(> .is-position-sticky) {
 		top: 0;
+	}
+}
+
+/**
+ * Anchor targets land below the sticky chrome: the admin bar (core sets this part
+ * itself, so it is only restated) plus the sticky header's measured height, which
+ * assets/js/anchor-navigation.js keeps in --origin-canvas-sticky-header-height.
+ * Mirrors the sticky-header rule above: at 600px and below the admin bar is not fixed.
+ */
+html {
+	scroll-padding-top: calc(var(--wp-admin--admin-bar--height, 0px) + var(--origin-canvas-sticky-header-height, 0px));
+}
+
+@media (max-width: 600px) {
+	html {
+		scroll-padding-top: var(--origin-canvas-sticky-header-height, 0px);
 	}
 }
 

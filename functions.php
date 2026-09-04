@@ -34,6 +34,34 @@ if ( ! function_exists( 'origin_canvas_enqueue_styles' ) ) {
 }
 add_action( 'wp_enqueue_scripts', 'origin_canvas_enqueue_styles' );
 
+if ( ! function_exists( 'origin_canvas_enqueue_scripts' ) ) {
+	/**
+	 * Enqueue the anchor-navigation script: smooth same-page scrolling below the
+	 * sticky chrome and the current-section navigation marker. Front end only.
+	 *
+	 * The `origin_canvas_enqueue_anchor_navigation` filter switches the script off.
+	 * The `scroll-padding-top` rules in style.css stay in place either way, like the
+	 * sticky-header rule they accompany.
+	 */
+	function origin_canvas_enqueue_scripts() {
+		if ( ! apply_filters( 'origin_canvas_enqueue_anchor_navigation', true ) ) {
+			return;
+		}
+
+		$path  = get_theme_file_path( 'assets/js/anchor-navigation.js' );
+		$mtime = file_exists( $path ) ? filemtime( $path ) : false;
+
+		wp_enqueue_script(
+			'origin-canvas-anchor-navigation',
+			get_theme_file_uri( 'assets/js/anchor-navigation.js' ),
+			array(),
+			$mtime ? $mtime : ORIGIN_CANVAS_VERSION,
+			array( 'strategy' => 'defer' )
+		);
+	}
+}
+add_action( 'wp_enqueue_scripts', 'origin_canvas_enqueue_scripts' );
+
 if ( ! function_exists( 'origin_canvas_register_custom_patterns' ) ) {
 	/**
 	 * Ensure custom patterns are available when the editor cache lags behind.
