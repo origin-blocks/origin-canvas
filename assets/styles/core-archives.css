@@ -1,0 +1,9 @@
+/**
+ * Archive links are navigation, never prose. Inside post content, core's
+ * content-link underline rule (theme.json, core/post-content) ties a block-level
+ * theme.json rule on specificity and wins on source order, so the exclusion is
+ * decisive here.
+ */
+.wp-block-post-content .wp-block-archives a {
+	text-decoration: none;
+}

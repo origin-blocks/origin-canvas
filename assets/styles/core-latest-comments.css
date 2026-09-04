@@ -1,0 +1,11 @@
+/**
+ * The commenter name and the post link are navigation, never prose. Inside post
+ * content, core's content-link underline rule (theme.json, core/post-content)
+ * ties a block-level theme.json rule on specificity and wins on source order,
+ * so the exclusion is decisive here. Links inside the comment body itself are
+ * content links and keep the underline.
+ */
+.wp-block-post-content .wp-block-latest-comments a.wp-block-latest-comments__comment-author,
+.wp-block-post-content .wp-block-latest-comments a.wp-block-latest-comments__comment-link {
+	text-decoration: none;
+}
