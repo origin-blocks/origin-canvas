@@ -363,10 +363,19 @@ input[type="radio"]:focus-visible {
  * theme.json), which WordPress emits as constrained-layout `> * + *
  * margin-block-start`. No flex/gap is set on the wrapper here: a hard flex
  * `gap` would STACK with that constrained margin (they are additive),
- * doubling the gap. The rules below target inner block sub-elements that
- * have no theme.json/blockGap hook, so they legitimately stay CSS.
+ * doubling the gap. The same holds one level down: the Latest Posts list
+ * has layout support, so its item gap is the block's blockGap in theme.json
+ * (`core/latest-posts`), emitted as a flow-layout `margin-block-start` on
+ * each item; a CSS gap here would stack with it. Only list reset rules
+ * stay CSS. The list blocks below it have no layout support, so their gap
+ * has no other owner and remains CSS.
  */
-.origin-canvas-sidebar .wp-block-latest-posts__list,
+.origin-canvas-sidebar .wp-block-latest-posts__list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
 .origin-canvas-sidebar .wp-block-categories-list,
 .origin-canvas-sidebar .wp-block-archives-list,
 .origin-canvas-sidebar .wp-block-latest-comments {
