@@ -29,3 +29,9 @@
 .wp-block-tag-cloud.is-style-origin-canvas-tag-chip a {
 	text-decoration: none;
 }
+
+/* A tag link is a term-archive link in every style, so inside post content the
+   content-link underline is excluded for the block as a whole, not only the chip. */
+.wp-block-post-content .wp-block-tag-cloud a {
+	text-decoration: none;
+}
