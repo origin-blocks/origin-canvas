@@ -16,15 +16,14 @@
 	transition: box-shadow 120ms ease, border-color 120ms ease;
 }
 
-/* The focus ring goes on the element that looks like the field. It is the same ring and the
-   same timing style.css gives every other field. Reduced motion is handled globally.
+/* The focus ring goes on the element that looks like the field. It is the ring style.css gives
+   every other field, at the same timing. Reduced motion is handled globally.
 
-   The colour here holds for the duration of the focus only, and it outranks a border colour set
-   in Global Styles, the same way the site-wide field rule does for every other input. A colour
-   set on the block itself is not affected: WordPress writes a custom one inline and a preset one
-   as a class with `!important`, and both outrank this. */
+   The ring is the whole indicator here. Elsewhere in the theme focus also turns the edge
+   primary, but the border colour on this wrapper is a Global Styles control for core/search, so
+   this rule leaves it alone rather than overwriting the user's colour for as long as the field
+   is focused. */
 .wp-block-search__button-inside .wp-block-search__inside-wrapper:focus-within {
-	border-color: var(--wp--preset--color--primary);
 	box-shadow: 0 0 0 var(--wp--preset--spacing--extra-small)
 		color-mix(in srgb, var(--wp--preset--color--primary) 25%, transparent);
 }
