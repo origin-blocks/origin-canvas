@@ -17,7 +17,12 @@
 }
 
 /* The focus ring goes on the element that looks like the field. It is the same ring and the
-   same timing style.css gives every other field. Reduced motion is handled globally. */
+   same timing style.css gives every other field. Reduced motion is handled globally.
+
+   The colour here holds for the duration of the focus only, and it outranks a border colour set
+   in Global Styles, the same way the site-wide field rule does for every other input. A colour
+   set on the block itself is not affected: WordPress writes a custom one inline and a preset one
+   as a class with `!important`, and both outrank this. */
 .wp-block-search__button-inside .wp-block-search__inside-wrapper:focus-within {
 	border-color: var(--wp--preset--color--primary);
 	box-shadow: 0 0 0 var(--wp--preset--spacing--extra-small)
