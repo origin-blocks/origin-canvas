@@ -42,3 +42,12 @@
 	border-radius: 0;
 	box-shadow: none;
 }
+
+/* The Search block cannot render a disabled field, but custom markup can. The theme greys a
+   disabled field's ground, and here the ground is the wrapper's, so the signal moves with it.
+   Without this the input would take back its own border, radius and padding to carry the grey,
+   and the two edges this file removes would come back. */
+.wp-block-search__button-inside
+	.wp-block-search__inside-wrapper:has(.wp-block-search__input:disabled) {
+	background-color: var(--wp--preset--color--surface-muted);
+}
