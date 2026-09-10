@@ -1,0 +1,41 @@
+/**
+ * With the button inside, the wrapper is the field: it carries the border and radius, set in
+ * theme.json so they stay editable, and the input inside it carries nothing. WordPress builds
+ * the layout this way already — every border a user sets on this variant is written to the
+ * wrapper and none to the input. What this file adds is the part the theme's own rules take
+ * away.
+ */
+
+/* WordPress insets the button by 4px; the theme's `* { padding: 0 }` reset is the same weight
+   and lands later, so the wrapper loses it and the pill sits on the edge. The value is 4px
+   rather than a spacing token because search.php hard-codes the same 4px when it computes the
+   wrapper radius from an author's, and the two have to agree. */
+.wp-block-search__button-inside .wp-block-search__inside-wrapper {
+	padding: 4px;
+	background-color: var(--wp--preset--color--surface-base);
+	transition: box-shadow 120ms ease, border-color 120ms ease;
+}
+
+/* The field's focus ring belongs on the thing that looks like the field. Both the ring and the
+   transition are the ones style.css gives every other field, because "the wrapper is the field"
+   means it behaves like one. Reduced motion is already handled globally. */
+.wp-block-search__button-inside .wp-block-search__inside-wrapper:focus-within {
+	border-color: var(--wp--preset--color--primary);
+	box-shadow: 0 0 0 var(--wp--preset--spacing--extra-small)
+		color-mix(in srgb, var(--wp--preset--color--primary) 25%, transparent);
+}
+
+/* The global field rule reaches every input and would draw a second edge inside the wrapper, so
+   this repeats its `:not()` chain and adds two classes to clear it — the same shape the compact
+   sidebar search uses. It gives up every edge it has, focused or not, and releases the 3rem
+   floor so the field yields to the button rather than pushing it out. */
+.wp-block-search__button-inside .wp-block-search__inside-wrapper
+	input.wp-block-search__input:not([type="button"]):not([type="reset"]):not([type="submit"]):not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="file"]) {
+	width: auto;
+	min-width: 0;
+	padding: 0 var(--wp--preset--spacing--small);
+	background-color: transparent;
+	border: 0;
+	border-radius: 0;
+	box-shadow: none;
+}
