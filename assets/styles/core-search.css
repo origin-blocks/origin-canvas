@@ -1,0 +1,53 @@
+/**
+ * With the button inside, the wrapper is the field. It carries the border and radius, which are
+ * set in theme.json so they stay editable, and the input inside it carries none. WordPress
+ * builds the layout this way already: every border a user sets on this variant is written to
+ * the wrapper and none to the input. This file restores the parts the theme's own rules remove.
+ */
+
+/* WordPress insets the button by 4px on the wrapper. The theme's `* { padding: 0 }` reset has
+   the same weight and loads later, so the inset is lost and the button sits on the edge. The
+   value is flat rather than a spacing token because WordPress hard-codes the same 4px when it
+   derives the wrapper radius from an author's — wp-includes/blocks/search.php, $default_padding
+   — and the two have to agree. */
+.wp-block-search__button-inside .wp-block-search__inside-wrapper {
+	padding: 4px;
+	background-color: var(--wp--preset--color--surface-base);
+	transition: box-shadow 120ms ease, border-color 120ms ease;
+}
+
+/* The focus ring goes on the element that looks like the field. It is the ring style.css gives
+   every other field, at the same timing. Reduced motion is handled globally.
+
+   The ring is the whole indicator here. Elsewhere in the theme focus also turns the edge
+   primary, but the border colour on this wrapper is a Global Styles control for core/search, so
+   this rule leaves it alone rather than overwriting the user's colour for as long as the field
+   is focused. */
+.wp-block-search__button-inside .wp-block-search__inside-wrapper:focus-within {
+	box-shadow: 0 0 0 var(--wp--preset--spacing--extra-small)
+		color-mix(in srgb, var(--wp--preset--color--primary) 25%, transparent);
+}
+
+/* The theme's field rule reaches every input and would draw a second edge inside the wrapper.
+   This repeats that rule's `:not()` chain to outrank it, as the compact sidebar search does.
+   The input gives up every edge at rest and on focus, and releases the 3rem floor so the field
+   yields to the button instead of pushing it out. */
+.wp-block-search__button-inside .wp-block-search__inside-wrapper
+	input.wp-block-search__input:not([type="button"]):not([type="reset"]):not([type="submit"]):not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="file"]) {
+	width: auto;
+	min-width: 0;
+	padding: 0 var(--wp--preset--spacing--small);
+	background-color: transparent;
+	border: 0;
+	border-radius: 0;
+	box-shadow: none;
+}
+
+/* The Search block cannot render a disabled field, but custom markup can. The theme greys a
+   disabled field's ground, and here the ground is the wrapper's, so the signal moves with it.
+   Without this the input would take back its own border, radius and padding to carry the grey,
+   and the two edges this file removes would come back. */
+.wp-block-search__button-inside
+	.wp-block-search__inside-wrapper:has(.wp-block-search__input:disabled) {
+	background-color: var(--wp--preset--color--surface-muted);
+}
