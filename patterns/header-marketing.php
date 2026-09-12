@@ -2,7 +2,7 @@
 /**
  * Title: Header Marketing
  * Slug: origin-canvas/header-marketing
- * Description: A marketing header with the site title, section navigation, a ghost demo link and a dark download button.
+ * Description: A marketing header with the site title, primary navigation, a ghost demo link and a dark download button.
  * Categories: header
  * Keywords: landing, cta, promo, saas, launch
  * Viewport Width: 1500
@@ -20,12 +20,7 @@
 <div class="wp-block-group"><!-- wp:site-title {"level":0,"style":{"spacing":{"margin":{"bottom":"0px","top":"0px"}},"elements":{"link":{"color":{"text":"var:preset|color|text-heading"},":hover":{"color":{"text":"var:preset|color|primary"}}}}},"textColor":"text-heading"} /--></div>
 <!-- /wp:group -->
 
-<!-- wp:navigation {"overlay":"mobile-menu","textColor":"text-heading","className":"origin-canvas-main-nav is-style-origin-canvas-hover-pill","style":{"spacing":{"blockGap":"var:preset|spacing|extra-large"},"typography":{"fontWeight":"500","fontStyle":"normal"}},"fontSize":"small","layout":{"type":"flex","justifyContent":"center","flexWrap":"wrap"}} -->
-<!-- wp:navigation-link {"label":"<?php esc_html_e( 'Features', 'origin-canvas' ); ?>","url":"#features","kind":"custom"} /-->
-<!-- wp:navigation-link {"label":"<?php esc_html_e( 'Patterns', 'origin-canvas' ); ?>","url":"#patterns","kind":"custom"} /-->
-<!-- wp:navigation-link {"label":"<?php esc_html_e( 'Style Variations', 'origin-canvas' ); ?>","url":"#style-variations","kind":"custom"} /-->
-<!-- wp:navigation-link {"label":"<?php esc_html_e( 'Pricing', 'origin-canvas' ); ?>","url":"#pricing","kind":"custom"} /-->
-<!-- /wp:navigation -->
+<!-- wp:navigation {"overlay":"mobile-menu","textColor":"text-heading","className":"origin-canvas-main-nav is-style-origin-canvas-hover-pill","style":{"spacing":{"blockGap":"var:preset|spacing|extra-large"},"typography":{"fontWeight":"500","fontStyle":"normal"}},"fontSize":"small","layout":{"type":"flex","justifyContent":"center","flexWrap":"wrap"}} /-->
 
 <!-- wp:buttons {"style":{"spacing":{"blockGap":"var:preset|spacing|compact"}},"layout":{"type":"flex","flexWrap":"nowrap"}} -->
 <div class="wp-block-buttons"><!-- wp:button {"className":"is-style-outline","style":{"spacing":{"padding":{"top":"calc(var(--wp--preset--spacing--compact) - 2px)","right":"calc(var(--wp--preset--spacing--large) - 2px)","bottom":"calc(var(--wp--preset--spacing--compact) - 2px)","left":"calc(var(--wp--preset--spacing--large) - 2px)"}}},"fontSize":"small"} -->
