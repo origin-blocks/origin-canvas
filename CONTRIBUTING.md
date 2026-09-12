@@ -33,7 +33,8 @@ will break every site that has the Home page saved.
 
 The theme's one front-end script, `assets/js/anchor-navigation.js`, has a Playwright suite
 in `tests/`. It runs the real script and the real `style.css` in Chromium against fixture
-pages built in memory, so it needs no WordPress and no web server.
+pages built in memory, so it needs no WordPress and no web server. Node.js 20 or later is
+required (`@playwright/test` declares it; CI uses 22).
 
 ```sh
 npm ci
