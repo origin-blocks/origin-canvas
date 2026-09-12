@@ -76,6 +76,9 @@ function renderItems( links ) {
 		if ( link.current ) {
 			classes.push( 'current-menu-item' );
 		}
+		if ( link.ancestor ) {
+			classes.push( 'current-menu-ancestor' );
+		}
 		var children = link.children || [];
 		if ( children.length ) {
 			classes.push( 'has-child', 'wp-block-navigation-submenu' );
@@ -144,7 +147,7 @@ function closeHandler( stuck ) {
  *
  * @param {Object}  [options]
  * @param {Array}   [options.sections]   `{ id, height, wrap: 'section'|'group'|null, focusable }`; default three 1200px blocks `one`, `two`, `three`.
- * @param {Array}   [options.links]      `{ href, text, current, children, target, download }`; default the page link (current) plus one link per section.
+ * @param {Array}   [options.links]      `{ href, text, current, ancestor, children, target, download }`; default the page link (current) plus one link per section. `ancestor` marks a submenu parent of the current page as core does.
  * @param {number|false} [options.sticky] Sticky header height in px, or false for no sticky header. Default 80.
  * @param {string}  [options.overlay]    `'closed'` (default), `'open'` or `'stuck'`.
  * @param {boolean} [options.overlayNav] Render the links a second time inside the overlay, as parts/mobile-menu.html does.

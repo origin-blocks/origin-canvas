@@ -91,10 +91,13 @@ test( 'reduced motion scrolls without animation', async ( { page } ) => {
 } );
 
 test.describe( 'clicks the script leaves to the browser', () => {
+	// These exercise the script's own checks on the event, with a synthetic click
+	// event. They say nothing about what a real modifier or middle click does in a
+	// browser: a real middle click raises auxclick, which the script never sees.
 	const guardRows = [
-		{ name: 'a click with the meta key', init: { metaKey: true } },
-		{ name: 'a click with the control key', init: { ctrlKey: true } },
-		{ name: 'a middle-button click', init: { button: 1 } },
+		{ name: 'a click event with the meta key set', init: { metaKey: true } },
+		{ name: 'a click event with the control key set', init: { ctrlKey: true } },
+		{ name: 'a click event with button 1', init: { button: 1 } },
 	];
 
 	for ( const row of guardRows ) {
@@ -110,7 +113,7 @@ test.describe( 'clicks the script leaves to the browser', () => {
 				);
 			}, [ link( '/page/#two' ), row.init ] );
 
-			// What the browser does with the click varies by platform (a new tab, a
+			// What the browser does with the event varies by platform (a new tab, a
 			// same-tab jump, nothing); the script staying out of it does not.
 			const state = await readState( page );
 			expect( state.lastClick ).toEqual( { defaultPrevented: false } );

@@ -30,7 +30,8 @@ function sectionLinks( sections, extra ) {
 
 /**
  * The marker state of one nav: which item hrefs carry the section class, the
- * aria-current value of every link, and which items still carry the page marker.
+ * aria-current value of every link, and which items still carry a page marker
+ * (`current-menu-item` or `current-menu-ancestor`).
  */
 function markers( page, navSelector ) {
 	return page.evaluate( ( selector ) => {
@@ -39,7 +40,7 @@ function markers( page, navSelector ) {
 		return {
 			current: Array.from( nav.querySelectorAll( 'li.origin-canvas-current > a' ) ).map( fragment ),
 			aria: Array.from( nav.querySelectorAll( 'a[aria-current]' ) ).map( ( a ) => fragment( a ) + '=' + a.getAttribute( 'aria-current' ) ),
-			pageMarked: Array.from( nav.querySelectorAll( 'li.current-menu-item > a' ) ).map( fragment ),
+			pageMarked: Array.from( nav.querySelectorAll( 'li.current-menu-item > a, li.current-menu-ancestor > a' ) ).map( fragment ),
 		};
 	}, navSelector );
 }
@@ -120,6 +121,24 @@ test( 'a link that is both the current page and a section carries one aria-curre
 
 	await scrollTo( page, 0 );
 	await expect.poll( () => markers( page, HEADER_NAV ) ).toEqual( { current: [], aria: [ '#two=page' ], pageMarked: [ '#two' ] } );
+} );
+
+test( 'the ancestor marker of the current page is set aside and restored with it', async ( { page } ) => {
+	const links = [
+		{ href: '/parent/', text: 'Parent', ancestor: true, children: [ { href: '/page/', current: true } ] },
+		{ href: '/page/#one' },
+		{ href: '/page/#two' },
+	];
+	await servePage( page, renderPage( { sections: TALL, links } ) );
+	await ready( page );
+	expect( await markers( page, HEADER_NAV ) ).toEqual( { current: [], aria: [ '=page' ], pageMarked: [ '/parent/', '' ] } );
+
+	const two = await geometry( page, 'two' );
+	await scrollTo( page, two.top - two.line + 5 );
+	await expect.poll( () => markers( page, HEADER_NAV ) ).toEqual( { current: [ '#two' ], aria: [ '#two=location' ], pageMarked: [] } );
+
+	await scrollTo( page, 0 );
+	await expect.poll( () => markers( page, HEADER_NAV ) ).toEqual( { current: [], aria: [ '=page' ], pageMarked: [ '/parent/', '' ] } );
 } );
 
 test( 'every link to the current section is marked, submenu parent and child alike', async ( { page } ) => {
