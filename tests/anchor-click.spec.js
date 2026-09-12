@@ -97,6 +97,8 @@ test.describe( 'clicks the script leaves to the browser', () => {
 	const guardRows = [
 		{ name: 'a click event with the meta key set', init: { metaKey: true } },
 		{ name: 'a click event with the control key set', init: { ctrlKey: true } },
+		{ name: 'a click event with the shift key set', init: { shiftKey: true } },
+		{ name: 'a click event with the alt key set', init: { altKey: true } },
 		{ name: 'a click event with button 1', init: { button: 1 } },
 	];
 

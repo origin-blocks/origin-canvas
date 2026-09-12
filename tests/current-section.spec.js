@@ -177,15 +177,25 @@ test( 'a submenu parent is marked for a section link among its children', async 
 	} );
 } );
 
-test( 'the header nav and the overlay copy each mark their own item', async ( { page } ) => {
-	await servePage( page, renderPage( { sections: TALL, links: sectionLinks( TALL ), overlayNav: true } ) );
+test( 'the header nav and the overlay nav are judged on their own links', async ( { page } ) => {
+	// The overlay nav is nested inside the header nav's markup. Each block's links
+	// differ here so that a link counted by the wrong block shows: at the document end
+	// the header, which has no link to `three`, keeps `two` while the overlay marks
+	// `three`.
+	const header = [ { href: '/page/', current: true }, { href: '/page/#one' }, { href: '/page/#two' } ];
+	const overlay = [ { href: '/page/', current: true }, { href: '/page/#two' }, { href: '/page/#three' } ];
+	await servePage( page, renderPage( { sections: TALL, links: header, overlayNav: true, overlayLinks: overlay } ) );
 	await ready( page );
 
 	const two = await geometry( page, 'two' );
 	await scrollTo( page, two.top - two.line + 5 );
-	const expected = { current: [ '#two' ], aria: [ '#two=location' ], pageMarked: [] };
-	await expect.poll( () => markers( page, HEADER_NAV ) ).toEqual( expected );
-	await expect.poll( () => markers( page, OVERLAY_NAV ) ).toEqual( expected );
+	const both = { current: [ '#two' ], aria: [ '#two=location' ], pageMarked: [] };
+	await expect.poll( () => markers( page, HEADER_NAV ) ).toEqual( both );
+	await expect.poll( () => markers( page, OVERLAY_NAV ) ).toEqual( both );
+
+	await scrollTo( page, 1e6 );
+	await expect.poll( () => markers( page, OVERLAY_NAV ) ).toEqual( { current: [ '#three' ], aria: [ '#three=location' ], pageMarked: [] } );
+	await expect.poll( () => markers( page, HEADER_NAV ) ).toEqual( both );
 	expect( await page.evaluate( () => document.querySelectorAll( '.origin-canvas-current' ).length ) ).toBe( 2 );
 } );
 

@@ -150,7 +150,8 @@ function closeHandler( stuck ) {
  * @param {Array}   [options.links]      `{ href, text, current, ancestor, children, target, download }`; default the page link (current) plus one link per section. `ancestor` marks a submenu parent of the current page as core does.
  * @param {number|false} [options.sticky] Sticky header height in px, or false for no sticky header. Default 80.
  * @param {string}  [options.overlay]    `'closed'` (default), `'open'` or `'stuck'`.
- * @param {boolean} [options.overlayNav] Render the links a second time inside the overlay, as parts/mobile-menu.html does.
+ * @param {boolean} [options.overlayNav] Render a second Navigation block inside the overlay, as parts/mobile-menu.html does.
+ * @param {Array}   [options.overlayLinks] Links for that block; default the same `links`.
  * @param {string}  [options.extraHead]  Markup placed in `<head>` before the script tag.
  * @return {string} HTML.
  */
@@ -175,7 +176,7 @@ function renderPage( options ) {
 		closeHandler( overlay === 'stuck' ) + '\'></button>' +
 		( options.overlayNav ?
 			'<div class="wp-block-navigation is-vertical">' +
-			'<ul class="wp-block-navigation__container wp-block-navigation">' + renderItems( links ) + '</ul></div>' :
+			'<ul class="wp-block-navigation__container wp-block-navigation">' + renderItems( options.overlayLinks || links ) + '</ul></div>' :
 			'' ) +
 		'</div></div></nav>';
 
