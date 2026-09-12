@@ -9,10 +9,10 @@ later does not change what is already saved.
 
 Therefore: **never move or delete an image/asset path referenced by an insertable pattern**
 without, in the SAME release, shipping a render-time rewrite shim (old path → new path, scoped
-to the affected block types) AND documenting a sunset version for that shim. See
-`origin_canvas_rewrite_legacy_card_image_paths()` in `functions.php` — the shim for the
-1.0.x → `patterns/images/` card-image move — as the reference implementation (scoped to
-`render_block_core/image` + `render_block_core/cover`, non-destructive, with a stated sunset).
+to the affected block types) AND documenting a sunset version for that shim. The reference
+implementation is the shim for the 1.0.x → `patterns/images/` card-image move: added in
+commits `62f9ac4` and `6cc1ee7` (1.1.0; scoped to `render_block_core/image` +
+`render_block_core/cover`, non-destructive, sunset 1.3.0) and removed after that sunset.
 
 This applies with extra force to the **Home pattern under the user-owned front-page model**:
 the front page is now a user-owned Page seeded from `page-home-01` (no `front-page.html`
