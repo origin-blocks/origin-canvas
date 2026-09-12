@@ -150,6 +150,7 @@ function closeHandler( stuck ) {
  * @param {Array}   [options.links]      `{ href, text, current, ancestor, children, target, download }`; default the page link (current) plus one link per section. `ancestor` marks a submenu parent of the current page as core does.
  * @param {number|false} [options.sticky] Sticky header height in px, or false for no sticky header. Default 80.
  * @param {string}  [options.overlay]    `'closed'` (default), `'open'` or `'stuck'`.
+ * @param {string}  [options.closeButton] `'overlay'` (default: the overlay part's `wp-block-navigation-overlay-close`) or `'core'` (core's default `wp-block-navigation__responsive-container-close`).
  * @param {boolean} [options.overlayNav] Render a second Navigation block inside the overlay, as parts/mobile-menu.html does.
  * @param {Array}   [options.overlayLinks] Links for that block; default the same `links`.
  * @param {string}  [options.extraHead]  Markup placed in `<head>` before the script tag.
@@ -172,8 +173,8 @@ function renderPage( options ) {
 		'<div class="wp-block-navigation__responsive-container' + ( open ? ' is-menu-open' : '' ) + '">' +
 		'<ul class="wp-block-navigation__container wp-block-navigation">' + renderItems( links ) + '</ul>' +
 		'<div class="wp-block-navigation__overlay-container">' +
-		'<button class="wp-block-navigation-overlay-close" type="button" aria-label="Close" onclick=\'' +
-		closeHandler( overlay === 'stuck' ) + '\'></button>' +
+		'<button class="' + ( options.closeButton === 'core' ? 'wp-block-navigation__responsive-container-close' : 'wp-block-navigation-overlay-close' ) +
+		'" type="button" aria-label="Close" onclick=\'' + closeHandler( overlay === 'stuck' ) + '\'></button>' +
 		( options.overlayNav ?
 			'<div class="wp-block-navigation is-vertical">' +
 			'<ul class="wp-block-navigation__container wp-block-navigation">' + renderItems( options.overlayLinks || links ) + '</ul></div>' :

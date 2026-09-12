@@ -35,7 +35,10 @@ async function ready( page ) {
 }
 
 test( 'a same-page anchor click updates the hash, scrolls below the sticky header and moves focus', async ( { page } ) => {
-	await servePage( page, renderPage() );
+	await servePage( page, renderPage( {
+		extraHead: '<script>window.__hashchanges = []; window.addEventListener( "hashchange", function ( event ) {' +
+			'window.__hashchanges.push( { oldURL: event.oldURL, newURL: event.newURL } ); } );</script>',
+	} ) );
 	await ready( page );
 	const before = await readState( page );
 
@@ -45,6 +48,9 @@ test( 'a same-page anchor click updates the hash, scrolls below the sticky heade
 	const after = await readState( page );
 	expect( after.hash ).toBe( '#two' );
 	expect( after.historyLength ).toBe( before.historyLength + 1 );
+	// pushState fires no hashchange of its own; the script dispatches one so listeners
+	// see the same event a native fragment navigation would give them.
+	expect( await page.evaluate( () => window.__hashchanges ) ).toEqual( [ { oldURL: PAGE_URL, newURL: PAGE_URL + '#two' } ] );
 	expect( after.scrolls ).toEqual( [ { id: 'two', behavior: 'smooth', modalOpen: false } ] );
 	expect( after.activeId ).toBe( 'two' );
 	expect( await page.getAttribute( '#two', 'tabindex' ) ).toBe( '-1' );
@@ -264,6 +270,19 @@ test( 'a click inside the open overlay closes it before scrolling', async ( { pa
 	expect( state.scrolls ).toEqual( [ { id: 'two', behavior: 'smooth', modalOpen: false } ] );
 	expect( state.hash ).toBe( '#two' );
 	expect( await page.evaluate( () => document.querySelector( '.wp-block-navigation__responsive-container' ).classList.contains( 'is-menu-open' ) ) ).toBe( false );
+} );
+
+test( 'a click inside core\'s default overlay closes it through core\'s close button', async ( { page } ) => {
+	await servePage( page, renderPage( { overlay: 'open', closeButton: 'core' } ) );
+	await ready( page );
+
+	await page.click( link( '/page/#two' ) );
+
+	await expect.poll( () => readState( page ).then( ( s ) => s.scrolls.length ) ).toBe( 1 );
+	const state = await readState( page );
+	expect( state.closeClicks ).toBe( 1 );
+	expect( state.scrolls ).toEqual( [ { id: 'two', behavior: 'smooth', modalOpen: false } ] );
+	expect( state.hash ).toBe( '#two' );
 } );
 
 test( 'an overlay whose modal marker never clears gets the scroll after ten frames', async ( { page } ) => {

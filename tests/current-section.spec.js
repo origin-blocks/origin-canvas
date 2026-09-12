@@ -199,23 +199,20 @@ test( 'the header nav and the overlay nav are judged on their own links', async 
 	expect( await page.evaluate( () => document.querySelectorAll( '.origin-canvas-current' ).length ) ).toBe( 2 );
 } );
 
-test( 'a target inside a section stays current while the section is on screen', async ( { page } ) => {
-	const sections = [ { id: 'intro', height: 300 }, { id: 'one', height: 1200, wrap: 'section' }, { id: 'two', height: 1200, wrap: 'section' } ];
-	await servePage( page, renderPage( { sections, links: sectionLinks( sections ) } ) );
-	await ready( page );
-
-	// Scroll the heading itself above the sticky chrome while most of its section is
-	// still in view.
-	const one = await geometry( page, 'one' );
-	await scrollTo( page, one.top - one.offset + 100 );
-	await expect.poll( () => markers( page, HEADER_NAV ) ).toEqual( { current: [ '#one' ], aria: [ '#one=location' ], pageMarked: [] } );
-
-	// Without the section, the heading is the whole region and it has left the screen.
-	const bare = sections.map( ( s ) => ( { ...s, wrap: null } ) );
-	await servePage( page, renderPage( { sections: bare, links: sectionLinks( bare ) } ) );
-	await ready( page );
-	await scrollTo( page, one.top - one.offset + 100 );
-	await expect.poll( () => markers( page, HEADER_NAV ) ).toEqual( { current: [], aria: [ '=page' ], pageMarked: [ '' ] } );
+test( 'a target inside a section or a Group stays current while that region is on screen', async ( { page } ) => {
+	const marked = { current: [ '#one' ], aria: [ '#one=location' ], pageMarked: [] };
+	const unmarked = { current: [], aria: [ '=page' ], pageMarked: [ '' ] };
+	// Scroll the heading itself above the sticky chrome while most of its region is
+	// still in view. A section or a Group keeps the item current; a bare heading is
+	// the whole region, and it has left the screen.
+	for ( const [ wrap, expected ] of [ [ 'section', marked ], [ 'group', marked ], [ null, unmarked ] ] ) {
+		const sections = [ { id: 'intro', height: 300 }, { id: 'one', height: 1200, wrap }, { id: 'two', height: 1200, wrap } ];
+		await servePage( page, renderPage( { sections, links: sectionLinks( sections ) } ) );
+		await ready( page );
+		const one = await geometry( page, 'one' );
+		await scrollTo( page, one.top - one.offset + 100 );
+		await expect.poll( () => markers( page, HEADER_NAV ), { message: 'wrap: ' + wrap } ).toEqual( expected );
+	}
 } );
 
 test( 'a nav with no same-page links is left alone', async ( { page } ) => {
