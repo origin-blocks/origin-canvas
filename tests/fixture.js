@@ -207,7 +207,8 @@ async function servePage( page, html, url ) {
 	await context.route( '**/style.css', function ( route ) {
 		return route.fulfill( { path: path.join( THEME_ROOT, 'style.css' ), contentType: 'text/css' } );
 	} );
-	await context.route( url, function ( route ) {
+	// A request carries no fragment, so the route is keyed on the URL without one.
+	await context.route( url.replace( /#.*$/, '' ), function ( route ) {
 		return route.fulfill( { contentType: 'text/html', body: html } );
 	} );
 	await page.goto( url );
