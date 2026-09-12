@@ -4,6 +4,10 @@
   "private": true,
   "description": "Origin Canvas WordPress block theme release package metadata",
   "scripts": {
-    "package": "bash bin/package-theme.sh"
+    "package": "bash bin/package-theme.sh",
+    "test": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.62.0"
   }
 }

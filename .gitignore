@@ -3,3 +3,6 @@
 /docs/plans/
 /origin-blocks.json
 /tasks/runs/
+/node_modules/
+/test-results/
+/playwright-report/

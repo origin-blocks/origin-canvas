@@ -10,3 +10,5 @@
 /package-lock.json export-ignore
 /package.json export-ignore
 /origin-blocks.json export-ignore
+/tests/** export-ignore
+/playwright.config.js export-ignore
