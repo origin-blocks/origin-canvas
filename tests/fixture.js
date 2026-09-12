@@ -41,10 +41,6 @@ function escapeHtml( value ) {
 		.replace( /"/g, '&quot;' );
 }
 
-function absolute( href ) {
-	return /^[a-z]+:/i.test( href ) ? href : ORIGIN + href;
-}
-
 function linkText( href ) {
 	var hash = href.indexOf( '#' );
 	if ( hash !== -1 && hash < href.length - 1 ) {
@@ -56,7 +52,9 @@ function linkText( href ) {
 }
 
 function renderLink( link ) {
-	var attrs = ' class="wp-block-navigation-item__content" href="' + escapeHtml( absolute( link.href ) ) + '"';
+	// The href is written as given: core renders absolute URLs, authored content can
+	// carry relative ones, and the script resolves either through `anchor.href`.
+	var attrs = ' class="wp-block-navigation-item__content" href="' + escapeHtml( link.href ) + '"';
 	if ( link.current ) {
 		attrs += ' aria-current="page"';
 	}
@@ -147,7 +145,7 @@ function closeHandler( stuck ) {
  *
  * @param {Object}  [options]
  * @param {Array}   [options.sections]   `{ id, height, wrap: 'section'|'group'|null, focusable }`; default three 1200px blocks `one`, `two`, `three`.
- * @param {Array}   [options.links]      `{ href, text, current, ancestor, children, target, download }`; default the page link (current) plus one link per section. `ancestor` marks a submenu parent of the current page as core does.
+ * @param {Array}   [options.links]      `{ href, text, current, ancestor, children, target, download }`; `href` is written as given. Default: the page link (current) plus one absolute link per section. `ancestor` marks a submenu parent of the current page as core does.
  * @param {number|false} [options.sticky] Sticky header height in px, or false for no sticky header. Default 80.
  * @param {string}  [options.overlay]    `'closed'` (default), `'open'` or `'stuck'`.
  * @param {string}  [options.closeButton] `'overlay'` (default: the overlay part's `wp-block-navigation-overlay-close`) or `'core'` (core's default `wp-block-navigation__responsive-container-close`).
@@ -159,9 +157,9 @@ function closeHandler( stuck ) {
 function renderPage( options ) {
 	options = options || {};
 	var sections = options.sections || [ { id: 'one' }, { id: 'two' }, { id: 'three' } ];
-	var links = options.links || [ { href: '/page/', current: true } ].concat(
+	var links = options.links || [ { href: PAGE_URL, current: true } ].concat(
 		sections.map( function ( section ) {
-			return { href: '/page/#' + section.id };
+			return { href: PAGE_URL + '#' + section.id };
 		} )
 	);
 	var sticky = options.sticky === undefined ? 80 : options.sticky;

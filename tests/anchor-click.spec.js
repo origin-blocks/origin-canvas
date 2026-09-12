@@ -3,9 +3,11 @@ const { ORIGIN, PAGE_URL, renderPage, servePage, serveElsewhere, recordClickOutc
 
 const HEADER_NAV = 'nav > .wp-block-navigation__responsive-container > ul ';
 
-function link( href ) {
-	return HEADER_NAV + 'a[href="' + ORIGIN + href + '"]';
+function link( href, nav ) {
+	return ( nav || HEADER_NAV ) + 'a[href="' + href + '"]';
 }
+const OVERLAY_NAV = '.wp-block-navigation__overlay-container .wp-block-navigation ';
+const P = PAGE_URL;
 
 function targetTop( page, id ) {
 	return page.evaluate( function ( id ) {
@@ -42,7 +44,7 @@ test( 'a same-page anchor click updates the hash, scrolls below the sticky heade
 	await ready( page );
 	const before = await readState( page );
 
-	await page.click( link( '/page/#two' ) );
+	await page.click( link( P + '#two' ) );
 
 	await expect.poll( () => targetTop( page, 'two' ) ).toBeCloseTo( 80, 0 );
 	const after = await readState( page );
@@ -63,7 +65,7 @@ test( 'a focusable target borrows no tabindex', async ( { page } ) => {
 	await servePage( page, renderPage( { sections: [ { id: 'one' }, { id: 'two', focusable: true }, { id: 'three' } ] } ) );
 	await ready( page );
 
-	await page.click( link( '/page/#two' ) );
+	await page.click( link( P + '#two' ) );
 
 	await expect.poll( () => readState( page ).then( ( s ) => s.activeId ) ).toBe( 'two' );
 	expect( await page.getAttribute( '#two', 'tabindex' ) ).toBeNull();
@@ -73,11 +75,11 @@ test( 'a re-click on the current fragment adds no history entry', async ( { page
 	await servePage( page, renderPage() );
 	await ready( page );
 
-	await page.click( link( '/page/#two' ) );
+	await page.click( link( P + '#two' ) );
 	await expect.poll( () => targetTop( page, 'two' ) ).toBeCloseTo( 80, 0 );
 	const first = await readState( page );
 
-	await page.click( link( '/page/#two' ) );
+	await page.click( link( P + '#two' ) );
 	await expect.poll( () => readState( page ).then( ( s ) => s.scrolls.length ) ).toBe( 2 );
 	const second = await readState( page );
 	expect( second.hash ).toBe( '#two' );
@@ -89,7 +91,7 @@ test( 'reduced motion scrolls without animation', async ( { page } ) => {
 	await servePage( page, renderPage() );
 	await ready( page );
 
-	await page.click( link( '/page/#two' ) );
+	await page.click( link( P + '#two' ) );
 
 	await expect.poll( () => targetTop( page, 'two' ) ).toBeCloseTo( 80, 0 );
 	const state = await readState( page );
@@ -119,7 +121,7 @@ test.describe( 'clicks the script leaves to the browser', () => {
 				document.querySelector( selector ).dispatchEvent(
 					new MouseEvent( 'click', Object.assign( { bubbles: true, cancelable: true }, init ) )
 				);
-			}, [ link( '/page/#two' ), row.init ] );
+			}, [ link( P + '#two' ), row.init ] );
 
 			// What the browser does with the event varies by platform (a new tab, a
 			// same-tab jump, nothing); the script staying out of it does not.
@@ -130,13 +132,13 @@ test.describe( 'clicks the script leaves to the browser', () => {
 	}
 
 	test( 'a link with target="_blank"', async ( { page, context } ) => {
-		await servePage( page, renderPage( { links: [ { href: '/page/', current: true }, { href: '/page/#two', target: '_blank' } ] } ) );
+		await servePage( page, renderPage( { links: [ { href: P, current: true }, { href: P + '#two', target: '_blank' } ] } ) );
 		await ready( page );
 		await recordClickOutcome( page );
 
 		const [ tab ] = await Promise.all( [
 			context.waitForEvent( 'page' ),
-			page.click( link( '/page/#two' ) ),
+			page.click( link( P + '#two' ) ),
 		] );
 		expect( tab.url() ).toBe( PAGE_URL + '#two' );
 		await tab.close();
@@ -149,13 +151,13 @@ test.describe( 'clicks the script leaves to the browser', () => {
 
 	test( 'a download link', async ( { page, context } ) => {
 		await serveElsewhere( context );
-		await servePage( page, renderPage( { links: [ { href: '/page/', current: true }, { href: '/file.txt', download: true } ] } ) );
+		await servePage( page, renderPage( { links: [ { href: P, current: true }, { href: ORIGIN + '/file.txt', download: true } ] } ) );
 		await ready( page );
 		await recordClickOutcome( page );
 
 		const [ download ] = await Promise.all( [
 			page.waitForEvent( 'download' ),
-			page.click( link( '/file.txt' ) ),
+			page.click( link( ORIGIN + '/file.txt' ) ),
 		] );
 		expect( download.url() ).toBe( ORIGIN + '/file.txt' );
 
@@ -168,15 +170,15 @@ test.describe( 'clicks the script leaves to the browser', () => {
 	// Each carries a fragment that does exist on this page, so the only reason to leave
 	// the click alone is the part of the URL that differs.
 	const navigationRows = [
-		{ name: 'a cross-origin link', href: 'http://other.test/#two', selector: HEADER_NAV + 'a[href="http://other.test/#two"]' },
-		{ name: 'a link to another path on this origin', href: '/other/#two', selector: link( '/other/#two' ) },
-		{ name: 'a link to this path with a different query', href: '/page/?q=1#two', selector: link( '/page/?q=1#two' ) },
+		{ name: 'a cross-origin link', href: 'http://other.test/#two', selector: link( 'http://other.test/#two' ) },
+		{ name: 'a link to another path on this origin', href: ORIGIN + '/other/#two', selector: link( ORIGIN + '/other/#two' ) },
+		{ name: 'a link to this path with a different query', href: P + '?q=1#two', selector: link( P + '?q=1#two' ) },
 	];
 
 	for ( const row of navigationRows ) {
 		test( row.name, async ( { page, context } ) => {
 			await serveElsewhere( context );
-			await servePage( page, renderPage( { links: [ { href: '/page/', current: true }, { href: row.href, text: 'Away' } ] } ) );
+			await servePage( page, renderPage( { links: [ { href: P, current: true }, { href: row.href, text: 'Away' } ] } ) );
 			await ready( page );
 
 			await Promise.all( [
@@ -190,23 +192,23 @@ test.describe( 'clicks the script leaves to the browser', () => {
 	// `hash` is what location.hash reads after the native jump; a bare "#" leaves it
 	// empty while the URL itself ends in "#".
 	const nativeRows = [
-		{ name: 'a bare "#"', href: '/page/#', hash: '' },
-		{ name: 'a fragment with no matching element', href: '/page/#nope', hash: '#nope' },
-		{ name: 'a fragment with a malformed percent escape', href: '/page/#%E0%A4%A', hash: '#%E0%A4%A' },
+		{ name: 'a bare "#"', href: P + '#', hash: '' },
+		{ name: 'a fragment with no matching element', href: P + '#nope', hash: '#nope' },
+		{ name: 'a fragment with a malformed percent escape', href: P + '#%E0%A4%A', hash: '#%E0%A4%A' },
 	];
 
 	for ( const row of nativeRows ) {
 		test( row.name, async ( { page } ) => {
 			const errors = [];
 			page.on( 'pageerror', ( error ) => errors.push( error ) );
-			await servePage( page, renderPage( { links: [ { href: '/page/', current: true }, { href: row.href, text: 'Away' } ] } ) );
+			await servePage( page, renderPage( { links: [ { href: P, current: true }, { href: row.href, text: 'Away' } ] } ) );
 			await ready( page );
 			await recordClickOutcome( page );
 			const before = await readState( page );
 
 			await page.click( link( row.href ) );
 
-			await expect.poll( () => page.url() ).toBe( ORIGIN + row.href );
+			await expect.poll( () => page.url() ).toBe( row.href );
 			const state = await readState( page );
 			expect( state.hash ).toBe( row.hash );
 			expect( state.lastClick ).toEqual( { defaultPrevented: false } );
@@ -220,11 +222,11 @@ test.describe( 'clicks the script leaves to the browser', () => {
 test( 'a percent-encoded fragment that decodes to an id is handled', async ( { page } ) => {
 	await servePage( page, renderPage( {
 		sections: [ { id: 'one' }, { id: 'zwei ü' }, { id: 'three' } ],
-		links: [ { href: '/page/', current: true }, { href: '/page/#zwei%20%C3%BC', text: 'Zwei' } ],
+		links: [ { href: P, current: true }, { href: P + '#zwei%20%C3%BC', text: 'Zwei' } ],
 	} ) );
 	await ready( page );
 
-	await page.click( link( '/page/#zwei%20%C3%BC' ) );
+	await page.click( link( P + '#zwei%20%C3%BC' ) );
 
 	await expect.poll( () => targetTop( page, 'zwei ü' ) ).toBeCloseTo( 80, 0 );
 	const state = await readState( page );
@@ -232,11 +234,21 @@ test( 'a percent-encoded fragment that decodes to an id is handled', async ( { p
 	expect( state.hash ).toBe( '#zwei%20%C3%BC' );
 } );
 
+test( 'a relative href is handled', async ( { page } ) => {
+	await servePage( page, renderPage( { links: [ { href: P, current: true }, { href: '#two', text: 'Two' } ] } ) );
+	await ready( page );
+
+	await page.click( link( '#two' ) );
+
+	await expect.poll( () => targetTop( page, 'two' ) ).toBeCloseTo( 80, 0 );
+	expect( ( await readState( page ) ).hash ).toBe( '#two' );
+} );
+
 test( 'a click on the label inside the anchor is handled', async ( { page } ) => {
 	await servePage( page, renderPage() );
 	await ready( page );
 
-	await page.click( link( '/page/#two' ) + ' span' );
+	await page.click( link( P + '#two' ) + ' span' );
 
 	await expect.poll( () => targetTop( page, 'two' ) ).toBeCloseTo( 80, 0 );
 	expect( ( await readState( page ) ).hash ).toBe( '#two' );
@@ -249,7 +261,7 @@ test( 'a click an earlier handler prevented is left alone', async ( { page } ) =
 	await ready( page );
 	await recordClickOutcome( page );
 
-	await page.click( link( '/page/#two' ) );
+	await page.click( link( P + '#two' ) );
 
 	await page.evaluate( () => new Promise( requestAnimationFrame ) );
 	const state = await readState( page );
@@ -259,10 +271,11 @@ test( 'a click an earlier handler prevented is left alone', async ( { page } ) =
 } );
 
 test( 'a click inside the open overlay closes it before scrolling', async ( { page } ) => {
-	await servePage( page, renderPage( { overlay: 'open' } ) );
+	// The link lives in the overlay's own Navigation block, as in parts/mobile-menu.html.
+	await servePage( page, renderPage( { overlay: 'open', overlayNav: true } ) );
 	await ready( page );
 
-	await page.click( link( '/page/#two' ) );
+	await page.click( link( P + '#two', OVERLAY_NAV ) );
 
 	await expect.poll( () => readState( page ).then( ( s ) => s.scrolls.length ) ).toBe( 1 );
 	const state = await readState( page );
@@ -273,10 +286,10 @@ test( 'a click inside the open overlay closes it before scrolling', async ( { pa
 } );
 
 test( 'a click inside core\'s default overlay closes it through core\'s close button', async ( { page } ) => {
-	await servePage( page, renderPage( { overlay: 'open', closeButton: 'core' } ) );
+	await servePage( page, renderPage( { overlay: 'open', closeButton: 'core', overlayNav: true } ) );
 	await ready( page );
 
-	await page.click( link( '/page/#two' ) );
+	await page.click( link( P + '#two', OVERLAY_NAV ) );
 
 	await expect.poll( () => readState( page ).then( ( s ) => s.scrolls.length ) ).toBe( 1 );
 	const state = await readState( page );
@@ -289,7 +302,7 @@ test( 'an overlay whose modal marker never clears gets the scroll after ten fram
 	await servePage( page, renderPage( { overlay: 'stuck' } ) );
 	await ready( page );
 
-	await page.click( link( '/page/#two' ) );
+	await page.click( link( P + '#two' ) );
 
 	await expect.poll( () => readState( page ).then( ( s ) => s.scrolls.length ) ).toBe( 1 );
 	const state = await readState( page );

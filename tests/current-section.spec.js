@@ -1,5 +1,6 @@
 const { test, expect } = require( '@playwright/test' );
-const { renderPage, servePage } = require( './fixture' );
+const { ORIGIN, PAGE_URL, renderPage, servePage } = require( './fixture' );
+const P = PAGE_URL;
 
 const HEADER_NAV = 'nav > .wp-block-navigation__responsive-container > ul';
 const OVERLAY_NAV = '.wp-block-navigation__overlay-container .wp-block-navigation';
@@ -22,8 +23,8 @@ const SHORT = [
 ];
 
 function sectionLinks( sections, extra ) {
-	return [ { href: '/page/', current: true } ].concat(
-		sections.filter( ( s ) => s.id !== 'intro' ).map( ( s ) => ( { href: '/page/#' + s.id } ) ),
+	return [ { href: P, current: true } ].concat(
+		sections.filter( ( s ) => s.id !== 'intro' ).map( ( s ) => ( { href: P + '#' + s.id } ) ),
 		extra || []
 	);
 }
@@ -110,7 +111,7 @@ test( 'scrolling back to the top restores the page marker', async ( { page } ) =
 } );
 
 test( 'a link that is both the current page and a section carries one aria-current', async ( { page } ) => {
-	const links = [ { href: '/page/#one' }, { href: '/page/#two', current: true }, { href: '/page/#three' } ];
+	const links = [ { href: P + '#one' }, { href: P + '#two', current: true }, { href: P + '#three' } ];
 	await servePage( page, renderPage( { sections: TALL, links } ) );
 	await ready( page );
 	expect( await markers( page, HEADER_NAV ) ).toEqual( { current: [], aria: [ '#two=page' ], pageMarked: [ '#two' ] } );
@@ -125,9 +126,9 @@ test( 'a link that is both the current page and a section carries one aria-curre
 
 test( 'the ancestor marker of the current page is set aside and restored with it', async ( { page } ) => {
 	const links = [
-		{ href: '/parent/', text: 'Parent', ancestor: true, children: [ { href: '/page/', current: true } ] },
-		{ href: '/page/#one' },
-		{ href: '/page/#two' },
+		{ href: '/parent/', text: 'Parent', ancestor: true, children: [ { href: P, current: true } ] },
+		{ href: P + '#one' },
+		{ href: P + '#two' },
 	];
 	await servePage( page, renderPage( { sections: TALL, links } ) );
 	await ready( page );
@@ -143,9 +144,9 @@ test( 'the ancestor marker of the current page is set aside and restored with it
 
 test( 'every link to the current section is marked, submenu parent and child alike', async ( { page } ) => {
 	const links = [
-		{ href: '/page/', current: true },
-		{ href: '/page/#one' },
-		{ href: '/page/#two', children: [ { href: '/page/#two', text: 'Two again' } ] },
+		{ href: P, current: true },
+		{ href: P + '#one' },
+		{ href: P + '#two', children: [ { href: P + '#two', text: 'Two again' } ] },
 	];
 	await servePage( page, renderPage( { sections: TALL, links } ) );
 	await ready( page );
@@ -161,8 +162,8 @@ test( 'every link to the current section is marked, submenu parent and child ali
 
 test( 'a submenu parent is marked for a section link among its children', async ( { page } ) => {
 	const links = [
-		{ href: '/page/', current: true },
-		{ href: '/other/', text: 'Other', children: [ { href: '/page/#two' } ] },
+		{ href: P, current: true },
+		{ href: '/other/', text: 'Other', children: [ { href: P + '#two' } ] },
 	];
 	await servePage( page, renderPage( { sections: TALL, links } ) );
 	await ready( page );
@@ -182,8 +183,8 @@ test( 'the header nav and the overlay nav are judged on their own links', async 
 	// differ here so that a link counted by the wrong block shows: at the document end
 	// the header, which has no link to `three`, keeps `two` while the overlay marks
 	// `three`.
-	const header = [ { href: '/page/', current: true }, { href: '/page/#one' }, { href: '/page/#two' } ];
-	const overlay = [ { href: '/page/', current: true }, { href: '/page/#two' }, { href: '/page/#three' } ];
+	const header = [ { href: P, current: true }, { href: P + '#one' }, { href: P + '#two' } ];
+	const overlay = [ { href: P, current: true }, { href: P + '#two' }, { href: P + '#three' } ];
 	await servePage( page, renderPage( { sections: TALL, links: header, overlayNav: true, overlayLinks: overlay } ) );
 	await ready( page );
 
@@ -216,7 +217,7 @@ test( 'a target inside a section or a Group stays current while that region is o
 } );
 
 test( 'a nav with no same-page links is left alone', async ( { page } ) => {
-	const links = [ { href: '/page/', current: true }, { href: '/other/', text: 'Other' }, { href: 'http://other.test/', text: 'Away' } ];
+	const links = [ { href: P, current: true }, { href: ORIGIN + '/other/', text: 'Other' }, { href: 'http://other.test/', text: 'Away' } ];
 	await servePage( page, renderPage( { sections: TALL, links } ) );
 	await ready( page );
 
