@@ -154,10 +154,12 @@ test.describe( 'clicks the script leaves to the browser', () => {
 		expect( page.url() ).toBe( PAGE_URL );
 	} );
 
+	// Each carries a fragment that does exist on this page, so the only reason to leave
+	// the click alone is the part of the URL that differs.
 	const navigationRows = [
-		{ name: 'a cross-origin link', href: 'http://other.test/', selector: HEADER_NAV + 'a[href="http://other.test/"]' },
-		{ name: 'a link to another path on this origin', href: '/other/', selector: link( '/other/' ) },
-		{ name: 'a link to this path with a different query', href: '/page/?q=1', selector: link( '/page/?q=1' ) },
+		{ name: 'a cross-origin link', href: 'http://other.test/#two', selector: HEADER_NAV + 'a[href="http://other.test/#two"]' },
+		{ name: 'a link to another path on this origin', href: '/other/#two', selector: link( '/other/#two' ) },
+		{ name: 'a link to this path with a different query', href: '/page/?q=1#two', selector: link( '/page/?q=1#two' ) },
 	];
 
 	for ( const row of navigationRows ) {
@@ -167,7 +169,7 @@ test.describe( 'clicks the script leaves to the browser', () => {
 			await ready( page );
 
 			await Promise.all( [
-				page.waitForURL( /^http:\/\/(other\.test\/|fixture\.test\/(other\/|page\/\?q=1))$/ ),
+				page.waitForURL( /^http:\/\/(other\.test\/|fixture\.test\/(other\/|page\/\?q=1))#two$/ ),
 				page.click( row.selector ),
 			] );
 			await expect( page ).toHaveTitle( 'elsewhere' );

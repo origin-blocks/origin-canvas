@@ -35,7 +35,7 @@ function sectionLinks( sections, extra ) {
 function markers( page, navSelector ) {
 	return page.evaluate( ( selector ) => {
 		const nav = document.querySelector( selector );
-		const fragment = ( a ) => a.getAttribute( 'href' ).replace( /^.*\/page\//, '' );
+		const fragment = ( a ) => a.getAttribute( 'href' ).replace( 'http://fixture.test/page/', '' ).replace( 'http://fixture.test', '' );
 		return {
 			current: Array.from( nav.querySelectorAll( 'li.origin-canvas-current > a' ) ).map( fragment ),
 			aria: Array.from( nav.querySelectorAll( 'a[aria-current]' ) ).map( ( a ) => fragment( a ) + '=' + a.getAttribute( 'aria-current' ) ),
@@ -136,6 +136,24 @@ test( 'every link to the current section is marked, submenu parent and child ali
 	await expect.poll( () => markers( page, HEADER_NAV ) ).toEqual( {
 		current: [ '#two', '#two' ],
 		aria: [ '#two=location', '#two=location' ],
+		pageMarked: [],
+	} );
+} );
+
+test( 'a submenu parent is marked for a section link among its children', async ( { page } ) => {
+	const links = [
+		{ href: '/page/', current: true },
+		{ href: '/other/', text: 'Other', children: [ { href: '/page/#two' } ] },
+	];
+	await servePage( page, renderPage( { sections: TALL, links } ) );
+	await ready( page );
+
+	const two = await geometry( page, 'two' );
+	await scrollTo( page, two.top - two.line + 5 );
+	// The parent item carries the class; only the section link carries aria-current.
+	await expect.poll( () => markers( page, HEADER_NAV ) ).toEqual( {
+		current: [ '/other/', '#two' ],
+		aria: [ '#two=location' ],
 		pageMarked: [],
 	} );
 } );
