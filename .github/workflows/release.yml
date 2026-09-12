@@ -31,4 +31,4 @@ jobs:
     uses: origin-blocks/theme-workflows/.github/workflows/build-release.yml@v1
     with:
       theme-name: origin-canvas
-      node-version: '18'
+      node-version: '22'

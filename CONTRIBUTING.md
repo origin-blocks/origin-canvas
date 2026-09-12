@@ -28,3 +28,29 @@ will break every site that has the Home page saved.
 3. Give the shim an explicit **sunset** version in its docblock and log the removal as a
    follow-up.
 4. Keep the old directory deleted — the shim heals at output; it does not resurrect paths.
+
+## Running the JavaScript tests
+
+The theme's one front-end script, `assets/js/anchor-navigation.js`, has a Playwright suite
+in `tests/`. It runs the real script and the real `style.css` in Chromium against fixture
+pages built in memory, so it needs no WordPress and no web server. Node.js 20 or later is
+required (`@playwright/test` declares it; CI uses 22).
+
+```sh
+npm ci
+npx playwright install chromium   # once per machine
+npm test
+```
+
+CI runs the same three steps on every push and pull request (`.github/workflows/test.yml`).
+`tests/` and the Playwright config never ship: both are export-ignored for `git archive`
+and listed in `.distignore`.
+
+The fixtures in `tests/fixture.js` mirror the markup WordPress core renders for the
+Navigation block and the theme's mobile-menu overlay part; the class names and the core
+lines they come from are listed in that file's header. Core's overlay itself is not in
+the loop — a stand-in clears the overlay's classes when its close button is clicked — so
+one check stays manual after a WordPress upgrade or a change to `parts/mobile-menu.html`:
+on a page with same-page anchor links, at 600px or narrower, open the mobile menu, tap a
+section link, and confirm the overlay closes and the page scrolls to the section below
+the sticky header.

@@ -18,3 +18,7 @@
 /.idea/
 /.vscode/
 *.swp
+/tests/
+/playwright.config.js
+/test-results/
+/playwright-report/
