@@ -407,3 +407,40 @@
 .wp-block-group.origin-canvas-testimonial-card.is-layout-flex > p:first-child {
 	flex: 1 1 auto;
 }
+
+/**
+ * Marketing header, below 600px: one row.
+ *
+ * The nav has already collapsed to the hamburger. Measured at 375, the brand word,
+ * both pills and the hamburger need about 495px and the brand word with one pill
+ * still needs 336, so two things give: the ghost "View demo" is hidden (the closing
+ * CTA carries it again on the same page) and the site title drops to screen-reader-
+ * only while the site logo carries the brand. A site with no logo keeps its title.
+ * "Download" stays: a conversion action does not go behind a hamburger. Its
+ * min-height is a floor, not a size — the theme pins no button line-height.
+ */
+@media (max-width: 599px) {
+	.origin-canvas-header-marketing .wp-block-button.is-style-outline {
+		display: none;
+	}
+
+	.origin-canvas-header-marketing .wp-block-button__link {
+		min-height: 44px;
+	}
+
+	.origin-canvas-header-marketing .wp-block-group:has(> .wp-block-site-logo) > .wp-block-site-title {
+		clip-path: inset(50%);
+		height: 1px;
+		overflow: hidden;
+		position: absolute;
+		white-space: nowrap;
+		width: 1px;
+	}
+}
+
+/* The hamburger joins "Download" on the right; the brand stays on the left. */
+@media (max-width: 599px) {
+	.origin-canvas-header-marketing .wp-block-navigation {
+		margin-left: auto;
+	}
+}
