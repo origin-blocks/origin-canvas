@@ -415,7 +415,8 @@
  * both pills and the hamburger need about 495px and the brand word with one pill
  * still needs 336, so two things give: the ghost "View demo" is hidden (the closing
  * CTA carries it again on the same page) and the site title drops to screen-reader-
- * only while the site logo carries the brand. A site with no logo keeps its title.
+ * only while the site logo carries the brand; the title link is still a tab stop, so
+ * it un-clips while focused. A site with no logo keeps its title.
  * "Download" stays: a conversion action does not go behind a hamburger. Its
  * min-height is a floor, not a size — the theme pins no button line-height.
  */
@@ -428,7 +429,7 @@
 		min-height: 44px;
 	}
 
-	.origin-canvas-header-marketing .wp-block-group:has(> .wp-block-site-logo) > .wp-block-site-title {
+	.origin-canvas-header-marketing .wp-block-group:has(> .wp-block-site-logo) > .wp-block-site-title:not(:focus-within) {
 		clip-path: inset(50%);
 		height: 1px;
 		overflow: hidden;
@@ -438,9 +439,12 @@
 	}
 }
 
-/* The hamburger joins "Download" on the right; the brand stays on the left. */
+/*
+ * The hamburger joins "Download" on the right; the brand stays on the left. Child
+ * combinators keep this off the overlay's own Navigation block nested inside.
+ */
 @media (max-width: 599px) {
-	.origin-canvas-header-marketing .wp-block-navigation {
+	.origin-canvas-header-marketing > .wp-block-group > .wp-block-navigation {
 		margin-left: auto;
 	}
 }
