@@ -407,3 +407,37 @@
 .wp-block-group.origin-canvas-testimonial-card.is-layout-flex > p:first-child {
 	flex: 1 1 auto;
 }
+
+/**
+ * Marketing header, below 600px: one row.
+ *
+ * The nav has collapsed to the hamburger. The brand word, both pills and the
+ * hamburger do not fit a phone width on one row, so the ghost "View demo" is hidden
+ * and the site title drops to screen-reader-only while the site logo carries the
+ * brand; the title link is still a tab stop, so it un-clips while focused. A site
+ * with no logo keeps its title. "Download" stays, with a 44px floor because the
+ * theme pins no button line-height, and the hamburger packs beside it. Child
+ * combinators keep the hamburger rule off the overlay's own Navigation block.
+ */
+@media (max-width: 599px) {
+	.origin-canvas-header-marketing .wp-block-button.is-style-outline {
+		display: none;
+	}
+
+	.origin-canvas-header-marketing .wp-block-button__link {
+		min-height: 44px;
+	}
+
+	.origin-canvas-header-marketing .wp-block-group:has(> .wp-block-site-logo) > .wp-block-site-title:not(:focus-within) {
+		clip-path: inset(50%);
+		height: 1px;
+		overflow: hidden;
+		position: absolute;
+		white-space: nowrap;
+		width: 1px;
+	}
+
+	.origin-canvas-header-marketing > .wp-block-group > .wp-block-navigation {
+		margin-left: auto;
+	}
+}
