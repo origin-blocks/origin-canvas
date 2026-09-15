@@ -333,7 +333,7 @@
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"style":{"typography":{"lineHeight":"1.5"},"spacing":{"margin":{"top":"5px","bottom":"0"}}},"textColor":"text-body","fontSize":"extra-small"} -->
-<p class="has-text-body-color has-text-color has-extra-small-font-size" style="margin-top:5px;margin-bottom:0;line-height:1.5"><?php echo esc_html__( 'DM Sans body & headings &middot; 700 headings, tight tracking', 'origin-canvas' ); ?></p>
+<p class="has-text-body-color has-text-color has-extra-small-font-size" style="margin-top:5px;margin-bottom:0;line-height:1.5"><?php echo esc_html__( 'DM Sans body & headings &middot; 600 headings, tight tracking', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column -->
 
