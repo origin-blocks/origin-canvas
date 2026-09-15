@@ -80,4 +80,5 @@ optically. Provenance and recipe, for the next face:
   changed; saved with `flavor = "woff2"`.
 - Result for 600: `SourceSerif4-600.woff2`, sha256
   `55e2bdee5fb978c258481a8f8be65e06b654116d3a4f0c34ba3c282b9de51fea`, 58,252 bytes; same
-  1,035 glyphs, code points, features, tables and name-record set as the 700.
+  1,035 glyphs, code points, features and name-record set as the 700, and the same tables
+  except the 700's seven-byte `prep` stub, which an unhinted cut does not carry.
