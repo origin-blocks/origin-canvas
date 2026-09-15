@@ -181,15 +181,18 @@ it and weight belongs to the variation. If it renders as a `<p>` — as the site
 
 **One content exemption — the statement register.** Being *lighter* than the theme's voice is
 its identity; following the swing would make it just another big heading. Each file keeps
-exactly what it already has, and the two differ:
+exactly what it already has; two of the three share the same pins:
 
 | Pattern | Pins |
 |---|---|
 | `breath-statement` | `fontWeight: 500` only |
 | `text-large-statement` | `fontWeight: 500` **and** `letterSpacing: -0.01em` |
+| `lead-statement` | `fontWeight: 500` **and** `letterSpacing: -0.01em` |
 
-The exemption covers weight *and* tracking, because tracking rides weight. The asymmetry is
-pre-existing; neither file gains a pin it did not already have.
+The exemption covers weight *and* tracking, because tracking rides weight. The asymmetry
+between `breath-statement` and the other two is pre-existing; no file gains a pin it did not
+already have. `bin/lib/check-heading-blocks.py`
+holds the same three files, property and value, so a fourth pin fails the guard.
 
 ### 8. Shared components are judged against every page that uses them
 A change to a template part (header, footer) or to a widely-reused pattern must be justified
