@@ -10,7 +10,6 @@
 			"heading": {
 				"typography": {
 					"fontFamily": "var(--wp--preset--font-family--space-grotesk)",
-					"fontWeight": "700",
 					"lineHeight": "1.15",
 					"letterSpacing": "-0.025em"
 				}

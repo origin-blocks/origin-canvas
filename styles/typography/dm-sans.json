@@ -12,7 +12,6 @@
 			"heading": {
 				"typography": {
 					"fontFamily": "var(--wp--preset--font-family--dm-sans)",
-					"fontWeight": "700",
 					"lineHeight": "1.2",
 					"letterSpacing": "-0.015em"
 				}
