@@ -47,12 +47,12 @@
 				},
 				{
 					"slug": "text-body",
-					"color": "#4B5563",
+					"color": "#374151",
 					"name": "Text Body"
 				},
 				{
 					"slug": "text-muted",
-					"color": "#6B7280",
+					"color": "#4B5563",
 					"name": "Text Muted"
 				},
 				{
