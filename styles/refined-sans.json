@@ -48,12 +48,12 @@
 				{
 					"slug": "text-body",
 					"name": "Text Body",
-					"color": "#475569"
+					"color": "#334155"
 				},
 				{
 					"slug": "text-muted",
 					"name": "Text Muted",
-					"color": "#64748B"
+					"color": "#475569"
 				},
 				{
 					"slug": "on-dark",

@@ -153,12 +153,12 @@
 				{
 					"slug": "text-body",
 					"name": "Text Body",
-					"color": "#4B5563"
+					"color": "#374151"
 				},
 				{
 					"slug": "text-muted",
 					"name": "Text Muted",
-					"color": "#6B7280"
+					"color": "#4B5563"
 				},
 				{
 					"slug": "on-dark",
