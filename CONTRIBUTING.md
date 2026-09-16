@@ -54,3 +54,31 @@ one check stays manual after a WordPress upgrade or a change to `parts/mobile-me
 on a page with same-page anchor links, at 600px or narrower, open the mobile menu, tap a
 section link, and confirm the overlay closes and the page scrolls to the section below
 the sticky header.
+
+## Font files
+
+The Source Serif 4 faces in `assets/fonts/source-serif/` are cut from Adobe's release, not
+downloaded ready-made, so a new weight must be cut the same way or the pair will not match
+optically. Provenance and recipe, for the next face:
+
+- Source: `https://github.com/adobe-fonts/source-serif/releases/download/4.004R/source-serif-4.004.zip`
+  (sha256 `cb3e95d6e3c1273d44300dd464e568d4c9613b28199c53c50454af4b40bbdac1`), file
+  `VAR/SourceSerif4Variable-Roman.ttf` (sha256 `38e35c59990b5a39ffb9fb841dfa6f5d2a80ce2c5ea004c3e433b1efd83ebbd0`).
+  OFL 1.1; `LICENSE.txt` in the font directory covers every cut.
+- Tools: fontTools 4.60.2 with brotli 1.1.0 (Python 3.9).
+- Instance: `fontTools.varLib.instancer.instantiateVariableFont(font, {"wght": N, "opsz": 14}, updateFontNames=False)`.
+  Optical size 14 is what the shipped 700 carries (advance of `A` = 712 units); the static
+  4.004 instances are opsz 20 and do not match it. Rewrite name IDs 1/2/3/4/6 to the static
+  strings (`Source Serif 4`, `<Style>`, `4.004;ADBO;SourceSerif4-<Style>`,
+  `Source Serif 4 <Style>`, `SourceSerif4-<Style>`), drop 16/17/25, set `OS/2.usWeightClass`.
+- Subset: `fontTools.subset.Subsetter` with `unicodes` = the shipped 700's cmap (918 code
+  points), `layout_features` = its GSUB/GPOS feature tags (`ccmp dnom frac kern liga locl
+  mark mkmk numr pnum tnum`), `hinting=False`, `notdef_outline=True`, `name_IDs=['*']`,
+  `passthrough_tables=True`, `drop_tables` minus `BASE`, `STAT`, `gasp`.
+- Then: name records limited to the 700's (platform, encoding, language, id) set; `gasp`
+  and `STAT` copied from the 700 with the weight axis value and its name record (ID 344)
+  changed; saved with `flavor = "woff2"`.
+- Result for 600: `SourceSerif4-600.woff2`, sha256
+  `55e2bdee5fb978c258481a8f8be65e06b654116d3a4f0c34ba3c282b9de51fea`, 58,252 bytes; same
+  1,035 glyphs, code points, features and name-record set as the 700, and the same tables
+  except the 700's seven-byte `prep` stub, which an unhinted cut does not carry.

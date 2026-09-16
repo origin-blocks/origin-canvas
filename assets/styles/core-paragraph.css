@@ -14,7 +14,8 @@
  * type while the Default variation is active. They are not theme font
  * presets; the variations themselves register their own faces via
  * theme.json/styles JSON. Relative URLs are rewritten for the editor canvas
- * by add_editor_style().
+ * by add_editor_style(). Source Serif carries both weights so a card can
+ * preview the weight the presets ship.
  */
 @font-face {
 	font-display: swap;
@@ -22,6 +23,14 @@
 	font-style: normal;
 	font-weight: 700;
 	src: url("../fonts/source-serif/SourceSerif4-700.woff2") format("woff2");
+}
+
+@font-face {
+	font-display: swap;
+	font-family: "Source Serif 4";
+	font-style: normal;
+	font-weight: 600;
+	src: url("../fonts/source-serif/SourceSerif4-600.woff2") format("woff2");
 }
 
 @font-face {
