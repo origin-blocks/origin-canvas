@@ -55,8 +55,8 @@
 <p class="has-text-color" style="color:#111827;margin-top:0;margin-bottom:0;font-size:2.625rem;font-weight:600;letter-spacing:-0.02em;line-height:1"><?php echo esc_html__( 'Ag', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
-<!-- wp:paragraph {"style":{"color":{"text":"#4B5563"},"typography":{"fontSize":"0.75rem"},"spacing":{"margin":{"top":"0","bottom":"0"}}}} -->
-<p class="has-text-color" style="color:#4B5563;margin-top:0;margin-bottom:0;font-size:0.75rem"><?php echo esc_html__( 'Inter &middot; the default canvas', 'origin-canvas' ); ?></p>
+<!-- wp:paragraph {"style":{"color":{"text":"var:preset|color|text-body"},"typography":{"fontSize":"0.75rem"},"spacing":{"margin":{"top":"0","bottom":"0"}}}} -->
+<p class="has-text-color" style="color:var(--wp--preset--color--text-body);margin-top:0;margin-bottom:0;font-size:0.75rem"><?php echo esc_html__( 'Inter &middot; the default canvas', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
 <!-- wp:group {"style":{"spacing":{"margin":{"top":"16px"},"blockGap":"7px"}},"layout":{"type":"flex"}} -->
