@@ -163,8 +163,8 @@
 <p class="origin-canvas-specimen-dmsans has-text-color" style="color:#0F172A;margin-top:0;margin-bottom:0;font-size:2.625rem;font-weight:600;letter-spacing:-0.02em;line-height:1"><?php echo esc_html__( 'Ag', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
-<!-- wp:paragraph {"style":{"color":{"text":"#475569"},"typography":{"fontSize":"0.75rem"},"spacing":{"margin":{"top":"0","bottom":"0"}}}} -->
-<p class="has-text-color" style="color:#475569;margin-top:0;margin-bottom:0;font-size:0.75rem"><?php echo esc_html__( 'DM Sans &middot; cool slate', 'origin-canvas' ); ?></p>
+<!-- wp:paragraph {"style":{"color":{"text":"#334155"},"typography":{"fontSize":"0.75rem"},"spacing":{"margin":{"top":"0","bottom":"0"}}}} -->
+<p class="has-text-color" style="color:#334155;margin-top:0;margin-bottom:0;font-size:0.75rem"><?php echo esc_html__( 'DM Sans &middot; cool slate', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
 <!-- wp:group {"style":{"spacing":{"margin":{"top":"16px"},"blockGap":"7px"}},"layout":{"type":"flex"}} -->
