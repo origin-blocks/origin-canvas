@@ -44,7 +44,10 @@ def first_difference(a, b, path=''):
             if found:
                 return found
         return None
-    return None if a == b else (path, a, b)
+    # JSON types must match too: Python reads 1 == True and 0 == False as equal.
+    if type(a) is not type(b) or a != b:
+        return path, a, b
+    return None
 
 fail = False
 print('Variation twins:')
@@ -52,7 +55,8 @@ for full_path, type_path in PAIRS:
     full = json.load(open(full_path))
     typo = json.load(open(type_path))
     expected = {k: v for k, v in full.items() if k != 'title'}
-    expected['settings'] = {k: v for k, v in full.get('settings', {}).items() if k != 'color'}
+    if 'settings' in expected:
+        expected['settings'] = {k: v for k, v in expected['settings'].items() if k != 'color'}
     actual = {k: v for k, v in typo.items() if k != 'title'}
     found = first_difference(expected, actual)
     if found:
