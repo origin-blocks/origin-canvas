@@ -441,3 +441,26 @@
 		margin-left: auto;
 	}
 }
+
+/**
+ * Header With Button (patterns/header-with-button.php) under 600px. Below core's
+ * breakpoint the nav is only the open button; `order` sends it last so the row
+ * reads [title] … [button][open], with the open button at the gutter edge on the
+ * axis the overlay ✕ is tuned to (ruling on #44). `margin-left: auto` on the
+ * buttons packs the button beside it. The 44px floor is the header-marketing rule:
+ * the theme pins no button line-height, so the mobile padding clamp alone lands
+ * short of the tap target.
+ */
+@media (max-width: 599px) {
+	.origin-canvas-header-with-button > .wp-block-group > .wp-block-navigation {
+		order: 1;
+	}
+
+	.origin-canvas-header-with-button > .wp-block-group > .wp-block-buttons {
+		margin-left: auto;
+	}
+
+	.origin-canvas-header-with-button .wp-block-button__link {
+		min-height: 44px;
+	}
+}
