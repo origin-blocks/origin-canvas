@@ -319,6 +319,26 @@
 }
 
 /**
+ * Dark header (patterns/header-dark.php). Two things a nav with textColor set
+ * cannot get from block attributes:
+ * 1. Core paints the desktop flyout's ink only for a nav with NO text colour
+ *    (`.wp-block-navigation:not(.has-text-color) .wp-block-navigation__submenu-container`),
+ *    so the dark nav's on-dark leaks onto the white flyout card. Restore ink on
+ *    the card; the mobile overlay is excluded so its rows keep on-dark.
+ * 2. The pill's fill is 4% of currentColor, too faint on ink — 8% on-dark is the
+ *    ruling on #43. The selector is the shipped pill ::before rule prefixed by the
+ *    header class, so it outranks the original by one class. It only fires if the
+ *    owner switches this nav to Hover Pill; the pattern ships Hover Accent.
+ */
+.origin-canvas-header-dark .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container {
+	color: var(--wp--preset--color--text-heading);
+}
+
+.origin-canvas-header-dark .wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item::before {
+	background-color: color-mix(in srgb, var(--wp--preset--color--on-dark) 8%, transparent);
+}
+
+/**
  * MOBILE OVERLAY (scoped to .origin-canvas-mobile-nav / .origin-canvas-mobile-menu)
  *
  * The mobile nav renders as a plain vertical <nav> (overlayMenu:never) with no
