@@ -1267,6 +1267,11 @@
 			"name": "mobile-menu",
 			"title": "Mobile Menu",
 			"area": "navigation-overlay"
+		},
+		{
+			"name": "mobile-menu-dark",
+			"title": "Mobile Menu Dark",
+			"area": "navigation-overlay"
 		}
 	],
 	"customTemplates": [

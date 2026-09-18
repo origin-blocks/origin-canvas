@@ -544,6 +544,31 @@
 }
 
 /**
+ * Dark overlay (parts/mobile-menu-dark.html). The part's root group carries the
+ * ground, text and link colours as block attributes; only the four values the
+ * overlay rules above hardcode need a dark counterpart: the row label and chevron
+ * (text-heading), the ✕ (text-heading, surface-muted hover fill) and the row divider
+ * (border). Each override adds one class so it outranks the shipped rule; the
+ * :hover label rule (0,4,0) still wins, so row hover stays primary. 8% and 12%
+ * on-dark are the rulings on #43 — the light side's ✕ fill is ≈5% ink, and 12% is
+ * footer-dark's divider.
+ */
+.origin-canvas-mobile-menu-dark .origin-canvas-mobile-nav .wp-block-navigation-item__label,
+.origin-canvas-mobile-menu-dark .origin-canvas-mobile-nav .wp-block-navigation__submenu-icon,
+.origin-canvas-mobile-menu.origin-canvas-mobile-menu-dark .wp-block-navigation-overlay-close {
+	color: var(--wp--preset--color--on-dark);
+}
+
+.origin-canvas-mobile-menu-dark .origin-canvas-mobile-nav .wp-block-navigation-item__content::after {
+	border-bottom-color: color-mix(in srgb, var(--wp--preset--color--on-dark) 12%, transparent);
+}
+
+.origin-canvas-mobile-menu.origin-canvas-mobile-menu-dark .wp-block-navigation-overlay-close:hover,
+.origin-canvas-mobile-menu.origin-canvas-mobile-menu-dark .wp-block-navigation-overlay-close:focus-visible {
+	background-color: color-mix(in srgb, var(--wp--preset--color--on-dark) 8%, transparent);
+}
+
+/**
  * Admin-bar offset — core parity for custom overlays. Core drops its DEFAULT
  * overlay's dialog by the admin-bar height (navigation/style.css guards that rule
  * with :not(.disable-default-overlay)), but custom overlay template parts get
