@@ -367,7 +367,7 @@
  * rule's with the hook class added, so it outranks the original by one class.
  */
 :is(.wp-block-navigation.origin-canvas-nav-dark .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.origin-canvas-nav-dark:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container {
-	background: var(--wp--preset--color--text-heading);
+	background-color: var(--wp--preset--color--text-heading);
 	border: 1px solid color-mix(in srgb, var(--wp--preset--color--on-dark) 12%, transparent);
 }
 
