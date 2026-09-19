@@ -355,16 +355,16 @@
 /**
  * Dark navigation (.origin-canvas-nav-dark, patterns/header-dark.php). The
  * flyout is the nav's own second level, opened over the band, so it keeps the
- * band's ground: the card rule above with its colour layer swapped and nothing
- * else — radius, padding, width, type, shadow and z-index are inherited from
- * it. The card is ink on ink, so the 12% on-dark hairline is what separates a
- * nested card from its parent, and the medium shadow still carries the card
- * over a light section below the band. Text is the nav's own on-dark (core
- * paints flyout ink only for a nav with no text colour), so the hover-accent
- * primary applies as shipped and the chevron follows currentColor. The pill's
- * 4% of currentColor is too faint on ink; 8% on-dark is the ruling on #43, on
- * the top-level badge and the flyout row alike. Each selector is the shipped
- * rule's with the hook class added, so it outranks the original by one class.
+ * band's ground. Only the colour layer changes: the card rule above still
+ * supplies radius, padding, width, type, shadow and z-index. The card is ink
+ * on ink, so the 12% on-dark hairline is what separates a nested card from its
+ * parent, and the medium shadow carries the card over a light section below
+ * the band. Text is the nav's own on-dark (core paints flyout ink only for a
+ * nav with no text colour), so the hover-accent primary and the currentColor
+ * chevron need no rule. The pill's 4% of currentColor is too faint on ink, so
+ * the top-level badge and the flyout row fill at 8% on-dark (#43). Each
+ * selector is the rule it overrides with the hook class added, so it outranks
+ * that rule by one class.
  */
 :is(.wp-block-navigation.origin-canvas-nav-dark .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.origin-canvas-nav-dark:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container {
 	background-color: var(--wp--preset--color--text-heading);
