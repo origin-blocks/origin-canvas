@@ -319,6 +319,19 @@
 }
 
 /**
+ * Core clears navigation links with :where(a), at zero weight, but inside
+ * post-content (a header or footer pattern placed on a page) the
+ * content-link underline rule ties it on specificity and wins on source
+ * order. Same guard as site-title/page-list (see those files). The :not()
+ * pair steps aside for a decoration the owner sets on the block, which core
+ * paints through the same modifier classes at lower weight.
+ */
+.wp-block-post-content .wp-block-navigation:not(.has-text-decoration-underline):not(.has-text-decoration-line-through) .wp-block-navigation-item__content,
+.wp-block-post-content .wp-block-navigation:not(.has-text-decoration-underline):not(.has-text-decoration-line-through) .wp-block-navigation-submenu__toggle {
+	text-decoration: none;
+}
+
+/**
  * Dark header (patterns/header-dark.php). Two things a nav with textColor set
  * cannot get from block attributes:
  * 1. Core paints the desktop flyout's ink only for a nav with NO text colour
