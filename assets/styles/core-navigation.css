@@ -267,6 +267,24 @@
 	visibility: hidden;
 }
 
+/**
+ * Right-justified menu: core opens the nested flyout leftward (left:auto;
+ * right:100%, and a full-width box below 782px), so mirror the offset to that
+ * side, and move core's transparent ::before hover bridge with it so the pointer
+ * can cross the gap without dropping :hover on the item.
+ */
+:is(.wp-block-navigation.items-justified-right .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.items-justified-right:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container .wp-block-navigation__submenu-container {
+	left: auto;
+	margin-left: 0;
+	margin-right: var(--origin-canvas-navigation-nested-submenu-offset);
+	right: 100%;
+}
+
+:is(.wp-block-navigation.items-justified-right .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.items-justified-right:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container .wp-block-navigation__submenu-container::before {
+	left: 100%;
+	right: auto;
+}
+
 :is(.wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container .has-child:focus-within > .wp-block-navigation__submenu-container,
 :is(.wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container .has-child:hover > .wp-block-navigation__submenu-container {
 	opacity: 1;
