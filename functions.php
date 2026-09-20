@@ -465,6 +465,74 @@ if ( ! function_exists( 'origin_canvas_swap_nav_chevron' ) ) {
 }
 add_filter( 'render_block_core/navigation', 'origin_canvas_swap_nav_chevron', 10, 2 );
 
+if ( ! function_exists( 'origin_canvas_scope_overlay_nav_context' ) ) {
+	/**
+	 * Give the navigation inside a custom overlay part its own overlay context.
+	 *
+	 * The header navigation sets `overlay` to a template part, and core renders
+	 * that part inside its own responsive container. Core forces the part's
+	 * navigation to `overlayMenu: never` and, because a non-responsive navigation
+	 * is not an overlay, gives its wrapper no `data-wp-context`. Its submenu
+	 * toggles are still bound to `state.isSubmenuOpen`, which reads
+	 * `overlayOpenedBy` from the nearest context — the HEADER navigation's, one
+	 * level up. While the hamburger is open that reads true, so every toggle
+	 * in the overlay renders aria-expanded="true" and a tap never changes it.
+	 *
+	 * Shadow that one key on the part's navigation wrapper. Its submenus then
+	 * see an overlay nobody has opened and fall through to their own state, so
+	 * the toggle, the chevron rotation and the collapse rules all work. The
+	 * overlay close button lives outside this wrapper and keeps inheriting the
+	 * header's context, which is the context it closes.
+	 *
+	 * Upstream fix: Gutenberg PR #82596 (24.1) adds `hasCustomOverlay` to the
+	 * overlay context and makes the getter ignore `overlayOpenedBy` under a
+	 * custom overlay; this shadow is then a no-op. Remove it once the theme's
+	 * WordPress floor includes that change.
+	 *
+	 * @param string $block_content Rendered navigation block HTML.
+	 * @param array  $block         Parsed block; core marks a navigation rendered
+	 *                              inside an overlay part with
+	 *                              `_isWithinOverlayTemplatePart`.
+	 * @return string Navigation HTML, with the context on the wrapper when the
+	 *                block is inside an overlay part and the wrapper has none.
+	 */
+	function origin_canvas_scope_overlay_nav_context( $block_content, $block = array() ) {
+		if ( empty( $block['attrs']['_isWithinOverlayTemplatePart'] ) ) {
+			return $block_content;
+		}
+
+		$tags = new WP_HTML_Tag_Processor( $block_content );
+
+		// The block wrapper is the first tag. Anything else means core changed
+		// its markup, and the shadow would land on the wrong element.
+		if ( ! $tags->next_tag() || ! $tags->has_class( 'wp-block-navigation' ) ) {
+			return $block_content;
+		}
+
+		// A wrapper that already carries a context has been given one by core;
+		// defer to it.
+		if ( null !== $tags->get_attribute( 'data-wp-context' ) ) {
+			return $block_content;
+		}
+
+		$tags->set_attribute(
+			'data-wp-context',
+			'core/navigation::' . wp_json_encode(
+				array(
+					'overlayOpenedBy' => array(
+						'click' => false,
+						'hover' => false,
+						'focus' => false,
+					),
+				)
+			)
+		);
+
+		return $tags->get_updated_html();
+	}
+}
+add_filter( 'render_block_core/navigation', 'origin_canvas_scope_overlay_nav_context', 10, 2 );
+
 if ( ! function_exists( 'origin_canvas_comment_author_badge' ) ) {
 	/**
 	 * Append an "Author" pill badge to the comment author name when the
