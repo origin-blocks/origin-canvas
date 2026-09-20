@@ -96,8 +96,8 @@
 				"large": "16px"
 			},
 			"dark": {
-				"bg": "#111827",
-				"text": "#F3F4F6"
+				"bg": "var(--wp--preset--color--text-heading)",
+				"text": "var(--wp--preset--color--on-dark)"
 			},
 			"lineHeight": {
 				"none": 1,
@@ -1266,6 +1266,11 @@
 		{
 			"name": "mobile-menu",
 			"title": "Mobile Menu",
+			"area": "navigation-overlay"
+		},
+		{
+			"name": "mobile-menu-dark",
+			"title": "Mobile Menu Dark",
 			"area": "navigation-overlay"
 		}
 	],
