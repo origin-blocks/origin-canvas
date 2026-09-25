@@ -8,8 +8,9 @@ hr.is-style-origin-canvas-separator-dotted {
 	width: 100% !important;
 }
 
-/* Thin */
-hr.is-style-origin-canvas-separator-thin {
+/* Thin. Not qualified by element: divider-with-text renders its rules as
+   core/separator at tagName "div", so the style has to reach both. */
+.is-style-origin-canvas-separator-thin {
 	border: none;
 	border-top: 1px solid currentColor;
 	opacity: 1;
