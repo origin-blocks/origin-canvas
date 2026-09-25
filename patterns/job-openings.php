@@ -2,7 +2,7 @@
 /**
  * Title: Job Openings
  * Slug: origin-canvas/job-openings
- * Description: A list of open roles with location, type, and an apply link, built on the Work Index row so both share a right edge on one page. With no vacancies, delete all three rows and replace them with one paragraph at Regular Plus, in Text Body: "No openings right now. Write to us anyway if you would like to be kept in mind." The row rules go with the rows; keep the rule along the top of the section.
+ * Description: A list of open roles, each with its location, type, and a link to apply. Built on the Work Index row, so the two share a right edge on one page.
  * Categories: text
  * Keywords: careers, hiring, recruitment, positions, staff
  * Viewport Width: 1500
@@ -11,6 +11,19 @@
  * Inserter: true
  *
  * @package Origin
+ */
+
+/*
+ * The empty state is the author's, not a second pattern: a pattern has one
+ * body. With no vacancies, delete all three rows and leave one paragraph at
+ * Regular Plus in Text Body reading "No openings right now. Write to us anyway
+ * if you would like to be kept in mind." The per-row rules leave with their
+ * rows; the rule along the top of the section stays.
+ *
+ * Each apply link needs its own accessible name, because three links reading
+ * "Apply" are indistinguishable out of context. The visible label is hidden
+ * from assistive technology and the full sentence is given once, with the role
+ * as a placeholder, so a translator can move the words.
  */
 
 ?>
@@ -36,14 +49,13 @@
 
 <!-- wp:column {"verticalAlignment":"center","width":"20%"} -->
 <div class="wp-block-column is-vertically-aligned-center" style="flex-basis:20%"><!-- wp:paragraph {"align":"right","className":"origin-canvas-links-plain origin-canvas-job-apply","style":{"elements":{"link":{"color":{"text":"var:preset|color|text-muted"},":hover":{"color":{"text":"var:preset|color|primary"}}}},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-muted","fontSize":"small"} -->
-<p class="origin-canvas-links-plain origin-canvas-job-apply has-text-align-right has-text-muted-color has-text-color has-link-color has-small-font-size" style="margin-top:0;margin-bottom:0"><a href="#"><?php
+<p class="origin-canvas-links-plain origin-canvas-job-apply has-text-align-right has-text-muted-color has-text-color has-link-color has-small-font-size" style="margin-top:0;margin-bottom:0"><a href="#"><span aria-hidden="true"><?php echo esc_html__( 'Apply', 'origin-canvas' ); ?></span><span class="screen-reader-text"><?php
 printf(
-	/* translators: 1: the visible link label. 2: the role this link applies to, for screen readers. */
-	'%1$s<span class="screen-reader-text"> %2$s</span>',
-	esc_html__( 'Apply', 'origin-canvas' ),
-	esc_html__( 'for the Web Developer role', 'origin-canvas' )
+	/* translators: %s: the name of the job role, as shown in the row. */
+	esc_html__( 'Apply for the %s role', 'origin-canvas' ),
+	esc_html__( 'Web Developer', 'origin-canvas' )
 );
-?> <span aria-hidden="true">&rarr;</span></a></p>
+?></span> <span aria-hidden="true">&rarr;</span></a></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns -->
@@ -63,14 +75,13 @@ printf(
 
 <!-- wp:column {"verticalAlignment":"center","width":"20%"} -->
 <div class="wp-block-column is-vertically-aligned-center" style="flex-basis:20%"><!-- wp:paragraph {"align":"right","className":"origin-canvas-links-plain origin-canvas-job-apply","style":{"elements":{"link":{"color":{"text":"var:preset|color|text-muted"},":hover":{"color":{"text":"var:preset|color|primary"}}}},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-muted","fontSize":"small"} -->
-<p class="origin-canvas-links-plain origin-canvas-job-apply has-text-align-right has-text-muted-color has-text-color has-link-color has-small-font-size" style="margin-top:0;margin-bottom:0"><a href="#"><?php
+<p class="origin-canvas-links-plain origin-canvas-job-apply has-text-align-right has-text-muted-color has-text-color has-link-color has-small-font-size" style="margin-top:0;margin-bottom:0"><a href="#"><span aria-hidden="true"><?php echo esc_html__( 'Apply', 'origin-canvas' ); ?></span><span class="screen-reader-text"><?php
 printf(
-	/* translators: 1: the visible link label. 2: the role this link applies to, for screen readers. */
-	'%1$s<span class="screen-reader-text"> %2$s</span>',
-	esc_html__( 'Apply', 'origin-canvas' ),
-	esc_html__( 'for the Junior Designer role', 'origin-canvas' )
+	/* translators: %s: the name of the job role, as shown in the row. */
+	esc_html__( 'Apply for the %s role', 'origin-canvas' ),
+	esc_html__( 'Junior Designer', 'origin-canvas' )
 );
-?> <span aria-hidden="true">&rarr;</span></a></p>
+?></span> <span aria-hidden="true">&rarr;</span></a></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns -->
@@ -90,14 +101,13 @@ printf(
 
 <!-- wp:column {"verticalAlignment":"center","width":"20%"} -->
 <div class="wp-block-column is-vertically-aligned-center" style="flex-basis:20%"><!-- wp:paragraph {"align":"right","className":"origin-canvas-links-plain origin-canvas-job-apply","style":{"elements":{"link":{"color":{"text":"var:preset|color|text-muted"},":hover":{"color":{"text":"var:preset|color|primary"}}}},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-muted","fontSize":"small"} -->
-<p class="origin-canvas-links-plain origin-canvas-job-apply has-text-align-right has-text-muted-color has-text-color has-link-color has-small-font-size" style="margin-top:0;margin-bottom:0"><a href="#"><?php
+<p class="origin-canvas-links-plain origin-canvas-job-apply has-text-align-right has-text-muted-color has-text-color has-link-color has-small-font-size" style="margin-top:0;margin-bottom:0"><a href="#"><span aria-hidden="true"><?php echo esc_html__( 'Apply', 'origin-canvas' ); ?></span><span class="screen-reader-text"><?php
 printf(
-	/* translators: 1: the visible link label. 2: the role this link applies to, for screen readers. */
-	'%1$s<span class="screen-reader-text"> %2$s</span>',
-	esc_html__( 'Apply', 'origin-canvas' ),
-	esc_html__( 'for the Studio Manager role', 'origin-canvas' )
+	/* translators: %s: the name of the job role, as shown in the row. */
+	esc_html__( 'Apply for the %s role', 'origin-canvas' ),
+	esc_html__( 'Studio Manager', 'origin-canvas' )
 );
-?> <span aria-hidden="true">&rarr;</span></a></p>
+?></span> <span aria-hidden="true">&rarr;</span></a></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns --></section>

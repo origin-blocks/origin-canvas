@@ -2,7 +2,7 @@
 /**
  * Title: Divider With Text
  * Slug: origin-canvas/divider-with-text
- * Description: A horizontal line with a short uppercase label set into it, naming the run of content that follows. Keep the label to one to three words; a longer one squeezes the lines to ticks. If you link the label, add the origin-canvas-links-plain class to drop the underline.
+ * Description: A horizontal line with a short uppercase label set into it, naming the run of content that follows. Keep the label to one to three words.
  * Categories: text
  * Keywords: rule, separator, hr, section break, caption
  * Viewport Width: 1500
@@ -14,6 +14,11 @@
  */
 
 /*
+ * A label longer than about three words squeezes the two rules to ticks; that
+ * is the design, not a bug, so nothing clamps it. Linking the label brings an
+ * underline with it, because theme.json underlines links inside a paragraph;
+ * the shipped `origin-canvas-links-plain` class removes it.
+ *
  * The label column takes a class rather than a width, and carries no vertical
  * alignment. Core serialises a column width to `flex-basis` only for a length
  * or a percentage: `auto`, `fit-content` and `max-content` all save as a bare
