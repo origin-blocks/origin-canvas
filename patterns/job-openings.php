@@ -16,7 +16,8 @@
 /*
  * Three links reading "Apply" are indistinguishable out of context, so each
  * anchor hides its visible label from assistive technology and gives the whole
- * accessible name, with the role in it, in a screen-reader span.
+ * accessible name, with the role in it, in a screen-reader span. The role is
+ * therefore written twice per row: change one and change the other.
  */
 
 ?>
