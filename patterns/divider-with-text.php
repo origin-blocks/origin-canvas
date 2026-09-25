@@ -14,19 +14,9 @@
  */
 
 /*
- * A label longer than about three words squeezes the two rules to ticks; that
- * is the design, not a bug, so nothing clamps it. Linking the label brings an
- * underline with it, because theme.json underlines links inside a paragraph;
- * the shipped `origin-canvas-links-plain` class removes it.
- *
- * The label column takes a class rather than a width, and carries no vertical
- * alignment. Core serialises a column width to `flex-basis` only for a length
- * or a percentage: `auto`, `fit-content` and `max-content` all save as a bare
- * column with no style, so no width value can make this column shrink to its
- * text. The class does it instead, from `assets/styles/core-column.css`.
- * Alignment is left off because core styles an aligned column `width: 100%`,
- * which would defeat the same thing; the two rule columns keep it, because they
- * are the items that need centring on the label.
+ * Core styles a column carrying a vertical alignment `width: 100%`, and writes
+ * a column width to `flex-basis` only for a length or a percentage. The label
+ * column can hold neither, so `origin-canvas-divider-label` sizes it instead.
  */
 
 ?>

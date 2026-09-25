@@ -14,16 +14,9 @@
  */
 
 /*
- * The empty state is the author's, not a second pattern: a pattern has one
- * body. With no vacancies, delete all three rows and leave one paragraph at
- * Regular Plus in Text Body reading "No openings right now. Write to us anyway
- * if you would like to be kept in mind." The per-row rules leave with their
- * rows; the rule along the top of the section stays.
- *
- * Each apply link needs its own accessible name, because three links reading
- * "Apply" are indistinguishable out of context. The visible label is hidden
- * from assistive technology and the full sentence is given once, with the role
- * as a placeholder, so a translator can move the words.
+ * Three links reading "Apply" are indistinguishable out of context, so each
+ * anchor hides its visible label from assistive technology and gives the whole
+ * accessible name, with the role in it, in a screen-reader span.
  */
 
 ?>
