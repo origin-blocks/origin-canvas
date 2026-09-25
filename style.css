@@ -103,22 +103,6 @@ a {
 	text-decoration: none;
 }
 
-/* The apply link's line box is under the 44px touch target: about 21px at a
-   wide measure and 19.6px at 390, where the fluid type is smallest. Padding of
-   medium clears 44 at both. The negative margin cancels it, so the row height
-   does not move. */
-.origin-canvas-job-apply a {
-	display: inline-block;
-	padding-block: var(--wp--preset--spacing--medium);
-	margin-block: calc(-1 * var(--wp--preset--spacing--medium));
-}
-
-@media (prefers-reduced-motion: no-preference) {
-	.origin-canvas-job-apply a {
-		transition: color 200ms ease;
-	}
-}
-
 mark.has-inline-color:not([style*="background" i]):not(.has-background):not([class*="-background-color"]) {
 	background-color: transparent;
 }

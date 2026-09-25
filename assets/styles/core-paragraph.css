@@ -98,3 +98,23 @@
 .origin-canvas-step-numeral {
 	font-variant-numeric: tabular-nums;
 }
+
+/**
+ * The job-openings apply link. Its line box is under the 44px touch target:
+ * about 21px at a wide measure and 19.6px at 390, where the fluid type is
+ * smallest. Medium padding clears 44 at both, and the negative margin cancels
+ * it, so the row height does not move. core/paragraph exposes no control for
+ * padding on the anchor inside it.
+ */
+.origin-canvas-job-apply a {
+	display: inline-block;
+	padding-block: var(--wp--preset--spacing--medium);
+	margin-block: calc(-1 * var(--wp--preset--spacing--medium));
+}
+
+/* The theme sets no transition on links, so the hover timing comes from here. */
+@media (prefers-reduced-motion: no-preference) {
+	.origin-canvas-job-apply a {
+		transition: color 200ms ease;
+	}
+}
