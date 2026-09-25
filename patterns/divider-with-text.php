@@ -14,11 +14,14 @@
  */
 
 /*
- * The label column carries no vertical alignment, and that is load-bearing.
- * Core styles an aligned column `width: 100%`, which becomes the flex base size
- * when the width is `auto`, so the label would take the whole row and leave the
- * two rules at zero. The rules keep the alignment, because they are the items
- * that need centring on the label.
+ * The label column takes a class rather than a width, and carries no vertical
+ * alignment. Core serialises a column width to `flex-basis` only for a length
+ * or a percentage: `auto`, `fit-content` and `max-content` all save as a bare
+ * column with no style, so no width value can make this column shrink to its
+ * text. The class does it instead, from `assets/styles/core-column.css`.
+ * Alignment is left off because core styles an aligned column `width: 100%`,
+ * which would defeat the same thing; the two rule columns keep it, because they
+ * are the items that need centring on the label.
  */
 
 ?>
@@ -29,8 +32,8 @@
 <!-- /wp:separator --></div>
 <!-- /wp:column -->
 
-<!-- wp:column {"width":"auto"} -->
-<div class="wp-block-column" style="flex-basis:auto"><!-- wp:paragraph {"style":{"typography":{"textTransform":"uppercase","fontWeight":"600","letterSpacing":"0.08em","lineHeight":"1.5"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-heading","fontSize":"extra-small"} -->
+<!-- wp:column {"className":"origin-canvas-divider-label"} -->
+<div class="wp-block-column origin-canvas-divider-label"><!-- wp:paragraph {"style":{"typography":{"textTransform":"uppercase","fontWeight":"600","letterSpacing":"0.08em","lineHeight":"1.5"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-heading","fontSize":"extra-small"} -->
 <p class="has-text-heading-color has-text-color has-extra-small-font-size" style="margin-top:0;margin-bottom:0;font-weight:600;letter-spacing:0.08em;line-height:1.5;text-transform:uppercase"><?php echo esc_html__( 'The process', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column -->

@@ -9,3 +9,16 @@
 .is-style-origin-canvas-column-box-shadow:hover {
 	box-shadow: var(--wp--preset--shadow--medium);
 }
+
+/* Divider label.
+
+   The label column of divider-with-text shrinks to its text so the two rules
+   either side split the rest. No column width can express that: core writes a
+   width to flex-basis only when it is a length or a percentage, and drops
+   auto, fit-content and max-content entirely.
+
+   Core sets an unwidthed column flex: 1 1 0 at three classes, so this needs
+   four to win. */
+.wp-block-columns > .wp-block-column.origin-canvas-divider-label.origin-canvas-divider-label {
+	flex: 0 1 auto;
+}
