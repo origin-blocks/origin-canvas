@@ -112,6 +112,14 @@
 	margin-block: calc(-1 * var(--wp--preset--spacing--medium));
 }
 
+/*
+ * Keyboard focus takes the same colour as hover. A block's element styles carry
+ * only :hover, so this cannot come from the pattern.
+ */
+.origin-canvas-job-apply a:focus-visible {
+	color: var(--wp--preset--color--primary);
+}
+
 /* The theme sets no transition on links, so the hover timing comes from here. */
 @media (prefers-reduced-motion: no-preference) {
 	.origin-canvas-job-apply a {
