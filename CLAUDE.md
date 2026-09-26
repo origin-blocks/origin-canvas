@@ -148,17 +148,20 @@ silently opts that value out of fluid type/spacing and out of every style variat
   palette. `core-list.css` (check icon) and `core-group.css` (quote mark) are the reference
   implementations.
 
-### 6b. A pattern never gets CSS of its own
-`style.css` and `assets/styles/core-<block>.css` style the theme and its blocks everywhere. A
-rule only one pattern's markup can match goes in neither, and nor does a change to an existing
-rule made so one pattern lands. If the explanation has to name a pattern, it is the wrong change.
+### 6b. Pattern CSS is a last resort, and never goes in a block stylesheet
+`assets/styles/core-<block>.css` styles one block everywhere it appears. A rule only one
+pattern's markup can match never goes there, and nor does a change to an existing rule made so
+one pattern lands. If the explanation has to name a pattern, it is the wrong file.
 
 Before concluding a pattern needs CSS, exhaust what core already does: Row, Stack and Grid
 child sizing (Fill, Fit, Fixed), the block styles core ships (`is-style-wide`), and the colour,
 border and spacing supports. `divider-with-text` is the reference: a Row with two separators set
 to Fill and the label left at Fit sizes the label to its text, with no pattern CSS.
 
-If it still cannot be done, that is a question for the owner, not a rule to write.
+What core still cannot do goes at the end of `style.css`, under the "Pattern CSS" heading, one
+commented section per pattern that names it. Core has no per-pattern loader, and CSS rules in a
+block's Additional CSS field are stripped when an Author saves, so a class plus `style.css` is
+the home. Adding a section there is a question for the owner first, not a default.
 
 ### 7. Every heading inside a pattern carries an explicit `fontSize` preset
 A `wp:heading` in a pattern must always set `"fontSize"` (and the matching
