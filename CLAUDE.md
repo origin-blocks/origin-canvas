@@ -148,43 +148,18 @@ silently opts that value out of fluid type/spacing and out of every style variat
   palette. `core-list.css` (check icon) and `core-group.css` (quote mark) are the reference
   implementations.
 
-### 6b. A pattern never gets CSS of its own. If it needs CSS, it needs a block style.
-`assets/styles/core-<block>.css` styles that **block**, everywhere in the theme. It is not a
-place to park a rule that only one pattern's markup can match, and neither is `style.css`.
+### 6b. A pattern never gets CSS of its own
+`style.css` and `assets/styles/core-<block>.css` style the theme and its blocks everywhere. A
+rule only one pattern's markup can match goes in neither, and nor does a change to an existing
+rule made so one pattern lands. If the explanation has to name a pattern, it is the wrong change.
 
-When a pattern looks like it needs a bespoke rule, there are only two honest endings:
+Before concluding a pattern needs CSS, exhaust what core already does: Row, Stack and Grid
+child sizing (Fill, Fit, Fixed), the block styles core ships (`is-style-wide`), and the colour,
+border and spacing supports. `divider-with-text` is the reference. Built on Columns, it needed
+a theme class to shrink the label column. Built as a Row with two separators set to Fill, it
+needs nothing.
 
-1. **The treatment is a refinement** — a touch target on one link, a focus colour on one link,
-   a transition on one link. It does not ship. One link behaving unlike every other link in the
-   theme is the defect, not the feature. If it genuinely belongs to the theme it goes in
-   `theme.json` where every link gets it, and that is a decision to bring back, not to take.
-2. **The pattern cannot render without it** — then the treatment is real, and it is a
-   `register_block_style` on the block that carries it, named for what it does to that block,
-   with its CSS in that block's stylesheet as the style's implementation. Never a bare class
-   named after the pattern.
-
-`origin-canvas-column-shrink` ("Shrink To Content") is the reference for (2): core writes a
-column width to `flex-basis` only for a length or a percentage and drops `auto`,
-`fit-content` and `max-content`, so `divider-with-text` cannot make its label column shrink
-from the width control, and without it the two rules render at zero width. It shipped as a
-column style because a column that takes only its content's width is a thing a Column does,
-not a thing that pattern owns.
-
-This does not loosen the rule above it: a style still must BELONG to its block, and "when in
-doubt it is a class, not a style" still holds for opt-in decoration. The test here is narrower
-— if the pattern does not render without the rule, the rule is structural, and structural
-behaviour belongs to the block.
-
-**Changing an existing shared rule to make one pattern work is the same mistake.** Widening a
-selector, loosening a scope or adding a value to a block's stylesheet counts, even though no
-new rule appears. The test is whether the change reads as correct with the pattern deleted: a
-style scoped `hr.is-style-…` was broken for every `core/separator` set to `tagName: "div"`,
-which is a block-level fault and stands on its own; a rule reaching further only so one
-pattern lands does not. If the comment has to name a pattern to explain the change, it is the
-wrong change.
-
-**A handoff line reading "Layer: `style.css`" is a proposal to bring back, not an instruction
-to execute.** The design side can see the pattern; it cannot see the other sixty-six.
+If it still cannot be done, that is a question for the owner, not a rule to write.
 
 ### 7. Every heading inside a pattern carries an explicit `fontSize` preset
 A `wp:heading` in a pattern must always set `"fontSize"` (and the matching
