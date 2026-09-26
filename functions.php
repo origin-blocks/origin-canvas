@@ -263,6 +263,9 @@ if ( ! function_exists( 'origin_canvas_register_block_styles' ) ) {
 				array( 'name' => 'origin-canvas-separator-dotted', 'label' => __( 'Dotted', 'origin-canvas' ) ),
 				array( 'name' => 'origin-canvas-separator-thin', 'label' => __( 'Thin', 'origin-canvas' ) ),
 			),
+			'core/column'        => array(
+				array( 'name' => 'origin-canvas-column-shrink', 'label' => __( 'Shrink To Content', 'origin-canvas' ) ),
+			),
 			'core/image'         => array(
 				array( 'name' => 'origin-canvas-rounded-full', 'label' => __( 'Rounded Full', 'origin-canvas' ) ),
 				array( 'name' => 'origin-canvas-media-boxed', 'label' => __( 'Boxed', 'origin-canvas' ) ),

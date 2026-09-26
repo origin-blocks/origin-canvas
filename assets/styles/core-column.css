@@ -10,15 +10,16 @@
 	box-shadow: var(--wp--preset--shadow--medium);
 }
 
-/* Divider label.
+/* Shrink To Content.
 
-   The label column of divider-with-text shrinks to its text so the two rules
-   either side split the rest. No column width can express that: core writes a
-   width to flex-basis only when it is a length or a percentage, and drops
-   auto, fit-content and max-content entirely.
+   A column normally shares the row evenly. This one takes only the width of
+   what is in it, so its siblings split the rest — divider-with-text uses it to
+   sit a label between two rules.
 
-   Core sets an unwidthed column flex: 1 1 0 at three classes, so this needs
-   four to win. */
-.wp-block-columns > .wp-block-column.origin-canvas-divider-label.origin-canvas-divider-label {
+   It cannot come from the width control: core writes a column width to
+   flex-basis only for a length or a percentage, and drops auto, fit-content and
+   max-content. Core sets an unwidthed column flex: 1 1 0 at three classes, so
+   this needs four to win. */
+.wp-block-columns > .wp-block-column.is-style-origin-canvas-column-shrink.is-style-origin-canvas-column-shrink {
 	flex: 0 1 auto;
 }
