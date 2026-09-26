@@ -139,6 +139,27 @@ silently opts that value out of fluid type/spacing and out of every style variat
   coloured with `background-color: var(--wp--preset--color--primary)` so it tracks the
   palette. `core-list.css` (check icon) and `core-group.css` (quote mark) are the reference
   implementations.
+
+### 6b. A pattern never gets CSS of its own
+`assets/styles/core-<block>.css` styles that **block**, everywhere in the theme. It is not a
+place to park a rule that only one pattern's markup can match, and neither is `style.css`.
+
+When a pattern appears to need a bespoke rule — a touch target on one link, a focus colour on
+one link, a transition on one link — that is the **stop-and-ask fork**, not a task. Either the
+treatment belongs to every instance of the block, and goes in that block's stylesheet on its
+own merits; or it belongs to the theme, and goes in `theme.json` where every link gets it; or
+it does not ship. One link behaving unlike every other link in the theme is the defect, not the
+feature.
+
+**A handoff line reading "Layer: `style.css`" is a proposal to bring back, not an instruction
+to execute.** The design side can see the pattern; it cannot see the other sixty-six.
+
+The only pattern-scoped rule that survives this test is one the pattern **cannot render
+without** — `origin-canvas-divider-label` is the reference: core serialises a column width to
+`flex-basis` only for a length or a percentage, so without the class the divider's rules
+collapse to zero width and the pattern shows nothing. That is a different thing from a
+refinement.
+
 ### 7. Every heading inside a pattern carries an explicit `fontSize` preset
 A `wp:heading` in a pattern must always set `"fontSize"` (and the matching
 `has-<preset>-font-size` class on the tag). **Never** leave a pattern heading bare.
