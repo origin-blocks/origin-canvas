@@ -599,8 +599,27 @@ html {
  * field and button drop to 40 tall to suit a 373px rail; the 404 search keeps the
  * default size. The term count must not shrink beside a long category name, and
  * core's Fixed sizing sets no flex-shrink. Latest Posts has no date controls.
- * Stacked below the content, the rail takes a top rule.
+ * Stacked below the content, the rail takes a top rule. The list resets, the
+ * featured image gap and the block title cover blocks an owner may add to the
+ * rail in the Site Editor: Categories, Archives, Latest Comments, and Latest
+ * Posts with images on.
  */
+.origin-canvas-sidebar .wp-block-categories-list,
+.origin-canvas-sidebar .wp-block-archives-list,
+.origin-canvas-sidebar .wp-block-latest-comments {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.origin-canvas-sidebar .wp-block-latest-posts__featured-image {
+	margin-bottom: var(--wp--preset--spacing--extra-small);
+}
+
+.origin-canvas-sidebar .wp-block-latest-posts__post-title {
+	display: block;
+}
+
 .origin-canvas-search-compact input.wp-block-search__input:not([type="button"]):not([type="reset"]):not([type="submit"]):not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="file"]) {
 	padding: 8px 12px;
 }
@@ -613,7 +632,8 @@ html {
 	flex: none;
 }
 
-.origin-canvas-sidebar .wp-block-latest-posts__post-date {
+.origin-canvas-sidebar .wp-block-latest-posts__post-date,
+.origin-canvas-sidebar .wp-block-latest-comments__comment-date {
 	color: var(--wp--preset--color--text-body);
 	font-size: var(--wp--preset--font-size--extra-small);
 	font-weight: 400;
