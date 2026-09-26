@@ -1,0 +1,10 @@
+/**
+ * Term names are chrome - a category or tag, never prose - so they carry no
+ * underline. The block renders as a paragraph, which puts core's
+ * `:root :where(p a)` rule on the link; theme.json cannot win that (its block
+ * styles match at the same specificity but load earlier), so the opt-out lives
+ * here.
+ */
+.wp-block-term-name a {
+	text-decoration: none;
+}

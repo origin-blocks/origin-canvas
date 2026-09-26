@@ -149,22 +149,6 @@ textarea {
 	width: 100%;
 }
 
-/**
- * Compact search — the sidebar rail only.
- *
- * The site-wide field above is sized for a full-width form; in a 373px rail it
- * reads oversized, so the field and its button drop to 40. Only the padding is
- * here - the block's own fontSize support handles the type, and core/search has
- * no padding attribute to set it with. The 404 search keeps the default size.
- */
-.origin-canvas-search-compact input.wp-block-search__input:not([type="button"]):not([type="reset"]):not([type="submit"]):not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="file"]) {
-	padding: 8px 12px;
-}
-
-.origin-canvas-search-compact .wp-block-search__button {
-	padding: 8px 20px;
-}
-
 input:not([type="button"]):not([type="reset"]):not([type="submit"]):not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="file"])::placeholder,
 textarea::placeholder {
 	color: var(--wp--preset--color--text-muted);
@@ -354,79 +338,6 @@ input[type="radio"]:focus-visible {
 	height: 100%;
 	object-fit: cover;
 	width: 100%;
-}
-
-/**
- * Sidebar.
- *
- * Widget-to-widget spacing is owned by the group's blockGap (the pattern /
- * theme.json), which WordPress emits as constrained-layout `> * + *
- * margin-block-start`. No flex/gap is set on the wrapper here: a hard flex
- * `gap` would STACK with that constrained margin (they are additive),
- * doubling the gap. The same holds one level down: the Latest Posts list
- * has layout support, so its item gap is the block's blockGap in theme.json
- * (`core/latest-posts`), emitted as a flow-layout `margin-block-start` on
- * each item; a CSS gap here would stack with it. Only list reset rules
- * stay CSS. The list blocks below it have no layout support, so their gap
- * has no other owner and remains CSS.
- */
-.origin-canvas-sidebar .wp-block-latest-posts__list {
-	list-style: none;
-	margin: 0;
-	padding: 0;
-}
-
-/* Row spacing for these lists is owned by their per-block stylesheets (a flex
-   gap here would stack with it); only the list reset lives here. */
-.origin-canvas-sidebar .wp-block-categories-list,
-.origin-canvas-sidebar .wp-block-archives-list,
-.origin-canvas-sidebar .wp-block-latest-comments {
-	list-style: none;
-	margin: 0;
-	padding: 0;
-}
-
-.origin-canvas-sidebar .wp-block-latest-posts__featured-image {
-	margin-bottom: var(--wp--preset--spacing--extra-small);
-}
-
-/* The title is an inline anchor by default; the date needs to sit under it. */
-.origin-canvas-sidebar .wp-block-latest-posts__post-title {
-	display: block;
-}
-
-/* Category rows. Core prints the post count as a bare text node after the
-   link - there is no element to target - so the row is sized as a flex line
-   and the count inherits the smaller rail type from the list itself. */
-/* The term name and its count are separate blocks in a flex row, so the count
-   needs no styling of its own - it just must not stretch. */
-.origin-canvas-sidebar-categories .wp-block-term-count {
-	flex: none;
-}
-
-/* Term names are chrome - a category or tag, never prose - so they carry no
-   underline. The block renders as a paragraph, which puts core's
-   `:root :where(p a)` rule on the link; theme.json cannot win that (its block
-   styles match at the same specificity but load earlier), so the opt-out lives
-   here, keyed to the block rather than to the sidebar. */
-.wp-block-term-name a {
-	text-decoration: none;
-}
-
-.origin-canvas-sidebar .wp-block-latest-posts__post-date,
-.origin-canvas-sidebar .wp-block-latest-comments__comment-date {
-	color: var(--wp--preset--color--text-body);
-	font-size: var(--wp--preset--font-size--extra-small);
-	font-weight: 400;
-	margin-top: var(--wp--preset--spacing--extra-small);
-}
-
-@media (max-width: 781px) {
-	.origin-canvas-sidebar {
-		border-top: 1px solid var(--wp--preset--color--border);
-		margin-top: var(--wp--preset--spacing--huge);
-		padding-top: var(--wp--preset--spacing--huge);
-	}
 }
 
 /* Pagination */
@@ -678,5 +589,41 @@ html {
 
 	.origin-canvas-wash-tile {
 		min-height: 170px !important;
+	}
+}
+
+/**
+ * Hidden Sidebar: the rail in parts/sidebar.html.
+ *
+ * Only what the blocks cannot set. core/search has no padding control, so the
+ * field and button drop to 40 tall to suit a 373px rail; the 404 search keeps the
+ * default size. The term count must not shrink beside a long category name, and
+ * core's Fixed sizing sets no flex-shrink. Latest Posts has no date controls.
+ * Stacked below the content, the rail takes a top rule.
+ */
+.origin-canvas-search-compact input.wp-block-search__input:not([type="button"]):not([type="reset"]):not([type="submit"]):not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="file"]) {
+	padding: 8px 12px;
+}
+
+.origin-canvas-search-compact .wp-block-search__button {
+	padding: 8px 20px;
+}
+
+.origin-canvas-sidebar-categories .wp-block-term-count {
+	flex: none;
+}
+
+.origin-canvas-sidebar .wp-block-latest-posts__post-date {
+	color: var(--wp--preset--color--text-body);
+	font-size: var(--wp--preset--font-size--extra-small);
+	font-weight: 400;
+	margin-top: var(--wp--preset--spacing--extra-small);
+}
+
+@media (max-width: 781px) {
+	.origin-canvas-sidebar {
+		border-top: 1px solid var(--wp--preset--color--border);
+		margin-top: var(--wp--preset--spacing--huge);
+		padding-top: var(--wp--preset--spacing--huge);
 	}
 }
