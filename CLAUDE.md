@@ -155,9 +155,8 @@ rule made so one pattern lands. If the explanation has to name a pattern, it is 
 
 Before concluding a pattern needs CSS, exhaust what core already does: Row, Stack and Grid
 child sizing (Fill, Fit, Fixed), the block styles core ships (`is-style-wide`), and the colour,
-border and spacing supports. `divider-with-text` is the reference. Built on Columns, it needed
-a theme class to shrink the label column. Built as a Row with two separators set to Fill, it
-needs nothing.
+border and spacing supports. `divider-with-text` is the reference: a Row with two separators set
+to Fill and the label left at Fit sizes the label to its text, with no pattern CSS.
 
 If it still cannot be done, that is a question for the owner, not a rule to write.
 
