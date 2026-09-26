@@ -68,19 +68,3 @@
 	height: 26px;
 	width: 32px;
 }
-
-/**
- * Testimonial grid card. The card fills its stretched column and the quote takes
- * the free space, so attribution rows line up across cards of differing quote
- * length. Columns alone only equalise the columns, not the cards inside them.
- */
-.wp-block-group.origin-canvas-testimonial-card {
-	height: 100%;
-}
-
-/* The quote is the card's first child; it takes the slack so the attribution
-   row sits on the baseline of the tallest card. Scoped to the flex layout so an
-   edit away from a flex card cannot leave a stray flex value behind. */
-.wp-block-group.origin-canvas-testimonial-card.is-layout-flex > p:first-child {
-	flex: 1 1 auto;
-}
