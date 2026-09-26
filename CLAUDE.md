@@ -5,6 +5,14 @@ patterns live in `patterns/*.php`; each is a PHP file whose doc-block header reg
 and whose body is block markup. This file's rules are BINDING — read them before creating,
 renaming, or recategorizing any pattern.
 
+## A handoff is checked against these rules before any of it is built
+A design handoff states intent; this file states what the theme allows. Before a handoff line
+becomes a step, check it against every rule here. Where they agree, build it. Where they
+conflict, the rule holds and the conflict goes back to the owner as a question. It is never
+settled by building the handoff's version, and never by quietly building a third thing. A
+handoff saying "Layer: `style.css`", "add a class" or "register a style" is a proposal, not a
+ruling.
+
 ## Pattern conventions
 
 ### 1. Namespace
@@ -139,6 +147,19 @@ silently opts that value out of fluid type/spacing and out of every style variat
   coloured with `background-color: var(--wp--preset--color--primary)` so it tracks the
   palette. `core-list.css` (check icon) and `core-group.css` (quote mark) are the reference
   implementations.
+
+### 6b. A pattern never gets CSS of its own
+`style.css` and `assets/styles/core-<block>.css` style the theme and its blocks everywhere. A
+rule only one pattern's markup can match goes in neither, and nor does a change to an existing
+rule made so one pattern lands. If the explanation has to name a pattern, it is the wrong change.
+
+Before concluding a pattern needs CSS, exhaust what core already does: Row, Stack and Grid
+child sizing (Fill, Fit, Fixed), the block styles core ships (`is-style-wide`), and the colour,
+border and spacing supports. `divider-with-text` is the reference: a Row with two separators set
+to Fill and the label left at Fit sizes the label to its text, with no pattern CSS.
+
+If it still cannot be done, that is a question for the owner, not a rule to write.
+
 ### 7. Every heading inside a pattern carries an explicit `fontSize` preset
 A `wp:heading` in a pattern must always set `"fontSize"` (and the matching
 `has-<preset>-font-size` class on the tag). **Never** leave a pattern heading bare.

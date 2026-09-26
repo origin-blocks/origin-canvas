@@ -86,11 +86,11 @@
 <div class="wp-block-group"><!-- wp:icon {"icon":"core/category","textColor":"primary","style":{"spacing":{"margin":{"bottom":"var:preset|spacing|medium"}},"dimensions":{"width":"38px"}}} /-->
 
 <!-- wp:heading {"level":3,"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"fontSize":"medium"} -->
-<h3 class="wp-block-heading has-medium-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Colour with a reason', 'origin-canvas' ); ?></h3>
+<h3 class="wp-block-heading has-medium-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Color with a reason', 'origin-canvas' ); ?></h3>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"textColor":"text-body","fontSize":"regular"} -->
-<p class="has-text-body-color has-text-color has-regular-font-size"><?php echo esc_html__( 'A short palette, used the same way every time, makes a brand feel calm and confident. We pick colours that earn their place.', 'origin-canvas' ); ?></p>
+<p class="has-text-body-color has-text-color has-regular-font-size"><?php echo esc_html__( 'A short palette, used the same way every time, makes a brand feel calm and confident. We pick colors that earn their place.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group --></div>
 <!-- /wp:column -->

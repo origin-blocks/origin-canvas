@@ -32,13 +32,13 @@
 
 <!-- wp:column {"verticalAlignment":"center","width":"32%"} -->
 <div class="wp-block-column is-vertically-aligned-center" style="flex-basis:32%"><!-- wp:paragraph {"style":{"typography":{"fontWeight":"600"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-heading","fontSize":"large"} -->
-<p class="has-text-heading-color has-text-color has-large-font-size" style="margin-top:0;margin-bottom:0;font-weight:600"><?php echo esc_html__( 'Hartwell Tea Co.', 'origin-canvas' ); ?></p>
+<p class="has-text-heading-color has-text-color has-large-font-size" style="margin-top:0;margin-bottom:0;font-weight:600"><?php echo esc_html__( 'Thistle &amp; Pine Joinery', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column -->
 
 <!-- wp:column {"verticalAlignment":"center","width":"28%"} -->
 <div class="wp-block-column is-vertically-aligned-center" style="flex-basis:28%"><!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-body","fontSize":"small"} -->
-<p class="has-text-body-color has-text-color has-small-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Identity, packaging, online shop', 'origin-canvas' ); ?></p>
+<p class="has-text-body-color has-text-color has-small-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Identity, portfolio site', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column -->
 
@@ -64,13 +64,13 @@
 
 <!-- wp:column {"verticalAlignment":"center","width":"32%"} -->
 <div class="wp-block-column is-vertically-aligned-center" style="flex-basis:32%"><!-- wp:paragraph {"style":{"typography":{"fontWeight":"600"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-heading","fontSize":"large"} -->
-<p class="has-text-heading-color has-text-color has-large-font-size" style="margin-top:0;margin-bottom:0;font-weight:600"><?php echo esc_html__( 'Westmount Property', 'origin-canvas' ); ?></p>
+<p class="has-text-heading-color has-text-color has-large-font-size" style="margin-top:0;margin-bottom:0;font-weight:600"><?php echo esc_html__( 'Ashby &amp; Rowe Solicitors', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column -->
 
 <!-- wp:column {"verticalAlignment":"center","width":"28%"} -->
 <div class="wp-block-column is-vertically-aligned-center" style="flex-basis:28%"><!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-body","fontSize":"small"} -->
-<p class="has-text-body-color has-text-color has-small-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Web, listings, search', 'origin-canvas' ); ?></p>
+<p class="has-text-body-color has-text-color has-small-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Identity, website', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column -->
 
@@ -96,13 +96,13 @@
 
 <!-- wp:column {"verticalAlignment":"center","width":"32%"} -->
 <div class="wp-block-column is-vertically-aligned-center" style="flex-basis:32%"><!-- wp:paragraph {"style":{"typography":{"fontWeight":"600"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-heading","fontSize":"large"} -->
-<p class="has-text-heading-color has-text-color has-large-font-size" style="margin-top:0;margin-bottom:0;font-weight:600"><?php echo esc_html__( 'Linden & Lark Florist', 'origin-canvas' ); ?></p>
+<p class="has-text-heading-color has-text-color has-large-font-size" style="margin-top:0;margin-bottom:0;font-weight:600"><?php echo esc_html__( 'Kestrel Physio', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column -->
 
 <!-- wp:column {"verticalAlignment":"center","width":"28%"} -->
 <div class="wp-block-column is-vertically-aligned-center" style="flex-basis:28%"><!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-body","fontSize":"small"} -->
-<p class="has-text-body-color has-text-color has-small-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Identity, single-page site', 'origin-canvas' ); ?></p>
+<p class="has-text-body-color has-text-color has-small-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Web, online booking', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column -->
 
@@ -128,13 +128,13 @@
 
 <!-- wp:column {"verticalAlignment":"center","width":"32%"} -->
 <div class="wp-block-column is-vertically-aligned-center" style="flex-basis:32%"><!-- wp:paragraph {"style":{"typography":{"fontWeight":"600"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-heading","fontSize":"large"} -->
-<p class="has-text-heading-color has-text-color has-large-font-size" style="margin-top:0;margin-bottom:0;font-weight:600"><?php echo esc_html__( 'Bridge Coffee Roasters', 'origin-canvas' ); ?></p>
+<p class="has-text-heading-color has-text-color has-large-font-size" style="margin-top:0;margin-bottom:0;font-weight:600"><?php echo esc_html__( 'Northgate Cycle Works', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column -->
 
 <!-- wp:column {"verticalAlignment":"center","width":"28%"} -->
 <div class="wp-block-column is-vertically-aligned-center" style="flex-basis:28%"><!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-body","fontSize":"small"} -->
-<p class="has-text-body-color has-text-color has-small-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Brand refresh, wholesale site', 'origin-canvas' ); ?></p>
+<p class="has-text-body-color has-text-color has-small-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Web, service list', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column -->
 
@@ -160,13 +160,13 @@
 
 <!-- wp:column {"verticalAlignment":"center","width":"32%"} -->
 <div class="wp-block-column is-vertically-aligned-center" style="flex-basis:32%"><!-- wp:paragraph {"style":{"typography":{"fontWeight":"600"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-heading","fontSize":"large"} -->
-<p class="has-text-heading-color has-text-color has-large-font-size" style="margin-top:0;margin-bottom:0;font-weight:600"><?php echo esc_html__( 'Marrow & Mast', 'origin-canvas' ); ?></p>
+<p class="has-text-heading-color has-text-color has-large-font-size" style="margin-top:0;margin-bottom:0;font-weight:600"><?php echo esc_html__( 'Clearwater Accountants', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column -->
 
 <!-- wp:column {"verticalAlignment":"center","width":"28%"} -->
 <div class="wp-block-column is-vertically-aligned-center" style="flex-basis:28%"><!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-body","fontSize":"small"} -->
-<p class="has-text-body-color has-text-color has-small-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Identity, menu system, web', 'origin-canvas' ); ?></p>
+<p class="has-text-body-color has-text-color has-small-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Identity, web', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column -->
 

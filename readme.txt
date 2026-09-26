@@ -46,17 +46,11 @@ You should have received a copy of the GNU General Public License along with thi
 
 == Theme Screenshot ==
 
-Theme screenshot image "Hartwell Tea Co. case-study image" (patterns/images/card-image-text-1.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+Theme screenshot image "Thistle & Pine Joinery timber stack" (patterns/images/hero-cover-thistle-pine.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
 == Images ==
 
-Pattern image "Hartwell Tea Co. case-study image" (patterns/images/card-image-text-1.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
-
-Pattern image "Hartwell Tea packaging detail image" (patterns/images/hartwell-tea-detail.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
-
 Pattern image "Westmount Property case-study image" (patterns/images/card-image-text-2.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
-
-Pattern image "Linden & Lark Florist case-study image" (patterns/images/card-image-text-3.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
 Pattern image "Studio notes image" (patterns/images/card-blog-3.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
@@ -64,11 +58,7 @@ Pattern image "Week-one client brief image" (patterns/images/card-blog-1.webp), 
 
 Pattern image "Shared studio worktable image" (patterns/images/workspace-laptop.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
-Pattern image "Desk notebook overhead image" (patterns/images/desk-notebook-overhead.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
-
 Pattern image "Michael Hughes testimonial portrait" (patterns/images/avatar-michael-hughes.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
-
-Pattern image "Sarah Jenkins testimonial portrait" (patterns/images/avatar-sarah-jenkins.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
 Pattern image "Emma Whitaker testimonial portrait" (patterns/images/avatar-emma-whitaker.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
@@ -78,15 +68,51 @@ Pattern image "Marcus Holloway team portrait" (patterns/images/avatar-marcus-hol
 
 Pattern image "Hannah Wright team portrait" (patterns/images/avatar-hannah-wright.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
-Pattern image "Sarah Jenkins testimonial avatar image" (patterns/images/card-testimonial-1.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
-
 Pattern image "Hero split studio interior cover image" (patterns/images/architecture-interior.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
-Pattern image "Tom Bradshaw testimonial avatar image" (patterns/images/testimonial-highlight-1.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+Pattern image "Thistle & Pine Joinery timber stack" (patterns/images/hero-cover-thistle-pine.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
-Pattern image "Studio worktable flat-lay image" (patterns/images/studio-worktable.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+Pattern image "Northgate Cycle Works repair stand" (patterns/images/card-image-text-northgate.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
-Pattern image "Studio launch-review image" (patterns/images/studio-review.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+Pattern image "Calder Veterinary consulting room" (patterns/images/feature-split-calder.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+
+Pattern image "Catherine Rowe testimonial portrait" (patterns/images/avatar-catherine-rowe.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+
+Pattern image "Owen Parry testimonial portrait" (patterns/images/avatar-owen-parry.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+
+Pattern image "Joanna Pryce testimonial portrait" (patterns/images/avatar-joanna-pryce.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+
+Pattern image "Ruth Mason testimonial portrait" (patterns/images/avatar-ruth-mason.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+
+Pattern image "Helen Marsh testimonial portrait" (patterns/images/avatar-helen-marsh.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+
+Pattern image "Studio wireframe review" (patterns/images/studio-wireframe-review.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+
+Pattern image "Linden & Lark Florist case-study image" (patterns/images/card-image-text-linden-lark.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+
+Pattern image "Studio one project" (patterns/images/studio-one-project.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+
+Pattern image "Studio type proofs" (patterns/images/studio-type-proofs.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+
+The nine images below are no longer used by any pattern. They are kept so that content created with earlier versions of the theme keeps its images, and they will be removed in a later release.
+
+Pattern image "Retired case-study image" (patterns/images/card-image-text-1.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+
+Pattern image "Retired packaging detail image" (patterns/images/hartwell-tea-detail.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+
+Pattern image "Retired testimonial portrait" (patterns/images/avatar-sarah-jenkins.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+
+Pattern image "Retired testimonial avatar image" (patterns/images/card-testimonial-1.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+
+Pattern image "Retired highlight avatar image" (patterns/images/testimonial-highlight-1.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+
+Pattern image "Retired studio launch-review image" (patterns/images/studio-review.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+
+Pattern image "Retired florist case-study image" (patterns/images/card-image-text-3.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+
+Pattern image "Retired desk sketchbook image" (patterns/images/desk-notebook-overhead.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+
+Pattern image "Retired studio worktable image" (patterns/images/studio-worktable.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
 == Fonts ==
 
@@ -114,7 +140,7 @@ The quotation-mark glyph used by the testimonial patterns (embedded as a data-UR
 * Enlarged the icons across the theme to a single size, so the drawn mark matches the design instead of floating undersized in its disc.
 * Widened the tracking on the section eyebrows and seated each one with the heading it introduces.
 * Refined the style-variations and token-system showcase patterns: specimens sit on a shared baseline, group headers sit with the cards they label, and the status chips carry their size on the block where the editor's size control can reach it.
-* Fixed the icon bubbles rendering as ovals, and collapsing when their background colour was removed.
+* Fixed the icon bubbles rendering as ovals, and collapsing when their background color was removed.
 * Fixed the feature cards centring their icons above left-aligned text, evened out the rule spacing in the feature list with image, and gave the same client the same role in both testimonials.
 * Fixed the landing hero asking for a weight heavier than the bundled fonts provide, which the browser had been faking.
 
@@ -133,8 +159,8 @@ The quotation-mark glyph used by the testimonial patterns (embedded as a data-UR
 = 1.2.0 - 9 July 2026 =
 * Switched the default button fill to solid dark (ink) and made pink an opt-in 'Fill Primary' style. Existing plain buttons will appear dark after updating — reapply Fill Primary to restore pink.
 * Promoted the primary button to pink on the dark hero and dark call-to-action banner, where the ink fill would be invisible.
-* Completed the primary-as-accent colour model: moved body/comment links, pagination current page, comment and search submit buttons, form focus rings, and tag-chip hover to ink/neutral tones, reserving pink for hovers and deliberate accents. Fixes tag-chip and badge contrast (AA).
-* Added an "Author" pill badge on comments written by the post author — ink text on a faint primary tint that follows your colour style variation. Developers can disable it via the new origin_canvas_render_author_badge filter.
+* Completed the primary-as-accent color model: moved body/comment links, pagination current page, comment and search submit buttons, form focus rings, and tag-chip hover to ink/neutral tones, reserving pink for hovers and deliberate accents. Fixes tag-chip and badge contrast (AA).
+* Added an "Author" pill badge on comments written by the post author — ink text on a faint primary tint that follows your color style variation. Developers can disable it via the new origin_canvas_render_author_badge filter.
 * Added support for the editor's sticky Position setting on the site header — when enabled, the whole header sticks and submenus layer correctly above page content.
 * Reworked mobile navigation: tap-to-expand inline accordion submenus, Lucide chevron icons on desktop and mobile, and aligned close/expand controls.
 * Fixed nested list spacing compounding: scoped list rhythm to post content with margin-top-only gaps, so deeply nested items no longer over-space; pattern/chrome lists use tight default spacing.
@@ -146,12 +172,12 @@ The quotation-mark glyph used by the testimonial patterns (embedded as a data-UR
 * Redesigned the single-post comments as quiet bubble cards with clearer thread rhythm, nested-reply indentation, and a tidier reply form.
 * Added a name-led author card to single posts, with the avatar and name balanced in lockstep.
 * Added a Stacked variation for post navigation (previous/next), with an eyebrow label and refined single-post spacing.
-* Added Chip and Inline style variations for post tags and the tag cloud, selectable and recolourable in the editor.
+* Added Chip and Inline style variations for post tags and the tag cloud, selectable and recolorable in the editor.
 * Refined the sidebar: flattened structure, left-aligned with a cleaner spacing rhythm, lighter dates, and a tuned recent-posts layout.
 * Enlarged the primary navigation hover pill and aligned the submenu clearance to sit neatly below it.
 * Added token-driven outline buttons (including an on-dark variant for the dark hero) and refined button hover states.
 * Loaded per-block stylesheets into the block editor canvas so the editor preview matches the front end.
-* Various comment, sidebar, and link colour refinements, plus consistent alphabetical CSS property ordering.
+* Various comment, sidebar, and link color refinements, plus consistent alphabetical CSS property ordering.
 * Switched the homepage to a user-owned front page: the Home design is now an insertable pattern you place into a Page and set as your static front page, so you fully own and can edit its content (removed the theme-locked front-page template).
 * Wired the site header as a single global template part, so editing the header once updates it across every template — matching how the footer already worked.
 * Normalized vertical spacing between Home page sections so each section's padding controls its own spacing (removed a doubled gap between stacked sections).
@@ -160,13 +186,13 @@ The quotation-mark glyph used by the testimonial patterns (embedded as a data-UR
 
 = 1.0.4 - 05 June 2026 =
 * Underlined links in standalone paragraph and list blocks so links are clear outside post content.
-* Refined two demo links (team social row, newsletter privacy) to a subtle darker colour with hover instead of an underline.
+* Refined two demo links (team social row, newsletter privacy) to a subtle darker color with hover instead of an underline.
 * Fixed the blog posts index to show the post loop instead of the homepage design; removed the redundant home template.
 
 = 1.0.3 - 04 June 2026 =
 * Made all user-facing pattern strings translation-ready (card-info, card-icon-text, footer, 404, post loop).
 * Underlined links within post content, excerpts, and comment content for readability and accessibility.
-* Replaced the custom card icons with the native Icon Block so icons can be changed, recoloured, and resized in the editor.
+* Replaced the custom card icons with the native Icon Block so icons can be changed, recolored, and resized in the editor.
 * Removed unused files and styles, and corrected icon licensing attribution.
 
 = 1.0.2 - 28 May 2026 =

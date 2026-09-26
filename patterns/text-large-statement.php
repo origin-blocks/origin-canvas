@@ -2,7 +2,7 @@
 /**
  * Title: Text Large Statement
  * Slug: origin-canvas/text-large-statement
- * Description: A single centred sentence at display size, used as a pause between sections.
+ * Description: A single centered sentence at display size, used as a pause between sections.
  * Categories: text
  * Keywords: editorial, quote, manifesto, intro, breath
  * Viewport Width: 1500

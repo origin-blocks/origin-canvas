@@ -21,7 +21,7 @@
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"align":"center","textColor":"text-body","fontSize":"regular-plus"} -->
-<p class="has-text-align-center has-text-body-color has-text-color has-regular-plus-font-size"><?php echo esc_html__( 'Every engagement is scoped in writing before we begin &#8212; the invoice never surprises you.', 'origin-canvas' ); ?></p>
+<p class="has-text-align-center has-text-body-color has-text-color has-regular-plus-font-size"><?php echo esc_html__( 'Every engagement is scoped in writing before we begin, so the invoice never surprises you.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group -->
 
@@ -71,7 +71,7 @@
 
 <!-- wp:list {"className":"is-style-origin-canvas-list-check","style":{"spacing":{"blockGap":"var:preset|spacing|small","margin":{"top":"var:preset|spacing|large"}}},"fontSize":"small"} -->
 <ul class="wp-block-list is-style-origin-canvas-list-check has-small-font-size" style="margin-top:var(--wp--preset--spacing--large)"><!-- wp:list-item --><li><?php echo esc_html__( 'Up to twelve pages', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
-<!-- wp:list-item --><li><?php echo esc_html__( 'Full identity (mark, colour, type)', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
+<!-- wp:list-item --><li><?php echo esc_html__( 'Full identity (mark, color, type)', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
 <!-- wp:list-item --><li><?php echo esc_html__( 'Photography direction', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
 <!-- wp:list-item --><li><?php echo esc_html__( 'Four-week delivery', 'origin-canvas' ); ?></li><!-- /wp:list-item --></ul>
 <!-- /wp:list -->
