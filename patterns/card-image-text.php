@@ -29,7 +29,7 @@
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"style":{"spacing":{"margin":{"bottom":"var:preset|spacing|medium"}}},"textColor":"text-body","fontSize":"regular"} -->
-<p class="has-text-body-color has-text-color has-regular-font-size" style="margin-bottom:var(--wp--preset--spacing--medium)"><?php echo esc_html__( 'Web and a service list for a neighbourhood bike repair shop. Prices up front, bookings online, and a site the mechanics update themselves.', 'origin-canvas' ); ?></p>
+<p class="has-text-body-color has-text-color has-regular-font-size" style="margin-bottom:var(--wp--preset--spacing--medium)"><?php echo esc_html__( 'Web and a service list for a neighborhood bike repair shop. Prices up front, bookings online, and a site the mechanics update themselves.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"style":{"typography":{"fontWeight":"500"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"primary","fontSize":"regular"} -->
@@ -75,7 +75,7 @@
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"style":{"spacing":{"margin":{"bottom":"var:preset|spacing|medium"}}},"textColor":"text-body","fontSize":"regular"} -->
-<p class="has-text-body-color has-text-color has-regular-font-size" style="margin-bottom:var(--wp--preset--spacing--medium)"><?php echo esc_html__( 'A weekend rebrand for a neighbourhood florist. New mark, new business cards, and a single-page site to take seasonal orders.', 'origin-canvas' ); ?></p>
+<p class="has-text-body-color has-text-color has-regular-font-size" style="margin-bottom:var(--wp--preset--spacing--medium)"><?php echo esc_html__( 'A weekend rebrand for a neighborhood florist. New mark, new business cards, and a single-page site to take seasonal orders.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"style":{"typography":{"fontWeight":"500"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"primary","fontSize":"regular"} -->
