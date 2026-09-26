@@ -1,14 +1,4 @@
 /**
- * Process numbers need CSS because core/paragraph lacks WP 7 width and
- * flex-basis dimensions controls for this marker.
- */
-.origin-canvas-process-step-number {
-	flex: 0 0 36px;
-	min-width: 36px;
-	white-space: nowrap;
-}
-
-/**
  * Landing specimen faces — pattern-only, specimen-scoped. These faces exist
  * so page-landing-01's style-variation cards can PREVIEW each variation's
  * type while the Default variation is active. They are not theme font
@@ -47,8 +37,4 @@
 	font-style: normal;
 	font-weight: 400 700;
 	src: url("../fonts/dm-sans/DMSans-VariableFont_opsz,wght.woff2") format("woff2");
-}
-
-.origin-canvas-step-numeral {
-	font-variant-numeric: tabular-nums;
 }

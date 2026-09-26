@@ -932,3 +932,21 @@ html {
 .origin-canvas-post-list-card {
 	overflow: hidden;
 }
+
+/**
+ * Features Numbered: the step numerals keep one width per digit, so a column of
+ * them lines up. Core has no numeral-spacing control.
+ */
+.origin-canvas-step-numeral {
+	font-variant-numeric: tabular-nums;
+}
+
+/**
+ * Process Numbered: the step number keeps a 36px column. Core's Fixed width sets
+ * the basis but lets the number shrink.
+ */
+.origin-canvas-process-step-number {
+	flex: 0 0 36px;
+	min-width: 36px;
+	white-space: nowrap;
+}
