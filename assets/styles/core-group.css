@@ -30,46 +30,6 @@
 }
 
 /**
- * Style-variation specimens — swatch circles and preset dots for the
- * page-landing-01 variations section. Pattern-only classes; the inset ring
- * is an ink-tinted color-mix so it tracks the active variation.
- */
-.origin-canvas-sw {
-	border-radius: 999px;
-	box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--wp--preset--color--text-heading) 15%, transparent);
-	height: 20px;
-	width: 20px;
-}
-
-.origin-canvas-preset-dot {
-	border-radius: 999px;
-	box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--wp--preset--color--text-heading) 12%, transparent);
-	flex: none;
-	height: 38px;
-	width: 38px;
-}
-
-/**
- * Style-variations group heads and the type-scale ramp.
- *
- * Both need `align-items: baseline`, which core's flex layout cannot express -
- * its verticalAlignment map is top/center/bottom/stretch only. Aligning the
- * line boxes (flex-end) leaves the glyphs up to 6px apart, because each font
- * size carries different half-leading. The patterns therefore set no
- * verticalAlignment at all, and these rules own it.
- */
-.wp-block-group.origin-canvas-group-head,
-.wp-block-group.origin-canvas-type-ramp {
-	align-items: baseline;
-}
-
-/* The caption is not a specimen: it centres on the row rather than sitting on
-   the specimens' baseline. */
-.wp-block-group.origin-canvas-type-ramp .origin-canvas-mono {
-	align-self: center;
-}
-
-/**
  * Ecosystem status dot — pink live-product marker for page-landing-01.
  * Pattern-only; pink dots ship ONLY on live products (coming-soon cards
  * carry the label chip alone).

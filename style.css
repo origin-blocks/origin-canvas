@@ -802,3 +802,56 @@ html {
 	overflow: hidden;
 	position: relative;
 }
+
+/**
+ * Style Variations: swatch circles, preset dots and specimen fonts on the landing
+ * page. The inset rings are an ink-tinted color-mix, so they track the active
+ * variation. The specimen fonts are not theme presets.
+ */
+.origin-canvas-sw {
+	border-radius: 999px;
+	box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--wp--preset--color--text-heading) 15%, transparent);
+	height: 20px;
+	width: 20px;
+}
+
+.origin-canvas-preset-dot {
+	border-radius: 999px;
+	box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--wp--preset--color--text-heading) 12%, transparent);
+	flex: none;
+	height: 38px;
+	width: 38px;
+}
+
+.origin-canvas-specimen-serif {
+	font-family: "Source Serif 4", Georgia, serif;
+}
+
+.origin-canvas-specimen-grotesk {
+	font-family: "Space Grotesk", var(--wp--preset--font-family--sans);
+}
+
+.origin-canvas-specimen-dmsans {
+	font-family: "DM Sans", var(--wp--preset--font-family--sans);
+}
+
+/**
+ * Landing rows shared by Style Variations, Token System and Template Showcase:
+ * the monospace micro-labels, and the baseline alignment of the group heads and
+ * the type-scale ramp. Core flex aligns only top, center, bottom or stretch, and
+ * aligning line boxes leaves glyphs of different sizes up to 6px apart.
+ */
+.origin-canvas-mono {
+	font-family: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, monospace;
+}
+
+.wp-block-group.origin-canvas-group-head,
+.wp-block-group.origin-canvas-type-ramp {
+	align-items: baseline;
+}
+
+/* The caption is not a specimen: it centers on the row rather than sitting on
+   the specimens' baseline. */
+.wp-block-group.origin-canvas-type-ramp .origin-canvas-mono {
+	align-self: center;
+}
