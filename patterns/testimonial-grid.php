@@ -37,8 +37,8 @@
 <figure class="wp-block-image size-full is-resized is-style-origin-canvas-rounded-full"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/avatar-owen-parry.webp" alt="<?php esc_attr_e( 'Portrait of Owen Parry, Clinic Director of Kestrel Physio.', 'origin-canvas' ); ?>" style="aspect-ratio:1;object-fit:cover;width:48px;height:48px"/></figure>
 <!-- /wp:image -->
 
-<!-- wp:group {"style":{"spacing":{"blockGap":"0"}},"layout":{"type":"constrained"}} -->
-<div class="wp-block-group"><!-- wp:paragraph {"style":{"typography":{"fontWeight":"600"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-heading","fontSize":"regular"} -->
+<!-- wp:group {"style":{"spacing":{"blockGap":"0"},"dimensions":{"minHeight":"66px"}},"layout":{"type":"flex","orientation":"vertical","verticalAlignment":"center"}} -->
+<div class="wp-block-group" style="min-height:66px"><!-- wp:paragraph {"style":{"typography":{"fontWeight":"600"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-heading","fontSize":"regular"} -->
 <p class="has-text-heading-color has-text-color has-regular-font-size" style="margin-top:0;margin-bottom:0;font-weight:600"><?php echo esc_html__( 'Owen Parry', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
@@ -61,8 +61,8 @@
 <figure class="wp-block-image size-full is-resized is-style-origin-canvas-rounded-full"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/avatar-joanna-pryce.webp" alt="<?php esc_attr_e( 'Portrait of Joanna Pryce, Managing Partner of Clearwater Accountants.', 'origin-canvas' ); ?>" style="aspect-ratio:1;object-fit:cover;width:48px;height:48px"/></figure>
 <!-- /wp:image -->
 
-<!-- wp:group {"style":{"spacing":{"blockGap":"0"}},"layout":{"type":"constrained"}} -->
-<div class="wp-block-group"><!-- wp:paragraph {"style":{"typography":{"fontWeight":"600"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-heading","fontSize":"regular"} -->
+<!-- wp:group {"style":{"spacing":{"blockGap":"0"},"dimensions":{"minHeight":"66px"}},"layout":{"type":"flex","orientation":"vertical","verticalAlignment":"center"}} -->
+<div class="wp-block-group" style="min-height:66px"><!-- wp:paragraph {"style":{"typography":{"fontWeight":"600"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-heading","fontSize":"regular"} -->
 <p class="has-text-heading-color has-text-color has-regular-font-size" style="margin-top:0;margin-bottom:0;font-weight:600"><?php echo esc_html__( 'Joanna Pryce', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
@@ -85,8 +85,8 @@
 <figure class="wp-block-image size-full is-resized is-style-origin-canvas-rounded-full"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/avatar-ruth-mason.webp" alt="<?php esc_attr_e( 'Portrait of Ruth Mason, Practice Manager at Calder Veterinary.', 'origin-canvas' ); ?>" style="aspect-ratio:1;object-fit:cover;width:48px;height:48px"/></figure>
 <!-- /wp:image -->
 
-<!-- wp:group {"style":{"spacing":{"blockGap":"0"}},"layout":{"type":"constrained"}} -->
-<div class="wp-block-group"><!-- wp:paragraph {"style":{"typography":{"fontWeight":"600"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-heading","fontSize":"regular"} -->
+<!-- wp:group {"style":{"spacing":{"blockGap":"0"},"dimensions":{"minHeight":"66px"}},"layout":{"type":"flex","orientation":"vertical","verticalAlignment":"center"}} -->
+<div class="wp-block-group" style="min-height:66px"><!-- wp:paragraph {"style":{"typography":{"fontWeight":"600"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-heading","fontSize":"regular"} -->
 <p class="has-text-heading-color has-text-color has-regular-font-size" style="margin-top:0;margin-bottom:0;font-weight:600"><?php echo esc_html__( 'Ruth Mason', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
