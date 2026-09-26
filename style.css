@@ -912,3 +912,34 @@ html {
 		min-height: 44px;
 	}
 }
+
+/**
+ * Product Grid: the status chip and the live-product dot on the landing page's
+ * product cards. The Paragraph block has no border support, so the pill lives
+ * here. The chip is borderless: a 1px hairline measured 1.28:1 against white, so
+ * the pill reads by shape and the text carries the contrast (about 6.7:1). The dot
+ * is shape only: each card sets the product's own hue on the block, so it does
+ * not track the primary color.
+ */
+.origin-canvas-status-chip {
+	background-color: var(--wp--preset--color--surface-subtle);
+	border-radius: 999px;
+	color: var(--wp--preset--color--text-body);
+	font-weight: 500;
+	letter-spacing: 0.08em;
+	padding: 3px 10px;
+	text-transform: uppercase;
+	width: fit-content;
+}
+
+.origin-canvas-status-chip--dark {
+	background-color: rgb(255 255 255 / 10%);
+	color: rgb(255 255 255 / 85%);
+}
+
+.origin-canvas-status-dot {
+	border-radius: 999px;
+	flex: none;
+	height: 8px;
+	width: 8px;
+}
