@@ -44,3 +44,12 @@
 .is-style-origin-canvas-term-inline a {
 	transition: color 120ms ease;
 }
+
+/**
+ * Term links are UI, never prose. When a loop pattern is inserted into a page,
+ * post-content's content-link underline reaches them, as it does the date and
+ * title links; exclude them there, as core-post-date.css does.
+ */
+.wp-block-post-content .wp-block-post-terms a {
+	text-decoration: none;
+}
