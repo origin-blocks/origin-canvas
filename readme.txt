@@ -94,6 +94,18 @@ Pattern image "Studio worktable flat-lay" (patterns/images/studio-worktable.webp
 
 Pattern image "Desk sketchbook overhead" (patterns/images/desk-notebook-overhead.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
+The five images below are no longer used by any pattern. They are kept so that content created with earlier versions of the theme keeps its images, and they will be removed in a later release.
+
+Pattern image "Retired case-study image" (patterns/images/card-image-text-1.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+
+Pattern image "Retired packaging detail image" (patterns/images/hartwell-tea-detail.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+
+Pattern image "Retired testimonial portrait" (patterns/images/avatar-sarah-jenkins.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+
+Pattern image "Retired testimonial avatar image" (patterns/images/card-testimonial-1.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+
+Pattern image "Retired highlight avatar image" (patterns/images/testimonial-highlight-1.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+
 == Fonts ==
 
 The following fonts are loaded locally from the theme's assets:
