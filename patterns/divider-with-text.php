@@ -2,7 +2,7 @@
 /**
  * Title: Divider With Text
  * Slug: origin-canvas/divider-with-text
- * Description: A horizontal line with a short uppercase label set into it, naming the run of content that follows. Keep the label to one to three words.
+ * Description: A horizontal line with a short uppercase label set into it, naming the run of content that follows.
  * Categories: text
  * Keywords: rule, separator, hr, section break, caption
  * Viewport Width: 1500

@@ -2,7 +2,7 @@
 /**
  * Title: Job Openings
  * Slug: origin-canvas/job-openings
- * Description: A list of open roles, each with its location, type, and a link to apply. Built on the Work Index row, so the two share a right edge on one page.
+ * Description: A list of open roles, each with its location, type, and a link to apply, built on the Work Index row.
  * Categories: text
  * Keywords: careers, hiring, recruitment, positions, staff
  * Viewport Width: 1500
