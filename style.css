@@ -303,28 +303,6 @@ input[type="radio"]:focus-visible {
 	width: 100%;
 }
 
-/* Equal-height post grid cards */
-.origin-canvas-posts--stretch .wp-block-post {
-	align-items: stretch;
-	display: flex;
-	flex-direction: column;
-	height: 100%;
-}
-
-.origin-canvas-posts--stretch .wp-block-post > .wp-block-group {
-	flex: 1;
-}
-
-.origin-canvas-posts--stretch .wp-block-post-template.is-layout-grid {
-	align-items: stretch;
-}
-
-/* Clips the image to the card's radius; the corners it needs change when the
-   columns stack, so a per-corner radius on the image cannot do it. */
-.origin-canvas-post-list-card {
-	overflow: hidden;
-}
-
 /* Pagination */
 .wp-block-query-pagination,
 .wp-block-comments-pagination {
@@ -927,4 +905,30 @@ html {
 	flex: none;
 	height: 8px;
 	width: 8px;
+}
+
+/**
+ * Post Loop Grid: cards in a row share one height, and each card's text panel
+ * fills to the bottom. Grid rows already stretch the post; the post has no layout
+ * of its own, so it becomes a column here. A Stack inside the post cannot do it:
+ * the featured image, sized only by its aspect ratio, collapses to 0 there.
+ */
+.origin-canvas-posts--stretch .wp-block-post {
+	align-items: stretch;
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+}
+
+.origin-canvas-posts--stretch .wp-block-post > .wp-block-group {
+	flex: 1;
+}
+
+/**
+ * Post Loop List: the card clips its image to the card's radius. The corners the
+ * image needs change when the columns stack, so a per-corner radius on the image
+ * cannot do it.
+ */
+.origin-canvas-post-list-card {
+	overflow: hidden;
 }
