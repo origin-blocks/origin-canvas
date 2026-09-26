@@ -319,25 +319,10 @@ input[type="radio"]:focus-visible {
 	align-items: stretch;
 }
 
+/* Clips the image to the card's radius; the corners it needs change when the
+   columns stack, so a per-corner radius on the image cannot do it. */
 .origin-canvas-post-list-card {
-	align-items: stretch;
 	overflow: hidden;
-}
-
-.origin-canvas-post-list-card .is-vertically-aligned-center {
-	align-self: stretch;
-}
-
-.origin-canvas-post-list-card .wp-block-post-featured-image {
-	height: 100%;
-	width: 100%;
-}
-
-.origin-canvas-post-list-card .wp-block-post-featured-image img {
-	display: block;
-	height: 100%;
-	object-fit: cover;
-	width: 100%;
 }
 
 /* Pagination */
