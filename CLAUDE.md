@@ -167,6 +167,14 @@ doubt it is a class, not a style" still holds for opt-in decoration. The test he
 — if the pattern does not render without the rule, the rule is structural, and structural
 behaviour belongs to the block.
 
+**Changing an existing shared rule to make one pattern work is the same mistake.** Widening a
+selector, loosening a scope or adding a value to a block's stylesheet counts, even though no
+new rule appears. The test is whether the change reads as correct with the pattern deleted: a
+style scoped `hr.is-style-…` was broken for every `core/separator` set to `tagName: "div"`,
+which is a block-level fault and stands on its own; a rule reaching further only so one
+pattern lands does not. If the comment has to name a pattern to explain the change, it is the
+wrong change.
+
 **A handoff line reading "Layer: `style.css`" is a proposal to bring back, not an instruction
 to execute.** The design side can see the pattern; it cannot see the other sixty-six.
 

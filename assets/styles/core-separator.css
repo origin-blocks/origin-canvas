@@ -8,8 +8,8 @@ hr.is-style-origin-canvas-separator-dotted {
 	width: 100% !important;
 }
 
-/* Thin. Not qualified by element: divider-with-text renders its rules as
-   core/separator at tagName "div", so the style has to reach both. */
+/* Thin. Not qualified by element: core/separator renders as an hr or a div
+   depending on its tagName attribute, and the style has to reach both. */
 .wp-block-separator.is-style-origin-canvas-separator-thin {
 	border: none;
 	border-top: 1px solid currentColor;
