@@ -48,9 +48,10 @@
 /**
  * Term links are UI, never prose. When a loop pattern is inserted into a page,
  * post-content's content-link underline reaches them, as it does the date and
- * title links; exclude them there, as core-post-date.css does. The :not() pair
- * steps aside for a decoration the owner sets on the block.
+ * title links; exclude them there, as core-post-date.css does. A decoration the
+ * owner sets on the block is written as an inline style, and the :not() steps
+ * aside for it.
  */
-.wp-block-post-content .wp-block-post-terms:not(.has-text-decoration-underline):not(.has-text-decoration-line-through) a {
+.wp-block-post-content .wp-block-post-terms:not([style*="text-decoration"]) a {
 	text-decoration: none;
 }
