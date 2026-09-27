@@ -438,6 +438,20 @@ html {
 }
 
 /* ==========================================================================
+   Utilities
+
+   Opt-in classes, applied through Additional CSS Classes, each named for the one
+   job it does so any block can use it. See CLAUDE.md rule 6b.
+   ========================================================================== */
+
+/* A Row whose children sit on a shared text baseline. Core aligns a flex row only
+   top, center, bottom or stretch; aligning line boxes leaves glyphs of different
+   sizes up to 6px apart. */
+.origin-canvas-align-baseline.is-layout-flex {
+	align-items: baseline;
+}
+
+/* ==========================================================================
    Pattern CSS
 
    Only what core cannot do for a pattern (CLAUDE.md rule 6b). One section per
@@ -795,21 +809,13 @@ html {
 
 /**
  * Landing rows shared by Style Variations, Token System and Template Showcase:
- * the monospace micro-labels, and the baseline alignment of the group heads and
- * the type-scale ramp. Core flex aligns only top, center, bottom or stretch, and
- * aligning line boxes leaves glyphs of different sizes up to 6px apart.
+ * the monospace micro-labels, and the type-scale ramp's caption, which centers on
+ * the row rather than sitting on the specimens' baseline.
  */
 .origin-canvas-mono {
 	font-family: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, monospace;
 }
 
-.wp-block-group.origin-canvas-group-head,
-.wp-block-group.origin-canvas-type-ramp {
-	align-items: baseline;
-}
-
-/* The caption is not a specimen: it centers on the row rather than sitting on
-   the specimens' baseline. */
 .wp-block-group.origin-canvas-type-ramp .origin-canvas-mono {
 	align-self: center;
 }
