@@ -633,6 +633,19 @@ html {
 	}
 }
 
+/* The sidebar templates stack at 782px as well. Core's Hide setting treats 782px
+   as tablet while core Columns stack only below it, so without this the phone
+   rule would show beside side-by-side columns at that one width. */
+@media (width: 782px) {
+	.wp-block-columns:has(.origin-canvas-sidebar-divider) {
+		flex-wrap: wrap !important;
+	}
+
+	.wp-block-columns:has(.origin-canvas-sidebar-divider) > .wp-block-column {
+		flex-basis: 100% !important;
+	}
+}
+
 /* A site with no tags: core's Tag Cloud renders nothing, so the Tags group holds
    only its heading. Hide the group rather than show a heading with nothing under it. */
 .origin-canvas-sidebar-tags:has(> h2:only-child) {
@@ -959,7 +972,7 @@ html {
  * everywhere and phones stack content above the sidebar. On desktop the row is
  * reversed to put the sidebar on the left. Core Columns have no order control.
  */
-@media (min-width: 782px) {
+@media (min-width: 783px) {
 	.wp-block-columns.origin-canvas-sidebar-left {
 		flex-direction: row-reverse;
 	}
