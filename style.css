@@ -581,8 +581,7 @@ html {
  *
  * Only what the blocks cannot set. core/search has no padding control, so the
  * field and button drop to 40 tall to suit a 373px rail; the 404 search keeps the
- * default size. Latest Posts has no date controls.
- * Stacked below the content, the rail takes a top rule. The list resets, the
+ * default size. Latest Posts has no date controls. The list resets, the
  * featured image gap and the block title cover blocks an owner may add to the
  * rail in the Site Editor: Categories, Archives, Latest Comments, and Latest
  * Posts with images on.
@@ -619,12 +618,40 @@ html {
 	margin-top: var(--wp--preset--spacing--extra-small);
 }
 
-@media (max-width: 781px) {
-	.origin-canvas-sidebar {
+/* When the Sidebar part draws its own inline left border, the template's divider
+   and stacked rule hide, so the rail shows its own rules only. The part's border
+   is untouched. !important matches core's visibility rules. */
+.wp-block-group:has(> aside > .origin-canvas-sidebar[style*="border-left-width:1px"]) > .origin-canvas-sidebar-divider,
+.wp-block-group:has(> .wp-block-group > aside > .origin-canvas-sidebar[style*="border-left-width:1px"]) > .origin-canvas-sidebar-rule {
+	display: none !important;
+}
+
+/* The same bordered part, stacked on phones, takes its top rule and spacing. */
+@media (max-width: 782px) {
+	.origin-canvas-sidebar[style*="border-left-width:1px"] {
 		border-top: 1px solid var(--wp--preset--color--border);
 		margin-top: var(--wp--preset--spacing--huge);
 		padding-top: var(--wp--preset--spacing--huge);
 	}
+}
+
+/* The sidebar templates stack at 782px as well. Core's Hide setting treats 782px
+   as tablet while core Columns stack only below it, so without this the phone
+   rule would show beside side-by-side columns at that one width. */
+@media (width: 782px) {
+	.wp-block-columns:has(> .wp-block-column > .wp-block-group > .wp-block-group > .origin-canvas-sidebar-divider) {
+		flex-wrap: wrap !important;
+	}
+
+	.wp-block-columns:has(> .wp-block-column > .wp-block-group > .wp-block-group > .origin-canvas-sidebar-divider) > .wp-block-column {
+		flex-basis: 100% !important;
+	}
+}
+
+/* A site with no tags: core's Tag Cloud renders nothing, so the Tags group holds
+   only its heading. Hide the group rather than show a heading with nothing under it. */
+.origin-canvas-sidebar-tags:has(> h2:only-child) {
+	display: none;
 }
 
 /**
@@ -939,4 +966,16 @@ html {
  */
 .origin-canvas-step-numeral {
 	font-variant-numeric: tabular-nums;
+}
+
+/**
+ * Left-sidebar template: the sidebar follows the content in the HTML, as on the
+ * right-sidebar templates, so reading and focus order are content first
+ * everywhere and phones stack content above the sidebar. On desktop the row is
+ * reversed to put the sidebar on the left. Core Columns have no order control.
+ */
+@media (min-width: 783px) {
+	.wp-block-columns.origin-canvas-sidebar-left {
+		flex-direction: row-reverse;
+	}
 }
