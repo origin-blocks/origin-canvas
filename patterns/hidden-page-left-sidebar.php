@@ -32,8 +32,8 @@
 <!-- wp:group {"metadata":{"name":"Rail"},"style":{"spacing":{"blockGap":"var:preset|spacing|extra-large"}},"layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"stretch"}} -->
 <div class="wp-block-group"><!-- wp:template-part {"slug":"sidebar","theme":"origin-canvas","tagName":"aside","area":"sidebar","style":{"layout":{"selfStretch":"fill","flexSize":null}}} /-->
 
-<!-- wp:group {"metadata":{"name":"Divider","blockVisibility":{"viewport":{"mobile":false,"tablet":false}}},"className":"origin-canvas-no-shrink","style":{"layout":{"selfStretch":"fixed","flexSize":"1px"}},"backgroundColor":"border","layout":{"type":"constrained"}} -->
-<div class="wp-block-group origin-canvas-no-shrink has-border-background-color has-background"></div>
+<!-- wp:group {"metadata":{"name":"Divider","blockVisibility":{"viewport":{"mobile":false,"tablet":false}}},"className":"origin-canvas-sidebar-divider origin-canvas-no-shrink","style":{"layout":{"selfStretch":"fixed","flexSize":"1px"}},"backgroundColor":"border","layout":{"type":"constrained"}} -->
+<div class="wp-block-group origin-canvas-sidebar-divider origin-canvas-no-shrink has-border-background-color has-background"></div>
 <!-- /wp:group --></div>
 <!-- /wp:group --></div>
 <!-- /wp:group --></div>

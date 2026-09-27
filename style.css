@@ -620,7 +620,7 @@ html {
 
 /* When the Sidebar part draws its own inline left border, the template's
    divider hides, so the rail shows one rule. The part's border is untouched. */
-.wp-block-group:has(> aside > .origin-canvas-sidebar[style*="border-left-width"]) > .origin-canvas-no-shrink.has-border-background-color {
+.wp-block-group:has(> aside > .origin-canvas-sidebar[style*="border-left-width"]) > .origin-canvas-sidebar-divider {
 	display: none;
 }
 
