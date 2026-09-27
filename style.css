@@ -438,6 +438,19 @@ html {
 }
 
 /* ==========================================================================
+   Utilities
+
+   Opt-in classes, applied through Additional CSS Classes, each named for the one
+   job it does so any block can use it. See CLAUDE.md rule 6b.
+   ========================================================================== */
+
+/* A flex child that keeps its size: core's Fixed width sets the basis but still
+   lets the item shrink, and Fit shrinks too. */
+.origin-canvas-no-shrink {
+	flex-shrink: 0;
+}
+
+/* ==========================================================================
    Pattern CSS
 
    Only what core cannot do for a pattern (CLAUDE.md rule 6b). One section per
@@ -560,8 +573,7 @@ html {
  *
  * Only what the blocks cannot set. core/search has no padding control, so the
  * field and button drop to 40 tall to suit a 373px rail; the 404 search keeps the
- * default size. The term count must not shrink beside a long category name, and
- * core's Fixed sizing sets no flex-shrink. Latest Posts has no date controls.
+ * default size. Latest Posts has no date controls.
  * Stacked below the content, the rail takes a top rule. The list resets, the
  * featured image gap and the block title cover blocks an owner may add to the
  * rail in the Site Editor: Categories, Archives, Latest Comments, and Latest
@@ -589,10 +601,6 @@ html {
 
 .origin-canvas-search-compact .wp-block-search__button {
 	padding: 8px 20px;
-}
-
-.origin-canvas-sidebar-categories .wp-block-term-count {
-	flex: none;
 }
 
 .origin-canvas-sidebar .wp-block-latest-posts__post-date,
@@ -939,14 +947,4 @@ html {
  */
 .origin-canvas-step-numeral {
 	font-variant-numeric: tabular-nums;
-}
-
-/**
- * Process Numbered: the step number keeps a 36px column. Core's Fixed width sets
- * the basis but lets the number shrink.
- */
-.origin-canvas-process-step-number {
-	flex: 0 0 36px;
-	min-width: 36px;
-	white-space: nowrap;
 }
