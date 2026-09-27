@@ -9,3 +9,14 @@
 .is-style-origin-canvas-column-box-shadow:hover {
 	box-shadow: var(--wp--preset--shadow--medium);
 }
+
+/* Opt-in utility, applied to a Columns block through Additional CSS Classes (FAQ
+   Two Column uses it): the first column stays in view while the second scrolls.
+   Core's sticky position has no top offset, so it cannot keep the gap. */
+@media (min-width: 782px) {
+	.origin-canvas-faq-sticky > .wp-block-column:first-child {
+		align-self: start;
+		position: sticky;
+		top: var(--wp--preset--spacing--extra-large);
+	}
+}
