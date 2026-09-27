@@ -438,19 +438,6 @@ html {
 }
 
 /* ==========================================================================
-   Utilities
-
-   Opt-in classes, applied through Additional CSS Classes, each named for the one
-   job it does so any block can use it. See CLAUDE.md rule 6b.
-   ========================================================================== */
-
-/* A flex child that keeps its size: core's Fixed width sets the basis but still
-   lets the item shrink, and Fit shrinks too. */
-.origin-canvas-no-shrink {
-	flex-shrink: 0;
-}
-
-/* ==========================================================================
    Pattern CSS
 
    Only what core cannot do for a pattern (CLAUDE.md rule 6b). One section per
