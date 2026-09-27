@@ -621,14 +621,14 @@ html {
 /* When the Sidebar part draws its own inline left border, the template's divider
    and stacked rule hide, so the rail shows its own rules only. The part's border
    is untouched. !important matches core's visibility rules. */
-.wp-block-group:has(> aside > .origin-canvas-sidebar[style*="border-left-width"]) > .origin-canvas-sidebar-divider,
-.wp-block-group:has(> .wp-block-group > aside > .origin-canvas-sidebar[style*="border-left-width"]) > .origin-canvas-sidebar-rule {
+.wp-block-group:has(> aside > .origin-canvas-sidebar[style*="border-left-width:1px"]) > .origin-canvas-sidebar-divider,
+.wp-block-group:has(> .wp-block-group > aside > .origin-canvas-sidebar[style*="border-left-width:1px"]) > .origin-canvas-sidebar-rule {
 	display: none !important;
 }
 
 /* The same bordered part, stacked on phones, takes its top rule and spacing. */
 @media (max-width: 782px) {
-	.origin-canvas-sidebar[style*="border-left-width"] {
+	.origin-canvas-sidebar[style*="border-left-width:1px"] {
 		border-top: 1px solid var(--wp--preset--color--border);
 		margin-top: var(--wp--preset--spacing--huge);
 		padding-top: var(--wp--preset--spacing--huge);
@@ -639,11 +639,11 @@ html {
    as tablet while core Columns stack only below it, so without this the phone
    rule would show beside side-by-side columns at that one width. */
 @media (width: 782px) {
-	.wp-block-columns:has(.origin-canvas-sidebar-divider) {
+	.wp-block-columns:has(> .wp-block-column > .wp-block-group > .wp-block-group > .origin-canvas-sidebar-divider) {
 		flex-wrap: wrap !important;
 	}
 
-	.wp-block-columns:has(.origin-canvas-sidebar-divider) > .wp-block-column {
+	.wp-block-columns:has(> .wp-block-column > .wp-block-group > .wp-block-group > .origin-canvas-sidebar-divider) > .wp-block-column {
 		flex-basis: 100% !important;
 	}
 }
