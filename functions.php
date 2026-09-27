@@ -29,7 +29,12 @@ if ( ! function_exists( 'origin_canvas_enqueue_styles' ) ) {
 	 * Enqueue the base stylesheet so classic scripts inherit typography defaults.
 	 */
 	function origin_canvas_enqueue_styles() {
-		wp_enqueue_style( 'origin-canvas-style', get_stylesheet_uri(), array(), ORIGIN_CANVAS_VERSION );
+		// Version by mtime, as the block-style loader does, so a changed style.css
+		// gets a fresh URL instead of a stale cached copy.
+		$file  = get_stylesheet_directory() . '/style.css';
+		$mtime = file_exists( $file ) ? filemtime( $file ) : false;
+
+		wp_enqueue_style( 'origin-canvas-style', get_stylesheet_uri(), array(), $mtime ? $mtime : ORIGIN_CANVAS_VERSION );
 	}
 }
 add_action( 'wp_enqueue_scripts', 'origin_canvas_enqueue_styles' );

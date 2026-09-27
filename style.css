@@ -149,22 +149,6 @@ textarea {
 	width: 100%;
 }
 
-/**
- * Compact search — the sidebar rail only.
- *
- * The site-wide field above is sized for a full-width form; in a 373px rail it
- * reads oversized, so the field and its button drop to 40. Only the padding is
- * here - the block's own fontSize support handles the type, and core/search has
- * no padding attribute to set it with. The 404 search keeps the default size.
- */
-.origin-canvas-search-compact input.wp-block-search__input:not([type="button"]):not([type="reset"]):not([type="submit"]):not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="file"]) {
-	padding: 8px 12px;
-}
-
-.origin-canvas-search-compact .wp-block-search__button {
-	padding: 8px 20px;
-}
-
 input:not([type="button"]):not([type="reset"]):not([type="submit"]):not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="file"])::placeholder,
 textarea::placeholder {
 	color: var(--wp--preset--color--text-muted);
@@ -319,116 +303,6 @@ input[type="radio"]:focus-visible {
 	width: 100%;
 }
 
-/* Equal-height post grid cards */
-.origin-canvas-posts--stretch .wp-block-post {
-	align-items: stretch;
-	display: flex;
-	flex-direction: column;
-	height: 100%;
-}
-
-.origin-canvas-posts--stretch .wp-block-post > .wp-block-group {
-	flex: 1;
-}
-
-.origin-canvas-posts--stretch .wp-block-post-template.is-layout-grid {
-	align-items: stretch;
-}
-
-.origin-canvas-post-list-card {
-	align-items: stretch;
-	overflow: hidden;
-}
-
-.origin-canvas-post-list-card .is-vertically-aligned-center {
-	align-self: stretch;
-}
-
-.origin-canvas-post-list-card .wp-block-post-featured-image {
-	height: 100%;
-	width: 100%;
-}
-
-.origin-canvas-post-list-card .wp-block-post-featured-image img {
-	display: block;
-	height: 100%;
-	object-fit: cover;
-	width: 100%;
-}
-
-/**
- * Sidebar.
- *
- * Widget-to-widget spacing is owned by the group's blockGap (the pattern /
- * theme.json), which WordPress emits as constrained-layout `> * + *
- * margin-block-start`. No flex/gap is set on the wrapper here: a hard flex
- * `gap` would STACK with that constrained margin (they are additive),
- * doubling the gap. The same holds one level down: the Latest Posts list
- * has layout support, so its item gap is the block's blockGap in theme.json
- * (`core/latest-posts`), emitted as a flow-layout `margin-block-start` on
- * each item; a CSS gap here would stack with it. Only list reset rules
- * stay CSS. The list blocks below it have no layout support, so their gap
- * has no other owner and remains CSS.
- */
-.origin-canvas-sidebar .wp-block-latest-posts__list {
-	list-style: none;
-	margin: 0;
-	padding: 0;
-}
-
-/* Row spacing for these lists is owned by their per-block stylesheets (a flex
-   gap here would stack with it); only the list reset lives here. */
-.origin-canvas-sidebar .wp-block-categories-list,
-.origin-canvas-sidebar .wp-block-archives-list,
-.origin-canvas-sidebar .wp-block-latest-comments {
-	list-style: none;
-	margin: 0;
-	padding: 0;
-}
-
-.origin-canvas-sidebar .wp-block-latest-posts__featured-image {
-	margin-bottom: var(--wp--preset--spacing--extra-small);
-}
-
-/* The title is an inline anchor by default; the date needs to sit under it. */
-.origin-canvas-sidebar .wp-block-latest-posts__post-title {
-	display: block;
-}
-
-/* Category rows. Core prints the post count as a bare text node after the
-   link - there is no element to target - so the row is sized as a flex line
-   and the count inherits the smaller rail type from the list itself. */
-/* The term name and its count are separate blocks in a flex row, so the count
-   needs no styling of its own - it just must not stretch. */
-.origin-canvas-sidebar-categories .wp-block-term-count {
-	flex: none;
-}
-
-/* Term names are chrome - a category or tag, never prose - so they carry no
-   underline. The block renders as a paragraph, which puts core's
-   `:root :where(p a)` rule on the link; theme.json cannot win that (its block
-   styles match at the same specificity but load earlier), so the opt-out lives
-   here, keyed to the block rather than to the sidebar. */
-.wp-block-term-name a {
-	text-decoration: none;
-}
-
-.origin-canvas-sidebar .wp-block-latest-posts__post-date,
-.origin-canvas-sidebar .wp-block-latest-comments__comment-date {
-	color: var(--wp--preset--color--text-body);
-	font-size: var(--wp--preset--font-size--extra-small);
-	font-weight: 400;
-	margin-top: var(--wp--preset--spacing--extra-small);
-}
-
-@media (max-width: 781px) {
-	.origin-canvas-sidebar {
-		border-top: 1px solid var(--wp--preset--color--border);
-		margin-top: var(--wp--preset--spacing--huge);
-		padding-top: var(--wp--preset--spacing--huge);
-	}
-}
-
 /* Pagination */
 .wp-block-query-pagination,
 .wp-block-comments-pagination {
@@ -561,4 +435,518 @@ html {
 
 .has-display-font-family {
 	font-family: var(--wp--preset--font-family--display) !important;
+}
+
+/* ==========================================================================
+   Pattern CSS
+
+   Only what core cannot do for a pattern (CLAUDE.md rule 6b). One section per
+   pattern, named for it. These rules load on every page, so keep them small.
+   ========================================================================== */
+
+/**
+ * Pattern Showcase: a full-bleed 12-column grid of wash tiles.
+ *
+ * Core cannot hold this on WordPress 7.0: it has no 12/6/2 column breakpoints and no
+ * control for layered color-mix gradients. Colors route through palette tokens so
+ * the tiles reskin with style variations.
+ */
+.origin-canvas-pattern-board {
+	display: grid;
+	gap: 20px;
+	grid-template-columns: repeat(12, minmax(0, 1fr));
+	margin-top: 56px;
+	padding-inline: clamp(20px, 3.5vw, 48px);
+}
+
+.origin-canvas-wash-tile {
+	background-color: var(--wp--preset--color--surface-base);
+	border-radius: var(--wp--custom--radius--large);
+	/* !important so the editor-placeholder-suppressing inline min-height:240px
+	   (on the block, see pattern) does not flatten the responsive clamp on the
+	   front end. Inline styles beat plain stylesheet rules; !important wins back. */
+	min-height: clamp(240px, 26vw, 320px) !important;
+	overflow: hidden;
+}
+
+.origin-canvas-wash-hero {
+	background-image:
+		radial-gradient(70% 80% at 22% 20%, color-mix(in srgb, var(--wp--preset--color--primary) 20%, transparent), transparent 60%),
+		radial-gradient(60% 70% at 84% 86%, color-mix(in srgb, var(--wp--preset--color--primary) 10%, transparent), transparent 62%),
+		linear-gradient(150deg, var(--wp--preset--color--surface-base) 0%, var(--wp--preset--color--surface-subtle) 100%);
+	grid-column: span 5;
+}
+
+.origin-canvas-wash-features {
+	background-image:
+		radial-gradient(65% 75% at 80% 22%, color-mix(in srgb, var(--wp--preset--color--primary) 12%, transparent), transparent 60%),
+		linear-gradient(160deg, var(--wp--preset--color--surface-base) 0%, var(--wp--preset--color--surface-subtle) 100%);
+	grid-column: span 4;
+}
+
+.origin-canvas-wash-testimonial {
+	background-image:
+		radial-gradient(72% 72% at 24% 26%, color-mix(in srgb, var(--wp--preset--color--primary) 16%, transparent), transparent 58%),
+		linear-gradient(180deg, var(--wp--preset--color--surface-base) 0%, var(--wp--preset--color--surface-subtle-hover) 100%);
+	grid-column: span 3;
+}
+
+.origin-canvas-wash-pricing {
+	background-image:
+		radial-gradient(60% 70% at 26% 78%, color-mix(in srgb, var(--wp--preset--color--primary) 13%, transparent), transparent 56%),
+		linear-gradient(180deg, var(--wp--preset--color--surface-base) 0%, var(--wp--preset--color--surface-subtle) 100%);
+	grid-column: span 4;
+}
+
+.origin-canvas-wash-cta {
+	background-image:
+		radial-gradient(72% 80% at 80% 30%, color-mix(in srgb, var(--wp--preset--color--primary) 22%, transparent), transparent 60%),
+		radial-gradient(60% 70% at 20% 84%, color-mix(in srgb, var(--wp--preset--color--primary) 8%, transparent), transparent 58%),
+		linear-gradient(135deg, var(--wp--preset--color--surface-base) 0%, var(--wp--preset--color--surface-subtle) 100%);
+	grid-column: span 4;
+}
+
+.origin-canvas-wash-editor {
+	background-image:
+		radial-gradient(60% 70% at 50% 24%, color-mix(in srgb, var(--wp--preset--color--primary) 10%, transparent), transparent 60%),
+		linear-gradient(180deg, var(--wp--preset--color--surface-base) 0%, var(--wp--preset--color--surface-subtle) 100%);
+	grid-column: span 4;
+}
+
+@media (max-width: 1100px) {
+	.origin-canvas-pattern-board {
+		grid-template-columns: repeat(6, minmax(0, 1fr));
+	}
+
+	.origin-canvas-wash-hero,
+	.origin-canvas-wash-editor {
+		grid-column: span 6;
+	}
+
+	.origin-canvas-wash-features,
+	.origin-canvas-wash-testimonial,
+	.origin-canvas-wash-pricing,
+	.origin-canvas-wash-cta {
+		grid-column: span 3;
+	}
+}
+
+@media (max-width: 640px) {
+	.origin-canvas-pattern-board {
+		gap: 14px;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		margin-top: 40px;
+	}
+
+	.origin-canvas-wash-hero,
+	.origin-canvas-wash-editor {
+		grid-column: span 2;
+	}
+
+	.origin-canvas-wash-features,
+	.origin-canvas-wash-testimonial,
+	.origin-canvas-wash-pricing,
+	.origin-canvas-wash-cta {
+		grid-column: span 1;
+	}
+
+	.origin-canvas-wash-tile {
+		min-height: 170px !important;
+	}
+}
+
+/**
+ * Hidden Sidebar: the rail in parts/sidebar.html.
+ *
+ * Only what the blocks cannot set. core/search has no padding control, so the
+ * field and button drop to 40 tall to suit a 373px rail; the 404 search keeps the
+ * default size. The term count must not shrink beside a long category name, and
+ * core's Fixed sizing sets no flex-shrink. Latest Posts has no date controls.
+ * Stacked below the content, the rail takes a top rule. The list resets, the
+ * featured image gap and the block title cover blocks an owner may add to the
+ * rail in the Site Editor: Categories, Archives, Latest Comments, and Latest
+ * Posts with images on.
+ */
+.origin-canvas-sidebar .wp-block-categories-list,
+.origin-canvas-sidebar .wp-block-archives-list,
+.origin-canvas-sidebar .wp-block-latest-comments {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.origin-canvas-sidebar .wp-block-latest-posts__featured-image {
+	margin-bottom: var(--wp--preset--spacing--extra-small);
+}
+
+.origin-canvas-sidebar .wp-block-latest-posts__post-title {
+	display: block;
+}
+
+.origin-canvas-search-compact input.wp-block-search__input:not([type="button"]):not([type="reset"]):not([type="submit"]):not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="file"]) {
+	padding: 8px 12px;
+}
+
+.origin-canvas-search-compact .wp-block-search__button {
+	padding: 8px 20px;
+}
+
+.origin-canvas-sidebar-categories .wp-block-term-count {
+	flex: none;
+}
+
+.origin-canvas-sidebar .wp-block-latest-posts__post-date,
+.origin-canvas-sidebar .wp-block-latest-comments__comment-date {
+	color: var(--wp--preset--color--text-body);
+	font-size: var(--wp--preset--font-size--extra-small);
+	font-weight: 400;
+	margin-top: var(--wp--preset--spacing--extra-small);
+}
+
+@media (max-width: 781px) {
+	.origin-canvas-sidebar {
+		border-top: 1px solid var(--wp--preset--color--border);
+		margin-top: var(--wp--preset--spacing--huge);
+		padding-top: var(--wp--preset--spacing--huge);
+	}
+}
+
+/**
+ * Token System: pink bullet markers and the theme.json tokens panel on the
+ * landing page. Every fill is a palette token or an ink-tinted color-mix, so the
+ * panel tracks style variations.
+ */
+.origin-canvas-bullet-mark {
+	background: var(--wp--preset--color--primary);
+	border-radius: 2px;
+	flex-shrink: 0;
+	height: 6px;
+	width: 6px;
+}
+
+/* Radius clipping for the panel's square-cornered bar (no JSON overflow analogue). */
+.origin-canvas-tokens-panel {
+	overflow: hidden;
+}
+
+.origin-canvas-token-palrow {
+	display: flex;
+	gap: 10px;
+}
+
+.origin-canvas-token-palrow > .wp-block-group {
+	flex: 1;
+}
+
+.origin-canvas-token-sw {
+	border-radius: var(--wp--custom--radius--small);
+	box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--wp--preset--color--text-heading) 8%, transparent);
+	height: 34px;
+}
+
+.origin-canvas-token-scale {
+	align-items: flex-end;
+	display: flex;
+	gap: 10px;
+}
+
+.origin-canvas-token-bar {
+	background: var(--wp--preset--color--surface-subtle);
+	border-radius: 3px 3px 0 0;
+	width: 26px;
+}
+
+.origin-canvas-token-bar--1 {
+	height: 14px;
+}
+
+.origin-canvas-token-bar--2 {
+	height: 22px;
+}
+
+.origin-canvas-token-bar--3 {
+	height: 32px;
+}
+
+.origin-canvas-token-bar--4 {
+	height: 44px;
+}
+
+.origin-canvas-token-bar--5 {
+	height: 58px;
+}
+
+.origin-canvas-token-bar--6 {
+	height: 74px;
+}
+
+.origin-canvas-token-bar--7 {
+	height: 92px;
+}
+
+/**
+ * Template Showcase: schematic template cards on the landing page, drawn with
+ * empty groups. Ink-tinted color-mix fills track the active style variation.
+ */
+.origin-canvas-wire {
+	background: var(--wp--preset--color--surface-subtle);
+	border-radius: var(--wp--custom--radius--medium);
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	height: 168px;
+	padding: 13px;
+}
+
+.origin-canvas-wire-head {
+	background: color-mix(in srgb, var(--wp--preset--color--text-heading) 10%, transparent);
+	border-radius: 3px;
+	flex: none;
+	height: 18px;
+}
+
+.origin-canvas-wire-body {
+	display: flex;
+	flex: 1;
+	gap: 8px;
+	min-height: 0;
+}
+
+.origin-canvas-wire-body--center {
+	justify-content: center;
+}
+
+.origin-canvas-wire-body--col {
+	flex-direction: column;
+}
+
+.origin-canvas-wire-body--grid {
+	display: grid;
+	gap: 8px;
+	grid-template-columns: 1fr 1fr;
+	grid-template-rows: 1fr 1fr;
+}
+
+.origin-canvas-wire-blk {
+	background: var(--wp--preset--color--surface-base);
+	border-radius: 3px;
+	flex: 1;
+}
+
+.origin-canvas-wire-blk--alt {
+	background: color-mix(in srgb, var(--wp--preset--color--text-heading) 8%, transparent);
+}
+
+.origin-canvas-wire-blk--w60 {
+	flex: none;
+	width: 60%;
+}
+
+.origin-canvas-wire-blk--grow2 {
+	flex: 2;
+}
+
+/**
+ * Hero Canvas: the landing hero backdrop. Layered radials (cool top glow +
+ * faint pink corner) over a subtle 48px grid. A plain pattern class (not a
+ * registered block style), applied only by hero-canvas, so it stays out of the
+ * editor's group Styles panel.
+ */
+.wp-block-group.origin-canvas-canvas-grid {
+	background-color: var(--wp--preset--color--surface-base);
+	background-image:
+		linear-gradient(180deg, transparent 42%, var(--wp--preset--color--surface-base) 97%),
+		radial-gradient(120% 75% at 50% -18%, var(--wp--preset--color--surface-subtle) 0%, transparent 60%),
+		radial-gradient(38% 50% at 88% 2%, color-mix(in srgb, var(--wp--preset--color--primary) 7%, transparent) 0%, transparent 70%),
+		linear-gradient(to right, color-mix(in srgb, var(--wp--preset--color--text-heading) 4%, transparent) 1px, transparent 1px),
+		linear-gradient(to bottom, color-mix(in srgb, var(--wp--preset--color--text-heading) 4%, transparent) 1px, transparent 1px);
+	background-repeat: no-repeat, no-repeat, no-repeat, repeat, repeat;
+	background-size: cover, cover, cover, 48px 48px, 48px 48px;
+	overflow: hidden;
+	position: relative;
+}
+
+/**
+ * Style Variations: swatch circles, preset dots and specimen fonts on the landing
+ * page. The inset rings are an ink-tinted color-mix, so they track the active
+ * variation. The specimen fonts are not theme presets.
+ */
+.origin-canvas-sw {
+	border-radius: 999px;
+	box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--wp--preset--color--text-heading) 15%, transparent);
+	height: 20px;
+	width: 20px;
+}
+
+.origin-canvas-preset-dot {
+	border-radius: 999px;
+	box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--wp--preset--color--text-heading) 12%, transparent);
+	flex: none;
+	height: 38px;
+	width: 38px;
+}
+
+.origin-canvas-specimen-serif {
+	font-family: "Source Serif 4", Georgia, serif;
+}
+
+.origin-canvas-specimen-grotesk {
+	font-family: "Space Grotesk", var(--wp--preset--font-family--sans);
+}
+
+.origin-canvas-specimen-dmsans {
+	font-family: "DM Sans", var(--wp--preset--font-family--sans);
+}
+
+/**
+ * Landing rows shared by Style Variations, Token System and Template Showcase:
+ * the monospace micro-labels, and the baseline alignment of the group heads and
+ * the type-scale ramp. Core flex aligns only top, center, bottom or stretch, and
+ * aligning line boxes leaves glyphs of different sizes up to 6px apart.
+ */
+.origin-canvas-mono {
+	font-family: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, monospace;
+}
+
+.wp-block-group.origin-canvas-group-head,
+.wp-block-group.origin-canvas-type-ramp {
+	align-items: baseline;
+}
+
+/* The caption is not a specimen: it centers on the row rather than sitting on
+   the specimens' baseline. */
+.wp-block-group.origin-canvas-type-ramp .origin-canvas-mono {
+	align-self: center;
+}
+
+/**
+ * Header Marketing, below 600px: one row.
+ *
+ * The nav has collapsed to the hamburger. The brand word, both pills and the
+ * hamburger do not fit a phone width on one row, so the ghost "View demo" is hidden
+ * and the site title drops to screen-reader-only while the site logo carries the
+ * brand; the title link is still a tab stop, so it un-clips while focused. A site
+ * with no logo keeps its title. "Download" stays, with a 44px floor because the
+ * theme pins no button line-height, and the hamburger packs beside it. Child
+ * combinators keep the hamburger rule off the overlay's own Navigation block.
+ */
+@media (max-width: 599px) {
+	.origin-canvas-header-marketing .wp-block-button.is-style-outline {
+		display: none;
+	}
+
+	.origin-canvas-header-marketing .wp-block-button__link {
+		min-height: 44px;
+	}
+
+	.origin-canvas-header-marketing .wp-block-group:has(> .wp-block-site-logo) > .wp-block-site-title:not(:focus-within) {
+		clip-path: inset(50%);
+		height: 1px;
+		overflow: hidden;
+		position: absolute;
+		white-space: nowrap;
+		width: 1px;
+	}
+
+	.origin-canvas-header-marketing > .wp-block-group > .wp-block-navigation {
+		margin-left: auto;
+	}
+}
+
+/**
+ * Header With Button, below 600px. Below core's
+ * breakpoint the nav is only the open button; `order` sends it last so the row
+ * reads [title] … [button][open], with the open button at the gutter edge on the
+ * axis the overlay ✕ is tuned to. `margin-left: auto` on the
+ * buttons packs the button beside it. The 44px floor is the header-marketing rule:
+ * the theme pins no button line-height, so the mobile padding clamp alone lands
+ * short of the tap target.
+ */
+@media (max-width: 599px) {
+	.origin-canvas-header-with-button > .wp-block-group > .wp-block-navigation {
+		order: 1;
+	}
+
+	.origin-canvas-header-with-button > .wp-block-group > .wp-block-buttons {
+		margin-left: auto;
+	}
+
+	.origin-canvas-header-with-button .wp-block-button__link {
+		min-height: 44px;
+	}
+}
+
+/**
+ * Product Grid: the status chip and the live-product dot on the landing page's
+ * product cards. The Paragraph block has no border support, so the pill lives
+ * here. The chip is borderless: a 1px hairline measured 1.28:1 against white, so
+ * the pill reads by shape and the text carries the contrast (about 6.7:1). The dot
+ * is shape only: each card sets the product's own hue on the block, so it does
+ * not track the primary color.
+ */
+.origin-canvas-status-chip {
+	background-color: var(--wp--preset--color--surface-subtle);
+	border-radius: 999px;
+	color: var(--wp--preset--color--text-body);
+	font-weight: 500;
+	letter-spacing: 0.08em;
+	padding: 3px 10px;
+	text-transform: uppercase;
+	width: fit-content;
+}
+
+.origin-canvas-status-chip--dark {
+	background-color: rgb(255 255 255 / 10%);
+	color: rgb(255 255 255 / 85%);
+}
+
+.origin-canvas-status-dot {
+	border-radius: 999px;
+	flex: none;
+	height: 8px;
+	width: 8px;
+}
+
+/**
+ * Post Loop Grid: cards in a row share one height, and each card's text panel
+ * fills to the bottom. Grid rows already stretch the post; the post has no layout
+ * of its own, so it becomes a column here. A Stack inside the post cannot do it:
+ * the featured image, sized only by its aspect ratio, collapses to 0 there.
+ */
+.origin-canvas-posts--stretch .wp-block-post {
+	align-items: stretch;
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+}
+
+.origin-canvas-posts--stretch .wp-block-post > .wp-block-group {
+	flex: 1;
+}
+
+/**
+ * Post Loop List: the card clips its image to the card's radius. The corners the
+ * image needs change when the columns stack, so a per-corner radius on the image
+ * cannot do it.
+ */
+.origin-canvas-post-list-card {
+	overflow: hidden;
+}
+
+/**
+ * Features Numbered: the step numerals keep one width per digit, so a column of
+ * them lines up. Core has no numeral-spacing control.
+ */
+.origin-canvas-step-numeral {
+	font-variant-numeric: tabular-nums;
+}
+
+/**
+ * Process Numbered: the step number keeps a 36px column. Core's Fixed width sets
+ * the basis but lets the number shrink.
+ */
+.origin-canvas-process-step-number {
+	flex: 0 0 36px;
+	min-width: 36px;
+	white-space: nowrap;
 }

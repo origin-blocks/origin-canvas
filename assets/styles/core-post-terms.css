@@ -44,3 +44,14 @@
 .is-style-origin-canvas-term-inline a {
 	transition: color 120ms ease;
 }
+
+/**
+ * Term links are UI, never prose. When a loop pattern is inserted into a page,
+ * post-content's content-link underline reaches them, as it does the date and
+ * title links; exclude them there, as core-post-date.css does. A decoration the
+ * owner sets on the block is written as an inline style on the wrapper, and the
+ * link inherits it; with none set, it inherits none.
+ */
+.wp-block-post-content .wp-block-post-terms a {
+	text-decoration: inherit;
+}
