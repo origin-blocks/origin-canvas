@@ -451,6 +451,15 @@ html {
 	flex-shrink: 0;
 }
 
+/* Columns that stack in reverse on phones, so a column placed first for the
+   desktop layout (a left sidebar) lands after the rest. Columns stack below
+   782px; core has no order control for them. */
+@media (max-width: 781px) {
+	.wp-block-columns.origin-canvas-swap-order {
+		flex-direction: column-reverse;
+	}
+}
+
 /* A Row whose children sit on a shared text baseline. Core aligns a flex row only
    top, center, bottom or stretch; aligning line boxes leaves glyphs of different
    sizes up to 6px apart. */
