@@ -618,14 +618,16 @@ html {
 	margin-top: var(--wp--preset--spacing--extra-small);
 }
 
-/* When the Sidebar part draws its own inline left border, the template's
-   divider hides, so the rail shows one rule. The part's border is untouched. */
-.wp-block-group:has(> aside > .origin-canvas-sidebar[style*="border-left-width"]) > .origin-canvas-sidebar-divider {
-	display: none;
+/* When the Sidebar part draws its own inline left border, the template's divider
+   and stacked rule hide, so the rail shows its own rules only. The part's border
+   is untouched. !important matches core's visibility rules. */
+.wp-block-group:has(> aside > .origin-canvas-sidebar[style*="border-left-width"]) > .origin-canvas-sidebar-divider,
+.wp-block-group:has(> .wp-block-group > aside > .origin-canvas-sidebar[style*="border-left-width"]) > .origin-canvas-sidebar-rule {
+	display: none !important;
 }
 
 /* The same bordered part, stacked on phones, takes its top rule and spacing. */
-@media (max-width: 781px) {
+@media (max-width: 782px) {
 	.origin-canvas-sidebar[style*="border-left-width"] {
 		border-top: 1px solid var(--wp--preset--color--border);
 		margin-top: var(--wp--preset--spacing--huge);
