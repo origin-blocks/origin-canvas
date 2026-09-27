@@ -444,6 +444,13 @@ html {
    job it does so any block can use it. See CLAUDE.md rule 6b.
    ========================================================================== */
 
+/* A flex child that keeps its size. WordPress 7.0's Fixed width sets only the
+   basis, so the item can still shrink; 7.1 saves Fixed as fixedNoShrink, which
+   holds, but the theme supports 7.0. Pair it with Fixed (selfStretch "fixed"). */
+.origin-canvas-no-shrink {
+	flex-shrink: 0;
+}
+
 /* A Row whose children sit on a shared text baseline. Core aligns a flex row only
    top, center, bottom or stretch; aligning line boxes leaves glyphs of different
    sizes up to 6px apart. */

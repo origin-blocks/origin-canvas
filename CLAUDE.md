@@ -154,14 +154,16 @@ A change to an existing block rule made so one pattern lands is never the fix.
 Before concluding a pattern needs CSS, exhaust what core already does: Row, Stack and Grid
 child sizing (Fill, Fit, Fixed), the block styles core ships (`is-style-wide`), the colour,
 border and spacing supports, and the Hide setting (block visibility per viewport). Note the
-child-sizing values: the editor's **Fixed** saves `selfStretch: "fixedNoShrink"` and emits
-`flex-shrink: 0`; the older `"fixed"` value lets the item shrink. Hand-written markup must use
-`fixedNoShrink` for a width that holds. `divider-with-text` is the reference: a Row with two separators set
+child-sizing values: WordPress 7.1's **Fixed** saves `selfStretch: "fixedNoShrink"` (emits
+`flex-shrink: 0`), but 7.0, the theme's minimum, only knows `"fixed"`, which lets the item
+shrink. Pattern markup uses `"fixed"` plus the `origin-canvas-no-shrink` utility until the
+minimum is 7.1. `divider-with-text` is the reference: a Row with two separators set
 to Fill and the label left at Fit sizes the label to its text, with no pattern CSS.
 
 A job that core cannot do but more than one pattern needs becomes a **utility**: a class named for
 the job, not the pattern, in the Utilities section of `style.css`, applied through Additional CSS
-Classes. Today: `origin-canvas-align-baseline` (a Row on a shared text baseline). Add one only for
+Classes. Today: `origin-canvas-no-shrink` (a flex child that keeps its size) and
+`origin-canvas-align-baseline` (a Row on a shared text baseline). Add one only for
 a generic job with a real second use.
 
 What core still cannot do goes where it loads least. If the pattern always contains a block that
