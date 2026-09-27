@@ -816,16 +816,12 @@ html {
 
 /**
  * Landing rows shared by Style Variations, Token System and Template Showcase:
- * the monospace micro-labels, and the type-scale ramp's caption, which centers on
- * the row rather than sitting on the specimens' baseline.
+ * the monospace micro-labels.
  */
 .origin-canvas-mono {
 	font-family: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, monospace;
 }
 
-.wp-block-group.origin-canvas-type-ramp .origin-canvas-mono {
-	align-self: center;
-}
 
 /**
  * Header Marketing, below 600px: one row.
