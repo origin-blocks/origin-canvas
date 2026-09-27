@@ -214,6 +214,11 @@ def scan(css, label):
             # `.not-comment-reply-title.wp-block-heading` is a different class entirely.
             if re.search(r'(^|[\s,>+~(])\.comment-reply-title\s*$', one):
                 continue
+            # The sidebar section labels: eyebrow tracking and weight at :where()
+            # specificity, so each heading's own Typography controls still win
+            # (CLAUDE.md rule 7). Only this exact selector is exempt.
+            if re.fullmatch(r'\.origin-canvas-sidebar\s+:where\(h2\)', ' '.join(one.split())):
+                continue
             if HEADING.search(one):
                 flat = ' '.join(one.split())
                 print('  ✗  CSS sets heading weight or tracking: %s — %s' % (label, flat))

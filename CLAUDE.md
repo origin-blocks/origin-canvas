@@ -210,6 +210,7 @@ Every heading surface, and who owns its weight:
 | `core/comments-title` | variation |
 | `core/site-title` | **the block node** — renders `<p>` at `level: 0`, so `elements.heading` cannot reach it |
 | `.comment-reply-title` | **the block node** — form furniture; pinned in `theme.json` AND `core-comments.css`, change both or neither |
+| Sidebar section labels (`patterns/hidden-sidebar.php`) | **`style.css`**, one rule, `.origin-canvas-sidebar :where(h2)` (0.08em, 600): eyebrow labels, not voice. Low specificity, so each heading's own Typography settings still win; the guard exempts that exact selector only |
 
 **The test for a new case: does it render as `h1`–`h6`?** If yes, `elements.heading` reaches
 it and weight belongs to the variation. If it renders as a `<p>` — as the site title does at
