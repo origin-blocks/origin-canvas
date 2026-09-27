@@ -42,8 +42,8 @@
 <!-- /wp:terms-query --></div>
 <!-- /wp:group -->
 
-<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|compact"}},"layout":{"type":"constrained"}} -->
-<div class="wp-block-group"><!-- wp:heading {"style":{"typography":{"textTransform":"uppercase"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-heading","fontSize":"extra-small"} -->
+<!-- wp:group {"className":"origin-canvas-sidebar-tags","style":{"spacing":{"blockGap":"var:preset|spacing|compact"}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group origin-canvas-sidebar-tags"><!-- wp:heading {"style":{"typography":{"textTransform":"uppercase"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-heading","fontSize":"extra-small"} -->
 <h2 class="wp-block-heading has-text-heading-color has-text-color has-extra-small-font-size" style="margin-top:0;margin-bottom:0;text-transform:uppercase"><?php echo esc_html__( 'Tags', 'origin-canvas' ); ?></h2>
 <!-- /wp:heading -->
 
