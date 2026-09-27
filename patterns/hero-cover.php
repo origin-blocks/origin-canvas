@@ -29,8 +29,8 @@
 <p class="has-text-body-color has-text-color has-regular-font-size" style="margin-top:var(--wp--preset--spacing--compact)"><?php echo esc_html__( 'Identity and a portfolio site for a two-person joinery workshop. Six weeks, forty pieces photographed, one new wordmark.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
-<!-- wp:paragraph {"style":{"typography":{"fontWeight":"600"},"spacing":{"margin":{"top":"var:preset|spacing|medium","bottom":"0"}}},"textColor":"text-heading","fontSize":"regular"} -->
-<p class="has-text-heading-color has-text-color has-regular-font-size" style="margin-top:var(--wp--preset--spacing--medium);margin-bottom:0;font-weight:600"><?php echo esc_html__( 'Read the case study', 'origin-canvas' ); ?> <mark style="background-color:rgba(0, 0, 0, 0)" class="has-inline-color has-primary-color">&rarr;</mark></p>
+<!-- wp:paragraph {"className":"origin-canvas-links-plain","style":{"elements":{"link":{"color":{"text":"var:preset|color|text-heading"},":hover":{"color":{"text":"var:preset|color|primary"}}}},"typography":{"fontWeight":"600"},"spacing":{"margin":{"top":"var:preset|spacing|medium","bottom":"0"}}},"textColor":"text-heading","fontSize":"regular"} -->
+<p class="origin-canvas-links-plain has-text-heading-color has-text-color has-link-color has-regular-font-size" style="margin-top:var(--wp--preset--spacing--medium);margin-bottom:0;font-weight:600"><a href="#"><?php echo esc_html__( 'Read the case study', 'origin-canvas' ); ?> <mark style="background-color:rgba(0, 0, 0, 0)" class="has-inline-color has-primary-color" aria-hidden="true">&rarr;</mark></a></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group -->
 
