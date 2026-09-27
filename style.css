@@ -648,6 +648,14 @@ html {
 	}
 }
 
+/* The section headings are small uppercase labels: the handoff's 0.08em tracking
+   and 600 weight. Low specificity, so a heading's own Typography settings still
+   win; rule 7 keeps these values off the blocks themselves. */
+.origin-canvas-sidebar :where(h2) {
+	font-weight: 600;
+	letter-spacing: 0.08em;
+}
+
 /* A site with no tags: core's Tag Cloud renders nothing, so the Tags group holds
    only its heading. Hide the group rather than show a heading with nothing under it. */
 .origin-canvas-sidebar-tags:has(> h2:only-child) {
