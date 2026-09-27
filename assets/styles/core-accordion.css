@@ -167,3 +167,14 @@
 		transition: grid-template-rows 260ms cubic-bezier(0.16, 1, 0.3, 1);
 	}
 }
+
+/* Sticky is NOT part of the block style. It is a separate opt-in utility for the
+   two-column FAQ layout, applied to a Columns block via Additional CSS Classes, and is
+   deliberately left unscoped. */
+@media (min-width: 782px) {
+	.origin-canvas-faq-sticky > .wp-block-column:first-child {
+		align-self: start;
+		position: sticky;
+		top: var(--wp--preset--spacing--extra-large);
+	}
+}
