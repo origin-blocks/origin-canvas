@@ -159,7 +159,7 @@ child-sizing values: the editor's **Fixed** saves `selfStretch: "fixedNoShrink"`
 `fixedNoShrink` for a width that holds. `divider-with-text` is the reference: a Row with two separators set
 to Fill and the label left at Fit sizes the label to its text, with no pattern CSS.
 
-A job core cannot do that more than one pattern needs becomes a **utility**: a class named for
+A job that core cannot do but more than one pattern needs becomes a **utility**: a class named for
 the job, not the pattern, in the Utilities section of `style.css`, applied through Additional CSS
 Classes. Today: `origin-canvas-align-baseline` (a Row on a shared text baseline). Add one only for
 a generic job with a real second use.
