@@ -618,6 +618,13 @@ html {
 	margin-top: var(--wp--preset--spacing--extra-small);
 }
 
+/* A Sidebar part saved before the divider moved into the templates still carries
+   its own inline left border and padding. Hide the template's divider there so
+   the rail shows one rule, in the old place; the saved border is left alone. */
+.wp-block-group:has(> aside > .origin-canvas-sidebar[style*="border-left-width"]) > .origin-canvas-no-shrink.has-border-background-color {
+	display: none;
+}
+
 /* A site with no tags: core's Tag Cloud renders nothing, so the Tags group holds
    only its heading. Hide the group rather than show a heading with nothing under it. */
 .origin-canvas-sidebar-tags:has(> h2:only-child) {
