@@ -25,8 +25,8 @@
 <h2 class="wp-block-heading has-huge-font-size" style="margin-top:0;margin-bottom:0;line-height:1.1"><?php echo esc_html__( 'Thistle &amp; Pine Joinery', 'origin-canvas' ); ?></h2>
 <!-- /wp:heading -->
 
-<!-- wp:paragraph {"textColor":"text-body","fontSize":"regular"} -->
-<p class="has-text-body-color has-text-color has-regular-font-size"><?php echo esc_html__( 'Identity and a portfolio site for a two-person joinery workshop. Six weeks, forty pieces photographed, one new wordmark.', 'origin-canvas' ); ?></p>
+<!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"var:preset|spacing|compact"}}},"textColor":"text-body","fontSize":"regular"} -->
+<p class="has-text-body-color has-text-color has-regular-font-size" style="margin-top:var(--wp--preset--spacing--compact)"><?php echo esc_html__( 'Identity and a portfolio site for a two-person joinery workshop. Six weeks, forty pieces photographed, one new wordmark.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"style":{"typography":{"fontWeight":"600"},"spacing":{"margin":{"top":"var:preset|spacing|medium","bottom":"0"}}},"textColor":"text-heading","fontSize":"regular"} -->
