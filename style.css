@@ -581,7 +581,8 @@ html {
  *
  * Only what the blocks cannot set. core/search has no padding control, so the
  * field and button drop to 40 tall to suit a 373px rail; the 404 search keeps the
- * default size. Latest Posts has no date controls. The list resets, the
+ * default size. Latest Posts has no date controls.
+ * Stacked below the content, the rail takes a top rule. The list resets, the
  * featured image gap and the block title cover blocks an owner may add to the
  * rail in the Site Editor: Categories, Archives, Latest Comments, and Latest
  * Posts with images on.
@@ -618,10 +619,12 @@ html {
 	margin-top: var(--wp--preset--spacing--extra-small);
 }
 
-/* A site with no tags: core's Tag Cloud renders nothing, so the Tags group holds
-   only its label. Hide the group rather than show a label with nothing under it. */
-.origin-canvas-sidebar > .wp-block-group:has(> p:only-child) {
-	display: none;
+@media (max-width: 781px) {
+	.origin-canvas-sidebar {
+		border-top: 1px solid var(--wp--preset--color--border);
+		margin-top: var(--wp--preset--spacing--huge);
+		padding-top: var(--wp--preset--spacing--huge);
+	}
 }
 
 /**
