@@ -4,7 +4,7 @@
  * Slug: origin-canvas/contact-split
  * Description: Contact details beside a panel that starts an email about a project.
  * Categories: contact
- * Keywords: get in touch, inquiry, email us, project, office
+ * Keywords: inquiry, enquiry, office, reach, hire
  * Viewport Width: 1500
  * Block Types:
  * Post Types:

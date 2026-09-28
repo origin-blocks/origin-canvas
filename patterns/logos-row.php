@@ -4,7 +4,7 @@
  * Slug: origin-canvas/logos-row
  * Description: A "Trusted by" label above one row of client logos in gray.
  * Categories: origin-canvas/logos
- * Keywords: clients, trusted by, brands, customers, strip
+ * Keywords: brands, customers, partners, strip, endorsement
  * Viewport Width: 1500
  * Block Types:
  * Post Types:

@@ -4,7 +4,7 @@
  * Slug: origin-canvas/stats-stacked
  * Description: A vertical list of figures, each with a sentence explaining it.
  * Categories: origin-canvas/stats
- * Keywords: numbers, metrics, figures, results, list
+ * Keywords: numbers, metrics, results, facts, achievements
  * Viewport Width: 1500
  * Block Types:
  * Post Types:

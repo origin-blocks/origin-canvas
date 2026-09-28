@@ -4,7 +4,7 @@
  * Slug: origin-canvas/coming-soon
  * Description: A full-screen dark page with the site title and a coming-soon message.
  * Categories: origin-canvas/hero
- * Keywords: launch, placeholder, under construction, maintenance, holding page
+ * Keywords: launch, placeholder, construction, maintenance, holding, teaser
  * Viewport Width: 1500
  * Block Types:
  * Post Types:

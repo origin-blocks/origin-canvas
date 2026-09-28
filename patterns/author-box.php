@@ -4,7 +4,7 @@
  * Slug: origin-canvas/author-box
  * Description: The post author's photo, name and biography in a tinted card.
  * Categories: origin-canvas/author
- * Keywords: bio, byline, writer, about the author, profile
+ * Keywords: bio, byline, writer, profile, contributor
  * Viewport Width: 1500
  * Block Types: core/post-content
  * Post Types:

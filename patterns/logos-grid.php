@@ -4,7 +4,7 @@
  * Slug: origin-canvas/logos-grid
  * Description: A heading above all client logos, each on its own bordered tile.
  * Categories: origin-canvas/logos
- * Keywords: clients, customers, brands, wall, portfolio
+ * Keywords: brands, customers, partners, wall, portfolio
  * Viewport Width: 1500
  * Block Types:
  * Post Types:

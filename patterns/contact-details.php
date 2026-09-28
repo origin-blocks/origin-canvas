@@ -4,7 +4,7 @@
  * Slug: origin-canvas/contact-details
  * Description: A card with the business name, address, phone, email and opening hours.
  * Categories: contact
- * Keywords: address, phone, email, hours, location, visit
+ * Keywords: location, visit, office, directions, reach
  * Viewport Width: 1500
  * Block Types:
  * Post Types:

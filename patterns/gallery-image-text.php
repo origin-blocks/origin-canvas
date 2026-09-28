@@ -4,7 +4,7 @@
  * Slug: origin-canvas/gallery-image-text
  * Description: Full-width photographs, each followed by a short title and description.
  * Categories: gallery
- * Keywords: photos, story, studio, process, behind the scenes
+ * Keywords: photos, story, studio, process, showcase
  * Viewport Width: 1500
  * Block Types:
  * Post Types:
