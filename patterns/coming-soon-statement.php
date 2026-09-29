@@ -4,7 +4,7 @@
  * Slug: origin-canvas/coming-soon-statement
  * Description: A full-screen dark coming-soon page with one large statement.
  * Categories: origin-canvas/hero
- * Keywords: launch, placeholder, holding, statement, maintenance
+ * Keywords: launch, placeholder, holding, maintenance, offline
  * Viewport Width: 1500
  * Block Types:
  * Post Types:

@@ -4,7 +4,7 @@
  * Slug: origin-canvas/coming-soon-split
  * Description: A full-screen dark coming-soon page with a studio photo beside the site title.
  * Categories: origin-canvas/hero
- * Keywords: launch, placeholder, holding, photo, maintenance
+ * Keywords: launch, placeholder, holding, maintenance, teaser
  * Viewport Width: 1500
  * Block Types:
  * Post Types:
