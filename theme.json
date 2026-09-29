@@ -109,6 +109,9 @@
 			}
 		},
 		"color": {
+			"duotone": [
+				{ "slug": "logo-gray", "name": "Logo gray", "colors": [ "#4B5563", "#FFFFFF" ] }
+			],
 			"palette": [
 				{
 					"slug": "primary",

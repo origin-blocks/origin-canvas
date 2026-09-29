@@ -94,7 +94,25 @@ Pattern image "Studio one project" (patterns/images/studio-one-project.webp), AI
 
 Pattern image "Studio type proofs" (patterns/images/studio-type-proofs.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
-The nine images below are no longer used by any pattern. They are kept so that content created with earlier versions of the theme keeps its images, and they will be removed in a later release.
+Pattern image "Studio proof wall" (patterns/images/gallery-proof-wall.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+
+Pattern image "Paper stock samples" (patterns/images/gallery-paper-stock.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+
+Pattern image "Brand guidelines booklet" (patterns/images/gallery-guidelines.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+
+Pattern image "Studio screen review" (patterns/images/gallery-screen-review.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+
+Pattern image "Studio shelving" (patterns/images/gallery-studio-shelf.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+
+Pattern image "Studio meeting table" (patterns/images/gallery-meeting-table.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+
+Demo client logos (patterns/images/logo-*.png): made for Origin Canvas, GPL-2.0-or-later.
+
+Pattern image "Desk sketchbook" (patterns/images/desk-notebook-overhead.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+
+Pattern image "Studio worktable" (patterns/images/studio-worktable.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+
+The seven images below are no longer used by any pattern. They are kept so that content created with earlier versions of the theme keeps its images, and they will be removed in a later release.
 
 Pattern image "Retired case-study image" (patterns/images/card-image-text-1.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
@@ -109,10 +127,6 @@ Pattern image "Retired highlight avatar image" (patterns/images/testimonial-high
 Pattern image "Retired studio launch-review image" (patterns/images/studio-review.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
 Pattern image "Retired florist case-study image" (patterns/images/card-image-text-3.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
-
-Pattern image "Retired desk sketchbook image" (patterns/images/desk-notebook-overhead.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
-
-Pattern image "Retired studio worktable image" (patterns/images/studio-worktable.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
 == Fonts ==
 
