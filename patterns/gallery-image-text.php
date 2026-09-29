@@ -20,8 +20,8 @@
 <!-- /wp:heading -->
 
 <!-- wp:group {"style":{"spacing":{"blockGap":"0"}},"layout":{"type":"default"}} -->
-<div class="wp-block-group"><!-- wp:image {"aspectRatio":"16/9","scale":"cover","sizeSlug":"large","linkDestination":"none","style":{"border":{"radius":"var:custom|radius|medium"}}} -->
-<figure class="wp-block-image size-large has-custom-border"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/studio-type-proofs.webp" alt="<?php esc_attr_e( 'Printed type specimens and a marked-up page of copy on a pale worktable.', 'origin-canvas' ); ?>" style="border-radius:var(--wp--custom--radius--medium);aspect-ratio:16/9;object-fit:cover"/></figure>
+<div class="wp-block-group"><!-- wp:image {"aspectRatio":"16/9","scale":"cover","width":"100%","sizeSlug":"large","linkDestination":"none","style":{"border":{"radius":"var:custom|radius|medium"}}} -->
+<figure class="wp-block-image size-large has-custom-border"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/studio-type-proofs.webp" alt="<?php esc_attr_e( 'Printed type specimens and a marked-up page of copy on a pale worktable.', 'origin-canvas' ); ?>" style="border-radius:var(--wp--custom--radius--medium);aspect-ratio:16/9;object-fit:cover;width:100%"/></figure>
 <!-- /wp:image -->
 
 <!-- wp:columns {"style":{"spacing":{"margin":{"top":"var:preset|spacing|large"},"blockGap":{"top":"var:preset|spacing|compact","left":"var:preset|spacing|jumbo"}}}} -->
@@ -40,8 +40,8 @@
 <!-- /wp:group -->
 
 <!-- wp:group {"style":{"spacing":{"blockGap":"0"}},"layout":{"type":"default"}} -->
-<div class="wp-block-group"><!-- wp:image {"aspectRatio":"16/9","scale":"cover","sizeSlug":"large","linkDestination":"none","style":{"border":{"radius":"var:custom|radius|medium"}}} -->
-<figure class="wp-block-image size-large has-custom-border"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/studio-worktable.webp" alt="<?php esc_attr_e( 'A closed laptop, a black notebook and a fan of paint swatches on a wooden desk.', 'origin-canvas' ); ?>" style="border-radius:var(--wp--custom--radius--medium);aspect-ratio:16/9;object-fit:cover"/></figure>
+<div class="wp-block-group"><!-- wp:image {"aspectRatio":"16/9","scale":"cover","width":"100%","sizeSlug":"large","linkDestination":"none","style":{"border":{"radius":"var:custom|radius|medium"}}} -->
+<figure class="wp-block-image size-large has-custom-border"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/studio-worktable.webp" alt="<?php esc_attr_e( 'A closed laptop, a black notebook and a fan of paint swatches on a wooden desk.', 'origin-canvas' ); ?>" style="border-radius:var(--wp--custom--radius--medium);aspect-ratio:16/9;object-fit:cover;width:100%"/></figure>
 <!-- /wp:image -->
 
 <!-- wp:columns {"style":{"spacing":{"margin":{"top":"var:preset|spacing|large"},"blockGap":{"top":"var:preset|spacing|compact","left":"var:preset|spacing|jumbo"}}}} -->
@@ -60,8 +60,8 @@
 <!-- /wp:group -->
 
 <!-- wp:group {"style":{"spacing":{"blockGap":"0"}},"layout":{"type":"default"}} -->
-<div class="wp-block-group"><!-- wp:image {"aspectRatio":"16/9","scale":"cover","sizeSlug":"large","linkDestination":"none","style":{"border":{"radius":"var:custom|radius|medium"}}} -->
-<figure class="wp-block-image size-large has-custom-border"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/desk-notebook-overhead.webp" alt="<?php esc_attr_e( 'An open sketchbook of page layouts beside a pencil and a steel ruler.', 'origin-canvas' ); ?>" style="border-radius:var(--wp--custom--radius--medium);aspect-ratio:16/9;object-fit:cover"/></figure>
+<div class="wp-block-group"><!-- wp:image {"aspectRatio":"16/9","scale":"cover","width":"100%","sizeSlug":"large","linkDestination":"none","style":{"border":{"radius":"var:custom|radius|medium"}}} -->
+<figure class="wp-block-image size-large has-custom-border"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/desk-notebook-overhead.webp" alt="<?php esc_attr_e( 'An open sketchbook of page layouts beside a pencil and a steel ruler.', 'origin-canvas' ); ?>" style="border-radius:var(--wp--custom--radius--medium);aspect-ratio:16/9;object-fit:cover;width:100%"/></figure>
 <!-- /wp:image -->
 
 <!-- wp:columns {"style":{"spacing":{"margin":{"top":"var:preset|spacing|large"},"blockGap":{"top":"var:preset|spacing|compact","left":"var:preset|spacing|jumbo"}}}} -->
