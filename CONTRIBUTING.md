@@ -15,7 +15,7 @@ commits `62f9ac4` and `6cc1ee7` (1.1.0; scoped to `render_block_core/image` +
 `render_block_core/cover`, non-destructive, sunset 1.3.0) and removed after that sunset.
 
 This applies with extra force to the **Home pattern under the user-owned front-page model**:
-the front page is now a user-owned Page seeded from `page-home-01` (no `front-page.html`
+the front page is now a user-owned Page seeded from `page-studio` (no `front-page.html`
 template). The Home pattern's `hero-cover` / `feature-split` image URLs are written into that
 Page's content the moment it is inserted or seeded, so relocating those images without a shim
 will break every site that has the Home page saved.
