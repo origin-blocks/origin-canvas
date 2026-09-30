@@ -67,6 +67,15 @@ Name a pattern for what it **is**, so it's reusable on any page: `stat-band`, `f
 `testimonial-single`. **Never** `landing-*` or any `<page>-<section>` form. A section pattern
 welded to one page ("landing-cta") is wrong; it's a `cta-*` that any page can use.
 
+**Page patterns** (category `origin-canvas/page`) are named `page-<role>-NN`: `page-home-02`,
+`page-about-01`, `page-pricing-01`. The role is the page's job on a site (home, about, pricing,
+contact, services); the number tells versions of the same role apart, so the theme and Patterns
+Pro can ship any number of home or about pages. Numbers are permanent: never renumber one and
+never reuse one, retired slugs included. `page-home-01` shipped in 1.0.0–1.1.0 and was renamed
+`page-studio`, so the first new home page is `page-home-02`. The Title describes the page and
+never carries the number ("Home: Centered Hero"); site type, tone and layout go in Keywords.
+`page-studio` and `page-landing-01` keep their shipped slugs.
+
 ### 4. Full-page patterns compose via `wp:pattern` refs only
 A page pattern's body is **only** `<!-- wp:pattern {"slug":"origin-canvas/…"} /-->` references —
 no inlined section markup. Model: `patterns/page-studio.php`. Category: `origin-canvas/page`.
