@@ -49,11 +49,13 @@ for f in "$a" "$b"; do
 	fi
 done
 
-if ! diff -u <( rendered_widths "$a" ) <( rendered_widths "$b" ) > /tmp/logo-widths.$$.diff; then
+report_file=$( mktemp "${TMPDIR:-/tmp}/logo-widths.XXXXXX" )
+trap 'rm -f "$report_file"' EXIT
+
+if ! diff -u <( rendered_widths "$a" ) <( rendered_widths "$b" ) > "$report_file"; then
 	report "the logo rows disagree (- logos-row, + hero-centered-logos):"
-	cat "/tmp/logo-widths.$$.diff" >&2
+	cat "$report_file" >&2
 fi
-rm -f "/tmp/logo-widths.$$.diff"
 
 if [[ $fail -ne 0 ]]; then
 	exit 1
