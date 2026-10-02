@@ -24,7 +24,7 @@
 <p class="has-text-align-center has-huge-font-size" style="margin-top:0;margin-bottom:0;font-weight:500;letter-spacing:-0.01em;line-height:1.4"><?php echo esc_html__( 'We have worked with bigger studios. None of them made the work feel this calm, or this much like ours.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
-<!-- wp:group {"style":{"spacing":{"blockGap":"16px","margin":{"top":"var:preset|spacing|extra-large"}}},"layout":{"type":"flex","justifyContent":"center","verticalAlignment":"center"}} -->
+<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|medium","margin":{"top":"var:preset|spacing|extra-large"}}},"layout":{"type":"flex","justifyContent":"center","verticalAlignment":"center"}} -->
 <div class="wp-block-group" style="margin-top:var(--wp--preset--spacing--extra-large)"><!-- wp:image {"aspectRatio":"1","linkDestination":"none","width":"48px","height":"48px","className":"is-style-origin-canvas-rounded-full"} -->
 <figure class="wp-block-image is-resized is-style-origin-canvas-rounded-full"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/avatar-michael-hughes.webp" alt="<?php esc_attr_e( 'Portrait of Michael Hughes, Director of Westmount Property.', 'origin-canvas' ); ?>" style="aspect-ratio:1;width:48px;height:48px"/></figure>
 <!-- /wp:image -->
