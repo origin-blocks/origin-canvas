@@ -17,5 +17,5 @@
 <!-- wp:pattern {"slug":"origin-canvas/hero-centered-logos"} /-->
 <!-- wp:pattern {"slug":"origin-canvas/card-image-text"} /-->
 <!-- wp:pattern {"slug":"origin-canvas/features-3-col-icons"} /-->
-<!-- wp:pattern {"slug":"origin-canvas/testimonial-highlight"} /-->
+<!-- wp:pattern {"slug":"origin-canvas/testimonial-highlight-dark"} /-->
 <!-- wp:pattern {"slug":"origin-canvas/cta-band"} /-->
