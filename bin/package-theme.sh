@@ -23,6 +23,7 @@ fi
 bash "$SCRIPT_DIR/check-pattern-counts.sh"
 bash "$SCRIPT_DIR/check-heading-pins.sh"
 bash "$SCRIPT_DIR/check-variation-twins.sh"
+bash "$SCRIPT_DIR/check-logo-widths.sh"
 
 mkdir -p "$ROOT/dist"
 git -C "$ROOT" archive --format=zip --prefix=origin-canvas/ -o "$ZIP_PATH" HEAD
