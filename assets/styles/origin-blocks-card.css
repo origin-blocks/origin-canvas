@@ -1,0 +1,70 @@
+/**
+ * Buttons inside an Origin Blocks Card.
+ *
+ * The card draws its own surface; the theme decides how core Buttons read on
+ * it. Card buttons are smaller than the site's and never wrap their labels.
+ * The default button is dark ink, and promotes to the primary colour on a
+ * Dark card (docs/notes/button-primary-pink-vs-dark.md). The outline button
+ * takes a stronger border on a card surface.
+ *
+ * The card class is doubled: core applies each button style as a per-instance
+ * variation at (0,1,0), emitted after the theme's own block styles, so a
+ * theme.json value cannot win here. A button the user styles by hand keeps
+ * its colours: only the default and outline styles are skinned, and colour
+ * classes and inline styles outrank these rules.
+ */
+
+.wp-block-origin-blocks-card.wp-block-origin-blocks-card .wp-block-buttons {
+	gap: var(--wp--preset--spacing--compact);
+}
+
+.wp-block-origin-blocks-card.wp-block-origin-blocks-card .wp-block-button__link {
+	padding: calc(var(--wp--preset--spacing--compact) - 2px) calc(var(--wp--preset--spacing--compact) * 2 - 2px);
+	border: 2px solid transparent;
+	font-size: var(--wp--preset--font-size--small);
+	font-weight: 600;
+	line-height: 1.25;
+	white-space: nowrap;
+}
+
+.wp-block-origin-blocks-card.wp-block-origin-blocks-card .wp-block-button:not([class*="is-style-"]) > .wp-block-button__link:hover {
+	background-color: var(--wp--preset--color--text-body);
+}
+
+.wp-block-origin-blocks-card.wp-block-origin-blocks-card .wp-block-button.is-style-outline > .wp-block-button__link {
+	color: var(--wp--preset--color--text-heading);
+	background-color: transparent;
+	border-color: #6B7280;
+}
+
+.wp-block-origin-blocks-card.wp-block-origin-blocks-card .wp-block-button.is-style-outline > .wp-block-button__link:hover {
+	background-color: var(--wp--preset--color--border);
+	border-color: var(--wp--preset--color--text-body);
+}
+
+/* Dark card. */
+.wp-block-origin-blocks-card.is-style-origin-canvas-card-dark .wp-block-button:not([class*="is-style-"]) > .wp-block-button__link {
+	color: var(--wp--preset--color--surface-base);
+	background-color: var(--wp--preset--color--primary);
+}
+
+.wp-block-origin-blocks-card.is-style-origin-canvas-card-dark .wp-block-button:not([class*="is-style-"]) > .wp-block-button__link:hover {
+	background-color: color-mix(in srgb, var(--wp--preset--color--primary) 85%, #fff);
+}
+
+.wp-block-origin-blocks-card.is-style-origin-canvas-card-dark .wp-block-button.is-style-outline > .wp-block-button__link {
+	color: var(--wp--custom--dark--text);
+	border-color: #9CA3AF;
+}
+
+.wp-block-origin-blocks-card.is-style-origin-canvas-card-dark .wp-block-button.is-style-outline > .wp-block-button__link:hover {
+	background-color: var(--wp--custom--dark--card-hover);
+	border-color: #9CA3AF;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+
+	.wp-block-origin-blocks-card .wp-block-button__link {
+		transition: background-color 200ms ease, border-color 200ms ease;
+	}
+}

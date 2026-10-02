@@ -372,7 +372,8 @@ if ( ! function_exists( 'origin_canvas_enqueue_block_styles' ) ) {
 	 * Enqueue per-block CSS only when the block is used on the page.
 	 *
 	 * Scans assets/styles/ for CSS files named {namespace}-{block}.css
-	 * (e.g. core-list.css) and registers them via wp_enqueue_block_style().
+	 * (e.g. core-list.css, origin-blocks-card.css) and registers them via
+	 * wp_enqueue_block_style().
 	 */
 	function origin_canvas_enqueue_block_styles() {
 		$files = glob( get_template_directory() . '/assets/styles/*.css' );
@@ -383,7 +384,7 @@ if ( ! function_exists( 'origin_canvas_enqueue_block_styles' ) ) {
 
 		foreach ( $files as $file ) {
 			$filename   = basename( $file, '.css' );
-			$block_name = str_replace( 'core-', 'core/', $filename );
+			$block_name = preg_replace( '/^(core|origin-blocks)-/', '$1/', $filename );
 
 			// Version each stylesheet by its on-disk mtime so any change gets a fresh
 			// URL; browsers otherwise cache the file under the fixed theme version and
