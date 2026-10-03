@@ -30,6 +30,27 @@ These are examples of the rule above — each is a concrete default baked into t
 - **Pricing (`card-pricing.php`):** the featured/recommended column has a pink cue (the pink top indicator), so its primary button is pink (`is-style-origin-canvas-fill-primary`); side columns = `is-style-outline`. Pink appears exactly once.
 - **Dark backgrounds (`hero-dark.php`, `cta-banner.php`):** the primary button is pink because dark fill would be invisible on the dark section.
 
+## Buttons inside an Origin Blocks Card
+
+The Card block (origin-blocks plugin) draws its surface and leaves its core Buttons to the theme.
+Origin Canvas skins them by the card's surface, in `assets/styles/origin-blocks-card.css`:
+
+- **Every card:** labels are 14px / 600 and never wrap; padding 12 × 24; 12px between buttons. The
+  default button stays ink and hovers to `text-body`. The outline button takes the strong border
+  (#6B7280), as on a tinted surface.
+- **Dark card** (the "Dark" block style, `styles/card-dark.json`): the default button promotes to
+  a deeper pink, `custom.dark.button` (#D61F69), so its white text reads at 4.9:1; the primary
+  pink reads 3.3:1 with white. It hovers darker (6.4:1). The outline goes light (#9CA3AF border,
+  on-dark text). The style also sets the card's own colours by redefining the plugin's followed
+  setting variables in its scope (`--origin-blocks--setting-card_*`), so a colour the user sets on
+  one card still wins. Its fill is the `custom.dark.card` token, 8% on-dark mixed into the ink so the card is dark on any page; 12% on hover. The icon disc and the outline hover are a 12% translucent tint, `custom.dark.card-tint`.
+- Only the default and outline styles are skinned. A button the user styles by hand keeps its
+  look.
+
+These rules are CSS, not theme.json: core applies each button style as a per-instance variation at
+(0,1,0) after the theme's block styles, so a theme.json value under the card cannot win, and a
+`@media` inside a block's `css` is dropped.
+
 ---
 
 *Source: "Invert button default to ink" plan, Origin Canvas.*

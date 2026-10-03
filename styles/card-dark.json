@@ -1,0 +1,24 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/theme.json",
+	"version": 3,
+	"title": "Dark",
+	"slug": "origin-canvas-card-dark",
+	"blockTypes": [
+		"origin-blocks/card"
+	],
+	"styles": {
+		"css": "--origin-blocks--setting-card_colors-background: var(--wp--custom--dark--card); --origin-blocks--setting-card_contentColor: var(--wp--custom--dark--text); --origin-blocks--setting-card_colors-icon: var(--wp--custom--dark--text); --origin-blocks--setting-card_colors-iconBackground: var(--wp--custom--dark--card-tint); --origin-blocks-card-hover-background: var(--wp--custom--dark--card-hover);",
+		"elements": {
+			"heading": {
+				"color": {
+					"text": "var(--wp--custom--dark--text)"
+				}
+			},
+			"link": {
+				"color": {
+					"text": "var(--wp--custom--dark--text)"
+				}
+			}
+		}
+	}
+}

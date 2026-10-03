@@ -97,7 +97,11 @@
 			},
 			"dark": {
 				"bg": "var(--wp--preset--color--text-heading)",
-				"text": "var(--wp--preset--color--on-dark)"
+				"text": "var(--wp--preset--color--on-dark)",
+				"card": "color-mix(in srgb, var(--wp--preset--color--on-dark) 8%, var(--wp--preset--color--text-heading))",
+				"card-hover": "color-mix(in srgb, var(--wp--preset--color--on-dark) 12%, var(--wp--preset--color--text-heading))",
+				"card-tint": "color-mix(in srgb, var(--wp--preset--color--on-dark) 12%, transparent)",
+				"button": "#D61F69"
 			},
 			"lineHeight": {
 				"none": 1,
