@@ -3,8 +3,9 @@
  *
  * The card draws its own surface; the theme decides how core Buttons read on
  * it. Card buttons are smaller than the site's and never wrap their labels.
- * The default button is dark ink, and promotes to the primary colour on a
- * Dark card (docs/notes/button-primary-pink-vs-dark.md). The outline button
+ * The default button is dark ink, and promotes to pink on a Dark card
+ * (docs/notes/button-primary-pink-vs-dark.md): a deeper pink,
+ * custom.dark.button, so white text reads at 4.9:1. The outline button
  * takes a stronger border on a card surface.
  *
  * The card class is doubled: core applies each button style as a per-instance
@@ -23,7 +24,8 @@
 	border: 2px solid transparent;
 	font-size: var(--wp--preset--font-size--small);
 	font-weight: 600;
-	line-height: 1.25;
+	/* A 20px line keeps the button 44px tall, the smallest comfortable tap target. */
+	line-height: 20px;
 	white-space: nowrap;
 }
 
@@ -45,11 +47,11 @@
 /* Dark card. */
 .wp-block-origin-blocks-card.is-style-origin-canvas-card-dark .wp-block-button:not([class*="is-style-"]) > .wp-block-button__link {
 	color: var(--wp--preset--color--surface-base);
-	background-color: var(--wp--preset--color--primary);
+	background-color: var(--wp--custom--dark--button);
 }
 
 .wp-block-origin-blocks-card.is-style-origin-canvas-card-dark .wp-block-button:not([class*="is-style-"]) > .wp-block-button__link:hover {
-	background-color: color-mix(in srgb, var(--wp--preset--color--primary) 85%, #fff);
+	background-color: color-mix(in srgb, var(--wp--custom--dark--button) 85%, #000);
 }
 
 .wp-block-origin-blocks-card.is-style-origin-canvas-card-dark .wp-block-button.is-style-outline > .wp-block-button__link {

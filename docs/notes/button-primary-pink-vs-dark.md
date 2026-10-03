@@ -39,7 +39,8 @@ Origin Canvas skins them by the card's surface, in `assets/styles/origin-blocks-
   default button stays ink and hovers to `text-body`. The outline button takes the strong border
   (#6B7280), as on a tinted surface.
 - **Dark card** (the "Dark" block style, `styles/card-dark.json`): the default button promotes to
-  pink and hovers lighter (`color-mix` with white); the outline goes light (#9CA3AF border,
+  a deeper pink, `custom.dark.button` (#D61F69), so its white text reads at 4.9:1; the primary
+  pink reads 3.3:1 with white. It hovers darker (6.4:1). The outline goes light (#9CA3AF border,
   on-dark text). The style also sets the card's own colours by redefining the plugin's followed
   setting variables in its scope (`--origin-blocks--setting-card_*`), so a colour the user sets on
   one card still wins. Its fill is the `custom.dark.card` token (8% on-dark), 12% on hover.
