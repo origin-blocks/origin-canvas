@@ -60,7 +60,7 @@
 }
 
 .wp-block-origin-blocks-card.is-style-origin-canvas-card-dark .wp-block-button.is-style-outline > .wp-block-button__link:hover {
-	background-color: var(--wp--custom--dark--card-hover);
+	background-color: var(--wp--custom--dark--card-tint);
 	border-color: #9CA3AF;
 }
 

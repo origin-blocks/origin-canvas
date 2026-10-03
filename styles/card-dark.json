@@ -7,7 +7,7 @@
 		"origin-blocks/card"
 	],
 	"styles": {
-		"css": "--origin-blocks--setting-card_colors-background: var(--wp--custom--dark--card); --origin-blocks--setting-card_contentColor: var(--wp--custom--dark--text); --origin-blocks--setting-card_colors-icon: var(--wp--custom--dark--text); --origin-blocks--setting-card_colors-iconBackground: var(--wp--custom--dark--card-hover); --origin-blocks-card-hover-background: var(--wp--custom--dark--card-hover);",
+		"css": "--origin-blocks--setting-card_colors-background: var(--wp--custom--dark--card); --origin-blocks--setting-card_contentColor: var(--wp--custom--dark--text); --origin-blocks--setting-card_colors-icon: var(--wp--custom--dark--text); --origin-blocks--setting-card_colors-iconBackground: var(--wp--custom--dark--card-tint); --origin-blocks-card-hover-background: var(--wp--custom--dark--card-hover);",
 		"elements": {
 			"heading": {
 				"color": {
