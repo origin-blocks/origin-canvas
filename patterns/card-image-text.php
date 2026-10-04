@@ -47,11 +47,11 @@
 
 <!-- wp:group {"style":{"spacing":{"padding":{"left":"var:preset|spacing|medium","right":"var:preset|spacing|medium"},"blockGap":"var:preset|spacing|compact"}},"layout":{"type":"constrained"}} -->
 <div class="wp-block-group" style="padding-right:var(--wp--preset--spacing--medium);padding-left:var(--wp--preset--spacing--medium)"><!-- wp:heading {"level":3,"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"fontSize":"medium"} -->
-<h3 class="wp-block-heading has-medium-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Westmount Property', 'origin-canvas' ); ?></h3>
+<h3 class="wp-block-heading has-medium-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Westmount Realty', 'origin-canvas' ); ?></h3>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"style":{"spacing":{"margin":{"bottom":"var:preset|spacing|medium"}}},"textColor":"text-body","fontSize":"regular"} -->
-<p class="has-text-body-color has-text-color has-regular-font-size" style="margin-bottom:var(--wp--preset--spacing--medium)"><?php echo esc_html__( 'A property listing site that holds its own next to the big portals. Quiet type, generous white space, and a search that actually finds things.', 'origin-canvas' ); ?></p>
+<p class="has-text-body-color has-text-color has-regular-font-size" style="margin-bottom:var(--wp--preset--spacing--medium)"><?php echo esc_html__( 'A real estate listing site that holds its own next to the big national sites. Quiet type, generous white space, and a search that actually finds things.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"style":{"typography":{"fontWeight":"500"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"primary","fontSize":"regular"} -->

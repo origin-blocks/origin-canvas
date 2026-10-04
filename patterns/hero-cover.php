@@ -22,11 +22,11 @@
 <!-- /wp:paragraph -->
 
 <!-- wp:heading {"level":3,"style":{"typography":{"lineHeight":"1.1"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-heading","fontSize":"extra-large"} -->
-<h3 class="wp-block-heading has-text-heading-color has-text-color has-extra-large-font-size" style="margin-top:0;margin-bottom:0;line-height:1.1"><?php echo esc_html__( 'Thistle &amp; Pine Joinery', 'origin-canvas' ); ?></h3>
+<h3 class="wp-block-heading has-text-heading-color has-text-color has-extra-large-font-size" style="margin-top:0;margin-bottom:0;line-height:1.1"><?php echo esc_html__( 'Ash &amp; Pine Woodworks', 'origin-canvas' ); ?></h3>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"var:preset|spacing|compact"}}},"textColor":"text-body","fontSize":"regular"} -->
-<p class="has-text-body-color has-text-color has-regular-font-size" style="margin-top:var(--wp--preset--spacing--compact)"><?php echo esc_html__( 'Identity and a portfolio site for a two-person joinery workshop. Six weeks, forty pieces photographed, one new wordmark.', 'origin-canvas' ); ?></p>
+<p class="has-text-body-color has-text-color has-regular-font-size" style="margin-top:var(--wp--preset--spacing--compact)"><?php echo esc_html__( 'Identity and a portfolio site for a two-person woodworking shop. Six weeks, forty pieces photographed, one new wordmark.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"style":{"elements":{"link":{"color":{"text":"var:preset|color|text-heading"},":hover":{"color":{"text":"var:preset|color|primary"}},"typography":{"textDecoration":"none"}}},"typography":{"fontWeight":"600"},"spacing":{"margin":{"top":"var:preset|spacing|medium","bottom":"0"}}},"textColor":"text-heading","fontSize":"regular"} -->

@@ -46,11 +46,11 @@ You should have received a copy of the GNU General Public License along with thi
 
 == Theme Screenshot ==
 
-Theme screenshot image "Thistle & Pine Joinery timber stack" (patterns/images/hero-cover-thistle-pine.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+Theme screenshot image "Ash & Pine Woodworks timber stack" (patterns/images/hero-cover-thistle-pine.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
 == Images ==
 
-Pattern image "Westmount Property case-study image" (patterns/images/card-image-text-2.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+Pattern image "Westmount Realty case-study image" (patterns/images/card-image-text-2.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
 Pattern image "Studio notes image" (patterns/images/card-blog-3.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
@@ -70,17 +70,17 @@ Pattern image "Hannah Wright team portrait" (patterns/images/avatar-hannah-wrigh
 
 Pattern image "Hero split studio interior cover image" (patterns/images/architecture-interior.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
-Pattern image "Thistle & Pine Joinery timber stack" (patterns/images/hero-cover-thistle-pine.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+Pattern image "Ash & Pine Woodworks timber stack" (patterns/images/hero-cover-thistle-pine.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
 Pattern image "Northgate Cycle Works repair stand" (patterns/images/card-image-text-northgate.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
-Pattern image "Calder Veterinary consulting room" (patterns/images/feature-split-calder.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+Pattern image "Calder Veterinary Clinic consulting room" (patterns/images/feature-split-calder.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
 Pattern image "Catherine Rowe testimonial portrait" (patterns/images/avatar-catherine-rowe.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
-Pattern image "Owen Parry testimonial portrait" (patterns/images/avatar-owen-parry.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+Pattern image "Owen Parker testimonial portrait" (patterns/images/avatar-owen-parry.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
-Pattern image "Joanna Pryce testimonial portrait" (patterns/images/avatar-joanna-pryce.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+Pattern image "Joanna Price testimonial portrait" (patterns/images/avatar-joanna-pryce.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
 Pattern image "Ruth Mason testimonial portrait" (patterns/images/avatar-ruth-mason.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
