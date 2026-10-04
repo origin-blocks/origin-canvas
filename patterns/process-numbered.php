@@ -79,7 +79,7 @@
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"textColor":"text-body","fontSize":"regular"} -->
-<p class="has-text-body-color has-text-color has-regular-font-size"><?php echo esc_html__( 'You can update the sites we build yourself on a quiet Tuesday afternoon. No bespoke plugins, no consulting retainer.', 'origin-canvas' ); ?></p>
+<p class="has-text-body-color has-text-color has-regular-font-size"><?php echo esc_html__( 'You can update the sites we build yourself on a quiet Tuesday afternoon. No custom plugins, no consulting retainer.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group --></div>
 <!-- /wp:group --></div>
