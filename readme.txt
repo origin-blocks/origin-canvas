@@ -60,8 +60,6 @@ Pattern image "Shared studio worktable image" (patterns/images/workspace-laptop.
 
 Pattern image "Michael Hughes testimonial portrait" (patterns/images/avatar-michael-hughes.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
-Pattern image "Emma Whitaker testimonial portrait" (patterns/images/avatar-emma-whitaker.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
-
 Pattern image "Claire Bennett team portrait" (patterns/images/avatar-claire-bennett.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
 Pattern image "Marcus Holloway team portrait" (patterns/images/avatar-marcus-holloway.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
@@ -88,8 +86,6 @@ Pattern image "Helen Marsh testimonial portrait" (patterns/images/avatar-helen-m
 
 Pattern image "Studio wireframe review" (patterns/images/studio-wireframe-review.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
-Pattern image "Linden & Lark Florist case-study image" (patterns/images/card-image-text-linden-lark.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
-
 Pattern image "Studio one project" (patterns/images/studio-one-project.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
 Pattern image "Studio type proofs" (patterns/images/studio-type-proofs.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
@@ -112,7 +108,7 @@ Pattern image "Desk sketchbook" (patterns/images/desk-notebook-overhead.webp), A
 
 Pattern image "Studio worktable" (patterns/images/studio-worktable.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
-The seven images below are no longer used by any pattern. They are kept so that content created with earlier versions of the theme keeps its images, and they will be removed in a later release.
+The nine images below are no longer used by any pattern. They are kept so that content created with earlier versions of the theme keeps its images, and they will be removed in a later release.
 
 Pattern image "Retired case-study image" (patterns/images/card-image-text-1.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
@@ -127,6 +123,10 @@ Pattern image "Retired highlight avatar image" (patterns/images/testimonial-high
 Pattern image "Retired studio launch-review image" (patterns/images/studio-review.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
 Pattern image "Retired florist case-study image" (patterns/images/card-image-text-3.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+
+Pattern image "Retired Linden & Lark case-study image" (patterns/images/card-image-text-linden-lark.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+
+Pattern image "Retired Emma Whitaker portrait" (patterns/images/avatar-emma-whitaker.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
 == Fonts ==
 
