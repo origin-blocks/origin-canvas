@@ -1,6 +1,7 @@
 /.DS_Store
 /dist/
 /docs/plans/
+/docs/design.md
 /origin-blocks.json
 /tasks/runs/
 /node_modules/
