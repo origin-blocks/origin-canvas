@@ -888,12 +888,14 @@
 					},
 					"h3": {
 						"typography": {
-							"fontSize": "var(--wp--preset--font-size--large)"
+							"fontSize": "var(--wp--preset--font-size--large)",
+							"letterSpacing": "var(--origin-canvas-letter-spacing, var(--wp--custom--letter-spacing--large))"
 						}
 					},
 					"h4": {
 						"typography": {
-							"fontSize": "var(--wp--preset--font-size--medium)"
+							"fontSize": "var(--wp--preset--font-size--medium)",
+							"letterSpacing": "var(--origin-canvas-letter-spacing, var(--wp--custom--letter-spacing--medium))"
 						}
 					}
 				}
@@ -996,7 +998,8 @@
 				"typography": {
 					"fontSize": "var(--wp--preset--font-size--regular-plus)",
 					"fontWeight": "600",
-					"lineHeight": "1.1"
+					"lineHeight": "1.1",
+					"letterSpacing": "var(--origin-canvas-letter-spacing, var(--wp--custom--letter-spacing--base))"
 				},
 				"elements": {
 					"link": {
@@ -1191,7 +1194,8 @@
 					}
 				},
 				"typography": {
-					"fontSize": "var(--wp--preset--font-size--large)"
+					"fontSize": "var(--wp--preset--font-size--large)",
+					"letterSpacing": "var(--origin-canvas-letter-spacing, var(--wp--custom--letter-spacing--large))"
 				}
 			},
 			"core/comments-pagination": {

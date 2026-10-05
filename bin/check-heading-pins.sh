@@ -56,12 +56,17 @@ LEVELS = ('h1', 'h2', 'h3', 'h4', 'h5', 'h6')
 BLOCKS = ('core/heading', 'core/accordion-heading', 'core/post-title',
           'core/query-title', 'core/comments-title')
 
-# The only per-level tracking theme.json may carry: a size token, behind the variable
-# the font-size preset classes set.
+# The only heading tracking theme.json may carry, per level or on a block it sizes
+# itself: a size token, behind the variable the font-size preset classes set.
 LEVEL_TRACKING = re.compile(r'var\(--origin-canvas-letter-spacing, '
                             r'var\(--wp--custom--letter-spacing--(display|large|medium|base)\)\)')
 
 fail = False
+
+def token(require_base, prop, value):
+    """True for a size token in theme.json, the one sanctioned heading tracking."""
+    return (require_base and prop == 'letterSpacing' and isinstance(value, str)
+            and LEVEL_TRACKING.fullmatch(value) is not None)
 
 def walk(node, path):
     """Every typography.<prop> at any depth — a pin nested under elements.link
@@ -72,7 +77,7 @@ def walk(node, path):
     if isinstance(typ, dict):
         for prop in PROPS:
             if prop in typ:
-                yield prop, path
+                yield prop, path, typ[prop]
     for key, val in node.items():
         if key != 'typography' and isinstance(val, dict):
             yield from walk(val, '%s.%s' % (path, key))
@@ -82,8 +87,7 @@ def check(styles, label, require_base):
     e = styles.get('elements', {})
     for prop in PROPS:
         bad = [k for k in LEVELS if prop in e.get(k, {}).get('typography', {})
-               and not (require_base and prop == 'letterSpacing'
-                        and LEVEL_TRACKING.fullmatch(e[k]['typography'][prop]))]
+               and not token(require_base, prop, e[k]['typography'][prop])]
         if bad:
             print('  ✗  %s: per-level heading %s pin: %s' % (label, prop, ', '.join(bad)))
             fail = True
@@ -104,7 +108,9 @@ def check(styles, label, require_base):
                 continue
             here = '%s.%s' % (prefix, name) if prefix else name
             if name in BLOCKS:
-                for prop, path in walk(node, here):
+                for prop, path, value in walk(node, here):
+                    if token(require_base, prop, value):
+                        continue
                     print('  ✗  %s: %s pins %s at %s — it is a heading and follows the '
                           'variation' % (label, name, prop, path))
                     fail = True
@@ -116,7 +122,7 @@ def check(styles, label, require_base):
                 for ename in ('heading',) + LEVELS:
                     typ = els.get(ename, {}).get('typography', {}) if isinstance(els, dict) else {}
                     for prop in PROPS:
-                        if prop in typ:
+                        if prop in typ and not token(require_base, prop, typ[prop]):
                             print('  ✗  %s: %s scopes %s on %s — heading %s belongs to '
                                   'styles.elements.heading'
                                   % (label, here, prop, ename, prop))
@@ -139,7 +145,7 @@ def check(styles, label, require_base):
                                       % (label, vpath, prop, ename, prop))
                                 fail = True
                 if name in BLOCKS:
-                    for prop, path in walk(vnode, vpath):
+                    for prop, path, _ in walk(vnode, vpath):
                         print('  ✗  %s: %s pins %s at %s — it is a heading and follows '
                               'the variation' % (label, name, prop, path))
                         fail = True
