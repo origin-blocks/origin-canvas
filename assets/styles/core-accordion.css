@@ -48,12 +48,15 @@
 	margin-block-start: 0;
 }
 
-/* Marker. Core's own "+" character is made transparent rather than zero-sized, so the
-   span keeps its box; the mark itself is a Lucide glyph painted as a mask, which gives
-   an exact stroke weight instead of inheriting the question's font weight. */
+/* Marker. Core's own "+" character is hidden by a zero font size while the span keeps
+   its box; the mark itself is a Lucide glyph painted as a mask, which gives an exact
+   stroke weight instead of inheriting the question's font weight. The span holds the
+   marker color (settings.custom.accordion.markerColor in theme.json) and the mask
+   paints in currentColor, so the color is set in one place. */
 .wp-block-accordion.is-style-origin-canvas-accordion-minimal > .wp-block-accordion-item > .wp-block-accordion-heading > .wp-block-accordion-heading__toggle .wp-block-accordion-heading__toggle-icon {
-	color: transparent;
+	color: var(--wp--custom--accordion--marker-color);
 	flex: none;
+	font-size: 0;
 	height: 24px;
 	position: relative;
 	transform: none;
@@ -61,7 +64,7 @@
 }
 
 .wp-block-accordion.is-style-origin-canvas-accordion-minimal > .wp-block-accordion-item > .wp-block-accordion-heading > .wp-block-accordion-heading__toggle .wp-block-accordion-heading__toggle-icon::after {
-	background-color: var(--wp--preset--color--text-heading);
+	background-color: currentColor;
 	content: "";
 	display: block;
 	height: 24px;
@@ -78,6 +81,11 @@
 	position: absolute;
 	top: 0;
 	width: 24px;
+}
+
+/* A text color set on the question carries to its marker. */
+.wp-block-accordion.is-style-origin-canvas-accordion-minimal > .wp-block-accordion-item > .wp-block-accordion-heading.has-text-color > .wp-block-accordion-heading__toggle .wp-block-accordion-heading__toggle-icon {
+	color: inherit;
 }
 
 /* Open: the mark becomes a single bar. Core rotates its glyph from a four-class
@@ -97,6 +105,7 @@
 @media (forced-colors: active) {
 	.wp-block-accordion.is-style-origin-canvas-accordion-minimal > .wp-block-accordion-item > .wp-block-accordion-heading > .wp-block-accordion-heading__toggle .wp-block-accordion-heading__toggle-icon {
 		color: CanvasText;
+		font-size: inherit;
 	}
 
 	.wp-block-accordion.is-style-origin-canvas-accordion-minimal > .wp-block-accordion-item > .wp-block-accordion-heading > .wp-block-accordion-heading__toggle .wp-block-accordion-heading__toggle-icon::after {
@@ -116,7 +125,7 @@
    nothing. */
 @supports not ((-webkit-mask-image: none) or (mask-image: none)) {
 	.wp-block-accordion.is-style-origin-canvas-accordion-minimal > .wp-block-accordion-item > .wp-block-accordion-heading > .wp-block-accordion-heading__toggle .wp-block-accordion-heading__toggle-icon {
-		color: var(--wp--preset--color--text-heading);
+		font-size: inherit;
 	}
 
 	.wp-block-accordion.is-style-origin-canvas-accordion-minimal > .wp-block-accordion-item > .wp-block-accordion-heading > .wp-block-accordion-heading__toggle .wp-block-accordion-heading__toggle-icon::after {

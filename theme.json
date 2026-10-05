@@ -109,6 +109,9 @@
 			},
 			"list": {
 				"checkColor": "var(--wp--preset--color--primary)"
+			},
+			"accordion": {
+				"markerColor": "var(--wp--preset--color--text-heading)"
 			}
 		},
 		"color": {
