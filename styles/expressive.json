@@ -49,6 +49,11 @@
 					"color": "#9CA3AF"
 				},
 				{
+					"slug": "border-strong",
+					"name": "Border Strong",
+					"color": "#6B7280"
+				},
+				{
 					"slug": "text-heading",
 					"name": "Text Heading",
 					"color": "#030712"

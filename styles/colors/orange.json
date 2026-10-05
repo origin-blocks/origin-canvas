@@ -41,6 +41,11 @@
 					"name": "Input Border"
 				},
 				{
+					"slug": "border-strong",
+					"color": "#6B7280",
+					"name": "Border Strong"
+				},
+				{
 					"slug": "text-heading",
 					"color": "#111827",
 					"name": "Text Heading"
