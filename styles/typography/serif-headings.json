@@ -17,6 +17,14 @@
 		}
 	},
 	"settings": {
+		"custom": {
+			"letterSpacing": {
+				"display": "-0.02em",
+				"large": "-0.02em",
+				"medium": "-0.02em",
+				"base": "-0.02em"
+			}
+		},
 		"typography": {
 			"fontFamilies": [
 				{

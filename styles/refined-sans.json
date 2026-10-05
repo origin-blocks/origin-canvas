@@ -3,6 +3,14 @@
 	"version": 3,
 	"title": "Refined Sans",
 	"settings": {
+		"custom": {
+			"letterSpacing": {
+				"display": "-0.015em",
+				"large": "-0.015em",
+				"medium": "-0.015em",
+				"base": "-0.015em"
+			}
+		},
 		"color": {
 			"palette": [
 				{

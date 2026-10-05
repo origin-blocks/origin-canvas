@@ -106,6 +106,12 @@
 				"body": 1.5,
 				"relaxed": 1.625,
 				"loose": 2
+			},
+			"letterSpacing": {
+				"display": "-0.022em",
+				"large": "-0.019em",
+				"medium": "-0.017em",
+				"base": "-0.01em"
 			}
 		},
 		"color": {

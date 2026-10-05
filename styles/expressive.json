@@ -3,6 +3,14 @@
 	"version": 3,
 	"title": "Expressive",
 	"settings": {
+		"custom": {
+			"letterSpacing": {
+				"display": "-0.025em",
+				"large": "-0.025em",
+				"medium": "-0.025em",
+				"base": "-0.025em"
+			}
+		},
 		"color": {
 			"palette": [
 				{
