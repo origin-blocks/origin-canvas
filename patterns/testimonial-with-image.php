@@ -28,8 +28,8 @@
 <div class="wp-block-group origin-canvas-quote-mark origin-canvas-quote-mark--sm" style="min-height:26px"></div>
 <!-- /wp:group -->
 
-<!-- wp:paragraph {"style":{"typography":{"lineHeight":"1.4","fontWeight":"500","letterSpacing":"-0.01em"},"spacing":{"margin":{"top":"var:preset|spacing|medium","bottom":"var:preset|spacing|medium"}}},"textColor":"text-heading","fontSize":"large"} -->
-<p class="has-text-heading-color has-text-color has-large-font-size" style="margin-top:var(--wp--preset--spacing--medium);margin-bottom:var(--wp--preset--spacing--medium);font-weight:500;letter-spacing:-0.01em;line-height:1.4"><?php echo esc_html__( 'They sent invoices in plain English and launched on the day they said they would. That alone made the project feel calm.', 'origin-canvas' ); ?></p>
+<!-- wp:paragraph {"style":{"typography":{"lineHeight":"1.4","fontWeight":"500"},"spacing":{"margin":{"top":"var:preset|spacing|medium","bottom":"var:preset|spacing|medium"}}},"textColor":"text-heading","fontSize":"large"} -->
+<p class="has-text-heading-color has-text-color has-large-font-size" style="margin-top:var(--wp--preset--spacing--medium);margin-bottom:var(--wp--preset--spacing--medium);font-weight:500;line-height:1.4"><?php echo esc_html__( 'They sent invoices in plain English and launched on the day they said they would. That alone made the project feel calm.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
 <!-- wp:group {"style":{"spacing":{"blockGap":"0"}},"layout":{"type":"constrained"}} -->

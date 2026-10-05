@@ -112,6 +112,12 @@
 			},
 			"accordion": {
 				"markerColor": "var(--wp--preset--color--text-heading)"
+			},
+			"letterSpacing": {
+				"display": "-0.022em",
+				"large": "-0.019em",
+				"medium": "-0.017em",
+				"base": "-0.01em"
 			}
 		},
 		"color": {
@@ -399,7 +405,7 @@
 				"typography": {
 					"fontWeight": "600",
 					"lineHeight": "var(--wp--custom--line-height--snug)",
-					"letterSpacing": "-0.01em"
+					"letterSpacing": "var(--origin-canvas-letter-spacing, var(--wp--custom--letter-spacing--base))"
 				}
 			},
 			"h1": {

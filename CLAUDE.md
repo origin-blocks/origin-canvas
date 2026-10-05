@@ -199,9 +199,20 @@ for authored content must **never** move a shipped pattern's rendering.
 **The other half of the rule: patterns pin size, and NEVER weight or tracking.**
 
 Size is composition — our decision, and it must survive a change to the element ladder.
-Weight and tracking are **voice** — the site owner's decision, made once by choosing a style
-variation. Tracking rides weight (heavier wants tighter), so the two travel together and both
-live at `styles.elements.heading`, the single lever.
+Weight is **voice** — the site owner's decision, made once by choosing a style variation. It
+lives at `styles.elements.heading`, the single lever.
+
+Tracking follows size. `settings.custom.letterSpacing` holds one token per size band:
+`display` (extra-large and up, −0.022em), `large` (−0.019em), `medium` (−0.017em) and `base`
+(regular-plus and below, −0.01em). `style.css` maps the font-size preset classes from `medium`
+up to these tokens, so a heading or paragraph set at a preset size gets that size's tracking.
+Heading tracking is still ONE value, at `styles.elements.heading`:
+`var(--origin-canvas-letter-spacing, var(--wp--custom--letter-spacing--base))`. The preset
+class sets the variable; a heading with no size class gets `base`. Never set tracking per
+level (`h1`–`h6`) or on a heading block, in `theme.json`, a variation or CSS: it would stop a
+Global Styles "Headings" letter spacing from reaching every level. A style variation with
+another face overrides the tokens or the one heading value, nothing else. A pattern never sets
+`letterSpacing` on a heading or statement; positive tracking on eyebrows and labels stays.
 
 An inline `fontWeight` on a block emits a `style="…"` attribute, which beats every
 `:root :where(…)` rule a variation can emit. One pinned heading is a heading the user cannot
@@ -225,20 +236,20 @@ Every heading surface, and who owns its weight:
 it and weight belongs to the variation. If it renders as a `<p>` — as the site title does at
 `level: 0` — the block node is the only lever and a deliberate pin is correct.
 
-**One content exemption — the statement register.** Being *lighter* than the theme's voice is
-its identity; following the swing would make it just another big heading. Each file keeps
-exactly what it already has; two of the three share the same pins:
+**500 speaks, at display size — the statement register.** Being *lighter* than the theme's
+voice is its identity; following the swing would make it just another big heading. This is the
+weight-by-job rule (500 speaks), not an exception to it: the register only opts out of the
+variation's weight. Each file pins weight and nothing else; its tracking follows size like any
+other text:
 
 | Pattern | Pins |
 |---|---|
 | `breath-statement` | `fontWeight: 500` only |
-| `text-large-statement` | `fontWeight: 500` **and** `letterSpacing: -0.01em` |
-| `lead-statement` | `fontWeight: 500` **and** `letterSpacing: -0.01em` |
+| `text-large-statement` | `fontWeight: 500` only |
+| `lead-statement` | `fontWeight: 500` only |
 
-The exemption covers weight *and* tracking, because tracking rides weight. The asymmetry
-between `breath-statement` and the other two is pre-existing; no file gains a pin it did not
-already have. `bin/lib/check-heading-blocks.py`
-holds the same three files, property and value, so a fourth pin fails the guard.
+`bin/lib/check-heading-blocks.py` holds the same three files, property and value, so a fourth
+pin fails the guard.
 
 ### 8. Shared components are judged against every page that uses them
 A change to a template part (header, footer) or to a widely-reused pattern must be justified

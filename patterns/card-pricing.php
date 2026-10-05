@@ -30,7 +30,7 @@
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"textColor":"text-heading","fontSize":"display","style":{"spacing":{"margin":{"top":"0","bottom":"0"}},"typography":{"fontWeight":"700","lineHeight":"1"}}} -->
-<p class="has-text-heading-color has-text-color has-display-font-size" style="margin-top:0;margin-bottom:0;font-weight:700;line-height:1"><?php echo wp_kses_post( __( '$2,400 <span style="font-size:var(--wp--preset--font-size--regular);font-weight:400;color:var(--wp--preset--color--text-body);">one-time</span>', 'origin-canvas' ) ); ?></p>
+<p class="has-text-heading-color has-text-color has-display-font-size" style="margin-top:0;margin-bottom:0;font-weight:700;line-height:1"><?php echo wp_kses_post( __( '$2,400 <span style="font-size:var(--wp--preset--font-size--regular);font-weight:400;letter-spacing:normal;color:var(--wp--preset--color--text-body);">one-time</span>', 'origin-canvas' ) ); ?></p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"textColor":"text-body","fontSize":"regular"} -->
@@ -59,7 +59,7 @@
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"textColor":"text-heading","fontSize":"display","style":{"spacing":{"margin":{"top":"0","bottom":"0"}},"typography":{"fontWeight":"700","lineHeight":"1"}}} -->
-<p class="has-text-heading-color has-text-color has-display-font-size" style="margin-top:0;margin-bottom:0;font-weight:700;line-height:1"><?php echo wp_kses_post( __( '$6,000 <span style="font-size:var(--wp--preset--font-size--regular);font-weight:400;color:var(--wp--preset--color--text-body);">one-time</span>', 'origin-canvas' ) ); ?></p>
+<p class="has-text-heading-color has-text-color has-display-font-size" style="margin-top:0;margin-bottom:0;font-weight:700;line-height:1"><?php echo wp_kses_post( __( '$6,000 <span style="font-size:var(--wp--preset--font-size--regular);font-weight:400;letter-spacing:normal;color:var(--wp--preset--color--text-body);">one-time</span>', 'origin-canvas' ) ); ?></p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"textColor":"text-body","fontSize":"regular"} -->
@@ -88,7 +88,7 @@
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"textColor":"text-heading","fontSize":"display","style":{"spacing":{"margin":{"top":"0","bottom":"0"}},"typography":{"fontWeight":"700","lineHeight":"1"}}} -->
-<p class="has-text-heading-color has-text-color has-display-font-size" style="margin-top:0;margin-bottom:0;font-weight:700;line-height:1"><?php echo wp_kses_post( __( '$1,800 <span style="font-size:var(--wp--preset--font-size--regular);font-weight:400;color:var(--wp--preset--color--text-body);">per month</span>', 'origin-canvas' ) ); ?></p>
+<p class="has-text-heading-color has-text-color has-display-font-size" style="margin-top:0;margin-bottom:0;font-weight:700;line-height:1"><?php echo wp_kses_post( __( '$1,800 <span style="font-size:var(--wp--preset--font-size--regular);font-weight:400;letter-spacing:normal;color:var(--wp--preset--color--text-body);">per month</span>', 'origin-canvas' ) ); ?></p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"textColor":"text-body","fontSize":"regular"} -->

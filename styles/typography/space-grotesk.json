@@ -10,8 +10,7 @@
 			"heading": {
 				"typography": {
 					"fontFamily": "var(--wp--preset--font-family--space-grotesk)",
-					"lineHeight": "1.15",
-					"letterSpacing": "-0.025em"
+					"lineHeight": "1.15"
 				}
 			},
 			"h1": {
@@ -47,6 +46,14 @@
 		}
 	},
 	"settings": {
+		"custom": {
+			"letterSpacing": {
+				"display": "-0.025em",
+				"large": "-0.025em",
+				"medium": "-0.025em",
+				"base": "-0.025em"
+			}
+		},
 		"typography": {
 			"fontFamilies": [
 				{

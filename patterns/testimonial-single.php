@@ -24,8 +24,8 @@
 <div class="wp-block-group origin-canvas-quote-mark origin-canvas-quote-mark--center" style="min-height:27px;margin-top:0;margin-bottom:var(--wp--preset--spacing--medium)"></div>
 <!-- /wp:group -->
 
-<!-- wp:paragraph {"align":"center","style":{"typography":{"lineHeight":"1.35","fontWeight":"500","letterSpacing":"-0.01em"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-heading","fontSize":"huge"} -->
-<p class="has-text-align-center has-text-heading-color has-text-color has-huge-font-size" style="margin-top:0;margin-bottom:0;font-weight:500;letter-spacing:-0.01em;line-height:1.35"><?php echo esc_html__( 'They asked the questions our last designer didn\'t. The site finally feels like ours, not a template we tried to make fit.', 'origin-canvas' ); ?></p>
+<!-- wp:paragraph {"align":"center","style":{"typography":{"lineHeight":"1.35","fontWeight":"500"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-heading","fontSize":"huge"} -->
+<p class="has-text-align-center has-text-heading-color has-text-color has-huge-font-size" style="margin-top:0;margin-bottom:0;font-weight:500;line-height:1.35"><?php echo esc_html__( 'They asked the questions our last designer didn\'t. The site finally feels like ours, not a template we tried to make fit.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
 <!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|medium","margin":{"top":"var:preset|spacing|extra-large"}}},"layout":{"type":"flex","orientation":"vertical","justifyContent":"center","verticalAlignment":"center"}} -->
