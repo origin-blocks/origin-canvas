@@ -1033,3 +1033,18 @@ html {
 		flex-direction: row-reverse;
 	}
 }
+
+/**
+ * Features Checklist: one list of eight in two columns, read across the rows as on
+ * the board, and in one column on phones. The List block has no column or gap
+ * control. The grid's own row gap replaces the check list's 8px between items.
+ */
+ul.wp-block-list.origin-canvas-features-checklist-list {
+	display: grid;
+	gap: var(--wp--preset--spacing--medium) var(--wp--preset--spacing--extra-large);
+	grid-template-columns: repeat(auto-fill, minmax(min(100%, max(16rem, (100% - var(--wp--preset--spacing--extra-large)) / 2)), 1fr));
+}
+
+ul.wp-block-list.is-style-origin-canvas-list-check.origin-canvas-features-checklist-list > li + li {
+	margin-top: 0;
+}
