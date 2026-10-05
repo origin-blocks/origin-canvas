@@ -187,8 +187,7 @@
 			"heading": {
 				"typography": {
 					"fontFamily": "var(--wp--preset--font-family--source-serif)",
-					"lineHeight": "1.2",
-					"letterSpacing": "-0.02em"
+					"lineHeight": "1.2"
 				}
 			}
 		}

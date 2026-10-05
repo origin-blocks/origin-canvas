@@ -439,14 +439,15 @@ html {
 
 /**
  * Letter spacing follows font size. theme.json holds the tokens
- * (settings.custom.letterSpacing) and gives each h1–h6 element the token for its
- * size. theme.json cannot attach a style to a font-size preset, so these rules give
- * the same tokens to any block set at a preset from medium up, paragraphs included.
+ * (settings.custom.letterSpacing). theme.json cannot attach a style to a font-size
+ * preset, so these rules give the tokens to any block set at a preset from medium
+ * up, paragraphs included.
  *
  * Zero specificity, so a letter spacing set on the block or in Global Styles wins.
- * A heading takes its value through the variable, which its element rule reads, so a
- * Global Styles letter spacing for that heading level replaces the rule whole. The
- * variable does not inherit: a heading inside a larger block keeps its own token.
+ * Headings take their value through the variable: elements.heading reads it and falls
+ * back to the base token, so a heading with no size class gets the base value, and a
+ * Global Styles heading letter spacing replaces that one rule for every level. The
+ * variable does not inherit: a heading inside a larger block keeps its own value.
  */
 @property --origin-canvas-letter-spacing {
 	syntax: "*";
@@ -466,13 +467,6 @@ html {
 :where(.has-medium-font-size) {
 	--origin-canvas-letter-spacing: var(--wp--custom--letter-spacing--medium);
 	letter-spacing: var(--origin-canvas-letter-spacing);
-}
-
-/* Below medium only the variable is set, so a heading, or a block whose theme.json
-   tracking reads it, takes the base token at its preset size, while body text keeps
-   the browser's normal spacing. */
-:where(.has-extra-small-font-size, .has-small-font-size, .has-regular-font-size, .has-regular-plus-font-size) {
-	--origin-canvas-letter-spacing: var(--wp--custom--letter-spacing--base);
 }
 
 /* Letter spacing inherits as a computed length, so small text inside one of the

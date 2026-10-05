@@ -180,8 +180,7 @@
 			"heading": {
 				"typography": {
 					"fontFamily": "var(--wp--preset--font-family--dm-sans)",
-					"lineHeight": "1.2",
-					"letterSpacing": "-0.015em"
+					"lineHeight": "1.2"
 				}
 			}
 		}

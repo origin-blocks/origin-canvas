@@ -204,12 +204,14 @@ lives at `styles.elements.heading`, the single lever.
 
 Tracking follows size. `settings.custom.letterSpacing` holds one token per size band:
 `display` (extra-large and up, −0.022em), `large` (−0.019em), `medium` (−0.017em) and `base`
-(regular-plus and below, −0.01em). Each `h1`–`h6` element reads the token for its own size,
-and `style.css` maps the font-size preset classes from `medium` up to the same tokens, so a
-heading or paragraph set at a preset size gets that size's tracking. A block that `theme.json`
-sizes itself, with no preset class (`core/comments-title`, `core/site-title`, the Post Template
-`h3` and `h4`), carries the token for that size in the same form. A style variation with
-another face overrides the tokens; it never sets tracking per level. A pattern never sets
+(regular-plus and below, −0.01em). `style.css` maps the font-size preset classes from `medium`
+up to these tokens, so a heading or paragraph set at a preset size gets that size's tracking.
+Heading tracking is still ONE value, at `styles.elements.heading`:
+`var(--origin-canvas-letter-spacing, var(--wp--custom--letter-spacing--base))`. The preset
+class sets the variable; a heading with no size class gets `base`. Never set tracking per
+level (`h1`–`h6`) or on a heading block, in `theme.json`, a variation or CSS: it would stop a
+Global Styles "Headings" letter spacing from reaching every level. A style variation with
+another face overrides the tokens or the one heading value, nothing else. A pattern never sets
 `letterSpacing` on a heading or statement; positive tracking on eyebrows and labels stays.
 
 An inline `fontWeight` on a block emits a `style="…"` attribute, which beats every

@@ -178,8 +178,7 @@
 			"heading": {
 				"typography": {
 					"fontFamily": "var(--wp--preset--font-family--space-grotesk)",
-					"lineHeight": "1.15",
-					"letterSpacing": "-0.025em"
+					"lineHeight": "1.15"
 				}
 			},
 			"h1": {

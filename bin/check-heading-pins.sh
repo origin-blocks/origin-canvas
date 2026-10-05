@@ -41,12 +41,10 @@ while IFS= read -r hit; do
 done < <(grep -rnoE '<span[^>]*toggle-title[^>]*>' patterns/ 2>/dev/null \
 	| grep -iE 'style=.[^"'"'"']*(font-weight|letter-spacing)[[:space:]]*:' || true)
 
-# 5. Weight lives at one node: pinned per level, it defeats a variation that sets it.
-#    Tracking follows size, so theme.json gives each level its size's letter-spacing
-#    token, and only in the one form that a font-size preset class can still replace
-#    (style.css). A variation changes the tokens in settings.custom, never a level.
+# 5. Weight AND tracking live at one node. Either pinned per level defeats a variation
+#    that sets it, so both are checked and both must be present on the base.
 python3 - <<'PY' || status=1
-import glob, json, re, sys
+import glob, json, sys
 
 PROPS  = ('fontWeight', 'letterSpacing')
 LEVELS = ('h1', 'h2', 'h3', 'h4', 'h5', 'h6')
@@ -56,17 +54,7 @@ LEVELS = ('h1', 'h2', 'h3', 'h4', 'h5', 'h6')
 BLOCKS = ('core/heading', 'core/accordion-heading', 'core/post-title',
           'core/query-title', 'core/comments-title')
 
-# The only heading tracking theme.json may carry, per level or on a block it sizes
-# itself: a size token, behind the variable the font-size preset classes set.
-LEVEL_TRACKING = re.compile(r'var\(--origin-canvas-letter-spacing, '
-                            r'var\(--wp--custom--letter-spacing--(display|large|medium|base)\)\)')
-
 fail = False
-
-def token(require_base, prop, value):
-    """True for a size token in theme.json, the one sanctioned heading tracking."""
-    return (require_base and prop == 'letterSpacing' and isinstance(value, str)
-            and LEVEL_TRACKING.fullmatch(value) is not None)
 
 def walk(node, path):
     """Every typography.<prop> at any depth — a pin nested under elements.link
@@ -77,7 +65,7 @@ def walk(node, path):
     if isinstance(typ, dict):
         for prop in PROPS:
             if prop in typ:
-                yield prop, path, typ[prop]
+                yield prop, path
     for key, val in node.items():
         if key != 'typography' and isinstance(val, dict):
             yield from walk(val, '%s.%s' % (path, key))
@@ -86,8 +74,7 @@ def check(styles, label, require_base):
     global fail
     e = styles.get('elements', {})
     for prop in PROPS:
-        bad = [k for k in LEVELS if prop in e.get(k, {}).get('typography', {})
-               and not token(require_base, prop, e[k]['typography'][prop])]
+        bad = [k for k in LEVELS if prop in e.get(k, {}).get('typography', {})]
         if bad:
             print('  ✗  %s: per-level heading %s pin: %s' % (label, prop, ', '.join(bad)))
             fail = True
@@ -108,9 +95,7 @@ def check(styles, label, require_base):
                 continue
             here = '%s.%s' % (prefix, name) if prefix else name
             if name in BLOCKS:
-                for prop, path, value in walk(node, here):
-                    if token(require_base, prop, value):
-                        continue
+                for prop, path in walk(node, here):
                     print('  ✗  %s: %s pins %s at %s — it is a heading and follows the '
                           'variation' % (label, name, prop, path))
                     fail = True
@@ -122,7 +107,7 @@ def check(styles, label, require_base):
                 for ename in ('heading',) + LEVELS:
                     typ = els.get(ename, {}).get('typography', {}) if isinstance(els, dict) else {}
                     for prop in PROPS:
-                        if prop in typ and not token(require_base, prop, typ[prop]):
+                        if prop in typ:
                             print('  ✗  %s: %s scopes %s on %s — heading %s belongs to '
                                   'styles.elements.heading'
                                   % (label, here, prop, ename, prop))
@@ -145,7 +130,7 @@ def check(styles, label, require_base):
                                       % (label, vpath, prop, ename, prop))
                                 fail = True
                 if name in BLOCKS:
-                    for prop, path, _ in walk(vnode, vpath):
+                    for prop, path in walk(vnode, vpath):
                         print('  ✗  %s: %s pins %s at %s — it is a heading and follows '
                               'the variation' % (label, name, prop, path))
                         fail = True
@@ -299,7 +284,7 @@ if [ $status -eq 0 ]; then
 	echo "Heading pins:"
 	echo "  ✓  no pattern heading pins weight or tracking (statement register excepted)"
 	echo "  ✓  every wp:heading states a size, and every stated size is a preset"
-	echo "  ✓  nothing naming a heading sets weight or tracking outside theme.json heading elements"
+	echo "  ✓  nothing naming a heading sets weight or tracking outside elements.heading"
 fi
 
 exit $status
