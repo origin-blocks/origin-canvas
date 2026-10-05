@@ -269,6 +269,19 @@ Corollary for spacing: when a raw value has an exact equivalent on the scale, to
 a no-op and always correct. When it does not, do **not** snap it silently — a near-miss token
 changes the rendering. Report the gap and get a ruling.
 
+### 9. Copy, don't invent
+A new or changed pattern takes its button styles, gaps, eyebrows, intro lines, list styles
+and card recipes from the **nearest existing pattern**: the same job, on the same kind of
+section (white, tinted or dark). Copy the block attributes as they are.
+
+- Name that pattern in the commit message: "eyebrow and intro from features-grid".
+- Any difference from it needs a stated reason, in the commit message or a code comment.
+- Where Claude Design supplied copy, use it word for word. Do not edit, shorten or
+  "improve" it. A string that breaks a rule here goes back to design as a question.
+- Read `~/Desktop/design.md` (Claude Design's notes) before setting a value it rules on.
+
+Lesson: `docs/solutions/patterns/copy-dont-invent.md`.
+
 ## Sources of truth
 Pattern roadmap: GitHub issues labelled `pattern`, grouped by batch milestone at
 https://github.com/origin-blocks/origin-canvas/milestones. One issue per unbuilt pattern.
