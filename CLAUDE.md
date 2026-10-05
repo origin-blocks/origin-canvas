@@ -302,7 +302,7 @@ on (owner ruling, Oct 5):
 | Tinted (`surface-muted`, `surface-subtle`) | core `is-style-outline` |
 | Dark (`#111827`, `custom.dark.bg`, a dark cover) | `is-style-origin-canvas-outline-light` |
 
-Outline carries the `border-strong` border (#6B7280), which holds on white and on a tint. Outline Strong is
+Outline carries the #6B7280 border, which holds on white and on a tint. Outline Strong is
 retired: it is out of the Styles picker, and `assets/styles/core-button.css` keeps saved
 buttons with its class looking the same. No pattern uses it. The surface is the nearest
 block that sets a fill. `bin/check-button-surfaces.sh` enforces the table. Lesson:

@@ -161,11 +161,6 @@
 					"color": "#D1D5DB"
 				},
 				{
-					"slug": "border-strong",
-					"name": "Border Strong",
-					"color": "#6B7280"
-				},
-				{
 					"slug": "text-heading",
 					"name": "Text Heading",
 					"color": "#111827"
@@ -469,7 +464,7 @@
 							"text": "var(--wp--preset--color--text-heading)"
 						},
 						"border": {
-							"color": "var(--wp--preset--color--border-strong)",
+							"color": "#6B7280",
 							"style": "solid",
 							"width": "2px"
 						},
