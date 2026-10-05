@@ -27,19 +27,19 @@
 <!-- /wp:column -->
 
 <!-- wp:column {"width":"66%"} -->
-<div class="wp-block-column" style="flex-basis:66%"><!-- wp:group {"style":{"spacing":{"blockGap":{"top":"var:preset|spacing|small","left":"var:preset|spacing|extra-large"}}},"layout":{"type":"grid","columnCount":2,"minimumColumnWidth":"16rem"}} -->
-<div class="wp-block-group"><!-- wp:list {"className":"is-style-origin-canvas-list-check origin-canvas-check-heading-color","style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-body","fontSize":"regular"} -->
-<ul class="wp-block-list is-style-origin-canvas-list-check origin-canvas-check-heading-color has-text-body-color has-text-color has-regular-font-size" style="margin-top:0;margin-bottom:0"><!-- wp:list-item --><li><?php echo esc_html__( 'A written scope and a fixed price', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
-<!-- wp:list-item --><li><?php echo esc_html__( 'A weekly check-in call', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
-<!-- wp:list-item --><li><?php echo esc_html__( 'Accessibility checks before launch', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
-<!-- wp:list-item --><li><?php echo esc_html__( 'Thirty days of fixes after launch', 'origin-canvas' ); ?></li><!-- /wp:list-item --></ul>
+<div class="wp-block-column" style="flex-basis:66%"><!-- wp:group {"style":{"spacing":{"blockGap":{"top":"var:preset|spacing|medium","left":"var:preset|spacing|extra-large"}}},"layout":{"type":"grid","columnCount":2,"minimumColumnWidth":"16rem"}} -->
+<div class="wp-block-group"><!-- wp:list {"className":"is-style-origin-canvas-list-check origin-canvas-check-heading-color","style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-body","fontSize":"regular-plus"} -->
+<ul class="wp-block-list is-style-origin-canvas-list-check origin-canvas-check-heading-color has-text-body-color has-text-color has-regular-plus-font-size" style="margin-top:0;margin-bottom:0"><!-- wp:list-item --><li><?php echo esc_html__( 'A written scope and a fixed price', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
+<!-- wp:list-item {"style":{"spacing":{"margin":{"top":"var:preset|spacing|medium"}}}} --><li style="margin-top:var(--wp--preset--spacing--medium)"><?php echo esc_html__( 'A weekly check-in call', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
+<!-- wp:list-item {"style":{"spacing":{"margin":{"top":"var:preset|spacing|medium"}}}} --><li style="margin-top:var(--wp--preset--spacing--medium)"><?php echo esc_html__( 'Accessibility checks before launch', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
+<!-- wp:list-item {"style":{"spacing":{"margin":{"top":"var:preset|spacing|medium"}}}} --><li style="margin-top:var(--wp--preset--spacing--medium)"><?php echo esc_html__( 'Thirty days of fixes after launch', 'origin-canvas' ); ?></li><!-- /wp:list-item --></ul>
 <!-- /wp:list -->
 
-<!-- wp:list {"className":"is-style-origin-canvas-list-check origin-canvas-check-heading-color","style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-body","fontSize":"regular"} -->
-<ul class="wp-block-list is-style-origin-canvas-list-check origin-canvas-check-heading-color has-text-body-color has-text-color has-regular-font-size" style="margin-top:0;margin-bottom:0"><!-- wp:list-item --><li><?php echo esc_html__( 'One named lead, kickoff to launch', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
-<!-- wp:list-item --><li><?php echo esc_html__( 'Copy written alongside the design', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
-<!-- wp:list-item --><li><?php echo esc_html__( 'An hour of training for your team', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
-<!-- wp:list-item --><li><?php echo esc_html__( 'Domains and accounts in your name', 'origin-canvas' ); ?></li><!-- /wp:list-item --></ul>
+<!-- wp:list {"className":"is-style-origin-canvas-list-check origin-canvas-check-heading-color","style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-body","fontSize":"regular-plus"} -->
+<ul class="wp-block-list is-style-origin-canvas-list-check origin-canvas-check-heading-color has-text-body-color has-text-color has-regular-plus-font-size" style="margin-top:0;margin-bottom:0"><!-- wp:list-item --><li><?php echo esc_html__( 'One named lead, kickoff to launch', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
+<!-- wp:list-item {"style":{"spacing":{"margin":{"top":"var:preset|spacing|medium"}}}} --><li style="margin-top:var(--wp--preset--spacing--medium)"><?php echo esc_html__( 'Copy written alongside the design', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
+<!-- wp:list-item {"style":{"spacing":{"margin":{"top":"var:preset|spacing|medium"}}}} --><li style="margin-top:var(--wp--preset--spacing--medium)"><?php echo esc_html__( 'An hour of training for your team', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
+<!-- wp:list-item {"style":{"spacing":{"margin":{"top":"var:preset|spacing|medium"}}}} --><li style="margin-top:var(--wp--preset--spacing--medium)"><?php echo esc_html__( 'Domains and accounts in your name', 'origin-canvas' ); ?></li><!-- /wp:list-item --></ul>
 <!-- /wp:list --></div>
 <!-- /wp:group --></div>
 <!-- /wp:column --></div>
