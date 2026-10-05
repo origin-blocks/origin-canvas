@@ -282,6 +282,19 @@ section (white, tinted or dark). Copy the block attributes as they are.
 
 Lesson: `docs/solutions/patterns/copy-dont-invent.md`.
 
+### 10. Secondary buttons follow the surface
+A secondary (outline) button takes its style from the fill of the section or card it sits
+on (design notes, Buttons, "The four roles"):
+
+| Surface | Style |
+|---|---|
+| White (`surface-base`, or no fill) | core `is-style-outline` |
+| Tinted (`surface-muted`, `surface-subtle`) | `is-style-origin-canvas-outline-strong` |
+| Dark (`#111827`, `custom.dark.bg`, a dark cover) | `is-style-origin-canvas-outline-light` |
+
+The surface is the nearest block that sets a fill: a white pricing card on a muted section
+is white. `bin/check-button-surfaces.sh` enforces the table.
+
 ## Sources of truth
 Pattern roadmap: GitHub issues labelled `pattern`, grouped by batch milestone at
 https://github.com/origin-blocks/origin-canvas/milestones. One issue per unbuilt pattern.
