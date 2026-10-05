@@ -27,11 +27,13 @@
 <h2 class="wp-block-heading has-display-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Tell us what you&#8217;re making', 'origin-canvas' ); ?></h2>
 <!-- /wp:heading -->
 
-<!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"var:preset|spacing|medium","bottom":"0"}}},"textColor":"text-body","fontSize":"regular-plus"} -->
-<p class="has-text-body-color has-text-color has-regular-plus-font-size" style="margin-top:var(--wp--preset--spacing--medium);margin-bottom:0"><?php echo esc_html__( 'One email is enough to start. No brief needed.', 'origin-canvas' ); ?></p>
-<!-- /wp:paragraph -->
+<!-- wp:group {"style":{"spacing":{"margin":{"top":"var:preset|spacing|medium","bottom":"0"}}},"layout":{"type":"constrained","contentSize":"520px","justifyContent":"left"}} -->
+<div class="wp-block-group" style="margin-top:var(--wp--preset--spacing--medium);margin-bottom:0"><!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-body","fontSize":"regular-plus"} -->
+<p class="has-text-body-color has-text-color has-regular-plus-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'One email is enough to start. No brief needed.', 'origin-canvas' ); ?></p>
+<!-- /wp:paragraph --></div>
+<!-- /wp:group -->
 
-<!-- wp:buttons {"style":{"spacing":{"blockGap":"var:preset|spacing|compact","margin":{"top":"var:preset|spacing|extra-large","bottom":"0"}}},"layout":{"type":"flex"}} -->
+<!-- wp:buttons {"style":{"spacing":{"blockGap":"var:preset|spacing|compact","margin":{"top":"var:preset|spacing|extra-large","bottom":"0"}},"@mobile":{"layout":{"orientation":"vertical","justifyContent":"stretch"}}},"layout":{"type":"flex"}} -->
 <div class="wp-block-buttons" style="margin-top:var(--wp--preset--spacing--extra-large);margin-bottom:0"><!-- wp:button -->
 <div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="mailto:hello@example.com"><?php echo esc_html__( 'Email us', 'origin-canvas' ); ?></a></div>
 <!-- /wp:button -->
