@@ -106,6 +106,9 @@
 				"body": 1.5,
 				"relaxed": 1.625,
 				"loose": 2
+			},
+			"list": {
+				"checkColor": "var(--wp--preset--color--primary)"
 			}
 		},
 		"color": {

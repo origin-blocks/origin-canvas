@@ -460,10 +460,10 @@ html {
 
 /* Check marks in the text-heading color in place of primary, for a Check or Check
    Circle list on a surface-muted fill or beside a primary button. The mark is a
-   pseudo-element, so no color control reaches it. */
-ul.wp-block-list.is-style-origin-canvas-list-check.origin-canvas-check-heading-color li::before,
-ul.wp-block-list.is-style-origin-canvas-list-check-circle.origin-canvas-check-heading-color li::before {
-	background-color: var(--wp--preset--color--text-heading);
+   pseudo-element that no color control reaches, so the class sets the color the
+   two list styles read (settings.custom.list.checkColor in theme.json). */
+.origin-canvas-check-heading-color {
+	--wp--custom--list--check-color: var(--wp--preset--color--text-heading);
 }
 
 /* ==========================================================================
