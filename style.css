@@ -468,6 +468,13 @@ html {
 	letter-spacing: var(--origin-canvas-letter-spacing);
 }
 
+/* Below medium only the variable is set, so a heading, or a block whose theme.json
+   tracking reads it, takes the base token at its preset size, while body text keeps
+   the browser's normal spacing. */
+:where(.has-extra-small-font-size, .has-small-font-size, .has-regular-font-size, .has-regular-plus-font-size) {
+	--origin-canvas-letter-spacing: var(--wp--custom--letter-spacing--base);
+}
+
 /* Letter spacing inherits as a computed length, so small text inside one of the
    nodes above would take the larger size's spacing. Reset it to the body default. */
 :where(.has-medium-font-size, .has-large-font-size, .has-extra-large-font-size, .has-huge-font-size, .has-display-font-size, .has-display-xl-font-size, .has-display-2-xl-font-size) :where(.has-extra-small-font-size, .has-small-font-size, .has-regular-font-size, .has-regular-plus-font-size) {
