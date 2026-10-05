@@ -34,8 +34,8 @@
 <p class="has-regular-font-size" style="margin-top:0;margin-bottom:0;font-weight:600;letter-spacing:var(--wp--custom--letter-spacing--base)"><?php echo esc_html__( 'Michael Hughes', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
-<!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}},"color":{"text":"color-mix(in srgb, var(--wp--custom--dark--text) 62%, transparent)"}},"fontSize":"small"} -->
-<p class="has-text-color has-small-font-size" style="color:color-mix(in srgb, var(--wp--custom--dark--text) 62%, transparent);margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Broker, Westmount Realty', 'origin-canvas' ); ?></p>
+<!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"fontSize":"small"} -->
+<p class="has-small-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Broker, Westmount Realty', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group --></div>
 <!-- /wp:group --></div>
