@@ -106,13 +106,29 @@ Pattern image "Studio shelving" (patterns/images/gallery-studio-shelf.webp), AI-
 
 Pattern image "Studio meeting table" (patterns/images/gallery-meeting-table.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
-Demo client logos (patterns/images/logo-*.png): made for Origin Canvas, GPL-2.0-or-later.
+Demo client logo "Westmount Realty" (patterns/images/logo-westmount.png): made for Origin Canvas, GPL-2.0-or-later.
+
+Demo client logo "Mercer Street Framing" (patterns/images/logo-mercer-street.png): made for Origin Canvas, GPL-2.0-or-later.
+
+Demo client logo "Ashby & Rowe Law" (patterns/images/logo-ashby-rowe.png): made for Origin Canvas, GPL-2.0-or-later.
+
+Demo client logo "Kestrel Physical Therapy" (patterns/images/logo-kestrel.png): made for Origin Canvas, GPL-2.0-or-later.
+
+Demo client logo "Northgate Cycle Works" (patterns/images/logo-northgate.png): made for Origin Canvas, GPL-2.0-or-later.
+
+Demo client logo "Ash & Pine Woodworks" (patterns/images/logo-ash-pine.png): made for Origin Canvas, GPL-2.0-or-later.
+
+Demo client logo "Clearwater Accounting" (patterns/images/logo-clearwater.png): made for Origin Canvas, GPL-2.0-or-later.
+
+Demo client logo "Calder Veterinary Clinic" (patterns/images/logo-calder.png): made for Origin Canvas, GPL-2.0-or-later.
+
+Demo client logo "Fairview Architects" (patterns/images/logo-fairview.png): made for Origin Canvas, GPL-2.0-or-later.
 
 Pattern image "Desk sketchbook" (patterns/images/desk-notebook-overhead.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
 Pattern image "Studio worktable" (patterns/images/studio-worktable.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
-The nine images below are no longer used by any pattern. They are kept so that content created with earlier versions of the theme keeps its images, and each one now holds a copy of a current image of the same size.
+The eleven images below are no longer used by any pattern. They are kept so that content created with earlier versions of the theme keeps its images, and each one now holds a copy of a current image of the same size.
 
 Pattern image "Retired case-study image, now a copy of the Northgate Cycle Works repair stand" (patterns/images/card-image-text-1.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
@@ -131,6 +147,10 @@ Pattern image "Retired case-study image, now a copy of the Mercer Street Framing
 Pattern image "Retired case-study image, now a copy of the Mercer Street Framing case-study image" (patterns/images/card-image-text-linden-lark.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
 Pattern image "Retired testimonial portrait, now a copy of the Rachel Moore testimonial portrait" (patterns/images/avatar-emma-whitaker.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+
+Demo client logo "Retired demo client logo, now a copy of the Mercer Street Framing logo" (patterns/images/logo-linden-lark.png): made for Origin Canvas, GPL-2.0-or-later.
+
+Demo client logo "Retired demo client logo, now a copy of the Ash & Pine Woodworks logo" (patterns/images/logo-thistle-pine.png): made for Origin Canvas, GPL-2.0-or-later.
 
 == Fonts ==
 

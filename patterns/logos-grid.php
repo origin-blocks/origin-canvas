@@ -31,8 +31,8 @@
 <!-- /wp:group -->
 
 <!-- wp:group {"backgroundColor":"surface-base","style":{"border":{"color":"var:preset|color|border","width":"1px","radius":"var:custom|radius|medium"},"spacing":{"padding":{"top":"var:preset|spacing|extra-large","bottom":"var:preset|spacing|extra-large","left":"var:preset|spacing|compact","right":"var:preset|spacing|compact"}}},"layout":{"type":"flex","justifyContent":"center","verticalAlignment":"center"}} -->
-<div class="wp-block-group has-border-color has-surface-base-background-color has-background" style="border-color:var(--wp--preset--color--border);border-width:1px;border-radius:var(--wp--custom--radius--medium);padding-top:var(--wp--preset--spacing--extra-large);padding-right:var(--wp--preset--spacing--compact);padding-bottom:var(--wp--preset--spacing--extra-large);padding-left:var(--wp--preset--spacing--compact)"><!-- wp:image {"width":"225px","sizeSlug":"full","linkDestination":"none","style":{"color":{"duotone":"var:preset|duotone|logo-gray"}}} -->
-<figure class="wp-block-image size-full is-resized"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/logo-mercer-street.png" alt="<?php esc_attr_e( 'Mercer Street Framing', 'origin-canvas' ); ?>" style="width:225px"/></figure>
+<div class="wp-block-group has-border-color has-surface-base-background-color has-background" style="border-color:var(--wp--preset--color--border);border-width:1px;border-radius:var(--wp--custom--radius--medium);padding-top:var(--wp--preset--spacing--extra-large);padding-right:var(--wp--preset--spacing--compact);padding-bottom:var(--wp--preset--spacing--extra-large);padding-left:var(--wp--preset--spacing--compact)"><!-- wp:image {"width":"208px","sizeSlug":"full","linkDestination":"none","style":{"color":{"duotone":"var:preset|duotone|logo-gray"}}} -->
+<figure class="wp-block-image size-full is-resized"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/logo-mercer-street.png" alt="<?php esc_attr_e( 'Mercer Street Framing', 'origin-canvas' ); ?>" style="width:208px"/></figure>
 <!-- /wp:image --></div>
 <!-- /wp:group -->
 
@@ -55,8 +55,8 @@
 <!-- /wp:group -->
 
 <!-- wp:group {"backgroundColor":"surface-base","style":{"border":{"color":"var:preset|color|border","width":"1px","radius":"var:custom|radius|medium"},"spacing":{"padding":{"top":"var:preset|spacing|extra-large","bottom":"var:preset|spacing|extra-large","left":"var:preset|spacing|compact","right":"var:preset|spacing|compact"}}},"layout":{"type":"flex","justifyContent":"center","verticalAlignment":"center"}} -->
-<div class="wp-block-group has-border-color has-surface-base-background-color has-background" style="border-color:var(--wp--preset--color--border);border-width:1px;border-radius:var(--wp--custom--radius--medium);padding-top:var(--wp--preset--spacing--extra-large);padding-right:var(--wp--preset--spacing--compact);padding-bottom:var(--wp--preset--spacing--extra-large);padding-left:var(--wp--preset--spacing--compact)"><!-- wp:image {"width":"156px","sizeSlug":"full","linkDestination":"none","style":{"color":{"duotone":"var:preset|duotone|logo-gray"}}} -->
-<figure class="wp-block-image size-full is-resized"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/logo-ash-pine.png" alt="<?php esc_attr_e( 'Ash &amp; Pine Woodworks', 'origin-canvas' ); ?>" style="width:156px"/></figure>
+<div class="wp-block-group has-border-color has-surface-base-background-color has-background" style="border-color:var(--wp--preset--color--border);border-width:1px;border-radius:var(--wp--custom--radius--medium);padding-top:var(--wp--preset--spacing--extra-large);padding-right:var(--wp--preset--spacing--compact);padding-bottom:var(--wp--preset--spacing--extra-large);padding-left:var(--wp--preset--spacing--compact)"><!-- wp:image {"width":"124px","sizeSlug":"full","linkDestination":"none","style":{"color":{"duotone":"var:preset|duotone|logo-gray"}}} -->
+<figure class="wp-block-image size-full is-resized"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/logo-ash-pine.png" alt="<?php esc_attr_e( 'Ash &amp; Pine Woodworks', 'origin-canvas' ); ?>" style="width:124px"/></figure>
 <!-- /wp:image --></div>
 <!-- /wp:group -->
 
