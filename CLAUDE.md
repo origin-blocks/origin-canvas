@@ -244,12 +244,14 @@ it and weight belongs to the variation. If it renders as a `<p>` — as the site
 **500 speaks, at display size — the statement register.** Being *lighter* than the theme's
 voice is its identity; following the swing would make it just another big heading. This is the
 weight-by-job rule (500 speaks), not an exception to it: the register only opts out of the
-variation's weight. Each file pins weight and nothing else; its tracking follows size like any
-other text:
+variation's weight. Each file pins weight; `text-large-statement` and `lead-statement` take
+tracking from size like any other text. `breath-statement` alone also pins the base tracking
+token (owner ruling, Oct 5): its long two-tone line reads loose-set at the display token, and
+the design notes' statement register is "500 / −0.01em pinned".
 
 | Pattern | Pins |
 |---|---|
-| `breath-statement` | `fontWeight: 500` only |
+| `breath-statement` | `fontWeight: 500`, `letterSpacing: var(--wp--custom--letter-spacing--base)` |
 | `text-large-statement` | `fontWeight: 500` only |
 | `lead-statement` | `fontWeight: 500` only |
 
