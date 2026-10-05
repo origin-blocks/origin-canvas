@@ -5,6 +5,11 @@ patterns live in `patterns/*.php`; each is a PHP file whose doc-block header reg
 and whose body is block markup. This file's rules are BINDING — read them before creating,
 renaming, or recategorizing any pattern.
 
+## Lessons live in `docs/solutions/`
+Before planning or building, grep `docs/solutions/` for the area you will touch. After each
+merged branch, compound: write what the work taught as a lesson there. Process and format:
+`docs/solutions/README.md`.
+
 ## A handoff is checked against these rules before any of it is built
 A design handoff states intent; this file states what the theme allows. Before a handoff line
 becomes a step, check it against every rule here. Where they agree, build it. Where they
