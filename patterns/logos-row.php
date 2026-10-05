@@ -21,19 +21,19 @@
 <!-- wp:group {"align":"wide","style":{"spacing":{"blockGap":"var:preset|spacing|large"}},"layout":{"type":"grid","columnCount":6,"minimumColumnWidth":"8rem"}} -->
 <div class="wp-block-group alignwide"><!-- wp:group {"layout":{"type":"flex","justifyContent":"center","verticalAlignment":"center"}} -->
 <div class="wp-block-group"><!-- wp:image {"width":"137px","sizeSlug":"full","linkDestination":"none","style":{"color":{"duotone":"var:preset|duotone|logo-gray"}}} -->
-<figure class="wp-block-image size-full is-resized"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/logo-westmount.png" alt="<?php esc_attr_e( 'Westmount Property', 'origin-canvas' ); ?>" style="width:137px"/></figure>
+<figure class="wp-block-image size-full is-resized"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/logo-westmount.png" alt="<?php esc_attr_e( 'Westmount Realty', 'origin-canvas' ); ?>" style="width:137px"/></figure>
 <!-- /wp:image --></div>
 <!-- /wp:group -->
 
 <!-- wp:group {"layout":{"type":"flex","justifyContent":"center","verticalAlignment":"center"}} -->
 <div class="wp-block-group"><!-- wp:image {"width":"149px","sizeSlug":"full","linkDestination":"none","style":{"color":{"duotone":"var:preset|duotone|logo-gray"}}} -->
-<figure class="wp-block-image size-full is-resized"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/logo-ashby-rowe.png" alt="<?php esc_attr_e( 'Ashby &amp; Rowe Solicitors', 'origin-canvas' ); ?>" style="width:149px"/></figure>
+<figure class="wp-block-image size-full is-resized"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/logo-ashby-rowe.png" alt="<?php esc_attr_e( 'Ashby &amp; Rowe Law', 'origin-canvas' ); ?>" style="width:149px"/></figure>
 <!-- /wp:image --></div>
 <!-- /wp:group -->
 
 <!-- wp:group {"layout":{"type":"flex","justifyContent":"center","verticalAlignment":"center"}} -->
 <div class="wp-block-group"><!-- wp:image {"width":"119px","sizeSlug":"full","linkDestination":"none","style":{"color":{"duotone":"var:preset|duotone|logo-gray"}}} -->
-<figure class="wp-block-image size-full is-resized"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/logo-kestrel.png" alt="<?php esc_attr_e( 'Kestrel Physio', 'origin-canvas' ); ?>" style="width:119px"/></figure>
+<figure class="wp-block-image size-full is-resized"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/logo-kestrel.png" alt="<?php esc_attr_e( 'Kestrel Physical Therapy', 'origin-canvas' ); ?>" style="width:119px"/></figure>
 <!-- /wp:image --></div>
 <!-- /wp:group -->
 
@@ -45,7 +45,7 @@
 
 <!-- wp:group {"layout":{"type":"flex","justifyContent":"center","verticalAlignment":"center"}} -->
 <div class="wp-block-group"><!-- wp:image {"width":"162px","sizeSlug":"full","linkDestination":"none","style":{"color":{"duotone":"var:preset|duotone|logo-gray"}}} -->
-<figure class="wp-block-image size-full is-resized"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/logo-clearwater.png" alt="<?php esc_attr_e( 'Clearwater Accountants', 'origin-canvas' ); ?>" style="width:162px"/></figure>
+<figure class="wp-block-image size-full is-resized"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/logo-clearwater.png" alt="<?php esc_attr_e( 'Clearwater Accounting', 'origin-canvas' ); ?>" style="width:162px"/></figure>
 <!-- /wp:image --></div>
 <!-- /wp:group -->
 

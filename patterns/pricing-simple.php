@@ -33,7 +33,7 @@
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"textColor":"text-heading","fontSize":"display","style":{"spacing":{"margin":{"top":"0","bottom":"0"}},"typography":{"fontWeight":"700","lineHeight":"1"}}} -->
-<p class="has-text-heading-color has-text-color has-display-font-size" style="margin-top:0;margin-bottom:0;font-weight:700;line-height:1"><?php echo wp_kses_post( __( '&pound;2,400 <span style="font-size:var(--wp--preset--font-size--regular);font-weight:400;color:var(--wp--preset--color--text-body);">one-off</span>', 'origin-canvas' ) ); ?></p>
+<p class="has-text-heading-color has-text-color has-display-font-size" style="margin-top:0;margin-bottom:0;font-weight:700;line-height:1"><?php echo wp_kses_post( __( '$2,400 <span style="font-size:var(--wp--preset--font-size--regular);font-weight:400;color:var(--wp--preset--color--text-body);">one-time</span>', 'origin-canvas' ) ); ?></p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"textColor":"text-body","fontSize":"regular"} -->
@@ -62,7 +62,7 @@
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"textColor":"text-heading","fontSize":"display","style":{"spacing":{"margin":{"top":"0","bottom":"0"}},"typography":{"fontWeight":"700","lineHeight":"1"}}} -->
-<p class="has-text-heading-color has-text-color has-display-font-size" style="margin-top:0;margin-bottom:0;font-weight:700;line-height:1"><?php echo wp_kses_post( __( '&pound;6,000 <span style="font-size:var(--wp--preset--font-size--regular);font-weight:400;color:var(--wp--preset--color--text-body);">one-off</span>', 'origin-canvas' ) ); ?></p>
+<p class="has-text-heading-color has-text-color has-display-font-size" style="margin-top:0;margin-bottom:0;font-weight:700;line-height:1"><?php echo wp_kses_post( __( '$6,000 <span style="font-size:var(--wp--preset--font-size--regular);font-weight:400;color:var(--wp--preset--color--text-body);">one-time</span>', 'origin-canvas' ) ); ?></p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"textColor":"text-body","fontSize":"regular"} -->
@@ -91,11 +91,11 @@
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"textColor":"text-heading","fontSize":"display","style":{"spacing":{"margin":{"top":"0","bottom":"0"}},"typography":{"fontWeight":"700","lineHeight":"1"}}} -->
-<p class="has-text-heading-color has-text-color has-display-font-size" style="margin-top:0;margin-bottom:0;font-weight:700;line-height:1"><?php echo wp_kses_post( __( '&pound;1,800 <span style="font-size:var(--wp--preset--font-size--regular);font-weight:400;color:var(--wp--preset--color--text-body);">per month</span>', 'origin-canvas' ) ); ?></p>
+<p class="has-text-heading-color has-text-color has-display-font-size" style="margin-top:0;margin-bottom:0;font-weight:700;line-height:1"><?php echo wp_kses_post( __( '$1,800 <span style="font-size:var(--wp--preset--font-size--regular);font-weight:400;color:var(--wp--preset--color--text-body);">per month</span>', 'origin-canvas' ) ); ?></p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"textColor":"text-body","fontSize":"regular"} -->
-<p class="has-text-body-color has-text-color has-regular-font-size"><?php echo esc_html__( 'For clients who treat their site like a living thing, not a one-off project.', 'origin-canvas' ); ?></p>
+<p class="has-text-body-color has-text-color has-regular-font-size"><?php echo esc_html__( 'For clients who treat their site like a living thing, not a one-time project.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
 <!-- wp:list {"className":"is-style-origin-canvas-list-check","style":{"spacing":{"blockGap":"var:preset|spacing|small","margin":{"top":"var:preset|spacing|large"}}},"fontSize":"small"} -->
@@ -107,7 +107,7 @@
 
 <!-- wp:buttons {"style":{"spacing":{"margin":{"top":"var:preset|spacing|large"}}},"layout":{"type":"flex","justifyContent":"stretch"}} -->
 <div class="wp-block-buttons" style="margin-top:var(--wp--preset--spacing--large)"><!-- wp:button {"className":"is-style-outline"} -->
-<div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button"><?php echo esc_html__( 'Enquire', 'origin-canvas' ); ?></a></div>
+<div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button"><?php echo esc_html__( 'Inquire', 'origin-canvas' ); ?></a></div>
 <!-- /wp:button --></div>
 <!-- /wp:buttons --></div>
 <!-- /wp:group --></div>
