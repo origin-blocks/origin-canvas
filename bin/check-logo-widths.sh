@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 #
-# hero-centered-logos reuses logos-row's six client marks at the same widths, so the
-# two rows read as one set wherever a page shows both. Nothing in WordPress ties them
-# together: the widths are per-image block settings in two separate files, free to
-# drift the next time either pattern is touched. This compares them.
+# hero-centered-logos and pricing-hero reuse logos-row's six client marks at the same
+# widths, so the rows read as one set wherever a page shows more than one. Nothing in
+# WordPress ties them together: the widths are per-image block settings in separate
+# files, free to drift the next time any of the patterns is touched. This compares them.
 #
 # Each image carries its width twice — once as the block attribute WordPress validates
 # against (`"width":"137px"`) and once as the inline style the front end renders
@@ -21,9 +21,10 @@ rendered_widths() {
 	sed -nE 's|.*/(logo-[a-z-]+\.png)".*style="width:([0-9]+)px".*|\1 \2|p' "$1"
 }
 
-# The block attribute widths, in document order.
+# The image block attribute widths, in document order. Scoped to wp:image, since other
+# blocks in a pattern carry a "width" too (a border, for one).
 attribute_widths() {
-	sed -nE 's|.*"width":"([0-9]+)px".*|\1|p' "$1"
+	sed -nE 's|.*<!-- wp:image \{[^}]*"width":"([0-9]+)px".*|\1|p' "$1"
 }
 
 fail=0
@@ -33,9 +34,9 @@ report() {
 }
 
 a=patterns/logos-row.php
-b=patterns/hero-centered-logos.php
+copies=( patterns/hero-centered-logos.php patterns/pricing-hero.php )
 
-for f in "$a" "$b"; do
+for f in "$a" "${copies[@]}"; do
 	if [[ ! -f $f ]]; then
 		echo "check-logo-widths: $f is missing." >&2
 		exit 1
@@ -52,13 +53,15 @@ done
 report_file=$( mktemp "${TMPDIR:-/tmp}/logo-widths.XXXXXX" )
 trap 'rm -f "$report_file"' EXIT
 
-if ! diff -u <( rendered_widths "$a" ) <( rendered_widths "$b" ) > "$report_file"; then
-	report "the logo rows disagree (- logos-row, + hero-centered-logos):"
-	cat "$report_file" >&2
-fi
+for b in "${copies[@]}"; do
+	if ! diff -u <( rendered_widths "$a" ) <( rendered_widths "$b" ) > "$report_file"; then
+		report "the logo rows disagree (- logos-row, + $( basename "$b" .php )):"
+		cat "$report_file" >&2
+	fi
+done
 
 if [[ $fail -ne 0 ]]; then
 	exit 1
 fi
 
-echo "Logo widths match across logos-row and hero-centered-logos."
+echo "Logo widths match across logos-row, hero-centered-logos and pricing-hero."
