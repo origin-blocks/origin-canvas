@@ -294,16 +294,19 @@ Lesson: `docs/solutions/patterns/copy-dont-invent.md`.
 
 ### 10. Secondary buttons follow the surface
 A secondary (outline) button takes its style from the fill of the section or card it sits
-on (design notes, Buttons, "The four roles"):
+on (owner ruling, Oct 5):
 
 | Surface | Style |
 |---|---|
 | White (`surface-base`, or no fill) | core `is-style-outline` |
-| Tinted (`surface-muted`, `surface-subtle`) | `is-style-origin-canvas-outline-strong` |
+| Tinted (`surface-muted`, `surface-subtle`) | core `is-style-outline` |
 | Dark (`#111827`, `custom.dark.bg`, a dark cover) | `is-style-origin-canvas-outline-light` |
 
-The surface is the nearest block that sets a fill: a white pricing card on a muted section
-is white. `bin/check-button-surfaces.sh` enforces the table.
+Outline carries the #6B7280 border, which holds on white and on a tint. Outline Strong is
+retired: it is out of the Styles picker, and `assets/styles/core-button.css` keeps saved
+buttons with its class looking the same. No pattern uses it. The surface is the nearest
+block that sets a fill. `bin/check-button-surfaces.sh` enforces the table. Lesson:
+`docs/solutions/styling/outline-button-on-every-light-surface.md`.
 
 ## Sources of truth
 Pattern roadmap: GitHub issues labelled `pattern`, grouped by batch milestone at

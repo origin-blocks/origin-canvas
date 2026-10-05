@@ -1,0 +1,23 @@
+/* Outline Strong is retired. Outline now carries its #6B7280 border, so the style left
+   the Styles picker, and theme.json drops the CSS of a style that is not registered.
+   These rules keep buttons saved with the class looking as they did. The values are
+   the ones Outline uses in theme.json; change both together. */
+.wp-block-button.is-style-origin-canvas-outline-strong > .wp-block-button__link {
+	background-color: transparent;
+	border: 2px solid #6B7280;
+	color: var(--wp--preset--color--text-heading);
+	font-size: var(--wp--preset--font-size--regular);
+	font-weight: 500;
+	padding: calc(var(--wp--preset--spacing--compact) - 2px) calc(var(--wp--preset--spacing--extra-large) - 2px);
+}
+
+.wp-block-button.is-style-origin-canvas-outline-strong > .wp-block-button__link:hover,
+.wp-block-button.is-style-origin-canvas-outline-strong > .wp-block-button__link:focus-visible {
+	background-color: var(--wp--preset--color--border);
+	border-color: var(--wp--preset--color--text-body);
+}
+
+.wp-block-button.is-style-origin-canvas-outline-strong > .wp-block-button__link:active {
+	background-color: var(--wp--preset--color--surface-subtle-hover);
+	border-color: var(--wp--preset--color--text-heading);
+}

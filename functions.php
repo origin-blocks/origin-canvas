@@ -254,7 +254,6 @@ if ( ! function_exists( 'origin_canvas_register_block_styles' ) ) {
 				array( 'name' => 'origin-canvas-accordion-minimal', 'label' => __( 'Minimal', 'origin-canvas' ) ),
 			),
 			'core/button'        => array(
-				array( 'name' => 'origin-canvas-outline-strong', 'label' => __( 'Outline Strong', 'origin-canvas' ) ),
 				array( 'name' => 'origin-canvas-outline-light', 'label' => __( 'Outline Light', 'origin-canvas' ) ),
 				array( 'name' => 'origin-canvas-fill-primary', 'label' => __( 'Fill Primary', 'origin-canvas' ) ),
 			),
