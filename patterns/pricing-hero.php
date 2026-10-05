@@ -129,7 +129,7 @@
 <!-- /wp:paragraph -->
 
 <!-- wp:list {"className":"is-style-origin-canvas-list-check origin-canvas-check-heading-color","style":{"spacing":{"margin":{"top":"var:preset|spacing|compact","bottom":"0"}}},"textColor":"text-body","fontSize":"regular"} -->
-<ul class="wp-block-list is-style-origin-canvas-list-check origin-canvas-check-heading-color has-text-body-color has-text-color has-regular-font-size" style="margin-top:var(--wp--preset--spacing--compact);margin-bottom:0"><!-- wp:list-item --><li><?php echo esc_html__( 'Up to eight hours of changes', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
+<ul class="wp-block-list is-style-origin-canvas-list-check origin-canvas-check-heading-color has-text-body-color has-text-color has-regular-font-size" style="margin-top:var(--wp--preset--spacing--compact);margin-bottom:0"><!-- wp:list-item --><li><?php echo esc_html__( 'Up to two days of work', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
 <!-- wp:list-item --><li><?php echo esc_html__( 'A quarterly review call', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
 <!-- wp:list-item --><li><?php echo esc_html__( 'A reply within a business day', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
 <!-- wp:list-item --><li><?php echo esc_html__( 'Six-month minimum', 'origin-canvas' ); ?></li><!-- /wp:list-item --></ul>
