@@ -48,23 +48,26 @@
 	margin-block-start: 0;
 }
 
-/* Marker. Core's own "+" character is made transparent rather than zero-sized, so the
-   span keeps its box; the mark itself is a Lucide glyph painted as a mask, which gives
-   an exact stroke weight instead of inheriting the question's font weight. */
+/* Marker. Core's own "+" character is hidden by a zero font size while the span keeps
+   its box; the mark itself is a Lucide glyph painted as a mask, which gives an exact
+   stroke weight instead of inheriting the question's font weight. The span holds the
+   marker color (settings.custom.accordion.markerColor in theme.json) and the mask
+   paints in currentColor, so the color is set in one place. */
 .wp-block-accordion.is-style-origin-canvas-accordion-minimal > .wp-block-accordion-item > .wp-block-accordion-heading > .wp-block-accordion-heading__toggle .wp-block-accordion-heading__toggle-icon {
-	color: transparent;
+	color: var(--wp--custom--accordion--marker-color);
 	flex: none;
-	height: 20px;
+	font-size: 0;
+	height: 24px;
 	position: relative;
 	transform: none;
-	width: 20px;
+	width: 24px;
 }
 
 .wp-block-accordion.is-style-origin-canvas-accordion-minimal > .wp-block-accordion-item > .wp-block-accordion-heading > .wp-block-accordion-heading__toggle .wp-block-accordion-heading__toggle-icon::after {
-	background-color: var(--wp--preset--color--text-body);
+	background-color: currentColor;
 	content: "";
 	display: block;
-	height: 20px;
+	height: 24px;
 	inset-inline-start: 0;
 	line-height: 1;
 	-webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M12 5v14'/%3E%3C/svg%3E");
@@ -77,17 +80,21 @@
 	mask-size: contain;
 	position: absolute;
 	top: 0;
-	width: 20px;
+	width: 24px;
 }
 
-/* Open: the mark becomes a single bar and takes the ink colour. Core rotates its glyph
-   from a four-class selector, so the scoped rule outranks it and the rotation stops. */
+/* A text color set on the question carries to its marker. */
+.wp-block-accordion.is-style-origin-canvas-accordion-minimal > .wp-block-accordion-item > .wp-block-accordion-heading.has-text-color > .wp-block-accordion-heading__toggle .wp-block-accordion-heading__toggle-icon {
+	color: inherit;
+}
+
+/* Open: the mark becomes a single bar. Core rotates its glyph from a four-class
+   selector, so the scoped rule outranks it and the rotation stops. */
 .wp-block-accordion.is-style-origin-canvas-accordion-minimal > .wp-block-accordion-item.is-open > .wp-block-accordion-heading .wp-block-accordion-heading__toggle-icon {
 	transform: none;
 }
 
 .wp-block-accordion.is-style-origin-canvas-accordion-minimal > .wp-block-accordion-item.is-open > .wp-block-accordion-heading .wp-block-accordion-heading__toggle-icon::after {
-	background-color: var(--wp--preset--color--text-heading);
 	-webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14'/%3E%3C/svg%3E");
 	mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14'/%3E%3C/svg%3E");
 }
@@ -98,6 +105,7 @@
 @media (forced-colors: active) {
 	.wp-block-accordion.is-style-origin-canvas-accordion-minimal > .wp-block-accordion-item > .wp-block-accordion-heading > .wp-block-accordion-heading__toggle .wp-block-accordion-heading__toggle-icon {
 		color: CanvasText;
+		font-size: inherit;
 	}
 
 	.wp-block-accordion.is-style-origin-canvas-accordion-minimal > .wp-block-accordion-item > .wp-block-accordion-heading > .wp-block-accordion-heading__toggle .wp-block-accordion-heading__toggle-icon::after {
@@ -117,7 +125,7 @@
    nothing. */
 @supports not ((-webkit-mask-image: none) or (mask-image: none)) {
 	.wp-block-accordion.is-style-origin-canvas-accordion-minimal > .wp-block-accordion-item > .wp-block-accordion-heading > .wp-block-accordion-heading__toggle .wp-block-accordion-heading__toggle-icon {
-		color: var(--wp--preset--color--text-body);
+		font-size: inherit;
 	}
 
 	.wp-block-accordion.is-style-origin-canvas-accordion-minimal > .wp-block-accordion-item > .wp-block-accordion-heading > .wp-block-accordion-heading__toggle .wp-block-accordion-heading__toggle-icon::after {
@@ -158,9 +166,8 @@
 }
 
 @media (prefers-reduced-motion: no-preference) {
-	.wp-block-accordion.is-style-origin-canvas-accordion-minimal > .wp-block-accordion-item > .wp-block-accordion-heading > .wp-block-accordion-heading__toggle .wp-block-accordion-heading__toggle-title,
-	.wp-block-accordion.is-style-origin-canvas-accordion-minimal > .wp-block-accordion-item > .wp-block-accordion-heading > .wp-block-accordion-heading__toggle .wp-block-accordion-heading__toggle-icon::after {
-		transition: background-color 200ms ease, color 200ms ease;
+	.wp-block-accordion.is-style-origin-canvas-accordion-minimal > .wp-block-accordion-item > .wp-block-accordion-heading > .wp-block-accordion-heading__toggle .wp-block-accordion-heading__toggle-title {
+		transition: color 200ms ease;
 	}
 
 	.wp-block-accordion.is-style-origin-canvas-accordion-minimal > .wp-block-accordion-item {
