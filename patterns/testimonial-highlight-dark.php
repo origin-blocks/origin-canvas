@@ -20,7 +20,7 @@
 <p class="has-text-align-center has-primary-color has-text-color has-small-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--medium);font-weight:600;letter-spacing:0.08em;text-transform:uppercase"><?php echo esc_html__( 'Client note', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
-<!-- wp:paragraph {"align":"center","style":{"typography":{"fontWeight":"500","lineHeight":"1.4"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"fontSize":"huge"} -->
+<!-- wp:paragraph {"align":"center","style":{"typography":{"fontWeight":"500","lineHeight":"1.4"},"spacing":{"margin":{"top":"0","bottom":"0"}},"@mobile":{"typography":{"fontSize":"var:preset|font-size|extra-large"}}},"fontSize":"huge"} -->
 <p class="has-text-align-center has-huge-font-size" style="margin-top:0;margin-bottom:0;font-weight:500;line-height:1.4"><?php echo esc_html__( 'We have worked with bigger studios. None of them made the work feel this calm, or this much like ours.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
