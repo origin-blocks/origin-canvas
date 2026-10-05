@@ -199,9 +199,16 @@ for authored content must **never** move a shipped pattern's rendering.
 **The other half of the rule: patterns pin size, and NEVER weight or tracking.**
 
 Size is composition — our decision, and it must survive a change to the element ladder.
-Weight and tracking are **voice** — the site owner's decision, made once by choosing a style
-variation. Tracking rides weight (heavier wants tighter), so the two travel together and both
-live at `styles.elements.heading`, the single lever.
+Weight is **voice** — the site owner's decision, made once by choosing a style variation. It
+lives at `styles.elements.heading`, the single lever.
+
+Tracking follows size. `settings.custom.letterSpacing` holds one token per size band:
+`display` (extra-large and up, −0.022em), `large` (−0.019em), `medium` (−0.017em) and `base`
+(regular-plus and below, −0.01em). Each `h1`–`h6` element reads the token for its own size,
+and `style.css` maps the font-size preset classes from `medium` up to the same tokens, so a
+heading or paragraph set at a preset size gets that size's tracking. A style variation with
+another face overrides the tokens; it never sets tracking per level. A pattern never sets
+`letterSpacing` on a heading or statement; positive tracking on eyebrows and labels stays.
 
 An inline `fontWeight` on a block emits a `style="…"` attribute, which beats every
 `:root :where(…)` rule a variation can emit. One pinned heading is a heading the user cannot

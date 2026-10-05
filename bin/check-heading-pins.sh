@@ -41,10 +41,12 @@ while IFS= read -r hit; do
 done < <(grep -rnoE '<span[^>]*toggle-title[^>]*>' patterns/ 2>/dev/null \
 	| grep -iE 'style=.[^"'"'"']*(font-weight|letter-spacing)[[:space:]]*:' || true)
 
-# 5. Weight AND tracking live at one node. Either pinned per level defeats a variation
-#    that sets it, so both are checked and both must be present on the base.
+# 5. Weight lives at one node: pinned per level, it defeats a variation that sets it.
+#    Tracking follows size, so theme.json gives each level its size's letter-spacing
+#    token, and only in the one form that a font-size preset class can still replace
+#    (style.css). A variation changes the tokens in settings.custom, never a level.
 python3 - <<'PY' || status=1
-import glob, json, sys
+import glob, json, re, sys
 
 PROPS  = ('fontWeight', 'letterSpacing')
 LEVELS = ('h1', 'h2', 'h3', 'h4', 'h5', 'h6')
@@ -53,6 +55,11 @@ LEVELS = ('h1', 'h2', 'h3', 'h4', 'h5', 'h6')
 # level 0, so elements.heading cannot reach it and its own weight is the only lever.
 BLOCKS = ('core/heading', 'core/accordion-heading', 'core/post-title',
           'core/query-title', 'core/comments-title')
+
+# The only per-level tracking theme.json may carry: a size token, behind the variable
+# the font-size preset classes set.
+LEVEL_TRACKING = re.compile(r'var\(--origin-canvas-letter-spacing, '
+                            r'var\(--wp--custom--letter-spacing--(display|large|medium|base)\)\)')
 
 fail = False
 
@@ -74,7 +81,9 @@ def check(styles, label, require_base):
     global fail
     e = styles.get('elements', {})
     for prop in PROPS:
-        bad = [k for k in LEVELS if prop in e.get(k, {}).get('typography', {})]
+        bad = [k for k in LEVELS if prop in e.get(k, {}).get('typography', {})
+               and not (require_base and prop == 'letterSpacing'
+                        and LEVEL_TRACKING.fullmatch(e[k]['typography'][prop]))]
         if bad:
             print('  ✗  %s: per-level heading %s pin: %s' % (label, prop, ', '.join(bad)))
             fail = True
@@ -284,7 +293,7 @@ if [ $status -eq 0 ]; then
 	echo "Heading pins:"
 	echo "  ✓  no pattern heading pins weight or tracking (statement register excepted)"
 	echo "  ✓  every wp:heading states a size, and every stated size is a preset"
-	echo "  ✓  nothing naming a heading sets weight or tracking outside elements.heading"
+	echo "  ✓  nothing naming a heading sets weight or tracking outside theme.json heading elements"
 fi
 
 exit $status
