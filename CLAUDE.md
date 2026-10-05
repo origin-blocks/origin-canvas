@@ -272,15 +272,23 @@ a no-op and always correct. When it does not, do **not** snap it silently — a 
 changes the rendering. Report the gap and get a ruling.
 
 ### 9. Copy, don't invent
-A new or changed pattern takes its button styles, gaps, eyebrows, intro lines, list styles
-and card recipes from the **nearest existing pattern**: the same job, on the same kind of
-section (white, tinted or dark). Copy the block attributes as they are.
+Every value in a new or changed pattern has a source. Take it from the first that has it:
 
-- Name that pattern in the commit message: "eyebrow and intro from features-grid".
-- Any difference from it needs a stated reason, in the commit message or a code comment.
-- Where Claude Design supplied copy, use it word for word. Do not edit, shorten or
-  "improve" it. A string that breaks a rule here goes back to design as a question.
-- Read `~/Desktop/design.md` (Claude Design's notes) before setting a value it rules on.
+1. **The approved board** in the handoff folder (`page-*-1440.html`, `page-*-390.html`)
+   and its `PROMPT.md`. Match every padding, gap, size, weight, color, radius and line.
+2. **Claude Design's notes**, the `design.md` in the handoff folder (buttons, eyebrows,
+   tracking, the per-pattern rulings).
+3. **The nearest existing pattern**: the same job on the same kind of section (white,
+   tinted or dark). Copy its block attributes as they are.
+
+- Map each board value to a preset or token. Where none exists, use the nearest token by
+  the summed error at 1440 and 390, and list the value as NO TOKEN in the handoff with a
+  proposed token. Never hardcode it.
+- Name the source in the commit message: "the board", or "eyebrow from features-grid".
+- Any difference from the source needs a stated reason in the commit message.
+- Use Claude Design's copy word for word. Write no copy of your own: where the board has
+  none, leave the shipped copy and list the gap for design.
+- The owner's rulings win over the board (rule 10 buttons, "business days").
 
 Lesson: `docs/solutions/patterns/copy-dont-invent.md`.
 
