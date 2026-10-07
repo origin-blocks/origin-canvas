@@ -99,7 +99,7 @@
 <!-- /wp:paragraph -->
 
 <!-- wp:list {"className":"is-style-origin-canvas-list-check","style":{"spacing":{"blockGap":"var:preset|spacing|small","margin":{"top":"var:preset|spacing|large"}}},"fontSize":"small"} -->
-<ul class="wp-block-list is-style-origin-canvas-list-check has-small-font-size" style="margin-top:var(--wp--preset--spacing--large)"><!-- wp:list-item --><li><?php echo esc_html__( 'Up to eight hours a month', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
+<ul class="wp-block-list is-style-origin-canvas-list-check has-small-font-size" style="margin-top:var(--wp--preset--spacing--large)"><!-- wp:list-item --><li><?php echo esc_html__( 'Up to two days of work a month', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
 <!-- wp:list-item --><li><?php echo esc_html__( 'Quarterly review calls', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
 <!-- wp:list-item --><li><?php echo esc_html__( 'Priority response', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
 <!-- wp:list-item --><li><?php echo esc_html__( 'Six-month minimum', 'origin-canvas' ); ?></li><!-- /wp:list-item --></ul>
