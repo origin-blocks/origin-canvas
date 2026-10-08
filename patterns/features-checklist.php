@@ -27,8 +27,8 @@
 <!-- /wp:column -->
 
 <!-- wp:column {"width":"66%"} -->
-<div class="wp-block-column" style="flex-basis:66%"><!-- wp:list {"className":"is-style-origin-canvas-list-check origin-canvas-check-heading-color origin-canvas-features-checklist-list","style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-body","fontSize":"regular-plus"} -->
-<ul class="wp-block-list is-style-origin-canvas-list-check origin-canvas-check-heading-color origin-canvas-features-checklist-list has-text-body-color has-text-color has-regular-plus-font-size" style="margin-top:0;margin-bottom:0"><!-- wp:list-item --><li><?php echo esc_html__( 'A written scope and a fixed price', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
+<div class="wp-block-column" style="flex-basis:66%"><!-- wp:list {"className":"is-style-origin-canvas-list-check origin-canvas-features-checklist-list","style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-body","fontSize":"regular-plus"} -->
+<ul class="wp-block-list is-style-origin-canvas-list-check origin-canvas-features-checklist-list has-text-body-color has-text-color has-regular-plus-font-size" style="margin-top:0;margin-bottom:0"><!-- wp:list-item --><li><?php echo esc_html__( 'A written scope and a fixed price', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
 <!-- wp:list-item --><li><?php echo esc_html__( 'One named lead, kickoff to launch', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
 <!-- wp:list-item --><li><?php echo esc_html__( 'A weekly check-in call', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
 <!-- wp:list-item --><li><?php echo esc_html__( 'Copy written alongside the design', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
