@@ -496,6 +496,12 @@ html {
 	align-items: baseline;
 }
 
+/* Text whose lines break to near-equal lengths, so a heading never ends on one
+   word. No block support or theme.json property sets text-wrap. */
+.origin-canvas-text-balance {
+	text-wrap: balance;
+}
+
 /* Check marks in the text-heading color in place of primary, for a Check or Check
    Circle list on a surface-muted fill or beside a primary button. The mark is a
    pseudo-element that no color control reaches, so the class sets the color the

@@ -176,8 +176,9 @@ to Fill and the label left at Fit sizes the label to its text, with no pattern C
 
 A job that core cannot do but more than one pattern needs becomes a **utility**: a class named for
 the job, not the pattern, in the Utilities section of `style.css`, applied through Additional CSS
-Classes. Today: `origin-canvas-no-shrink` (a flex child that keeps its size) and
-`origin-canvas-align-baseline` (a Row on a shared text baseline). Add one only for
+Classes. Today: `origin-canvas-no-shrink` (a flex child that keeps its size),
+`origin-canvas-align-baseline` (a Row on a shared text baseline) and `origin-canvas-text-balance`
+(lines broken to near-equal lengths). Add one only for
 a generic job with a real second use.
 
 What core still cannot do goes where it loads least. If the pattern always contains a block that
