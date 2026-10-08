@@ -20,8 +20,8 @@
 <p class="has-text-align-center has-primary-color has-text-color has-small-font-size" style="margin-top:0;margin-bottom:0;font-weight:600;letter-spacing:0.08em;text-transform:uppercase"><?php echo esc_html__( 'Pricing', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
-<!-- wp:heading {"textAlign":"center","level":1,"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"fontSize":"display-xl"} -->
-<h1 class="wp-block-heading has-display-xl-font-size has-text-align-center" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Fixed prices, agreed up front', 'origin-canvas' ); ?></h1>
+<!-- wp:heading {"textAlign":"center","level":1,"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"fontSize":"display"} -->
+<h1 class="wp-block-heading has-display-font-size has-text-align-center" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Fixed prices, agreed up front', 'origin-canvas' ); ?></h1>
 <!-- /wp:heading -->
 
 <!-- wp:group {"layout":{"type":"constrained","contentSize":"640px"}} -->
