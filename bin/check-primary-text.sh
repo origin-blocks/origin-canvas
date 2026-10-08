@@ -14,7 +14,8 @@
 #   - primary text without a role class, set as textColor, style.color.text, a
 #     has-primary-color class or an inline color on a block, or on a p, h1-h6, span or
 #     mark tag, unless it is a state indicator listed below
-#   - a primary link color at rest (elements.link.color.text), and a primary link arrow
+#   - a primary link color at rest (elements.link.color.text), and a primary link arrow,
+#     role-marked blocks included: a link inside an eyebrow keeps its text role
 #
 # Allowed without a role class:
 #   - wp:icon (an icon is a mark), hover and focus colors, and primary fills (dots)
@@ -98,16 +99,18 @@ for path in files:
         primary = a.get('textColor') == 'primary' or is_primary(style.get('color', {}).get('text'))
         link = style.get('elements', {}).get('link', {}).get('color', {}).get('text')
         role = [c for c in cls if c in ROLES]
+        if (path, name) in ALLOW_BLOCKS:
+            continue
+        if is_primary(link):
+            bad(path, node['line'], 'wp:%s sets a primary link color at rest; links keep '
+                'their text roles' % name)
         if role:
             roles += 1
             if not primary:
                 bad(path, node['line'], 'wp:%s has %s but is not primary' % (name, role[0]))
             continue
-        if name in ('icon', 'navigation') or (path, name) in ALLOW_BLOCKS:
+        if name in ('icon', 'navigation'):
             continue
-        if is_primary(link):
-            bad(path, node['line'], 'wp:%s sets a primary link color at rest; links keep '
-                'their text roles' % name)
         if not primary:
             continue
         # The line can open with a parent block, so start at this block's own attribute.
