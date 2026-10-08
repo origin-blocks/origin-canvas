@@ -16,6 +16,10 @@
 #   - hover and focus colors, which this check does not read, and primary fills (dots)
 #   - the featured pricing tier's kicker and "Most chosen" label, listed below
 #
+# Check marks are bullets and stay primary for users. Our pricing tiers and
+# features-checklist want ink ticks, so every Check or Check Circle list in INK_TICKS
+# must carry origin-canvas-check-heading-color.
+#
 # Run from the theme root:  bash bin/check-primary-text.sh
 
 set -euo pipefail
@@ -24,7 +28,7 @@ cd "$(dirname "$0")/.."
 python3 -B - "$@" <<'PY'
 import glob, re, sys
 sys.path.insert(0, 'bin/lib')
-from block_tree import parse, walk
+from block_tree import parse, walk, class_names
 
 # (file, label): the featured tier's state labels. They mark the tier, with its top
 # frame and button, so they are indicators, not resting text.
@@ -33,6 +37,13 @@ ALLOW = {
     ('patterns/pricing-simple.php', 'Studio'),
     ('patterns/pricing-single.php', 'The Site Sprint'),
     ('patterns/pricing-hero.php', 'Most chosen'),
+}
+INK_TICKS = {
+    'patterns/pricing-hero.php',
+    'patterns/card-pricing.php',
+    'patterns/pricing-simple.php',
+    'patterns/pricing-single.php',
+    'patterns/features-checklist.php',
 }
 TAG = re.compile(r'<(p|h[1-6]|span|mark)\b([^>]*)>', re.S)
 PRIMARY_ATTR = re.compile(r'has-primary-color|(?<![\w-])color:\s*var\(--wp--preset--color--primary\)')
@@ -53,6 +64,12 @@ for path in files:
     lines = text.split('\n')
     for node in walk(parse(path)):
         a = node['attrs']
+        if (path in INK_TICKS and node['name'] == 'list'
+                and any(c.startswith('is-style-origin-canvas-list-check') for c in class_names(node))
+                and 'origin-canvas-check-heading-color' not in class_names(node)):
+            print('  \u2717  %s:%d check list needs origin-canvas-check-heading-color for '
+                  'ink ticks' % (path, node['line']))
+            fail = True
         raw = a.get('style', {}).get('color', {}).get('text', '')
         if node['name'] == 'icon' or not (a.get('textColor') == 'primary' or 'primary' in raw):
             continue

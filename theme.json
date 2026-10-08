@@ -108,7 +108,7 @@
 				"loose": 2
 			},
 			"list": {
-				"checkColor": "var(--wp--preset--color--text-heading)"
+				"checkColor": "var(--wp--preset--color--primary)"
 			},
 			"accordion": {
 				"markerColor": "var(--wp--preset--color--text-heading)"
