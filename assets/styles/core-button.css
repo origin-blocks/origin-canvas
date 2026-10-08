@@ -16,9 +16,32 @@
 .wp-block-button.is-style-origin-canvas-outline-strong > .wp-block-button__link:focus-visible {
 	background-color: var(--wp--preset--color--border);
 	border-color: var(--wp--preset--color--text-body);
+	box-shadow: none;
 }
 
 .wp-block-button.is-style-origin-canvas-outline-strong > .wp-block-button__link:active {
 	background-color: var(--wp--preset--color--surface-subtle-hover);
 	border-color: var(--wp--preset--color--text-heading);
+}
+
+/* Filled buttons, the default and Fill Primary, lift 1px on hover and focus. theme.json
+   holds the color step and the medium shadow; no block support sets a transform. A
+   press drops the lift, and reduced motion keeps the color and shadow but never moves
+   the button. The outline styles do not lift. */
+.wp-block-button:not(.is-style-outline, .is-style-origin-canvas-outline-light, .is-style-origin-canvas-outline-strong) > .wp-block-button__link {
+	transition: transform 120ms ease, box-shadow 120ms ease;
+}
+
+.wp-block-button:not(.is-style-outline, .is-style-origin-canvas-outline-light, .is-style-origin-canvas-outline-strong) > .wp-block-button__link:is(:hover, :focus-visible) {
+	transform: translateY(-1px);
+}
+
+.wp-block-button:not(.is-style-outline, .is-style-origin-canvas-outline-light, .is-style-origin-canvas-outline-strong) > .wp-block-button__link:active {
+	transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.wp-block-button:not(.is-style-outline, .is-style-origin-canvas-outline-light, .is-style-origin-canvas-outline-strong) > .wp-block-button__link:is(:hover, :focus-visible) {
+		transform: none;
+	}
 }
