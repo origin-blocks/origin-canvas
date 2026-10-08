@@ -126,6 +126,10 @@ def check(path):
         c = CLASS.search(attrs)
         tag_cls = c.group(1).split() if c else []
         line = text.count('\n', 0, m.start()) + 1
+        # A link is never primary at rest, role class or not.
+        if tag == 'a' and PRIMARY_ATTR.search(attrs):
+            bad(path, line, '<a> is a primary link at rest; links keep their text roles')
+            continue
         if any(r in tag_cls for r in ROLES):
             if not PRIMARY_ATTR.search(attrs):
                 bad(path, line, '<%s> has a role class but is not primary' % tag)
@@ -134,9 +138,6 @@ def check(path):
             continue
         if ARROW.match(text, m.start()):
             bad(path, line, 'link arrow is primary at rest; it takes the link color')
-            continue
-        if tag == 'a':
-            bad(path, line, '<a> is a primary link at rest; links keep their text roles')
             continue
         bad(path, line, '<%s> is primary text without a role class' % tag)
 
@@ -147,6 +148,10 @@ FIXTURES = {
                  '{"link":{"color":{"text":"var:preset|color|primary"}}}},"textColor":"primary"} -->\n'
                  '<p class="origin-canvas-eyebrow has-primary-color has-text-color has-link-color">'
                  '<a href="#">Work</a></p>\n<!-- /wp:paragraph -->\n',
+    'role-anchor': '<!-- wp:paragraph {"className":"origin-canvas-eyebrow","textColor":"primary"} -->\n'
+                   '<p class="origin-canvas-eyebrow has-primary-color has-text-color"><a class='
+                   '"origin-canvas-eyebrow has-primary-color" href="#">Work</a></p>\n'
+                   '<!-- /wp:paragraph -->\n',
     'navigation': '<!-- wp:navigation {"textColor":"primary"} /-->\n',
     'ordinal-muted': '<!-- wp:paragraph {"className":"origin-canvas-ordinal","textColor":"text-muted"} -->\n'
                      '<p class="origin-canvas-ordinal has-text-muted-color has-text-color">01</p>\n'
