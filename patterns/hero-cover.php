@@ -29,8 +29,8 @@
 <p class="has-text-body-color has-text-color has-regular-font-size" style="margin-top:var(--wp--preset--spacing--compact)"><?php echo esc_html__( 'Identity and a portfolio site for a two-person woodworking shop. Six weeks, forty pieces photographed, one new wordmark.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
-<!-- wp:paragraph {"style":{"elements":{"link":{"typography":{"textDecoration":"none"}}},"typography":{"fontWeight":"600"},"spacing":{"margin":{"top":"var:preset|spacing|medium","bottom":"0"}}},"textColor":"text-heading","fontSize":"regular"} -->
-<p class="has-text-heading-color has-text-color has-regular-font-size" style="margin-top:var(--wp--preset--spacing--medium);margin-bottom:0;font-weight:600"><a href="#"><?php echo esc_html__( 'Read the case study', 'origin-canvas' ); ?> <span aria-hidden="true">&rarr;</span></a></p>
+<!-- wp:paragraph {"className":"origin-canvas-links-plain","style":{"typography":{"fontWeight":"600"},"spacing":{"margin":{"top":"var:preset|spacing|medium","bottom":"0"}}},"textColor":"text-heading","fontSize":"regular"} -->
+<p class="origin-canvas-links-plain has-text-heading-color has-text-color has-regular-font-size" style="margin-top:var(--wp--preset--spacing--medium);margin-bottom:0;font-weight:600"><a href="#"><?php echo esc_html__( 'Read the case study', 'origin-canvas' ); ?> <span aria-hidden="true">&rarr;</span></a></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group -->
 
