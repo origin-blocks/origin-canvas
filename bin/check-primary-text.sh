@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 #
-# Primary colors three roles at rest: eyebrows, stat figures and ordinal numbers (step
-# numbers, list row numbers), on light and dark grounds. Reading text (body, headings,
+# Primary colors three roles at rest: eyebrows, stat figures and step numbers (the
+# ordinal role), on light and dark grounds. A list index, such as the work-index row
+# numbers, is not a step number: it stays text-muted with no role class. Reading text (body, headings,
 # UI) and links keep their text roles (owner ruling, Oct 8; ODS RULES.md, "Primary:
 # marks, accents and ambient"). Prices are not stat figures; they stay heading ink.
 # Lesson: docs/solutions/styling/primary-never-colors-resting-text.md
@@ -147,6 +148,9 @@ FIXTURES = {
                  '<p class="origin-canvas-eyebrow has-primary-color has-text-color has-link-color">'
                  '<a href="#">Work</a></p>\n<!-- /wp:paragraph -->\n',
     'navigation': '<!-- wp:navigation {"textColor":"primary"} /-->\n',
+    'ordinal-muted': '<!-- wp:paragraph {"className":"origin-canvas-ordinal","textColor":"text-muted"} -->\n'
+                     '<p class="origin-canvas-ordinal has-text-muted-color has-text-color">01</p>\n'
+                     '<!-- /wp:paragraph -->\n',
     'a-class': '<!-- wp:paragraph -->\n<p><a class="has-primary-color" href="#">Work</a></p>\n'
                '<!-- /wp:paragraph -->\n',
     'a-inline': '<!-- wp:paragraph -->\n<p><a href="#" style="color:var(--wp--preset--color--primary)">'
@@ -195,6 +199,6 @@ if fail:
     print('Primary text: %d file(s) fail' % len(fail))
     sys.exit(1)
 print('Primary text:')
-print('  ✓  %d role-marked eyebrows, figures and ordinals are primary; no other '
+print('  ✓  %d role-marked eyebrows, figures and step numbers are primary; no other '
       'primary resting text' % roles[0])
 PY
