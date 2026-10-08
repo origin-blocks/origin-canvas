@@ -21,7 +21,8 @@
 #   - wp:icon (an icon is a mark), hover and focus colors, and primary fills (dots)
 #   - the featured pricing tier's kicker and "Most chosen" label (ALLOW)
 #   - the category above a single post's title (ALLOW_BLOCKS)
-#   - wp:navigation, whose current item stays primary
+#   - the current nav item, primary through .current-menu-item in core-navigation.css,
+#     a state this check does not read; a wp:navigation block is checked like any other
 #
 # Check marks are bullets: Check Primary and Check Circle Primary stay primary for
 # users. Our pricing tiers and features-checklist want ink ticks, so every check list
@@ -109,7 +110,7 @@ for path in files:
             if not primary:
                 bad(path, node['line'], 'wp:%s has %s but is not primary' % (name, role[0]))
             continue
-        if name in ('icon', 'navigation'):
+        if name == 'icon':
             continue
         if not primary:
             continue
