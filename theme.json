@@ -588,19 +588,19 @@
 						},
 						":hover": {
 							"color": {
-								"background": "color-mix(in srgb, var(--wp--preset--color--primary) 88%, #000)",
+								"background": "color-mix(in srgb, var(--wp--preset--color--primary) 88%, #fff)",
 								"text": "var(--wp--preset--color--surface-base)"
 							}
 						},
 						":focus-visible": {
 							"color": {
-								"background": "color-mix(in srgb, var(--wp--preset--color--primary) 88%, #000)",
+								"background": "color-mix(in srgb, var(--wp--preset--color--primary) 88%, #fff)",
 								"text": "var(--wp--preset--color--surface-base)"
 							}
 						},
 						":active": {
 							"color": {
-								"background": "color-mix(in srgb, var(--wp--preset--color--primary) 80%, #000)",
+								"background": "color-mix(in srgb, var(--wp--preset--color--primary) 80%, #fff)",
 								"text": "var(--wp--preset--color--surface-base)"
 							}
 						}
