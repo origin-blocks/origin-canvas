@@ -49,7 +49,7 @@
 <!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|medium"}},"textColor":"text-muted","layout":{"type":"flex","flexWrap":"wrap","justifyContent":"space-between","verticalAlignment":"center"}} -->
 <div class="wp-block-group has-text-muted-color has-text-color"><!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|medium"}},"layout":{"type":"flex","flexWrap":"wrap","verticalAlignment":"center"}} -->
 <div class="wp-block-group"><!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"fontSize":"small"} -->
-<p class="has-small-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( '01 / Cover', 'origin-canvas' ); ?></p>
+<p class="has-small-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Cover', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
 <!-- wp:pattern {"slug":"origin-canvas/availability-marker"} /--></div>
