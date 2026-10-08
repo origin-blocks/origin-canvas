@@ -21,8 +21,8 @@
 <p class="origin-canvas-eyebrow has-primary-color has-text-color has-extra-small-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--small);font-weight:600;letter-spacing:0.08em;text-transform:uppercase"><?php echo esc_html__( 'Featured', 'origin-canvas' ); ?> &middot; <?php echo esc_html__( 'Spring 2026', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
-<!-- wp:heading {"level":3,"style":{"typography":{"lineHeight":"1.1"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-heading","fontSize":"extra-large"} -->
-<h3 class="wp-block-heading has-text-heading-color has-text-color has-extra-large-font-size" style="margin-top:0;margin-bottom:0;line-height:1.1"><?php echo esc_html__( 'Ash &amp; Pine Woodworks', 'origin-canvas' ); ?></h3>
+<!-- wp:heading {"level":3,"style":{"typography":{"lineHeight":"1.1"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-heading","fontSize":"large"} -->
+<h3 class="wp-block-heading has-text-heading-color has-text-color has-large-font-size" style="margin-top:0;margin-bottom:0;line-height:1.1"><?php echo esc_html__( 'Ash &amp; Pine Woodworks', 'origin-canvas' ); ?></h3>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"var:preset|spacing|compact"}}},"textColor":"text-body","fontSize":"regular"} -->
