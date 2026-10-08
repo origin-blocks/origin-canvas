@@ -38,9 +38,11 @@
 <h2 class="wp-block-heading has-large-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Starter', 'origin-canvas' ); ?></h2>
 <!-- /wp:heading -->
 
-<!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"var:preset|spacing|compact","bottom":"0"}}},"textColor":"text-body","fontSize":"regular"} -->
-<p class="has-text-body-color has-text-color has-regular-font-size" style="margin-top:var(--wp--preset--spacing--compact);margin-bottom:0"><?php echo esc_html__( 'A focused site for a small business that knows what it wants to say.', 'origin-canvas' ); ?></p>
-<!-- /wp:paragraph -->
+<!-- wp:group {"style":{"dimensions":{"minHeight":"4.8rem"},"spacing":{"margin":{"top":"var:preset|spacing|compact","bottom":"0"}},"@tablet":{"dimensions":{"minHeight":"0"}},"@mobile":{"dimensions":{"minHeight":"0"}}},"layout":{"type":"default"}} -->
+<div class="wp-block-group" style="min-height:4.8rem;margin-top:var(--wp--preset--spacing--compact);margin-bottom:0"><!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-body","fontSize":"regular"} -->
+<p class="has-text-body-color has-text-color has-regular-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'A focused site for a small business that knows what it wants to say.', 'origin-canvas' ); ?></p>
+<!-- /wp:paragraph --></div>
+<!-- /wp:group -->
 
 <!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"var:preset|spacing|large","bottom":"0"}},"typography":{"fontWeight":"700","lineHeight":"1"}},"textColor":"text-heading","fontSize":"huge"} -->
 <p class="has-text-heading-color has-text-color has-huge-font-size" style="margin-top:var(--wp--preset--spacing--large);margin-bottom:0;font-weight:700;line-height:1"><?php echo wp_kses_post( __( '$2,400 <span style="font-size:var(--wp--preset--font-size--regular);font-weight:400;letter-spacing:normal;color:var(--wp--preset--color--text-muted);">one-time</span>', 'origin-canvas' ) ); ?></p>
@@ -77,9 +79,11 @@
 <!-- /wp:paragraph --></div>
 <!-- /wp:group -->
 
-<!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"var:preset|spacing|compact","bottom":"0"}}},"textColor":"text-body","fontSize":"regular"} -->
-<p class="has-text-body-color has-text-color has-regular-font-size" style="margin-top:var(--wp--preset--spacing--compact);margin-bottom:0"><?php echo esc_html__( 'Our standard engagement: brand work, site, and a hand-written launch checklist.', 'origin-canvas' ); ?></p>
-<!-- /wp:paragraph -->
+<!-- wp:group {"style":{"dimensions":{"minHeight":"4.8rem"},"spacing":{"margin":{"top":"var:preset|spacing|compact","bottom":"0"}},"@tablet":{"dimensions":{"minHeight":"0"}},"@mobile":{"dimensions":{"minHeight":"0"}}},"layout":{"type":"default"}} -->
+<div class="wp-block-group" style="min-height:4.8rem;margin-top:var(--wp--preset--spacing--compact);margin-bottom:0"><!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-body","fontSize":"regular"} -->
+<p class="has-text-body-color has-text-color has-regular-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Our standard engagement: brand work, site, and a hand-written launch checklist.', 'origin-canvas' ); ?></p>
+<!-- /wp:paragraph --></div>
+<!-- /wp:group -->
 
 <!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"var:preset|spacing|large","bottom":"0"}},"typography":{"fontWeight":"700","lineHeight":"1"}},"textColor":"text-heading","fontSize":"huge"} -->
 <p class="has-text-heading-color has-text-color has-huge-font-size" style="margin-top:var(--wp--preset--spacing--large);margin-bottom:0;font-weight:700;line-height:1"><?php echo wp_kses_post( __( '$6,000 <span style="font-size:var(--wp--preset--font-size--regular);font-weight:400;letter-spacing:normal;color:var(--wp--preset--color--text-muted);">one-time</span>', 'origin-canvas' ) ); ?></p>
@@ -110,9 +114,11 @@
 <h2 class="wp-block-heading has-large-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Retained', 'origin-canvas' ); ?></h2>
 <!-- /wp:heading -->
 
-<!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"var:preset|spacing|compact","bottom":"0"}}},"textColor":"text-body","fontSize":"regular"} -->
-<p class="has-text-body-color has-text-color has-regular-font-size" style="margin-top:var(--wp--preset--spacing--compact);margin-bottom:0"><?php echo esc_html__( 'For clients who treat their site like a living thing, not a one-time project.', 'origin-canvas' ); ?></p>
-<!-- /wp:paragraph -->
+<!-- wp:group {"style":{"dimensions":{"minHeight":"4.8rem"},"spacing":{"margin":{"top":"var:preset|spacing|compact","bottom":"0"}},"@tablet":{"dimensions":{"minHeight":"0"}},"@mobile":{"dimensions":{"minHeight":"0"}}},"layout":{"type":"default"}} -->
+<div class="wp-block-group" style="min-height:4.8rem;margin-top:var(--wp--preset--spacing--compact);margin-bottom:0"><!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-body","fontSize":"regular"} -->
+<p class="has-text-body-color has-text-color has-regular-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'For clients who treat their site like a living thing, not a one-time project.', 'origin-canvas' ); ?></p>
+<!-- /wp:paragraph --></div>
+<!-- /wp:group -->
 
 <!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"var:preset|spacing|large","bottom":"0"}},"typography":{"fontWeight":"700","lineHeight":"1"}},"textColor":"text-heading","fontSize":"huge"} -->
 <p class="has-text-heading-color has-text-color has-huge-font-size" style="margin-top:var(--wp--preset--spacing--large);margin-bottom:0;font-weight:700;line-height:1"><?php echo wp_kses_post( __( '$1,800 <span style="font-size:var(--wp--preset--font-size--regular);font-weight:400;letter-spacing:normal;color:var(--wp--preset--color--text-muted);">per month</span>', 'origin-canvas' ) ); ?></p>
