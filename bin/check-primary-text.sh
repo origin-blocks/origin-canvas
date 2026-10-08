@@ -12,8 +12,8 @@
 # Fails on:
 #   - a block or tag with a role class whose text is not primary
 #   - primary text without a role class, set as textColor, style.color.text, a
-#     has-primary-color class or an inline color on a block, or on a p, h1-h6, span or
-#     mark tag, unless it is a state indicator listed below
+#     has-primary-color class or an inline color on a block, or on an a, p, h1-h6, span
+#     or mark tag, unless it is a state indicator listed below
 #   - a primary link color at rest (elements.link.color.text), and a primary link arrow,
 #     role-marked blocks included: a link inside an eyebrow keeps its text role
 #
@@ -59,7 +59,7 @@ ALLOW_BLOCKS = {
     ('patterns/hidden-single.php', 'post-terms'),
     ('patterns/hidden-single-right-sidebar.php', 'post-terms'),
 }
-TAG = re.compile(r'<(p|h[1-6]|span|mark)\b([^>]*)>', re.S)
+TAG = re.compile(r'<(a|p|h[1-6]|span|mark)\b([^>]*)>', re.S)
 CLASS = re.compile(r'\bclass="([^"]*)"')
 PRIMARY_ATTR = re.compile(r'has-primary-color|(?<![\w-])color:\s*var\(--wp--preset--color--primary\)')
 ARROW = re.compile(r'<span\b([^>]*)>\s*(?:&rarr;|→)\s*</span>')
@@ -134,6 +134,9 @@ for path in files:
             continue
         if ARROW.match(text, m.start()):
             bad(path, line, 'link arrow is primary at rest; it takes the link color')
+            continue
+        if tag == 'a':
+            bad(path, line, '<a> is a primary link at rest; links keep their text roles')
             continue
         bad(path, line, '<%s> is primary text without a role class' % tag)
 
