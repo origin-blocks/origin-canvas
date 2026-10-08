@@ -29,6 +29,7 @@
 # in INK_TICKS must use Check Neutral or Check Circle Neutral.
 #
 # Run from the theme root:  bash bin/check-primary-text.sh [files…]
+# Self-test of the rule cases:  bash bin/check-primary-text.sh --self-test
 
 set -euo pipefail
 cd "$(dirname "$0")/.."
@@ -75,10 +76,8 @@ def is_primary(value):
     return 'primary' in (value or '')
 
 
-files = sys.argv[1:] or sorted(glob.glob('patterns/*.php') + glob.glob('parts/*.html')
-                              + glob.glob('templates/*.html'))
 fail = set()
-roles = 0
+roles = [0]
 
 
 def bad(path, line, msg):
@@ -86,7 +85,7 @@ def bad(path, line, msg):
     fail.add(path)
 
 
-for path in files:
+def check(path):
     text = open(path).read()
     lines = text.split('\n')
     for node in walk(parse(path)):
@@ -106,7 +105,7 @@ for path in files:
             bad(path, node['line'], 'wp:%s sets a primary link color at rest; links keep '
                 'their text roles' % name)
         if role:
-            roles += 1
+            roles[0] += 1
             if not primary:
                 bad(path, node['line'], 'wp:%s has %s but is not primary' % (name, role[0]))
             continue
@@ -140,10 +139,62 @@ for path in files:
             continue
         bad(path, line, '<%s> is primary text without a role class' % tag)
 
+
+# Each fixture is one invalid case and must fail on its own. The home page patterns must pass.
+FIXTURES = {
+    'role-link': '<!-- wp:paragraph {"className":"origin-canvas-eyebrow","style":{"elements":'
+                 '{"link":{"color":{"text":"var:preset|color|primary"}}}},"textColor":"primary"} -->\n'
+                 '<p class="origin-canvas-eyebrow has-primary-color has-text-color has-link-color">'
+                 '<a href="#">Work</a></p>\n<!-- /wp:paragraph -->\n',
+    'navigation': '<!-- wp:navigation {"textColor":"primary"} /-->\n',
+    'a-class': '<!-- wp:paragraph -->\n<p><a class="has-primary-color" href="#">Work</a></p>\n'
+               '<!-- /wp:paragraph -->\n',
+    'a-inline': '<!-- wp:paragraph -->\n<p><a href="#" style="color:var(--wp--preset--color--primary)">'
+                'Work</a></p>\n<!-- /wp:paragraph -->\n',
+    'a-block': '<!-- wp:button {"textColor":"primary"} -->\n<div class="wp-block-button"><a class='
+               '"wp-block-button__link has-primary-color has-text-color wp-element-button">Go</a></div>\n'
+               '<!-- /wp:button -->\n',
+}
+HOME = ['patterns/%s.php' % s for s in ('hero-cover', 'breath-statement', 'work-index',
+        'stat-band', 'process-numbered', 'feature-split', 'cta-band')]
+
+
+def self_test():
+    import io, os, tempfile, contextlib
+    ok = True
+    with tempfile.TemporaryDirectory() as tmp:
+        for case, markup in FIXTURES.items():
+            path = os.path.join(tmp, case + '.html')
+            open(path, 'w').write(markup)
+            fail.clear()
+            with contextlib.redirect_stdout(io.StringIO()):
+                check(path)
+            print('  %s  %s fails' % ('✓' if fail else '✗', case))
+            ok = ok and bool(fail)
+    fail.clear()
+    out = io.StringIO()
+    with contextlib.redirect_stdout(out):
+        for path in HOME:
+            check(path)
+    print('  %s  the seven home patterns pass' % ('✗' if fail else '✓'))
+    if fail:
+        print(out.getvalue(), end='')
+    return ok and not fail
+
+
+if sys.argv[1:] == ['--self-test']:
+    print('Primary text self-test:')
+    sys.exit(0 if self_test() else 1)
+
+files = sys.argv[1:] or sorted(glob.glob('patterns/*.php') + glob.glob('parts/*.html')
+                              + glob.glob('templates/*.html'))
+for path in files:
+    check(path)
+
 if fail:
     print('Primary text: %d file(s) fail' % len(fail))
     sys.exit(1)
 print('Primary text:')
 print('  ✓  %d role-marked eyebrows, figures and ordinals are primary; no other '
-      'primary resting text' % roles)
+      'primary resting text' % roles[0])
 PY
