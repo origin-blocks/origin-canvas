@@ -18,7 +18,7 @@
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"align":"center","style":{"typography":{"fontWeight":"500","lineHeight":"1.25"},"spacing":{"margin":{"top":"0","right":"auto","bottom":"var:preset|spacing|colossal","left":"auto"}}},"fontSize":"display"} -->
-<p class="has-text-align-center has-display-font-size" style="margin-top:0;margin-right:auto;margin-bottom:var(--wp--preset--spacing--colossal);margin-left:auto;font-weight:500;line-height:1.25"><?php echo wp_kses_post( __( 'A small studio with a long memory. <span class="has-inline-color has-text-muted-color">We answer our own emails, write our own contracts, and ship work we&#8217;re still proud of two years later.</span>', 'origin-canvas' ) ); ?></p>
+<p class="has-text-align-center has-display-font-size" style="margin-top:0;margin-right:auto;margin-bottom:var(--wp--preset--spacing--colossal);margin-left:auto;font-weight:500;line-height:1.25"><?php echo wp_kses_post( __( 'A small studio with a long memory. <span style="opacity:0.72">We answer our own emails, write our own contracts, and ship work we&#8217;re still proud of two years later.</span>', 'origin-canvas' ) ); ?></p>
 <!-- /wp:paragraph -->
 
 <!-- wp:columns {"align":"wide","style":{"border":{"top":{"color":"rgba(243,244,246,0.18)","width":"1px"}},"spacing":{"padding":{"top":"var:preset|spacing|huge"},"blockGap":{"top":"var:preset|spacing|large","left":"var:preset|spacing|large"}}}} -->
