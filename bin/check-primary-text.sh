@@ -15,6 +15,7 @@
 # Allowed:
 #   - hover and focus colors, which this check does not read, and primary fills (dots)
 #   - the featured pricing tier's kicker and "Most chosen" label, listed below
+#   - the category above a single post's title, the one editorial accent, listed below
 #
 # Check marks are bullets and stay primary for users. Our pricing tiers and
 # features-checklist want ink ticks, so every Check or Check Circle list in INK_TICKS
@@ -45,6 +46,11 @@ INK_TICKS = {
     'patterns/pricing-single.php',
     'patterns/features-checklist.php',
 }
+# (file, block): the single-post category, primary at rest (owner ruling, Oct 8).
+ALLOW_BLOCKS = {
+    ('patterns/hidden-single.php', 'post-terms'),
+    ('patterns/hidden-single-right-sidebar.php', 'post-terms'),
+}
 TAG = re.compile(r'<(p|h[1-6]|span|mark)\b([^>]*)>', re.S)
 PRIMARY_ATTR = re.compile(r'has-primary-color|(?<![\w-])color:\s*var\(--wp--preset--color--primary\)')
 LABEL = re.compile(r"esc_html__\(\s*'([^']*)'")
@@ -73,6 +79,9 @@ for path in files:
         raw = a.get('style', {}).get('color', {}).get('text', '')
         if node['name'] == 'icon' or not (a.get('textColor') == 'primary' or 'primary' in raw):
             continue
+        if (path, node['name']) in ALLOW_BLOCKS:
+            count += 1
+            continue
         # The line can open with a parent block, so start at this block's own attribute.
         pos = sum(len(l) + 1 for l in lines[:node['line'] - 1])
         pos = max(pos, text.find('"textColor":"primary"', pos))
@@ -95,5 +104,5 @@ for path in files:
 if fail:
     sys.exit(1)
 print('Primary text:')
-print('  ✓  no resting text in primary (%d featured-tier labels allowed)' % count)
+print('  ✓  no resting text in primary (%d featured-tier and single-post labels allowed)' % count)
 PY
