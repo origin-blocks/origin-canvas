@@ -23,8 +23,8 @@
 
 <!-- wp:columns {"align":"wide","style":{"border":{"top":{"color":"rgba(243,244,246,0.18)","width":"1px"}},"spacing":{"padding":{"top":"var:preset|spacing|huge"},"blockGap":{"top":"var:preset|spacing|large","left":"var:preset|spacing|large"}}}} -->
 <div class="wp-block-columns alignwide" style="border-top-color:rgba(243,244,246,0.18);border-top-width:1px;padding-top:var(--wp--preset--spacing--huge)"><!-- wp:column -->
-<div class="wp-block-column"><!-- wp:paragraph {"align":"center","style":{"typography":{"fontWeight":"600","lineHeight":"1","letterSpacing":"0"},"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|medium"}}},"textColor":"on-dark","fontSize":"display-2xl"} -->
-<p class="has-text-align-center has-on-dark-color has-text-color has-display-2-xl-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--medium);font-weight:600;letter-spacing:0;line-height:1"><?php echo esc_html__( '12', 'origin-canvas' ); ?></p>
+<div class="wp-block-column"><!-- wp:paragraph {"align":"center","style":{"typography":{"fontWeight":"600","lineHeight":"1","letterSpacing":"0"},"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|medium"}}},"textColor":"primary","fontSize":"display-2xl"} -->
+<p class="has-text-align-center has-primary-color has-text-color has-display-2-xl-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--medium);font-weight:600;letter-spacing:0;line-height:1"><?php echo esc_html__( '12', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"align":"center","style":{"color":{"text":"rgba(243,244,246,0.72)"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"fontSize":"small"} -->
@@ -33,8 +33,8 @@
 <!-- /wp:column -->
 
 <!-- wp:column -->
-<div class="wp-block-column"><!-- wp:paragraph {"align":"center","style":{"typography":{"fontWeight":"600","lineHeight":"1","letterSpacing":"0"},"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|medium"}}},"textColor":"on-dark","fontSize":"display-2xl"} -->
-<p class="has-text-align-center has-on-dark-color has-text-color has-display-2-xl-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--medium);font-weight:600;letter-spacing:0;line-height:1"><?php echo esc_html__( '8', 'origin-canvas' ); ?></p>
+<div class="wp-block-column"><!-- wp:paragraph {"align":"center","style":{"typography":{"fontWeight":"600","lineHeight":"1","letterSpacing":"0"},"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|medium"}}},"textColor":"primary","fontSize":"display-2xl"} -->
+<p class="has-text-align-center has-primary-color has-text-color has-display-2-xl-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--medium);font-weight:600;letter-spacing:0;line-height:1"><?php echo esc_html__( '8', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"align":"center","style":{"color":{"text":"rgba(243,244,246,0.72)"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"fontSize":"small"} -->
@@ -43,8 +43,8 @@
 <!-- /wp:column -->
 
 <!-- wp:column -->
-<div class="wp-block-column"><!-- wp:paragraph {"align":"center","style":{"typography":{"fontWeight":"600","lineHeight":"1","letterSpacing":"0"},"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|medium"}}},"textColor":"on-dark","fontSize":"display-2xl"} -->
-<p class="has-text-align-center has-on-dark-color has-text-color has-display-2-xl-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--medium);font-weight:600;letter-spacing:0;line-height:1"><?php echo esc_html__( '94%', 'origin-canvas' ); ?></p>
+<div class="wp-block-column"><!-- wp:paragraph {"align":"center","style":{"typography":{"fontWeight":"600","lineHeight":"1","letterSpacing":"0"},"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|medium"}}},"textColor":"primary","fontSize":"display-2xl"} -->
+<p class="has-text-align-center has-primary-color has-text-color has-display-2-xl-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--medium);font-weight:600;letter-spacing:0;line-height:1"><?php echo esc_html__( '94%', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"align":"center","style":{"color":{"text":"rgba(243,244,246,0.72)"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"fontSize":"small"} -->
