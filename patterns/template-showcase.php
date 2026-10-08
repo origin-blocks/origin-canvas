@@ -29,8 +29,8 @@
 <p class="has-text-align-center has-text-body-color has-text-color" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--compact);font-size:0.9375rem;line-height:1.55"><?php echo esc_html__( 'Twelve templates cover the whole site. Open any one in the Site Editor and rearrange it block by block.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
-<!-- wp:paragraph {"align":"center","style":{"typography":{"fontSize":"0.9375rem","fontWeight":"500"},"spacing":{"margin":{"top":"0","bottom":"0"}},"elements":{"link":{"color":{"text":"var:preset|color|text-heading"},"typography":{"textDecoration":"none"}}}},"textColor":"text-heading"} -->
-<p class="has-text-align-center has-text-heading-color has-text-color has-link-color" style="margin-top:0;margin-bottom:0;font-size:0.9375rem;font-weight:500"><a href="#" style="text-decoration:none"><?php echo esc_html__( 'Open the Site Editor tour', 'origin-canvas' ); ?></a> <span class="has-primary-color has-text-color" style="color:var(--wp--preset--color--primary)" aria-hidden="true">&rarr;</span></p>
+<!-- wp:paragraph {"align":"center","style":{"typography":{"fontSize":"0.9375rem","fontWeight":"500"},"spacing":{"margin":{"top":"0","bottom":"0"}},"elements":{"link":{"typography":{"textDecoration":"none"}}}},"textColor":"text-heading"} -->
+<p class="has-text-align-center has-text-heading-color has-text-color" style="margin-top:0;margin-bottom:0;font-size:0.9375rem;font-weight:500"><a href="#" style="text-decoration:none"><?php echo esc_html__( 'Open the Site Editor tour', 'origin-canvas' ); ?> <span aria-hidden="true">&rarr;</span></a></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group --></div>
 <!-- /wp:group -->

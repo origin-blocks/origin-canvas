@@ -9,9 +9,10 @@
 #   - any block except wp:icon (an icon is a mark)
 #   - a p, h1-h6, span or mark tag in the saved markup
 #
+# A link arrow is no exception: it takes the link color at rest, and the whole link,
+# text and arrow, turns primary on hover and focus.
+#
 # Allowed:
-#   - a span or mark that holds only an arrow glyph: the arrow is a mark, the link text
-#     beside it stays ink
 #   - hover and focus colors, which this check does not read, and primary fills (dots)
 #   - the featured pricing tier's kicker and "Most chosen" label, listed below
 #
@@ -35,7 +36,6 @@ ALLOW = {
 }
 TAG = re.compile(r'<(p|h[1-6]|span|mark)\b([^>]*)>', re.S)
 PRIMARY_ATTR = re.compile(r'has-primary-color|(?<![\w-])color:\s*var\(--wp--preset--color--primary\)')
-ARROW = re.compile(r'^\s*(&rarr;|&#8594;|→)\s*$')
 LABEL = re.compile(r"esc_html__\(\s*'([^']*)'")
 
 
@@ -69,13 +69,10 @@ for path in files:
         tag, attrs = m.group(1), m.group(2)
         if not PRIMARY_ATTR.search(attrs):
             continue
-        end = text.find('</%s>' % tag, m.end())
-        if tag in ('span', 'mark') and ARROW.match(text[m.end():end]):
-            continue
         if allowed(path, text, m.end()):
             continue
-        print('  ✗  %s:%d <%s> is primary resting text; only an arrow glyph or the '
-              'featured tier label may be' % (path, text.count('\n', 0, m.start()) + 1, tag))
+        print('  ✗  %s:%d <%s> is primary resting text; only the featured tier label '
+              'may be' % (path, text.count('\n', 0, m.start()) + 1, tag))
         fail = True
 
 if fail:

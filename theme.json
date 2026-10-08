@@ -401,6 +401,11 @@
 					"color": {
 						"text": "var(--wp--preset--color--primary)"
 					}
+				},
+				":focus-visible": {
+					"color": {
+						"text": "var(--wp--preset--color--primary)"
+					}
 				}
 			},
 			"heading": {

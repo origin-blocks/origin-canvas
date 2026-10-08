@@ -55,8 +55,8 @@
 <p class="has-text-heading-color has-text-color" style="margin-top:0;margin-bottom:0;font-size:1.375rem;font-weight:700;letter-spacing:var(--wp--custom--letter-spacing--base)"><?php echo esc_html__( 'Free', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
-<!-- wp:paragraph {"style":{"typography":{"fontWeight":"600"},"spacing":{"margin":{"top":"15px","bottom":"0"}},"elements":{"link":{"color":{"text":"var:preset|color|text-heading"},"typography":{"textDecoration":"none"}}}},"textColor":"text-heading","fontSize":"small"} -->
-<p class="has-text-heading-color has-text-color has-link-color has-small-font-size" style="margin-top:15px;margin-bottom:0;font-weight:600"><a href="#" style="text-decoration:none"><?php echo esc_html__( 'Download free', 'origin-canvas' ); ?></a> <span class="has-primary-color has-text-color" style="color:var(--wp--preset--color--primary)" aria-hidden="true">&rarr;</span></p>
+<!-- wp:paragraph {"style":{"typography":{"fontWeight":"600"},"spacing":{"margin":{"top":"15px","bottom":"0"}},"elements":{"link":{"typography":{"textDecoration":"none"}}}},"textColor":"text-heading","fontSize":"small"} -->
+<p class="has-text-heading-color has-text-color has-small-font-size" style="margin-top:15px;margin-bottom:0;font-weight:600"><a href="#" style="text-decoration:none"><?php echo esc_html__( 'Download free', 'origin-canvas' ); ?> <span aria-hidden="true">&rarr;</span></a></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group --></div>
 <!-- /wp:group --></div>
@@ -89,8 +89,8 @@
 <p class="has-text-heading-color has-text-color" style="margin-top:0;margin-bottom:0;font-size:1.375rem;font-weight:700;letter-spacing:var(--wp--custom--letter-spacing--base)"><?php echo esc_html__( 'Free', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
-<!-- wp:paragraph {"style":{"typography":{"fontWeight":"600"},"spacing":{"margin":{"top":"15px","bottom":"0"}},"elements":{"link":{"color":{"text":"var:preset|color|text-heading"},"typography":{"textDecoration":"none"}}}},"textColor":"text-heading","fontSize":"small"} -->
-<p class="has-text-heading-color has-text-color has-link-color has-small-font-size" style="margin-top:15px;margin-bottom:0;font-weight:600"><a href="#" style="text-decoration:none"><?php echo esc_html__( 'Download free', 'origin-canvas' ); ?></a> <span class="has-primary-color has-text-color" style="color:var(--wp--preset--color--primary)" aria-hidden="true">&rarr;</span></p>
+<!-- wp:paragraph {"style":{"typography":{"fontWeight":"600"},"spacing":{"margin":{"top":"15px","bottom":"0"}},"elements":{"link":{"typography":{"textDecoration":"none"}}}},"textColor":"text-heading","fontSize":"small"} -->
+<p class="has-text-heading-color has-text-color has-small-font-size" style="margin-top:15px;margin-bottom:0;font-weight:600"><a href="#" style="text-decoration:none"><?php echo esc_html__( 'Download free', 'origin-canvas' ); ?> <span aria-hidden="true">&rarr;</span></a></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group --></div>
 <!-- /wp:group --></div>
@@ -167,8 +167,8 @@
 <p class="has-text-muted-color has-text-color has-extra-small-font-size" style="margin-top:5px;margin-bottom:0"><?php echo esc_html__( 'Founding $55/yr, first 500 members', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
-<!-- wp:paragraph {"style":{"typography":{"fontWeight":"600"},"spacing":{"margin":{"top":"15px","bottom":"0"}},"elements":{"link":{"color":{"text":"var:preset|color|text-heading"},"typography":{"textDecoration":"none"}}}},"textColor":"text-heading","fontSize":"small"} -->
-<p class="has-text-heading-color has-text-color has-link-color has-small-font-size" style="margin-top:15px;margin-bottom:0;font-weight:600"><a href="#" style="text-decoration:none"><?php echo esc_html__( 'Join the founding list', 'origin-canvas' ); ?></a> <span class="has-primary-color has-text-color" style="color:var(--wp--preset--color--primary)" aria-hidden="true">&rarr;</span></p>
+<!-- wp:paragraph {"style":{"typography":{"fontWeight":"600"},"spacing":{"margin":{"top":"15px","bottom":"0"}},"elements":{"link":{"typography":{"textDecoration":"none"}}}},"textColor":"text-heading","fontSize":"small"} -->
+<p class="has-text-heading-color has-text-color has-small-font-size" style="margin-top:15px;margin-bottom:0;font-weight:600"><a href="#" style="text-decoration:none"><?php echo esc_html__( 'Join the founding list', 'origin-canvas' ); ?> <span aria-hidden="true">&rarr;</span></a></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group --></div>
 <!-- /wp:group --></div>
