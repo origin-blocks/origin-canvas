@@ -258,11 +258,13 @@ if ( ! function_exists( 'origin_canvas_register_block_styles' ) ) {
 				array( 'name' => 'origin-canvas-fill-primary', 'label' => __( 'Fill Primary', 'origin-canvas' ) ),
 			),
 			'core/list'          => array(
-				array( 'name' => 'origin-canvas-list-check', 'label' => __( 'Check', 'origin-canvas' ) ),
-				array( 'name' => 'origin-canvas-list-check-circle', 'label' => __( 'Check Circle', 'origin-canvas' ) ),
+				array( 'name' => 'origin-canvas-list-check', 'label' => __( 'Check Primary', 'origin-canvas' ) ),
+				array( 'name' => 'origin-canvas-list-check-circle', 'label' => __( 'Check Circle Primary', 'origin-canvas' ) ),
+				array( 'name' => 'origin-canvas-list-check-neutral', 'label' => __( 'Check Neutral', 'origin-canvas' ) ),
+				array( 'name' => 'origin-canvas-list-check-circle-neutral', 'label' => __( 'Check Circle Neutral', 'origin-canvas' ) ),
 			),
 			'core/navigation'    => array(
-				array( 'name' => 'origin-canvas-hover-accent', 'label' => __( 'Hover Accent', 'origin-canvas' ) ),
+				array( 'name' => 'origin-canvas-hover-accent', 'label' => __( 'Hover Primary', 'origin-canvas' ) ),
 				array( 'name' => 'origin-canvas-hover-pill', 'label' => __( 'Hover Pill', 'origin-canvas' ) ),
 			),
 			'core/separator'     => array(

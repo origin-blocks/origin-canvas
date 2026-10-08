@@ -58,8 +58,8 @@
 <p class="has-text-heading-color has-text-color has-small-font-size" style="margin-top:var(--wp--preset--spacing--large);margin-bottom:0;font-weight:600"><?php echo esc_html__( 'Includes', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
-<!-- wp:list {"className":"is-style-origin-canvas-list-check origin-canvas-check-heading-color","style":{"spacing":{"margin":{"top":"var:preset|spacing|compact","bottom":"0"}}},"textColor":"text-body","fontSize":"regular"} -->
-<ul class="wp-block-list is-style-origin-canvas-list-check origin-canvas-check-heading-color has-text-body-color has-text-color has-regular-font-size" style="margin-top:var(--wp--preset--spacing--compact);margin-bottom:0"><!-- wp:list-item --><li><?php echo esc_html__( 'Up to five pages', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
+<!-- wp:list {"className":"is-style-origin-canvas-list-check-neutral","style":{"spacing":{"margin":{"top":"var:preset|spacing|compact","bottom":"0"}}},"textColor":"text-body","fontSize":"regular"} -->
+<ul class="wp-block-list is-style-origin-canvas-list-check-neutral has-text-body-color has-text-color has-regular-font-size" style="margin-top:var(--wp--preset--spacing--compact);margin-bottom:0"><!-- wp:list-item --><li><?php echo esc_html__( 'Up to five pages', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
 <!-- wp:list-item --><li><?php echo esc_html__( 'Logo refresh', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
 <!-- wp:list-item --><li><?php echo esc_html__( 'Two rounds of revisions', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
 <!-- wp:list-item --><li><?php echo esc_html__( 'Two-week delivery', 'origin-canvas' ); ?></li><!-- /wp:list-item --></ul>
@@ -99,8 +99,8 @@
 <p class="has-text-heading-color has-text-color has-small-font-size" style="margin-top:var(--wp--preset--spacing--large);margin-bottom:0;font-weight:600"><?php echo esc_html__( 'Everything in Starter, plus', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
-<!-- wp:list {"className":"is-style-origin-canvas-list-check origin-canvas-check-heading-color","style":{"spacing":{"margin":{"top":"var:preset|spacing|compact","bottom":"0"}}},"textColor":"text-body","fontSize":"regular"} -->
-<ul class="wp-block-list is-style-origin-canvas-list-check origin-canvas-check-heading-color has-text-body-color has-text-color has-regular-font-size" style="margin-top:var(--wp--preset--spacing--compact);margin-bottom:0"><!-- wp:list-item --><li><?php echo esc_html__( 'Up to twelve pages', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
+<!-- wp:list {"className":"is-style-origin-canvas-list-check-neutral","style":{"spacing":{"margin":{"top":"var:preset|spacing|compact","bottom":"0"}}},"textColor":"text-body","fontSize":"regular"} -->
+<ul class="wp-block-list is-style-origin-canvas-list-check-neutral has-text-body-color has-text-color has-regular-font-size" style="margin-top:var(--wp--preset--spacing--compact);margin-bottom:0"><!-- wp:list-item --><li><?php echo esc_html__( 'Up to twelve pages', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
 <!-- wp:list-item --><li><?php echo esc_html__( 'Full identity (mark, color, type)', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
 <!-- wp:list-item --><li><?php echo esc_html__( 'Photography direction', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
 <!-- wp:list-item --><li><?php echo esc_html__( 'Four-week delivery', 'origin-canvas' ); ?></li><!-- /wp:list-item --></ul>
@@ -134,8 +134,8 @@
 <p class="has-text-heading-color has-text-color has-small-font-size" style="margin-top:var(--wp--preset--spacing--large);margin-bottom:0;font-weight:600"><?php echo esc_html__( 'Each month', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
-<!-- wp:list {"className":"is-style-origin-canvas-list-check origin-canvas-check-heading-color","style":{"spacing":{"margin":{"top":"var:preset|spacing|compact","bottom":"0"}}},"textColor":"text-body","fontSize":"regular"} -->
-<ul class="wp-block-list is-style-origin-canvas-list-check origin-canvas-check-heading-color has-text-body-color has-text-color has-regular-font-size" style="margin-top:var(--wp--preset--spacing--compact);margin-bottom:0"><!-- wp:list-item --><li><?php echo esc_html__( 'Up to two days of work', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
+<!-- wp:list {"className":"is-style-origin-canvas-list-check-neutral","style":{"spacing":{"margin":{"top":"var:preset|spacing|compact","bottom":"0"}}},"textColor":"text-body","fontSize":"regular"} -->
+<ul class="wp-block-list is-style-origin-canvas-list-check-neutral has-text-body-color has-text-color has-regular-font-size" style="margin-top:var(--wp--preset--spacing--compact);margin-bottom:0"><!-- wp:list-item --><li><?php echo esc_html__( 'Up to two days of work', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
 <!-- wp:list-item --><li><?php echo esc_html__( 'A quarterly review call', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
 <!-- wp:list-item --><li><?php echo esc_html__( 'A reply within a business day', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
 <!-- wp:list-item --><li><?php echo esc_html__( 'Six-month minimum', 'origin-canvas' ); ?></li><!-- /wp:list-item --></ul>

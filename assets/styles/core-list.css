@@ -8,23 +8,23 @@
 	margin-block-end: 0;
 }
 
-/* Check */
-ul.wp-block-list.is-style-origin-canvas-list-check,
-ul.wp-block-list.is-style-origin-canvas-list-check ul {
+/* Check Primary and Check Neutral */
+ul.wp-block-list:is(.is-style-origin-canvas-list-check, .is-style-origin-canvas-list-check-neutral),
+ul.wp-block-list:is(.is-style-origin-canvas-list-check, .is-style-origin-canvas-list-check-neutral) ul {
 	list-style: none;
 	padding-inline-start: 0;
 }
 
-ul.wp-block-list.is-style-origin-canvas-list-check li {
+ul.wp-block-list:is(.is-style-origin-canvas-list-check, .is-style-origin-canvas-list-check-neutral) li {
 	padding-inline-start: 1.75em;
 	position: relative;
 }
 
-ul.wp-block-list.is-style-origin-canvas-list-check li + li {
+ul.wp-block-list:is(.is-style-origin-canvas-list-check, .is-style-origin-canvas-list-check-neutral) li + li {
 	margin-top: 8px;
 }
 
-ul.wp-block-list.is-style-origin-canvas-list-check li::before {
+ul.wp-block-list:is(.is-style-origin-canvas-list-check, .is-style-origin-canvas-list-check-neutral) li::before {
 	content: "";
 	background-color: var(--wp--custom--list--check-color);
 	display: inline-block;
@@ -43,23 +43,23 @@ ul.wp-block-list.is-style-origin-canvas-list-check li::before {
 	width: 1em;
 }
 
-/* Check Circle */
-ul.wp-block-list.is-style-origin-canvas-list-check-circle,
-ul.wp-block-list.is-style-origin-canvas-list-check-circle ul {
+/* Check Circle Primary and Check Circle Neutral */
+ul.wp-block-list:is(.is-style-origin-canvas-list-check-circle, .is-style-origin-canvas-list-check-circle-neutral),
+ul.wp-block-list:is(.is-style-origin-canvas-list-check-circle, .is-style-origin-canvas-list-check-circle-neutral) ul {
 	list-style: none;
 	padding-inline-start: 0;
 }
 
-ul.wp-block-list.is-style-origin-canvas-list-check-circle li {
+ul.wp-block-list:is(.is-style-origin-canvas-list-check-circle, .is-style-origin-canvas-list-check-circle-neutral) li {
 	padding-inline-start: 1.75em;
 	position: relative;
 }
 
-ul.wp-block-list.is-style-origin-canvas-list-check-circle li + li {
+ul.wp-block-list:is(.is-style-origin-canvas-list-check-circle, .is-style-origin-canvas-list-check-circle-neutral) li + li {
 	margin-top: 8px;
 }
 
-ul.wp-block-list.is-style-origin-canvas-list-check-circle li::before {
+ul.wp-block-list:is(.is-style-origin-canvas-list-check-circle, .is-style-origin-canvas-list-check-circle-neutral) li::before {
 	content: "";
 	background-color: var(--wp--custom--list--check-color);
 	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M7.5 12.5l3 3 6-6' stroke='%23fff' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
@@ -74,4 +74,11 @@ ul.wp-block-list.is-style-origin-canvas-list-check-circle li::before {
 	top: 0.5lh;
 	transform: translateY(-50%);
 	width: 1em;
+}
+
+/* The Neutral styles draw the same marks with text-heading ticks. The tick is a
+   pseudo-element that no color control reaches, so the style sets the variable both
+   shapes read (settings.custom.list.checkColor in theme.json, primary by default). */
+ul.wp-block-list:is(.is-style-origin-canvas-list-check-neutral, .is-style-origin-canvas-list-check-circle-neutral) {
+	--wp--custom--list--check-color: var(--wp--preset--color--text-heading);
 }

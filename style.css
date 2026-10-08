@@ -502,15 +502,6 @@ html {
 	text-wrap: balance;
 }
 
-/* Check marks in the text-heading color in place of primary. The Check and Check
-   Circle styles keep primary ticks for users; our pricing tiers and features-checklist
-   carry this class for ink ticks (bin/check-primary-text.sh holds the list). The mark is a
-   pseudo-element that no color control reaches, so the class sets the color the
-   two list styles read (settings.custom.list.checkColor in theme.json). */
-.origin-canvas-check-heading-color {
-	--wp--custom--list--check-color: var(--wp--preset--color--text-heading);
-}
-
 /* ==========================================================================
    Pattern CSS
 

@@ -43,16 +43,16 @@
 <!-- wp:group {"style":{"spacing":{"margin":{"top":"var:preset|spacing|large"}}},"layout":{"type":"constrained","contentSize":"560px"}} -->
 <div class="wp-block-group" style="margin-top:var(--wp--preset--spacing--large)"><!-- wp:columns {"style":{"spacing":{"blockGap":{"top":"var:preset|spacing|small","left":"var:preset|spacing|large"}}}} -->
 <div class="wp-block-columns"><!-- wp:column -->
-<div class="wp-block-column"><!-- wp:list {"className":"is-style-origin-canvas-list-check origin-canvas-check-heading-color","style":{"spacing":{"blockGap":"var:preset|spacing|small","margin":{"top":"0","bottom":"0"}}},"fontSize":"small"} -->
-<ul class="wp-block-list is-style-origin-canvas-list-check origin-canvas-check-heading-color has-small-font-size" style="margin-top:0;margin-bottom:0"><!-- wp:list-item --><li><?php echo esc_html__( 'Five pages, one clear story', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
+<div class="wp-block-column"><!-- wp:list {"className":"is-style-origin-canvas-list-check-neutral","style":{"spacing":{"blockGap":"var:preset|spacing|small","margin":{"top":"0","bottom":"0"}}},"fontSize":"small"} -->
+<ul class="wp-block-list is-style-origin-canvas-list-check-neutral has-small-font-size" style="margin-top:0;margin-bottom:0"><!-- wp:list-item --><li><?php echo esc_html__( 'Five pages, one clear story', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
 <!-- wp:list-item --><li><?php echo esc_html__( 'Works with your existing brand', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
 <!-- wp:list-item --><li><?php echo esc_html__( 'Copy polish on every page', 'origin-canvas' ); ?></li><!-- /wp:list-item --></ul>
 <!-- /wp:list --></div>
 <!-- /wp:column -->
 
 <!-- wp:column -->
-<div class="wp-block-column"><!-- wp:list {"className":"is-style-origin-canvas-list-check origin-canvas-check-heading-color","style":{"spacing":{"blockGap":"var:preset|spacing|small","margin":{"top":"0","bottom":"0"}}},"fontSize":"small"} -->
-<ul class="wp-block-list is-style-origin-canvas-list-check origin-canvas-check-heading-color has-small-font-size" style="margin-top:0;margin-bottom:0"><!-- wp:list-item --><li><?php echo esc_html__( 'One round of revisions', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
+<div class="wp-block-column"><!-- wp:list {"className":"is-style-origin-canvas-list-check-neutral","style":{"spacing":{"blockGap":"var:preset|spacing|small","margin":{"top":"0","bottom":"0"}}},"fontSize":"small"} -->
+<ul class="wp-block-list is-style-origin-canvas-list-check-neutral has-small-font-size" style="margin-top:0;margin-bottom:0"><!-- wp:list-item --><li><?php echo esc_html__( 'One round of revisions', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
 <!-- wp:list-item --><li><?php echo esc_html__( 'Hand-written launch checklist', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
 <!-- wp:list-item --><li><?php echo esc_html__( 'Launch-day support on call', 'origin-canvas' ); ?></li><!-- /wp:list-item --></ul>
 <!-- /wp:list --></div>

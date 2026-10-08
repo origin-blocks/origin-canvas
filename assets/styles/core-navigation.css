@@ -256,7 +256,7 @@
 	position: relative;
 }
 
-/* Shared by default Navigation, Hover Accent, and Hover Pill variants. */
+/* Shared by default Navigation, Hover Primary, and Hover Pill variants. */
 :is(.wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container .wp-block-navigation__submenu-container {
 	left: 100%;
 	margin-left: var(--origin-canvas-navigation-nested-submenu-offset);

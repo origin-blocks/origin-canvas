@@ -37,8 +37,8 @@
 <p class="has-text-body-color has-text-color has-regular-font-size"><?php echo esc_html__( 'A focused site for a small business that knows what it wants to say.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
-<!-- wp:list {"className":"is-style-origin-canvas-list-check origin-canvas-check-heading-color","style":{"spacing":{"blockGap":"var:preset|spacing|small","margin":{"top":"var:preset|spacing|large"}}},"fontSize":"small"} -->
-<ul class="wp-block-list is-style-origin-canvas-list-check origin-canvas-check-heading-color has-small-font-size" style="margin-top:var(--wp--preset--spacing--large)"><!-- wp:list-item --><li><?php echo esc_html__( 'Up to five pages', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
+<!-- wp:list {"className":"is-style-origin-canvas-list-check-neutral","style":{"spacing":{"blockGap":"var:preset|spacing|small","margin":{"top":"var:preset|spacing|large"}}},"fontSize":"small"} -->
+<ul class="wp-block-list is-style-origin-canvas-list-check-neutral has-small-font-size" style="margin-top:var(--wp--preset--spacing--large)"><!-- wp:list-item --><li><?php echo esc_html__( 'Up to five pages', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
 <!-- wp:list-item --><li><?php echo esc_html__( 'Logo refresh', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
 <!-- wp:list-item --><li><?php echo esc_html__( 'Two rounds of revisions', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
 <!-- wp:list-item --><li><?php echo esc_html__( 'Two-week delivery', 'origin-canvas' ); ?></li><!-- /wp:list-item --></ul>
@@ -66,8 +66,8 @@
 <p class="has-text-body-color has-text-color has-regular-font-size"><?php echo esc_html__( 'Our standard engagement: brand work, site, and a hand-written launch checklist.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
-<!-- wp:list {"className":"is-style-origin-canvas-list-check origin-canvas-check-heading-color","style":{"spacing":{"blockGap":"var:preset|spacing|small","margin":{"top":"var:preset|spacing|large"}}},"fontSize":"small"} -->
-<ul class="wp-block-list is-style-origin-canvas-list-check origin-canvas-check-heading-color has-small-font-size" style="margin-top:var(--wp--preset--spacing--large)"><!-- wp:list-item --><li><?php echo esc_html__( 'Up to twelve pages', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
+<!-- wp:list {"className":"is-style-origin-canvas-list-check-neutral","style":{"spacing":{"blockGap":"var:preset|spacing|small","margin":{"top":"var:preset|spacing|large"}}},"fontSize":"small"} -->
+<ul class="wp-block-list is-style-origin-canvas-list-check-neutral has-small-font-size" style="margin-top:var(--wp--preset--spacing--large)"><!-- wp:list-item --><li><?php echo esc_html__( 'Up to twelve pages', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
 <!-- wp:list-item --><li><?php echo esc_html__( 'Full identity (mark, color, type)', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
 <!-- wp:list-item --><li><?php echo esc_html__( 'Photography direction', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
 <!-- wp:list-item --><li><?php echo esc_html__( 'Four-week delivery', 'origin-canvas' ); ?></li><!-- /wp:list-item --></ul>
@@ -95,8 +95,8 @@
 <p class="has-text-body-color has-text-color has-regular-font-size"><?php echo esc_html__( 'For clients who treat their site like a living thing, not a one-time project.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
-<!-- wp:list {"className":"is-style-origin-canvas-list-check origin-canvas-check-heading-color","style":{"spacing":{"blockGap":"var:preset|spacing|small","margin":{"top":"var:preset|spacing|large"}}},"fontSize":"small"} -->
-<ul class="wp-block-list is-style-origin-canvas-list-check origin-canvas-check-heading-color has-small-font-size" style="margin-top:var(--wp--preset--spacing--large)"><!-- wp:list-item --><li><?php echo esc_html__( 'Up to two days of work a month', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
+<!-- wp:list {"className":"is-style-origin-canvas-list-check-neutral","style":{"spacing":{"blockGap":"var:preset|spacing|small","margin":{"top":"var:preset|spacing|large"}}},"fontSize":"small"} -->
+<ul class="wp-block-list is-style-origin-canvas-list-check-neutral has-small-font-size" style="margin-top:var(--wp--preset--spacing--large)"><!-- wp:list-item --><li><?php echo esc_html__( 'Up to two days of work a month', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
 <!-- wp:list-item --><li><?php echo esc_html__( 'Quarterly review calls', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
 <!-- wp:list-item --><li><?php echo esc_html__( 'Priority response', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
 <!-- wp:list-item --><li><?php echo esc_html__( 'Six-month minimum', 'origin-canvas' ); ?></li><!-- /wp:list-item --></ul>

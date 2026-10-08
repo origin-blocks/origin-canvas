@@ -17,9 +17,9 @@
 #   - the featured pricing tier's kicker and "Most chosen" label, listed below
 #   - the category above a single post's title, the one editorial accent, listed below
 #
-# Check marks are bullets and stay primary for users. Our pricing tiers and
-# features-checklist want ink ticks, so every Check or Check Circle list in INK_TICKS
-# must carry origin-canvas-check-heading-color.
+# Check marks are bullets: Check Primary and Check Circle Primary stay primary for
+# users. Our pricing tiers and features-checklist want ink ticks, so every check list
+# in INK_TICKS must use Check Neutral or Check Circle Neutral.
 #
 # Run from the theme root:  bash bin/check-primary-text.sh
 
@@ -72,9 +72,9 @@ for path in files:
         a = node['attrs']
         if (path in INK_TICKS and node['name'] == 'list'
                 and any(c.startswith('is-style-origin-canvas-list-check') for c in class_names(node))
-                and 'origin-canvas-check-heading-color' not in class_names(node)):
-            print('  \u2717  %s:%d check list needs origin-canvas-check-heading-color for '
-                  'ink ticks' % (path, node['line']))
+                and not any(c.endswith('-neutral') for c in class_names(node))):
+            print('  \u2717  %s:%d check list needs Check Neutral or Check Circle Neutral '
+                  'for ink ticks' % (path, node['line']))
             fail = True
         raw = a.get('style', {}).get('color', {}).get('text', '')
         if node['name'] == 'icon' or not (a.get('textColor') == 'primary' or 'primary' in raw):
