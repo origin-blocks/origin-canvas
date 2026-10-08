@@ -38,7 +38,12 @@
 				{
 					"slug": "input-border",
 					"color": "#D1D5DB",
-					"name": "Input Border"
+					"name": "Border Default"
+				},
+				{
+					"slug": "border-control",
+					"color": "#828B98",
+					"name": "Border Control"
 				},
 				{
 					"slug": "border-strong",

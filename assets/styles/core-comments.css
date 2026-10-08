@@ -156,7 +156,7 @@
 .wp-block-comments .wp-block-post-comments-form input[type="url"],
 .wp-block-comments .wp-block-post-comments-form textarea {
 	background: var(--wp--preset--color--surface-base);
-	border: 1px solid var(--wp--preset--color--input-border);
+	border: 1px solid var(--wp--preset--color--border-control);
 	border-radius: var(--wp--custom--radius--medium);
 	min-height: 44px;
 	padding: var(--wp--preset--spacing--compact) var(--wp--preset--spacing--medium);
@@ -192,7 +192,7 @@
 	appearance: none;
 	-webkit-appearance: none;
 	background: var(--wp--preset--color--surface-base);
-	border: 1px solid var(--wp--preset--color--input-border);
+	border: 1px solid var(--wp--preset--color--border-control);
 	border-radius: var(--wp--custom--radius--small);
 	cursor: pointer;
 	flex: 0 0 auto;
