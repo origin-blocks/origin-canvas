@@ -526,7 +526,7 @@ html {
 
 .origin-canvas-wash-tile {
 	background-color: var(--wp--preset--color--surface-base);
-	border-radius: var(--wp--custom--radius--large);
+	border-radius: var(--wp--custom--radius--medium);
 	/* !important so the editor-placeholder-suppressing inline min-height:240px
 	   (on the block, see pattern) does not flatten the responsive clamp on the
 	   front end. Inline styles beat plain stylesheet rules; !important wins back. */
