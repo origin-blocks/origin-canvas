@@ -23,7 +23,7 @@
 <h2 class="wp-block-heading has-text-align-center has-display-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--huge)"><?php echo esc_html__( 'Who we&#8217;ve worked with', 'origin-canvas' ); ?></h2>
 <!-- /wp:heading -->
 
-<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|medium"}},"layout":{"type":"grid","columnCount":3,"minimumColumnWidth":"6rem"}} -->
+<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|medium"}},"layout":{"type":"grid","columnCount":3,"minimumColumnWidth":"8rem"}} -->
 <div class="wp-block-group"><!-- wp:group {"backgroundColor":"surface-muted","style":{"border":{"radius":"var:custom|radius|medium"},"spacing":{"padding":{"top":"var:preset|spacing|extra-large","bottom":"var:preset|spacing|extra-large","left":"var:preset|spacing|compact","right":"var:preset|spacing|compact"}}},"layout":{"type":"flex","justifyContent":"center","verticalAlignment":"center"}} -->
 <div class="wp-block-group has-surface-muted-background-color has-background" style="border-radius:var(--wp--custom--radius--medium);padding-top:var(--wp--preset--spacing--extra-large);padding-right:var(--wp--preset--spacing--compact);padding-bottom:var(--wp--preset--spacing--extra-large);padding-left:var(--wp--preset--spacing--compact)"><!-- wp:image {"width":"178px","sizeSlug":"full","linkDestination":"none","style":{"color":{"duotone":"var:preset|duotone|logo-gray"}}} -->
 <figure class="wp-block-image size-full is-resized"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/logo-westmount.png" alt="<?php esc_attr_e( 'Westmount Realty', 'origin-canvas' ); ?>" style="width:178px"/></figure>
