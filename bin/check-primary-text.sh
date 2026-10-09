@@ -171,7 +171,7 @@ def check(path, key=None):
 
 # Each fixture is one invalid case and must fail on its own. A (key, markup) fixture is
 # read as that theme file. The home, pricing, landing, hero, features, card and stats,
-# testimonial and CTA, and blog sets must pass.
+# testimonial and CTA, text and contact, and blog sets must pass.
 FIXTURES = {
     'role-link': '<!-- wp:paragraph {"className":"origin-canvas-eyebrow","style":{"elements":'
                  '{"link":{"color":{"text":"var:preset|color|primary"}}}},"textColor":"primary"} -->\n'
@@ -232,6 +232,11 @@ TESTIMONIALS_CTAS = ['patterns/%s.php' % s for s in ('testimonial-grid', 'testim
                      'testimonial-single', 'testimonial-with-image', 'card-testimonial',
                      'cta-banner', 'cta-buttons', 'cta-card', 'cta-inline', 'cta-newsletter',
                      'cta-closing')]
+TEXT_CONTACT = ['patterns/%s.php' % s for s in ('availability-marker', 'divider-with-text',
+                'job-openings', 'lead-statement', 'text-image-side', 'text-large-statement',
+                'text-two-column', 'contact-details', 'contact-split', 'logos-grid', 'logos-row',
+                'team-grid', 'team-list', 'card-team-member', 'faq-simple', 'gallery-grid',
+                'gallery-image-text')]
 # Every template, part and pattern the blog index, single post, archive and search render.
 BLOG = (['templates/%s.html' % s for s in ('index', 'single', 'single-right-sidebar', 'archive',
          'search')]
@@ -271,6 +276,8 @@ def self_test():
                          ('the six features patterns', FEATURES),
                          ('the six card and stats patterns', CARDS_STATS),
                          ('the eleven testimonial and CTA patterns', TESTIMONIALS_CTAS),
+                         ('the seventeen text, contact, logo, team, FAQ and gallery patterns',
+                          TEXT_CONTACT),
                          ('the %d blog templates, parts and patterns' % len(BLOG), BLOG)):
         fail.clear()
         out = io.StringIO()

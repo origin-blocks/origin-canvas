@@ -36,14 +36,14 @@
 <!-- /wp:column -->
 
 <!-- wp:column {"verticalAlignment":"center","width":"40%"} -->
-<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:40%"><!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-body","fontSize":"small"} -->
-<p class="has-text-body-color has-text-color has-small-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Portland &middot; Full time', 'origin-canvas' ); ?></p>
+<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:40%"><!-- wp:paragraph {"style":{"typography":{"fontWeight":"500"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-body","fontSize":"small"} -->
+<p class="has-text-body-color has-text-color has-small-font-size" style="margin-top:0;margin-bottom:0;font-weight:500"><?php echo esc_html__( 'Portland &middot; Full time', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column -->
 
 <!-- wp:column {"verticalAlignment":"center","width":"20%"} -->
-<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:20%"><!-- wp:paragraph {"align":"right","className":"origin-canvas-links-plain","style":{"elements":{"link":{"color":{"text":"var:preset|color|text-muted"},":hover":{"color":{"text":"var:preset|color|primary"}}}},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-muted","fontSize":"small"} -->
-<p class="origin-canvas-links-plain has-text-align-right has-text-muted-color has-text-color has-link-color has-small-font-size" style="margin-top:0;margin-bottom:0"><a href="#"><span aria-hidden="true"><?php echo esc_html__( 'Apply', 'origin-canvas' ); ?></span><span class="screen-reader-text"><?php
+<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:20%"><!-- wp:paragraph {"align":"right","className":"origin-canvas-links-plain","style":{"typography":{"fontWeight":"600"},"elements":{"link":{"color":{"text":"var:preset|color|text-heading"},":hover":{"color":{"text":"var:preset|color|primary"}}}},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-heading","fontSize":"small"} -->
+<p class="origin-canvas-links-plain has-text-align-right has-text-heading-color has-text-color has-link-color has-small-font-size" style="margin-top:0;margin-bottom:0;font-weight:600"><a href="#"><span aria-hidden="true"><?php echo esc_html__( 'Apply', 'origin-canvas' ); ?></span><span class="screen-reader-text"><?php
 printf(
 	/* translators: %s: the name of the job role, as shown in the row. */
 	esc_html__( 'Apply for the %s role', 'origin-canvas' ),
@@ -62,14 +62,14 @@ printf(
 <!-- /wp:column -->
 
 <!-- wp:column {"verticalAlignment":"center","width":"40%"} -->
-<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:40%"><!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-body","fontSize":"small"} -->
-<p class="has-text-body-color has-text-color has-small-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Seattle &middot; Full time', 'origin-canvas' ); ?></p>
+<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:40%"><!-- wp:paragraph {"style":{"typography":{"fontWeight":"500"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-body","fontSize":"small"} -->
+<p class="has-text-body-color has-text-color has-small-font-size" style="margin-top:0;margin-bottom:0;font-weight:500"><?php echo esc_html__( 'Seattle &middot; Full time', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column -->
 
 <!-- wp:column {"verticalAlignment":"center","width":"20%"} -->
-<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:20%"><!-- wp:paragraph {"align":"right","className":"origin-canvas-links-plain","style":{"elements":{"link":{"color":{"text":"var:preset|color|text-muted"},":hover":{"color":{"text":"var:preset|color|primary"}}}},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-muted","fontSize":"small"} -->
-<p class="origin-canvas-links-plain has-text-align-right has-text-muted-color has-text-color has-link-color has-small-font-size" style="margin-top:0;margin-bottom:0"><a href="#"><span aria-hidden="true"><?php echo esc_html__( 'Apply', 'origin-canvas' ); ?></span><span class="screen-reader-text"><?php
+<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:20%"><!-- wp:paragraph {"align":"right","className":"origin-canvas-links-plain","style":{"typography":{"fontWeight":"600"},"elements":{"link":{"color":{"text":"var:preset|color|text-heading"},":hover":{"color":{"text":"var:preset|color|primary"}}}},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-heading","fontSize":"small"} -->
+<p class="origin-canvas-links-plain has-text-align-right has-text-heading-color has-text-color has-link-color has-small-font-size" style="margin-top:0;margin-bottom:0;font-weight:600"><a href="#"><span aria-hidden="true"><?php echo esc_html__( 'Apply', 'origin-canvas' ); ?></span><span class="screen-reader-text"><?php
 printf(
 	/* translators: %s: the name of the job role, as shown in the row. */
 	esc_html__( 'Apply for the %s role', 'origin-canvas' ),
@@ -88,14 +88,14 @@ printf(
 <!-- /wp:column -->
 
 <!-- wp:column {"verticalAlignment":"center","width":"40%"} -->
-<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:40%"><!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-body","fontSize":"small"} -->
-<p class="has-text-body-color has-text-color has-small-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Remote &middot; Part time', 'origin-canvas' ); ?></p>
+<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:40%"><!-- wp:paragraph {"style":{"typography":{"fontWeight":"500"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-body","fontSize":"small"} -->
+<p class="has-text-body-color has-text-color has-small-font-size" style="margin-top:0;margin-bottom:0;font-weight:500"><?php echo esc_html__( 'Remote &middot; Part time', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column -->
 
 <!-- wp:column {"verticalAlignment":"center","width":"20%"} -->
-<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:20%"><!-- wp:paragraph {"align":"right","className":"origin-canvas-links-plain","style":{"elements":{"link":{"color":{"text":"var:preset|color|text-muted"},":hover":{"color":{"text":"var:preset|color|primary"}}}},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-muted","fontSize":"small"} -->
-<p class="origin-canvas-links-plain has-text-align-right has-text-muted-color has-text-color has-link-color has-small-font-size" style="margin-top:0;margin-bottom:0"><a href="#"><span aria-hidden="true"><?php echo esc_html__( 'Apply', 'origin-canvas' ); ?></span><span class="screen-reader-text"><?php
+<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:20%"><!-- wp:paragraph {"align":"right","className":"origin-canvas-links-plain","style":{"typography":{"fontWeight":"600"},"elements":{"link":{"color":{"text":"var:preset|color|text-heading"},":hover":{"color":{"text":"var:preset|color|primary"}}}},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-heading","fontSize":"small"} -->
+<p class="origin-canvas-links-plain has-text-align-right has-text-heading-color has-text-color has-link-color has-small-font-size" style="margin-top:0;margin-bottom:0;font-weight:600"><a href="#"><span aria-hidden="true"><?php echo esc_html__( 'Apply', 'origin-canvas' ); ?></span><span class="screen-reader-text"><?php
 printf(
 	/* translators: %s: the name of the job role, as shown in the row. */
 	esc_html__( 'Apply for the %s role', 'origin-canvas' ),
