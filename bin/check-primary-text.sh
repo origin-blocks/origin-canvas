@@ -142,7 +142,8 @@ def check(path):
         bad(path, line, '<%s> is primary text without a role class' % tag)
 
 
-# Each fixture is one invalid case and must fail on its own. The home page patterns must pass.
+# Each fixture is one invalid case and must fail on its own. The home and pricing page
+# patterns must pass.
 FIXTURES = {
     'role-link': '<!-- wp:paragraph {"className":"origin-canvas-eyebrow","style":{"elements":'
                  '{"link":{"color":{"text":"var:preset|color|primary"}}}},"textColor":"primary"} -->\n'
@@ -166,6 +167,9 @@ FIXTURES = {
 }
 HOME = ['patterns/%s.php' % s for s in ('hero-cover', 'breath-statement', 'work-index',
         'stat-band', 'process-numbered', 'feature-split', 'cta-band')]
+PRICING = ['patterns/%s.php' % s for s in ('pricing-hero', 'features-checklist', 'process-cards',
+           'testimonial-highlight-dark', 'faq-two-column', 'cta-with-image', 'pricing-single',
+           'pricing-simple', 'card-pricing')]
 
 
 def self_test():
@@ -180,15 +184,17 @@ def self_test():
                 check(path)
             print('  %s  %s fails' % ('✓' if fail else '✗', case))
             ok = ok and bool(fail)
-    fail.clear()
-    out = io.StringIO()
-    with contextlib.redirect_stdout(out):
-        for path in HOME:
-            check(path)
-    print('  %s  the seven home patterns pass' % ('✗' if fail else '✓'))
-    if fail:
-        print(out.getvalue(), end='')
-    return ok and not fail
+    for label, paths in (('the seven home patterns', HOME), ('the nine pricing patterns', PRICING)):
+        fail.clear()
+        out = io.StringIO()
+        with contextlib.redirect_stdout(out):
+            for path in paths:
+                check(path)
+        print('  %s  %s pass' % ('✗' if fail else '✓', label))
+        if fail:
+            print(out.getvalue(), end='')
+        ok = ok and not fail
+    return ok
 
 
 if sys.argv[1:] == ['--self-test']:
