@@ -2,9 +2,10 @@
 #
 # Primary colors three roles at rest: eyebrows, stat figures and step numbers (the
 # ordinal role), on light and dark grounds. A list index, such as the work-index row
-# numbers, is not a step number: it stays text-muted with no role class. The 60px
-# features-numbered step numerals stay pale gray (input-border) with no role class
-# (owner ruling, Oct 9). Reading text (body, headings,
+# numbers, is not a step number: it stays text-muted with no role class. A step number
+# at the display preset or larger (display, display-xl, display-2xl) is pale input-border
+# in place of primary; it keeps the ordinal class. The preset decides, never the rendered
+# size (owner ruling, Oct 9; ODS RULES.md). Reading text (body, headings,
 # UI) and links keep their text roles (owner ruling, Oct 8; ODS RULES.md, "Primary:
 # marks, accents and ambient"). Prices are not stat figures; they stay heading ink.
 # Lesson: docs/solutions/styling/primary-never-colors-resting-text.md
@@ -13,7 +14,8 @@
 #   origin-canvas-eyebrow   origin-canvas-figure   origin-canvas-ordinal
 #
 # Fails on:
-#   - a block or tag with a role class whose text is not primary
+#   - a block or tag with a role class whose text is not primary, except a display-size
+#     step number, which must be input-border (and never primary)
 #   - primary text without a role class, set as textColor, style.color.text, a
 #     has-primary-color class or an inline color on a block, or on an a, p, h1-h6, span
 #     or mark tag, unless it is a state indicator listed below
@@ -44,6 +46,9 @@ sys.path.insert(0, 'bin/lib')
 from block_tree import parse, walk, class_names
 
 ROLES = ('origin-canvas-eyebrow', 'origin-canvas-figure', 'origin-canvas-ordinal')
+# A step number at one of these presets is input-border, not primary.
+DISPLAY = ('display', 'display-xl', 'display-2xl')
+PALE = 'input-border'
 # (file, label): the featured tier's state label. It marks the tier, with its frame and
 # button, so it is an indicator, not resting text. Tier names are headings in heading ink.
 ALLOW = {
@@ -64,6 +69,8 @@ ALLOW_BLOCKS = {
 TAG = re.compile(r'<(a|p|h[1-6]|span|mark)\b([^>]*)>', re.S)
 CLASS = re.compile(r'\bclass="([^"]*)"')
 PRIMARY_ATTR = re.compile(r'has-primary-color|(?<![\w-])color:\s*var\(--wp--preset--color--primary\)')
+DISPLAY_CLASS = re.compile(r'\bhas-(%s)-font-size\b' % '|'.join(DISPLAY))
+PALE_ATTR = re.compile(r'has-%s-color|(?<![\w-])color:\s*var\(--wp--preset--color--%s\)' % (PALE, PALE))
 ARROW = re.compile(r'<span\b([^>]*)>\s*(?:&rarr;|→)\s*</span>')
 LABEL = re.compile(r"esc_html__\(\s*'([^']*)'")
 
@@ -109,6 +116,12 @@ def check(path, key=None):
                 'their text roles' % name)
         if role:
             roles[0] += 1
+            if role[0] == 'origin-canvas-ordinal' and a.get('fontSize') in DISPLAY:
+                pale = a.get('textColor') == PALE or PALE in (style.get('color', {}).get('text') or '')
+                if not pale:
+                    bad(path, node['line'], 'wp:%s is a step number at the %s preset; it must be '
+                        '%s, not primary' % (name, a['fontSize'], PALE))
+                continue
             if not primary:
                 bad(path, node['line'], 'wp:%s has %s but is not primary' % (name, role[0]))
             continue
@@ -131,6 +144,10 @@ def check(path, key=None):
         # A link is never primary at rest, role class or not.
         if tag == 'a' and PRIMARY_ATTR.search(attrs):
             bad(path, line, '<a> is a primary link at rest; links keep their text roles')
+            continue
+        if 'origin-canvas-ordinal' in tag_cls and DISPLAY_CLASS.search(attrs):
+            if not PALE_ATTR.search(attrs) or PRIMARY_ATTR.search(attrs):
+                bad(path, line, '<%s> is a display-size step number; it must be %s' % (tag, PALE))
             continue
         if any(r in tag_cls for r in ROLES):
             if not PRIMARY_ATTR.search(attrs):
@@ -159,6 +176,12 @@ FIXTURES = {
     'ordinal-muted': '<!-- wp:paragraph {"className":"origin-canvas-ordinal","textColor":"text-muted"} -->\n'
                      '<p class="origin-canvas-ordinal has-text-muted-color has-text-color">01</p>\n'
                      '<!-- /wp:paragraph -->\n',
+    'ordinal-display-primary': '<!-- wp:paragraph {"className":"origin-canvas-ordinal","textColor":"primary",'
+                               '"fontSize":"display-xl"} -->\n<p class="origin-canvas-ordinal has-primary-color '
+                               'has-text-color has-display-xl-font-size">01</p>\n<!-- /wp:paragraph -->\n',
+    'ordinal-small-pale': '<!-- wp:paragraph {"className":"origin-canvas-ordinal","textColor":"input-border",'
+                          '"fontSize":"extra-small"} -->\n<p class="origin-canvas-ordinal has-input-border-color '
+                          'has-text-color has-extra-small-font-size">01</p>\n<!-- /wp:paragraph -->\n',
     'a-class': '<!-- wp:paragraph -->\n<p><a class="has-primary-color" href="#">Work</a></p>\n'
                '<!-- /wp:paragraph -->\n',
     'a-inline': '<!-- wp:paragraph -->\n<p><a href="#" style="color:var(--wp--preset--color--primary)">'
@@ -238,5 +261,5 @@ if fail:
     sys.exit(1)
 print('Primary text:')
 print('  ✓  %d role-marked eyebrows, figures and step numbers are primary; no other '
-      'primary resting text' % roles[0])
+      'primary resting text; display-size step numbers are %s' % (roles[0], PALE))
 PY
