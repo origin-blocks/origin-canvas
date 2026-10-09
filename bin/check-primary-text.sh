@@ -20,7 +20,7 @@
 #
 # Allowed without a role class:
 #   - wp:icon (an icon is a mark), hover and focus colors, and primary fills (dots)
-#   - the featured pricing tier's kicker and "Most chosen" label (ALLOW)
+#   - the featured pricing tier's "Most chosen" label (ALLOW)
 #   - the category above a single post's title (ALLOW_BLOCKS)
 #   - the current nav item, primary through .current-menu-item in core-navigation.css,
 #     a state this check does not read; a wp:navigation block is checked like any other
@@ -41,12 +41,9 @@ sys.path.insert(0, 'bin/lib')
 from block_tree import parse, walk, class_names
 
 ROLES = ('origin-canvas-eyebrow', 'origin-canvas-figure', 'origin-canvas-ordinal')
-# (file, label): the featured tier's state labels. They mark the tier, with its top
-# frame and button, so they are indicators, not resting text.
+# (file, label): the featured tier's state label. It marks the tier, with its frame and
+# button, so it is an indicator, not resting text. Tier names are headings in heading ink.
 ALLOW = {
-    ('patterns/card-pricing.php', 'Studio'),
-    ('patterns/pricing-simple.php', 'Studio'),
-    ('patterns/pricing-single.php', 'The Site Sprint'),
     ('patterns/pricing-hero.php', 'Most chosen'),
 }
 INK_TICKS = {
