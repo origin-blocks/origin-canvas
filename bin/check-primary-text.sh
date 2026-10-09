@@ -5,7 +5,6 @@
 # numbers, is not a step number: it stays text-muted with no role class. Reading text (body, headings,
 # UI) and links keep their text roles (owner ruling, Oct 8; ODS RULES.md, "Primary:
 # marks, accents and ambient"). Prices are not stat figures; they stay heading ink.
-# Lesson: docs/solutions/styling/primary-never-colors-resting-text.md
 #
 # Each role is marked in markup with a block class, so this check reads color by role:
 #   origin-canvas-eyebrow   origin-canvas-figure   origin-canvas-ordinal

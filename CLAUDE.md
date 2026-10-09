@@ -5,10 +5,15 @@ patterns live in `patterns/*.php`; each is a PHP file whose doc-block header reg
 and whose body is block markup. This file's rules are BINDING — read them before creating,
 renaming, or recategorizing any pattern.
 
-## Lessons live in `docs/solutions/`
-Before planning or building, grep `docs/solutions/` for the area you will touch. After each
-merged branch, compound: write what the work taught as a lesson there. Process and format:
-`docs/solutions/README.md`.
+## Where rules and notes live
+- Design rules live in ODS: `~/Sites/origin-design-system/RULES.md`.
+- Mechanical rules are enforced by `bin/check-*.sh`.
+- Private engineering notes and history live in
+  `/Users/misplon/Sites/origin-blocks/wp-content/themes/origin-canvas/docs/design.md`. It is
+  gitignored, so worktree agents must read it from the main checkout. Record new traps there,
+  never in a committed file.
+- Never commit design notes or lessons to the repo.
+- Report verification honestly: name the method of each check, and list any check not done.
 
 ## A handoff is checked against these rules before any of it is built
 A design handoff states intent; this file states what the theme allows. Before a handoff line
@@ -291,8 +296,6 @@ Every value in a new or changed pattern has a source. Take it from the first tha
   none, leave the shipped copy and list the gap for design.
 - The owner's rulings win over the board (rule 10 buttons, "business days").
 
-Lesson: `docs/solutions/patterns/copy-dont-invent.md`.
-
 ### 10. Secondary buttons follow the surface
 A secondary (outline) button takes its style from the fill of the section or card it sits
 on (owner ruling, Oct 5):
@@ -306,8 +309,7 @@ on (owner ruling, Oct 5):
 Outline carries the `border-strong` border (#6B7280), which holds on white and on a tint. Outline Strong is
 retired: it is out of the Styles picker, and `assets/styles/core-button.css` keeps saved
 buttons with its class looking the same. No pattern uses it. The surface is the nearest
-block that sets a fill. `bin/check-button-surfaces.sh` enforces the table. Lesson:
-`docs/solutions/styling/outline-button-on-every-light-surface.md`.
+block that sets a fill. `bin/check-button-surfaces.sh` enforces the table.
 
 ## Writing
 Every user-visible string follows the house writing guide in the private repo `Misplon/writing`

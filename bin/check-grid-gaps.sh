@@ -9,8 +9,6 @@
 # one column. The gap itself still renders, which hides the cause. The check covers the
 # per-viewport gaps (style["@mobile"], style["@tablet"]) too.
 #
-# Lesson: docs/solutions/styling/grid-column-count-needs-one-gap.md
-#
 # Run from the theme root:  bash bin/check-grid-gaps.sh
 
 set -euo pipefail
