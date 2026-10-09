@@ -2,7 +2,9 @@
 #
 # Primary colors three roles at rest: eyebrows, stat figures and step numbers (the
 # ordinal role), on light and dark grounds. A list index, such as the work-index row
-# numbers, is not a step number: it stays text-muted with no role class. Reading text (body, headings,
+# numbers, is not a step number: it stays text-muted with no role class. The 60px
+# features-numbered step numerals stay pale gray (input-border) with no role class
+# (owner ruling, Oct 9). Reading text (body, headings,
 # UI) and links keep their text roles (owner ruling, Oct 8; ODS RULES.md, "Primary:
 # marks, accents and ambient"). Prices are not stat figures; they stay heading ink.
 # Lesson: docs/solutions/styling/primary-never-colors-resting-text.md
