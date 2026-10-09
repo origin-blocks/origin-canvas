@@ -30,12 +30,12 @@
 <!-- /wp:image -->
 
 <!-- wp:group {"style":{"spacing":{"blockGap":"0"}},"layout":{"type":"constrained"}} -->
-<div class="wp-block-group"><!-- wp:paragraph {"style":{"typography":{"fontWeight":"600","letterSpacing":"var(--wp--custom--letter-spacing--base)"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"fontSize":"regular"} -->
-<p class="has-regular-font-size" style="margin-top:0;margin-bottom:0;font-weight:600;letter-spacing:var(--wp--custom--letter-spacing--base)"><?php echo esc_html__( 'Michael Hughes', 'origin-canvas' ); ?></p>
+<div class="wp-block-group"><!-- wp:paragraph {"style":{"typography":{"fontWeight":"600"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"fontSize":"regular"} -->
+<p class="has-regular-font-size" style="margin-top:0;margin-bottom:0;font-weight:600"><?php echo esc_html__( 'Michael Hughes', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
-<!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"fontSize":"small"} -->
-<p class="has-small-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Broker, Westmount Realty', 'origin-canvas' ); ?></p>
+<!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}},"typography":{"fontWeight":"500"}},"fontSize":"small"} -->
+<p class="has-small-font-size" style="margin-top:0;margin-bottom:0;font-weight:500"><?php echo esc_html__( 'Broker, Westmount Realty', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group --></div>
 <!-- /wp:group --></div>
