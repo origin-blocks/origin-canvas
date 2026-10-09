@@ -2,6 +2,7 @@
 /dist/
 /docs/plans/
 /docs/design.md
+/docs/design-archive.md
 /origin-blocks.json
 /tasks/runs/
 /node_modules/
