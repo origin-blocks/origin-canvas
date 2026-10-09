@@ -69,7 +69,16 @@ ALLOW_BLOCKS = {
 TAG = re.compile(r'<(a|p|h[1-6]|span|mark)\b([^>]*)>', re.S)
 CLASS = re.compile(r'\bclass="([^"]*)"')
 PRIMARY_ATTR = re.compile(r'has-primary-color|(?<![\w-])color:\s*var\(--wp--preset--color--primary\)')
-DISPLAY_CLASS = re.compile(r'\bhas-(%s)-font-size\b' % '|'.join(DISPLAY))
+
+
+def kebab(slug):
+    # WordPress's _wp_to_kebab_case: a hyphen between letters and digits, so the
+    # display-2xl preset renders the class has-display-2-xl-font-size.
+    return re.sub(r'(?<=[a-z])(?=\d)|(?<=\d)(?=[a-z])', '-', slug or '')
+
+
+DISPLAY_KEBAB = {kebab(s) for s in DISPLAY}
+DISPLAY_CLASS = re.compile(r'\bhas-(%s)-font-size\b' % '|'.join(sorted(DISPLAY_KEBAB)))
 PALE_ATTR = re.compile(r'has-%s-color|(?<![\w-])color:\s*var\(--wp--preset--color--%s\)' % (PALE, PALE))
 ARROW = re.compile(r'<span\b([^>]*)>\s*(?:&rarr;|→)\s*</span>')
 LABEL = re.compile(r"esc_html__\(\s*'([^']*)'")
@@ -116,7 +125,7 @@ def check(path, key=None):
                 'their text roles' % name)
         if role:
             roles[0] += 1
-            if role[0] == 'origin-canvas-ordinal' and a.get('fontSize') in DISPLAY:
+            if role[0] == 'origin-canvas-ordinal' and kebab(a.get('fontSize')) in DISPLAY_KEBAB:
                 pale = a.get('textColor') == PALE or PALE in (style.get('color', {}).get('text') or '')
                 if not pale:
                     bad(path, node['line'], 'wp:%s is a step number at the %s preset; it must be '
@@ -195,6 +204,15 @@ FIXTURES = {
     'single-tags': ('patterns/hidden-single.php',
                     '<!-- wp:post-terms {"term":"post_tag","textColor":"primary"} /-->\n'),
 }
+# Each valid fixture must pass: a pale step number at each display preset, written as
+# WordPress writes the class (display-2xl renders has-display-2-xl-font-size).
+VALID = {
+    'ordinal-%s-pale' % slug: '<!-- wp:paragraph {"className":"origin-canvas-ordinal","textColor":'
+    '"input-border","fontSize":"%s"} -->\n<p class="origin-canvas-ordinal has-input-border-color '
+    'has-text-color has-%s-font-size">01</p>\n<!-- /wp:paragraph -->\n' % (slug, cls)
+    for slug, cls in (('display', 'display'), ('display-xl', 'display-xl'),
+                      ('display-2xl', 'display-2-xl'))
+}
 HOME = ['patterns/%s.php' % s for s in ('hero-cover', 'breath-statement', 'work-index',
         'stat-band', 'process-numbered', 'feature-split', 'cta-band')]
 PRICING = ['patterns/%s.php' % s for s in ('pricing-hero', 'features-checklist', 'process-cards',
@@ -230,6 +248,17 @@ def self_test():
                 check(path, key)
             print('  %s  %s fails' % ('✓' if fail else '✗', case))
             ok = ok and bool(fail)
+        for case, markup in VALID.items():
+            path = os.path.join(tmp, case + '.html')
+            open(path, 'w').write(markup)
+            fail.clear()
+            out = io.StringIO()
+            with contextlib.redirect_stdout(out):
+                check(path)
+            print('  %s  %s passes' % ('✗' if fail else '✓', case))
+            if fail:
+                print(out.getvalue(), end='')
+            ok = ok and not fail
     for label, paths in (('the seven home patterns', HOME), ('the nine pricing patterns', PRICING),
                          ('the ten landing patterns', LANDING),
                          ('the nine hero patterns and the 404', HEROES),
