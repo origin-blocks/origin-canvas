@@ -318,6 +318,18 @@ readme, guides and docs follow `voice.md` and `docs.md`; names follow `brands/or
 pattern title, description, keyword and category rules in this file stay here. Add writing rules
 to the guide, never here.
 
+## Record every ruling
+A round is not done until every owner decision in it is written down. A shared rule goes in ODS
+`RULES.md` (`~/Sites/origin-design-system`). A Canvas-only decision goes in the private notes,
+`/Users/misplon/Sites/origin-blocks/wp-content/themes/origin-canvas/docs/design.md`.
+
+- Write it in the same step as the code change.
+- Replace the old line. Never add "superseded" lines. Move history to the private `docs/design-archive.md`.
+- No decision lives only in a scratch folder, a chat or an agent's memory.
+- Merge gate: before any branch merges, the reviewer (Codex) matches every commit that cites an owner
+  ruling against ODS and the private notes. If one is not recorded, the merge stops.
+- Never commit design notes, lessons or the archive. They are private.
+
 ## Sources of truth
 Pattern roadmap: GitHub issues labelled `pattern`, grouped by batch milestone at
 https://github.com/origin-blocks/origin-canvas/milestones. One issue per unbuilt pattern.
