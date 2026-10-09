@@ -713,7 +713,7 @@ html {
  */
 .origin-canvas-bullet-mark {
 	background: var(--wp--preset--color--primary);
-	border-radius: 2px;
+	border-radius: var(--wp--custom--radius--small);
 	flex-shrink: 0;
 	height: 6px;
 	width: 6px;
@@ -747,7 +747,7 @@ html {
 
 .origin-canvas-token-bar {
 	background: var(--wp--preset--color--surface-subtle);
-	border-radius: 3px 3px 0 0;
+	border-radius: var(--wp--custom--radius--small) var(--wp--custom--radius--small) 0 0;
 	width: 26px;
 }
 
