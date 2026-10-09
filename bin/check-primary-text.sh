@@ -181,6 +181,8 @@ LANDING = ['patterns/%s.php' % s for s in ('hero-canvas', 'lead-statement', 'pat
 HEROES = ['patterns/%s.php' % s for s in ('hero-centered', 'hero-centered-logos', 'hero-dark',
           'hero-minimal', 'hero-split', 'hero-text-image', 'coming-soon', 'coming-soon-split',
           'coming-soon-statement', 'hidden-404')]
+CARDS_STATS = ['patterns/%s.php' % s for s in ('card-blog-post', 'card-icon-text',
+               'card-image-text', 'card-info', 'card-stat', 'stats-stacked')]
 # Every template, part and pattern the blog index, single post, archive and search render.
 BLOG = (['templates/%s.html' % s for s in ('index', 'single', 'single-right-sidebar', 'archive',
          'search')]
@@ -206,6 +208,7 @@ def self_test():
     for label, paths in (('the seven home patterns', HOME), ('the nine pricing patterns', PRICING),
                          ('the ten landing patterns', LANDING),
                          ('the nine hero patterns and the 404', HEROES),
+                         ('the six card and stats patterns', CARDS_STATS),
                          ('the %d blog templates, parts and patterns' % len(BLOG), BLOG)):
         fail.clear()
         out = io.StringIO()
