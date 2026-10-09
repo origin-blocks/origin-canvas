@@ -309,6 +309,13 @@ buttons with its class looking the same. No pattern uses it. The surface is the 
 block that sets a fill. `bin/check-button-surfaces.sh` enforces the table. Lesson:
 `docs/solutions/styling/outline-button-on-every-light-surface.md`.
 
+## Writing
+Every user-visible string follows the house writing guide in the private repo `Misplon/writing`
+(local clone `~/Projects/writing`). Pattern demo copy follows `brands/origin-patterns.md`; the
+readme, guides and docs follow `voice.md` and `docs.md`; names follow `brands/origin.md`. The
+pattern title, description, keyword and category rules in this file stay here. Add writing rules
+to the guide, never here.
+
 ## Sources of truth
 Pattern roadmap: GitHub issues labelled `pattern`, grouped by batch milestone at
 https://github.com/origin-blocks/origin-canvas/milestones. One issue per unbuilt pattern.
