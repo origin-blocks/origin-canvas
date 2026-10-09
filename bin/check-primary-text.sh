@@ -143,7 +143,7 @@ def check(path, key=None):
 
 
 # Each fixture is one invalid case and must fail on its own. A (key, markup) fixture is
-# read as that theme file. The home, pricing and blog sets must pass.
+# read as that theme file. The home, pricing, landing and blog sets must pass.
 FIXTURES = {
     'role-link': '<!-- wp:paragraph {"className":"origin-canvas-eyebrow","style":{"elements":'
                  '{"link":{"color":{"text":"var:preset|color|primary"}}}},"textColor":"primary"} -->\n'
@@ -175,6 +175,9 @@ HOME = ['patterns/%s.php' % s for s in ('hero-cover', 'breath-statement', 'work-
 PRICING = ['patterns/%s.php' % s for s in ('pricing-hero', 'features-checklist', 'process-cards',
            'testimonial-highlight-dark', 'faq-two-column', 'cta-with-image', 'pricing-single',
            'pricing-simple', 'card-pricing')]
+LANDING = ['patterns/%s.php' % s for s in ('hero-canvas', 'lead-statement', 'pattern-showcase',
+           'style-variations', 'stat-band-dark', 'template-showcase', 'token-system',
+           'testimonial-highlight', 'product-grid', 'cta-closing')]
 # Every template, part and pattern the blog index, single post, archive and search render.
 BLOG = (['templates/%s.html' % s for s in ('index', 'single', 'single-right-sidebar', 'archive',
          'search')]
@@ -198,6 +201,7 @@ def self_test():
             print('  %s  %s fails' % ('✓' if fail else '✗', case))
             ok = ok and bool(fail)
     for label, paths in (('the seven home patterns', HOME), ('the nine pricing patterns', PRICING),
+                         ('the ten landing patterns', LANDING),
                          ('the %d blog templates, parts and patterns' % len(BLOG), BLOG)):
         fail.clear()
         out = io.StringIO()

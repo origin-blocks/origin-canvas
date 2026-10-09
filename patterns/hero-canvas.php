@@ -2,9 +2,12 @@
 /**
  * Title: Hero Canvas
  * Slug: origin-canvas/hero-canvas
+ * Description: A hero on a faint grid backdrop with a soft corner glow, two calls to action and a meta line.
  * Categories: origin-canvas/hero
  * Keywords: landing, intro, centered, gradient, theme
- * Block Types: core/post-content
+ * Viewport Width: 1500
+ * Block Types:
+ * Post Types:
  * Inserter: true
  *
  * @package Origin
@@ -13,8 +16,8 @@
 ?>
 <!-- wp:group {"tagName":"section","align":"full","className":"origin-canvas-canvas-grid","style":{"spacing":{"padding":{"top":"var:preset|spacing|massive","bottom":"var:preset|spacing|massive"},"margin":{"top":"0","bottom":"0"}}},"layout":{"type":"constrained","contentSize":"880px","wideSize":"1200px"}} -->
 <section class="wp-block-group alignfull origin-canvas-canvas-grid" style="margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--massive);padding-bottom:var(--wp--preset--spacing--massive)"><!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|large"}},"layout":{"type":"default"}} -->
-<div class="wp-block-group"><!-- wp:paragraph {"align":"center","style":{"typography":{"textTransform":"uppercase","fontWeight":"600","letterSpacing":"0.08em"},"spacing":{"margin":{"bottom":"var:preset|spacing|small"}}},"textColor":"text-muted","fontSize":"small"} -->
-<p class="has-text-align-center has-text-muted-color has-text-color has-small-font-size" style="margin-bottom:var(--wp--preset--spacing--small);font-weight:600;letter-spacing:0.08em;text-transform:uppercase"><?php echo esc_html__( 'The Origin Canvas block theme', 'origin-canvas' ); ?></p>
+<div class="wp-block-group"><!-- wp:paragraph {"className":"origin-canvas-eyebrow","align":"center","style":{"typography":{"textTransform":"uppercase","fontWeight":"600","letterSpacing":"0.08em"},"spacing":{"margin":{"bottom":"var:preset|spacing|small"}}},"textColor":"primary","fontSize":"small"} -->
+<p class="origin-canvas-eyebrow has-text-align-center has-primary-color has-text-color has-small-font-size" style="margin-bottom:var(--wp--preset--spacing--small);font-weight:600;letter-spacing:0.08em;text-transform:uppercase"><?php echo esc_html__( 'The Origin Canvas block theme', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading {"textAlign":"center","level":1,"style":{"spacing":{"margin":{"top":"0","bottom":"0"}},"typography":{"lineHeight":"1.02"}},"fontSize":"display-2xl"} -->
@@ -40,7 +43,7 @@
 <!-- /wp:group -->
 
 <!-- wp:paragraph {"align":"center","textColor":"text-muted","fontSize":"small","style":{"spacing":{"margin":{"top":"var:preset|spacing|large","bottom":"0"}}}} -->
-<p class="has-text-align-center has-text-muted-color has-text-color has-small-font-size" style="margin-top:var(--wp--preset--spacing--large);margin-bottom:0"><span aria-hidden="true" style="background-color:var(--wp--preset--color--primary);border-radius:999px;display:inline-block;height:7px;margin-right:10px;vertical-align:middle;width:7px"></span><?php echo esc_html__( 'GPL licensed &middot; WordPress 6.5+ &middot; No page builder required', 'origin-canvas' ); ?></p>
+<p class="has-text-align-center has-text-muted-color has-text-color has-small-font-size" style="margin-top:var(--wp--preset--spacing--large);margin-bottom:0"><?php echo esc_html__( 'GPL licensed &middot; WordPress 6.5+ &middot; No page builder required', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group --></section>
 <!-- /wp:group -->
