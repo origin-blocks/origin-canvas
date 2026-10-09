@@ -53,3 +53,32 @@
 		min-height: 0;
 	}
 }
+
+/**
+ * Hero Split media: core cannot switch a Cover's shape at the Columns breakpoint, or
+ * center a column's content once the column stretches. Side by side, the image keeps
+ * the photo's 3:4 portrait shape (and still fills a taller row), and the text column,
+ * set to Stretch, centers its content. Stacked, the image shows at 4:3, as
+ * hero-text-image does. Both rules replace core's 430px min-height.
+ */
+@media (min-width: 782px) {
+	.wp-block-cover.origin-canvas-hero-split__media {
+		aspect-ratio: 3 / 4;
+		/* Through the ratio, a row taller than 3:4 would widen the image past its column. */
+		max-width: 100%;
+		min-height: 100%;
+	}
+
+	.wp-block-column:has(> .origin-canvas-hero-split__media) + .wp-block-column {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+	}
+}
+
+@media (max-width: 781px) {
+	.wp-block-cover.origin-canvas-hero-split__media {
+		aspect-ratio: 4 / 3;
+		min-height: 0;
+	}
+}
