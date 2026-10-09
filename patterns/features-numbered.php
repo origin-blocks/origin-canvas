@@ -20,12 +20,12 @@
 <p class="origin-canvas-eyebrow has-primary-color has-text-color has-extra-small-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--medium);font-weight:600;letter-spacing:0.08em;text-transform:uppercase"><?php echo esc_html__( 'How a project runs', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
-<!-- wp:heading {"level":2,"style":{"spacing":{"margin":{"top":"var:preset|spacing|medium","bottom":"var:preset|spacing|compact"}}},"fontSize":"display"} -->
-<h2 class="wp-block-heading has-display-font-size" style="margin-top:var(--wp--preset--spacing--medium);margin-bottom:var(--wp--preset--spacing--compact)"><?php echo esc_html__( 'A short process, on a single page', 'origin-canvas' ); ?></h2>
+<!-- wp:heading {"level":2,"style":{"spacing":{"margin":{"top":"var:preset|spacing|medium","bottom":"0"}}},"fontSize":"display"} -->
+<h2 class="wp-block-heading has-display-font-size" style="margin-top:var(--wp--preset--spacing--medium);margin-bottom:0"><?php echo esc_html__( 'A short process, on a single page', 'origin-canvas' ); ?></h2>
 <!-- /wp:heading -->
 
-<!-- wp:paragraph {"textColor":"text-body","fontSize":"regular-plus"} -->
-<p class="has-text-body-color has-text-color has-regular-plus-font-size"><?php echo esc_html__( 'Four weeks from kickoff to launch on most projects. The work stays clear, paced, and easy to follow.', 'origin-canvas' ); ?></p>
+<!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"var:preset|spacing|compact"}}},"textColor":"text-body","fontSize":"regular-plus"} -->
+<p class="has-text-body-color has-text-color has-regular-plus-font-size" style="margin-top:var(--wp--preset--spacing--compact)"><?php echo esc_html__( 'Four weeks from kickoff to launch on most projects. The work stays clear, paced, and easy to follow.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group -->
 

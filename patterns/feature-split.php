@@ -27,12 +27,12 @@
 <p class="origin-canvas-eyebrow has-primary-color has-text-color has-extra-small-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--medium);font-weight:600;letter-spacing:0.08em;text-transform:uppercase"><?php echo esc_html__( 'In their words', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
-<!-- wp:heading {"level":2,"style":{"typography":{"lineHeight":"1.15"},"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|medium"}}},"fontSize":"display"} -->
-<h2 class="wp-block-heading has-display-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--medium);line-height:1.15"><?php echo esc_html__( '&ldquo;Our front desk updates the site themselves now.&rdquo;', 'origin-canvas' ); ?></h2>
+<!-- wp:heading {"level":2,"style":{"typography":{"lineHeight":"1.15"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"fontSize":"display"} -->
+<h2 class="wp-block-heading has-display-font-size" style="margin-top:0;margin-bottom:0;line-height:1.15"><?php echo esc_html__( '&ldquo;Our front desk updates the site themselves now.&rdquo;', 'origin-canvas' ); ?></h2>
 <!-- /wp:heading -->
 
-<!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|large"}}},"textColor":"text-body","fontSize":"regular-plus"} -->
-<p class="has-text-body-color has-text-color has-regular-plus-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--large)"><?php echo esc_html__( 'The booking page finally feels like ours, not a template we tried to make fit. Six weeks, three rounds, and a site we can grow into.', 'origin-canvas' ); ?></p>
+<!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"var:preset|spacing|compact","bottom":"var:preset|spacing|large"}}},"textColor":"text-body","fontSize":"regular-plus"} -->
+<p class="has-text-body-color has-text-color has-regular-plus-font-size" style="margin-top:var(--wp--preset--spacing--compact);margin-bottom:var(--wp--preset--spacing--large)"><?php echo esc_html__( 'The booking page finally feels like ours, not a template we tried to make fit. Six weeks, three rounds, and a site we can grow into.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
 <!-- wp:buttons {"style":{"spacing":{"margin":{"bottom":"var:preset|spacing|large"}}},"layout":{"type":"flex","justifyContent":"left"}} -->

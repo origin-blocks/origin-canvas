@@ -1,7 +1,11 @@
 #!/usr/bin/env bash
 #
 # Primary colors three roles at rest: eyebrows, stat figures and step numbers (the
-# ordinal role), on light and dark grounds. A list index, such as the work-index row
+# ordinal role), on light and dark grounds. A stat figure is primary only on a dark band
+# (stat-band, stat-band-dark); on a light ground, white or tinted, it is text-heading and
+# keeps the figure class (owner ruling, Oct 9; ODS RULES.md). The ground is the nearest
+# fill: the figure's own, else its nearest ancestor's, classified as in
+# check-button-surfaces.sh. A list index, such as the work-index row
 # numbers, is not a step number: it stays text-muted with no role class. A step number
 # at the display preset or larger (display, display-xl, display-2xl) is pale input-border
 # in place of primary; it keeps the ordinal class. The preset decides, never the rendered
@@ -14,7 +18,9 @@
 #
 # Fails on:
 #   - a block or tag with a role class whose text is not primary, except a display-size
-#     step number, which must be input-border (and never primary)
+#     step number, which must be input-border (and never primary), and a stat figure on a
+#     light ground, which must be text-heading (and never primary)
+#   - a stat figure on a fill this check cannot classify
 #   - primary text without a role class, set as textColor, style.color.text, a
 #     has-primary-color class or an inline color on a block, or on an a, p, h1-h6, span
 #     or mark tag, unless it is a state indicator listed below
@@ -42,12 +48,14 @@ cd "$(dirname "$0")/.."
 python3 -B - "$@" <<'PY'
 import glob, re, sys
 sys.path.insert(0, 'bin/lib')
-from block_tree import parse, walk, class_names
+from block_tree import parse, walk, class_names, ground
 
 ROLES = ('origin-canvas-eyebrow', 'origin-canvas-figure', 'origin-canvas-ordinal')
 # A step number at one of these presets is input-border, not primary.
 DISPLAY = ('display', 'display-xl', 'display-2xl')
 PALE = 'input-border'
+# A stat figure on a light ground is heading ink, not primary.
+INK = 'text-heading'
 # (file, label): the featured tier's state label. It marks the tier, with its frame and
 # button, so it is an indicator, not resting text. Tier names are headings in heading ink.
 ALLOW = {
@@ -79,6 +87,7 @@ def kebab(slug):
 DISPLAY_KEBAB = {kebab(s) for s in DISPLAY}
 DISPLAY_CLASS = re.compile(r'\bhas-(%s)-font-size\b' % '|'.join(sorted(DISPLAY_KEBAB)))
 PALE_ATTR = re.compile(r'has-%s-color|(?<![\w-])color:\s*var\(--wp--preset--color--%s\)' % (PALE, PALE))
+INK_ATTR = re.compile(r'has-%s-color|(?<![\w-])color:\s*var\(--wp--preset--color--%s\)' % (INK, INK))
 ARROW = re.compile(r'<span\b([^>]*)>\s*(?:&rarr;|→)\s*</span>')
 LABEL = re.compile(r"esc_html__\(\s*'([^']*)'")
 
@@ -106,6 +115,8 @@ def check(path, key=None):
     key = key or path
     text = open(path).read()
     lines = text.split('\n')
+    # The color each stat figure block needs, in document order, for its tag below.
+    figures = []
     for node in walk(parse(path)):
         a, name, cls = node['attrs'], node['name'], class_names(node)
         if (key in INK_TICKS and name == 'list'
@@ -129,6 +140,21 @@ def check(path, key=None):
                 if not pale:
                     bad(path, node['line'], 'wp:%s is a step number at the %s preset; it must be '
                         '%s, not primary' % (name, a['fontSize'], PALE))
+                continue
+            if role[0] == 'origin-canvas-figure':
+                where = ground(node, own=True)
+                want = 'primary' if where == 'dark' else INK
+                figures.append(want)
+                ink = a.get('textColor') == INK or INK in (style.get('color', {}).get('text') or '')
+                if where.startswith('?'):
+                    bad(path, node['line'], 'wp:%s is a stat figure on an unclassified fill %s; '
+                        'add it to bin/lib/block_tree.py' % (name, where[1:]))
+                elif want == 'primary' and not primary:
+                    bad(path, node['line'], 'wp:%s is a stat figure on a dark band; it must be '
+                        'primary' % name)
+                elif want == INK and not ink:
+                    bad(path, node['line'], 'wp:%s is a stat figure on a %s ground; it must be '
+                        '%s, not primary' % (name, where, INK))
                 continue
             if not primary:
                 bad(path, node['line'], 'wp:%s has %s but is not primary' % (name, role[0]))
@@ -156,6 +182,13 @@ def check(path, key=None):
         if 'origin-canvas-ordinal' in tag_cls and DISPLAY_CLASS.search(attrs):
             if not PALE_ATTR.search(attrs) or PRIMARY_ATTR.search(attrs):
                 bad(path, line, '<%s> is a display-size step number; it must be %s' % (tag, PALE))
+            continue
+        if 'origin-canvas-figure' in tag_cls:
+            want = figures.pop(0) if figures else INK
+            if want == INK and (not INK_ATTR.search(attrs) or PRIMARY_ATTR.search(attrs)):
+                bad(path, line, '<%s> is a stat figure on a light ground; it must be %s' % (tag, INK))
+            elif want == 'primary' and not PRIMARY_ATTR.search(attrs):
+                bad(path, line, '<%s> is a stat figure on a dark band; it must be primary' % tag)
             continue
         if any(r in tag_cls for r in ROLES):
             if not PRIMARY_ATTR.search(attrs):
@@ -201,11 +234,27 @@ FIXTURES = {
     'card-category': '<!-- wp:post-terms {"term":"category","textColor":"primary"} /-->\n',
     'card-category-link': '<!-- wp:post-terms {"term":"category","style":{"elements":{"link":'
                           '{"color":{"text":"var:preset|color|primary"}}}},"textColor":"text-muted"} /-->\n',
+    'figure-light-primary': '<!-- wp:paragraph {"className":"origin-canvas-figure","textColor":"primary"} -->\n'
+                            '<p class="origin-canvas-figure has-primary-color has-text-color">38</p>\n'
+                            '<!-- /wp:paragraph -->\n',
+    'figure-dark-ink': '<!-- wp:group {"backgroundColor":"text-heading"} -->\n<div class="wp-block-group '
+                       'has-text-heading-background-color has-background"><!-- wp:paragraph {"className":'
+                       '"origin-canvas-figure","textColor":"text-heading"} -->\n<p class="origin-canvas-figure '
+                       'has-text-heading-color has-text-color">38</p>\n<!-- /wp:paragraph --></div>\n'
+                       '<!-- /wp:group -->\n',
+    'figure-white-on-dark-primary': '<!-- wp:group {"backgroundColor":"text-heading"} -->\n<div class="wp-block-group '
+                                    'has-text-heading-background-color has-background"><!-- wp:paragraph {"className":'
+                                    '"origin-canvas-figure","backgroundColor":"surface-base","textColor":"primary"} -->\n'
+                                    '<p class="origin-canvas-figure has-primary-color has-surface-base-background-color '
+                                    'has-text-color has-background">38</p>\n<!-- /wp:paragraph --></div>\n'
+                                    '<!-- /wp:group -->\n',
     'single-tags': ('patterns/hidden-single.php',
                     '<!-- wp:post-terms {"term":"post_tag","textColor":"primary"} /-->\n'),
 }
 # Each valid fixture must pass: a pale step number at each display preset, written as
-# WordPress writes the class (display-2xl renders has-display-2-xl-font-size).
+# WordPress writes the class (display-2xl renders has-display-2-xl-font-size), and a stat
+# figure in ink on white, on a tint and on its own white fill inside a dark band, and in
+# primary on a dark band.
 VALID = {
     'ordinal-%s-pale' % slug: '<!-- wp:paragraph {"className":"origin-canvas-ordinal","textColor":'
     '"input-border","fontSize":"%s"} -->\n<p class="origin-canvas-ordinal has-input-border-color '
@@ -213,6 +262,27 @@ VALID = {
     for slug, cls in (('display', 'display'), ('display-xl', 'display-xl'),
                       ('display-2xl', 'display-2-xl'))
 }
+VALID.update({
+    'figure-white-ink': '<!-- wp:paragraph {"className":"origin-canvas-figure","textColor":"text-heading"} -->\n'
+                        '<p class="origin-canvas-figure has-text-heading-color has-text-color">38</p>\n'
+                        '<!-- /wp:paragraph -->\n',
+    'figure-tinted-ink': '<!-- wp:group {"backgroundColor":"surface-muted"} -->\n<div class="wp-block-group '
+                         'has-surface-muted-background-color has-background"><!-- wp:paragraph {"className":'
+                         '"origin-canvas-figure","textColor":"text-heading"} -->\n<p class="origin-canvas-figure '
+                         'has-text-heading-color has-text-color">38</p>\n<!-- /wp:paragraph --></div>\n'
+                         '<!-- /wp:group -->\n',
+    'figure-white-on-dark-ink': '<!-- wp:group {"backgroundColor":"text-heading"} -->\n<div class="wp-block-group '
+                                'has-text-heading-background-color has-background"><!-- wp:paragraph {"className":'
+                                '"origin-canvas-figure","backgroundColor":"surface-base","textColor":"text-heading"} -->\n'
+                                '<p class="origin-canvas-figure has-text-heading-color has-surface-base-background-color '
+                                'has-text-color has-background">38</p>\n<!-- /wp:paragraph --></div>\n'
+                                '<!-- /wp:group -->\n',
+    'figure-dark-primary': '<!-- wp:group {"style":{"color":{"background":"var(--wp--custom--dark--bg)"}}} -->\n'
+                           '<div class="wp-block-group has-background"><!-- wp:paragraph {"className":'
+                           '"origin-canvas-figure","textColor":"primary"} -->\n<p class="origin-canvas-figure '
+                           'has-primary-color has-text-color">38</p>\n<!-- /wp:paragraph --></div>\n'
+                           '<!-- /wp:group -->\n',
+})
 HOME = ['patterns/%s.php' % s for s in ('hero-cover', 'breath-statement', 'work-index',
         'stat-band', 'process-numbered', 'feature-split', 'cta-band')]
 PRICING = ['patterns/%s.php' % s for s in ('pricing-hero', 'features-checklist', 'process-cards',
@@ -304,6 +374,7 @@ if fail:
     print('Primary text: %d file(s) fail' % len(fail))
     sys.exit(1)
 print('Primary text:')
-print('  ✓  %d role-marked eyebrows, figures and step numbers are primary; no other '
-      'primary resting text; display-size step numbers are %s' % (roles[0], PALE))
+print('  ✓  %d role-marked eyebrows, figures and step numbers take their role color; no '
+      'other primary resting text; display-size step numbers are %s; stat figures on light '
+      'grounds are %s' % (roles[0], PALE, INK))
 PY

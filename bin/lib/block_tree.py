@@ -56,3 +56,58 @@ def ancestors(node):
 
 def class_names(node):
     return node['attrs'].get('className', '').split()
+
+
+# Fills by surface: white, tinted or dark. Shared by the checks that follow the ground a
+# block sits on (secondary buttons, stat figures).
+SLUGS = {
+    'surface-base': 'white',
+    'surface-muted': 'tinted', 'surface-subtle': 'tinted',
+    'surface-subtle-hover': 'tinted', 'border': 'tinted', 'on-dark': 'tinted',
+    'text-heading': 'dark', 'text-body': 'dark', 'text-muted': 'dark',
+}
+RAW = {
+    '#fff': 'white', '#ffffff': 'white', 'var(--wp--preset--color--surface-base)': 'white',
+    '#f3f4f6': 'tinted', 'var(--wp--preset--color--surface-muted)': 'tinted',
+    '#111827': 'dark', 'var(--wp--custom--dark--bg)': 'dark',
+    'var(--wp--preset--color--text-heading)': 'dark',
+}
+
+
+def surface(node):
+    """The fill of the nearest ancestor that sets one, or None if none does."""
+    a = node['attrs']
+    if node['name'] == 'cover':
+        return 'white' if a.get('isDark') is False else 'dark'
+    if a.get('backgroundColor'):
+        return SLUGS.get(a['backgroundColor'], '?' + a['backgroundColor'])
+    raw = a.get('style', {}).get('color', {}).get('background')
+    if raw:
+        if raw.startswith('var:preset|color|'):
+            slug = raw.split('|')[-1]
+            return SLUGS.get(slug, '?' + slug)
+        return RAW.get(raw.lower(), '?' + raw)
+    if a.get('gradient') or a.get('style', {}).get('color', {}).get('gradient'):
+        return '?gradient'
+    # header-marketing carries its fill as a class rather than the attribute.
+    for name in class_names(node):
+        if name.startswith('has-') and name.endswith('-background-color'):
+            slug = name[len('has-'):-len('-background-color')]
+            return SLUGS.get(slug, '?' + slug)
+    return None
+
+
+def ground(node, own=False):
+    """The surface of the nearest ancestor that sets a fill: white, tinted, dark, or
+    '?<fill>' for a fill not classified above. No fill anywhere is white. With own, the
+    block's own fill comes first: text sits on its own background. A button's own fill
+    is the button, not the surface it sits on, so the button check leaves own off."""
+    if own:
+        found = surface(node)
+        if found:
+            return found
+    for up in ancestors(node):
+        found = surface(up)
+        if found:
+            return found
+    return 'white'
