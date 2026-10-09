@@ -2,7 +2,10 @@
 #
 # Primary colors three roles at rest: eyebrows, stat figures and step numbers (the
 # ordinal role), on light and dark grounds. A list index, such as the work-index row
-# numbers, is not a step number: it stays text-muted with no role class. Reading text (body, headings,
+# numbers, is not a step number: it stays text-muted with no role class. A step number
+# at the display preset or larger (display, display-xl, display-2xl) is pale input-border
+# in place of primary; it keeps the ordinal class. The preset decides, never the rendered
+# size (owner ruling, Oct 9; ODS RULES.md). Reading text (body, headings,
 # UI) and links keep their text roles (owner ruling, Oct 8; ODS RULES.md, "Primary:
 # marks, accents and ambient"). Prices are not stat figures; they stay heading ink.
 #
@@ -10,7 +13,8 @@
 #   origin-canvas-eyebrow   origin-canvas-figure   origin-canvas-ordinal
 #
 # Fails on:
-#   - a block or tag with a role class whose text is not primary
+#   - a block or tag with a role class whose text is not primary, except a display-size
+#     step number, which must be input-border (and never primary)
 #   - primary text without a role class, set as textColor, style.color.text, a
 #     has-primary-color class or an inline color on a block, or on an a, p, h1-h6, span
 #     or mark tag, unless it is a state indicator listed below
@@ -41,6 +45,9 @@ sys.path.insert(0, 'bin/lib')
 from block_tree import parse, walk, class_names
 
 ROLES = ('origin-canvas-eyebrow', 'origin-canvas-figure', 'origin-canvas-ordinal')
+# A step number at one of these presets is input-border, not primary.
+DISPLAY = ('display', 'display-xl', 'display-2xl')
+PALE = 'input-border'
 # (file, label): the featured tier's state label. It marks the tier, with its frame and
 # button, so it is an indicator, not resting text. Tier names are headings in heading ink.
 ALLOW = {
@@ -61,6 +68,17 @@ ALLOW_BLOCKS = {
 TAG = re.compile(r'<(a|p|h[1-6]|span|mark)\b([^>]*)>', re.S)
 CLASS = re.compile(r'\bclass="([^"]*)"')
 PRIMARY_ATTR = re.compile(r'has-primary-color|(?<![\w-])color:\s*var\(--wp--preset--color--primary\)')
+
+
+def kebab(slug):
+    # WordPress's _wp_to_kebab_case: a hyphen between letters and digits, so the
+    # display-2xl preset renders the class has-display-2-xl-font-size.
+    return re.sub(r'(?<=[a-z])(?=\d)|(?<=\d)(?=[a-z])', '-', slug or '')
+
+
+DISPLAY_KEBAB = {kebab(s) for s in DISPLAY}
+DISPLAY_CLASS = re.compile(r'\bhas-(%s)-font-size\b' % '|'.join(sorted(DISPLAY_KEBAB)))
+PALE_ATTR = re.compile(r'has-%s-color|(?<![\w-])color:\s*var\(--wp--preset--color--%s\)' % (PALE, PALE))
 ARROW = re.compile(r'<span\b([^>]*)>\s*(?:&rarr;|→)\s*</span>')
 LABEL = re.compile(r"esc_html__\(\s*'([^']*)'")
 
@@ -106,6 +124,12 @@ def check(path, key=None):
                 'their text roles' % name)
         if role:
             roles[0] += 1
+            if role[0] == 'origin-canvas-ordinal' and kebab(a.get('fontSize')) in DISPLAY_KEBAB:
+                pale = a.get('textColor') == PALE or PALE in (style.get('color', {}).get('text') or '')
+                if not pale:
+                    bad(path, node['line'], 'wp:%s is a step number at the %s preset; it must be '
+                        '%s, not primary' % (name, a['fontSize'], PALE))
+                continue
             if not primary:
                 bad(path, node['line'], 'wp:%s has %s but is not primary' % (name, role[0]))
             continue
@@ -129,6 +153,10 @@ def check(path, key=None):
         if tag == 'a' and PRIMARY_ATTR.search(attrs):
             bad(path, line, '<a> is a primary link at rest; links keep their text roles')
             continue
+        if 'origin-canvas-ordinal' in tag_cls and DISPLAY_CLASS.search(attrs):
+            if not PALE_ATTR.search(attrs) or PRIMARY_ATTR.search(attrs):
+                bad(path, line, '<%s> is a display-size step number; it must be %s' % (tag, PALE))
+            continue
         if any(r in tag_cls for r in ROLES):
             if not PRIMARY_ATTR.search(attrs):
                 bad(path, line, '<%s> has a role class but is not primary' % tag)
@@ -142,7 +170,7 @@ def check(path, key=None):
 
 
 # Each fixture is one invalid case and must fail on its own. A (key, markup) fixture is
-# read as that theme file. The home, pricing, landing, hero and blog sets must pass.
+# read as that theme file. The home, pricing, landing, hero, features and blog sets must pass.
 FIXTURES = {
     'role-link': '<!-- wp:paragraph {"className":"origin-canvas-eyebrow","style":{"elements":'
                  '{"link":{"color":{"text":"var:preset|color|primary"}}}},"textColor":"primary"} -->\n'
@@ -156,6 +184,12 @@ FIXTURES = {
     'ordinal-muted': '<!-- wp:paragraph {"className":"origin-canvas-ordinal","textColor":"text-muted"} -->\n'
                      '<p class="origin-canvas-ordinal has-text-muted-color has-text-color">01</p>\n'
                      '<!-- /wp:paragraph -->\n',
+    'ordinal-display-primary': '<!-- wp:paragraph {"className":"origin-canvas-ordinal","textColor":"primary",'
+                               '"fontSize":"display-xl"} -->\n<p class="origin-canvas-ordinal has-primary-color '
+                               'has-text-color has-display-xl-font-size">01</p>\n<!-- /wp:paragraph -->\n',
+    'ordinal-small-pale': '<!-- wp:paragraph {"className":"origin-canvas-ordinal","textColor":"input-border",'
+                          '"fontSize":"extra-small"} -->\n<p class="origin-canvas-ordinal has-input-border-color '
+                          'has-text-color has-extra-small-font-size">01</p>\n<!-- /wp:paragraph -->\n',
     'a-class': '<!-- wp:paragraph -->\n<p><a class="has-primary-color" href="#">Work</a></p>\n'
                '<!-- /wp:paragraph -->\n',
     'a-inline': '<!-- wp:paragraph -->\n<p><a href="#" style="color:var(--wp--preset--color--primary)">'
@@ -169,6 +203,15 @@ FIXTURES = {
     'single-tags': ('patterns/hidden-single.php',
                     '<!-- wp:post-terms {"term":"post_tag","textColor":"primary"} /-->\n'),
 }
+# Each valid fixture must pass: a pale step number at each display preset, written as
+# WordPress writes the class (display-2xl renders has-display-2-xl-font-size).
+VALID = {
+    'ordinal-%s-pale' % slug: '<!-- wp:paragraph {"className":"origin-canvas-ordinal","textColor":'
+    '"input-border","fontSize":"%s"} -->\n<p class="origin-canvas-ordinal has-input-border-color '
+    'has-text-color has-%s-font-size">01</p>\n<!-- /wp:paragraph -->\n' % (slug, cls)
+    for slug, cls in (('display', 'display'), ('display-xl', 'display-xl'),
+                      ('display-2xl', 'display-2-xl'))
+}
 HOME = ['patterns/%s.php' % s for s in ('hero-cover', 'breath-statement', 'work-index',
         'stat-band', 'process-numbered', 'feature-split', 'cta-band')]
 PRICING = ['patterns/%s.php' % s for s in ('pricing-hero', 'features-checklist', 'process-cards',
@@ -180,6 +223,8 @@ LANDING = ['patterns/%s.php' % s for s in ('hero-canvas', 'lead-statement', 'pat
 HEROES = ['patterns/%s.php' % s for s in ('hero-centered', 'hero-centered-logos', 'hero-dark',
           'hero-minimal', 'hero-split', 'hero-text-image', 'coming-soon', 'coming-soon-split',
           'coming-soon-statement', 'hidden-404')]
+FEATURES = ['patterns/%s.php' % s for s in ('features-3-col-icons', 'features-grid',
+            'features-image-columns', 'features-numbered', 'features-with-image', 'work-grid')]
 # Every template, part and pattern the blog index, single post, archive and search render.
 BLOG = (['templates/%s.html' % s for s in ('index', 'single', 'single-right-sidebar', 'archive',
          'search')]
@@ -202,9 +247,21 @@ def self_test():
                 check(path, key)
             print('  %s  %s fails' % ('✓' if fail else '✗', case))
             ok = ok and bool(fail)
+        for case, markup in VALID.items():
+            path = os.path.join(tmp, case + '.html')
+            open(path, 'w').write(markup)
+            fail.clear()
+            out = io.StringIO()
+            with contextlib.redirect_stdout(out):
+                check(path)
+            print('  %s  %s passes' % ('✗' if fail else '✓', case))
+            if fail:
+                print(out.getvalue(), end='')
+            ok = ok and not fail
     for label, paths in (('the seven home patterns', HOME), ('the nine pricing patterns', PRICING),
                          ('the ten landing patterns', LANDING),
                          ('the nine hero patterns and the 404', HEROES),
+                         ('the six features patterns', FEATURES),
                          ('the %d blog templates, parts and patterns' % len(BLOG), BLOG)):
         fail.clear()
         out = io.StringIO()
@@ -232,5 +289,5 @@ if fail:
     sys.exit(1)
 print('Primary text:')
 print('  ✓  %d role-marked eyebrows, figures and step numbers are primary; no other '
-      'primary resting text' % roles[0])
+      'primary resting text; display-size step numbers are %s' % (roles[0], PALE))
 PY
