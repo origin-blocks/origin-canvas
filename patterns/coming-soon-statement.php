@@ -26,7 +26,7 @@
 <!-- /wp:heading --></div>
 <!-- /wp:group -->
 
-<!-- wp:paragraph {"style":{"border":{"top":{"color":"rgba(243, 244, 246, 0.24)","width":"1px"}},"elements":{"link":{"color":{"text":"var(--wp--custom--dark--text)"},":hover":{"color":{"text":"var:preset|color|primary"}}}},"spacing":{"margin":{"top":"0","bottom":"0"},"padding":{"top":"var:preset|spacing|medium"}}},"fontSize":"regular"} -->
-<p class="has-link-color has-regular-font-size" style="border-top-color:rgba(243, 244, 246, 0.24);border-top-width:1px;margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--medium)"><?php echo esc_html__( 'Until then, write to us at', 'origin-canvas' ); ?> <a href="mailto:hello@example.com"><?php echo esc_html__( 'hello@example.com', 'origin-canvas' ); ?></a>.</p>
+<!-- wp:paragraph {"style":{"border":{"top":{"color":"color-mix(in srgb, var(--wp--custom--dark--text) 12%, transparent)","width":"1px"}},"elements":{"link":{"color":{"text":"var(--wp--custom--dark--text)"},":hover":{"color":{"text":"var:preset|color|primary"}}}},"spacing":{"margin":{"top":"0","bottom":"0"},"padding":{"top":"var:preset|spacing|medium"}}},"fontSize":"regular"} -->
+<p class="has-link-color has-regular-font-size" style="border-top-color:color-mix(in srgb, var(--wp--custom--dark--text) 12%, transparent);border-top-width:1px;margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--medium)"><?php echo esc_html__( 'Until then, write to us at', 'origin-canvas' ); ?> <a href="mailto:hello@example.com"><?php echo esc_html__( 'hello@example.com', 'origin-canvas' ); ?></a>.</p>
 <!-- /wp:paragraph --></section>
 <!-- /wp:group -->
