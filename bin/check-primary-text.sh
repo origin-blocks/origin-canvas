@@ -143,7 +143,8 @@ def check(path, key=None):
 
 
 # Each fixture is one invalid case and must fail on its own. A (key, markup) fixture is
-# read as that theme file. The home, pricing, landing, hero and blog sets must pass.
+# read as that theme file. The home, pricing, landing, hero, text and contact, and blog sets
+# must pass.
 FIXTURES = {
     'role-link': '<!-- wp:paragraph {"className":"origin-canvas-eyebrow","style":{"elements":'
                  '{"link":{"color":{"text":"var:preset|color|primary"}}}},"textColor":"primary"} -->\n'
@@ -181,6 +182,11 @@ LANDING = ['patterns/%s.php' % s for s in ('hero-canvas', 'lead-statement', 'pat
 HEROES = ['patterns/%s.php' % s for s in ('hero-centered', 'hero-centered-logos', 'hero-dark',
           'hero-minimal', 'hero-split', 'hero-text-image', 'coming-soon', 'coming-soon-split',
           'coming-soon-statement', 'hidden-404')]
+TEXT_CONTACT = ['patterns/%s.php' % s for s in ('availability-marker', 'divider-with-text',
+                'job-openings', 'lead-statement', 'text-image-side', 'text-large-statement',
+                'text-two-column', 'contact-details', 'contact-split', 'logos-grid', 'logos-row',
+                'team-grid', 'team-list', 'card-team-member', 'faq-simple', 'gallery-grid',
+                'gallery-image-text')]
 # Every template, part and pattern the blog index, single post, archive and search render.
 BLOG = (['templates/%s.html' % s for s in ('index', 'single', 'single-right-sidebar', 'archive',
          'search')]
@@ -206,6 +212,8 @@ def self_test():
     for label, paths in (('the seven home patterns', HOME), ('the nine pricing patterns', PRICING),
                          ('the ten landing patterns', LANDING),
                          ('the nine hero patterns and the 404', HEROES),
+                         ('the seventeen text, contact, logo, team, FAQ and gallery patterns',
+                          TEXT_CONTACT),
                          ('the %d blog templates, parts and patterns' % len(BLOG), BLOG)):
         fail.clear()
         out = io.StringIO()
