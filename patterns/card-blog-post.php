@@ -32,8 +32,8 @@
 <p class="has-text-body-color has-text-color has-regular-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--medium)"><?php echo esc_html__( 'Before any pixels, we share a single page laying out who the site is for, what it needs to do, and what we&#8217;ll cut from the brief to keep things honest.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
-<!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-body","fontSize":"small"} -->
-<p class="has-text-body-color has-text-color has-small-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Claire Bennett', 'origin-canvas' ); ?> &middot; <?php echo esc_html__( 'Apr 18, 2026', 'origin-canvas' ); ?> &middot; <?php echo esc_html__( '4 min read', 'origin-canvas' ); ?></p>
+<!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-muted","fontSize":"small"} -->
+<p class="has-text-muted-color has-text-color has-small-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Claire Bennett', 'origin-canvas' ); ?> &middot; <?php echo esc_html__( 'Apr 18, 2026', 'origin-canvas' ); ?> &middot; <?php echo esc_html__( '4 min read', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group --></div>
 <!-- /wp:group -->

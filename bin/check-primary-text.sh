@@ -225,6 +225,8 @@ HEROES = ['patterns/%s.php' % s for s in ('hero-centered', 'hero-centered-logos'
           'coming-soon-statement', 'hidden-404')]
 FEATURES = ['patterns/%s.php' % s for s in ('features-3-col-icons', 'features-grid',
             'features-image-columns', 'features-numbered', 'features-with-image', 'work-grid')]
+CARDS_STATS = ['patterns/%s.php' % s for s in ('card-blog-post', 'card-icon-text',
+               'card-image-text', 'card-info', 'card-stat', 'stats-stacked')]
 # Every template, part and pattern the blog index, single post, archive and search render.
 BLOG = (['templates/%s.html' % s for s in ('index', 'single', 'single-right-sidebar', 'archive',
          'search')]
@@ -262,6 +264,7 @@ def self_test():
                          ('the ten landing patterns', LANDING),
                          ('the nine hero patterns and the 404', HEROES),
                          ('the six features patterns', FEATURES),
+                         ('the six card and stats patterns', CARDS_STATS),
                          ('the %d blog templates, parts and patterns' % len(BLOG), BLOG)):
         fail.clear()
         out = io.StringIO()
