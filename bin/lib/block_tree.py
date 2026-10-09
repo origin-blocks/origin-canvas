@@ -97,9 +97,15 @@ def surface(node):
     return None
 
 
-def ground(node):
+def ground(node, own=False):
     """The surface of the nearest ancestor that sets a fill: white, tinted, dark, or
-    '?<fill>' for a fill not classified above. No fill anywhere is white."""
+    '?<fill>' for a fill not classified above. No fill anywhere is white. With own, the
+    block's own fill comes first: text sits on its own background. A button's own fill
+    is the button, not the surface it sits on, so the button check leaves own off."""
+    if own:
+        found = surface(node)
+        if found:
+            return found
     for up in ancestors(node):
         found = surface(up)
         if found:

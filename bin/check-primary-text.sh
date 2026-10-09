@@ -4,7 +4,8 @@
 # ordinal role), on light and dark grounds. A stat figure is primary only on a dark band
 # (stat-band, stat-band-dark); on a light ground, white or tinted, it is text-heading and
 # keeps the figure class (owner ruling, Oct 9; ODS RULES.md). The ground is the nearest
-# ancestor fill, read as check-button-surfaces.sh reads it. A list index, such as the work-index row
+# fill: the figure's own, else its nearest ancestor's, classified as in
+# check-button-surfaces.sh. A list index, such as the work-index row
 # numbers, is not a step number: it stays text-muted with no role class. A step number
 # at the display preset or larger (display, display-xl, display-2xl) is pale input-border
 # in place of primary; it keeps the ordinal class. The preset decides, never the rendered
@@ -141,7 +142,7 @@ def check(path, key=None):
                         '%s, not primary' % (name, a['fontSize'], PALE))
                 continue
             if role[0] == 'origin-canvas-figure':
-                where = ground(node)
+                where = ground(node, own=True)
                 want = 'primary' if where == 'dark' else INK
                 figures.append(want)
                 ink = a.get('textColor') == INK or INK in (style.get('color', {}).get('text') or '')
@@ -241,12 +242,19 @@ FIXTURES = {
                        '"origin-canvas-figure","textColor":"text-heading"} -->\n<p class="origin-canvas-figure '
                        'has-text-heading-color has-text-color">38</p>\n<!-- /wp:paragraph --></div>\n'
                        '<!-- /wp:group -->\n',
+    'figure-white-on-dark-primary': '<!-- wp:group {"backgroundColor":"text-heading"} -->\n<div class="wp-block-group '
+                                    'has-text-heading-background-color has-background"><!-- wp:paragraph {"className":'
+                                    '"origin-canvas-figure","backgroundColor":"surface-base","textColor":"primary"} -->\n'
+                                    '<p class="origin-canvas-figure has-primary-color has-surface-base-background-color '
+                                    'has-text-color has-background">38</p>\n<!-- /wp:paragraph --></div>\n'
+                                    '<!-- /wp:group -->\n',
     'single-tags': ('patterns/hidden-single.php',
                     '<!-- wp:post-terms {"term":"post_tag","textColor":"primary"} /-->\n'),
 }
 # Each valid fixture must pass: a pale step number at each display preset, written as
 # WordPress writes the class (display-2xl renders has-display-2-xl-font-size), and a stat
-# figure in ink on white and on a tint, and in primary on a dark band.
+# figure in ink on white, on a tint and on its own white fill inside a dark band, and in
+# primary on a dark band.
 VALID = {
     'ordinal-%s-pale' % slug: '<!-- wp:paragraph {"className":"origin-canvas-ordinal","textColor":'
     '"input-border","fontSize":"%s"} -->\n<p class="origin-canvas-ordinal has-input-border-color '
@@ -263,6 +271,12 @@ VALID.update({
                          '"origin-canvas-figure","textColor":"text-heading"} -->\n<p class="origin-canvas-figure '
                          'has-text-heading-color has-text-color">38</p>\n<!-- /wp:paragraph --></div>\n'
                          '<!-- /wp:group -->\n',
+    'figure-white-on-dark-ink': '<!-- wp:group {"backgroundColor":"text-heading"} -->\n<div class="wp-block-group '
+                                'has-text-heading-background-color has-background"><!-- wp:paragraph {"className":'
+                                '"origin-canvas-figure","backgroundColor":"surface-base","textColor":"text-heading"} -->\n'
+                                '<p class="origin-canvas-figure has-text-heading-color has-surface-base-background-color '
+                                'has-text-color has-background">38</p>\n<!-- /wp:paragraph --></div>\n'
+                                '<!-- /wp:group -->\n',
     'figure-dark-primary': '<!-- wp:group {"style":{"color":{"background":"var(--wp--custom--dark--bg)"}}} -->\n'
                            '<div class="wp-block-group has-background"><!-- wp:paragraph {"className":'
                            '"origin-canvas-figure","textColor":"primary"} -->\n<p class="origin-canvas-figure '
