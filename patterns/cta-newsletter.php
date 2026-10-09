@@ -45,7 +45,7 @@
 <p class="has-text-align-center has-text-muted-color has-text-color has-small-font-size"><?php printf(
 	/* translators: %s: link to the privacy policy */
 	esc_html__( 'We care about your data. Read our %s.', 'origin-canvas' ),
-	'<a href="#" style="font-weight:500">' . esc_html__( 'Privacy Policy', 'origin-canvas' ) . '</a>'
+	'<a href="#">' . esc_html__( 'Privacy Policy', 'origin-canvas' ) . '</a>'
 ); ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group --></section>
