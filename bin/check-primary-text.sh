@@ -21,7 +21,8 @@
 # Allowed without a role class:
 #   - wp:icon (an icon is a mark), hover and focus colors, and primary fills (dots)
 #   - the featured pricing tier's "Most chosen" label (ALLOW)
-#   - the category above a single post's title (ALLOW_BLOCKS)
+#   - the category above a single post's title (ALLOW_BLOCKS). Only the category list:
+#     tags on the single post, and the categories on repeated blog cards, are not primary
 #   - the current nav item, primary through .current-menu-item in core-navigation.css,
 #     a state this check does not read; a wp:navigation block is checked like any other
 #
@@ -53,10 +54,10 @@ INK_TICKS = {
     'patterns/pricing-single.php',
     'patterns/features-checklist.php',
 }
-# (file, block): the single-post category, primary at rest (owner ruling, Oct 8).
+# (file, block): term. The single-post category, primary at rest (owner ruling, Oct 8).
 ALLOW_BLOCKS = {
-    ('patterns/hidden-single.php', 'post-terms'),
-    ('patterns/hidden-single-right-sidebar.php', 'post-terms'),
+    ('patterns/hidden-single.php', 'post-terms'): 'category',
+    ('patterns/hidden-single-right-sidebar.php', 'post-terms'): 'category',
 }
 TAG = re.compile(r'<(a|p|h[1-6]|span|mark)\b([^>]*)>', re.S)
 CLASS = re.compile(r'\bclass="([^"]*)"')
@@ -65,9 +66,9 @@ ARROW = re.compile(r'<span\b([^>]*)>\s*(?:&rarr;|→)\s*</span>')
 LABEL = re.compile(r"esc_html__\(\s*'([^']*)'")
 
 
-def allowed(path, text, pos):
+def allowed(key, text, pos):
     m = LABEL.search(text, pos, pos + 600)
-    return m is not None and (path, m.group(1)) in ALLOW
+    return m is not None and (key, m.group(1)) in ALLOW
 
 
 def is_primary(value):
@@ -83,12 +84,14 @@ def bad(path, line, msg):
     fail.add(path)
 
 
-def check(path):
+def check(path, key=None):
+    # key is the theme path the allow lists are read for; a self-test fixture borrows one.
+    key = key or path
     text = open(path).read()
     lines = text.split('\n')
     for node in walk(parse(path)):
         a, name, cls = node['attrs'], node['name'], class_names(node)
-        if (path in INK_TICKS and name == 'list'
+        if (key in INK_TICKS and name == 'list'
                 and any(c.startswith('is-style-origin-canvas-list-check') for c in cls)
                 and not any(c.endswith('-neutral') for c in cls)):
             bad(path, node['line'], 'check list needs Check Neutral or Check Circle Neutral '
@@ -97,7 +100,7 @@ def check(path):
         primary = a.get('textColor') == 'primary' or is_primary(style.get('color', {}).get('text'))
         link = style.get('elements', {}).get('link', {}).get('color', {}).get('text')
         role = [c for c in cls if c in ROLES]
-        if (path, name) in ALLOW_BLOCKS:
+        if ALLOW_BLOCKS.get((key, name), False) == a.get('term'):
             continue
         if is_primary(link):
             bad(path, node['line'], 'wp:%s sets a primary link color at rest; links keep '
@@ -114,7 +117,7 @@ def check(path):
         # The line can open with a parent block, so start at this block's own attribute.
         pos = sum(len(l) + 1 for l in lines[:node['line'] - 1])
         pos = max(pos, text.find('"textColor":"primary"', pos))
-        if allowed(path, text, pos):
+        if allowed(key, text, pos):
             continue
         bad(path, node['line'], 'wp:%s sets primary text without a role class; add '
             'origin-canvas-eyebrow, -figure or -ordinal, or use a text color' % name)
@@ -131,7 +134,7 @@ def check(path):
             if not PRIMARY_ATTR.search(attrs):
                 bad(path, line, '<%s> has a role class but is not primary' % tag)
             continue
-        if not PRIMARY_ATTR.search(attrs) or allowed(path, text, m.end()):
+        if not PRIMARY_ATTR.search(attrs) or allowed(key, text, m.end()):
             continue
         if ARROW.match(text, m.start()):
             bad(path, line, 'link arrow is primary at rest; it takes the link color')
@@ -139,8 +142,8 @@ def check(path):
         bad(path, line, '<%s> is primary text without a role class' % tag)
 
 
-# Each fixture is one invalid case and must fail on its own. The home and pricing page
-# patterns must pass.
+# Each fixture is one invalid case and must fail on its own. A (key, markup) fixture is
+# read as that theme file. The home, pricing and blog sets must pass.
 FIXTURES = {
     'role-link': '<!-- wp:paragraph {"className":"origin-canvas-eyebrow","style":{"elements":'
                  '{"link":{"color":{"text":"var:preset|color|primary"}}}},"textColor":"primary"} -->\n'
@@ -161,12 +164,24 @@ FIXTURES = {
     'a-block': '<!-- wp:button {"textColor":"primary"} -->\n<div class="wp-block-button"><a class='
                '"wp-block-button__link has-primary-color has-text-color wp-element-button">Go</a></div>\n'
                '<!-- /wp:button -->\n',
+    'card-category': '<!-- wp:post-terms {"term":"category","textColor":"primary"} /-->\n',
+    'card-category-link': '<!-- wp:post-terms {"term":"category","style":{"elements":{"link":'
+                          '{"color":{"text":"var:preset|color|primary"}}}},"textColor":"text-muted"} /-->\n',
+    'single-tags': ('patterns/hidden-single.php',
+                    '<!-- wp:post-terms {"term":"post_tag","textColor":"primary"} /-->\n'),
 }
 HOME = ['patterns/%s.php' % s for s in ('hero-cover', 'breath-statement', 'work-index',
         'stat-band', 'process-numbered', 'feature-split', 'cta-band')]
 PRICING = ['patterns/%s.php' % s for s in ('pricing-hero', 'features-checklist', 'process-cards',
            'testimonial-highlight-dark', 'faq-two-column', 'cta-with-image', 'pricing-single',
            'pricing-simple', 'card-pricing')]
+# Every template, part and pattern the blog index, single post, archive and search render.
+BLOG = (['templates/%s.html' % s for s in ('index', 'single', 'single-right-sidebar', 'archive',
+         'search')]
+        + ['parts/%s.html' % s for s in ('header', 'footer', 'sidebar')]
+        + ['patterns/%s.php' % s for s in ('hidden-blog', 'hidden-single',
+           'hidden-single-right-sidebar', 'hidden-archive', 'hidden-search', 'post-loop-grid',
+           'post-loop-list', 'author-box', 'hidden-comments', 'hidden-sidebar')])
 
 
 def self_test():
@@ -174,14 +189,16 @@ def self_test():
     ok = True
     with tempfile.TemporaryDirectory() as tmp:
         for case, markup in FIXTURES.items():
+            key, markup = markup if isinstance(markup, tuple) else (None, markup)
             path = os.path.join(tmp, case + '.html')
             open(path, 'w').write(markup)
             fail.clear()
             with contextlib.redirect_stdout(io.StringIO()):
-                check(path)
+                check(path, key)
             print('  %s  %s fails' % ('✓' if fail else '✗', case))
             ok = ok and bool(fail)
-    for label, paths in (('the seven home patterns', HOME), ('the nine pricing patterns', PRICING)):
+    for label, paths in (('the seven home patterns', HOME), ('the nine pricing patterns', PRICING),
+                         ('the %d blog templates, parts and patterns' % len(BLOG), BLOG)):
         fail.clear()
         out = io.StringIO()
         with contextlib.redirect_stdout(out):
