@@ -11,10 +11,10 @@
  */
 
 ?>
-<!-- wp:group {"tagName":"section","align":"full","style":{"color":{"background":"#111827","text":"#F3F4F6"},"spacing":{"padding":{"top":"var:preset|spacing|colossal","bottom":"var:preset|spacing|colossal"}}},"layout":{"type":"constrained"}} -->
-<section class="wp-block-group alignfull has-text-color has-background" style="color:#F3F4F6;background-color:#111827;padding-top:var(--wp--preset--spacing--colossal);padding-bottom:var(--wp--preset--spacing--colossal)"><!-- wp:group {"layout":{"type":"flex","flexWrap":"wrap","justifyContent":"space-between","verticalAlignment":"center"}} -->
-<div class="wp-block-group"><!-- wp:heading {"level":3,"style":{"spacing":{"margin":{"top":"0","bottom":"0"}},"color":{"text":"#F3F4F6"}},"fontSize":"huge"} -->
-<h3 class="wp-block-heading has-huge-font-size has-text-color" style="margin-top:0;margin-bottom:0;color:#F3F4F6"><?php echo esc_html__( 'Ready when you are', 'origin-canvas' ); ?></h3>
+<!-- wp:group {"tagName":"section","align":"full","style":{"color":{"background":"var(--wp--custom--dark--bg)","text":"var(--wp--custom--dark--text)"},"spacing":{"padding":{"top":"var:preset|spacing|colossal","bottom":"var:preset|spacing|colossal"}}},"layout":{"type":"constrained"}} -->
+<section class="wp-block-group alignfull has-text-color has-background" style="color:var(--wp--custom--dark--text);background-color:var(--wp--custom--dark--bg);padding-top:var(--wp--preset--spacing--colossal);padding-bottom:var(--wp--preset--spacing--colossal)"><!-- wp:group {"layout":{"type":"flex","flexWrap":"wrap","justifyContent":"space-between","verticalAlignment":"center"}} -->
+<div class="wp-block-group"><!-- wp:heading {"level":3,"style":{"spacing":{"margin":{"top":"0","bottom":"0"}},"color":{"text":"var(--wp--custom--dark--text)"}},"fontSize":"huge"} -->
+<h3 class="wp-block-heading has-huge-font-size has-text-color" style="margin-top:0;margin-bottom:0;color:var(--wp--custom--dark--text)"><?php echo esc_html__( 'Ready when you are', 'origin-canvas' ); ?></h3>
 <!-- /wp:heading -->
 
 <!-- wp:buttons {"layout":{"type":"flex"}} -->

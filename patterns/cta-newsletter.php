@@ -27,22 +27,22 @@
 
 <!-- wp:columns {"verticalAlignment":"center","style":{"spacing":{"margin":{"top":"var:preset|spacing|medium"}}}} -->
 <div class="wp-block-columns are-vertically-aligned-center" style="margin-top:var(--wp--preset--spacing--medium)"><!-- wp:column {"verticalAlignment":"center","width":"66.66%"} -->
-<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:66.66%"><!-- wp:paragraph {"style":{"border":{"radius":"999px","style":"solid","width":"2px"},"spacing":{"padding":{"top":"var:preset|spacing|compact","bottom":"var:preset|spacing|compact","left":"var:preset|spacing|extra-large","right":"var:preset|spacing|extra-large"},"margin":{"top":"0","bottom":"0"}}},"backgroundColor":"surface-base","borderColor":"border-control","textColor":"text-muted","fontSize":"regular"} -->
-<p class="has-border-color has-border-control-border-color has-text-muted-color has-surface-base-background-color has-text-color has-background has-regular-font-size" style="border-style:solid;border-width:2px;border-radius:999px;margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--compact);padding-right:var(--wp--preset--spacing--extra-large);padding-bottom:var(--wp--preset--spacing--compact);padding-left:var(--wp--preset--spacing--extra-large)"><?php echo esc_html__( 'you@yourbusiness.com', 'origin-canvas' ); ?></p>
+<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:66.66%"><!-- wp:paragraph {"style":{"border":{"radius":"var:custom|radius|medium","style":"solid","width":"1px"},"spacing":{"padding":{"top":"var:preset|spacing|compact","bottom":"var:preset|spacing|compact","left":"var:preset|spacing|medium","right":"var:preset|spacing|medium"},"margin":{"top":"0","bottom":"0"}}},"backgroundColor":"surface-base","borderColor":"border-control","textColor":"text-muted","fontSize":"regular"} -->
+<p class="has-border-color has-border-control-border-color has-text-muted-color has-surface-base-background-color has-text-color has-background has-regular-font-size" style="border-style:solid;border-width:1px;border-radius:var(--wp--custom--radius--medium);margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--compact);padding-right:var(--wp--preset--spacing--medium);padding-bottom:var(--wp--preset--spacing--compact);padding-left:var(--wp--preset--spacing--medium)"><?php echo esc_html__( 'you@yourbusiness.com', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column -->
 
 <!-- wp:column {"verticalAlignment":"center","width":"33.33%"} -->
-<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:33.33%"><!-- wp:buttons {"layout":{"type":"flex","justifyContent":"left"}} -->
-<div class="wp-block-buttons"><!-- wp:button -->
+<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:33.33%"><!-- wp:buttons {"className":"origin-canvas-cta-newsletter-action","layout":{"type":"flex","justifyContent":"left"}} -->
+<div class="wp-block-buttons origin-canvas-cta-newsletter-action"><!-- wp:button -->
 <div class="wp-block-button"><a class="wp-block-button__link wp-element-button"><?php echo esc_html__( 'Subscribe', 'origin-canvas' ); ?></a></div>
 <!-- /wp:button --></div>
 <!-- /wp:buttons --></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns -->
 
-<!-- wp:paragraph {"align":"center","className":"origin-canvas-links-plain","style":{"elements":{"link":{"color":{"text":"var:preset|color|text-body"},":hover":{"color":{"text":"var:preset|color|text-muted"}}}}},"textColor":"text-muted","fontSize":"small"} -->
-<p class="origin-canvas-links-plain has-text-align-center has-text-muted-color has-text-color has-link-color has-small-font-size"><?php printf(
+<!-- wp:paragraph {"align":"center","textColor":"text-muted","fontSize":"small"} -->
+<p class="has-text-align-center has-text-muted-color has-text-color has-small-font-size"><?php printf(
 	/* translators: %s: link to the privacy policy */
 	esc_html__( 'We care about your data. Read our %s.', 'origin-canvas' ),
 	'<a href="#">' . esc_html__( 'Privacy Policy', 'origin-canvas' ) . '</a>'

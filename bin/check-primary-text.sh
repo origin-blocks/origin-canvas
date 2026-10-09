@@ -170,7 +170,8 @@ def check(path, key=None):
 
 
 # Each fixture is one invalid case and must fail on its own. A (key, markup) fixture is
-# read as that theme file. The home, pricing, landing, hero, features and blog sets must pass.
+# read as that theme file. The home, pricing, landing, hero, features, card and stats,
+# testimonial and CTA, and blog sets must pass.
 FIXTURES = {
     'role-link': '<!-- wp:paragraph {"className":"origin-canvas-eyebrow","style":{"elements":'
                  '{"link":{"color":{"text":"var:preset|color|primary"}}}},"textColor":"primary"} -->\n'
@@ -227,6 +228,10 @@ FEATURES = ['patterns/%s.php' % s for s in ('features-3-col-icons', 'features-gr
             'features-image-columns', 'features-numbered', 'features-with-image', 'work-grid')]
 CARDS_STATS = ['patterns/%s.php' % s for s in ('card-blog-post', 'card-icon-text',
                'card-image-text', 'card-info', 'card-stat', 'stats-stacked')]
+TESTIMONIALS_CTAS = ['patterns/%s.php' % s for s in ('testimonial-grid', 'testimonial-highlight',
+                     'testimonial-single', 'testimonial-with-image', 'card-testimonial',
+                     'cta-banner', 'cta-buttons', 'cta-card', 'cta-inline', 'cta-newsletter',
+                     'cta-closing')]
 # Every template, part and pattern the blog index, single post, archive and search render.
 BLOG = (['templates/%s.html' % s for s in ('index', 'single', 'single-right-sidebar', 'archive',
          'search')]
@@ -265,6 +270,7 @@ def self_test():
                          ('the nine hero patterns and the 404', HEROES),
                          ('the six features patterns', FEATURES),
                          ('the six card and stats patterns', CARDS_STATS),
+                         ('the eleven testimonial and CTA patterns', TESTIMONIALS_CTAS),
                          ('the %d blog templates, parts and patterns' % len(BLOG), BLOG)):
         fail.clear()
         out = io.StringIO()

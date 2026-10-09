@@ -1055,3 +1055,27 @@ ul.wp-block-list.is-style-origin-canvas-list-check.origin-canvas-features-checkl
 .wp-block-column.origin-canvas-pricing-simple-featured {
 	margin-top: -1px;
 }
+
+/**
+ * CTA Newsletter: when the columns stack on phones, the Subscribe button centers
+ * under the centered text; on desktop it stays at the left of its column, beside
+ * the field. The Buttons block has one justification for every width. 781px is
+ * where core Columns stack.
+ */
+@media (max-width: 781px) {
+	.wp-block-buttons.is-layout-flex.origin-canvas-cta-newsletter-action {
+		justify-content: center;
+	}
+}
+
+/**
+ * CTA Inline: when the columns stack on phones, the Subscribe button moves to the
+ * left under the left-aligned text; on desktop it stays at the right of its
+ * column. The Buttons block has one justification for every width. 781px is
+ * where core Columns stack.
+ */
+@media (max-width: 781px) {
+	.wp-block-buttons.is-layout-flex.origin-canvas-cta-inline-action {
+		justify-content: flex-start;
+	}
+}
