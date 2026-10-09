@@ -22,12 +22,12 @@
 <div class="wp-block-group has-surface-muted-background-color has-background" style="border-bottom-left-radius:8px;border-bottom-right-radius:8px;padding-top:var(--wp--preset--spacing--extra-large);padding-right:var(--wp--preset--spacing--extra-large);padding-bottom:var(--wp--preset--spacing--extra-large);padding-left:var(--wp--preset--spacing--extra-large)"><!-- wp:group {"layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"space-between"}} -->
 <div class="wp-block-group"><!-- wp:post-terms {"term":"category","style":{"typography":{"fontStyle":"normal","fontWeight":"500","textTransform":"uppercase"},"elements":{"link":{":hover":{"color":{"text":"var:preset|color|primary"}},"color":{"text":"var:preset|color|text-muted"}}}},"textColor":"text-muted","fontSize":"extra-small"} /-->
 
-<!-- wp:post-date {"format":"M j","isLink":true,"metadata":{"bindings":{"datetime":{"source":"core/post-data","args":{"field":"date"}}}},"style":{"elements":{"link":{"color":{"text":"var:preset|color|text-body"},":hover":{"color":{"text":"var:preset|color|primary"}}}},"typography":{"fontStyle":"normal","fontWeight":"400","textDecoration":"none"}},"textColor":"text-body","fontSize":"extra-small"} /--></div>
+<!-- wp:post-date {"format":"M j","isLink":true,"metadata":{"bindings":{"datetime":{"source":"core/post-data","args":{"field":"date"}}}},"style":{"elements":{"link":{"color":{"text":"var:preset|color|text-muted"},":hover":{"color":{"text":"var:preset|color|primary"}}}},"typography":{"fontStyle":"normal","fontWeight":"400","textDecoration":"none"}},"textColor":"text-muted","fontSize":"extra-small"} /--></div>
 <!-- /wp:group -->
 
 <!-- wp:post-title {"level":3,"isLink":true,"style":{"typography":{"fontStyle":"normal","textDecoration":"none"},"spacing":{"margin":{"top":"var:preset|spacing|small","bottom":"var:preset|spacing|medium"}},"elements":{"link":{"color":{"text":"var:preset|color|text-heading"},":hover":{"color":{"text":"var:preset|color|primary"}}}}},"fontSize":"medium"} /-->
 
-<!-- wp:post-excerpt {"moreText":"Read more","className":"origin-canvas-post-excerpt","style":{"spacing":{"margin":{"top":"0px","bottom":"0px"}},"elements":{"link":{"color":{"text":"var:preset|color|text-heading"},":hover":{"color":{"text":"var:preset|color|primary"}}}}},"textColor":"text-heading","fontSize":"regular"} /--></div>
+<!-- wp:post-excerpt {"moreText":"Read more","className":"origin-canvas-post-excerpt","style":{"spacing":{"margin":{"top":"0px","bottom":"0px"}},"elements":{"link":{"color":{"text":"var:preset|color|text-heading"},":hover":{"color":{"text":"var:preset|color|primary"}}}}},"textColor":"text-body","fontSize":"regular"} /--></div>
 <!-- /wp:group -->
 <!-- /wp:post-template -->
 
