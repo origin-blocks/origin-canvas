@@ -1046,3 +1046,12 @@ ul.wp-block-list.origin-canvas-features-checklist-list {
 ul.wp-block-list.is-style-origin-canvas-list-check.origin-canvas-features-checklist-list > li + li {
 	margin-top: 0;
 }
+
+/**
+ * Pricing Simple: the featured tier's 2px top line sits 1px higher, so its bottom
+ * edge lines up with the 1px hairlines over the other tiers and the content below
+ * does not move. The Column block has no margin control.
+ */
+.wp-block-column.origin-canvas-pricing-simple-featured {
+	margin-top: -1px;
+}
