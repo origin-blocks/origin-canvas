@@ -1,27 +1,36 @@
 #!/usr/bin/env bash
 #
-# Primary marks; it never colors resting text (owner ruling, Oct 8). The user picks the
-# primary through style variations and presets, and most primaries fail AA as text.
+# Primary colors three roles at rest: eyebrows, stat figures and step numbers (the
+# ordinal role), on light and dark grounds. A list index, such as the work-index row
+# numbers, is not a step number: it stays text-muted with no role class. Reading text (body, headings,
+# UI) and links keep their text roles (owner ruling, Oct 8; ODS RULES.md, "Primary:
+# marks, accents and ambient"). Prices are not stat figures; they stay heading ink.
 # Lesson: docs/solutions/styling/primary-never-colors-resting-text.md
 #
-# Fails on primary text color, set as textColor, style.color.text, a has-primary-color
-# class or an inline color, on:
-#   - any block except wp:icon (an icon is a mark)
-#   - a p, h1-h6, span or mark tag in the saved markup
+# Each role is marked in markup with a block class, so this check reads color by role:
+#   origin-canvas-eyebrow   origin-canvas-figure   origin-canvas-ordinal
 #
-# A link arrow is no exception: it takes the link color at rest, and the whole link,
-# text and arrow, turns primary on hover and focus.
+# Fails on:
+#   - a block or tag with a role class whose text is not primary
+#   - primary text without a role class, set as textColor, style.color.text, a
+#     has-primary-color class or an inline color on a block, or on an a, p, h1-h6, span
+#     or mark tag, unless it is a state indicator listed below
+#   - a primary link color at rest (elements.link.color.text), and a primary link arrow,
+#     role-marked blocks included: a link inside an eyebrow keeps its text role
 #
-# Allowed:
-#   - hover and focus colors, which this check does not read, and primary fills (dots)
-#   - the featured pricing tier's kicker and "Most chosen" label, listed below
-#   - the category above a single post's title, the one editorial accent, listed below
+# Allowed without a role class:
+#   - wp:icon (an icon is a mark), hover and focus colors, and primary fills (dots)
+#   - the featured pricing tier's kicker and "Most chosen" label (ALLOW)
+#   - the category above a single post's title (ALLOW_BLOCKS)
+#   - the current nav item, primary through .current-menu-item in core-navigation.css,
+#     a state this check does not read; a wp:navigation block is checked like any other
 #
 # Check marks are bullets: Check Primary and Check Circle Primary stay primary for
 # users. Our pricing tiers and features-checklist want ink ticks, so every check list
 # in INK_TICKS must use Check Neutral or Check Circle Neutral.
 #
-# Run from the theme root:  bash bin/check-primary-text.sh
+# Run from the theme root:  bash bin/check-primary-text.sh [files…]
+# Self-test of the rule cases:  bash bin/check-primary-text.sh --self-test
 
 set -euo pipefail
 cd "$(dirname "$0")/.."
@@ -31,6 +40,7 @@ import glob, re, sys
 sys.path.insert(0, 'bin/lib')
 from block_tree import parse, walk, class_names
 
+ROLES = ('origin-canvas-eyebrow', 'origin-canvas-figure', 'origin-canvas-ordinal')
 # (file, label): the featured tier's state labels. They mark the tier, with its top
 # frame and button, so they are indicators, not resting text.
 ALLOW = {
@@ -51,8 +61,10 @@ ALLOW_BLOCKS = {
     ('patterns/hidden-single.php', 'post-terms'),
     ('patterns/hidden-single-right-sidebar.php', 'post-terms'),
 }
-TAG = re.compile(r'<(p|h[1-6]|span|mark)\b([^>]*)>', re.S)
+TAG = re.compile(r'<(a|p|h[1-6]|span|mark)\b([^>]*)>', re.S)
+CLASS = re.compile(r'\bclass="([^"]*)"')
 PRIMARY_ATTR = re.compile(r'has-primary-color|(?<![\w-])color:\s*var\(--wp--preset--color--primary\)')
+ARROW = re.compile(r'<span\b([^>]*)>\s*(?:&rarr;|→)\s*</span>')
 LABEL = re.compile(r"esc_html__\(\s*'([^']*)'")
 
 
@@ -61,48 +73,137 @@ def allowed(path, text, pos):
     return m is not None and (path, m.group(1)) in ALLOW
 
 
-files = sys.argv[1:] or sorted(glob.glob('patterns/*.php') + glob.glob('parts/*.html')
-                              + glob.glob('templates/*.html'))
-fail = False
-count = 0
-for path in files:
+def is_primary(value):
+    return 'primary' in (value or '')
+
+
+fail = set()
+roles = [0]
+
+
+def bad(path, line, msg):
+    print('  ✗  %s:%d %s' % (path, line, msg))
+    fail.add(path)
+
+
+def check(path):
     text = open(path).read()
     lines = text.split('\n')
     for node in walk(parse(path)):
-        a = node['attrs']
-        if (path in INK_TICKS and node['name'] == 'list'
-                and any(c.startswith('is-style-origin-canvas-list-check') for c in class_names(node))
-                and not any(c.endswith('-neutral') for c in class_names(node))):
-            print('  \u2717  %s:%d check list needs Check Neutral or Check Circle Neutral '
-                  'for ink ticks' % (path, node['line']))
-            fail = True
-        raw = a.get('style', {}).get('color', {}).get('text', '')
-        if node['name'] == 'icon' or not (a.get('textColor') == 'primary' or 'primary' in raw):
+        a, name, cls = node['attrs'], node['name'], class_names(node)
+        if (path in INK_TICKS and name == 'list'
+                and any(c.startswith('is-style-origin-canvas-list-check') for c in cls)
+                and not any(c.endswith('-neutral') for c in cls)):
+            bad(path, node['line'], 'check list needs Check Neutral or Check Circle Neutral '
+                'for ink ticks')
+        style = a.get('style', {})
+        primary = a.get('textColor') == 'primary' or is_primary(style.get('color', {}).get('text'))
+        link = style.get('elements', {}).get('link', {}).get('color', {}).get('text')
+        role = [c for c in cls if c in ROLES]
+        if (path, name) in ALLOW_BLOCKS:
             continue
-        if (path, node['name']) in ALLOW_BLOCKS:
-            count += 1
+        if is_primary(link):
+            bad(path, node['line'], 'wp:%s sets a primary link color at rest; links keep '
+                'their text roles' % name)
+        if role:
+            roles[0] += 1
+            if not primary:
+                bad(path, node['line'], 'wp:%s has %s but is not primary' % (name, role[0]))
+            continue
+        if name == 'icon':
+            continue
+        if not primary:
             continue
         # The line can open with a parent block, so start at this block's own attribute.
         pos = sum(len(l) + 1 for l in lines[:node['line'] - 1])
         pos = max(pos, text.find('"textColor":"primary"', pos))
         if allowed(path, text, pos):
-            count += 1
             continue
-        print('  ✗  %s:%d wp:%s sets primary text; use text-heading, text-body or '
-              'text-muted' % (path, node['line'], node['name']))
-        fail = True
+        bad(path, node['line'], 'wp:%s sets primary text without a role class; add '
+            'origin-canvas-eyebrow, -figure or -ordinal, or use a text color' % name)
     for m in TAG.finditer(text):
         tag, attrs = m.group(1), m.group(2)
-        if not PRIMARY_ATTR.search(attrs):
+        c = CLASS.search(attrs)
+        tag_cls = c.group(1).split() if c else []
+        line = text.count('\n', 0, m.start()) + 1
+        # A link is never primary at rest, role class or not.
+        if tag == 'a' and PRIMARY_ATTR.search(attrs):
+            bad(path, line, '<a> is a primary link at rest; links keep their text roles')
             continue
-        if allowed(path, text, m.end()):
+        if any(r in tag_cls for r in ROLES):
+            if not PRIMARY_ATTR.search(attrs):
+                bad(path, line, '<%s> has a role class but is not primary' % tag)
             continue
-        print('  ✗  %s:%d <%s> is primary resting text; only the featured tier label '
-              'may be' % (path, text.count('\n', 0, m.start()) + 1, tag))
-        fail = True
+        if not PRIMARY_ATTR.search(attrs) or allowed(path, text, m.end()):
+            continue
+        if ARROW.match(text, m.start()):
+            bad(path, line, 'link arrow is primary at rest; it takes the link color')
+            continue
+        bad(path, line, '<%s> is primary text without a role class' % tag)
+
+
+# Each fixture is one invalid case and must fail on its own. The home page patterns must pass.
+FIXTURES = {
+    'role-link': '<!-- wp:paragraph {"className":"origin-canvas-eyebrow","style":{"elements":'
+                 '{"link":{"color":{"text":"var:preset|color|primary"}}}},"textColor":"primary"} -->\n'
+                 '<p class="origin-canvas-eyebrow has-primary-color has-text-color has-link-color">'
+                 '<a href="#">Work</a></p>\n<!-- /wp:paragraph -->\n',
+    'role-anchor': '<!-- wp:paragraph {"className":"origin-canvas-eyebrow","textColor":"primary"} -->\n'
+                   '<p class="origin-canvas-eyebrow has-primary-color has-text-color"><a class='
+                   '"origin-canvas-eyebrow has-primary-color" href="#">Work</a></p>\n'
+                   '<!-- /wp:paragraph -->\n',
+    'navigation': '<!-- wp:navigation {"textColor":"primary"} /-->\n',
+    'ordinal-muted': '<!-- wp:paragraph {"className":"origin-canvas-ordinal","textColor":"text-muted"} -->\n'
+                     '<p class="origin-canvas-ordinal has-text-muted-color has-text-color">01</p>\n'
+                     '<!-- /wp:paragraph -->\n',
+    'a-class': '<!-- wp:paragraph -->\n<p><a class="has-primary-color" href="#">Work</a></p>\n'
+               '<!-- /wp:paragraph -->\n',
+    'a-inline': '<!-- wp:paragraph -->\n<p><a href="#" style="color:var(--wp--preset--color--primary)">'
+                'Work</a></p>\n<!-- /wp:paragraph -->\n',
+    'a-block': '<!-- wp:button {"textColor":"primary"} -->\n<div class="wp-block-button"><a class='
+               '"wp-block-button__link has-primary-color has-text-color wp-element-button">Go</a></div>\n'
+               '<!-- /wp:button -->\n',
+}
+HOME = ['patterns/%s.php' % s for s in ('hero-cover', 'breath-statement', 'work-index',
+        'stat-band', 'process-numbered', 'feature-split', 'cta-band')]
+
+
+def self_test():
+    import io, os, tempfile, contextlib
+    ok = True
+    with tempfile.TemporaryDirectory() as tmp:
+        for case, markup in FIXTURES.items():
+            path = os.path.join(tmp, case + '.html')
+            open(path, 'w').write(markup)
+            fail.clear()
+            with contextlib.redirect_stdout(io.StringIO()):
+                check(path)
+            print('  %s  %s fails' % ('✓' if fail else '✗', case))
+            ok = ok and bool(fail)
+    fail.clear()
+    out = io.StringIO()
+    with contextlib.redirect_stdout(out):
+        for path in HOME:
+            check(path)
+    print('  %s  the seven home patterns pass' % ('✗' if fail else '✓'))
+    if fail:
+        print(out.getvalue(), end='')
+    return ok and not fail
+
+
+if sys.argv[1:] == ['--self-test']:
+    print('Primary text self-test:')
+    sys.exit(0 if self_test() else 1)
+
+files = sys.argv[1:] or sorted(glob.glob('patterns/*.php') + glob.glob('parts/*.html')
+                              + glob.glob('templates/*.html'))
+for path in files:
+    check(path)
 
 if fail:
+    print('Primary text: %d file(s) fail' % len(fail))
     sys.exit(1)
 print('Primary text:')
-print('  ✓  no resting text in primary (%d featured-tier and single-post labels allowed)' % count)
+print('  ✓  %d role-marked eyebrows, figures and step numbers are primary; no other '
+      'primary resting text' % roles[0])
 PY
