@@ -162,7 +162,7 @@ $oc_ds_on_dark = array(
 			'use'    => 'The second half of the dark stat band statement, faded with inline opacity.',
 			'src'    => $oc_ds_on_src,
 			'aa'     => true,
-			'note'   => 'Rules vs runtime 3',
+			'note'   => 'Rules vs runtime 2',
 			'wide'   => true,
 		)
 	),
@@ -173,7 +173,7 @@ $oc_ds_on_dark = array(
 			'use'    => 'Stat labels on the stat band. A literal, not the on-dark token.',
 			'src'    => 'no token',
 			'aa'     => true,
-			'note'   => 'Rules vs runtime 4',
+			'note'   => 'Rules vs runtime 3',
 		)
 	),
 	$oc_ds_from(
@@ -183,7 +183,7 @@ $oc_ds_on_dark = array(
 			'use'    => 'Price suffix on the dark product card.',
 			'src'    => $oc_ds_token( 'text-muted' ),
 			'aa'     => true,
-			'note'   => 'Rules vs runtime 5',
+			'note'   => 'Rules vs runtime 4',
 		)
 	),
 );
@@ -229,10 +229,11 @@ $oc_ds_primary = array(
 	$oc_ds_from(
 		oc_demo_ds_block( 'card-stat', array( 'class' => 'origin-canvas-figure' ) ),
 		array(
-			'name'   => 'primary · figure on light',
-			'use'    => 'Stat figure on a light ground.',
-			'src'    => $oc_ds_token( 'primary' ),
-			'note'   => 'The rules say text-heading here. Rules vs runtime 1',
+			'name' => 'text-heading · figure on light',
+			'fg'   => $oc_ds_c( 'text-heading' ),
+			'use'  => 'Stat figure on a light ground: heading ink, not primary.',
+			'src'  => $oc_ds_token( 'text-heading' ),
+			'aa'   => true,
 		)
 	),
 	$oc_ds_from(
@@ -324,10 +325,6 @@ $oc_ds_roles   = array(
 	array( 'on-dark 72%', 'color-mix(in srgb, var(--wp--custom--dark--text) 72%, transparent)', array( 'dark' ), true ),
 );
 
-/* Rules vs runtime. */
-
-$oc_ds_light_figures = oc_demo_ds_uses( array( 'origin-canvas-figure', '"textColor":"primary"' ) );
-unset( $oc_ds_light_figures['stat-band.php'], $oc_ds_light_figures['stat-band-dark.php'] );
 ?>
 <section class="ocds-section" id="text-color" aria-labelledby="text-color-title">
 	<h2 id="text-color-title" class="has-huge-font-size">Text color</h2>
@@ -345,7 +342,7 @@ unset( $oc_ds_light_figures['stat-band.php'], $oc_ds_light_figures['stat-band-da
 	</div>
 
 	<h3 class="has-large-font-size">Primary as text</h3>
-	<p class="ocds-intent has-text-body-color has-text-color">Primary colors text only in three roles, each marked by a class: eyebrows, stat figures and step numbers. A state label is an indicator. Reading text and links at rest are never primary.</p>
+	<p class="ocds-intent has-text-body-color has-text-color">Primary colors text only in three roles, each marked by a class: eyebrows, stat figures on dark bands and step numbers. A state label is an indicator. Reading text and links at rest are never primary.</p>
 	<div class="ocds-tiles">
 		<?php array_map( 'oc_demo_ds_tile', $oc_ds_primary ); ?>
 	</div>
@@ -415,7 +412,6 @@ unset( $oc_ds_light_figures['stat-band.php'], $oc_ds_light_figures['stat-band-da
 	<h3 class="has-large-font-size">Rules vs runtime</h3>
 	<p class="ocds-intent has-text-body-color has-text-color">Where ODS <code>RULES.md</code> or the Canvas notes (<code>docs/design.md</code>, private) disagree with the shipped theme. Listed for a decision; nothing here changes the theme. File and line numbers are read from the active theme as the page renders.</p>
 	<ol class="ocds-rvr has-text-body-color has-text-color">
-		<li><strong>Stat figures on light grounds.</strong> RULES, "Primary: marks, accents and ambient" (Ruled, Oct 9): a stat figure on a white or tinted ground is text-heading. Shipped: primary, in <?php echo esc_html( oc_demo_ds_uses_text( $oc_ds_light_figures ) ); ?>. The notes record the fix as built on an unmerged branch.</li>
 		<li><strong>Secondary text on dark bands.</strong> The notes set it at on-dark 72%. Shipped: 72% in <?php echo esc_html( oc_demo_ds_uses_text( oc_demo_ds_uses( 'dark--text) 72%' ) ) ); ?>; 65% in <?php echo esc_html( oc_demo_ds_uses_text( oc_demo_ds_uses( 'dark--text) 65%' ) ) ); ?>; 62% in <?php echo esc_html( oc_demo_ds_uses_text( oc_demo_ds_uses( 'dark--text) 62%' ) ) ); ?>; 50% in <?php echo esc_html( oc_demo_ds_uses_text( oc_demo_ds_uses( 'dark--text) 50%' ) ) ); ?>.</li>
 		<li><strong>The faded half of the dark stat band statement.</strong> RULES, "Light and dark" (Ruled, Oct 8): that faint second half is a defect, and each product fixes it with an existing token. Shipped: an inline <code>opacity:0.72</code> span in <?php echo esc_html( oc_demo_ds_block( 'stat-band-dark', array( 'contains' => 'opacity:' ) )['src'] ); ?>. It paints close to on-dark 72%, but by opacity, not a token; see its tile for the measured ratio.</li>
 		<li><strong>A literal on-dark.</strong> RULES, "Roles, not values" (Provisional): components use tokens, never literal colors. Shipped: <code>rgba(243,244,246,0.72)</code> in <?php echo esc_html( oc_demo_ds_uses_text( oc_demo_ds_uses( 'rgba(243,244,246' ) ) ); ?>. Every palette's on-dark is #F3F4F6 today, so it paints the same; a variation that changes on-dark would leave these labels behind.</li>
