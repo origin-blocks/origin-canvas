@@ -19,7 +19,7 @@
 <h2 class="wp-block-heading has-text-heading-color has-text-color has-huge-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--extra-large);line-height:1.1"><?php echo esc_html__( 'The three of us', 'origin-canvas' ); ?></h2>
 <!-- /wp:heading --><!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|large","padding":{"top":"var:preset|spacing|large","bottom":"var:preset|spacing|large"}},"border":{"bottom":{"color":"var:preset|color|border","style":"solid","width":"1px"}}},"layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"top"}} -->
 <div class="wp-block-group" style="border-bottom-color:var(--wp--preset--color--border);border-bottom-style:solid;border-bottom-width:1px;padding-top:var(--wp--preset--spacing--large);padding-bottom:var(--wp--preset--spacing--large)"><!-- wp:image {"aspectRatio":"1","linkDestination":"none","width":"128px","height":"128px","className":"is-style-origin-canvas-rounded-full","style":{"spacing":{"margin":{"top":"0","bottom":"0"}}}} -->
-<figure class="wp-block-image is-resized is-style-origin-canvas-rounded-full" style="margin-top:0;margin-bottom:0"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/avatar-claire-bennett.webp" alt="<?php esc_attr_e( 'Portrait of Claire Bennett, Founder.', 'origin-canvas' ); ?>" style="aspect-ratio:1;width:128px;height:128px"/></figure>
+<figure class="wp-block-image is-resized is-style-origin-canvas-rounded-full" style="margin-top:0;margin-bottom:0"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/avatar-claire-bennett.webp" alt="<?php esc_attr_e( 'Portrait of Claire Bennett, Co-founder.', 'origin-canvas' ); ?>" style="aspect-ratio:1;width:128px;height:128px"/></figure>
 <!-- /wp:image -->
 
 <!-- wp:group {"style":{"spacing":{"blockGap":"0"}},"layout":{"type":"constrained","justifyContent":"left"}} -->
@@ -28,7 +28,7 @@
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"style":{"typography":{"fontWeight":"500"},"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|small"}}},"textColor":"text-muted","fontSize":"regular"} -->
-<p class="has-text-muted-color has-text-color has-regular-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--small);font-weight:500"><?php echo esc_html__( 'Founder', 'origin-canvas' ); ?></p>
+<p class="has-text-muted-color has-text-color has-regular-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--small);font-weight:500"><?php echo esc_html__( 'Co-founder', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|small"}}},"textColor":"text-body","fontSize":"small"} -->
@@ -52,11 +52,11 @@
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"style":{"typography":{"fontWeight":"500"},"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|small"}}},"textColor":"text-muted","fontSize":"regular"} -->
-<p class="has-text-muted-color has-text-color has-regular-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--small);font-weight:500"><?php echo esc_html__( 'Senior Designer', 'origin-canvas' ); ?></p>
+<p class="has-text-muted-color has-text-color has-regular-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--small);font-weight:500"><?php echo esc_html__( 'Co-founder and Designer', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|small"}}},"textColor":"text-body","fontSize":"small"} -->
-<p class="has-text-body-color has-text-color has-small-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--small)"><?php echo esc_html__( 'Draws the pages and keeps the type honest. Came from print and still sets everything twice.', 'origin-canvas' ); ?></p>
+<p class="has-text-body-color has-text-color has-small-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--small)"><?php echo esc_html__( 'Started the studio with Claire after ten years in print. Draws the pages and keeps the type honest. Came from print and still sets everything twice.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"className":"origin-canvas-links-plain","style":{"typography":{"fontWeight":"500"},"spacing":{"margin":{"top":"0","bottom":"0"}},"elements":{"link":{"color":{"text":"var:preset|color|text-heading"},":hover":{"color":{"text":"var:preset|color|primary"}}}}},"textColor":"text-muted","fontSize":"small"} -->
