@@ -22,7 +22,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 function oc_demo_ds_groups() {
 	$groups = array(
 		'Brand'   => array(),
-		'Color'   => array( 'text-color' => 'Text color' ),
+		'Color'   => array(
+			'text-color' => 'Text color',
+			'surfaces'   => 'Surfaces',
+		),
 		'Type'    => array(),
 		'Spacing' => array(),
 		'Radius'  => array(),
