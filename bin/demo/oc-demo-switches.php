@@ -5,6 +5,8 @@
  *   ?octheme=<worktree-folder>  shows a branch from themes/origin-canvas-worktrees.
  *   ?ocvariation=<slug>         shows a style variation, such as editorial or blue.
  * The switches combine. Copied into mu-plugins by bin/demo/reset.sh.
+ * It also loads the design system page (bin/demo/design-system) from the active theme, and
+ * keeps /design-system/ to administrators: everyone else gets a 404.
  */
 
 if ( is_admin() || wp_doing_ajax() || ( defined( 'REST_REQUEST' ) && REST_REQUEST ) ) {
@@ -53,3 +55,34 @@ if ( ! empty( $_GET['ocvariation'] ) ) {
 		}
 	);
 }
+
+// The design system page is a staff reference. It is Private, which hides it from visitors;
+// this also gives a 404 to logged-in users who can read private pages but are not administrators.
+add_action(
+	'template_redirect',
+	static function () {
+		if ( ! is_page( 'design-system' ) ) {
+			return;
+		}
+		nocache_headers();
+		if ( current_user_can( 'manage_options' ) ) {
+			return;
+		}
+		global $wp_query;
+		$wp_query->set_404();
+		status_header( 404 );
+	},
+	0
+);
+
+// The page itself ships with the demo tool, not the theme. Load it from the active theme, so a
+// worktree preview (?octheme=) shows that branch's page.
+add_action(
+	'after_setup_theme',
+	static function () {
+		$file = get_stylesheet_directory() . '/bin/demo/design-system/design-system.php';
+		if ( is_readable( $file ) ) {
+			require_once $file;
+		}
+	}
+);
