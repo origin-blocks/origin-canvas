@@ -61,7 +61,7 @@
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"textColor":"text-body","fontSize":"regular"} -->
-<p class="has-text-body-color has-text-color has-regular-font-size"><?php echo esc_html__( 'Identity, type, and a site made by the same three people throughout.', 'origin-canvas' ); ?></p>
+<p class="has-text-body-color has-text-color has-regular-font-size"><?php echo esc_html__( 'Identity, type, and a site made by the same four people throughout.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group --></div>
 <!-- /wp:group -->
