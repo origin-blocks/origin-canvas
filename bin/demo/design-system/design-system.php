@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * The side menu. Each group lists its built sections (id => label); a group with none shows
+ * The anchor row. Each group lists its built sections (id => label); a group with none shows
  * as "Next". A section's markup is sections/<id>.php; an item without its file is left out.
  */
 function oc_demo_ds_groups() {

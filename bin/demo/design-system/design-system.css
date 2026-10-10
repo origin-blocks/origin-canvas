@@ -1,5 +1,5 @@
 /*
- * Design system page chrome: layout, the side menu and the specimen frames. Type and text
+ * Design system page chrome: layout, the sticky anchor row and the specimen frames. Type and text
  * color come from the theme's preset classes in the markup; every value here is a theme
  * preset or custom property. A specimen's colors come from the block itself or from the
  * tile's --ocds-fg and --ocds-ground, so this file never sets a color a tile measures.
@@ -16,13 +16,14 @@
 /* Head */
 
 .ocds-head,
-.ocds-body {
+.ocds-jump-list,
+.ocds-content {
 	margin-inline: auto;
 	max-width: var(--wp--style--global--wide-size);
 }
 
 .ocds-head {
-	margin-bottom: var(--wp--preset--spacing--jumbo);
+	margin-bottom: var(--wp--preset--spacing--extra-large);
 }
 
 .ocds-head > * {
@@ -33,8 +34,7 @@
 	margin-top: var(--wp--preset--spacing--medium);
 }
 
-.ocds-kicker,
-.ocds-menu-label {
+.ocds-kicker {
 	font-weight: 600;
 	letter-spacing: 0.08em;
 	text-transform: uppercase;
@@ -44,44 +44,38 @@
 	max-width: 66ch;
 }
 
-/* Side menu and content */
+/* Anchor row: one link per group, sticky below the admin bar. One line that scrolls
+   sideways when it runs out of room, so it never widens the page. */
 
-.ocds-body {
-	display: grid;
-	gap: var(--wp--preset--spacing--huge);
-	grid-template-columns: 12rem minmax(0, 1fr);
-}
-
-.ocds-menu {
-	align-self: start;
+.ocds-jump {
+	background: var(--wp--preset--color--surface-base);
+	border-block: 1px solid var(--wp--preset--color--border);
+	margin-bottom: var(--wp--preset--spacing--jumbo);
+	margin-inline: calc(-1 * var(--wp--preset--spacing--large));
+	overflow-x: auto;
+	padding: var(--wp--preset--spacing--compact) var(--wp--preset--spacing--large);
 	position: sticky;
-	top: calc(var(--wp-admin--admin-bar--height, 0px) + var(--wp--preset--spacing--large));
+	top: var(--wp-admin--admin-bar--height, 0px);
+	z-index: 10;
 }
 
-.ocds-menu ul {
-	list-style: none;
-	margin: 0;
-	padding: 0;
-}
-
-.ocds-menu-groups {
+.ocds-jump-list {
 	display: flex;
-	flex-direction: column;
 	gap: var(--wp--preset--spacing--medium);
+	list-style: none;
+	margin-block: 0;
+	padding: 0;
+	white-space: nowrap;
 }
 
-.ocds-menu-group {
+.ocds-jump-list li {
 	align-items: baseline;
 	display: flex;
-	flex-wrap: wrap;
-	gap: var(--wp--preset--spacing--extra-small) var(--wp--preset--spacing--small);
+	gap: var(--wp--preset--spacing--extra-small);
 }
 
-.ocds-menu-items {
-	display: flex;
-	flex-basis: 100%;
-	flex-direction: column;
-	gap: var(--wp--preset--spacing--extra-small);
+.ocds-jump-list a {
+	font-weight: 600;
 }
 
 .ocds-next {
@@ -91,29 +85,18 @@
 	padding: 0 var(--wp--preset--spacing--small);
 }
 
-.ocds-content {
-	min-width: 0;
-}
-
-@media (max-width: 781px) {
-	.ocds-body {
-		grid-template-columns: minmax(0, 1fr);
-	}
-
-	.ocds-menu {
-		border-bottom: 1px solid var(--wp--preset--color--border);
-		padding-bottom: var(--wp--preset--spacing--large);
-		position: static;
-	}
-
-	.ocds-menu-groups {
-		display: grid;
-		gap: var(--wp--preset--spacing--medium);
-		grid-template-columns: repeat(2, minmax(0, 1fr));
+/* At 600px and below the admin bar scrolls away, as the theme's sticky header assumes. */
+@media (max-width: 600px) {
+	.ocds-jump {
+		top: 0;
 	}
 }
 
-/* Sections */
+/* Sections: an anchor lands below the sticky row. */
+
+.ocds-section {
+	scroll-margin-top: calc(var(--wp--preset--spacing--large) + 3rem);
+}
 
 .ocds-section + .ocds-section {
 	border-top: 1px solid var(--wp--preset--color--border);
