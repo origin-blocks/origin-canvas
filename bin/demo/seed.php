@@ -4,8 +4,8 @@
  *   wp eval-file bin/demo/seed.php
  *
  * Builds the pages from the active theme's page patterns, a blog with posts, comments and
- * featured images, and the primary menu. Page content is a pattern reference, so a page
- * always renders the active theme's current version of its pattern.
+ * featured images, the primary menu and the private design system page. Page content is a
+ * pattern reference, so a page always renders the active theme's current version of its pattern.
  */
 
 if ( ! defined( 'WP_CLI' ) ) {
@@ -467,3 +467,7 @@ oc_demo_insert(
 );
 
 WP_CLI::success( sprintf( 'Seeded %d pages, %d posts and the primary menu.', count( $menu ), count( $post_ids ) ) );
+
+/* The private design system page, for administrators. Not in the menu. */
+
+require __DIR__ . '/design-system/seed.php';
