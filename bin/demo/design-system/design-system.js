@@ -106,6 +106,16 @@
 		};
 	}
 
+	// A tile's own caption element: tiles can hold smaller tiles (role chips), each with its
+	// own captions.
+	function own( tile, selector ) {
+		return tile
+			? Array.from( tile.querySelectorAll( selector ) ).find(
+				( el ) => el.closest( '[data-ocds-tile]' ) === tile
+			)
+			: null;
+	}
+
 	document.querySelectorAll( '[data-ocds-sample]' ).forEach( ( sample ) => {
 		const tile = sample.closest( '[data-ocds-tile]' );
 		const selector = sample.getAttribute( 'data-ocds-sample' );
@@ -114,8 +124,8 @@
 			sample.firstElementChild ||
 			sample;
 		const m = measure( target, sample.parentElement );
-		const hexEl = tile && tile.querySelector( '[data-ocds-hex]' );
-		const ratioEl = tile && tile.querySelector( '[data-ocds-ratio]' );
+		const hexEl = own( tile, '[data-ocds-hex]' );
+		const ratioEl = own( tile, '[data-ocds-ratio]' );
 		if ( hexEl ) {
 			hexEl.textContent = m
 				? m.hex + ( m.blended ? ' as painted' : '' ) + ' on ' + m.ground
@@ -127,6 +137,21 @@
 			if ( m && tile.hasAttribute( 'data-ocds-aa' ) && m.ratio < 4.5 ) {
 				ratioEl.textContent += ' · under AA';
 			}
+		}
+	} );
+
+	// A fill against what is behind it: how far a section stands off the page, or a card off
+	// its section.
+	document.querySelectorAll( '[data-ocds-fill]' ).forEach( ( tile ) => {
+		const el = tile.querySelector( tile.getAttribute( 'data-ocds-fill' ) );
+		const out = own( tile, '[data-ocds-sep]' );
+		const fill = el && backdrop( el );
+		const behind = el && backdrop( el.parentElement );
+		if ( out ) {
+			out.textContent =
+				fill && behind
+					? 'Fill ' + hex( fill ) + ' on ' + hex( behind ) + ' · ' + ratio( fill, behind ).toFixed( 2 ) + ':1'
+					: 'n/a';
 		}
 	} );
 }() );

@@ -172,6 +172,65 @@
 	font-variant-numeric: tabular-nums;
 }
 
+/* Text roles painted on a tile's ground: an "Aa" in each role, with its ratio. */
+
+.ocds-roles {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--wp--preset--spacing--medium) var(--wp--preset--spacing--large);
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.ocds-roles li {
+	align-items: center;
+	display: flex;
+	gap: var(--wp--preset--spacing--compact);
+}
+
+/* Page grounds: each page pattern's sections in order, one swatch each. A panel inside an
+   unfilled section shows as an inset block. */
+
+.ocds-pages {
+	display: flex;
+	flex-direction: column;
+	gap: var(--wp--preset--spacing--large);
+	margin-top: var(--wp--preset--spacing--extra-large);
+}
+
+.ocds-strip {
+	display: grid;
+	gap: var(--wp--preset--spacing--compact);
+	grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr));
+	list-style: none;
+	margin: var(--wp--preset--spacing--compact) 0 0;
+	padding: 0;
+}
+
+.ocds-strip li {
+	display: flex;
+	flex-direction: column;
+	gap: var(--wp--preset--spacing--extra-small);
+	min-width: 0;
+	overflow-wrap: anywhere;
+}
+
+.ocds-swatch {
+	background: var(--ocds-ground);
+	border: 1px solid var(--wp--preset--color--border);
+	border-radius: var(--wp--custom--radius--medium);
+	display: flex;
+	height: 3rem;
+	padding: var(--wp--preset--spacing--compact) var(--wp--preset--spacing--large);
+}
+
+.ocds-swatch > span {
+	background: var(--ocds-panel);
+	border-radius: var(--wp--custom--radius--small);
+	flex: 1;
+}
+
 /* Role by ground matrix */
 
 .ocds-matrix-wrap {

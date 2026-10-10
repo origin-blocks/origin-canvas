@@ -79,9 +79,11 @@ function oc_demo_ds_src( $file, $needle, $after = '' ) {
  * @param string $slug Pattern slug without the origin-canvas/ prefix.
  * @param array  $want Any of: name (block name), class (in className), plain (true: no
  *                     className), textColor (slug), color (text in style.color.text),
+ *                     fill (the block's own backgroundColor slug or style.color.background),
  *                     contains (text in the block's own markup), ground (as returned here).
- * @return array{html: string, ground: string, color: string, src: string} Empty html when
- *         nothing matches; color is empty when no ancestor sets one.
+ * @return array{html: string, ground: string, outer: string, color: string, src: string}
+ *         Empty html when nothing matches. outer is the ground around the block, before its
+ *         own fill. color is empty when no ancestor sets one.
  */
 function oc_demo_ds_block( $slug, $want ) {
 	$file    = 'patterns/' . $slug . '.php';
@@ -98,6 +100,7 @@ function oc_demo_ds_block( $slug, $want ) {
 			continue;
 		}
 		$attrs  = $block['attrs'];
+		$outer  = $ground;
 		$ground = isset( $attrs['backgroundColor'] ) ? 'var(--wp--preset--color--' . $attrs['backgroundColor'] . ')' : ( $attrs['style']['color']['background'] ?? $ground );
 		$key    = $block['blockName'] . wp_json_encode( $attrs );
 		$nth    = $seen[ $key ] ?? 0;
@@ -105,6 +108,7 @@ function oc_demo_ds_block( $slug, $want ) {
 			return array(
 				'html'   => render_block( $block ),
 				'ground' => $ground,
+				'outer'  => $outer,
 				'color'  => $color,
 				'src'    => oc_demo_ds_comment_line( $file, $block['blockName'], $attrs, $nth ),
 			);
@@ -120,6 +124,7 @@ function oc_demo_ds_block( $slug, $want ) {
 	return array(
 		'html'   => '',
 		'ground' => $page,
+		'outer'  => $page,
 		'color'  => '',
 		'src'    => basename( $file ) . ': no match',
 	);
@@ -166,6 +171,9 @@ function oc_demo_ds_matches( $block, $want ) {
 		return false;
 	}
 	if ( ! empty( $want['plain'] ) && ! empty( $attrs['className'] ) ) {
+		return false;
+	}
+	if ( isset( $want['fill'] ) && ( $attrs['backgroundColor'] ?? ( $attrs['style']['color']['background'] ?? '' ) ) !== $want['fill'] ) {
 		return false;
 	}
 	if ( isset( $want['contains'] ) && false === strpos( $block['innerHTML'], $want['contains'] ) ) {
@@ -262,12 +270,15 @@ function oc_demo_ds_uses_text( $uses ) {
  * @param array $t name, ground, html, use, src; optional fg (paints an "Aa" in that color),
  *                 color (the text color the block inherits), target (selector of the
  *                 measured element), aa (true for the neutral text
- *                 roles, which AA binds), note, wide.
+ *                 roles, which AA binds), note, wide, fill (selector, from the tile, of an
+ *                 element whose fill is measured against what is behind it), roles (text
+ *                 roles painted on the ground: label, color, aa), text (false: no text caption,
+ *                 for a sample with no text).
  */
 function oc_demo_ds_tile( $t ) {
 	$style = '--ocds-ground:' . $t['ground'] . ( isset( $t['fg'] ) ? ';--ocds-fg:' . $t['fg'] : '' );
 	?>
-	<figure class="ocds-tile<?php echo empty( $t['wide'] ) ? '' : ' is-wide'; ?>" data-ocds-tile<?php echo empty( $t['aa'] ) ? '' : ' data-ocds-aa'; ?> style="<?php echo esc_attr( $style ); ?>">
+	<figure class="ocds-tile<?php echo empty( $t['wide'] ) ? '' : ' is-wide'; ?>" data-ocds-tile<?php echo empty( $t['aa'] ) ? '' : ' data-ocds-aa'; ?><?php echo empty( $t['fill'] ) ? '' : ' data-ocds-fill="' . esc_attr( $t['fill'] ) . '"'; ?> style="<?php echo esc_attr( $style ); ?>">
 		<div class="ocds-ground">
 			<?php if ( isset( $t['fg'] ) ) : ?>
 				<span class="ocds-aa has-huge-font-size" aria-hidden="true">Aa</span>
@@ -275,10 +286,25 @@ function oc_demo_ds_tile( $t ) {
 			<div class="ocds-sample" data-ocds-sample="<?php echo esc_attr( $t['target'] ?? '' ); ?>"<?php echo empty( $t['color'] ) ? '' : ' style="' . esc_attr( 'color:' . $t['color'] ) . '"'; ?>>
 				<?php echo $t['html']; // phpcs:ignore WordPress.Security.EscapeOutput -- rendered theme blocks. ?>
 			</div>
+			<?php if ( ! empty( $t['roles'] ) ) : ?>
+				<ul class="ocds-roles has-small-font-size">
+					<?php foreach ( $t['roles'] as $oc_demo_ds_role ) : ?>
+						<li data-ocds-tile<?php echo empty( $oc_demo_ds_role[2] ) ? '' : ' data-ocds-aa'; ?> style="<?php echo esc_attr( 'color:' . $oc_demo_ds_role[1] ); ?>">
+							<span class="ocds-cell-aa has-large-font-size" data-ocds-sample>Aa</span>
+							<span><?php echo esc_html( $oc_demo_ds_role[0] ); ?><br><span class="ocds-num" data-ocds-ratio></span></span>
+						</li>
+					<?php endforeach; ?>
+				</ul>
+			<?php endif; ?>
 		</div>
 		<figcaption class="ocds-cap">
 			<code class="has-text-heading-color has-text-color"><?php echo esc_html( $t['name'] ); ?></code>
-			<span class="ocds-num has-text-body-color has-text-color has-small-font-size"><span data-ocds-hex></span><br><span data-ocds-ratio></span></span>
+			<?php if ( ! isset( $t['text'] ) || $t['text'] ) : ?>
+				<span class="ocds-num has-text-body-color has-text-color has-small-font-size"><span data-ocds-hex></span><br><span data-ocds-ratio></span></span>
+			<?php endif; ?>
+			<?php if ( ! empty( $t['fill'] ) ) : ?>
+				<span class="ocds-num has-text-body-color has-text-color has-small-font-size" data-ocds-sep></span>
+			<?php endif; ?>
 			<span class="has-text-body-color has-text-color has-small-font-size"><?php echo esc_html( $t['use'] ); ?></span>
 			<?php if ( ! empty( $t['note'] ) ) : ?>
 				<span class="has-text-heading-color has-text-color has-small-font-size"><strong><?php echo esc_html( $t['note'] ); ?></strong></span>
