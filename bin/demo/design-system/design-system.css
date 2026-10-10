@@ -267,3 +267,9 @@
 	max-width: 72ch;
 	padding-inline-start: var(--wp--preset--spacing--large);
 }
+
+@media (min-width: 782px) {
+	.ocds-tile.is-wide {
+		grid-column: span 2;
+	}
+}

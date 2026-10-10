@@ -27,7 +27,7 @@ $oc_demo_ds_groups = oc_demo_ds_groups();
 
 	<div class="ocds-body">
 
-		<nav class="ocds-menu" aria-label="Design system">
+		<nav class="ocds-menu origin-canvas-links-plain" aria-label="Design system">
 			<ul class="ocds-menu-groups">
 				<?php foreach ( $oc_demo_ds_groups as $oc_demo_ds_group => $oc_demo_ds_items ) : ?>
 					<li class="ocds-menu-group">

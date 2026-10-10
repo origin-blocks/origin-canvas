@@ -85,16 +85,22 @@
 		);
 	}
 
-	function measure( el ) {
+	// Text faded with opacity, on the element or a parent inside the specimen, is blended
+	// over the ground by the product of those opacities.
+	function measure( el, frame ) {
 		const fg = parse( getComputedStyle( el ).color );
 		const bg = backdrop( el );
+		let opacity = 1;
+		for ( let n = el; n && n !== frame; n = n.parentElement ) {
+			opacity *= parseFloat( getComputedStyle( n ).opacity );
+		}
 		if ( ! fg || ! bg ) {
 			return null;
 		}
-		const paint = over( fg, bg );
+		const paint = over( [ fg[ 0 ], fg[ 1 ], fg[ 2 ], fg[ 3 ] * opacity ], bg );
 		return {
 			hex: hex( paint ),
-			blended: fg[ 3 ] < 1,
+			blended: fg[ 3 ] * opacity < 1,
 			ground: hex( bg ),
 			ratio: ratio( paint, bg ),
 		};
@@ -107,7 +113,7 @@
 			( selector && sample.querySelector( selector ) ) ||
 			sample.firstElementChild ||
 			sample;
-		const m = measure( target );
+		const m = measure( target, sample.parentElement );
 		const hexEl = tile && tile.querySelector( '[data-ocds-hex]' );
 		const ratioEl = tile && tile.querySelector( '[data-ocds-ratio]' );
 		if ( hexEl ) {

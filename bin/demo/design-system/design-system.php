@@ -67,43 +67,111 @@ function oc_demo_ds_src( $file, $needle, $after = '' ) {
 }
 
 /**
- * The first block in a registered theme pattern that passes $test, rendered as the theme
- * renders it. Specimens are real shipped blocks, so a pattern change shows here.
+ * The first block in a registered theme pattern that matches $want, rendered as the theme
+ * renders it, with the ground it sits on and the line of its block comment in the pattern
+ * file. Specimens are real shipped blocks, so a pattern change shows here.
  *
- * @param string   $slug Pattern slug without the origin-canvas/ prefix.
- * @param callable $test Receives a parsed block; returns true for the one to render.
- * @return string Block HTML, or an empty string when nothing matches.
+ * The ground is the nearest fill among the block and its ancestors: a palette slug as its
+ * preset variable, a raw value as written, or surface-base (the page) when nothing sets one.
+ * The text color the block inherits from its ancestors is found the same way, so a block
+ * shown alone keeps the color its section gives it.
+ *
+ * @param string $slug Pattern slug without the origin-canvas/ prefix.
+ * @param array  $want Any of: name (block name), class (in className), plain (true: no
+ *                     className), textColor (slug), color (text in style.color.text),
+ *                     contains (text in the block's own markup), ground (as returned here).
+ * @return array{html: string, ground: string, color: string, src: string} Empty html when
+ *         nothing matches; color is empty when no ancestor sets one.
  */
-function oc_demo_ds_block( $slug, $test ) {
+function oc_demo_ds_block( $slug, $want ) {
+	$file    = 'patterns/' . $slug . '.php';
 	$pattern = WP_Block_Patterns_Registry::get_instance()->get_registered( 'origin-canvas/' . $slug );
-	if ( ! $pattern ) {
-		return '';
+	$page    = 'var(--wp--preset--color--surface-base)';
+	$stack   = array();
+	foreach ( $pattern ? parse_blocks( $pattern['content'] ) : array() as $block ) {
+		$stack[] = array( $block, $page, '' );
 	}
-	$stack = parse_blocks( $pattern['content'] );
+	$seen = array();
 	while ( $stack ) {
-		$block = array_shift( $stack );
-		if ( ! empty( $block['blockName'] ) && $test( $block ) ) {
-			return render_block( $block );
+		list( $block, $ground, $color ) = array_shift( $stack );
+		if ( empty( $block['blockName'] ) ) {
+			continue;
 		}
-		$stack = array_merge( $block['innerBlocks'] ?? array(), $stack );
+		$attrs  = $block['attrs'];
+		$ground = isset( $attrs['backgroundColor'] ) ? 'var(--wp--preset--color--' . $attrs['backgroundColor'] . ')' : ( $attrs['style']['color']['background'] ?? $ground );
+		$key    = $block['blockName'] . wp_json_encode( $attrs );
+		$nth    = $seen[ $key ] ?? 0;
+		if ( oc_demo_ds_matches( $block, $want ) && ( ! isset( $want['ground'] ) || $want['ground'] === $ground ) ) {
+			return array(
+				'html'   => render_block( $block ),
+				'ground' => $ground,
+				'color'  => $color,
+				'src'    => oc_demo_ds_comment_line( $file, $block['blockName'], $attrs, $nth ),
+			);
+		}
+		$seen[ $key ] = $nth + 1;
+		$color        = isset( $attrs['textColor'] ) ? 'var(--wp--preset--color--' . $attrs['textColor'] . ')' : ( $attrs['style']['color']['text'] ?? $color );
+		$inner        = array();
+		foreach ( $block['innerBlocks'] as $child ) {
+			$inner[] = array( $child, $ground, $color );
+		}
+		$stack = array_merge( $inner, $stack );
 	}
-	return '';
+	return array(
+		'html'   => '',
+		'ground' => $page,
+		'color'  => '',
+		'src'    => basename( $file ) . ': no match',
+	);
 }
 
 /**
- * Block test: a class in className, and optionally a textColor slug.
+ * "file:line" of the $nth block comment (from 0) with this name and these attributes.
  *
- * @param string $class      Class name.
- * @param string $text_color Optional textColor slug.
+ * @param string $file  Path relative to the theme root.
+ * @param string $name  Block name.
+ * @param array  $attrs Parsed attributes.
+ * @param int    $nth   How many identical blocks come before it.
  */
-function oc_demo_ds_has( $class, $text_color = '' ) {
-	return static function ( $block ) use ( $class, $text_color ) {
-		$attrs = $block['attrs'];
-		if ( '' !== $class && ! in_array( $class, explode( ' ', $attrs['className'] ?? '' ), true ) ) {
-			return false;
+function oc_demo_ds_comment_line( $file, $name, $attrs, $nth ) {
+	$path = get_stylesheet_directory() . '/' . $file;
+	$name = preg_replace( '#^core/#', '', $name );
+	foreach ( is_readable( $path ) ? file( $path ) : array() as $i => $line ) {
+		preg_match_all( '#<!--\s+wp:([a-z0-9/-]+)(\s+(\{.*?\}))?\s*/?-->#', $line, $found, PREG_SET_ORDER );
+		foreach ( $found as $m ) {
+			$json = isset( $m[3] ) ? json_decode( $m[3], true ) : array();
+			if ( $m[1] === $name && $json === $attrs && 0 === $nth-- ) {
+				return basename( $file ) . ':' . ( $i + 1 );
+			}
 		}
-		return '' === $text_color || ( $attrs['textColor'] ?? '' ) === $text_color;
-	};
+	}
+	return basename( $file ) . ':?';
+}
+
+/**
+ * Whether a parsed block matches every key in $want (see oc_demo_ds_block).
+ *
+ * @param array $block Parsed block.
+ * @param array $want  Keys to match.
+ */
+function oc_demo_ds_matches( $block, $want ) {
+	$attrs = $block['attrs'];
+	if ( isset( $want['name'] ) && $want['name'] !== $block['blockName'] ) {
+		return false;
+	}
+	if ( isset( $want['class'] ) && ! in_array( $want['class'], explode( ' ', $attrs['className'] ?? '' ), true ) ) {
+		return false;
+	}
+	if ( isset( $want['textColor'] ) && ( $attrs['textColor'] ?? '' ) !== $want['textColor'] ) {
+		return false;
+	}
+	if ( ! empty( $want['plain'] ) && ! empty( $attrs['className'] ) ) {
+		return false;
+	}
+	if ( isset( $want['contains'] ) && false === strpos( $block['innerHTML'], $want['contains'] ) ) {
+		return false;
+	}
+	return ! isset( $want['color'] ) || false !== strpos( $attrs['style']['color']['text'] ?? '', $want['color'] );
 }
 
 add_action(
@@ -146,3 +214,77 @@ add_action(
 		);
 	}
 );
+
+/**
+ * Pattern block comments whose line holds every needle, as file => line numbers. Lets a
+ * "Rules vs runtime" item count its uses as the page renders.
+ *
+ * @param string|string[] $needles Text that must all be on the line.
+ */
+function oc_demo_ds_uses( $needles ) {
+	$uses = array();
+	foreach ( glob( get_stylesheet_directory() . '/patterns/*.php' ) as $path ) {
+		foreach ( file( $path ) as $i => $line ) {
+			if ( false === strpos( $line, '<!-- wp:' ) ) {
+				continue;
+			}
+			foreach ( (array) $needles as $needle ) {
+				if ( false === strpos( $line, $needle ) ) {
+					continue 2;
+				}
+			}
+			$uses[ basename( $path ) ][] = $i + 1;
+		}
+	}
+	return $uses;
+}
+
+/**
+ * Uses as "file.php:line ×count", one per file.
+ *
+ * @param array $uses From oc_demo_ds_uses().
+ */
+function oc_demo_ds_uses_text( $uses ) {
+	if ( ! $uses ) {
+		return 'no uses';
+	}
+	$parts = array();
+	foreach ( $uses as $file => $lines ) {
+		$parts[] = $file . ':' . $lines[0] . ( count( $lines ) > 1 ? ' ×' . count( $lines ) : '' );
+	}
+	return implode( ', ', $parts );
+}
+
+/**
+ * One specimen tile: a sample on its ground, then the captions. The hex and ratio captions are
+ * filled in by design-system.js.
+ *
+ * @param array $t name, ground, html, use, src; optional fg (paints an "Aa" in that color),
+ *                 color (the text color the block inherits), target (selector of the
+ *                 measured element), aa (true for the neutral text
+ *                 roles, which AA binds), note, wide.
+ */
+function oc_demo_ds_tile( $t ) {
+	$style = '--ocds-ground:' . $t['ground'] . ( isset( $t['fg'] ) ? ';--ocds-fg:' . $t['fg'] : '' );
+	?>
+	<figure class="ocds-tile<?php echo empty( $t['wide'] ) ? '' : ' is-wide'; ?>" data-ocds-tile<?php echo empty( $t['aa'] ) ? '' : ' data-ocds-aa'; ?> style="<?php echo esc_attr( $style ); ?>">
+		<div class="ocds-ground">
+			<?php if ( isset( $t['fg'] ) ) : ?>
+				<span class="ocds-aa has-huge-font-size" aria-hidden="true">Aa</span>
+			<?php endif; ?>
+			<div class="ocds-sample" data-ocds-sample="<?php echo esc_attr( $t['target'] ?? '' ); ?>"<?php echo empty( $t['color'] ) ? '' : ' style="' . esc_attr( 'color:' . $t['color'] ) . '"'; ?>>
+				<?php echo $t['html']; // phpcs:ignore WordPress.Security.EscapeOutput -- rendered theme blocks. ?>
+			</div>
+		</div>
+		<figcaption class="ocds-cap">
+			<code class="has-text-heading-color has-text-color"><?php echo esc_html( $t['name'] ); ?></code>
+			<span class="ocds-num has-text-body-color has-text-color has-small-font-size"><span data-ocds-hex></span><br><span data-ocds-ratio></span></span>
+			<span class="has-text-body-color has-text-color has-small-font-size"><?php echo esc_html( $t['use'] ); ?></span>
+			<?php if ( ! empty( $t['note'] ) ) : ?>
+				<span class="has-text-heading-color has-text-color has-small-font-size"><strong><?php echo esc_html( $t['note'] ); ?></strong></span>
+			<?php endif; ?>
+			<span class="has-text-muted-color has-text-color has-extra-small-font-size"><?php echo esc_html( $t['src'] ); ?></span>
+		</figcaption>
+	</figure>
+	<?php
+}
