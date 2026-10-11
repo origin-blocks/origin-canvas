@@ -70,6 +70,14 @@ Pattern image "Hannah Wright team portrait" (patterns/images/avatar-hannah-wrigh
 
 Pattern image "Ben Carter team portrait" (patterns/images/avatar-ben-carter.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
+Pattern image "Claire Bennett team card portrait" (patterns/images/portrait-claire-bennett.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+
+Pattern image "Marcus Holloway team card portrait" (patterns/images/portrait-marcus-holloway.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+
+Pattern image "Hannah Wright team card portrait" (patterns/images/portrait-hannah-wright.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+
+Pattern image "Ben Carter team card portrait" (patterns/images/portrait-ben-carter.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+
 Pattern image "Hero split studio interior cover image" (patterns/images/architecture-interior.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
 Pattern image "Ash & Pine Woodworks timber stack" (patterns/images/hero-cover-thistle-pine.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
