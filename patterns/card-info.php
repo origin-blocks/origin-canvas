@@ -11,8 +11,8 @@
  */
 
 ?>
-<!-- wp:group {"tagName":"section","align":"full","style":{"spacing":{"padding":{"top":"var:preset|spacing|colossal","bottom":"var:preset|spacing|colossal"},"blockGap":"var:preset|spacing|extra-large"}},"layout":{"type":"constrained"}} -->
-<section class="wp-block-group alignfull" style="padding-top:var(--wp--preset--spacing--colossal);padding-bottom:var(--wp--preset--spacing--colossal)"><!-- wp:group {"align":"wide","layout":{"type":"constrained","justifyContent":"left"}} -->
+<!-- wp:group {"tagName":"section","align":"full","style":{"spacing":{"margin":{"top":"0","bottom":"0"},"padding":{"top":"var:preset|spacing|colossal","bottom":"var:preset|spacing|colossal"},"blockGap":"var:preset|spacing|extra-large"}},"layout":{"type":"constrained"}} -->
+<section class="wp-block-group alignfull" style="margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--colossal);padding-bottom:var(--wp--preset--spacing--colossal)"><!-- wp:group {"align":"wide","layout":{"type":"constrained","justifyContent":"left"}} -->
 <div class="wp-block-group alignwide"><!-- wp:heading {"level":2,"align":"wide","style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"fontSize":"display"} -->
 <h2 class="wp-block-heading alignwide has-display-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Why people work with us', 'origin-canvas' ); ?></h2>
 <!-- /wp:heading -->
