@@ -2,9 +2,9 @@
 /**
  * Title: Contact Routes
  * Slug: origin-canvas/contact-routes
- * Description: A contact section with a panel of email links that each open a message with its subject filled in; a form plugin's block can replace the contents of the group named Contact panel.
+ * Description: A contact section with a panel of three routes, each with a link: email to start a project, book a call, or get help as a client; a form plugin's block can replace the contents of the group named Contact panel.
  * Categories: contact
- * Keywords: inquiry, hire, reach, mailto, topics
+ * Keywords: inquiry, hire, reach, mailto, support
  * Viewport Width: 1500
  * Block Types:
  * Post Types:
@@ -22,7 +22,7 @@
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"var:preset|spacing|compact","bottom":"0"}}},"textColor":"text-body","fontSize":"regular-plus"} -->
-<p class="has-text-body-color has-text-color has-regular-plus-font-size" style="margin-top:var(--wp--preset--spacing--compact);margin-bottom:0"><?php echo esc_html__( 'One email reaches all four of us. Pick the line that fits, and your email opens with the subject filled in.', 'origin-canvas' ); ?></p>
+<p class="has-text-body-color has-text-color has-regular-plus-font-size" style="margin-top:var(--wp--preset--spacing--compact);margin-bottom:0"><?php echo esc_html__( 'Pick what you need, and we will take it from there.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"var:preset|spacing|large","bottom":"0"}}},"textColor":"text-muted","fontSize":"small"} -->
@@ -35,64 +35,48 @@
 <div id="write-to-the-studio" class="wp-block-group has-surface-muted-background-color has-background" style="border-radius:var(--wp--custom--radius--medium);padding-top:var(--wp--preset--spacing--large);padding-right:var(--wp--preset--spacing--large);padding-bottom:var(--wp--preset--spacing--large);padding-left:var(--wp--preset--spacing--large)"><!-- wp:group {"style":{"spacing":{"padding":{"top":"0","bottom":"var:preset|spacing|medium"},"blockGap":{"top":"var:preset|spacing|small","left":"var:preset|spacing|large"}}},"layout":{"type":"flex","flexWrap":"wrap","justifyContent":"space-between"}} -->
 <div class="wp-block-group" style="padding-top:0;padding-bottom:var(--wp--preset--spacing--medium)"><!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|extra-small"}},"layout":{"type":"flex","orientation":"vertical"}} -->
 <div class="wp-block-group"><!-- wp:heading {"level":3,"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"fontSize":"regular-plus"} -->
-<h3 class="wp-block-heading has-regular-plus-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'A new project, starting this season', 'origin-canvas' ); ?></h3>
+<h3 class="wp-block-heading has-regular-plus-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Start a project', 'origin-canvas' ); ?></h3>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-muted","fontSize":"small"} -->
-<p class="has-text-muted-color has-text-color has-small-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Subject: New project, this season', 'origin-canvas' ); ?></p>
+<p class="has-text-muted-color has-text-color has-small-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Tell us about your business and what it needs.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group -->
 
-<!-- wp:paragraph {"className":"origin-canvas-links-plain","style":{"typography":{"fontWeight":"600"},"elements":{"link":{"color":{"text":"var:preset|color|text-heading"},":hover":{"color":{"text":"var:preset|color|primary"}}}},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-heading","fontSize":"regular"} -->
-<p class="origin-canvas-links-plain has-text-heading-color has-text-color has-link-color has-regular-font-size" style="margin-top:0;margin-bottom:0;font-weight:600"><a href="mailto:hello@example.com?subject=New%20project%2C%20this%20season" aria-label="<?php esc_attr_e( 'Email us about a new project starting this season', 'origin-canvas' ); ?>"><?php echo esc_html__( 'Email us', 'origin-canvas' ); ?> &rarr;</a></p>
+<!-- wp:paragraph {"className":"origin-canvas-no-shrink","style":{"typography":{"fontWeight":"600"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-heading","fontSize":"small"} -->
+<p class="origin-canvas-no-shrink has-text-heading-color has-text-color has-small-font-size" style="margin-top:0;margin-bottom:0;font-weight:600"><a href="mailto:hello@example.com" style="text-decoration:none"><?php echo esc_html__( 'Email us', 'origin-canvas' ); ?> <span aria-hidden="true">&rarr;</span></a></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group -->
 
 <!-- wp:group {"style":{"border":{"top":{"color":"var:preset|color|border","style":"solid","width":"1px"}},"spacing":{"padding":{"top":"var:preset|spacing|medium","bottom":"var:preset|spacing|medium"},"blockGap":{"top":"var:preset|spacing|small","left":"var:preset|spacing|large"}}},"layout":{"type":"flex","flexWrap":"wrap","justifyContent":"space-between"}} -->
 <div class="wp-block-group" style="border-top-color:var(--wp--preset--color--border);border-top-style:solid;border-top-width:1px;padding-top:var(--wp--preset--spacing--medium);padding-bottom:var(--wp--preset--spacing--medium)"><!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|extra-small"}},"layout":{"type":"flex","orientation":"vertical"}} -->
 <div class="wp-block-group"><!-- wp:heading {"level":3,"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"fontSize":"regular-plus"} -->
-<h3 class="wp-block-heading has-regular-plus-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'A new project, later in the year', 'origin-canvas' ); ?></h3>
+<h3 class="wp-block-heading has-regular-plus-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Book a 20-minute call', 'origin-canvas' ); ?></h3>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-muted","fontSize":"small"} -->
-<p class="has-text-muted-color has-text-color has-small-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Subject: New project, later this year', 'origin-canvas' ); ?></p>
+<p class="has-text-muted-color has-text-color has-small-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Pick a time that suits you. No need to prepare.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group -->
 
-<!-- wp:paragraph {"className":"origin-canvas-links-plain","style":{"typography":{"fontWeight":"600"},"elements":{"link":{"color":{"text":"var:preset|color|text-heading"},":hover":{"color":{"text":"var:preset|color|primary"}}}},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-heading","fontSize":"regular"} -->
-<p class="origin-canvas-links-plain has-text-heading-color has-text-color has-link-color has-regular-font-size" style="margin-top:0;margin-bottom:0;font-weight:600"><a href="mailto:hello@example.com?subject=New%20project%2C%20later%20this%20year" aria-label="<?php esc_attr_e( 'Email us about a new project later in the year', 'origin-canvas' ); ?>"><?php echo esc_html__( 'Email us', 'origin-canvas' ); ?> &rarr;</a></p>
-<!-- /wp:paragraph --></div>
-<!-- /wp:group -->
-
-<!-- wp:group {"style":{"border":{"top":{"color":"var:preset|color|border","style":"solid","width":"1px"}},"spacing":{"padding":{"top":"var:preset|spacing|medium","bottom":"var:preset|spacing|medium"},"blockGap":{"top":"var:preset|spacing|small","left":"var:preset|spacing|large"}}},"layout":{"type":"flex","flexWrap":"wrap","justifyContent":"space-between"}} -->
-<div class="wp-block-group" style="border-top-color:var(--wp--preset--color--border);border-top-style:solid;border-top-width:1px;padding-top:var(--wp--preset--spacing--medium);padding-bottom:var(--wp--preset--spacing--medium)"><!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|extra-small"}},"layout":{"type":"flex","orientation":"vertical"}} -->
-<div class="wp-block-group"><!-- wp:heading {"level":3,"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"fontSize":"regular-plus"} -->
-<h3 class="wp-block-heading has-regular-plus-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'A change to a site we built', 'origin-canvas' ); ?></h3>
-<!-- /wp:heading -->
-
-<!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-muted","fontSize":"small"} -->
-<p class="has-text-muted-color has-text-color has-small-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Subject: Site change', 'origin-canvas' ); ?></p>
-<!-- /wp:paragraph --></div>
-<!-- /wp:group -->
-
-<!-- wp:paragraph {"className":"origin-canvas-links-plain","style":{"typography":{"fontWeight":"600"},"elements":{"link":{"color":{"text":"var:preset|color|text-heading"},":hover":{"color":{"text":"var:preset|color|primary"}}}},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-heading","fontSize":"regular"} -->
-<p class="origin-canvas-links-plain has-text-heading-color has-text-color has-link-color has-regular-font-size" style="margin-top:0;margin-bottom:0;font-weight:600"><a href="mailto:hello@example.com?subject=Site%20change" aria-label="<?php esc_attr_e( 'Email us about a change to a site we built', 'origin-canvas' ); ?>"><?php echo esc_html__( 'Email us', 'origin-canvas' ); ?> &rarr;</a></p>
+<!-- wp:paragraph {"className":"origin-canvas-no-shrink","style":{"typography":{"fontWeight":"600"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-heading","fontSize":"small"} -->
+<p class="origin-canvas-no-shrink has-text-heading-color has-text-color has-small-font-size" style="margin-top:0;margin-bottom:0;font-weight:600"><a href="#" style="text-decoration:none"><?php echo esc_html__( 'Book a call', 'origin-canvas' ); ?> <span aria-hidden="true">&rarr;</span></a></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group -->
 
 <!-- wp:group {"style":{"border":{"top":{"color":"var:preset|color|border","style":"solid","width":"1px"}},"spacing":{"padding":{"top":"var:preset|spacing|medium","bottom":"0"},"blockGap":{"top":"var:preset|spacing|small","left":"var:preset|spacing|large"}}},"layout":{"type":"flex","flexWrap":"wrap","justifyContent":"space-between"}} -->
 <div class="wp-block-group" style="border-top-color:var(--wp--preset--color--border);border-top-style:solid;border-top-width:1px;padding-top:var(--wp--preset--spacing--medium);padding-bottom:0"><!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|extra-small"}},"layout":{"type":"flex","orientation":"vertical"}} -->
 <div class="wp-block-group"><!-- wp:heading {"level":3,"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"fontSize":"regular-plus"} -->
-<h3 class="wp-block-heading has-regular-plus-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Something else', 'origin-canvas' ); ?></h3>
+<h3 class="wp-block-heading has-regular-plus-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Existing client', 'origin-canvas' ); ?></h3>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-muted","fontSize":"small"} -->
-<p class="has-text-muted-color has-text-color has-small-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Subject: Hello from the website', 'origin-canvas' ); ?></p>
+<p class="has-text-muted-color has-text-color has-small-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Already working with us? Get help with your site.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group -->
 
-<!-- wp:paragraph {"className":"origin-canvas-links-plain","style":{"typography":{"fontWeight":"600"},"elements":{"link":{"color":{"text":"var:preset|color|text-heading"},":hover":{"color":{"text":"var:preset|color|primary"}}}},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-heading","fontSize":"regular"} -->
-<p class="origin-canvas-links-plain has-text-heading-color has-text-color has-link-color has-regular-font-size" style="margin-top:0;margin-bottom:0;font-weight:600"><a href="mailto:hello@example.com?subject=Hello%20from%20the%20website" aria-label="<?php esc_attr_e( 'Email us about something else', 'origin-canvas' ); ?>"><?php echo esc_html__( 'Email us', 'origin-canvas' ); ?> &rarr;</a></p>
+<!-- wp:paragraph {"className":"origin-canvas-no-shrink","style":{"typography":{"fontWeight":"600"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-heading","fontSize":"small"} -->
+<p class="origin-canvas-no-shrink has-text-heading-color has-text-color has-small-font-size" style="margin-top:0;margin-bottom:0;font-weight:600"><a href="#" style="text-decoration:none"><?php echo esc_html__( 'Get help', 'origin-canvas' ); ?> <span aria-hidden="true">&rarr;</span></a></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group --></div>
 <!-- /wp:group --></div>
