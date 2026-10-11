@@ -18,7 +18,7 @@
 <section class="wp-block-group alignfull" style="margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--colossal);padding-bottom:var(--wp--preset--spacing--colossal)"><!-- wp:columns {"verticalAlignment":"top","align":"wide","style":{"spacing":{"blockGap":{"top":"var:preset|spacing|huge","left":"var:preset|spacing|huge"}}}} -->
 <div class="wp-block-columns alignwide are-vertically-aligned-top"><!-- wp:column {"verticalAlignment":"top","width":"58.33%"} -->
 <div class="wp-block-column is-vertically-aligned-top" style="flex-basis:58.33%"><!-- wp:paragraph {"className":"origin-canvas-eyebrow","style":{"typography":{"textTransform":"uppercase","fontWeight":"600","letterSpacing":"0.08em"},"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|compact"}}},"textColor":"primary","fontSize":"small"} -->
-<p class="origin-canvas-eyebrow has-primary-color has-text-color has-small-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--compact);font-weight:600;letter-spacing:0.08em;text-transform:uppercase"><?php echo esc_html__( 'Contact', 'origin-canvas' ); ?> &middot; <?php echo esc_html__( 'Reply within one business day', 'origin-canvas' ); ?></p>
+<p class="origin-canvas-eyebrow has-primary-color has-text-color has-small-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--compact);font-weight:600;letter-spacing:0.08em;text-transform:uppercase"><?php echo esc_html__( 'Contact', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading {"level":1,"className":"origin-canvas-text-balance","style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"fontSize":"display-xl"} -->
@@ -79,7 +79,11 @@
 <p class="has-text-heading-color has-text-color has-regular-font-size" style="margin-top:0;margin-bottom:0;font-weight:500"><?php echo esc_html__( 'Monday to Friday, 9am to 5:30pm', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group --></div>
-<!-- /wp:group --></div>
+<!-- /wp:group -->
+
+<!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"var:preset|spacing|medium","bottom":"0"}}},"textColor":"text-muted","fontSize":"small"} -->
+<p class="has-text-muted-color has-text-color has-small-font-size" style="margin-top:var(--wp--preset--spacing--medium);margin-bottom:0"><?php echo esc_html__( 'We reply within one business day.', 'origin-canvas' ); ?></p>
+<!-- /wp:paragraph --></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns --></section>
 <!-- /wp:group -->
