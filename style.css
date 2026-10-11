@@ -502,6 +502,64 @@ html {
 	text-wrap: balance;
 }
 
+/* A dot texture on a section: 1px dots at a 20px pitch, text-heading at 8% on a
+   light ground, on-dark at 10% on the theme's dark grounds (ODS "Dot texture").
+   Apply one class: even dots, fade to centre (strongest at the top and sides), or
+   fade down (fading out down the section). theme.json cannot hold a palette-aware
+   tiled dot, and a gradient set in the block's Background keeps fixed colours.
+   The dots sit on a layer under the content, so a fade masks the dots only, and a
+   background colour, gradient or image set on the block still shows beneath. */
+.origin-canvas-dots,
+.origin-canvas-dots-fade-centre,
+.origin-canvas-dots-fade-down {
+	--origin-canvas-dots-ink: var(--wp--preset--color--text-heading);
+	--origin-canvas-dots-alpha: 8%;
+	isolation: isolate;
+	position: relative;
+}
+
+.origin-canvas-dots::before,
+.origin-canvas-dots-fade-centre::before,
+.origin-canvas-dots-fade-down::before {
+	background-image: radial-gradient(circle at 3px 3px, color-mix(in srgb, var(--origin-canvas-dots-ink) var(--origin-canvas-dots-alpha), transparent) 1px, transparent 1.5px);
+	background-size: 20px 20px;
+	content: "";
+	inset: 0;
+	pointer-events: none;
+	position: absolute;
+	z-index: -1;
+}
+
+/* Fade to centre, measured from Knock's hero: about 20% at the top edge, 7% at the
+   sides and 3–5% in the middle. The two masks multiply. */
+.origin-canvas-dots-fade-centre {
+	--origin-canvas-dots-alpha: 22.5%;
+}
+
+.origin-canvas-dots-fade-centre::before {
+	mask-composite: intersect;
+	mask-image:
+		linear-gradient(to bottom, #000 0, rgb(0 0 0 / 35%) 120px, rgb(0 0 0 / 35%) 100%),
+		radial-gradient(ellipse 55% 80% at 50% 50%, rgb(0 0 0 / 45%) 0%, rgb(0 0 0 / 55%) 50%, #000 100%);
+}
+
+/* Fade down, measured from Warp's hero: in over the top 19%, full (about 7%) to
+   42%, then out past the bottom edge. */
+.origin-canvas-dots-fade-down::before {
+	mask-image: linear-gradient(to bottom, transparent 0%, #000 19%, #000 42%, transparent 138%);
+}
+
+/* The theme's dark grounds: the custom.dark.bg fill the dark patterns use, and the
+   text-heading palette fill. */
+:is(.origin-canvas-dots, .origin-canvas-dots-fade-centre, .origin-canvas-dots-fade-down):is(.has-text-heading-background-color, [style*="--wp--custom--dark--bg"]) {
+	--origin-canvas-dots-ink: var(--wp--preset--color--on-dark);
+	--origin-canvas-dots-alpha: 10%;
+}
+
+.origin-canvas-dots-fade-centre:is(.has-text-heading-background-color, [style*="--wp--custom--dark--bg"]) {
+	--origin-canvas-dots-alpha: 28%;
+}
+
 /* ==========================================================================
    Pattern CSS
 
