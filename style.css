@@ -550,14 +550,11 @@ html {
 }
 
 /* The theme's dark grounds: the custom.dark.bg fill the dark patterns use, and the
-   text-heading palette fill. */
+   text-heading palette fill. Every form peaks at the ruled 10%; a fade keeps its
+   masks, so fade to centre scales from 10% at the top edge. */
 :is(.origin-canvas-dots, .origin-canvas-dots-fade-centre, .origin-canvas-dots-fade-down):is(.has-text-heading-background-color, [style*="--wp--custom--dark--bg"]) {
 	--origin-canvas-dots-ink: var(--wp--preset--color--on-dark);
 	--origin-canvas-dots-alpha: 10%;
-}
-
-.origin-canvas-dots-fade-centre:is(.has-text-heading-background-color, [style*="--wp--custom--dark--bg"]) {
-	--origin-canvas-dots-alpha: 28%;
 }
 
 /* ==========================================================================
