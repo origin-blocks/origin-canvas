@@ -214,8 +214,8 @@ Weight is **voice** — the site owner's decision, made once by choosing a style
 lives at `styles.elements.heading`, the single lever.
 
 Tracking follows size. `settings.custom.letterSpacing` holds one token per size band:
-`display` (extra-large and up, −0.022em), `large` (−0.019em), `medium` (−0.017em) and `base`
-(regular-plus and below, −0.01em). `style.css` maps the font-size preset classes from `medium`
+`display` (extra-large and up, −0.03em), `large` (−0.025em), `medium` (−0.02em) and `base`
+(regular-plus and below, −0.012em). `style.css` maps the font-size preset classes from `medium`
 up to these tokens, so a heading or paragraph set at a preset size gets that size's tracking.
 Heading tracking is still ONE value, at `styles.elements.heading`:
 `var(--origin-canvas-letter-spacing, var(--wp--custom--letter-spacing--base))`. The preset
@@ -253,7 +253,7 @@ weight-by-job rule (500 speaks), not an exception to it: the register only opts 
 variation's weight. Each file pins weight; `text-large-statement` and `lead-statement` take
 tracking from size like any other text. `breath-statement` alone also pins the base tracking
 token (owner ruling, Oct 5): its long two-tone line reads loose-set at the display token, and
-the design notes' statement register is "500 / −0.01em pinned".
+the design notes' statement register is "500 / −0.012em pinned".
 
 | Pattern | Pins |
 |---|---|
