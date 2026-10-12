@@ -30,7 +30,7 @@
 <!-- wp:column {"verticalAlignment":"center","width":"26%"} -->
 <div class="wp-block-column is-vertically-aligned-center" style="flex-basis:26%"><!-- wp:group {"layout":{"type":"flex","justifyContent":"center","flexWrap":"nowrap","verticalAlignment":"center"}} -->
 <div class="wp-block-group"><!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-muted","fontSize":"small"} -->
-<p class="has-text-muted-color has-text-color has-small-font-size" style="margin-top:0;margin-bottom:0"><span aria-hidden="true" style="background-color:var(--wp--preset--color--primary);border-radius:999px;display:inline-block;height:8px;margin-right:12px;vertical-align:middle;width:8px"></span><?php echo esc_html__( 'One slot open in January', 'origin-canvas' ); ?></p>
+<p class="has-text-muted-color has-text-color has-small-font-size" style="margin-top:0;margin-bottom:0"><span aria-hidden="true" style="background-color:var(--wp--preset--color--primary);border-radius:999px;display:inline-block;height:8px;margin-right:12px;vertical-align:middle;width:8px"></span><?php echo esc_html__( 'One slot open', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group --></div>
 <!-- /wp:column -->
