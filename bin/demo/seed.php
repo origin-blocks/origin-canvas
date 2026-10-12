@@ -219,7 +219,7 @@ $long = implode(
 			),
 			true
 		),
-		oc_demo_quote( 'We had a site we could edit ourselves by the end of the month, and the booking form has not needed a change since.', 'Owen Parry, Clinic Director, Kestrel Physical Therapy' ),
+		oc_demo_quote( 'We had a site we could edit ourselves by the end of the month, and the booking form has not needed a change since.', 'Owen Parker, Clinic Director, Kestrel Physical Therapy' ),
 		oc_demo_h( 'Week four: launch' ),
 		oc_demo_p( 'Launch week is mostly checks. The step clients forget is the old site: links in emails, on business cards and in search results still point at its pages. We keep a redirect map from the first call and add it to the server the day before launch.' ),
 		oc_demo_code( "# Old addresses to new pages, added the day before launch\nRedirect 301 /services.html /what-we-do/\nRedirect 301 /about-us.html /about/\nRedirect 301 /contact.php /contact/\nRedirect 301 /book-online /book/" ),
