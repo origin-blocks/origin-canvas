@@ -308,7 +308,7 @@ $posts = array(
 		'content' => implode(
 			"\n\n",
 			array(
-				oc_demo_p( 'Thistle &amp; Pine Woodworks had no budget for a photographer, and their portfolio site needed forty images. We spent one morning in the shop with a phone, a tripod and the big garage door open.' ),
+				oc_demo_p( 'Ash &amp; Pine Woodworks had no budget for a photographer, and their portfolio site needed forty images. We spent one morning in the shop with a phone, a tripod and the big garage door open.' ),
 				oc_demo_list(
 					array(
 						'Shoot before 10 a.m., when the light comes in low and even',
