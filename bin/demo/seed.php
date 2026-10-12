@@ -89,7 +89,7 @@ $authors = array();
 foreach ( array(
 	'claire' => array( 'Claire Bennett', 'Co-founder. Claire started the studio in 2018 and runs every first call.' ),
 	'marcus' => array( 'Marcus Holloway', 'Co-founder and Designer. Marcus draws the marks and designs the sites.' ),
-	'hannah' => array( 'Hannah Wright', 'Brand Strategist. Hannah writes the words and asks the questions.' ),
+	'hannah' => array( 'Hannah Wright', 'Brand Strategist. Hannah shapes the message and asks the questions.' ),
 ) as $login => $person ) {
 	$user  = get_user_by( 'login', $login );
 	$names = explode( ' ', $person[0] );
@@ -118,7 +118,7 @@ $img = array();
 foreach ( array(
 	'wireframe' => array( 'studio-wireframe-review.webp', 'Printed wireframes laid out on a table for review' ),
 	'type'      => array( 'studio-type-proofs.webp', 'Type proofs pinned up for comparison' ),
-	'review'    => array( 'studio-review.webp', 'Two designers reviewing work at a shared desk' ),
+	'review'    => array( 'studio-review.webp', 'Two of the studio reviewing work at a shared desk' ),
 	'worktable' => array( 'studio-worktable.webp', 'A studio worktable with sketches and a laptop' ),
 	'workshop'  => array( 'hero-cover-thistle-pine.webp', 'A woodworking shop with tools on the wall' ),
 	'meeting'   => array( 'gallery-meeting-table.webp', 'A meeting table set up for a client call' ),
@@ -205,7 +205,7 @@ $long = implode(
 			)
 		),
 		oc_demo_h( 'Week two: words first' ),
-		oc_demo_p( 'Hannah writes the copy for every page before Marcus draws a single layout. Real words decide how long a heading runs and how much room a service needs, and they make the client&#8217;s review faster because there is something to read.' ),
+		oc_demo_p( 'Claire writes the copy for every page before Marcus draws a single layout. Real words decide how long a heading runs and how much room a service needs, and they make the client&#8217;s review faster because there is something to read.' ),
 		oc_demo_h( 'Week three: design and build' ),
 		oc_demo_p( 'Design and build run together. We show the home page in the browser on the Tuesday, and the client reviews the rest on a phone and a laptop by Friday.' ),
 		oc_demo_image( $img['layouts'], 'Page layouts, printed and marked up in the week-three review.' ),
