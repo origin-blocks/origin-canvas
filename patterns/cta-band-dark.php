@@ -30,12 +30,12 @@
 <!-- /wp:group -->
 
 <!-- wp:buttons {"style":{"spacing":{"blockGap":"var:preset|spacing|compact","margin":{"top":"var:preset|spacing|large"}}},"layout":{"type":"flex","justifyContent":"center","orientation":"horizontal"}} -->
-<div class="wp-block-buttons" style="margin-top:var(--wp--preset--spacing--large)"><!-- wp:button {"backgroundColor":"on-dark","textColor":"text-heading"} -->
-<div class="wp-block-button"><a class="wp-block-button__link has-text-heading-color has-on-dark-background-color has-text-color has-background wp-element-button"><?php echo esc_html__( 'Book a 20-minute call', 'origin-canvas' ); ?></a></div>
+<div class="wp-block-buttons" style="margin-top:var(--wp--preset--spacing--large)"><!-- wp:button {"backgroundColor":"on-dark","textColor":"text-heading","url":"#"} -->
+<div class="wp-block-button"><a class="wp-block-button__link has-text-heading-color has-on-dark-background-color has-text-color has-background wp-element-button" href="#"><?php echo esc_html__( 'Book a 20-minute call', 'origin-canvas' ); ?></a></div>
 <!-- /wp:button -->
 
-<!-- wp:button {"className":"is-style-origin-canvas-outline-light"} -->
-<div class="wp-block-button is-style-origin-canvas-outline-light"><a class="wp-block-button__link wp-element-button"><?php echo esc_html__( 'See how we work', 'origin-canvas' ); ?></a></div>
+<!-- wp:button {"className":"is-style-origin-canvas-outline-light","url":"#"} -->
+<div class="wp-block-button is-style-origin-canvas-outline-light"><a class="wp-block-button__link wp-element-button" href="#"><?php echo esc_html__( 'See how we work', 'origin-canvas' ); ?></a></div>
 <!-- /wp:button --></div>
 <!-- /wp:buttons --></section>
 <!-- /wp:group -->
