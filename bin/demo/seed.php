@@ -87,9 +87,10 @@ function oc_demo_insert( $args ) {
 
 $authors = array();
 foreach ( array(
-	'claire' => array( 'Claire Bennett', 'Co-founder. Claire started the studio in 2018 and runs every first call.' ),
-	'marcus' => array( 'Marcus Holloway', 'Co-founder and Designer. Marcus draws the marks and designs the sites.' ),
-	'hannah' => array( 'Hannah Wright', 'Brand Strategist. Hannah shapes the message and asks the questions.' ),
+	'claire' => array( 'Claire Bennett', 'Co-founder. Twelve years in agencies before going small. Most days she&#8217;s in a discovery call or pushing back on a brief.' ),
+	'marcus' => array( 'Marcus Holloway', 'Co-founder and Designer. Started the studio with Claire after ten years in print. Still checks every page twice before it goes out.' ),
+	'hannah' => array( 'Hannah Wright', 'Brand Strategist. Works out what a business is actually saying before anyone draws a page. Runs the first week of every project.' ),
+	'ben'    => array( 'Ben Carter', 'Developer. Builds every site and runs the launch. Tests it all on the oldest phone in the office.' ),
 ) as $login => $person ) {
 	$user  = get_user_by( 'login', $login );
 	$names = explode( ' ', $person[0] );
