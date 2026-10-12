@@ -781,12 +781,12 @@ html {
 	}
 }
 
-/* The section headings are small uppercase labels: the handoff's 0.08em tracking
+/* The section headings are small uppercase labels: ODS chrome label tracking, 0.06em,
    and 600 weight. Low specificity, so a heading's own Typography settings still
    win; rule 7 keeps these values off the blocks themselves. */
 .origin-canvas-sidebar :where(h2) {
 	font-weight: 600;
-	letter-spacing: 0.08em;
+	letter-spacing: 0.06em;
 }
 
 /* A site with no tags: core's Tag Cloud renders nothing, so the Tags group holds
@@ -1057,7 +1057,7 @@ html {
 	border-radius: 999px;
 	color: var(--wp--preset--color--text-body);
 	font-weight: 500;
-	letter-spacing: 0.08em;
+	letter-spacing: 0.06em;
 	padding: 3px 10px;
 	text-transform: uppercase;
 	width: fit-content;
