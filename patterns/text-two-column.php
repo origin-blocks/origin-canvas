@@ -14,13 +14,13 @@
  */
 
 ?>
-<!-- wp:group {"tagName":"section","align":"full","style":{"spacing":{"margin":{"top":"0","bottom":"0"},"padding":{"top":"var:preset|spacing|colossal","bottom":"var:preset|spacing|colossal"}}},"layout":{"type":"constrained","contentSize":"1200px"}} -->
-<section class="wp-block-group alignfull" style="margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--colossal);padding-bottom:var(--wp--preset--spacing--colossal)"><!-- wp:heading {"level":2,"style":{"typography":{"lineHeight":"1.1"},"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|large"}}},"textColor":"text-heading","fontSize":"display"} -->
-<h2 class="wp-block-heading has-text-heading-color has-text-color has-display-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--large);line-height:1.1"><?php echo esc_html__( 'What working with us looks like', 'origin-canvas' ); ?></h2>
+<!-- wp:group {"tagName":"section","align":"full","style":{"spacing":{"margin":{"top":"0","bottom":"0"},"padding":{"top":"var:preset|spacing|colossal","bottom":"var:preset|spacing|colossal"}}},"layout":{"type":"constrained"}} -->
+<section class="wp-block-group alignfull" style="margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--colossal);padding-bottom:var(--wp--preset--spacing--colossal)"><!-- wp:heading {"level":2,"align":"wide","style":{"typography":{"lineHeight":"1.1"},"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|large"}}},"textColor":"text-heading","fontSize":"display"} -->
+<h2 class="wp-block-heading alignwide has-text-heading-color has-text-color has-display-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--large);line-height:1.1"><?php echo esc_html__( 'What working with us looks like', 'origin-canvas' ); ?></h2>
 <!-- /wp:heading -->
 
-<!-- wp:columns {"style":{"spacing":{"blockGap":{"top":"var:preset|spacing|large","left":"var:preset|spacing|extra-large"}}}} -->
-<div class="wp-block-columns"><!-- wp:column {"style":{"spacing":{"blockGap":"var:preset|spacing|medium"}}} -->
+<!-- wp:columns {"align":"wide","style":{"spacing":{"blockGap":{"top":"var:preset|spacing|large","left":"var:preset|spacing|extra-large"}}}} -->
+<div class="wp-block-columns alignwide"><!-- wp:column {"style":{"spacing":{"blockGap":"var:preset|spacing|medium"}}} -->
 <div class="wp-block-column"><!-- wp:paragraph {"textColor":"text-body","fontSize":"regular-plus"} -->
 <p class="has-text-body-color has-text-color has-regular-plus-font-size"><?php echo esc_html__( 'Every project opens with a conversation about what the site has to do. We write that down on one page and agree it before anything is designed, which keeps the later decisions cheap.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->

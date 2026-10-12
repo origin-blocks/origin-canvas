@@ -15,12 +15,12 @@
 
 ?>
 <!-- wp:group {"anchor":"pricing","tagName":"section","align":"full","backgroundColor":"surface-subtle","style":{"spacing":{"margin":{"top":"0","bottom":"0"},"padding":{"top":"var:preset|spacing|colossal","bottom":"var:preset|spacing|colossal"}}},"layout":{"type":"constrained"}} -->
-<section id="pricing" class="wp-block-group alignfull has-surface-subtle-background-color has-background" style="margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--colossal);padding-bottom:var(--wp--preset--spacing--colossal)"><!-- wp:group {"style":{"spacing":{"margin":{"bottom":"var:preset|spacing|huge"}}},"layout":{"type":"constrained","contentSize":"720px"}} -->
-<div class="wp-block-group" style="margin-bottom:var(--wp--preset--spacing--huge)"><!-- wp:heading {"textAlign":"center","level":2,"style":{"typography":{"lineHeight":"1.08"},"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|medium"}}},"fontSize":"display"} -->
-<h2 class="wp-block-heading has-text-align-center has-display-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--medium);line-height:1.08"><?php echo wp_kses_post( __( 'Start with the foundation.<br>Add layers as you need them.', 'origin-canvas' ) ); ?></h2>
+<section id="pricing" class="wp-block-group alignfull has-surface-subtle-background-color has-background" style="margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--colossal);padding-bottom:var(--wp--preset--spacing--colossal)"><!-- wp:group {"align":"wide","style":{"spacing":{"margin":{"bottom":"var:preset|spacing|huge"}}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group alignwide" style="margin-bottom:var(--wp--preset--spacing--huge)"><!-- wp:heading {"textAlign":"center","level":2,"align":"wide","style":{"typography":{"lineHeight":"1.08"},"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|medium"}}},"fontSize":"display"} -->
+<h2 class="wp-block-heading has-text-align-center alignwide has-display-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--medium);line-height:1.08"><?php echo wp_kses_post( __( 'Start with the foundation.<br>Add layers as you need them.', 'origin-canvas' ) ); ?></h2>
 <!-- /wp:heading -->
 
-<!-- wp:group {"layout":{"type":"constrained","contentSize":"560px"}} -->
+<!-- wp:group {"layout":{"type":"constrained"}} -->
 <div class="wp-block-group"><!-- wp:paragraph {"align":"center","style":{"typography":{"fontSize":"0.9375rem","lineHeight":"1.6"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-body"} -->
 <p class="has-text-align-center has-text-body-color has-text-color" style="margin-top:0;margin-bottom:0;font-size:0.9375rem;line-height:1.6"><?php echo wp_kses_post( __( 'Origin Theme and Origin Blocks are free and available today. Every advanced layer builds on the same foundation, so nothing you learn is wasted. <span class="has-inline-color has-text-heading-color" style="font-weight:500">Founding access to Patterns Pro is $55/year for the first 500 members.</span>', 'origin-canvas' ) ); ?></p>
 <!-- /wp:paragraph --></div>

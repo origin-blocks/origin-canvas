@@ -15,7 +15,7 @@
 
 ?>
 <!-- wp:group {"tagName":"section","align":"full","backgroundColor":"surface-muted","style":{"spacing":{"padding":{"top":"var:preset|spacing|colossal","bottom":"var:preset|spacing|colossal"}}},"layout":{"type":"constrained"}} -->
-<section class="wp-block-group alignfull has-surface-muted-background-color has-background" style="padding-top:var(--wp--preset--spacing--colossal);padding-bottom:var(--wp--preset--spacing--colossal)"><!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|small","margin":{"bottom":"var:preset|spacing|extra-large"}}},"layout":{"type":"constrained","contentSize":"720px"}} -->
+<section class="wp-block-group alignfull has-surface-muted-background-color has-background" style="padding-top:var(--wp--preset--spacing--colossal);padding-bottom:var(--wp--preset--spacing--colossal)"><!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|small","margin":{"bottom":"var:preset|spacing|extra-large"}}},"layout":{"type":"constrained"}} -->
 <div class="wp-block-group" style="margin-bottom:var(--wp--preset--spacing--extra-large)"><!-- wp:heading {"textAlign":"center","style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"fontSize":"display"} -->
 <h2 class="wp-block-heading has-text-align-center has-display-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'A whole site, in two weeks', 'origin-canvas' ); ?></h2>
 <!-- /wp:heading -->
@@ -25,7 +25,7 @@
 <!-- /wp:paragraph --></div>
 <!-- /wp:group -->
 
-<!-- wp:group {"backgroundColor":"surface-base","style":{"border":{"radius":"var:custom|radius|medium","top":{"color":"var:preset|color|primary","width":"4px"}},"spacing":{"padding":{"top":"calc(var(--wp--preset--spacing--extra-large) - 4px)","right":"var:preset|spacing|large","bottom":"var:preset|spacing|extra-large","left":"var:preset|spacing|large"},"blockGap":"var:preset|spacing|small"}},"layout":{"type":"constrained","contentSize":"720px"}} -->
+<!-- wp:group {"backgroundColor":"surface-base","style":{"border":{"radius":"var:custom|radius|medium","top":{"color":"var:preset|color|primary","width":"4px"}},"spacing":{"padding":{"top":"calc(var(--wp--preset--spacing--extra-large) - 4px)","right":"var:preset|spacing|large","bottom":"var:preset|spacing|extra-large","left":"var:preset|spacing|large"},"blockGap":"var:preset|spacing|small"}},"layout":{"type":"constrained"}} -->
 <div class="wp-block-group has-surface-base-background-color has-background" style="border-top-color:var(--wp--preset--color--primary);border-top-width:4px;border-radius:var(--wp--custom--radius--medium);padding-top:calc(var(--wp--preset--spacing--extra-large) - 4px);padding-right:var(--wp--preset--spacing--large);padding-bottom:var(--wp--preset--spacing--extra-large);padding-left:var(--wp--preset--spacing--large)"><!-- wp:paragraph {"align":"center","textColor":"text-heading","fontSize":"extra-small","style":{"typography":{"textTransform":"uppercase","letterSpacing":"0.06em","fontWeight":"500"},"spacing":{"margin":{"top":"0","bottom":"0"}}}} -->
 <p class="has-text-align-center has-text-heading-color has-text-color has-extra-small-font-size" style="margin-top:0;margin-bottom:0;font-weight:500;letter-spacing:0.06em;text-transform:uppercase"><?php echo esc_html__( 'The Site Sprint', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
@@ -34,13 +34,13 @@
 <p class="has-text-align-center has-text-heading-color has-text-color has-huge-font-size" style="margin-top:0;margin-bottom:0;font-weight:700;line-height:1"><?php echo wp_kses_post( __( '$4,800 <span style="font-size:var(--wp--preset--font-size--regular);font-weight:400;letter-spacing:normal;color:var(--wp--preset--color--text-body);">one-time</span>', 'origin-canvas' ) ); ?></p>
 <!-- /wp:paragraph -->
 
-<!-- wp:group {"style":{"spacing":{"blockGap":"0"}},"layout":{"type":"constrained","contentSize":"480px"}} -->
+<!-- wp:group {"style":{"spacing":{"blockGap":"0"}},"layout":{"type":"constrained"}} -->
 <div class="wp-block-group"><!-- wp:paragraph {"align":"center","textColor":"text-body","fontSize":"regular"} -->
 <p class="has-text-align-center has-text-body-color has-text-color has-regular-font-size"><?php echo esc_html__( 'Five pages on the brand you already have, live in two weeks. Designed, built, and scoped in writing before we begin.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group -->
 
-<!-- wp:group {"style":{"spacing":{"margin":{"top":"var:preset|spacing|large"}}},"layout":{"type":"constrained","contentSize":"560px"}} -->
+<!-- wp:group {"style":{"spacing":{"margin":{"top":"var:preset|spacing|large"}}},"layout":{"type":"constrained"}} -->
 <div class="wp-block-group" style="margin-top:var(--wp--preset--spacing--large)"><!-- wp:columns {"style":{"spacing":{"blockGap":{"top":"var:preset|spacing|small","left":"var:preset|spacing|large"}}}} -->
 <div class="wp-block-columns"><!-- wp:column -->
 <div class="wp-block-column"><!-- wp:list {"className":"is-style-origin-canvas-list-check-neutral","style":{"spacing":{"blockGap":"var:preset|spacing|small","margin":{"top":"0","bottom":"0"}}},"fontSize":"small"} -->

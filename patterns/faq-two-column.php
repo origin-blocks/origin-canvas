@@ -16,8 +16,8 @@
 ?>
 <!-- wp:group {"tagName":"section","align":"full","style":{"spacing":{"margin":{"top":"0","bottom":"0"},"padding":{"top":"var:preset|spacing|colossal","bottom":"var:preset|spacing|colossal"}}},"layout":{"type":"constrained"}} -->
 <section class="wp-block-group alignfull" style="margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--colossal);padding-bottom:var(--wp--preset--spacing--colossal)"><!-- wp:columns {"align":"wide","className":"origin-canvas-faq-sticky","style":{"spacing":{"blockGap":{"top":"var:preset|spacing|extra-large","left":"var:preset|spacing|jumbo"}}}} -->
-<div class="wp-block-columns alignwide origin-canvas-faq-sticky"><!-- wp:column {"width":"34%"} -->
-<div class="wp-block-column" style="flex-basis:34%"><!-- wp:heading {"level":2,"style":{"typography":{"lineHeight":"1.1"},"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|medium"}}},"textColor":"text-heading","fontSize":"huge"} -->
+<div class="wp-block-columns alignwide origin-canvas-faq-sticky"><!-- wp:column {"width":"50%"} -->
+<div class="wp-block-column" style="flex-basis:50%"><!-- wp:heading {"level":2,"style":{"typography":{"lineHeight":"1.1"},"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|medium"}}},"textColor":"text-heading","fontSize":"huge"} -->
 <h2 class="wp-block-heading has-text-heading-color has-text-color has-huge-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--medium);line-height:1.1"><?php echo esc_html__( 'How the money works', 'origin-canvas' ); ?></h2>
 <!-- /wp:heading -->
 
@@ -26,8 +26,8 @@
 <!-- /wp:paragraph --></div>
 <!-- /wp:column -->
 
-<!-- wp:column {"width":"66%","style":{"spacing":{"blockGap":"0"}}} -->
-<div class="wp-block-column" style="flex-basis:66%">
+<!-- wp:column {"width":"50%","style":{"spacing":{"blockGap":"0"}}} -->
+<div class="wp-block-column" style="flex-basis:50%">
 <!-- wp:accordion {"className":"is-style-origin-canvas-accordion-minimal","style":{"border":{"top":{"color":"var:preset|color|border","style":"solid","width":"1px"}}}} -->
 <div role="group" class="wp-block-accordion is-style-origin-canvas-accordion-minimal" style="border-top-color:var(--wp--preset--color--border);border-top-style:solid;border-top-width:1px"><!-- wp:accordion-item {"openByDefault":true} -->
 <div class="wp-block-accordion-item is-open"><!-- wp:accordion-heading {"level":3,"style":{"typography":{"lineHeight":"1.4"}},"textColor":"text-heading","fontSize":"regular-plus"} -->

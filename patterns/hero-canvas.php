@@ -14,17 +14,17 @@
  */
 
 ?>
-<!-- wp:group {"tagName":"section","align":"full","className":"origin-canvas-canvas-grid","style":{"spacing":{"padding":{"top":"var:preset|spacing|massive","bottom":"var:preset|spacing|massive"},"margin":{"top":"0","bottom":"0"}}},"layout":{"type":"constrained","contentSize":"880px","wideSize":"1200px"}} -->
-<section class="wp-block-group alignfull origin-canvas-canvas-grid" style="margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--massive);padding-bottom:var(--wp--preset--spacing--massive)"><!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|large"}},"layout":{"type":"default"}} -->
-<div class="wp-block-group"><!-- wp:paragraph {"className":"origin-canvas-eyebrow","align":"center","style":{"typography":{"textTransform":"uppercase","fontWeight":"600","letterSpacing":"0.06em"},"spacing":{"margin":{"bottom":"var:preset|spacing|small"}}},"textColor":"primary","fontSize":"small"} -->
+<!-- wp:group {"tagName":"section","align":"full","className":"origin-canvas-canvas-grid","style":{"spacing":{"padding":{"top":"var:preset|spacing|massive","bottom":"var:preset|spacing|massive"},"margin":{"top":"0","bottom":"0"}}},"layout":{"type":"constrained"}} -->
+<section class="wp-block-group alignfull origin-canvas-canvas-grid" style="margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--massive);padding-bottom:var(--wp--preset--spacing--massive)"><!-- wp:group {"align":"wide","style":{"spacing":{"blockGap":"var:preset|spacing|large"}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group alignwide"><!-- wp:paragraph {"className":"origin-canvas-eyebrow","align":"center","style":{"typography":{"textTransform":"uppercase","fontWeight":"600","letterSpacing":"0.06em"},"spacing":{"margin":{"bottom":"var:preset|spacing|small"}}},"textColor":"primary","fontSize":"small"} -->
 <p class="origin-canvas-eyebrow has-text-align-center has-primary-color has-text-color has-small-font-size" style="margin-bottom:var(--wp--preset--spacing--small);font-weight:600;letter-spacing:0.06em;text-transform:uppercase"><?php echo esc_html__( 'The Origin Canvas block theme', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
-<!-- wp:heading {"textAlign":"center","level":1,"style":{"spacing":{"margin":{"top":"0","bottom":"0"}},"typography":{"lineHeight":"1.02"}},"fontSize":"display-2xl"} -->
-<h1 class="wp-block-heading has-text-align-center has-display-2-xl-font-size" style="margin-top:0;margin-bottom:0;line-height:1.02"><?php echo esc_html__( 'Sites that look designed, not assembled.', 'origin-canvas' ); ?></h1>
+<!-- wp:heading {"textAlign":"center","level":1,"align":"wide","className":"origin-canvas-text-balance","style":{"spacing":{"margin":{"top":"0","bottom":"0"}},"typography":{"lineHeight":"1.02"}},"fontSize":"display-2xl"} -->
+<h1 class="wp-block-heading has-text-align-center alignwide origin-canvas-text-balance has-display-2-xl-font-size" style="margin-top:0;margin-bottom:0;line-height:1.02"><?php echo esc_html__( 'Sites that look designed, not assembled.', 'origin-canvas' ); ?></h1>
 <!-- /wp:heading -->
 
-<!-- wp:group {"layout":{"type":"constrained","contentSize":"600px"}} -->
+<!-- wp:group {"layout":{"type":"constrained"}} -->
 <div class="wp-block-group"><!-- wp:paragraph {"align":"center","textColor":"text-body","fontSize":"medium"} -->
 <p class="has-text-align-center has-text-body-color has-text-color has-medium-font-size"><?php echo esc_html__( 'A Full Site Editing theme where templates, patterns, typography, and color work as one system, so every build starts closer to finished.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph --></div>

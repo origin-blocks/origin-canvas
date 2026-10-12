@@ -14,14 +14,14 @@
  */
 
 ?>
-<!-- wp:group {"tagName":"section","align":"full","className":"origin-canvas-dots-fade-centre","style":{"spacing":{"padding":{"top":"var:preset|spacing|colossal","bottom":"var:preset|spacing|colossal"}}},"layout":{"type":"constrained","contentSize":"880px","wideSize":"1200px"}} -->
-<section class="wp-block-group alignfull origin-canvas-dots-fade-centre" style="padding-top:var(--wp--preset--spacing--colossal);padding-bottom:var(--wp--preset--spacing--colossal)"><!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|large"}},"layout":{"type":"constrained","contentSize":"880px"}} -->
-<div class="wp-block-group"><!-- wp:paragraph {"className":"origin-canvas-eyebrow","align":"center","style":{"typography":{"textTransform":"uppercase","fontWeight":"600","letterSpacing":"0.06em"},"spacing":{"margin":{"bottom":"var:preset|spacing|small"}}},"textColor":"primary","fontSize":"small"} -->
+<!-- wp:group {"tagName":"section","align":"full","className":"origin-canvas-dots-fade-centre","style":{"spacing":{"padding":{"top":"var:preset|spacing|colossal","bottom":"var:preset|spacing|colossal"}}},"layout":{"type":"constrained"}} -->
+<section class="wp-block-group alignfull origin-canvas-dots-fade-centre" style="padding-top:var(--wp--preset--spacing--colossal);padding-bottom:var(--wp--preset--spacing--colossal)"><!-- wp:group {"align":"wide","style":{"spacing":{"blockGap":"var:preset|spacing|large"}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group alignwide"><!-- wp:paragraph {"className":"origin-canvas-eyebrow","align":"center","style":{"typography":{"textTransform":"uppercase","fontWeight":"600","letterSpacing":"0.06em"},"spacing":{"margin":{"bottom":"var:preset|spacing|small"}}},"textColor":"primary","fontSize":"small"} -->
 <p class="origin-canvas-eyebrow has-text-align-center has-primary-color has-text-color has-small-font-size" style="margin-bottom:var(--wp--preset--spacing--small);font-weight:600;letter-spacing:0.06em;text-transform:uppercase"><?php echo esc_html__( 'BRAND &amp; WEB FOR SMALL BUSINESSES', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
-<!-- wp:heading {"textAlign":"center","level":1,"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"fontSize":"display-xl"} -->
-<h1 class="wp-block-heading has-display-xl-font-size has-text-align-center" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'We help small teams launch sites that look like they were made on purpose.', 'origin-canvas' ); ?></h1>
+<!-- wp:heading {"textAlign":"center","level":1,"align":"wide","style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"fontSize":"display-xl"} -->
+<h1 class="wp-block-heading has-display-xl-font-size has-text-align-center alignwide" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'We help small teams launch sites that look like they were made on purpose.', 'origin-canvas' ); ?></h1>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"align":"center","textColor":"text-body","fontSize":"regular-plus"} -->
