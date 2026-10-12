@@ -473,12 +473,13 @@ html {
 
 /* Headings sized off the ladder: theme.json sizes the comments title at large and the
    site title (an h1 when its level is set) at regular-plus; the reply title is
-   regular-plus; a custom size is saved inline. */
+   regular-plus. A heading with a custom size keeps its level's token; the block's
+   Letter spacing control is the way to change it. */
 :where(.wp-block-comments-title) {
 	--origin-canvas-letter-spacing: var(--wp--custom--letter-spacing--large);
 }
 
-:where(.wp-block-site-title, .comment-reply-title, h1[style*="font-size"], h2[style*="font-size"], h3[style*="font-size"], h4[style*="font-size"], h5[style*="font-size"]) {
+:where(.wp-block-site-title, .comment-reply-title) {
 	--origin-canvas-letter-spacing: var(--wp--custom--letter-spacing--base);
 }
 
