@@ -25,14 +25,14 @@
 <!-- /wp:image -->
 
 <!-- wp:columns {"style":{"spacing":{"margin":{"top":"var:preset|spacing|large"},"blockGap":{"top":"var:preset|spacing|compact","left":"var:preset|spacing|jumbo"}}}} -->
-<div class="wp-block-columns" style="margin-top:var(--wp--preset--spacing--large)"><!-- wp:column {"width":"34%"} -->
-<div class="wp-block-column" style="flex-basis:34%"><!-- wp:heading {"level":3,"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"fontSize":"large"} -->
+<div class="wp-block-columns" style="margin-top:var(--wp--preset--spacing--large)"><!-- wp:column {"width":"50%"} -->
+<div class="wp-block-column" style="flex-basis:50%"><!-- wp:heading {"level":3,"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"fontSize":"large"} -->
 <h3 class="wp-block-heading has-large-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Type, printed and pinned up', 'origin-canvas' ); ?></h3>
 <!-- /wp:heading --></div>
 <!-- /wp:column -->
 
-<!-- wp:column {"width":"66%"} -->
-<div class="wp-block-column" style="flex-basis:66%"><!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-body","fontSize":"regular-plus"} -->
+<!-- wp:column {"width":"50%"} -->
+<div class="wp-block-column" style="flex-basis:50%"><!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-body","fontSize":"regular-plus"} -->
 <p class="has-text-body-color has-text-color has-regular-plus-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Every identity starts as printed specimens on the wall. We live with them for a week before anyone picks one.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column --></div>
@@ -45,14 +45,14 @@
 <!-- /wp:image -->
 
 <!-- wp:columns {"style":{"spacing":{"margin":{"top":"var:preset|spacing|large"},"blockGap":{"top":"var:preset|spacing|compact","left":"var:preset|spacing|jumbo"}}}} -->
-<div class="wp-block-columns" style="margin-top:var(--wp--preset--spacing--large)"><!-- wp:column {"width":"34%"} -->
-<div class="wp-block-column" style="flex-basis:34%"><!-- wp:heading {"level":3,"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"fontSize":"large"} -->
+<div class="wp-block-columns" style="margin-top:var(--wp--preset--spacing--large)"><!-- wp:column {"width":"50%"} -->
+<div class="wp-block-column" style="flex-basis:50%"><!-- wp:heading {"level":3,"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"fontSize":"large"} -->
 <h3 class="wp-block-heading has-large-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Color, chosen in daylight', 'origin-canvas' ); ?></h3>
 <!-- /wp:heading --></div>
 <!-- /wp:column -->
 
-<!-- wp:column {"width":"66%"} -->
-<div class="wp-block-column" style="flex-basis:66%"><!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-body","fontSize":"regular-plus"} -->
+<!-- wp:column {"width":"50%"} -->
+<div class="wp-block-column" style="flex-basis:50%"><!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-body","fontSize":"regular-plus"} -->
 <p class="has-text-body-color has-text-color has-regular-plus-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Swatches go on the table by the window. A palette that works on a screen at night can still fail on a business card in the morning.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column --></div>
@@ -65,14 +65,14 @@
 <!-- /wp:image -->
 
 <!-- wp:columns {"style":{"spacing":{"margin":{"top":"var:preset|spacing|large"},"blockGap":{"top":"var:preset|spacing|compact","left":"var:preset|spacing|jumbo"}}}} -->
-<div class="wp-block-columns" style="margin-top:var(--wp--preset--spacing--large)"><!-- wp:column {"width":"34%"} -->
-<div class="wp-block-column" style="flex-basis:34%"><!-- wp:heading {"level":3,"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"fontSize":"large"} -->
+<div class="wp-block-columns" style="margin-top:var(--wp--preset--spacing--large)"><!-- wp:column {"width":"50%"} -->
+<div class="wp-block-column" style="flex-basis:50%"><!-- wp:heading {"level":3,"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"fontSize":"large"} -->
 <h3 class="wp-block-heading has-large-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Every page sketched first', 'origin-canvas' ); ?></h3>
 <!-- /wp:heading --></div>
 <!-- /wp:column -->
 
-<!-- wp:column {"width":"66%"} -->
-<div class="wp-block-column" style="flex-basis:66%"><!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-body","fontSize":"regular-plus"} -->
+<!-- wp:column {"width":"50%"} -->
+<div class="wp-block-column" style="flex-basis:50%"><!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-body","fontSize":"regular-plus"} -->
 <p class="has-text-body-color has-text-color has-regular-plus-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'We sketch every page at full size first, so the first thing built in the browser has already been agreed.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column --></div>
