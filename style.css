@@ -503,6 +503,13 @@ html {
 	--origin-canvas-letter-spacing: var(--wp--custom--letter-spacing--base);
 }
 
+/* The site title reads the variable only when it renders as a paragraph (level 0). An h1
+   site title is a heading, so the one heading rule in theme.json, and a Global Styles
+   "Headings" letter spacing, reach it. theme.json cannot scope a value by tag. */
+:where(p.wp-block-site-title) {
+	letter-spacing: var(--origin-canvas-letter-spacing);
+}
+
 /* Letter spacing inherits as a computed length, so small text inside one of the
    nodes above would take the larger size's spacing. Reset it to the body default. */
 :where(.has-medium-font-size, .has-large-font-size, .has-extra-large-font-size, .has-huge-font-size, .has-display-font-size, .has-display-xl-font-size, .has-display-2-xl-font-size) :where(.has-extra-small-font-size, .has-small-font-size, .has-regular-font-size, .has-regular-plus-font-size) {
