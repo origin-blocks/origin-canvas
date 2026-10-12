@@ -38,8 +38,8 @@
 <!-- wp:column {"verticalAlignment":"center","width":"24%"} -->
 <div class="wp-block-column is-vertically-aligned-center" style="flex-basis:24%">
 <!-- wp:buttons {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"layout":{"type":"flex","justifyContent":"right"}} -->
-<div class="wp-block-buttons is-content-justification-right is-layout-flex" style="margin-top:0;margin-bottom:0"><!-- wp:button {"style":{"spacing":{"padding":{"top":"var:preset|spacing|compact","right":"var:preset|spacing|large","bottom":"var:preset|spacing|compact","left":"var:preset|spacing|large"}}},"fontSize":"small"} -->
-<div class="wp-block-button"><a class="wp-block-button__link has-small-font-size has-custom-font-size wp-element-button" style="padding-top:var(--wp--preset--spacing--compact);padding-right:var(--wp--preset--spacing--large);padding-bottom:var(--wp--preset--spacing--compact);padding-left:var(--wp--preset--spacing--large)"><?php echo esc_html__( 'Start a conversation', 'origin-canvas' ); ?> &rarr;</a></div>
+<div class="wp-block-buttons is-content-justification-right is-layout-flex" style="margin-top:0;margin-bottom:0"><!-- wp:button {"style":{"spacing":{"padding":{"top":"var:preset|spacing|compact","right":"var:preset|spacing|large","bottom":"var:preset|spacing|compact","left":"var:preset|spacing|large"}}},"fontSize":"small","url":"#"} -->
+<div class="wp-block-button"><a class="wp-block-button__link has-small-font-size has-custom-font-size wp-element-button" href="#" style="padding-top:var(--wp--preset--spacing--compact);padding-right:var(--wp--preset--spacing--large);padding-bottom:var(--wp--preset--spacing--compact);padding-left:var(--wp--preset--spacing--large)"><?php echo esc_html__( 'Start a conversation', 'origin-canvas' ); ?> &rarr;</a></div>
 <!-- /wp:button --></div>
 <!-- /wp:buttons --></div>
 <!-- /wp:column --></div>
