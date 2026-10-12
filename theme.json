@@ -972,7 +972,7 @@
 				"typography": {
 					"fontSize": "var(--wp--preset--font-size--regular-plus)",
 					"fontWeight": "600",
-					"letterSpacing": "var(--wp--custom--letter-spacing--base)",
+					"letterSpacing": "var(--origin-canvas-letter-spacing, var(--wp--custom--letter-spacing--base))",
 					"lineHeight": "1.1"
 				},
 				"elements": {
