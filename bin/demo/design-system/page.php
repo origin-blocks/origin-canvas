@@ -1,0 +1,53 @@
+<?php
+/**
+ * Design system page markup: the head, a sticky row of anchor links (one per group, "Next"
+ * where a group is not built yet) and the built sections, stacked on one page.
+ * Rendered by the origin-canvas-demo/design-system block (design-system.php).
+ *
+ * Type and color use the theme's preset classes, so the page chrome follows the active style
+ * variation. Hex values and contrast ratios are filled in by design-system.js from the colors
+ * the browser paints.
+ *
+ * @package Origin
+ */
+
+if ( ! defined( 'ABSPATH' ) || ! current_user_can( 'manage_options' ) ) {
+	return;
+}
+
+$oc_demo_ds_groups = oc_demo_ds_groups();
+?>
+<div class="ocds alignfull">
+
+	<header class="ocds-head">
+		<p class="ocds-kicker has-text-heading-color has-text-color has-extra-small-font-size">Design system · private</p>
+		<h1 class="has-display-font-size">Origin Canvas</h1>
+		<p class="ocds-lede has-text-body-color has-text-color has-regular-plus-font-size">Every role the theme ships, painted on the grounds it sits on, in the type it is set in. Specimens are real blocks from the theme's patterns. Hex values and contrast are read from this page as it renders, so the page follows theme.json and any style variation (<code>?ocvariation=</code>). Nothing here changes the theme.</p>
+		<noscript><p class="has-text-muted-color has-text-color has-small-font-size">Hex values and ratios are filled in by JavaScript. Names, sources and samples still show without it.</p></noscript>
+	</header>
+
+	<nav class="ocds-jump origin-canvas-links-plain" aria-label="On this page">
+		<ul class="ocds-jump-list has-small-font-size">
+			<?php foreach ( $oc_demo_ds_groups as $oc_demo_ds_group => $oc_demo_ds_items ) : ?>
+				<li>
+					<?php if ( $oc_demo_ds_items ) : ?>
+						<a href="#<?php echo esc_attr( array_key_first( $oc_demo_ds_items ) ); ?>"><?php echo esc_html( $oc_demo_ds_group ); ?></a>
+					<?php else : ?>
+						<span class="has-text-muted-color has-text-color"><?php echo esc_html( $oc_demo_ds_group ); ?></span>
+						<span class="ocds-next has-text-muted-color has-text-color has-extra-small-font-size">Next</span>
+					<?php endif; ?>
+				</li>
+			<?php endforeach; ?>
+		</ul>
+	</nav>
+
+	<div class="ocds-content">
+		<?php
+		foreach ( $oc_demo_ds_groups as $oc_demo_ds_items ) {
+			foreach ( array_keys( $oc_demo_ds_items ) as $oc_demo_ds_id ) {
+				require __DIR__ . '/sections/' . $oc_demo_ds_id . '.php';
+			}
+		}
+		?>
+	</div>
+</div>
