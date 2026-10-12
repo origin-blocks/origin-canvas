@@ -12,12 +12,12 @@
  */
 
 ?>
-<!-- wp:group {"tagName":"section","align":"full","style":{"spacing":{"margin":{"top":"0","bottom":"0"},"padding":{"top":"var:preset|spacing|colossal","bottom":"var:preset|spacing|colossal"}}},"layout":{"type":"constrained","contentSize":"880px"}} -->
+<!-- wp:group {"tagName":"section","align":"full","style":{"spacing":{"margin":{"top":"0","bottom":"0"},"padding":{"top":"var:preset|spacing|colossal","bottom":"var:preset|spacing|colossal"}}},"layout":{"type":"constrained"}} -->
 <section class="wp-block-group alignfull" style="margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--colossal);padding-bottom:var(--wp--preset--spacing--colossal)"><!-- wp:paragraph {"className":"origin-canvas-eyebrow","align":"center","style":{"typography":{"textTransform":"uppercase","fontWeight":"600","letterSpacing":"0.06em"},"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|medium"}}},"textColor":"primary","fontSize":"extra-small"} -->
 <p class="origin-canvas-eyebrow has-text-align-center has-primary-color has-text-color has-extra-small-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--medium);font-weight:600;letter-spacing:0.06em;text-transform:uppercase"><?php echo esc_html__( 'What we do', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
-<!-- wp:heading {"textAlign":"center","level":2,"style":{"typography":{"fontWeight":"500","lineHeight":"1.15","letterSpacing":"var(--wp--custom--letter-spacing--base)"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"fontSize":"display-xl"} -->
-<h2 class="wp-block-heading has-text-align-center has-display-xl-font-size" style="margin-top:0;margin-bottom:0;font-weight:500;letter-spacing:var(--wp--custom--letter-spacing--base);line-height:1.15"><?php echo wp_kses_post( __( 'We work with founders who care how their work looks and reads. <span class="has-inline-color has-text-muted-color">Roughly twelve projects a year, each one starts with a conversation.</span>', 'origin-canvas' ) ); ?></h2>
+<!-- wp:heading {"textAlign":"center","level":2,"align":"wide","className":"origin-canvas-text-balance","style":{"typography":{"fontWeight":"500","lineHeight":"1.15","letterSpacing":"var(--wp--custom--letter-spacing--base)"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"fontSize":"display-xl"} -->
+<h2 class="wp-block-heading has-text-align-center alignwide origin-canvas-text-balance has-display-xl-font-size" style="margin-top:0;margin-bottom:0;font-weight:500;letter-spacing:var(--wp--custom--letter-spacing--base);line-height:1.15"><?php echo wp_kses_post( __( 'We work with founders who care how their work looks and reads. <span class="has-inline-color has-text-muted-color">Roughly twelve projects a year, each one starts with a conversation.</span>', 'origin-canvas' ) ); ?></h2>
 <!-- /wp:heading --></section>
 <!-- /wp:group -->
