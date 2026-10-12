@@ -88,7 +88,7 @@ function oc_demo_insert( $args ) {
 $authors = array();
 foreach ( array(
 	'claire' => array( 'Claire Bennett', 'Co-founder. Claire started the studio in 2018 and runs every first call.' ),
-	'marcus' => array( 'Marcus Holloway', 'Co-founder and Designer. Marcus draws the marks and builds the sites.' ),
+	'marcus' => array( 'Marcus Holloway', 'Co-founder and Designer. Marcus draws the marks and designs the sites.' ),
 	'hannah' => array( 'Hannah Wright', 'Brand Strategist. Hannah writes the words and asks the questions.' ),
 ) as $login => $person ) {
 	$user  = get_user_by( 'login', $login );
@@ -285,7 +285,7 @@ $posts = array(
 			"\n\n",
 			array(
 				oc_demo_p( 'A standard website project with us is $6,000 one-off, and an identity on its own is $4,500. We quote a fixed price after the first call, and it covers the copy, the design, the build and a month of fixes after launch.' ),
-				oc_demo_p( 'We take one project a month so the three of us can work on it together. That is the reason for the price and for the waiting list in the spring, when most businesses want a new site before summer.' ),
+				oc_demo_p( 'We take one project a month so the four of us can work on it together. That is the reason for the price and for the waiting list in the spring, when most businesses want a new site before summer.' ),
 				oc_demo_list(
 					array(
 						'Website: $6,000, four weeks',
