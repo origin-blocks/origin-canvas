@@ -1,12 +1,27 @@
 #!/usr/bin/env bash
 # Rebuild the local demo site from scratch: empty it, then seed it from the active theme.
-# Usage: bin/demo/reset.sh [path-to-wordpress]   (default: ~/Sites/canvas-demo)
+# Usage: bin/demo/reset.sh <path-to-wordpress>   (e.g. ~/Sites/canvas-demo)
 # Users and settings outside the seed stay; posts, pages, menus, comments, terms, uploads and
 # Site Editor changes are deleted, so the demo never drifts.
+#
+# The script empties only a demo site: the folder must hold a DEMO-SITE.md marker file.
+# To make a new install a demo site, create that file in its root by hand, e.g.
+#   echo "# Canvas demo site" > ~/Sites/<site>/DEMO-SITE.md
+# The script never creates the marker. Without it, it refuses and changes nothing.
 set -euo pipefail
 
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-WP_PATH="${1:-$HOME/Sites/canvas-demo}"
+MARKER="DEMO-SITE.md"
+
+refuse() {
+	echo "reset.sh: refused, nothing changed. $1" >&2
+	exit 1
+}
+
+[ $# -ge 1 ] && [ -n "$1" ] || refuse "Give the demo site path, e.g. bin/demo/reset.sh ~/Sites/canvas-demo."
+[ -d "$1" ] || refuse "$1 is not a directory."
+WP_PATH="$(cd "$1" && pwd)"
+[ -f "$WP_PATH/$MARKER" ] || refuse "$WP_PATH has no $MARKER marker, so it is not a demo site."
 
 wp() { command wp --path="$WP_PATH" "$@"; }
 
