@@ -29,7 +29,7 @@
 	padding: 0 0 var(--wp--preset--spacing--compact);
 	font-size: max(0.875em, var(--wp--preset--font-size--extra-small));
 	font-weight: 600;
-	letter-spacing: 0.08em;
+	letter-spacing: 0.06em;
 	text-align: start;    /* logical, so an RTL locale reads from its own edge */
 	text-transform: uppercase;
 }
@@ -56,7 +56,7 @@
 	border-bottom: 1px solid var(--wp--preset--color--border);
 	font-size: max(0.875em, var(--wp--preset--font-size--extra-small));
 	font-weight: 600;
-	letter-spacing: 0.08em;
+	letter-spacing: 0.06em;
 	text-transform: uppercase;
 }
 

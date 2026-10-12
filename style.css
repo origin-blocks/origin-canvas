@@ -444,14 +444,43 @@ html {
  * up, paragraphs included.
  *
  * Zero specificity, so a letter spacing set on the block or in Global Styles wins.
- * Headings take their value through the variable: elements.heading reads it and falls
- * back to the base token, so a heading with no size class gets the base value, and a
- * Global Styles heading letter spacing replaces that one rule for every level. The
- * variable does not inherit: a heading inside a larger block keeps its own value.
+ * Headings take their value through the variable, which elements.heading reads with
+ * the base token as fallback. A size class sets the variable; a heading with no size
+ * class takes it from its level, and the named blocks below take the token for the
+ * size theme.json gives them. These rules set only the variable, never letter-spacing,
+ * so a Global Styles heading letter spacing still replaces the one heading rule for
+ * every level. The variable does not inherit: a heading inside a larger block keeps
+ * its own value.
  */
 @property --origin-canvas-letter-spacing {
 	syntax: "*";
 	inherits: false;
+}
+
+/* The element ladder: h1 60, h2 36, h3 30 are display; h4 24 large; h5 20 medium.
+   h6 18 takes the base fallback. Only the variable is set, never letter-spacing. */
+:where(h1, h2, h3) {
+	--origin-canvas-letter-spacing: var(--wp--custom--letter-spacing--display);
+}
+
+:where(h4) {
+	--origin-canvas-letter-spacing: var(--wp--custom--letter-spacing--large);
+}
+
+:where(h5) {
+	--origin-canvas-letter-spacing: var(--wp--custom--letter-spacing--medium);
+}
+
+/* Headings sized off the ladder: theme.json sizes the comments title at large and the
+   site title (an h1 when its level is set) at regular-plus; the reply title is
+   regular-plus. A heading with a custom size keeps its level's token; the block's
+   Letter spacing control is the way to change it. */
+:where(.wp-block-comments-title) {
+	--origin-canvas-letter-spacing: var(--wp--custom--letter-spacing--large);
+}
+
+:where(.wp-block-site-title, .comment-reply-title) {
+	--origin-canvas-letter-spacing: var(--wp--custom--letter-spacing--base);
 }
 
 :where(.has-extra-large-font-size, .has-huge-font-size, .has-display-font-size, .has-display-xl-font-size, .has-display-2-xl-font-size) {
@@ -466,6 +495,19 @@ html {
 
 :where(.has-medium-font-size) {
 	--origin-canvas-letter-spacing: var(--wp--custom--letter-spacing--medium);
+	letter-spacing: var(--origin-canvas-letter-spacing);
+}
+
+/* Below medium a heading takes base, whatever its level. The variable only: body
+   text at these sizes keeps normal letter spacing. */
+:where(.has-extra-small-font-size, .has-small-font-size, .has-regular-font-size, .has-regular-plus-font-size) {
+	--origin-canvas-letter-spacing: var(--wp--custom--letter-spacing--base);
+}
+
+/* The site title reads the variable only when it renders as a paragraph (level 0). An h1
+   site title is a heading, so the one heading rule in theme.json, and a Global Styles
+   "Headings" letter spacing, reach it. theme.json cannot scope a value by tag. */
+:where(p.wp-block-site-title) {
 	letter-spacing: var(--origin-canvas-letter-spacing);
 }
 
@@ -747,12 +789,12 @@ html {
 	}
 }
 
-/* The section headings are small uppercase labels: the handoff's 0.08em tracking
+/* The section headings are small uppercase labels: ODS chrome label tracking, 0.06em,
    and 600 weight. Low specificity, so a heading's own Typography settings still
    win; rule 7 keeps these values off the blocks themselves. */
 .origin-canvas-sidebar :where(h2) {
 	font-weight: 600;
-	letter-spacing: 0.08em;
+	letter-spacing: 0.06em;
 }
 
 /* A site with no tags: core's Tag Cloud renders nothing, so the Tags group holds
@@ -1023,7 +1065,7 @@ html {
 	border-radius: 999px;
 	color: var(--wp--preset--color--text-body);
 	font-weight: 500;
-	letter-spacing: 0.08em;
+	letter-spacing: 0.06em;
 	padding: 3px 10px;
 	text-transform: uppercase;
 	width: fit-content;
