@@ -30,7 +30,7 @@
 <!-- wp:column {"verticalAlignment":"center","width":"26%"} -->
 <div class="wp-block-column is-vertically-aligned-center" style="flex-basis:26%"><!-- wp:group {"layout":{"type":"flex","justifyContent":"center","flexWrap":"nowrap","verticalAlignment":"center"}} -->
 <div class="wp-block-group"><!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-muted","fontSize":"small"} -->
-<p class="has-text-muted-color has-text-color has-small-font-size" style="margin-top:0;margin-bottom:0"><span aria-hidden="true" style="background-color:var(--wp--preset--color--primary);border-radius:999px;display:inline-block;height:8px;margin-right:12px;vertical-align:middle;width:8px"></span><?php echo esc_html__( 'One slot open', 'origin-canvas' ); ?> &middot; <?php echo esc_html__( 'Summer &#8217;26', 'origin-canvas' ); ?></p>
+<p class="has-text-muted-color has-text-color has-small-font-size" style="margin-top:0;margin-bottom:0"><span aria-hidden="true" style="background-color:var(--wp--preset--color--primary);border-radius:999px;display:inline-block;height:8px;margin-right:12px;vertical-align:middle;width:8px"></span><?php echo esc_html__( 'One slot open in January', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group --></div>
 <!-- /wp:column -->
@@ -38,8 +38,8 @@
 <!-- wp:column {"verticalAlignment":"center","width":"24%"} -->
 <div class="wp-block-column is-vertically-aligned-center" style="flex-basis:24%">
 <!-- wp:buttons {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"layout":{"type":"flex","justifyContent":"right"}} -->
-<div class="wp-block-buttons is-content-justification-right is-layout-flex" style="margin-top:0;margin-bottom:0"><!-- wp:button {"style":{"spacing":{"padding":{"top":"var:preset|spacing|compact","right":"var:preset|spacing|large","bottom":"var:preset|spacing|compact","left":"var:preset|spacing|large"}}},"fontSize":"small"} -->
-<div class="wp-block-button"><a class="wp-block-button__link has-small-font-size has-custom-font-size wp-element-button" style="padding-top:var(--wp--preset--spacing--compact);padding-right:var(--wp--preset--spacing--large);padding-bottom:var(--wp--preset--spacing--compact);padding-left:var(--wp--preset--spacing--large)"><?php echo esc_html__( 'Start a conversation', 'origin-canvas' ); ?> &rarr;</a></div>
+<div class="wp-block-buttons is-content-justification-right is-layout-flex" style="margin-top:0;margin-bottom:0"><!-- wp:button {"style":{"spacing":{"padding":{"top":"var:preset|spacing|compact","right":"var:preset|spacing|large","bottom":"var:preset|spacing|compact","left":"var:preset|spacing|large"}}},"fontSize":"small","url":"#"} -->
+<div class="wp-block-button"><a class="wp-block-button__link has-small-font-size has-custom-font-size wp-element-button" href="#" style="padding-top:var(--wp--preset--spacing--compact);padding-right:var(--wp--preset--spacing--large);padding-bottom:var(--wp--preset--spacing--compact);padding-left:var(--wp--preset--spacing--large)"><?php echo esc_html__( 'Start a conversation', 'origin-canvas' ); ?> &rarr;</a></div>
 <!-- /wp:button --></div>
 <!-- /wp:buttons --></div>
 <!-- /wp:column --></div>
