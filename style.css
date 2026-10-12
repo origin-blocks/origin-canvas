@@ -444,14 +444,42 @@ html {
  * up, paragraphs included.
  *
  * Zero specificity, so a letter spacing set on the block or in Global Styles wins.
- * Headings take their value through the variable: elements.heading reads it and falls
- * back to the base token, so a heading with no size class gets the base value, and a
- * Global Styles heading letter spacing replaces that one rule for every level. The
- * variable does not inherit: a heading inside a larger block keeps its own value.
+ * Headings take their value through the variable, which elements.heading reads with
+ * the base token as fallback. A size class sets the variable; a heading with no size
+ * class takes it from its level, and the named blocks below take the token for the
+ * size theme.json gives them. These rules set only the variable, never letter-spacing,
+ * so a Global Styles heading letter spacing still replaces the one heading rule for
+ * every level. The variable does not inherit: a heading inside a larger block keeps
+ * its own value.
  */
 @property --origin-canvas-letter-spacing {
 	syntax: "*";
 	inherits: false;
+}
+
+/* The element ladder: h1 60, h2 36, h3 30 are display; h4 24 large; h5 20 medium.
+   h6 18 takes the base fallback. Only the variable is set, never letter-spacing. */
+:where(h1, h2, h3) {
+	--origin-canvas-letter-spacing: var(--wp--custom--letter-spacing--display);
+}
+
+:where(h4) {
+	--origin-canvas-letter-spacing: var(--wp--custom--letter-spacing--large);
+}
+
+:where(h5) {
+	--origin-canvas-letter-spacing: var(--wp--custom--letter-spacing--medium);
+}
+
+/* Headings sized off the ladder: theme.json sizes the comments title at large and the
+   site title (an h1 when its level is set) at regular-plus; the reply title is
+   regular-plus; a custom size is saved inline. */
+:where(.wp-block-comments-title) {
+	--origin-canvas-letter-spacing: var(--wp--custom--letter-spacing--large);
+}
+
+:where(.wp-block-site-title, .comment-reply-title, h1[style*="font-size"], h2[style*="font-size"], h3[style*="font-size"], h4[style*="font-size"], h5[style*="font-size"]) {
+	--origin-canvas-letter-spacing: var(--wp--custom--letter-spacing--base);
 }
 
 :where(.has-extra-large-font-size, .has-huge-font-size, .has-display-font-size, .has-display-xl-font-size, .has-display-2-xl-font-size) {
@@ -467,6 +495,12 @@ html {
 :where(.has-medium-font-size) {
 	--origin-canvas-letter-spacing: var(--wp--custom--letter-spacing--medium);
 	letter-spacing: var(--origin-canvas-letter-spacing);
+}
+
+/* Below medium a heading takes base, whatever its level. The variable only: body
+   text at these sizes keeps normal letter spacing. */
+:where(.has-extra-small-font-size, .has-small-font-size, .has-regular-font-size, .has-regular-plus-font-size) {
+	--origin-canvas-letter-spacing: var(--wp--custom--letter-spacing--base);
 }
 
 /* Letter spacing inherits as a computed length, so small text inside one of the
