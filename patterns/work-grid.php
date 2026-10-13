@@ -16,8 +16,8 @@
 ?>
 <!-- wp:group {"tagName":"section","align":"full","backgroundColor":"surface-muted","style":{"spacing":{"padding":{"top":"var:preset|spacing|colossal","bottom":"var:preset|spacing|colossal"},"blockGap":"var:preset|spacing|large"}},"layout":{"type":"constrained"}} -->
 <section class="wp-block-group alignfull has-surface-muted-background-color has-background" style="padding-top:var(--wp--preset--spacing--colossal);padding-bottom:var(--wp--preset--spacing--colossal)"><!-- wp:group {"align":"wide","className":"origin-canvas-align-baseline","style":{"spacing":{"blockGap":{"top":"var:preset|spacing|small","left":"var:preset|spacing|extra-large"}}},"layout":{"type":"flex","flexWrap":"wrap","justifyContent":"space-between"}} -->
-<div class="wp-block-group alignwide origin-canvas-align-baseline"><!-- wp:heading {"style":{"typography":{"lineHeight":"1.3"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"fontSize":"large"} -->
-<h2 class="wp-block-heading has-large-font-size" style="margin-top:0;margin-bottom:0;line-height:1.3"><?php echo esc_html__( 'Selected work', 'origin-canvas' ); ?></h2>
+<div class="wp-block-group alignwide origin-canvas-align-baseline"><!-- wp:heading {"style":{"typography":{"lineHeight":"1.3"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"fontSize":"huge"} -->
+<h2 class="wp-block-heading has-huge-font-size" style="margin-top:0;margin-bottom:0;line-height:1.3"><?php echo esc_html__( 'Selected work', 'origin-canvas' ); ?></h2>
 <!-- /wp:heading -->
 
 <!-- wp:group {"className":"origin-canvas-align-baseline","style":{"spacing":{"blockGap":"var:preset|spacing|small"}},"layout":{"type":"flex","flexWrap":"wrap"}} -->
