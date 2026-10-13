@@ -285,13 +285,13 @@ $posts = array(
 		'content' => implode(
 			"\n\n",
 			array(
-				oc_demo_p( 'A standard website project with us is $6,000 one-off, and an identity on its own is $4,500. We quote a fixed price after the first call, and it covers the copy, the design, the build and a month of fixes after launch.' ),
+				oc_demo_p( 'A standard website project with us is $4,500 one-off, and an identity on its own is $3,500. We quote a fixed price after the first call, and it covers the copy, the design, the build and a month of fixes after launch.' ),
 				oc_demo_p( 'We take on a few clients at a time, and the people you meet on the first call do the work themselves. That is the reason for the price and for the waiting list in the spring, when most businesses want a new site before summer.' ),
 				oc_demo_list(
 					array(
-						'Website: $6,000, four weeks',
-						'Identity: $4,500, three weeks',
-						'Identity and website together: $9,500, six weeks',
+						'Website: $4,500, six weeks',
+						'Identity: $3,500, four weeks',
+						'Identity and website together: $8,000, eight weeks',
 					)
 				),
 				oc_demo_p( 'If a project needs more pages or a shop, we say so on the first call and price it before anyone signs.' ),
