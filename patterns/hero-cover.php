@@ -36,11 +36,11 @@
 
 <!-- wp:group {"className":"origin-canvas-cover-story__card origin-canvas-cover-story__studio-line","backgroundColor":"surface-base","textColor":"text-heading","style":{"border":{"radius":"var:custom|radius|medium"},"spacing":{"padding":{"top":"var:preset|spacing|large","right":"var:preset|spacing|large","bottom":"var:preset|spacing|large","left":"var:preset|spacing|large"}}},"layout":{"type":"constrained"}} -->
 <div class="wp-block-group origin-canvas-cover-story__card origin-canvas-cover-story__studio-line has-text-heading-color has-surface-base-background-color has-text-color has-background" style="border-radius:var(--wp--custom--radius--medium);padding-top:var(--wp--preset--spacing--large);padding-right:var(--wp--preset--spacing--large);padding-bottom:var(--wp--preset--spacing--large);padding-left:var(--wp--preset--spacing--large)"><!-- wp:paragraph {"style":{"typography":{"fontWeight":"600","lineHeight":"1.2"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-heading","fontSize":"regular-plus"} -->
-<p class="has-text-heading-color has-text-color has-regular-plus-font-size" style="margin-top:0;margin-bottom:0;font-weight:600;line-height:1.2"><?php echo esc_html__( 'A four-person studio. Brand identity and websites for small businesses.', 'origin-canvas' ); ?></p>
+<p class="has-text-heading-color has-text-color has-regular-plus-font-size" style="margin-top:0;margin-bottom:0;font-weight:600;line-height:1.2"><?php echo esc_html__( 'An independent studio for brand identity and websites.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"var:preset|spacing|small","bottom":"0"}}},"textColor":"text-muted","fontSize":"small"} -->
-<p class="has-text-muted-color has-text-color has-small-font-size" style="margin-top:var(--wp--preset--spacing--small);margin-bottom:0"><?php echo esc_html__( 'One project at a time, since 2018.', 'origin-canvas' ); ?></p>
+<p class="has-text-muted-color has-text-color has-small-font-size" style="margin-top:var(--wp--preset--spacing--small);margin-bottom:0"><?php echo esc_html__( 'Working with small businesses since 2018.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group --></div>
 <!-- /wp:group --></div></div>

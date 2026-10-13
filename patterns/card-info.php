@@ -42,11 +42,11 @@
 <div class="wp-block-group"><!-- wp:icon {"icon":"core/help","textColor":"primary","style":{"spacing":{"margin":{"bottom":"var:preset|spacing|medium"}},"dimensions":{"width":"32px"}}} /-->
 
 <!-- wp:heading {"level":3,"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"fontSize":"medium"} -->
-<h3 class="wp-block-heading has-medium-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Small enough to care, big enough to deliver', 'origin-canvas' ); ?></h3>
+<h3 class="wp-block-heading has-medium-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'A site you can run yourself', 'origin-canvas' ); ?></h3>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"textColor":"text-body","fontSize":"regular"} -->
-<p class="has-text-body-color has-text-color has-regular-font-size"><?php echo esc_html__( 'Four of us, every project. No junior left to figure it out, no agency layer between you and the people doing the work.', 'origin-canvas' ); ?></p>
+<p class="has-text-body-color has-text-color has-regular-font-size"><?php echo esc_html__( 'We hand over the site with a short written guide and show you how to make changes, so your team can keep it current.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group --></div>
 <!-- /wp:column -->

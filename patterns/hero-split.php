@@ -31,7 +31,7 @@
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"align":"left","textColor":"text-body","fontSize":"regular-plus"} -->
-<p class="has-text-align-left has-text-body-color has-text-color has-regular-plus-font-size"><?php echo esc_html__( 'Roughly twelve projects a year. Each one starts with a conversation, ends with a launch checklist, and lives somewhere we&#8217;re proud to send people.', 'origin-canvas' ); ?></p>
+<p class="has-text-align-left has-text-body-color has-text-color has-regular-plus-font-size"><?php echo esc_html__( 'Every site starts with a conversation, ends with a launch checklist, and lives somewhere we&#8217;re proud to send people.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
 <!-- wp:buttons {"style":{"spacing":{"blockGap":"var:preset|spacing|compact","margin":{"top":"var:preset|spacing|extra-large"}}},"layout":{"type":"flex","justifyContent":"left","orientation":"horizontal"}} -->

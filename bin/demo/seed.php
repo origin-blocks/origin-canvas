@@ -286,7 +286,7 @@ $posts = array(
 			"\n\n",
 			array(
 				oc_demo_p( 'A standard website project with us is $6,000 one-off, and an identity on its own is $4,500. We quote a fixed price after the first call, and it covers the copy, the design, the build and a month of fixes after launch.' ),
-				oc_demo_p( 'We take one project a month so the four of us can work on it together. That is the reason for the price and for the waiting list in the spring, when most businesses want a new site before summer.' ),
+				oc_demo_p( 'We take on a few clients at a time, and the people you meet on the first call do the work themselves. That is the reason for the price and for the waiting list in the spring, when most businesses want a new site before summer.' ),
 				oc_demo_list(
 					array(
 						'Website: $6,000, four weeks',
