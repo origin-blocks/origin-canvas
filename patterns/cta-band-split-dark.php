@@ -1,8 +1,8 @@
 <?php
 /**
- * Title: Dark CTA Split
- * Slug: origin-canvas/cta-split-dark
- * Description: A full-width dark section with an availability line, a heading and a short lead beside two buttons; the buttons move under the text on narrower screens.
+ * Title: CTA Band Split Dark
+ * Slug: origin-canvas/cta-band-split-dark
+ * Description: A dark band with an availability line, a heading and a short lead, and two buttons beside them.
  * Categories: call-to-action
  * Keywords: conversion, booking, inverted, side by side
  * Viewport Width: 1500

@@ -18,4 +18,4 @@
 <!-- wp:pattern {"slug":"origin-canvas/services-list"} /-->
 <!-- wp:pattern {"slug":"origin-canvas/features-numbered"} /-->
 <!-- wp:pattern {"slug":"origin-canvas/testimonial-single"} /-->
-<!-- wp:pattern {"slug":"origin-canvas/cta-split-dark"} /-->
+<!-- wp:pattern {"slug":"origin-canvas/cta-band-split-dark"} /-->
