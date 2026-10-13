@@ -4,7 +4,7 @@
  * Slug: origin-canvas/cta-split-dark
  * Description: A full-width dark section with an availability line, a heading and a short lead beside two buttons; the buttons move under the text on narrower screens.
  * Categories: call-to-action
- * Keywords: conversion, booking, inverted, side by side, two buttons
+ * Keywords: conversion, booking, inverted, side by side
  * Viewport Width: 1500
  * Block Types:
  * Post Types:
