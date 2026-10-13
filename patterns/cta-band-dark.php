@@ -20,7 +20,7 @@
 <!-- /wp:paragraph -->
 
 <!-- wp:heading {"textAlign":"center","level":2,"align":"wide","className":"origin-canvas-text-balance","style":{"spacing":{"margin":{"top":"0","bottom":"0"}},"color":{"text":"var(--wp--custom--dark--text)"}},"fontSize":"display"} -->
-<h2 class="wp-block-heading has-text-align-center alignwide origin-canvas-text-balance has-text-color has-display-font-size" style="color:var(--wp--custom--dark--text);margin-top:0;margin-bottom:0"><?php echo esc_html__( 'One project a month. Yours could be next.', 'origin-canvas' ); ?></h2>
+<h2 class="wp-block-heading has-text-align-center alignwide origin-canvas-text-balance has-text-color has-display-font-size" style="color:var(--wp--custom--dark--text);margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Your project could be next on our desk.', 'origin-canvas' ); ?></h2>
 <!-- /wp:heading -->
 
 <!-- wp:group {"style":{"spacing":{"margin":{"top":"var:preset|spacing|compact"}}},"layout":{"type":"constrained"}} -->
