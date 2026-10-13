@@ -18,6 +18,6 @@
 <!-- /wp:paragraph -->
 
 <!-- wp:heading {"textAlign":"center","level":2,"align":"wide","className":"origin-canvas-text-balance","style":{"typography":{"fontWeight":"500","lineHeight":"1.15","letterSpacing":"var(--wp--custom--letter-spacing--base)"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"fontSize":"display-xl"} -->
-<h2 class="wp-block-heading has-text-align-center alignwide origin-canvas-text-balance has-display-xl-font-size" style="margin-top:0;margin-bottom:0;font-weight:500;letter-spacing:var(--wp--custom--letter-spacing--base);line-height:1.15"><?php echo wp_kses_post( __( 'We work with founders who care how their work looks and reads. <span class="has-inline-color has-text-muted-color">Roughly twelve projects a year, each one starts with a conversation.</span>', 'origin-canvas' ) ); ?></h2>
+<h2 class="wp-block-heading has-text-align-center alignwide origin-canvas-text-balance has-display-xl-font-size" style="margin-top:0;margin-bottom:0;font-weight:500;letter-spacing:var(--wp--custom--letter-spacing--base);line-height:1.15"><?php echo wp_kses_post( __( 'We work with founders who care how their work looks and reads.', 'origin-canvas' ) ); ?></h2>
 <!-- /wp:heading --></section>
 <!-- /wp:group -->

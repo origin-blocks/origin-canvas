@@ -28,7 +28,7 @@
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"textColor":"text-body","fontSize":"regular-plus"} -->
-<p class="has-text-body-color has-text-color has-regular-plus-font-size"><?php echo esc_html__( 'We are four people: a founder who writes, a founder who designs, a strategist, and a developer. Projects run one at a time, which is the whole reason the schedule holds.', 'origin-canvas' ); ?></p>
+<p class="has-text-body-color has-text-color has-regular-plus-font-size"><?php echo esc_html__( 'We plan the work before we promise a date, so you know when to expect it.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"textColor":"text-body","fontSize":"regular-plus"} -->
