@@ -26,7 +26,7 @@
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"var:preset|spacing|compact"}}},"textColor":"text-body","fontSize":"regular"} -->
-<p class="has-text-body-color has-text-color has-regular-font-size" style="margin-top:var(--wp--preset--spacing--compact)"><?php echo esc_html__( 'Identity and a portfolio site for a two-person woodworking shop. Six weeks, forty pieces photographed, one new wordmark.', 'origin-canvas' ); ?></p>
+<p class="has-text-body-color has-text-color has-regular-font-size" style="margin-top:var(--wp--preset--spacing--compact)"><?php echo esc_html__( 'Identity and a portfolio site for a two-person woodworking shop. Eight weeks, forty pieces photographed, one new wordmark.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"className":"origin-canvas-links-plain","style":{"typography":{"fontWeight":"600"},"spacing":{"margin":{"top":"var:preset|spacing|medium","bottom":"0"}}},"textColor":"text-heading","fontSize":"regular"} -->
