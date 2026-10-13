@@ -2,9 +2,9 @@
 /**
  * Title: Pricing Band List
  * Slug: origin-canvas/pricing-band-list
- * Description: One row per service on hairlines: who it suits, its price and time, and what it includes, under a left heading on a muted band.
+ * Description: A muted band with an eyebrow, a heading and a short lead over a list of services on hairlines, each with its name, who it suits and its price and time beside what it includes.
  * Categories: origin-canvas/pricing
- * Keywords: offerings, rates, packages, deliverables, menu, scope
+ * Keywords: offerings, rates, packages, deliverables, scope
  * Viewport Width: 1500
  * Block Types:
  * Post Types:
