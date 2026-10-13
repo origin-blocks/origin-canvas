@@ -58,8 +58,8 @@
 	width: 34px;
 }
 
-/* Centred variant. No shipped pattern uses it since the Services round
-   (testimonial-single is left); kept for saved content that carries the class. */
+/* Centred variant. No shipped pattern uses it; it stays for saved content
+   that carries the class. */
 .wp-block-group.origin-canvas-quote-mark.origin-canvas-quote-mark--center {
 	margin-inline: auto !important;
 }
