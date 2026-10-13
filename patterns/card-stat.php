@@ -40,7 +40,7 @@
 <!-- wp:column -->
 <div class="wp-block-column"><!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|small"}},"layout":{"type":"constrained"}} -->
 <div class="wp-block-group"><!-- wp:paragraph {"className":"origin-canvas-figure","style":{"typography":{"fontWeight":"700","lineHeight":"1.1"}},"textColor":"text-heading","fontSize":"display"} -->
-<p class="origin-canvas-figure has-text-heading-color has-text-color has-display-font-size" style="font-weight:700;line-height:1.1"><?php echo esc_html__( '4 weeks', 'origin-canvas' ); ?></p>
+<p class="origin-canvas-figure has-text-heading-color has-text-color has-display-font-size" style="font-weight:700;line-height:1.1"><?php echo esc_html__( '8 weeks', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"textColor":"text-body","fontSize":"regular"} -->
