@@ -1,7 +1,7 @@
 <?php
 /**
- * Title: Services List
- * Slug: origin-canvas/services-list
+ * Title: Pricing Band List
+ * Slug: origin-canvas/pricing-band-list
  * Description: One row per service on hairlines: who it suits, its price and time, and what it includes, under a left heading on a muted band.
  * Categories: origin-canvas/pricing
  * Keywords: offerings, rates, packages, deliverables, menu, scope

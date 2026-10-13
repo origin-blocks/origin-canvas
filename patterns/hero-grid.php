@@ -1,7 +1,7 @@
 <?php
 /**
- * Title: Hero Services
- * Slug: origin-canvas/hero-services
+ * Title: Hero Grid
+ * Slug: origin-canvas/hero-grid
  * Description: A page-top section with a left-aligned heading, a short lead, four services side by side and one button, on a dot texture.
  * Categories: origin-canvas/hero
  * Keywords: offerings, capabilities, what we do, masthead, banner
