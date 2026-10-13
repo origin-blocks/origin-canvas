@@ -195,7 +195,7 @@ foreach ( array(
 $long = implode(
 	"\n\n",
 	array(
-		oc_demo_p( 'A standard project with us takes four weeks, from the first call to a site the client can edit on their own. Most clients ask what happens in those weeks before they sign, so here is the plan we send them, with the parts that tend to move.' ),
+		oc_demo_p( 'A website project with us takes six weeks, from the first call to a site the client can edit on their own. Most clients ask what happens in those weeks before they sign, so here is the plan we send them, with the parts that tend to move.' ),
 		oc_demo_h( 'Week one: questions and a site map' ),
 		oc_demo_p( 'We start with a 90-minute call and a shared folder. By the end of the week the client has a one-page brief and a site map they have approved, and we have every login we need.' ),
 		oc_demo_list(
@@ -207,8 +207,8 @@ $long = implode(
 		),
 		oc_demo_h( 'Week two: words first' ),
 		oc_demo_p( 'Claire writes the copy for every page before Marcus draws a single layout. Real words decide how long a heading runs and how much room a service needs, and they make the client&#8217;s review faster because there is something to read.' ),
-		oc_demo_h( 'Week three: design and build' ),
-		oc_demo_p( 'Design and build run together. We show the home page in the browser on the Tuesday, and the client reviews the rest on a phone and a laptop by Friday.' ),
+		oc_demo_h( 'Weeks three to five: design and build' ),
+		oc_demo_p( 'Design and build run together. We show the home page in the browser during week three, and the client reviews the rest on a phone and a laptop by the end of week five.' ),
 		oc_demo_image( $img['layouts'], 'Page layouts, printed and marked up in the week-three review.' ),
 		oc_demo_h( 'What we check before a review', 3 ),
 		oc_demo_list(
@@ -220,8 +220,8 @@ $long = implode(
 			),
 			true
 		),
-		oc_demo_quote( 'We had a site we could edit ourselves by the end of the month, and the booking form has not needed a change since.', 'Owen Parker, Clinic Director, Kestrel Physical Therapy' ),
-		oc_demo_h( 'Week four: launch' ),
+		oc_demo_quote( 'We had a site we could edit ourselves six weeks after the first call, and the booking form has not needed a change since.', 'Owen Parker, Clinic Director, Kestrel Physical Therapy' ),
+		oc_demo_h( 'Week six: launch' ),
 		oc_demo_p( 'Launch week is mostly checks. The step clients forget is the old site: links in emails, on business cards and in search results still point at its pages. We keep a redirect map from the first call and add it to the server the day before launch.' ),
 		oc_demo_code( "# Old addresses to new pages, added the day before launch\nRedirect 301 /services.html /what-we-do/\nRedirect 301 /about-us.html /about/\nRedirect 301 /contact.php /contact/\nRedirect 301 /book-online /book/" ),
 		oc_demo_p( 'After launch we hold a 30-minute handover call and send a short guide to editing the site. Thanks for reading. If you have questions about how a project runs, ask in the comments.' ),
@@ -230,7 +230,7 @@ $long = implode(
 
 $posts = array(
 	array(
-		'title'   => 'How a four-week website project runs',
+		'title'   => 'How a six-week website project runs',
 		'date'    => '2026-09-22 09:30:00',
 		'author'  => 'claire',
 		'cat'     => 'web',
