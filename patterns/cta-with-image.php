@@ -1,6 +1,6 @@
 <?php
 /**
- * Title: CTA Band Split
+ * Title: CTA Band Split With Image
  * Slug: origin-canvas/cta-with-image
  * Description: A photo beside a heading, text, two buttons and a note on reply time, on a tinted band.
  * Categories: call-to-action
