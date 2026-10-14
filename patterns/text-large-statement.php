@@ -4,7 +4,7 @@
  * Slug: origin-canvas/text-large-statement
  * Description: One centered sentence at display size, with no eyebrow or fill.
  * Categories: text
- * Keywords: editorial, quote, manifesto, intro, breath
+ * Keywords: editorial, quote, manifesto
  * Viewport Width: 1500
  * Block Types:
  * Post Types:

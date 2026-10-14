@@ -4,7 +4,7 @@
  * Slug: origin-canvas/hero-canvas
  * Description: A hero on a faint grid backdrop with a soft corner glow, two calls to action and a meta line.
  * Categories: origin-canvas/hero
- * Keywords: landing, intro, centered, gradient, theme
+ * Keywords: landing page, introduction, centered, gradient, theme
  * Viewport Width: 1500
  * Block Types:
  * Post Types:

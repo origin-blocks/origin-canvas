@@ -4,7 +4,7 @@
  * Slug: origin-canvas/hero-text-image
  * Description: An eyebrow, large heading, lead and two buttons beside a photo.
  * Categories: origin-canvas/hero
- * Keywords: landing, intro, masthead, media
+ * Keywords: landing page, introduction, masthead, media
  * Block Types: core/post-content
  * Inserter: true
  *

@@ -4,7 +4,7 @@
  * Slug: origin-canvas/cta-band
  * Description: A tinted rounded card the width of the content, with a heading and text beside an availability line and one button.
  * Categories: call-to-action
- * Keywords: conversion, banner, home, availability
+ * Keywords: conversion, banner, prompt
  * Block Types: core/post-content
  * Viewport Width: 1500
  * Inserter: true

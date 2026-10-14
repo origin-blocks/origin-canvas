@@ -4,7 +4,7 @@
  * Slug: origin-canvas/header-marketing
  * Description: A marketing header with the site title, primary navigation, a ghost demo link and a dark download button.
  * Categories: header
- * Keywords: landing, cta, promo, saas, launch
+ * Keywords: landing page, cta, promo, saas, launch
  * Viewport Width: 1500
  * Block Types: core/template-part/header
  * Post Types:

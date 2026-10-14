@@ -4,7 +4,7 @@
  * Slug: origin-canvas/faq-two-column
  * Description: A heading and intro beside a stacked list of expandable questions.
  * Categories: origin-canvas/faq
- * Keywords: accordion, disclosure, support, help, split
+ * Keywords: accordion, disclosure, support, help
  * Viewport Width: 1500
  * Block Types:
  * Post Types:

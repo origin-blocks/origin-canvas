@@ -4,7 +4,7 @@
  * Slug: origin-canvas/hero-split
  * Description: A photo filling the left half of the screen beside an eyebrow, large heading, lead and two buttons on a tinted half.
  * Categories: origin-canvas/hero
- * Keywords: landing, intro, image, fullbleed
+ * Keywords: landing page, introduction, image, fullbleed
  * Block Types: core/post-content
  * Inserter: true
  *

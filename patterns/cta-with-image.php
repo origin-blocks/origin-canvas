@@ -4,7 +4,7 @@
  * Slug: origin-canvas/cta-with-image
  * Description: A photo beside a heading, text, two buttons and a note on reply time, on a tinted band.
  * Categories: call-to-action
- * Keywords: conversion, contact, email, booking, split, media
+ * Keywords: conversion, contact, email, booking, media
  * Viewport Width: 1500
  * Block Types:
  * Post Types:

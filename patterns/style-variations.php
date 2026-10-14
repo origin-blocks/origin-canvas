@@ -4,7 +4,7 @@
  * Slug: origin-canvas/style-variations
  * Description: A tinted band with a centered eyebrow, heading and lead over three sets of cards: full variations with a type sample and color swatches, color presets with a color dot and name, and typography presets with a type sample and name.
  * Categories: origin-canvas/features
- * Keywords: palette, themes, swatches, styles
+ * Keywords: palette, themes, styles
  * Viewport Width: 1500
  * Block Types:
  * Post Types:

@@ -4,7 +4,7 @@
  * Slug: origin-canvas/text-two-column
  * Description: A heading above body text set in two equal columns.
  * Categories: text
- * Keywords: editorial, about, paragraphs, copy, article
+ * Keywords: editorial, paragraphs, copy, article
  * Viewport Width: 1500
  * Block Types:
  * Post Types:

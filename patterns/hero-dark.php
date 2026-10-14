@@ -4,7 +4,7 @@
  * Slug: origin-canvas/hero-dark
  * Description: A centered eyebrow, large heading, short lead and two buttons on a dark band.
  * Categories: origin-canvas/hero
- * Keywords: landing, intro, centered, inverted
+ * Keywords: landing page, introduction, inverted
  * Block Types: core/post-content
  * Inserter: true
  *

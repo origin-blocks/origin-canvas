@@ -4,7 +4,7 @@
  * Slug: origin-canvas/card-pricing
  * Description: A heading and lead above three price cards in a row on a tinted band; the middle card has a colored top bar.
  * Categories: origin-canvas/pricing
- * Keywords: cards, plans, tiered, featured
+ * Keywords: plans, tiered, featured
  * Block Types: core/post-content
  * Inserter: true
  *

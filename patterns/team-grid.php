@@ -4,7 +4,7 @@
  * Slug: origin-canvas/team-grid
  * Description: A two-by-two arrangement of colleagues with circular photos, roles and short bios.
  * Categories: team
- * Keywords: staff, people, members, about, headshots
+ * Keywords: staff, people, members, about page, headshots
  * Viewport Width: 1500
  * Block Types:
  * Post Types:

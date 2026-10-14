@@ -4,7 +4,7 @@
  * Slug: origin-canvas/template-showcase
  * Description: A centered eyebrow, heading, lead and link over six cards, each with a template wireframe, its name and its file name, and a count of the templates shown.
  * Categories: origin-canvas/features
- * Keywords: templates, wireframes, marketing, layouts
+ * Keywords: wireframes, marketing, layouts
  * Viewport Width: 1500
  * Block Types:
  * Post Types:

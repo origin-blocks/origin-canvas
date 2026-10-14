@@ -4,7 +4,7 @@
  * Slug: origin-canvas/lead-statement
  * Description: One large centered sentence in two text colors on a tinted band.
  * Categories: text
- * Keywords: intro, marketing, opening, manifesto
+ * Keywords: marketing, manifesto, introduction
  * Viewport Width: 1500
  * Block Types:
  * Post Types:

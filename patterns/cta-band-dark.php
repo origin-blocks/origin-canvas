@@ -4,7 +4,7 @@
  * Slug: origin-canvas/cta-band-dark
  * Description: A dark band with an availability line, a centered heading, a short lead and two buttons.
  * Categories: call-to-action
- * Keywords: conversion, inverted, booking, final, slot
+ * Keywords: conversion, inverted, booking, slot
  * Viewport Width: 1500
  * Block Types:
  * Post Types:
