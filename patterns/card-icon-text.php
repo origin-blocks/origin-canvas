@@ -2,8 +2,9 @@
 /**
  * Title: Card Icon Text
  * Slug: origin-canvas/card-icon-text
+ * Description: A heading and lead above four tinted cards in two columns, each with an icon beside a title and text.
  * Categories: origin-canvas/card
- * Keywords: cards, icons, features, two column, horizontal
+ * Keywords: icons, features, horizontal
  * Block Types: core/post-content
  * Inserter: true
  *

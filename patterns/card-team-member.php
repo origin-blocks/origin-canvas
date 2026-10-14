@@ -1,10 +1,10 @@
 <?php
 /**
- * Title: Card Team Member
+ * Title: Team Member
  * Slug: origin-canvas/card-team-member
- * Description: A single team member card with portrait, name, role, and social links. Insert inside a Columns block for a team grid layout.
+ * Description: One team member, centered: a round portrait over the name, role, a short bio and social links.
  * Categories: team
- * Keywords: profile, person, staff, bio, headshot
+ * Keywords: profile, person, staff, headshot
  * Block Types: core/post-content
  * Inserter: true
  *

@@ -1,10 +1,10 @@
 <?php
 /**
- * Title: Closing CTA
+ * Title: CTA Card Dark
  * Slug: origin-canvas/cta-closing
- * Description: A dark closing call-to-action band for the end of the theme landing page.
+ * Description: A dark rounded card the width of the content, with an eyebrow, a large centered heading, a short lead and two buttons.
  * Categories: call-to-action
- * Keywords: conversion, download, footer, final
+ * Keywords: conversion, download, inverted
  * Viewport Width: 1500
  * Block Types:
  * Post Types:

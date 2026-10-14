@@ -2,7 +2,7 @@
 /**
  * Title: Hero Grid
  * Slug: origin-canvas/hero-grid
- * Description: An eyebrow, a left-aligned heading and a short lead over a grid of four services, each with a name and a line, and one button, on a dot texture.
+ * Description: An eyebrow, a left-aligned heading and a short lead over a grid of four services, each with a name and one line of text, and one button, on a dot texture.
  * Categories: origin-canvas/hero
  * Keywords: offerings, capabilities, what we do, masthead, banner
  * Viewport Width: 1500

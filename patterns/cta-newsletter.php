@@ -2,8 +2,9 @@
 /**
  * Title: CTA Newsletter
  * Slug: origin-canvas/cta-newsletter
+ * Description: A centered heading and lead over a sample email field drawn as text, a sign-up button and a short note.
  * Categories: call-to-action
- * Keywords: email, subscribe, signup, conversion
+ * Keywords: subscribe, signup, conversion
  * Block Types: core/post-content
  * Inserter: true
  *

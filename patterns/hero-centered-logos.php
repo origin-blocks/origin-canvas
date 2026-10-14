@@ -4,7 +4,7 @@
  * Slug: origin-canvas/hero-centered-logos
  * Description: A centered hero that closes with a row of client marks in gray.
  * Categories: origin-canvas/hero
- * Keywords: banner, masthead, brands, trust, social proof, above the fold
+ * Keywords: banner, masthead, brands, trust, social proof, introduction
  * Viewport Width: 1500
  * Block Types:
  * Post Types:

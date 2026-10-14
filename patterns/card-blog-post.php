@@ -2,7 +2,7 @@
 /**
  * Title: Card Blog Post
  * Slug: origin-canvas/card-blog-post
- * Description: A single blog post card with image, category, title, excerpt, and meta. Pair with the Blog Post Grid pattern (a dynamic query loop) for multiple posts, or insert manually inside a Columns block.
+ * Description: One post on a tinted card: a picture, the category, title, excerpt and date.
  * Categories: origin-canvas/card
  * Keywords: article, journal, teaser, snippet
  * Viewport Width: 1500

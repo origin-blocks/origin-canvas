@@ -1,10 +1,10 @@
 <?php
 /**
- * Title: Text Image Side
+ * Title: Text Split
  * Slug: origin-canvas/text-image-side
  * Description: A picture beside a heading and prose, balanced half and half.
  * Categories: text
- * Keywords: editorial, about, media, split, story
+ * Keywords: editorial, about page, media, story
  * Viewport Width: 1500
  * Block Types:
  * Post Types:

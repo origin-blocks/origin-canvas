@@ -95,7 +95,7 @@ if ( ! function_exists( 'origin_canvas_register_custom_patterns' ) ) {
 				'file' => 'patterns/process-numbered.php',
 			),
 			'origin-canvas/cta-band' => array(
-				'title' => __( 'CTA Band', 'origin-canvas' ),
+				'title' => __( 'CTA Card Split', 'origin-canvas' ),
 				'inserter' => true,
 				'categories' => array( 'call-to-action' ),
 				'file' => 'patterns/cta-band.php',

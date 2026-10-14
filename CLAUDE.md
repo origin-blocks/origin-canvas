@@ -51,7 +51,7 @@ wins** (the list is frozen specific→generic so two people reach the same answe
 that contains a CTA is `hero` (1), not `call-to-action` (14); a pricing table with stats is
 `pricing` (3), not `stats` (4)):
 
-1. `origin-canvas/hero` — a page-top hero section
+1. `origin-canvas/hero` — a hero: the main heading at the largest size, with a lead or buttons
 2. `testimonials` — a quote / review (core slug, used bare)
 3. `origin-canvas/pricing` — a pricing table / tier
 4. `origin-canvas/stats` — a metrics / numbers band
@@ -73,6 +73,10 @@ that contains a CTA is `hero` (1), not `call-to-action` (14); a pricing table wi
 introduces them — registering or using a category outside this fixed set is forbidden.
 
 ### 3. Names — role-based, never page-scoped
+Section names, titles, descriptions and keywords follow ODS `RULES.md` "Pattern names": job, then
+layout, then style, and never a position or page word in a name or description. Keywords may carry
+true use words ("about page", "introduction"). A shipped slug is never renamed.
+
 Name a pattern for what it **is**, so it's reusable on any page: `stat-band`, `features-grid`,
 `testimonial-single`. **Never** `landing-*` or any `<page>-<section>` form. A section pattern
 welded to one page ("landing-cta") is wrong; it's a `cta-*` that any page can use.
@@ -99,7 +103,7 @@ only the variable fields):
 /**
  * Title: <Human Title>
  * Slug: origin-canvas/<kebab-slug>
- * Description: <one sentence: what the pattern is / where it's used>
+ * Description: <one sentence: what a user sees in the pattern>
  * Categories: <one category>
  * Keywords: <comma, separated, terms>
  * Viewport Width: 1500
@@ -127,14 +131,16 @@ Per-field rules:
   known drift to be stripped, not a convention to copy.
 - **Post Types:** leave empty.
 - **Inserter:** `true` for all user-facing patterns; `false` only for hidden template scaffolds
-  (registered via `register_block_pattern` in `functions.php`).
+  (registered via `register_block_pattern` in `functions.php`) and the theme landing page's own
+  showcase sections (`pattern-showcase`, `style-variations`, `template-showcase`, `token-system`,
+  `product-grid`), which only `page-landing-01` places.
 - **Keywords:** 3–6 comma-separated terms a user might *type* that are **not already** in the
-  Title, Slug, Description, or Category — synonyms, alternate names, use-case words. Never
-  repeat a word that already appears in those fields: WordPress joins title, description,
-  keywords and category into ONE searched string and scores it all-or-nothing (see
+  Title, Slug, Description, or Category — synonyms, alternate names, content words and true
+  use words (rule 3). Never repeat a word that already appears in those fields: WordPress joins
+  title, description, keywords and category into ONE searched string and scores it all-or-nothing (see
   `getItemSearchRank`), so a repeat cannot improve ranking — it only spends the budget. A
   pattern titled "Hero Centered" is already found by "hero"; its keywords should buy
-  "banner", "masthead", "above the fold".
+  "banner", "masthead", "introduction".
 
 ### 6. Tokens over hardcodes — NEVER put bespoke px in a pattern
 Every **colour** = palette slug. Every **spacing** = spacing preset slug. Every **font size** =

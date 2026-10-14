@@ -2,9 +2,9 @@
 /**
  * Title: Text Large Statement
  * Slug: origin-canvas/text-large-statement
- * Description: A single centered sentence at display size, used as a pause between sections.
+ * Description: One centered sentence at display size, with no eyebrow or fill.
  * Categories: text
- * Keywords: editorial, quote, manifesto, intro, breath
+ * Keywords: editorial, quote, manifesto
  * Viewport Width: 1500
  * Block Types:
  * Post Types:

@@ -19,8 +19,8 @@
 <p class="origin-canvas-eyebrow has-text-align-center has-primary-color has-text-color has-extra-small-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--small);font-weight:600;letter-spacing:0.06em;text-transform:uppercase"><?php echo esc_html__( 'Clients', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
-<!-- wp:heading {"level":2,"textAlign":"center","style":{"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|huge"}}},"fontSize":"display"} -->
-<h2 class="wp-block-heading has-text-align-center has-display-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--huge)"><?php echo esc_html__( 'Who we&#8217;ve worked with', 'origin-canvas' ); ?></h2>
+<!-- wp:heading {"level":2,"textAlign":"center","style":{"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|huge"}}},"fontSize":"huge"} -->
+<h2 class="wp-block-heading has-text-align-center has-huge-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--huge)"><?php echo esc_html__( 'Our work spans bike shops and law firms', 'origin-canvas' ); ?></h2>
 <!-- /wp:heading -->
 
 <!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|medium"}},"layout":{"type":"grid","columnCount":3,"minimumColumnWidth":"8rem"}} -->

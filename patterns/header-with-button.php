@@ -4,7 +4,7 @@
  * Slug: origin-canvas/header-with-button
  * Description: A site header with the site title, primary navigation and one dark call-to-action button, which keeps one row on phones unless the site title is long.
  * Categories: header
- * Keywords: masthead, topbar, cta, action, signup
+ * Keywords: masthead, topbar, cta, signup
  * Viewport Width: 1500
  * Block Types: core/template-part/header
  * Post Types:

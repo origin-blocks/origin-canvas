@@ -1,9 +1,10 @@
 <?php
 /**
- * Title: Work Index
+ * Title: Work List
  * Slug: origin-canvas/work-index
+ * Description: A heading and a link above six ruled lines, each with a number, a project name, a line of text, a year and an arrow.
  * Categories: origin-canvas/features
- * Keywords: portfolio, projects, home, casestudies
+ * Keywords: portfolio, projects, casestudies
  * Block Types: core/post-content
  * Viewport Width: 1500
  * Inserter: true

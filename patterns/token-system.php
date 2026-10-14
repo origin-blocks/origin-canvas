@@ -2,13 +2,13 @@
 /**
  * Title: Token System Panel
  * Slug: origin-canvas/token-system
- * Description: A built-on-the-system section with a design-token panel for the theme landing page.
+ * Description: A tinted band with an eyebrow, heading, lead and three short points beside a panel of the color, spacing and type settings.
  * Categories: origin-canvas/features
  * Keywords: tokens, variables, marketing, scale
  * Viewport Width: 1500
  * Block Types:
  * Post Types:
- * Inserter: true
+ * Inserter: false
  *
  * @package Origin
  */

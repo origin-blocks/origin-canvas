@@ -2,8 +2,9 @@
 /**
  * Title: Process Numbered
  * Slug: origin-canvas/process-numbered
+ * Description: A heading and lead above four numbered steps on tinted cards in two columns.
  * Categories: origin-canvas/features
- * Keywords: steps, home, method, stages
+ * Keywords: method, stages, workflow
  * Block Types: core/post-content
  * Viewport Width: 1200
  * Inserter: true

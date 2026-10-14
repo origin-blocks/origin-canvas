@@ -2,9 +2,9 @@
 /**
  * Title: Hero Statement
  * Slug: origin-canvas/hero-statement
- * Description: A page-top section with an eyebrow, a large left-aligned heading, a short lead and one button.
+ * Description: An eyebrow, a large left-aligned heading, a short lead and one button.
  * Categories: origin-canvas/hero
- * Keywords: about, intro, masthead, mission, opening, banner
+ * Keywords: about page, introduction, masthead, mission, banner
  * Viewport Width: 1500
  * Block Types:
  * Post Types:

@@ -1,7 +1,8 @@
 <?php
 /**
- * Title: CTA Inline
+ * Title: CTA Split
  * Slug: origin-canvas/cta-inline
+ * Description: A heading and text beside one button, with no fill.
  * Categories: call-to-action
  * Keywords: conversion, horizontal, prompt, compact
  * Block Types: core/post-content

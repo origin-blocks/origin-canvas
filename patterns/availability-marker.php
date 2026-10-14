@@ -2,8 +2,9 @@
 /**
  * Title: Availability Marker
  * Slug: origin-canvas/availability-marker
+ * Description: A small accent-color dot and a short line of text that says when the studio can take new work.
  * Categories: text
- * Keywords: status, studio, badge, capacity
+ * Keywords: status, badge, capacity
  * Block Types: core/post-content
  * Inserter: true
  *

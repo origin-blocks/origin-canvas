@@ -1,9 +1,10 @@
 <?php
 /**
- * Title: Card Image Text
+ * Title: Work Band Cards
  * Slug: origin-canvas/card-image-text
+ * Description: A heading and a link above four cards in two columns, each with a picture, a title, text and a link, on a tinted band.
  * Categories: origin-canvas/card
- * Keywords: cards, articles, content, media
+ * Keywords: articles, content, media
  * Block Types: core/post-content
  * Inserter: true
  *

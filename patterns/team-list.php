@@ -4,7 +4,7 @@
  * Slug: origin-canvas/team-list
  * Description: A vertical run of colleagues, each with a circular photo beside their role and bio.
  * Categories: team
- * Keywords: staff, people, members, about, headshots
+ * Keywords: staff, people, members, about page, headshots
  * Block Types:
  * Post Types:
  * Inserter: true

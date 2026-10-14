@@ -1,9 +1,10 @@
 <?php
 /**
- * Title: Breath Statement
+ * Title: Statement With Eyebrow
  * Slug: origin-canvas/breath-statement
+ * Description: One large centered sentence under a short eyebrow, with no fill.
  * Categories: text
- * Keywords: editorial, intro, home, pause
+ * Keywords: editorial, manifesto, headline
  * Block Types: core/post-content
  * Viewport Width: 1500
  * Inserter: true

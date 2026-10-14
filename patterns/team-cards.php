@@ -4,7 +4,7 @@
  * Slug: origin-canvas/team-cards
  * Description: Four colleagues on cards, each with a portrait photo, name, role and one line on what to ask them about.
  * Categories: team
- * Keywords: staff, people, members, headshots, about
+ * Keywords: staff, people, members, headshots
  * Viewport Width: 1500
  * Block Types:
  * Post Types:

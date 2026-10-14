@@ -1,9 +1,10 @@
 <?php
 /**
- * Title: CTA Band
+ * Title: CTA Card Split
  * Slug: origin-canvas/cta-band
+ * Description: A tinted rounded card the width of the content, with a heading and text beside an availability line and one button.
  * Categories: call-to-action
- * Keywords: conversion, banner, home, availability
+ * Keywords: conversion, banner, prompt
  * Block Types: core/post-content
  * Viewport Width: 1500
  * Inserter: true
@@ -12,7 +13,7 @@
  */
 
 ?>
-<!-- wp:group {"metadata":{"patternName":"origin-canvas/cta-band","name":"CTA Band","categories":["call-to-action"]},"tagName":"section","align":"full","style":{"spacing":{"margin":{"top":"0","bottom":"0"},"padding":{"top":"var:preset|spacing|colossal","bottom":"var:preset|spacing|colossal"}}},"layout":{"type":"constrained"}} -->
+<!-- wp:group {"metadata":{"patternName":"origin-canvas/cta-band","name":"CTA Card Split","categories":["call-to-action"]},"tagName":"section","align":"full","style":{"spacing":{"margin":{"top":"0","bottom":"0"},"padding":{"top":"var:preset|spacing|colossal","bottom":"var:preset|spacing|colossal"}}},"layout":{"type":"constrained"}} -->
 <section class="wp-block-group alignfull" style="margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--colossal);padding-bottom:var(--wp--preset--spacing--colossal)"><!-- wp:group {"align":"wide","backgroundColor":"surface-muted","style":{"border":{"radius":"var:custom|radius|large"},"spacing":{"padding":{"top":"var:preset|spacing|extra-large","right":"var:preset|spacing|extra-large","bottom":"var:preset|spacing|extra-large","left":"var:preset|spacing|extra-large"}}},"layout":{"type":"default"}} -->
 <div class="wp-block-group alignwide has-surface-muted-background-color has-background" style="border-radius:var(--wp--custom--radius--large);padding-top:var(--wp--preset--spacing--extra-large);padding-right:var(--wp--preset--spacing--extra-large);padding-bottom:var(--wp--preset--spacing--extra-large);padding-left:var(--wp--preset--spacing--extra-large)"><!-- wp:columns {"verticalAlignment":"center","style":{"spacing":{"blockGap":{"top":"var:preset|spacing|large","left":"var:preset|spacing|large"}}}} -->
 <div class="wp-block-columns are-vertically-aligned-center"><!-- wp:column {"verticalAlignment":"center","width":"42%"} -->

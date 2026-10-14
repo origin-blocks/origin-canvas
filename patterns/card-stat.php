@@ -2,6 +2,7 @@
 /**
  * Title: Card Stat
  * Slug: origin-canvas/card-stat
+ * Description: Four figures in one line, each over a short label, on a tinted band.
  * Categories: origin-canvas/card
  * Keywords: stats, numbers, metrics, four column, kpi
  * Block Types: core/post-content

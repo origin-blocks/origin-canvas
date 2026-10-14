@@ -1,6 +1,6 @@
 <?php
 /**
- * Title: Testimonial Highlight
+ * Title: Testimonial
  * Slug: origin-canvas/testimonial-highlight
  * Description: A single highlighted testimonial quote with author attribution.
  * Categories: testimonials

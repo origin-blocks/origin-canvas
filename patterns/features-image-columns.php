@@ -1,10 +1,10 @@
 <?php
 /**
- * Title: Features Image Columns
+ * Title: Features Split Two Images
  * Slug: origin-canvas/features-image-columns
  * Description: A two-column feature section with alternating image and text rows.
  * Categories: origin-canvas/features
- * Keywords: media, services, zigzag, split
+ * Keywords: media, services, zigzag
  * Viewport Width: 1500
  * Block Types:
  * Post Types:

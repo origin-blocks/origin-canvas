@@ -1,9 +1,10 @@
 <?php
 /**
- * Title: Feature Split
+ * Title: Features Band Split With Image
  * Slug: origin-canvas/feature-split
+ * Description: A photo beside a heading, text, a button and a small quote card, on a tinted band.
  * Categories: origin-canvas/features
- * Keywords: quote, image, testimonial, alternating
+ * Keywords: testimonial, alternating, media
  * Block Types: core/post-content
  * Viewport Width: 1500
  * Inserter: true

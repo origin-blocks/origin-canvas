@@ -1,10 +1,10 @@
 <?php
 /**
- * Title: Features 3 Col Icons
+ * Title: Features Cards Three Columns Centered
  * Slug: origin-canvas/features-3-col-icons
  * Description: A three-column feature section with icon bubbles, descriptions, and links.
  * Categories: origin-canvas/features
- * Keywords: services, benefits, cards, capabilities
+ * Keywords: services, benefits, capabilities
  * Viewport Width: 1500
  * Block Types:
  * Post Types:

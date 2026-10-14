@@ -55,7 +55,7 @@
 }
 
 /**
- * Hero Split media: core cannot switch a Cover's shape at the Columns breakpoint, or
+ * Hero Split Full Width media: core cannot switch a Cover's shape at the Columns breakpoint, or
  * center a column's content once the column stretches. Side by side, the image keeps
  * the photo's 3:4 portrait shape (and still fills a taller row), and the text column,
  * set to Stretch, centers its content. Stacked, the image shows at 4:3, as

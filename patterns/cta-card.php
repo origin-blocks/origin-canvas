@@ -1,9 +1,10 @@
 <?php
 /**
- * Title: CTA Card
+ * Title: CTA Card Tinted
  * Slug: origin-canvas/cta-card
+ * Description: A tinted rounded card with a centered heading, a short lead and one button.
  * Categories: call-to-action
- * Keywords: conversion, centered, surface, prompt
+ * Keywords: conversion, surface, prompt
  * Block Types: core/post-content
  * Inserter: true
  *

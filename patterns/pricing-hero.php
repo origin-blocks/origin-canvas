@@ -2,7 +2,7 @@
 /**
  * Title: Pricing Hero
  * Slug: origin-canvas/pricing-hero
- * Description: A page-top pricing section with three tier cards, a currency and tax note, and a row of client logos in gray.
+ * Description: A large centered heading over three price cards, a currency and tax note, and a line of client logos in gray.
  * Categories: origin-canvas/hero
  * Keywords: plans, rates, packages, cost, masthead, brands
  * Viewport Width: 1500
