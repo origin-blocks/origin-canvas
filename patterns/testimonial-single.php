@@ -2,7 +2,7 @@
 /**
  * Title: Testimonial Band Tinted
  * Slug: origin-canvas/testimonial-single
- * Description: A single left-aligned testimonial quote with author attribution.
+ * Description: A tinted band with a quote set left, and a portrait beside the name and role.
  * Categories: testimonials
  * Keywords: client, review, praise, solo
  * Viewport Width: 1500

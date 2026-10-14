@@ -2,7 +2,7 @@
 /**
  * Title: CTA Split
  * Slug: origin-canvas/cta-inline
- * Description: A heading and text on the left and one button on the right, with no fill.
+ * Description: A heading and text beside one button, with no fill.
  * Categories: call-to-action
  * Keywords: conversion, horizontal, prompt, compact
  * Block Types: core/post-content
