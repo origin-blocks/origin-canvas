@@ -2,7 +2,7 @@
 /**
  * Title: CTA Band Inline
  * Slug: origin-canvas/cta-banner
- * Description: A dark band with a large heading on the left and one button on the right.
+ * Description: A dark band with a large heading beside one button.
  * Categories: call-to-action
  * Keywords: conversion, prompt, strip
  * Block Types: core/post-content
