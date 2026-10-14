@@ -2,6 +2,7 @@
 /**
  * Title: Hero Centered Without Buttons
  * Slug: origin-canvas/hero-minimal
+ * Description: A large centered heading and a short lead, with no buttons.
  * Categories: origin-canvas/hero
  * Keywords: landing, intro, restraint, sparse
  * Block Types: core/post-content

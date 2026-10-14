@@ -2,6 +2,7 @@
 /**
  * Title: Stat Band
  * Slug: origin-canvas/stat-band
+ * Description: A dark band with a short statement and three figures, each over a label.
  * Categories: origin-canvas/stats
  * Keywords: metrics, dark, numbers, home
  * Block Types: core/post-content

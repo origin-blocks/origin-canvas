@@ -2,6 +2,7 @@
 /**
  * Title: CTA Band Tinted
  * Slug: origin-canvas/cta-buttons
+ * Description: A tinted band with a centered heading, a short lead and two buttons.
  * Categories: call-to-action
  * Keywords: conversion, centered, signup, prompt
  * Block Types: core/post-content

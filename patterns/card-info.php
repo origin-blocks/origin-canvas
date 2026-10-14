@@ -2,6 +2,7 @@
 /**
  * Title: Features Cards Three Columns
  * Slug: origin-canvas/card-info
+ * Description: A heading and lead above six tinted cards in three columns, each with an icon above a title and text.
  * Categories: origin-canvas/card
  * Keywords: cards, features, icons, grid
  * Block Types: core/post-content

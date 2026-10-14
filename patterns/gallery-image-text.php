@@ -2,7 +2,7 @@
 /**
  * Title: Gallery List
  * Slug: origin-canvas/gallery-image-text
- * Description: Full-width photographs, each followed by a short title and description.
+ * Description: Photos the width of the content, one under another, each with a short title beside a description.
  * Categories: gallery
  * Keywords: photos, story, studio, process, showcase
  * Viewport Width: 1500

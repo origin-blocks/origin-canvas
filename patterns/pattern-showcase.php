@@ -2,7 +2,7 @@
 /**
  * Title: Pattern Showcase
  * Slug: origin-canvas/pattern-showcase
- * Description: A full-bleed gradient tile board showcasing the pattern library on the theme landing page.
+ * Description: A centered eyebrow, heading and lead over six gradient tiles the full width of the screen, and a link to all patterns.
  * Categories: origin-canvas/features
  * Keywords: marketing, gallery, preview, catalog
  * Viewport Width: 1500

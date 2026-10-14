@@ -2,7 +2,7 @@
 /**
  * Title: Hero Split With Contact Details
  * Slug: origin-canvas/hero-contact
- * Description: A page-top section with a heading, one button to write in, and the email, phone, address and hours in labeled rows beside it.
+ * Description: A large heading, a lead and one button beside the email, phone, address and hours in labeled lines.
  * Categories: origin-canvas/hero
  * Keywords: masthead, reach, inquiry, office, directory
  * Viewport Width: 1500

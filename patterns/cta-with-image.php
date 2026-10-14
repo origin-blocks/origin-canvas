@@ -2,7 +2,7 @@
 /**
  * Title: CTA Band Split
  * Slug: origin-canvas/cta-with-image
- * Description: A closing call to action with a photo on the left, two buttons and a note on reply time.
+ * Description: A photo beside a heading, text, two buttons and a note on reply time, on a tinted band.
  * Categories: call-to-action
  * Keywords: conversion, contact, email, booking, split, media
  * Viewport Width: 1500

@@ -2,6 +2,7 @@
 /**
  * Title: Hero Split With Image
  * Slug: origin-canvas/hero-text-image
+ * Description: An eyebrow, large heading, lead and two buttons beside a photo.
  * Categories: origin-canvas/hero
  * Keywords: landing, intro, masthead, media
  * Block Types: core/post-content

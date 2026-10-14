@@ -2,6 +2,7 @@
 /**
  * Title: Hero Cover
  * Slug: origin-canvas/hero-cover
+ * Description: A rounded photo the width of the content with two small cards over it, and an availability line below.
  * Categories: origin-canvas/hero
  * Keywords: editorial, home, background, banner
  * Block Types: core/post-content

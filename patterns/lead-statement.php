@@ -2,7 +2,7 @@
 /**
  * Title: Statement Band
  * Slug: origin-canvas/lead-statement
- * Description: A two-tone editorial lead statement for the top of the theme landing page.
+ * Description: One large centered sentence in two text colors on a tinted band.
  * Categories: text
  * Keywords: intro, marketing, opening, manifesto
  * Viewport Width: 1500
