@@ -2,7 +2,7 @@
 /**
  * Title: Testimonial Band Dark Centered
  * Slug: origin-canvas/testimonial-highlight-dark
- * Description: A single testimonial quote on a dark band, with the client photo and role beneath.
+ * Description: A dark band with a centered short label, a quote, and the author photo, name and role beneath.
  * Categories: testimonials
  * Keywords: review, featured, endorsement, pullquote, inverted
  * Viewport Width: 1500
