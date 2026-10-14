@@ -1,6 +1,6 @@
 <?php
 /**
- * Title: CTA Card
+ * Title: CTA Card Tinted
  * Slug: origin-canvas/cta-card
  * Categories: call-to-action
  * Keywords: conversion, centered, surface, prompt

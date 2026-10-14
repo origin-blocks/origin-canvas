@@ -1,6 +1,6 @@
 <?php
 /**
- * Title: Hero Minimal
+ * Title: Hero Centered Without Buttons
  * Slug: origin-canvas/hero-minimal
  * Categories: origin-canvas/hero
  * Keywords: landing, intro, restraint, sparse

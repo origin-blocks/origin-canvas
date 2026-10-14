@@ -1,6 +1,6 @@
 <?php
 /**
- * Title: CTA With Image
+ * Title: CTA Band Split
  * Slug: origin-canvas/cta-with-image
  * Description: A closing call to action with a photo on the left, two buttons and a note on reply time.
  * Categories: call-to-action

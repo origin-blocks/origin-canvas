@@ -1,6 +1,6 @@
 <?php
 /**
- * Title: Closing CTA
+ * Title: CTA Card Dark
  * Slug: origin-canvas/cta-closing
  * Description: A dark closing call-to-action band for the end of the theme landing page.
  * Categories: call-to-action

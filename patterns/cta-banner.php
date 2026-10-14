@@ -1,6 +1,6 @@
 <?php
 /**
- * Title: CTA Banner
+ * Title: CTA Band Inline
  * Slug: origin-canvas/cta-banner
  * Categories: call-to-action
  * Keywords: conversion, dark, prompt, strip

@@ -1,6 +1,6 @@
 <?php
 /**
- * Title: Dark CTA Band
+ * Title: CTA Band Dark
  * Slug: origin-canvas/cta-band-dark
  * Description: A dark closing band with an availability line, a heading, a short lead and two buttons, centered.
  * Categories: call-to-action

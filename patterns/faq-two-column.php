@@ -1,6 +1,6 @@
 <?php
 /**
- * Title: FAQ Two Column
+ * Title: FAQ Split
  * Slug: origin-canvas/faq-two-column
  * Description: A heading and intro beside a stacked list of expandable questions.
  * Categories: origin-canvas/faq

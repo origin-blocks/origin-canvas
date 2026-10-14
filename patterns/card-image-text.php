@@ -1,6 +1,6 @@
 <?php
 /**
- * Title: Card Image Text
+ * Title: Work Band Cards
  * Slug: origin-canvas/card-image-text
  * Categories: origin-canvas/card
  * Keywords: cards, articles, content, media

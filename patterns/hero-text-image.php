@@ -1,6 +1,6 @@
 <?php
 /**
- * Title: Hero Text + Image
+ * Title: Hero Split With Image
  * Slug: origin-canvas/hero-text-image
  * Categories: origin-canvas/hero
  * Keywords: landing, intro, masthead, media

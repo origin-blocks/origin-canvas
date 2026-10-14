@@ -1,6 +1,6 @@
 <?php
 /**
- * Title: Text Image Side
+ * Title: Text Split
  * Slug: origin-canvas/text-image-side
  * Description: A picture beside a heading and prose, balanced half and half.
  * Categories: text

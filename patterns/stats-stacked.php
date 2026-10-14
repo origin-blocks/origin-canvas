@@ -1,6 +1,6 @@
 <?php
 /**
- * Title: Stats Stacked
+ * Title: Stats List
  * Slug: origin-canvas/stats-stacked
  * Description: A vertical list of figures, each with a sentence explaining it.
  * Categories: origin-canvas/stats

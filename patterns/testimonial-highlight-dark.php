@@ -1,6 +1,6 @@
 <?php
 /**
- * Title: Testimonial Highlight Dark
+ * Title: Testimonial Band Dark
  * Slug: origin-canvas/testimonial-highlight-dark
  * Description: A single testimonial quote on a dark band, with the client photo and role beneath.
  * Categories: testimonials

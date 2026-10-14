@@ -1,6 +1,6 @@
 <?php
 /**
- * Title: Hero with Contact Details
+ * Title: Hero Split With Contact Details
  * Slug: origin-canvas/hero-contact
  * Description: A page-top section with a heading, one button to write in, and the email, phone, address and hours in labeled rows beside it.
  * Categories: origin-canvas/hero

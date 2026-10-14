@@ -1,6 +1,6 @@
 <?php
 /**
- * Title: Card Team Member
+ * Title: Team Member
  * Slug: origin-canvas/card-team-member
  * Description: A single team member card with portrait, name, role, and social links. Insert inside a Columns block for a team grid layout.
  * Categories: team

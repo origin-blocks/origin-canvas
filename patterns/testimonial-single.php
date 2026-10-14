@@ -1,6 +1,6 @@
 <?php
 /**
- * Title: Testimonial Single
+ * Title: Testimonial Band Tinted
  * Slug: origin-canvas/testimonial-single
  * Description: A single left-aligned testimonial quote with author attribution.
  * Categories: testimonials

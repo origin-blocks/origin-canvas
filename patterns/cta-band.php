@@ -1,6 +1,6 @@
 <?php
 /**
- * Title: CTA Band
+ * Title: CTA Card Split
  * Slug: origin-canvas/cta-band
  * Categories: call-to-action
  * Keywords: conversion, banner, home, availability

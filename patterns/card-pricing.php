@@ -1,6 +1,6 @@
 <?php
 /**
- * Title: Card Pricing
+ * Title: Pricing Band Cards
  * Slug: origin-canvas/card-pricing
  * Categories: origin-canvas/pricing
  * Keywords: cards, plans, tiered, featured

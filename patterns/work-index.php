@@ -1,6 +1,6 @@
 <?php
 /**
- * Title: Work Index
+ * Title: Work List
  * Slug: origin-canvas/work-index
  * Categories: origin-canvas/features
  * Keywords: portfolio, projects, home, casestudies

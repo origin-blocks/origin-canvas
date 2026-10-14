@@ -1,6 +1,6 @@
 <?php
 /**
- * Title: Feature Split
+ * Title: Features Band Split With Image
  * Slug: origin-canvas/feature-split
  * Categories: origin-canvas/features
  * Keywords: quote, image, testimonial, alternating

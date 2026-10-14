@@ -1,6 +1,6 @@
 <?php
 /**
- * Title: Card Info
+ * Title: Features Cards Three Columns
  * Slug: origin-canvas/card-info
  * Categories: origin-canvas/card
  * Keywords: cards, features, icons, grid

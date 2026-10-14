@@ -1,6 +1,6 @@
 <?php
 /**
- * Title: Text Two Column
+ * Title: Text Two Columns
  * Slug: origin-canvas/text-two-column
  * Description: A full-width heading above body prose split into two equal parts.
  * Categories: text

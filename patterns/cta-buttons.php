@@ -1,6 +1,6 @@
 <?php
 /**
- * Title: CTA Buttons
+ * Title: CTA Band Tinted
  * Slug: origin-canvas/cta-buttons
  * Categories: call-to-action
  * Keywords: conversion, centered, signup, prompt

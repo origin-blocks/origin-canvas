@@ -1,6 +1,6 @@
 <?php
 /**
- * Title: FAQ Simple
+ * Title: FAQ List
  * Slug: origin-canvas/faq-simple
  * Description: A stacked list of questions that expand to reveal their answers.
  * Categories: origin-canvas/faq

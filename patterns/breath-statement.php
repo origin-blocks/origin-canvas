@@ -1,6 +1,6 @@
 <?php
 /**
- * Title: Breath Statement
+ * Title: Statement With Eyebrow
  * Slug: origin-canvas/breath-statement
  * Categories: text
  * Keywords: editorial, intro, home, pause

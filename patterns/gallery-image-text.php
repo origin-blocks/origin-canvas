@@ -1,6 +1,6 @@
 <?php
 /**
- * Title: Gallery Image Text
+ * Title: Gallery List
  * Slug: origin-canvas/gallery-image-text
  * Description: Full-width photographs, each followed by a short title and description.
  * Categories: gallery

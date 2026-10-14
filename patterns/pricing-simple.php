@@ -1,6 +1,6 @@
 <?php
 /**
- * Title: Pricing Simple
+ * Title: Pricing Grid
  * Slug: origin-canvas/pricing-simple
  * Description: Three plan columns without cards, each opening on a hairline rule, with a price, feature list, and button.
  * Categories: origin-canvas/pricing

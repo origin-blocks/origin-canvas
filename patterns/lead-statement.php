@@ -1,6 +1,6 @@
 <?php
 /**
- * Title: Lead Statement
+ * Title: Statement Band
  * Slug: origin-canvas/lead-statement
  * Description: A two-tone editorial lead statement for the top of the theme landing page.
  * Categories: text
