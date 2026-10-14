@@ -2,7 +2,7 @@
 /**
  * Title: Testimonial
  * Slug: origin-canvas/testimonial-highlight
- * Description: A single highlighted testimonial quote with author attribution.
+ * Description: A centered quote with no background, with a short label above and the author photo, name and role beneath.
  * Categories: testimonials
  * Keywords: review, featured, endorsement, pullquote
  * Viewport Width: 1500
