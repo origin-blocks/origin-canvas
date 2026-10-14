@@ -1146,7 +1146,7 @@ ul.wp-block-list:is(.is-style-origin-canvas-list-check, .is-style-origin-canvas-
 }
 
 /**
- * Pricing Simple: the featured tier's 2px top line sits 1px higher, so its bottom
+ * Pricing Grid: the featured tier's 2px top line sits 1px higher, so its bottom
  * edge lines up with the 1px hairlines over the other tiers and the content below
  * does not move. The Column block has no margin control.
  */
@@ -1167,7 +1167,7 @@ ul.wp-block-list:is(.is-style-origin-canvas-list-check, .is-style-origin-canvas-
 }
 
 /**
- * CTA Inline: when the columns stack on phones, the Subscribe button moves to the
+ * CTA Split: when the columns stack on phones, the Subscribe button moves to the
  * left under the left-aligned text; on desktop it stays at the right of its
  * column. The Buttons block has one justification for every width. 781px is
  * where core Columns stack.
