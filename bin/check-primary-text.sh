@@ -283,7 +283,7 @@ VALID.update({
                            'has-primary-color has-text-color">38</p>\n<!-- /wp:paragraph --></div>\n'
                            '<!-- /wp:group -->\n',
 })
-HOME = ['patterns/%s.php' % s for s in ('hero-cover', 'breath-statement', 'work-index',
+HOME = ['patterns/%s.php' % s for s in ('hero-cover', 'features-band-grid', 'work-index',
         'stat-band', 'process-numbered', 'feature-split', 'cta-band')]
 PRICING = ['patterns/%s.php' % s for s in ('pricing-hero', 'features-checklist', 'process-cards',
            'testimonial-highlight-dark', 'faq-two-column', 'cta-with-image', 'pricing-single',

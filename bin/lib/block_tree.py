@@ -14,7 +14,7 @@ PHP = re.compile(r'<\?php.*?\?>', re.S)
 
 def parse(path):
     """Return the root node of the file's block tree. Each node is a dict with name,
-    attrs, children, parent and line."""
+    attrs, children, parent, line, and start and end: the offsets of its inner markup."""
     text = open(path).read()
     root = {'name': 'root', 'attrs': {}, 'children': [], 'parent': None, 'line': 0}
     stack = [root]
@@ -22,7 +22,7 @@ def parse(path):
         close, name, _, raw, self_closing = m.groups()
         if close:
             if len(stack) > 1:
-                stack.pop()
+                stack.pop()['end'] = m.start()
             continue
         try:
             attrs = json.loads(PHP.sub('', raw)) if raw else {}
@@ -34,6 +34,8 @@ def parse(path):
             'children': [],
             'parent': stack[-1],
             'line': text.count('\n', 0, m.start()) + 1,
+            'start': m.end(),
+            'end': m.end(),
         }
         stack[-1]['children'].append(node)
         if not self_closing:

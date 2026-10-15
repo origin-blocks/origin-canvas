@@ -49,7 +49,11 @@
 
 <!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|medium"}},"textColor":"text-muted","layout":{"type":"flex","flexWrap":"wrap","justifyContent":"space-between","verticalAlignment":"center"}} -->
 <div class="wp-block-group has-text-muted-color has-text-color"><!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|medium"}},"layout":{"type":"flex","flexWrap":"wrap","verticalAlignment":"center"}} -->
-<div class="wp-block-group"><!-- wp:pattern {"slug":"origin-canvas/availability-marker"} /--></div>
+<div class="wp-block-group"><!-- wp:pattern {"slug":"origin-canvas/availability-marker"} /-->
+
+<!-- wp:paragraph {"className":"origin-canvas-links-plain","style":{"typography":{"fontWeight":"600"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-heading","fontSize":"small"} -->
+<p class="origin-canvas-links-plain has-text-heading-color has-text-color has-small-font-size" style="margin-top:0;margin-bottom:0;font-weight:600"><a href="#"><?php echo esc_html__( 'Book a call', 'origin-canvas' ); ?> <span aria-hidden="true">&rarr;</span></a></p>
+<!-- /wp:paragraph --></div>
 <!-- /wp:group -->
 
 <!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"fontSize":"small"} -->

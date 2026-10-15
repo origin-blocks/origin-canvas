@@ -133,7 +133,8 @@ Per-field rules:
 - **Inserter:** `true` for all user-facing patterns; `false` only for hidden template scaffolds
   (registered via `register_block_pattern` in `functions.php`) and the theme landing page's own
   showcase sections (`pattern-showcase`, `style-variations`, `template-showcase`, `token-system`,
-  `product-grid`), which only `page-landing-01` places.
+  `product-grid`), which only `page-landing-01` places, and retired patterns (`breath-statement`),
+  which keep their file and slug until a major version deletes them (ODS "Pattern names").
 - **Keywords:** 3–6 comma-separated terms a user might *type* that are **not already** in the
   Title, Slug, Description, or Category — synonyms, alternate names, content words and true
   use words (rule 3). Never repeat a word that already appears in those fields: WordPress joins
@@ -231,7 +232,9 @@ Never set tracking per level (`h1`–`h6`) or on a heading block, in `theme.json
 or CSS: it would stop a Global Styles "Headings" letter spacing from reaching every level. A
 style variation with another face overrides the tokens or the one heading value, nothing else.
 A pattern never sets `letterSpacing` on a heading or statement; positive tracking on eyebrows
-and labels stays.
+and labels stays, at 0.06em (numbers set as labels too). `bin/check-tracking-tokens.sh` checks every block letter
+spacing against the band of the size it sits on; `bin/check-tracking-render.sh` checks the
+rendered page, at 1440 and 390 under every style variation, before a branch merges.
 
 An inline `fontWeight` on a block emits a `style="…"` attribute, which beats every
 `:root :where(…)` rule a variation can emit. One pinned heading is a heading the user cannot
@@ -258,14 +261,12 @@ it and weight belongs to the variation. If it renders as a `<p>` — as the site
 **500 speaks, at display size — the statement register.** Being *lighter* than the theme's
 voice is its identity; following the swing would make it just another big heading. This is the
 weight-by-job rule (500 speaks), not an exception to it: the register only opts out of the
-variation's weight. Each file pins weight; `text-large-statement` and `lead-statement` take
-tracking from size like any other text. `breath-statement` alone also pins the base tracking
-token (owner ruling, Oct 5): its long two-tone line reads loose-set at the display token, and
-the design notes' statement register is "500 / −0.012em pinned".
+variation's weight. Each file pins weight and nothing else; all three take tracking from size
+like any other text.
 
 | Pattern | Pins |
 |---|---|
-| `breath-statement` | `fontWeight: 500`, `letterSpacing: var(--wp--custom--letter-spacing--base)` |
+| `breath-statement` | `fontWeight: 500` only |
 | `text-large-statement` | `fontWeight: 500` only |
 | `lead-statement` | `fontWeight: 500` only |
 

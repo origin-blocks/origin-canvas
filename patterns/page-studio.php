@@ -15,7 +15,7 @@
 
 ?>
 <!-- wp:pattern {"slug":"origin-canvas/hero-cover"} /-->
-<!-- wp:pattern {"slug":"origin-canvas/breath-statement"} /-->
+<!-- wp:pattern {"slug":"origin-canvas/features-band-grid"} /-->
 <!-- wp:pattern {"slug":"origin-canvas/work-index"} /-->
 <!-- wp:pattern {"slug":"origin-canvas/stat-band"} /-->
 <!-- wp:pattern {"slug":"origin-canvas/process-numbered"} /-->
