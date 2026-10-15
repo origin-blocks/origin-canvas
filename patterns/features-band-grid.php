@@ -31,8 +31,8 @@
 
 <!-- wp:columns {"align":"wide","verticalAlignment":"stretch","style":{"spacing":{"blockGap":{"top":"var:preset|spacing|large","left":"var:preset|spacing|large"}}}} -->
 <div class="wp-block-columns alignwide are-vertically-aligned-stretch"><!-- wp:column {"verticalAlignment":"stretch"} -->
-<div class="wp-block-column is-vertically-aligned-stretch"><!-- wp:group {"style":{"border":{"top":{"color":"var:preset|color|border","width":"1px"}},"spacing":{"padding":{"top":"var:preset|spacing|large"},"blockGap":"var:preset|spacing|small"}},"layout":{"type":"constrained","justifyContent":"left"}} -->
-<div class="wp-block-group" style="border-top-color:var(--wp--preset--color--border);border-top-width:1px;padding-top:var(--wp--preset--spacing--large)"><!-- wp:heading {"level":3,"style":{"spacing":{"margin":{"bottom":"0"}}},"fontSize":"medium"} -->
+<div class="wp-block-column is-vertically-aligned-stretch"><!-- wp:group {"style":{"border":{"top":{"color":"var:preset|color|input-border","width":"1px"}},"spacing":{"padding":{"top":"var:preset|spacing|large"},"blockGap":"var:preset|spacing|small"}},"layout":{"type":"constrained","justifyContent":"left"}} -->
+<div class="wp-block-group" style="border-top-color:var(--wp--preset--color--input-border);border-top-width:1px;padding-top:var(--wp--preset--spacing--large)"><!-- wp:heading {"level":3,"style":{"spacing":{"margin":{"bottom":"0"}}},"fontSize":"medium"} -->
 <h3 class="wp-block-heading has-medium-font-size" style="margin-bottom:0"><?php echo esc_html__( 'Brand identity', 'origin-canvas' ); ?></h3>
 <!-- /wp:heading -->
 
@@ -43,8 +43,8 @@
 <!-- /wp:column -->
 
 <!-- wp:column {"verticalAlignment":"stretch"} -->
-<div class="wp-block-column is-vertically-aligned-stretch"><!-- wp:group {"style":{"border":{"top":{"color":"var:preset|color|border","width":"1px"}},"spacing":{"padding":{"top":"var:preset|spacing|large"},"blockGap":"var:preset|spacing|small"}},"layout":{"type":"constrained","justifyContent":"left"}} -->
-<div class="wp-block-group" style="border-top-color:var(--wp--preset--color--border);border-top-width:1px;padding-top:var(--wp--preset--spacing--large)"><!-- wp:heading {"level":3,"style":{"spacing":{"margin":{"bottom":"0"}}},"fontSize":"medium"} -->
+<div class="wp-block-column is-vertically-aligned-stretch"><!-- wp:group {"style":{"border":{"top":{"color":"var:preset|color|input-border","width":"1px"}},"spacing":{"padding":{"top":"var:preset|spacing|large"},"blockGap":"var:preset|spacing|small"}},"layout":{"type":"constrained","justifyContent":"left"}} -->
+<div class="wp-block-group" style="border-top-color:var(--wp--preset--color--input-border);border-top-width:1px;padding-top:var(--wp--preset--spacing--large)"><!-- wp:heading {"level":3,"style":{"spacing":{"margin":{"bottom":"0"}}},"fontSize":"medium"} -->
 <h3 class="wp-block-heading has-medium-font-size" style="margin-bottom:0"><?php echo esc_html__( 'Websites', 'origin-canvas' ); ?></h3>
 <!-- /wp:heading -->
 
@@ -55,8 +55,8 @@
 <!-- /wp:column -->
 
 <!-- wp:column {"verticalAlignment":"stretch"} -->
-<div class="wp-block-column is-vertically-aligned-stretch"><!-- wp:group {"style":{"border":{"top":{"color":"var:preset|color|border","width":"1px"}},"spacing":{"padding":{"top":"var:preset|spacing|large"},"blockGap":"var:preset|spacing|small"}},"layout":{"type":"constrained","justifyContent":"left"}} -->
-<div class="wp-block-group" style="border-top-color:var(--wp--preset--color--border);border-top-width:1px;padding-top:var(--wp--preset--spacing--large)"><!-- wp:heading {"level":3,"style":{"spacing":{"margin":{"bottom":"0"}}},"fontSize":"medium"} -->
+<div class="wp-block-column is-vertically-aligned-stretch"><!-- wp:group {"style":{"border":{"top":{"color":"var:preset|color|input-border","width":"1px"}},"spacing":{"padding":{"top":"var:preset|spacing|large"},"blockGap":"var:preset|spacing|small"}},"layout":{"type":"constrained","justifyContent":"left"}} -->
+<div class="wp-block-group" style="border-top-color:var(--wp--preset--color--input-border);border-top-width:1px;padding-top:var(--wp--preset--spacing--large)"><!-- wp:heading {"level":3,"style":{"spacing":{"margin":{"bottom":"0"}}},"fontSize":"medium"} -->
 <h3 class="wp-block-heading has-medium-font-size" style="margin-bottom:0"><?php echo esc_html__( 'Copywriting', 'origin-canvas' ); ?></h3>
 <!-- /wp:heading -->
 
