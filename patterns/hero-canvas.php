@@ -43,7 +43,7 @@
 <!-- /wp:group -->
 
 <!-- wp:paragraph {"align":"center","textColor":"text-muted","fontSize":"small","style":{"spacing":{"margin":{"top":"var:preset|spacing|large","bottom":"0"}}}} -->
-<p class="has-text-align-center has-text-muted-color has-text-color has-small-font-size" style="margin-top:var(--wp--preset--spacing--large);margin-bottom:0"><?php echo esc_html__( 'GPL licensed &middot; WordPress 6.5+ &middot; No page builder required', 'origin-canvas' ); ?></p>
+<p class="has-text-align-center has-text-muted-color has-text-color has-small-font-size" style="margin-top:var(--wp--preset--spacing--large);margin-bottom:0"><?php echo esc_html__( 'GPL licensed &middot; WordPress 7.0+ &middot; No page builder required', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group --></section>
 <!-- /wp:group -->
