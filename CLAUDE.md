@@ -232,7 +232,9 @@ Never set tracking per level (`h1`–`h6`) or on a heading block, in `theme.json
 or CSS: it would stop a Global Styles "Headings" letter spacing from reaching every level. A
 style variation with another face overrides the tokens or the one heading value, nothing else.
 A pattern never sets `letterSpacing` on a heading or statement; positive tracking on eyebrows
-and labels stays.
+and labels stays, at 0.06em (numbers set as labels too). `bin/check-tracking-tokens.sh` checks every block letter
+spacing against the band of the size it sits on; `bin/check-tracking-render.sh` checks the
+rendered page, at 1440 and 390 under every style variation, before a branch merges.
 
 An inline `fontWeight` on a block emits a `style="…"` attribute, which beats every
 `:root :where(…)` rule a variation can emit. One pinned heading is a heading the user cannot
