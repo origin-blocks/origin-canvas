@@ -26,16 +26,16 @@
 <!-- /wp:paragraph -->
 <!-- wp:group {"className":"has-small-font-size","style":{"spacing":{"blockGap":"var:preset|spacing|compact"}},"layout":{"type":"constrained"}} -->
 <div class="wp-block-group has-small-font-size"><!-- wp:paragraph {"style":{"color":{"text":"color-mix(in srgb, var(--wp--custom--dark--text) 62%, transparent)"},"elements":{"link":{"color":{"text":"inherit"},"typography":{"textDecoration":"none"},":hover":{"color":{"text":"var:preset|color|primary"}}}}}} -->
-<p class="has-text-color" style="color:color-mix(in srgb, var(--wp--custom--dark--text) 62%, transparent)"><a href="#"><?php echo esc_html__( 'Work', 'origin-canvas' ); ?></a></p>
+<p class="has-text-color has-link-color" style="color:color-mix(in srgb, var(--wp--custom--dark--text) 62%, transparent)"><a href="#"><?php echo esc_html__( 'Work', 'origin-canvas' ); ?></a></p>
 <!-- /wp:paragraph -->
 <!-- wp:paragraph {"style":{"color":{"text":"color-mix(in srgb, var(--wp--custom--dark--text) 62%, transparent)"},"elements":{"link":{"color":{"text":"inherit"},"typography":{"textDecoration":"none"},":hover":{"color":{"text":"var:preset|color|primary"}}}}}} -->
-<p class="has-text-color" style="color:color-mix(in srgb, var(--wp--custom--dark--text) 62%, transparent)"><a href="#"><?php echo esc_html__( 'Process', 'origin-canvas' ); ?></a></p>
+<p class="has-text-color has-link-color" style="color:color-mix(in srgb, var(--wp--custom--dark--text) 62%, transparent)"><a href="#"><?php echo esc_html__( 'Process', 'origin-canvas' ); ?></a></p>
 <!-- /wp:paragraph -->
 <!-- wp:paragraph {"style":{"color":{"text":"color-mix(in srgb, var(--wp--custom--dark--text) 62%, transparent)"},"elements":{"link":{"color":{"text":"inherit"},"typography":{"textDecoration":"none"},":hover":{"color":{"text":"var:preset|color|primary"}}}}}} -->
-<p class="has-text-color" style="color:color-mix(in srgb, var(--wp--custom--dark--text) 62%, transparent)"><a href="#"><?php echo esc_html__( 'Pricing', 'origin-canvas' ); ?></a></p>
+<p class="has-text-color has-link-color" style="color:color-mix(in srgb, var(--wp--custom--dark--text) 62%, transparent)"><a href="#"><?php echo esc_html__( 'Pricing', 'origin-canvas' ); ?></a></p>
 <!-- /wp:paragraph -->
 <!-- wp:paragraph {"style":{"color":{"text":"color-mix(in srgb, var(--wp--custom--dark--text) 62%, transparent)"},"elements":{"link":{"color":{"text":"inherit"},"typography":{"textDecoration":"none"},":hover":{"color":{"text":"var:preset|color|primary"}}}}}} -->
-<p class="has-text-color" style="color:color-mix(in srgb, var(--wp--custom--dark--text) 62%, transparent)"><a href="#"><?php echo esc_html__( 'Get in touch', 'origin-canvas' ); ?></a></p>
+<p class="has-text-color has-link-color" style="color:color-mix(in srgb, var(--wp--custom--dark--text) 62%, transparent)"><a href="#"><?php echo esc_html__( 'Get in touch', 'origin-canvas' ); ?></a></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group --></div>
 <!-- /wp:group --><!-- wp:group {"layout":{"type":"default"}} -->
@@ -44,16 +44,16 @@
 <!-- /wp:paragraph -->
 <!-- wp:group {"className":"has-small-font-size","style":{"spacing":{"blockGap":"var:preset|spacing|compact"}},"layout":{"type":"constrained"}} -->
 <div class="wp-block-group has-small-font-size"><!-- wp:paragraph {"style":{"color":{"text":"color-mix(in srgb, var(--wp--custom--dark--text) 62%, transparent)"},"elements":{"link":{"color":{"text":"inherit"},"typography":{"textDecoration":"none"},":hover":{"color":{"text":"var:preset|color|primary"}}}}}} -->
-<p class="has-text-color" style="color:color-mix(in srgb, var(--wp--custom--dark--text) 62%, transparent)"><a href="#"><?php echo esc_html__( 'Brand identity', 'origin-canvas' ); ?></a></p>
+<p class="has-text-color has-link-color" style="color:color-mix(in srgb, var(--wp--custom--dark--text) 62%, transparent)"><a href="#"><?php echo esc_html__( 'Brand identity', 'origin-canvas' ); ?></a></p>
 <!-- /wp:paragraph -->
 <!-- wp:paragraph {"style":{"color":{"text":"color-mix(in srgb, var(--wp--custom--dark--text) 62%, transparent)"},"elements":{"link":{"color":{"text":"inherit"},"typography":{"textDecoration":"none"},":hover":{"color":{"text":"var:preset|color|primary"}}}}}} -->
-<p class="has-text-color" style="color:color-mix(in srgb, var(--wp--custom--dark--text) 62%, transparent)"><a href="#"><?php echo esc_html__( 'Websites', 'origin-canvas' ); ?></a></p>
+<p class="has-text-color has-link-color" style="color:color-mix(in srgb, var(--wp--custom--dark--text) 62%, transparent)"><a href="#"><?php echo esc_html__( 'Websites', 'origin-canvas' ); ?></a></p>
 <!-- /wp:paragraph -->
 <!-- wp:paragraph {"style":{"color":{"text":"color-mix(in srgb, var(--wp--custom--dark--text) 62%, transparent)"},"elements":{"link":{"color":{"text":"inherit"},"typography":{"textDecoration":"none"},":hover":{"color":{"text":"var:preset|color|primary"}}}}}} -->
-<p class="has-text-color" style="color:color-mix(in srgb, var(--wp--custom--dark--text) 62%, transparent)"><a href="#"><?php echo esc_html__( 'Copywriting', 'origin-canvas' ); ?></a></p>
+<p class="has-text-color has-link-color" style="color:color-mix(in srgb, var(--wp--custom--dark--text) 62%, transparent)"><a href="#"><?php echo esc_html__( 'Copywriting', 'origin-canvas' ); ?></a></p>
 <!-- /wp:paragraph -->
 <!-- wp:paragraph {"style":{"color":{"text":"color-mix(in srgb, var(--wp--custom--dark--text) 62%, transparent)"},"elements":{"link":{"color":{"text":"inherit"},"typography":{"textDecoration":"none"},":hover":{"color":{"text":"var:preset|color|primary"}}}}}} -->
-<p class="has-text-color" style="color:color-mix(in srgb, var(--wp--custom--dark--text) 62%, transparent)"><a href="#"><?php echo esc_html__( 'Site refreshes', 'origin-canvas' ); ?></a></p>
+<p class="has-text-color has-link-color" style="color:color-mix(in srgb, var(--wp--custom--dark--text) 62%, transparent)"><a href="#"><?php echo esc_html__( 'Site refreshes', 'origin-canvas' ); ?></a></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group --></div>
 <!-- /wp:group --><!-- wp:group {"layout":{"type":"default"}} -->
@@ -62,16 +62,16 @@
 <!-- /wp:paragraph -->
 <!-- wp:group {"className":"has-small-font-size","style":{"spacing":{"blockGap":"var:preset|spacing|compact"}},"layout":{"type":"constrained"}} -->
 <div class="wp-block-group has-small-font-size"><!-- wp:paragraph {"style":{"color":{"text":"color-mix(in srgb, var(--wp--custom--dark--text) 62%, transparent)"},"elements":{"link":{"color":{"text":"inherit"},"typography":{"textDecoration":"none"},":hover":{"color":{"text":"var:preset|color|primary"}}}}}} -->
-<p class="has-text-color" style="color:color-mix(in srgb, var(--wp--custom--dark--text) 62%, transparent)"><a href="#"><?php echo esc_html__( 'About', 'origin-canvas' ); ?></a></p>
+<p class="has-text-color has-link-color" style="color:color-mix(in srgb, var(--wp--custom--dark--text) 62%, transparent)"><a href="#"><?php echo esc_html__( 'About', 'origin-canvas' ); ?></a></p>
 <!-- /wp:paragraph -->
 <!-- wp:paragraph {"style":{"color":{"text":"color-mix(in srgb, var(--wp--custom--dark--text) 62%, transparent)"},"elements":{"link":{"color":{"text":"inherit"},"typography":{"textDecoration":"none"},":hover":{"color":{"text":"var:preset|color|primary"}}}}}} -->
-<p class="has-text-color" style="color:color-mix(in srgb, var(--wp--custom--dark--text) 62%, transparent)"><a href="#"><?php echo esc_html__( 'Journal', 'origin-canvas' ); ?></a></p>
+<p class="has-text-color has-link-color" style="color:color-mix(in srgb, var(--wp--custom--dark--text) 62%, transparent)"><a href="#"><?php echo esc_html__( 'Journal', 'origin-canvas' ); ?></a></p>
 <!-- /wp:paragraph -->
 <!-- wp:paragraph {"style":{"color":{"text":"color-mix(in srgb, var(--wp--custom--dark--text) 62%, transparent)"},"elements":{"link":{"color":{"text":"inherit"},"typography":{"textDecoration":"none"},":hover":{"color":{"text":"var:preset|color|primary"}}}}}} -->
-<p class="has-text-color" style="color:color-mix(in srgb, var(--wp--custom--dark--text) 62%, transparent)"><a href="#"><?php echo esc_html__( 'Careers', 'origin-canvas' ); ?></a></p>
+<p class="has-text-color has-link-color" style="color:color-mix(in srgb, var(--wp--custom--dark--text) 62%, transparent)"><a href="#"><?php echo esc_html__( 'Careers', 'origin-canvas' ); ?></a></p>
 <!-- /wp:paragraph -->
 <!-- wp:paragraph {"style":{"color":{"text":"color-mix(in srgb, var(--wp--custom--dark--text) 62%, transparent)"},"elements":{"link":{"color":{"text":"inherit"},"typography":{"textDecoration":"none"},":hover":{"color":{"text":"var:preset|color|primary"}}}}}} -->
-<p class="has-text-color" style="color:color-mix(in srgb, var(--wp--custom--dark--text) 62%, transparent)"><a href="#"><?php echo esc_html__( 'Privacy policy', 'origin-canvas' ); ?></a></p>
+<p class="has-text-color has-link-color" style="color:color-mix(in srgb, var(--wp--custom--dark--text) 62%, transparent)"><a href="#"><?php echo esc_html__( 'Privacy policy', 'origin-canvas' ); ?></a></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group --></div>
 <!-- /wp:group --></div>
