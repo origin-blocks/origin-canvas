@@ -18,11 +18,11 @@
 ?>
 <!-- wp:group {"tagName":"section","align":"full","style":{"spacing":{"padding":{"top":"var:preset|spacing|colossal","bottom":"var:preset|spacing|colossal"}}},"layout":{"type":"constrained"}} -->
 <section class="wp-block-group alignfull" style="padding-top:var(--wp--preset--spacing--colossal);padding-bottom:var(--wp--preset--spacing--colossal)"><!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|large"}},"layout":{"type":"constrained"}} -->
-<div class="wp-block-group"><!-- wp:heading {"textAlign":"center","level":2,"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"fontSize":"display"} -->
+<div class="wp-block-group"><!-- wp:heading {"level":2,"style":{"spacing":{"margin":{"top":"0","bottom":"0"}},"typography":{"textAlign":"center"}},"fontSize":"display"} -->
 <h2 class="wp-block-heading has-display-font-size has-text-align-center" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Studio notes, four times a year', 'origin-canvas' ); ?></h2>
 <!-- /wp:heading -->
 
-<!-- wp:paragraph {"align":"center","textColor":"text-body","fontSize":"regular-plus"} -->
+<!-- wp:paragraph {"style":{"typography":{"textAlign":"center"}},"textColor":"text-body","fontSize":"regular-plus"} -->
 <p class="has-text-align-center has-text-body-color has-text-color has-regular-plus-font-size"><?php echo esc_html__( 'One letter at the end of every quarter. Honest write-ups of what we made, what we learned, and what we&#8217;d change. No spam, no upsells.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
@@ -42,7 +42,7 @@
 <!-- /wp:column --></div>
 <!-- /wp:columns -->
 
-<!-- wp:paragraph {"align":"center","textColor":"text-muted","fontSize":"small"} -->
+<!-- wp:paragraph {"style":{"typography":{"textAlign":"center"}},"textColor":"text-muted","fontSize":"small"} -->
 <p class="has-text-align-center has-text-muted-color has-text-color has-small-font-size"><?php printf(
 	/* translators: %s: link to the privacy policy */
 	esc_html__( 'We care about your data. Read our %s.', 'origin-canvas' ),

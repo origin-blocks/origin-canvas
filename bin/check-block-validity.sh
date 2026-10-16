@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #
-# Every pattern loads in the block editor with no invalid block and no "Attempt recovery"
-# prompt. Run it before a branch merges.
+# Every pattern loads in the block editor with no invalid block, no "Attempt recovery" prompt
+# and no block the editor rewrites on load. Run it before a branch merges.
 #
 # It needs a local demo site (a DEMO-SITE.md marker in its root), WP-CLI, and `npm install`
 # plus `npx playwright install chromium` in this folder.
@@ -12,8 +12,9 @@
 #      replaced by their markup (bin/lib/block-validity-draft.php). It opens one login
 #      session of its own.
 #   2. Opens the draft in the editor in Playwright's own Chromium, never your browser, loads
-#      every pattern into it as the inserter does, and counts invalid blocks and recovery
-#      prompts per pattern (tests/block-validity.spec.js). Saving is locked in that editor.
+#      every pattern into it as the inserter does, and counts invalid blocks, recovery
+#      prompts and rewritten blocks per pattern (tests/block-validity.spec.js). Saving is
+#      locked in that editor.
 #   3. Moves the draft to the Trash and ends its own session, whatever the result. Other
 #      login sessions are not touched.
 # From a worktree checkout, the draft holds that worktree's pattern markup (WP-CLI loads the

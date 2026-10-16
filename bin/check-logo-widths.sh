@@ -7,8 +7,8 @@
 #
 # Each image carries its width twice — once as the block attribute WordPress validates
 # against (`"width":"137px"`) and once as the inline style the front end renders
-# (`style="width:137px"`). They are checked against each other as well, since an edit
-# that moves only one leaves the editor and the page disagreeing.
+# (`style="width:137px;height:auto"`). They are checked against each other as well, since
+# an edit that moves only one leaves the editor and the page disagreeing.
 #
 # Run from the theme root:  bash bin/check-logo-widths.sh
 
@@ -18,7 +18,7 @@ cd "$(dirname "$0")/.."
 # One "logo-name.png width" line per image, in document order, read from the inline
 # style on the img tag (filename and style share that line).
 rendered_widths() {
-	sed -nE 's|.*/(logo-[a-z-]+\.png)".*style="width:([0-9]+)px".*|\1 \2|p' "$1"
+	sed -nE 's|.*/(logo-[a-z-]+\.png)".*style="width:([0-9]+)px;height:auto".*|\1 \2|p' "$1"
 }
 
 # The image block attribute widths, in document order. Scoped to wp:image, since other
