@@ -5,7 +5,7 @@ Contributors: originblocks
 Tags: blog, block-patterns, block-styles, custom-colors, custom-logo, custom-menu, editor-style, featured-images, full-site-editing, full-width-template, grid-layout, style-variations, threaded-comments, three-columns, translation-ready
 
 Requires at least: 7.0
-Tested up to: 7.0
+Tested up to: 7.1
 Requires PHP: 7.4
 License: GNU General Public License v3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
