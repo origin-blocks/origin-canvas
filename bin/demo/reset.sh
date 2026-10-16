@@ -5,9 +5,10 @@
 # Site Editor changes are deleted, so the demo never drifts.
 #
 # The script empties only a demo site: the folder must hold a DEMO-SITE.md marker file.
-# To make a new install a demo site, create that file in its root by hand, e.g.
+# bin/demo/setup.sh builds a new demo site with the marker. To make another install a demo
+# site, create that file in its root by hand, e.g.
 #   echo "# Canvas demo site" > ~/Sites/<site>/DEMO-SITE.md
-# The script never creates the marker. Without it, it refuses and changes nothing.
+# This script never creates the marker. Without it, it refuses and changes nothing.
 set -euo pipefail
 
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
