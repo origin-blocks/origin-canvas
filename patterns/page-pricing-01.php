@@ -19,4 +19,4 @@
 <!-- wp:pattern {"slug":"origin-canvas/process-cards"} /-->
 <!-- wp:pattern {"slug":"origin-canvas/testimonial-highlight-dark"} /-->
 <!-- wp:pattern {"slug":"origin-canvas/faq-two-column"} /-->
-<!-- wp:pattern {"slug":"origin-canvas/cta-with-image"} /-->
+<!-- wp:pattern {"slug":"origin-canvas/cta-band-dark"} /-->
