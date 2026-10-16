@@ -85,7 +85,7 @@
 <div class="wp-block-group origin-canvas-token-sw has-background" style="background-color:var(--wp--preset--color--primary);min-height:20px"></div>
 <!-- /wp:group -->
 
-<!-- wp:paragraph {"align":"center","className":"origin-canvas-mono","style":{"typography":{"fontSize":"0.625rem"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-muted"} -->
+<!-- wp:paragraph {"className":"origin-canvas-mono","style":{"typography":{"fontSize":"0.625rem","textAlign":"center"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-muted"} -->
 <p class="has-text-align-center origin-canvas-mono has-text-muted-color has-text-color" style="margin-top:0;margin-bottom:0;font-size:0.625rem"><?php echo esc_html__( 'primary', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group -->
@@ -95,7 +95,7 @@
 <div class="wp-block-group origin-canvas-token-sw has-background" style="background-color:var(--wp--preset--color--text-heading);min-height:20px"></div>
 <!-- /wp:group -->
 
-<!-- wp:paragraph {"align":"center","className":"origin-canvas-mono","style":{"typography":{"fontSize":"0.625rem"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-muted"} -->
+<!-- wp:paragraph {"className":"origin-canvas-mono","style":{"typography":{"fontSize":"0.625rem","textAlign":"center"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-muted"} -->
 <p class="has-text-align-center origin-canvas-mono has-text-muted-color has-text-color" style="margin-top:0;margin-bottom:0;font-size:0.625rem"><?php echo esc_html__( 'heading', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group -->
@@ -105,7 +105,7 @@
 <div class="wp-block-group origin-canvas-token-sw has-background" style="background-color:var(--wp--preset--color--text-body);min-height:20px"></div>
 <!-- /wp:group -->
 
-<!-- wp:paragraph {"align":"center","className":"origin-canvas-mono","style":{"typography":{"fontSize":"0.625rem"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-muted"} -->
+<!-- wp:paragraph {"className":"origin-canvas-mono","style":{"typography":{"fontSize":"0.625rem","textAlign":"center"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-muted"} -->
 <p class="has-text-align-center origin-canvas-mono has-text-muted-color has-text-color" style="margin-top:0;margin-bottom:0;font-size:0.625rem"><?php echo esc_html__( 'body', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group -->
@@ -115,7 +115,7 @@
 <div class="wp-block-group origin-canvas-token-sw has-background" style="background-color:var(--wp--preset--color--surface-subtle);min-height:20px"></div>
 <!-- /wp:group -->
 
-<!-- wp:paragraph {"align":"center","className":"origin-canvas-mono","style":{"typography":{"fontSize":"0.625rem"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-muted"} -->
+<!-- wp:paragraph {"className":"origin-canvas-mono","style":{"typography":{"fontSize":"0.625rem","textAlign":"center"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-muted"} -->
 <p class="has-text-align-center origin-canvas-mono has-text-muted-color has-text-color" style="margin-top:0;margin-bottom:0;font-size:0.625rem"><?php echo esc_html__( 'subtle', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group -->
@@ -125,7 +125,7 @@
 <div class="wp-block-group origin-canvas-token-sw has-background" style="background-color:var(--wp--preset--color--border);min-height:20px"></div>
 <!-- /wp:group -->
 
-<!-- wp:paragraph {"align":"center","className":"origin-canvas-mono","style":{"typography":{"fontSize":"0.625rem"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-muted"} -->
+<!-- wp:paragraph {"className":"origin-canvas-mono","style":{"typography":{"fontSize":"0.625rem","textAlign":"center"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-muted"} -->
 <p class="has-text-align-center origin-canvas-mono has-text-muted-color has-text-color" style="margin-top:0;margin-bottom:0;font-size:0.625rem"><?php echo esc_html__( 'border', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group --></div>

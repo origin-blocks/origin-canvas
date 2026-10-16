@@ -17,19 +17,19 @@
 <figure class="wp-block-image aligncenter is-resized is-style-origin-canvas-rounded-full" style="margin-bottom:var(--wp--preset--spacing--medium)"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/avatar-claire-bennett.webp" alt="<?php esc_attr_e( 'Portrait of Claire Bennett, Co-founder.', 'origin-canvas' ); ?>" style="aspect-ratio:1;width:128px;height:128px"/></figure>
 <!-- /wp:image -->
 
-<!-- wp:heading {"textAlign":"center","level":3,"style":{"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|extra-small"}}},"textColor":"text-heading","fontSize":"regular-plus"} -->
+<!-- wp:heading {"level":3,"style":{"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|extra-small"}},"typography":{"textAlign":"center"}},"textColor":"text-heading","fontSize":"regular-plus"} -->
 <h3 class="wp-block-heading has-text-align-center has-text-heading-color has-text-color has-regular-plus-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--extra-small)"><?php echo esc_html__( 'Claire Bennett', 'origin-canvas' ); ?></h3>
 <!-- /wp:heading -->
 
-<!-- wp:paragraph {"align":"center","style":{"typography":{"fontWeight":"500"},"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|small"}}},"textColor":"text-muted","fontSize":"regular"} -->
+<!-- wp:paragraph {"style":{"typography":{"fontWeight":"500","textAlign":"center"},"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|small"}}},"textColor":"text-muted","fontSize":"regular"} -->
 <p class="has-text-align-center has-text-muted-color has-text-color has-regular-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--small);font-weight:500"><?php echo esc_html__( 'Co-founder', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
-<!-- wp:paragraph {"align":"center","style":{"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|small"}}},"textColor":"text-body","fontSize":"small"} -->
+<!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|small"}},"typography":{"textAlign":"center"}},"textColor":"text-body","fontSize":"small"} -->
 <p class="has-text-align-center has-text-body-color has-text-color has-small-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--small)"><?php echo esc_html__( 'Twelve years in agencies before going small. She writes about type, color, and the craft of making sites that look designed rather than assembled.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
-<!-- wp:paragraph {"align":"center","className":"origin-canvas-links-plain","style":{"typography":{"fontWeight":"500"},"spacing":{"margin":{"top":"0","bottom":"0"}},"elements":{"link":{"color":{"text":"var:preset|color|text-heading"},":hover":{"color":{"text":"var:preset|color|primary"}}}}},"textColor":"text-muted","fontSize":"small"} -->
+<!-- wp:paragraph {"className":"origin-canvas-links-plain","style":{"typography":{"fontWeight":"500","textAlign":"center"},"spacing":{"margin":{"top":"0","bottom":"0"}},"elements":{"link":{"color":{"text":"var:preset|color|text-heading"},":hover":{"color":{"text":"var:preset|color|primary"}}}}},"textColor":"text-muted","fontSize":"small"} -->
 <p class="origin-canvas-links-plain has-text-align-center has-text-muted-color has-text-color has-link-color has-small-font-size" style="margin-top:0;margin-bottom:0;font-weight:500"><a href="#"><?php echo esc_html__( 'LinkedIn', 'origin-canvas' ); ?></a> &middot; <a href="#"><?php echo esc_html__( 'Twitter', 'origin-canvas' ); ?></a> &middot; <a href="#"><?php echo esc_html__( 'Email', 'origin-canvas' ); ?></a></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group -->

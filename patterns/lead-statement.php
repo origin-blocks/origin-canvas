@@ -21,7 +21,7 @@
 <!-- /wp:column -->
 
 <!-- wp:column {"width":"83.33%"} -->
-<div class="wp-block-column" style="flex-basis:83.33%"><!-- wp:heading {"textAlign":"center","level":2,"className":"origin-canvas-text-balance","style":{"typography":{"lineHeight":"1.2","fontWeight":"500"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"fontSize":"display"} -->
+<div class="wp-block-column" style="flex-basis:83.33%"><!-- wp:heading {"level":2,"className":"origin-canvas-text-balance","style":{"typography":{"lineHeight":"1.2","fontWeight":"500","textAlign":"center"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"fontSize":"display"} -->
 <h2 class="wp-block-heading has-text-align-center origin-canvas-text-balance has-display-font-size" style="margin-top:0;margin-bottom:0;font-weight:500;line-height:1.2"><?php echo wp_kses_post( __( 'Balanced type, deliberate spacing, flexible templates. <span class="has-inline-color has-text-muted-color">A clear design foundation from the first page, so the structure is already right before you write a word.</span>', 'origin-canvas' ) ); ?></h2>
 <!-- /wp:heading --></div>
 <!-- /wp:column -->
