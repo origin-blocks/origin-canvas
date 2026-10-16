@@ -20,8 +20,8 @@
 <p class="origin-canvas-eyebrow has-text-align-center has-primary-color has-text-color has-small-font-size" style="margin-top:0;margin-bottom:0;font-weight:600;letter-spacing:0.06em;text-transform:uppercase"><?php echo esc_html__( 'Pricing', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
-<!-- wp:heading {"level":1,"align":"wide","className":"origin-canvas-text-balance","style":{"spacing":{"margin":{"top":"0","bottom":"0"}},"typography":{"textAlign":"center"}},"fontSize":"display"} -->
-<h1 class="wp-block-heading has-text-align-center alignwide origin-canvas-text-balance has-display-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Fixed prices, agreed up front', 'origin-canvas' ); ?></h1>
+<!-- wp:heading {"level":1,"align":"wide","className":"origin-canvas-text-balance","style":{"spacing":{"margin":{"top":"0","bottom":"0"}},"typography":{"textAlign":"center"}},"fontSize":"display-xl"} -->
+<h1 class="wp-block-heading has-text-align-center alignwide origin-canvas-text-balance has-display-xl-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Fixed prices, agreed up front', 'origin-canvas' ); ?></h1>
 <!-- /wp:heading -->
 
 <!-- wp:group {"layout":{"type":"constrained"}} -->
