@@ -25,8 +25,8 @@
 <p class="has-text-body-color has-text-color has-regular-plus-font-size" style="margin-top:var(--wp--preset--spacing--compact);margin-bottom:0"><?php echo esc_html__( 'Pick what you need, and we will take it from there.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
-<!-- wp:paragraph {"className":"origin-canvas-links-plain","style":{"typography":{"fontWeight":"500"},"elements":{"link":{"color":{"text":"var:preset|color|text-body"},":hover":{"color":{"text":"var:preset|color|primary"}}}},"spacing":{"margin":{"top":"var:preset|spacing|large","bottom":"0"}}},"textColor":"text-muted","fontSize":"small"} -->
-<p class="origin-canvas-links-plain has-text-muted-color has-text-color has-link-color has-small-font-size" style="margin-top:var(--wp--preset--spacing--large);margin-bottom:0;font-weight:500"><?php echo esc_html__( 'Rather talk? Call', 'origin-canvas' ); ?> <a href="tel:+16155550142"><?php echo esc_html__( '(615) 555-0142', 'origin-canvas' ); ?></a>, <?php echo esc_html__( 'Monday to Friday, 9am to 5:30pm&nbsp;Central.', 'origin-canvas' ); ?></p>
+<!-- wp:paragraph {"style":{"elements":{"link":{"color":{"text":"var:preset|color|text-body"},":hover":{"color":{"text":"var:preset|color|primary"}}}},"spacing":{"margin":{"top":"var:preset|spacing|large","bottom":"0"}}},"textColor":"text-muted","fontSize":"small"} -->
+<p class="has-text-muted-color has-text-color has-link-color has-small-font-size" style="margin-top:var(--wp--preset--spacing--large);margin-bottom:0"><?php echo esc_html__( 'Rather talk? Call', 'origin-canvas' ); ?> <a href="tel:+16155550142"><?php echo esc_html__( '(615) 555-0142', 'origin-canvas' ); ?></a>, <?php echo esc_html__( 'Monday to Friday, 9am to 5:30pm&nbsp;Central.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column -->
 
