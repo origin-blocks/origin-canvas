@@ -145,8 +145,15 @@ textarea {
 	color: var(--wp--preset--color--text-body);
 	font-size: var(--wp--preset--font-size--regular);
 	padding: var(--wp--preset--spacing--compact) var(--wp--preset--spacing--medium);
-	transition: box-shadow 120ms ease, border-color 120ms ease;
 	width: 100%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	input:not([type="button"]):not([type="reset"]):not([type="submit"]):not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="file"]),
+	select,
+	textarea {
+		transition: box-shadow 120ms ease, border-color 120ms ease;
+	}
 }
 
 input:not([type="button"]):not([type="reset"]):not([type="submit"]):not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="file"])::placeholder,
@@ -188,8 +195,14 @@ input[type="radio"] {
 	height: 20px;
 	margin: 0;
 	position: relative;
-	transition: background 120ms ease, border-color 120ms ease, box-shadow 120ms ease;
 	width: 20px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	input[type="checkbox"],
+	input[type="radio"] {
+		transition: background 120ms ease, border-color 120ms ease, box-shadow 120ms ease;
+	}
 }
 
 input[type="checkbox"] {

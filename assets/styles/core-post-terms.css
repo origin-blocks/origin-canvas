@@ -10,7 +10,12 @@
 
 .is-style-origin-canvas-term-chip a {
 	display: inline-flex;
-	transition: background 120ms ease, color 120ms ease;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	.is-style-origin-canvas-term-chip a {
+		transition: background 120ms ease, color 120ms ease;
+	}
 }
 
 /**
@@ -42,7 +47,12 @@
 }
 
 .is-style-origin-canvas-term-inline a {
-	transition: color 120ms ease;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	.is-style-origin-canvas-term-inline a {
+		transition: color 120ms ease;
+	}
 }
 
 /**

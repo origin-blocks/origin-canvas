@@ -13,7 +13,12 @@
 .wp-block-search__button-inside .wp-block-search__inside-wrapper {
 	padding: 4px;
 	background-color: var(--wp--preset--color--surface-base);
-	transition: box-shadow 120ms ease, border-color 120ms ease;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	.wp-block-search__button-inside .wp-block-search__inside-wrapper {
+		transition: box-shadow 120ms ease, border-color 120ms ease;
+	}
 }
 
 /* The focus ring goes on the element that looks like the field. It is the ring style.css gives

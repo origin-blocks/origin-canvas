@@ -101,7 +101,12 @@
 	font-size: var(--wp--preset--font-size--small);
 	font-weight: 600;
 	text-decoration: none;
-	transition: color 120ms ease;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	.wp-block-comments .wp-block-comment-reply-link a {
+		transition: color 120ms ease;
+	}
 }
 
 .wp-block-comments .wp-block-comment-reply-link a:hover {
@@ -160,7 +165,15 @@
 	border-radius: var(--wp--custom--radius--medium);
 	min-height: 44px;
 	padding: var(--wp--preset--spacing--compact) var(--wp--preset--spacing--medium);
-	transition: box-shadow 120ms ease, border-color 120ms ease;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	.wp-block-comments .wp-block-post-comments-form input[type="text"],
+	.wp-block-comments .wp-block-post-comments-form input[type="email"],
+	.wp-block-comments .wp-block-post-comments-form input[type="url"],
+	.wp-block-comments .wp-block-post-comments-form textarea {
+		transition: box-shadow 120ms ease, border-color 120ms ease;
+	}
 }
 
 /* Input hover */
@@ -199,8 +212,13 @@
 	height: 20px;
 	margin: 0;
 	position: relative;
-	transition: background 120ms ease, border-color 120ms ease;
 	width: 20px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	.wp-block-comments .wp-block-post-comments-form .comment-form-cookies-consent input[type="checkbox"]#wp-comment-cookies-consent {
+		transition: background 120ms ease, border-color 120ms ease;
+	}
 }
 
 .wp-block-comments .wp-block-post-comments-form .comment-form-cookies-consent input[type="checkbox"]#wp-comment-cookies-consent:checked {
@@ -242,7 +260,12 @@
 	border-radius: 999px;
 	color: var(--wp--preset--color--surface-base);
 	cursor: pointer;
-	transition: background 120ms ease;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	.wp-block-comments .wp-block-post-comments-form input[type="submit"] {
+		transition: background 120ms ease;
+	}
 }
 
 .wp-block-comments .wp-block-post-comments-form input[type="submit"]:hover {

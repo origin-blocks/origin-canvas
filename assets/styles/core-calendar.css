@@ -76,7 +76,12 @@
 	padding: var(--wp--preset--spacing--compact) var(--wp--preset--spacing--extra-small);
 	border-radius: var(--wp--custom--radius--small);
 	font-weight: 600;
-	transition: background-color 120ms ease, color 120ms ease;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	.wp-block-calendar table tbody td a {
+		transition: background-color 120ms ease, color 120ms ease;
+	}
 }
 
 .wp-block-calendar table tbody td a:hover {
@@ -109,7 +114,12 @@
 
 .wp-block-calendar .wp-calendar-nav a {
 	font-weight: 500;
-	transition: color 120ms ease;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	.wp-block-calendar .wp-calendar-nav a {
+		transition: color 120ms ease;
+	}
 }
 
 /* The one link colour theme.json cannot express: elements.link sets a single colour for the

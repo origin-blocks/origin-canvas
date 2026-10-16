@@ -10,7 +10,12 @@
 .is-style-origin-canvas-postnav-stacked a {
 	color: var(--wp--preset--color--text-heading);
 	text-decoration: none;
-	transition: color 120ms ease;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	.is-style-origin-canvas-postnav-stacked a {
+		transition: color 120ms ease;
+	}
 }
 
 .is-style-origin-canvas-postnav-stacked a:hover {

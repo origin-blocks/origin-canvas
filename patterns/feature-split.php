@@ -37,8 +37,8 @@
 <!-- /wp:paragraph -->
 
 <!-- wp:buttons {"style":{"spacing":{"margin":{"bottom":"var:preset|spacing|large"}}},"layout":{"type":"flex","justifyContent":"left"}} -->
-<div class="wp-block-buttons" style="margin-bottom:var(--wp--preset--spacing--large)"><!-- wp:button {"className":"is-style-outline"} -->
-<div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button"><?php echo esc_html__( 'Read the case study', 'origin-canvas' ); ?> &rarr;</a></div>
+<div class="wp-block-buttons" style="margin-bottom:var(--wp--preset--spacing--large)"><!-- wp:button {"className":"is-style-outline","url":"#"} -->
+<div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button" href="#"><?php echo esc_html__( 'Read the case study', 'origin-canvas' ); ?> &rarr;</a></div>
 <!-- /wp:button --></div>
 <!-- /wp:buttons -->
 
