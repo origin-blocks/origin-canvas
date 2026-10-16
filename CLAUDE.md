@@ -320,6 +320,23 @@ retired: it is out of the Styles picker, and `assets/styles/core-button.css` kee
 buttons with its class looking the same. No pattern uses it. The surface is the nearest
 block that sets a fill. `bin/check-button-surfaces.sh` enforces the table.
 
+### 11. Pattern markup is what the editor saves
+Write each block exactly as the editor saves it on WordPress 7.0 and 7.1. Other markup loads
+without a prompt, but the editor rewrites it, and the user's saved page then differs from the
+pattern. `bin/check-block-validity.sh` fails on a rewrite and names the pattern and block.
+
+- An Image block with a width and no height sets `"height":"auto"`, and its `<img>` style ends
+  with `height:auto`.
+- Text alignment on Paragraph, Heading and Post Terms is `style.typography.textAlign`, never the
+  old `align` or `textAlign` attribute.
+- A Buttons block saves no `is-layout-flex` or `is-content-justification-*` class. WordPress adds
+  them when it renders.
+- Button `width` and the `textAlign` of Site Title, Post Title and Query Title keep the old
+  attribute: 7.0, the minimum, cannot read the new form. The check allows these until the
+  minimum is 7.1.
+
+Copy markup from the editor's Code editor, never from the rendered page.
+
 ## Writing
 Every user-visible string follows the house writing guide in the private repo `Misplon/writing`
 (local clone `~/Projects/writing`). Pattern demo copy follows `brands/origin-patterns.md`; the
