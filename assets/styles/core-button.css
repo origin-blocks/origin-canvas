@@ -23,24 +23,27 @@
 	border-color: var(--wp--preset--color--text-heading);
 }
 
-/* Filled buttons, the default and Fill Primary, lift 1px on hover and focus. theme.json
-   holds the color step and the medium shadow; no block support sets a transform. A
-   press drops the lift, and reduced motion keeps the color and shadow but never moves
-   the button. The outline styles do not lift. */
-.wp-block-button:not(.is-style-outline, .is-style-origin-canvas-outline-light, .is-style-origin-canvas-outline-strong) > .wp-block-button__link {
-	transition: transform 120ms ease, box-shadow 120ms ease;
-}
+/* Filled buttons, the default and Fill Primary, lift 1px on hover and keyboard focus.
+   theme.json holds the color step and the medium shadow; no block support sets a
+   transform. The hover lift needs a pointer that can hover, so a tap never leaves a
+   button raised. A press drops the lift. With reduced motion the button keeps the
+   color and shadow but never moves. The outline styles do not lift. */
+@media (prefers-reduced-motion: no-preference) {
+	.wp-block-button:not(.is-style-outline, .is-style-origin-canvas-outline-light, .is-style-origin-canvas-outline-strong) > .wp-block-button__link {
+		transition: transform 120ms ease, box-shadow 120ms ease;
+	}
 
-.wp-block-button:not(.is-style-outline, .is-style-origin-canvas-outline-light, .is-style-origin-canvas-outline-strong) > .wp-block-button__link:is(:hover, :focus-visible) {
-	transform: translateY(-1px);
-}
+	.wp-block-button:not(.is-style-outline, .is-style-origin-canvas-outline-light, .is-style-origin-canvas-outline-strong) > .wp-block-button__link:focus-visible {
+		transform: translateY(-1px);
+	}
 
-.wp-block-button:not(.is-style-outline, .is-style-origin-canvas-outline-light, .is-style-origin-canvas-outline-strong) > .wp-block-button__link:active {
-	transform: none;
-}
-
-@media (prefers-reduced-motion: reduce) {
-	.wp-block-button:not(.is-style-outline, .is-style-origin-canvas-outline-light, .is-style-origin-canvas-outline-strong) > .wp-block-button__link:is(:hover, :focus-visible) {
+	.wp-block-button:not(.is-style-outline, .is-style-origin-canvas-outline-light, .is-style-origin-canvas-outline-strong) > .wp-block-button__link:active {
 		transform: none;
+	}
+}
+
+@media (prefers-reduced-motion: no-preference) and (hover: hover) {
+	.wp-block-button:not(.is-style-outline, .is-style-origin-canvas-outline-light, .is-style-origin-canvas-outline-strong) > .wp-block-button__link:hover:not(:active) {
+		transform: translateY(-1px);
 	}
 }

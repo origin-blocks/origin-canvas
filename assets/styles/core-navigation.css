@@ -33,7 +33,15 @@
 :is(.wp-block-navigation.is-style-origin-canvas-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.is-style-origin-canvas-hover-accent:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item > .wp-block-navigation-submenu__toggle,
 :is(.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.is-style-origin-canvas-hover-pill:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item > .wp-block-navigation-item__content,
 :is(.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.is-style-origin-canvas-hover-pill:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item > .wp-block-navigation-submenu__toggle {
-	transition: color 200ms ease;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	:is(.wp-block-navigation.is-style-origin-canvas-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.is-style-origin-canvas-hover-accent:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item > .wp-block-navigation-item__content,
+	:is(.wp-block-navigation.is-style-origin-canvas-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.is-style-origin-canvas-hover-accent:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item > .wp-block-navigation-submenu__toggle,
+	:is(.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.is-style-origin-canvas-hover-pill:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item > .wp-block-navigation-item__content,
+	:is(.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.is-style-origin-canvas-hover-pill:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item > .wp-block-navigation-submenu__toggle {
+		transition: color 200ms ease;
+	}
 }
 
 :is(.wp-block-navigation.is-style-origin-canvas-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.is-style-origin-canvas-hover-accent:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item:hover > .wp-block-navigation-item__content,
@@ -79,8 +87,13 @@
 	opacity: 0;
 	pointer-events: none;
 	position: absolute;
-	transition: opacity 200ms ease;
 	z-index: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	:is(.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.is-style-origin-canvas-hover-pill:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item::before {
+		transition: opacity 200ms ease;
+	}
 }
 
 :is(.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.is-style-origin-canvas-hover-pill:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item:hover::before,
@@ -149,7 +162,12 @@
 :is(.wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container .wp-block-navigation-item__content {
 	border-radius: 6px;
 	padding: var(--wp--preset--spacing--small) var(--wp--preset--spacing--medium);
-	transition: color 200ms ease;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	:is(.wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container .wp-block-navigation-item__content {
+		transition: color 200ms ease;
+	}
 }
 
 :is(.wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container .wp-block-navigation-submenu__toggle {
@@ -158,7 +176,12 @@
 	display: inline-flex;
 	gap: var(--wp--preset--spacing--extra-small);
 	padding: var(--wp--preset--spacing--small);
-	transition: color 200ms ease;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	:is(.wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container .wp-block-navigation-submenu__toggle {
+		transition: color 200ms ease;
+	}
 }
 
 /**
@@ -182,7 +205,12 @@
  */
 .wp-block-navigation .wp-block-navigation__submenu-icon svg {
 	transform-origin: center;
-	transition: transform 0.26s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	.wp-block-navigation .wp-block-navigation__submenu-icon svg {
+		transition: transform 200ms ease-out;
+	}
 }
 
 .wp-block-navigation-submenu__toggle[aria-expanded="true"] .wp-block-navigation__submenu-icon svg,
@@ -240,7 +268,12 @@
 
 :is(.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.is-style-origin-canvas-hover-pill:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container .wp-block-navigation-item {
 	border-radius: 8px;
-	transition: background-color 200ms ease;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	:is(.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.is-style-origin-canvas-hover-pill:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container .wp-block-navigation-item {
+		transition: background-color 200ms ease;
+	}
 }
 
 :is(.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.is-style-origin-canvas-hover-pill:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container .wp-block-navigation-item:hover,
@@ -556,30 +589,26 @@
 }
 
 /**
- * Reveal motion — Option B. Core toggles display:none->flex (the global collapse
- * rules above), so height snaps; we layer a fade + slight slide so the open still
- * reads as motion. A true grid-height animation is not achievable on core markup.
+ * Reveal motion. Core toggles display:none->flex (the global collapse rules above),
+ * so height snaps; a fade plus a 4px slide makes the open read as motion. It runs
+ * 200ms ease-out, the timing of the chevron's spin in the shared base above, so the
+ * panel and its chevron move as one. A true grid-height animation is not achievable
+ * on core markup. With reduced motion the panel simply appears.
  */
-.origin-canvas-mobile-nav .wp-block-navigation-submenu__toggle ~ .wp-block-navigation__submenu-container {
-	opacity: 0;
-	transform: translateY(-4px);
-	transition: opacity 0.22s ease, transform 0.22s ease;
-}
+@media (prefers-reduced-motion: no-preference) {
+	.origin-canvas-mobile-nav .wp-block-navigation-submenu__toggle ~ .wp-block-navigation__submenu-container {
+		opacity: 0;
+		transform: translateY(-4px);
+		transition: opacity 200ms ease-out, transform 200ms ease-out;
+	}
 
-.origin-canvas-mobile-nav .wp-block-navigation-submenu__toggle[aria-expanded="true"] ~ .wp-block-navigation__submenu-container {
-	opacity: 1;
-	transform: translateY(0);
-}
+	.origin-canvas-mobile-nav .wp-block-navigation-submenu__toggle[aria-expanded="true"] ~ .wp-block-navigation__submenu-container {
+		opacity: 1;
+		transform: translateY(0);
+	}
 
-.origin-canvas-mobile-nav .wp-block-navigation-item__label {
-	transition: color 200ms ease;
-}
-
-@media (prefers-reduced-motion: reduce) {
-	.origin-canvas-mobile-nav .wp-block-navigation__submenu-icon svg,
-	.origin-canvas-mobile-nav .wp-block-navigation-submenu__toggle ~ .wp-block-navigation__submenu-container,
 	.origin-canvas-mobile-nav .wp-block-navigation-item__label {
-		transition: none;
+		transition: color 200ms ease;
 	}
 }
 
@@ -601,8 +630,13 @@
 	margin-inline-end: -10px;
 	position: relative;
 	top: -2px;
-	transition: background-color 200ms ease;
 	width: 44px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	.origin-canvas-mobile-menu .wp-block-navigation-overlay-close {
+		transition: background-color 200ms ease;
+	}
 }
 
 .origin-canvas-mobile-menu .wp-block-navigation-overlay-close:hover,

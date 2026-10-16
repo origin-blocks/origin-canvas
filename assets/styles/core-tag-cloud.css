@@ -17,7 +17,12 @@
 	font-size: var(--wp--preset--font-size--extra-small) !important;
 	padding: 6px 8px;
 	text-decoration: none;
-	transition: background 120ms ease, color 120ms ease;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	.is-style-origin-canvas-tag-chip a {
+		transition: background 120ms ease, color 120ms ease;
+	}
 }
 
 .is-style-origin-canvas-tag-chip a:hover {
