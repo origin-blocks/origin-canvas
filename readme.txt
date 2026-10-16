@@ -10,7 +10,7 @@ Requires PHP: 7.4
 License: GNU General Public License v3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-A Full Site Editing WordPress block theme for sites that look designed, not assembled. Templates, patterns, typography, and color - one coherent system.
+A Full Site Editing WordPress block theme with templates, patterns, typography and color set up as one system.
 
 == Description ==
 
@@ -18,11 +18,11 @@ For solo developers, freelancers, and small teams building polished sites withou
 
 Start closer to finished. Balanced type, deliberate spacing, flexible templates, and cohesive patterns give every build a clear design foundation from the first page.
 
-Choose from eleven style variations, shape the site in the editor, and keep momentum without losing the design thread.
+Choose from 11 style variations, shape the site in the Site Editor, and keep momentum without losing the design thread.
 
 == Installation ==
 
-1. Login to your WordPress installation and go to Appearance > Themes > Add New > Upload Theme.
+1. Log in to your WordPress installation and go to Appearance > Themes > Add New > Upload Theme.
 2. Click Choose File and browse to the theme's ZIP file on your computer. Click Install Now.
 3. Click Activate to get started with your new theme right away.
 
