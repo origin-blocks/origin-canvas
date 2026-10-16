@@ -6,12 +6,10 @@ and whose body is block markup. This file's rules are BINDING — read them befo
 renaming, or recategorizing any pattern.
 
 ## Where rules and notes live
-- Design rules live in ODS: `~/Sites/origin-design-system/RULES.md`.
+- Design rules live in ODS, the shared design system. It is private and lives outside this repo.
 - Mechanical rules are enforced by `bin/check-*.sh`.
-- Private engineering notes and history live in
-  `/Users/misplon/Sites/origin-blocks/wp-content/themes/origin-canvas/docs/design.md`. It is
-  gitignored, so worktree agents must read it from the main checkout. Record new traps there,
-  never in a committed file.
+- Private Canvas design and engineering notes live outside this repo. Record new traps there,
+  never in a file in this repo.
 - Never commit design notes or lessons to the repo.
 - Report verification honestly: name the method of each check, and list any check not done.
 
@@ -347,15 +345,14 @@ to the guide, never here.
 
 ## Record every ruling
 A round is not done until every owner decision in it is written down. A shared rule goes in ODS
-`RULES.md` (`~/Sites/origin-design-system`). A Canvas-only decision goes in the private notes,
-`/Users/misplon/Sites/origin-blocks/wp-content/themes/origin-canvas/docs/design.md`.
+`RULES.md`. A Canvas-only decision goes in the private Canvas notes. Both live outside this repo.
 
 - Write it in the same step as the code change.
-- Replace the old line. Never add "superseded" lines. Move history to the private `docs/design-archive.md`.
+- Replace the old line. Never add "superseded" lines. Move history to the private archive.
 - No decision lives only in a scratch folder, a chat or an agent's memory.
 - Merge gate: before any branch merges, the reviewer (Codex) matches every commit that cites an owner
   ruling against ODS and the private notes. If one is not recorded, the merge stops.
-- Never commit design notes, lessons or the archive. They are private.
+- Never commit design notes, lessons or the archive to this repo. They are private.
 
 ## Sources of truth
 Pattern roadmap: GitHub issues labelled `pattern`, grouped by batch milestone at

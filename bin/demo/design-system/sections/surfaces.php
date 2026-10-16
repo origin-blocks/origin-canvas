@@ -4,7 +4,7 @@
  * painted on each and their contrast; card next tones as real cards on their section; the
  * grounds of each page pattern in order. Use counts and sources are read from the registered
  * patterns as the page renders. Ends with "Rules vs runtime": where ODS RULES.md or the private
- * Canvas notes (docs/design.md) disagree with the shipped theme. Listed, not fixed.
+ * Canvas notes (kept outside this repo) disagree with the shipped theme. Listed, not fixed.
  *
  * @package Origin
  */
@@ -370,7 +370,7 @@ foreach ( $oc_ds_fills as $oc_ds_f ) {
 	</div>
 
 	<h3 class="has-large-font-size">Rules vs runtime</h3>
-	<p class="ocds-intent has-text-body-color has-text-color">Where ODS <code>RULES.md</code> or the Canvas notes (<code>docs/design.md</code>, private) disagree with the shipped theme. Listed for a decision; nothing here changes the theme. The Text color items stay open there and are not repeated.</p>
+	<p class="ocds-intent has-text-body-color has-text-color">Where ODS <code>RULES.md</code> or the private Canvas notes disagree with the shipped theme. Listed for a decision; nothing here changes the theme. The Text color items stay open there and are not repeated.</p>
 	<ol class="ocds-rvr has-text-body-color has-text-color">
 		<li><strong>A card on a dark band.</strong> RULES, "Cards and separation" (Ruled): on dark, a card takes "a lighter dark tone". No token holds one: <code>custom.dark</code> has <code>bg</code> and <code>text</code> only (<?php echo esc_html( oc_demo_ds_src( 'theme.json', '"dark": {' ) ); ?>). <?php echo esc_html( $oc_ds_on_dark ? 'Fills inside a dark section today: ' . implode( ', ', array_keys( $oc_ds_on_dark ) ) . '.' : 'No shipped pattern puts a card on a dark section yet.' ); ?></li>
 		<li><strong>A dark card on a light section.</strong> RULES, "Cards and separation" (Ruled): a card takes the next tone from its ground. Shipped: the coming-soon card in <?php echo esc_html( oc_demo_ds_block( 'product-grid', array( 'name' => 'core/column', 'ground' => $oc_ds_dark ) )['src'] ); ?> is custom.dark.bg on surface-subtle, not surface-base. See its tile for the fill step.</li>
