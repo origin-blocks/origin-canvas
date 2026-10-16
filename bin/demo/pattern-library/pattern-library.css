@@ -1,0 +1,58 @@
+/*
+ * Pattern library page chrome: the head, the category headings and the label above each
+ * pattern. Type and color come from the theme's preset classes in the markup; every value here
+ * is a theme preset or custom property. Patterns themselves get no styling from this file.
+ */
+
+.ocpl-head,
+.ocpl-cat,
+.ocpl-label {
+	box-sizing: border-box;
+	margin-inline: auto;
+	max-width: var(--wp--style--global--wide-size);
+}
+
+.ocpl-head {
+	padding-block: var(--wp--preset--spacing--huge) var(--wp--preset--spacing--large);
+}
+
+.ocpl-head > * {
+	margin-block: 0;
+}
+
+.ocpl-head > * + * {
+	margin-top: var(--wp--preset--spacing--medium);
+}
+
+.ocpl-kicker {
+	font-weight: 600;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+}
+
+.ocpl-nav {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--wp--preset--spacing--small) var(--wp--preset--spacing--medium);
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.ocpl-cat {
+	border-top: 2px solid var(--wp--preset--color--text-heading);
+	margin-block: var(--wp--preset--spacing--jumbo) 0;
+	padding-top: var(--wp--preset--spacing--medium);
+	scroll-margin-top: var(--wp-admin--admin-bar--height, 0px);
+}
+
+.ocpl-label {
+	border-top: 1px dashed var(--wp--preset--color--border-strong);
+	margin-block: var(--wp--preset--spacing--extra-large) 0;
+	padding-block: var(--wp--preset--spacing--small);
+	scroll-margin-top: var(--wp-admin--admin-bar--height, 0px);
+}
+
+.ocpl-label code {
+	margin-left: var(--wp--preset--spacing--small);
+}
