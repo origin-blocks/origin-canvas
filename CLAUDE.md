@@ -321,9 +321,10 @@ buttons with its class looking the same. No pattern uses it. The surface is the 
 block that sets a fill. `bin/check-button-surfaces.sh` enforces the table.
 
 ### 11. Pattern markup is what the editor saves
-Write each block exactly as the editor saves it on WordPress 7.0 and 7.1. Other markup loads
-without a prompt, but the editor rewrites it, and the user's saved page then differs from the
-pattern. `bin/check-block-validity.sh` fails on a rewrite and names the pattern and block.
+Write each block exactly as the editor saves it on WordPress 7.0 and 7.1, except the settings
+in the last item below. Other markup loads without a prompt, but the editor rewrites it, and
+the user's saved page then differs from the pattern. `bin/check-block-validity.sh` fails on a
+rewrite and names the pattern and block.
 
 - An Image block with a width and no height sets `"height":"auto"`, and its `<img>` style ends
   with `height:auto`.
