@@ -27,7 +27,9 @@
  *
  * origin-canvas-current marks the item whose section is in view (set on the front
  * end by assets/js/anchor-navigation.js) and is styled wherever the current page item
- * is: the two states share every current-menu-ancestor rule list below.
+ * is: the two states share every current-menu-ancestor rule list below. It takes the
+ * link's 200ms colour fade, so the cue changes smoothly while the page scrolls; a
+ * colour change is not motion, and nothing here moves.
  */
 :is(.wp-block-navigation.is-style-origin-canvas-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.is-style-origin-canvas-hover-accent:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item > .wp-block-navigation-item__content,
 :is(.wp-block-navigation.is-style-origin-canvas-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.is-style-origin-canvas-hover-accent:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item > .wp-block-navigation-submenu__toggle,
