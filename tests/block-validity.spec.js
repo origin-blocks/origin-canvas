@@ -60,12 +60,13 @@ function measure() {
 
 // WordPress 7.1 moves these settings on load. 7.0, the theme's minimum, reads only the old
 // form, so the patterns keep it until the minimum is 7.1. Each entry: the old attribute, the
-// style group and key it moves to, and the unit 7.1 adds.
+// style group and key it moves to, the unit 7.1 adds, and the classes 7.1 then stops saving
+// (a pattern, removed from the markup before its HTML is checked).
 const MOVED_IN_71 = {
-	'core/button': [ 'width', 'dimensions', 'width', '%' ],
-	'core/post-title': [ 'textAlign', 'typography', 'textAlign', '' ],
-	'core/query-title': [ 'textAlign', 'typography', 'textAlign', '' ],
-	'core/site-title': [ 'textAlign', 'typography', 'textAlign', '' ],
+	'core/button': [ 'width', 'dimensions', 'width', '%', ' has-custom-width wp-block-button__width-\\d+' ],
+	'core/post-title': [ 'textAlign', 'typography', 'textAlign', '', '' ],
+	'core/query-title': [ 'textAlign', 'typography', 'textAlign', '', '' ],
+	'core/site-title': [ 'textAlign', 'typography', 'textAlign', '', '' ],
 };
 
 // Load every pattern into the draft, as the inserter does: parse each pattern's markup on its
@@ -109,8 +110,9 @@ function load( { patterns, moves } ) {
 		}
 		const type = blocksApi.getBlockType( block.name );
 		const before = blocksApi.getBlockAttributes( type, raw.innerHTML, raw.attrs || {} );
-		const keys = changed( type, before, block.attributes );
-		const [ key, group, to, unit ] = moves[ block.name ] || [];
+		let keys = changed( type, before, block.attributes );
+		let html = raw.innerHTML;
+		const [ key, group, to, unit, drops ] = moves[ block.name ] || [];
 		// 7.1 no longer declares the old attribute, so its value comes from the markup.
 		const old = key ? raw.attrs?.[ key ] : undefined;
 		if ( keys.length && old !== undefined ) {
@@ -120,13 +122,14 @@ function load( { patterns, moves } ) {
 			};
 			delete now[ key ];
 			if ( ! changed( type, now, block.attributes ).length ) {
-				return null;
+				keys = [];
+				html = drops ? html.replace( new RegExp( drops ), '' ) : html;
 			}
 		}
 		if ( keys.length ) {
 			return keys.join( ', ' );
 		}
-		const [ valid ] = blocksApi.validateBlock( { ...block, originalContent: raw.innerHTML } );
+		const [ valid ] = blocksApi.validateBlock( { ...block, originalContent: html } );
 		return valid ? null : 'saved HTML';
 	}
 
