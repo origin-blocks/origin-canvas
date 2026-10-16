@@ -10,29 +10,29 @@ Requires PHP: 7.4
 License: GNU General Public License v3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-A Full Site Editing WordPress block theme for sites that look designed, not assembled. Templates, patterns, typography, and color - one coherent system.
+Start closer to finished with a free WordPress block theme: templates, patterns and 12 style variations, ready to edit in the Site Editor.
 
 == Description ==
 
-For solo developers, freelancers, and small teams building polished sites without starting from zero.
+Canvas is a free block theme for solo developers, freelancers and small teams who build client sites in the Block Editor.
 
-Start closer to finished. Balanced type, deliberate spacing, flexible templates, and cohesive patterns give every build a clear design foundation from the first page.
+Every pattern uses the theme's colors, type and spacing, so sections line up from page to page. Templates, patterns and styles are in place from the first page.
 
-Choose from eleven style variations, shape the site in the editor, and keep momentum without losing the design thread.
+Choose from 12 style variations, which restyle every pattern at once. Change any part of the site in the Site Editor.
 
 == Installation ==
 
-1. Login to your WordPress installation and go to Appearance > Themes > Add New > Upload Theme.
-2. Click Choose File and browse to the theme's ZIP file on your computer. Click Install Now.
-3. Click Activate to get started with your new theme right away.
+1. Log in to your WordPress site and go to **Appearance > Themes > Add New > Upload Theme**.
+2. Click **Choose File** and select the theme's ZIP file on your computer. Click **Install Now**.
+3. Click **Activate**.
 
 == Documentation ==
 
-[Documentation](https://origin-blocks.github.io/origin-canvas/) is available.
+Read the [documentation](https://origin-blocks.github.io/origin-canvas/).
 
 == Support ==
 
-[Support](https://github.com/origin-blocks/origin-canvas/issues) is available on GitHub Issues.
+Ask questions and report problems in [GitHub Issues](https://github.com/origin-blocks/origin-canvas/issues).
 
 == License ==
 
