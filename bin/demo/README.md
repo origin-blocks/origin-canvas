@@ -9,8 +9,10 @@ scripts here change only a folder that holds this file.
 
 ## Setup
 
-You need WP-CLI, MySQL and a web server that serves the parent folder. The defaults fit MAMP:
-MySQL root/root on MAMP's socket, and Apache serving `~/Sites` at http://localhost/.
+You need WP-CLI, MySQL and a web server that serves the parent folder. The defaults fit MAMP with
+MySQL root/root on MAMP's socket, Apache on port 80 and the document root set to `~/Sites`, so
+a site is at http://localhost/<folder>/. MAMP's own defaults differ (`/Applications/MAMP/htdocs`
+on port 8888): change MAMP's settings, or set `DEMO_SITES_DIR` and `DEMO_SITES_URL` to match.
 
 ```
 bin/demo/setup.sh ~/Sites/canvas-demo                 # database canvas-demo
@@ -19,13 +21,13 @@ bin/demo/setup.sh ~/Sites/canvas-demo my-database     # another database name
 
 The script downloads WordPress, creates the database, installs the site with a generated admin
 password, links the theme, writes `DEMO-SITE.md` and runs the reset. It refuses if the folder or
-the database already exists.
+the database already exists. The folder name may use only letters, digits, `.`, `-` and `_`.
 
 - `wp-content/themes/origin-canvas` links to the main checkout of the repo the script runs in,
   so the site shows develop as it is on disk, even when you run it from a worktree.
 - `wp-content/themes/origin-canvas-worktrees` links to the `origin-canvas-worktrees` folder
   beside that checkout, if there is one.
-- No plugins are installed.
+- No plugins are installed. The reset adds the switches plugin to `wp-content/mu-plugins/`.
 
 Environment variables change the defaults. The script header lists them all: the MySQL host,
 user and password, the served folder and its URL, the site URL, the admin login and email, the
@@ -45,7 +47,8 @@ bin/demo/reset.sh ~/Sites/canvas-demo
 
 The reset deletes all posts, pages, menus, comments, terms, uploads and Site Editor changes, then
 seeds the site again from `bin/demo/seed.php`. It also copies the switches plugin into
-`wp-content/mu-plugins/`. Users stay.
+`wp-content/mu-plugins/` and makes sure `.htaccess` denies web access to `DEMO-SITE.md`. Users
+stay.
 
 ## Content
 
