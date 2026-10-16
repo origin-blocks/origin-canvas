@@ -80,7 +80,7 @@
 <!-- /wp:columns -->
 
 <!-- wp:buttons {"style":{"spacing":{"margin":{"top":"var:preset|spacing|huge"}}},"layout":{"type":"flex","justifyContent":"center"}} -->
-<div class="wp-block-buttons is-content-justification-center is-layout-flex" style="margin-top:var(--wp--preset--spacing--huge)"><!-- wp:button -->
+<div class="wp-block-buttons" style="margin-top:var(--wp--preset--spacing--huge)"><!-- wp:button -->
 <div class="wp-block-button"><a class="wp-block-button__link wp-element-button"><?php echo esc_html__( 'Talk to us', 'origin-canvas' ); ?></a></div>
 <!-- /wp:button --></div>
 <!-- /wp:buttons --></section>
