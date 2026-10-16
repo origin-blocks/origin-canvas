@@ -1,6 +1,6 @@
 # Origin Canvas
 
-Origin Canvas is a Full Site Editing WordPress block theme for sites that look designed, not assembled. It gives you a cohesive starting point for building with WordPress templates, patterns, styles, and blocks.
+Start closer to finished with a free WordPress block theme: templates, patterns and 12 style variations, ready to edit in the Site Editor.
 
 ## Start Here
 
