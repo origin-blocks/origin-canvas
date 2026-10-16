@@ -101,6 +101,6 @@ bash bin/check-tracking-render.sh ~/Sites/canvas-demo
 ```
 
 - `check-block-validity.sh` loads every pattern into one editor draft and fails on an invalid
-  block or a recovery prompt.
+  block, a recovery prompt or a block the editor rewrites on load.
 - `check-tracking-render.sh` renders every pattern at 1440 and 390, under every style variation,
   and checks letter spacing against font size.
