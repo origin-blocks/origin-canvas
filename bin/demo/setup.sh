@@ -41,6 +41,7 @@ PARENT="$(dirname "$TARGET")"
 [ -d "$PARENT" ] || refuse "$PARENT does not exist."
 WP_PATH="$(cd "$PARENT" && pwd)/$(basename "$TARGET")"
 [ ! -e "$WP_PATH" ] || refuse "$WP_PATH already exists."
+[[ "$(basename "$WP_PATH")" =~ ^[A-Za-z0-9._-]+$ ]] || refuse "The folder name may use only letters, digits, ., - and _, so it works in a URL."
 
 DB_NAME="${2:-$(basename "$WP_PATH")}"
 [[ "$DB_NAME" =~ ^[A-Za-z0-9_-]{1,64}$ ]] || refuse "Database name '$DB_NAME' may use only letters, digits, - and _."
@@ -108,8 +109,12 @@ db() {
 			}
 			$name = getenv( "DEMO_DB_NAME" );
 			if ( "exists" === getenv( "DEMO_DB_ACTION" ) ) {
-				$r = $db->query( "SHOW DATABASES LIKE \"" . $db->real_escape_string( addcslashes( $name, "%_" ) ) . "\"" );
-				echo $r && $r->num_rows ? 1 : 0;
+				$r = $db->query( "SHOW DATABASES LIKE '"'"'" . $db->real_escape_string( addcslashes( $name, "%_" ) ) . "'"'"'" );
+				if ( ! $r ) {
+					fwrite( STDERR, "Cannot list databases: " . $db->error . "\n" );
+					exit( 2 );
+				}
+				echo $r->num_rows ? 1 : 0;
 			} elseif ( ! $db->query( "CREATE DATABASE `" . $name . "` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci" ) ) {
 				fwrite( STDERR, "Cannot create the database: " . $db->error . "\n" );
 				exit( 2 );
@@ -142,6 +147,15 @@ wp plugin delete --all --quiet
 ln -s "$THEME_DIR" "$WP_PATH/wp-content/themes/origin-canvas"
 [ -z "$WORKTREES_DIR" ] || ln -s "$WORKTREES_DIR" "$WP_PATH/wp-content/themes/origin-canvas-worktrees"
 
+# Deny the marker to the web before it holds the password. reset.sh adds the rewrite rules.
+cat >"$WP_PATH/.htaccess" <<'EOF'
+# The demo notes hold the admin password.
+<Files "DEMO-SITE.md">
+Require all denied
+</Files>
+
+EOF
+
 worktrees_line="- \`wp-content/themes/origin-canvas-worktrees\` links to \`$WORKTREES_DIR\`, for \`?octheme=\`."
 [ -n "$WORKTREES_DIR" ] || worktrees_line="- No worktrees folder is linked, so \`?octheme=\` has no branches to show."
 
@@ -168,7 +182,7 @@ machine and never commit it.
 
 - \`wp-content/themes/origin-canvas\` links to \`$THEME_DIR\`. The site shows that checkout as it is on disk.
 $worktrees_line
-- No plugins are installed.
+- No plugins are installed. The reset adds the switches plugin to \`wp-content/mu-plugins/\`.
 
 ## Reset, switches and checks
 
@@ -176,8 +190,8 @@ See \`bin/demo/README.md\` in the theme checkout.
 EOF
 )
 
-trap - EXIT
 "$DIR/reset.sh" "$WP_PATH"
+trap - EXIT
 
 echo "Demo site ready: $URL/"
 echo "The admin login and password are in $WP_PATH/$MARKER."
