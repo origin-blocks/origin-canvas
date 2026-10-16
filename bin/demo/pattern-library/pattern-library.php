@@ -9,7 +9,7 @@
  * last, in their own group. Because the references render per request, ?octheme= and
  * ?ocvariation= apply as on any other page.
  *
- * Administrators only. For everyone else the route is not there, so WordPress gives its 404.
+ * The route renders for every visitor.
  *
  * @package Origin
  */
@@ -161,7 +161,7 @@ function oc_demo_pl_template() {
 add_action(
 	'parse_request',
 	static function ( $wp ) {
-		if ( 'pattern-library' !== $wp->request || ! current_user_can( 'manage_options' ) ) {
+		if ( 'pattern-library' !== $wp->request ) {
 			return;
 		}
 		oc_demo_pl_is_route( true );

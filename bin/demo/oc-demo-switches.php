@@ -6,8 +6,8 @@
  *   ?ocvariation=<slug>         shows a style variation, such as editorial or blue.
  * The switches combine. Copied into mu-plugins by bin/demo/reset.sh.
  * It also loads the design system page (bin/demo/design-system) and the pattern library
- * (bin/demo/pattern-library) from the active theme, and keeps /design-system/ and
- * /pattern-library/ to administrators: everyone else gets a 404.
+ * (bin/demo/pattern-library) from the active theme, and keeps /design-system/ to
+ * administrators: everyone else gets a 404.
  */
 
 if ( is_admin() || wp_doing_ajax() || ( defined( 'REST_REQUEST' ) && REST_REQUEST ) ) {

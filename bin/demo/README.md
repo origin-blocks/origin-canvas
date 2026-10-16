@@ -79,7 +79,7 @@ The switch applies to the page you open only. Links in the menu lead back to the
 
 ## Pattern library
 
-`/pattern-library/`, administrators only. It shows every registered pattern by category, hidden
+`/pattern-library/`, open to every visitor. It shows every registered pattern by category, hidden
 patterns last. It is a route in `bin/demo/pattern-library`, not a page, and takes `?octheme=` and
 `?ocvariation=`.
 

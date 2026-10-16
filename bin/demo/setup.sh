@@ -174,7 +174,7 @@ machine and never commit it.
 - Admin: $URL/wp-admin/
 - Login: \`$ADMIN_USER\`, password \`$ADMIN_PASSWORD\`
 - Blog: $URL/blog/
-- Pattern library: $URL/pattern-library/ (administrators only)
+- Pattern library: $URL/pattern-library/
 - Design system: $URL/design-system/ (administrators only)
 - Database: \`$DB_NAME\` on \`$DB_HOST\`, user \`$DB_USER\`
 
