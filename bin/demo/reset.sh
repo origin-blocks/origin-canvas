@@ -5,9 +5,10 @@
 # Site Editor changes are deleted, so the demo never drifts.
 #
 # The script empties only a demo site: the folder must hold a DEMO-SITE.md marker file.
-# To make a new install a demo site, create that file in its root by hand, e.g.
+# bin/demo/setup.sh builds a new demo site with the marker. To make another install a demo
+# site, create that file in its root by hand, e.g.
 #   echo "# Canvas demo site" > ~/Sites/<site>/DEMO-SITE.md
-# The script never creates the marker. Without it, it refuses and changes nothing.
+# This script never creates the marker. Without it, it refuses and changes nothing.
 set -euo pipefail
 
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -38,15 +39,19 @@ wp site empty --uploads --yes --quiet
 wp option delete theme_mods_origin-canvas --quiet >/dev/null 2>&1 || true
 wp rewrite structure '/%postname%/' --quiet
 
-# MAMP serves the site from a subfolder, so the rules need that RewriteBase.
-if [ ! -f "$WP_PATH/.htaccess" ]; then
-	base="$(wp option get home | sed -E 's#^https?://[^/]+##')/"
-	cat >"$WP_PATH/.htaccess" <<EOF
-# The demo notes hold the admin password.
-<Files "DEMO-SITE.md">
-Require all denied
-</Files>
+# The demo notes hold the admin password, so the web server must never send them.
+if ! grep -qs '<Files "DEMO-SITE.md">' "$WP_PATH/.htaccess"; then
+	{
+		printf '# The demo notes hold the admin password.\n<Files "DEMO-SITE.md">\nRequire all denied\n</Files>\n\n'
+		cat "$WP_PATH/.htaccess" 2>/dev/null || true
+	} >"$WP_PATH/.htaccess.new"
+	mv "$WP_PATH/.htaccess.new" "$WP_PATH/.htaccess"
+fi
 
+# MAMP serves the site from a subfolder, so the rules need that RewriteBase.
+if ! grep -qs '^# BEGIN WordPress' "$WP_PATH/.htaccess"; then
+	base="$(wp option get home | sed -E 's#^https?://[^/]+##')/"
+	cat >>"$WP_PATH/.htaccess" <<EOF
 # BEGIN WordPress
 <IfModule mod_rewrite.c>
 RewriteEngine On
