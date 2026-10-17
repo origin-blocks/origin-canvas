@@ -25,8 +25,8 @@
 <!-- /wp:paragraph --></div>
 <!-- /wp:group -->
 
-<!-- wp:group {"style":{"spacing":{"blockGap":"0"}},"layout":{"type":"default"}} -->
-<div class="wp-block-group"><!-- wp:image {"width":"100%","height":"auto","aspectRatio":"16/9","scale":"cover","sizeSlug":"large","linkDestination":"none","className":"is-style-rounded"} -->
+<!-- wp:group {"style":{"spacing":{"margin":{"top":"var:preset|spacing|large"},"blockGap":"0"}},"layout":{"type":"default"}} -->
+<div class="wp-block-group" style="margin-top:var(--wp--preset--spacing--large)"><!-- wp:image {"width":"100%","height":"auto","aspectRatio":"16/9","scale":"cover","sizeSlug":"large","linkDestination":"none","className":"is-style-rounded"} -->
 <figure class="wp-block-image size-large is-resized is-style-rounded"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/studio-type-proofs.webp" alt="<?php esc_attr_e( 'Three printed type specimens and a marked-up page of copy with a red pen, beside a dark stone bowl on a pale worktable.', 'origin-canvas' ); ?>" style="aspect-ratio:16/9;object-fit:cover;width:100%;height:auto"/></figure>
 <!-- /wp:image -->
 
