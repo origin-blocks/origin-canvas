@@ -31,8 +31,8 @@
 <!-- /wp:column -->
 
 <!-- wp:column {"verticalAlignment":"center","width":"50%"} -->
-<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:50%"><!-- wp:image {"width":"100%","height":"auto","aspectRatio":"4/3","scale":"cover","sizeSlug":"large","linkDestination":"none","style":{"border":{"radius":"var:custom|radius|medium"}}} -->
-<figure class="wp-block-image size-large is-resized has-custom-border"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/gallery-proof-wall.webp" alt="<?php esc_attr_e( 'Printed website page layouts pinned in a grid on a white studio wall.', 'origin-canvas' ); ?>" style="border-radius:var(--wp--custom--radius--medium);aspect-ratio:4/3;object-fit:cover;width:100%;height:auto"/></figure>
+<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:50%"><!-- wp:image {"width":"100%","height":"auto","aspectRatio":"4/3","scale":"cover","sizeSlug":"large","linkDestination":"none","className":"is-style-rounded"} -->
+<figure class="wp-block-image size-large is-resized is-style-rounded"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/gallery-proof-wall.webp" alt="<?php esc_attr_e( 'Printed website page layouts pinned in a grid on a white studio wall.', 'origin-canvas' ); ?>" style="aspect-ratio:4/3;object-fit:cover;width:100%;height:auto"/></figure>
 <!-- /wp:image --></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns --></div>
