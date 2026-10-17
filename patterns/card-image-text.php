@@ -32,8 +32,8 @@
 <!-- wp:columns {"align":"wide","verticalAlignment":"stretch","style":{"spacing":{"blockGap":{"top":"var:preset|spacing|large","left":"var:preset|spacing|large"}}}} -->
 <div class="wp-block-columns alignwide are-vertically-aligned-stretch"><!-- wp:column {"verticalAlignment":"stretch","backgroundColor":"surface-base","style":{"border":{"radius":"var:custom|radius|medium"},"spacing":{"padding":{"top":"var:preset|spacing|small","right":"var:preset|spacing|small","bottom":"var:preset|spacing|large","left":"var:preset|spacing|small"}}}} -->
 <div class="wp-block-column is-vertically-aligned-stretch has-surface-base-background-color has-background" style="border-radius:var(--wp--custom--radius--medium);padding-top:var(--wp--preset--spacing--small);padding-right:var(--wp--preset--spacing--small);padding-bottom:var(--wp--preset--spacing--large);padding-left:var(--wp--preset--spacing--small)"><!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|medium"}},"layout":{"type":"constrained"}} -->
-<div class="wp-block-group"><!-- wp:image {"aspectRatio":"3/2","linkDestination":"none","style":{"border":{"radius":"var:custom|radius|medium"}}} -->
-<figure class="wp-block-image has-custom-border"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/card-image-text-northgate.webp" alt="<?php esc_attr_e( 'An orange bicycle on a repair stand in a bright workshop, with tools on a pegboard behind.', 'origin-canvas' ); ?>" style="border-radius:var(--wp--custom--radius--medium);aspect-ratio:3/2"/></figure>
+<div class="wp-block-group"><!-- wp:image {"aspectRatio":"3/2","linkDestination":"none"} -->
+<figure class="wp-block-image"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/card-image-text-northgate.webp" alt="<?php esc_attr_e( 'An orange bicycle on a repair stand in a bright workshop, with tools on a pegboard behind.', 'origin-canvas' ); ?>" style="aspect-ratio:3/2"/></figure>
 <!-- /wp:image -->
 
 <!-- wp:group {"style":{"spacing":{"padding":{"left":"var:preset|spacing|medium","right":"var:preset|spacing|medium"},"blockGap":"var:preset|spacing|compact"}},"layout":{"type":"constrained"}} -->
@@ -54,8 +54,8 @@
 
 <!-- wp:column {"verticalAlignment":"stretch","backgroundColor":"surface-base","style":{"border":{"radius":"var:custom|radius|medium"},"spacing":{"padding":{"top":"var:preset|spacing|small","right":"var:preset|spacing|small","bottom":"var:preset|spacing|large","left":"var:preset|spacing|small"}}}} -->
 <div class="wp-block-column is-vertically-aligned-stretch has-surface-base-background-color has-background" style="border-radius:var(--wp--custom--radius--medium);padding-top:var(--wp--preset--spacing--small);padding-right:var(--wp--preset--spacing--small);padding-bottom:var(--wp--preset--spacing--large);padding-left:var(--wp--preset--spacing--small)"><!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|medium"}},"layout":{"type":"constrained"}} -->
-<div class="wp-block-group"><!-- wp:image {"aspectRatio":"3/2","linkDestination":"none","style":{"border":{"radius":"var:custom|radius|medium"}}} -->
-<figure class="wp-block-image has-custom-border"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/card-image-text-2.webp" alt="<?php esc_attr_e( 'A printed house photograph and floor plan on a pale stone work surface.', 'origin-canvas' ); ?>" style="border-radius:var(--wp--custom--radius--medium);aspect-ratio:3/2"/></figure>
+<div class="wp-block-group"><!-- wp:image {"aspectRatio":"3/2","linkDestination":"none"} -->
+<figure class="wp-block-image"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/card-image-text-2.webp" alt="<?php esc_attr_e( 'A printed house photograph and floor plan on a pale stone work surface.', 'origin-canvas' ); ?>" style="aspect-ratio:3/2"/></figure>
 <!-- /wp:image -->
 
 <!-- wp:group {"style":{"spacing":{"padding":{"left":"var:preset|spacing|medium","right":"var:preset|spacing|medium"},"blockGap":"var:preset|spacing|compact"}},"layout":{"type":"constrained"}} -->
@@ -78,8 +78,8 @@
 <!-- wp:columns {"align":"wide","verticalAlignment":"stretch","style":{"spacing":{"blockGap":{"top":"var:preset|spacing|large","left":"var:preset|spacing|large"}}}} -->
 <div class="wp-block-columns alignwide are-vertically-aligned-stretch"><!-- wp:column {"verticalAlignment":"stretch","backgroundColor":"surface-base","style":{"border":{"radius":"var:custom|radius|medium"},"spacing":{"padding":{"top":"var:preset|spacing|small","right":"var:preset|spacing|small","bottom":"var:preset|spacing|large","left":"var:preset|spacing|small"}}}} -->
 <div class="wp-block-column is-vertically-aligned-stretch has-surface-base-background-color has-background" style="border-radius:var(--wp--custom--radius--medium);padding-top:var(--wp--preset--spacing--small);padding-right:var(--wp--preset--spacing--small);padding-bottom:var(--wp--preset--spacing--large);padding-left:var(--wp--preset--spacing--small)"><!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|medium"}},"layout":{"type":"constrained"}} -->
-<div class="wp-block-group"><!-- wp:image {"aspectRatio":"3/2","linkDestination":"none","style":{"border":{"radius":"var:custom|radius|medium"}}} -->
-<figure class="wp-block-image has-custom-border"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/card-image-text-mercer-street.webp" alt="<?php esc_attr_e( 'Frame corner samples, a mat cutter, and a framed print on a framer&#8217;s workbench.', 'origin-canvas' ); ?>" style="border-radius:var(--wp--custom--radius--medium);aspect-ratio:3/2"/></figure>
+<div class="wp-block-group"><!-- wp:image {"aspectRatio":"3/2","linkDestination":"none"} -->
+<figure class="wp-block-image"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/card-image-text-mercer-street.webp" alt="<?php esc_attr_e( 'Frame corner samples, a mat cutter, and a framed print on a framer&#8217;s workbench.', 'origin-canvas' ); ?>" style="aspect-ratio:3/2"/></figure>
 <!-- /wp:image -->
 
 <!-- wp:group {"style":{"spacing":{"padding":{"left":"var:preset|spacing|medium","right":"var:preset|spacing|medium"},"blockGap":"var:preset|spacing|compact"}},"layout":{"type":"constrained"}} -->
@@ -100,8 +100,8 @@
 
 <!-- wp:column {"verticalAlignment":"stretch","backgroundColor":"surface-base","style":{"border":{"radius":"var:custom|radius|medium"},"spacing":{"padding":{"top":"var:preset|spacing|small","right":"var:preset|spacing|small","bottom":"var:preset|spacing|large","left":"var:preset|spacing|small"}}}} -->
 <div class="wp-block-column is-vertically-aligned-stretch has-surface-base-background-color has-background" style="border-radius:var(--wp--custom--radius--medium);padding-top:var(--wp--preset--spacing--small);padding-right:var(--wp--preset--spacing--small);padding-bottom:var(--wp--preset--spacing--large);padding-left:var(--wp--preset--spacing--small)"><!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|medium"}},"layout":{"type":"constrained"}} -->
-<div class="wp-block-group"><!-- wp:image {"aspectRatio":"3/2","linkDestination":"none","style":{"border":{"radius":"var:custom|radius|medium"}}} -->
-<figure class="wp-block-image has-custom-border"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/card-blog-3.webp" alt="<?php esc_attr_e( 'A notebook, paper layouts, and black-and-white prints arranged on a light studio table.', 'origin-canvas' ); ?>" style="border-radius:var(--wp--custom--radius--medium);aspect-ratio:3/2"/></figure>
+<div class="wp-block-group"><!-- wp:image {"aspectRatio":"3/2","linkDestination":"none"} -->
+<figure class="wp-block-image"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/card-blog-3.webp" alt="<?php esc_attr_e( 'A notebook, paper layouts, and black-and-white prints arranged on a light studio table.', 'origin-canvas' ); ?>" style="aspect-ratio:3/2"/></figure>
 <!-- /wp:image -->
 
 <!-- wp:group {"style":{"spacing":{"padding":{"left":"var:preset|spacing|medium","right":"var:preset|spacing|medium"},"blockGap":"var:preset|spacing|compact"}},"layout":{"type":"constrained"}} -->
