@@ -18,7 +18,7 @@ cd "$(dirname "$0")/.."
 # One "logo-name.png width" line per image, in document order, read from the inline
 # style on the img tag (filename and style share that line).
 rendered_widths() {
-	sed -nE 's|.*/(logo-[a-z-]+\.png)".*style="width:([0-9]+)px;height:auto".*|\1 \2|p' "$1"
+	sed -nE 's|.*/(logo-[a-z-]+\.png)".*style="(border-radius:0px;)?width:([0-9]+)px;height:auto".*|\1 \3|p' "$1"
 }
 
 # The image block attribute widths, in document order. Scoped to wp:image, since other
