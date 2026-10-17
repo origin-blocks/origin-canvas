@@ -118,12 +118,12 @@ foreach ( array(
 $img = array();
 foreach ( array(
 	'wireframe' => array( 'studio-wireframe-review.webp', 'Printed wireframes laid out on a table for review' ),
-	'type'      => array( 'studio-type-proofs.webp', 'Type proofs pinned up for comparison' ),
-	'review'    => array( 'studio-review.webp', 'Two of the studio reviewing work at a shared desk' ),
-	'worktable' => array( 'studio-worktable.webp', 'A studio worktable with sketches and a laptop' ),
+	'type'      => array( 'studio-type-proofs.webp', 'Three type specimens and marked-up copy on an oak table' ),
+	'review'    => array( 'studio-review.webp', 'Two people reviewing a printed wireframe and a laptop at a shared desk' ),
+	'worktable' => array( 'studio-worktable.webp', 'A studio worktable with a closed laptop, a black notebook and a fan of paint swatches' ),
 	'workshop'  => array( 'hero-cover-thistle-pine.webp', 'A woodworking shop with tools on the wall' ),
 	'meeting'   => array( 'gallery-meeting-table.webp', 'A meeting table set up for a client call' ),
-	'laptop'    => array( 'workspace-laptop.webp', 'A laptop open on a tidy desk' ),
+	'laptop'    => array( 'workspace-laptop.webp', 'A closed laptop, printed layouts and a notebook on a tidy desk' ),
 	'paper'     => array( 'gallery-paper-stock.webp', 'Paper stock samples fanned out on a desk' ),
 	'screen'    => array( 'gallery-screen-review.webp', 'A website reviewed on a large screen' ),
 	'proofs'    => array( 'gallery-proof-wall.webp', 'A wall of printed page proofs' ),

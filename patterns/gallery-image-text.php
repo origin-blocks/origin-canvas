@@ -21,7 +21,7 @@
 
 <!-- wp:group {"style":{"spacing":{"blockGap":"0"}},"layout":{"type":"default"}} -->
 <div class="wp-block-group"><!-- wp:image {"width":"100%","height":"auto","aspectRatio":"16/9","scale":"cover","sizeSlug":"large","linkDestination":"none","className":"is-style-rounded"} -->
-<figure class="wp-block-image size-large is-resized is-style-rounded"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/studio-type-proofs.webp" alt="<?php esc_attr_e( 'Printed type specimens and a marked-up page of copy on a pale worktable.', 'origin-canvas' ); ?>" style="aspect-ratio:16/9;object-fit:cover;width:100%;height:auto"/></figure>
+<figure class="wp-block-image size-large is-resized is-style-rounded"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/studio-type-proofs.webp" alt="<?php esc_attr_e( 'Three printed type specimens and a marked-up page of copy with a red pen, beside a dark stone bowl on a pale worktable.', 'origin-canvas' ); ?>" style="aspect-ratio:16/9;object-fit:cover;width:100%;height:auto"/></figure>
 <!-- /wp:image -->
 
 <!-- wp:columns {"style":{"spacing":{"margin":{"top":"var:preset|spacing|large"},"blockGap":{"top":"var:preset|spacing|compact","left":"var:preset|spacing|jumbo"}}}} -->
@@ -61,7 +61,7 @@
 
 <!-- wp:group {"style":{"spacing":{"blockGap":"0"}},"layout":{"type":"default"}} -->
 <div class="wp-block-group"><!-- wp:image {"width":"100%","height":"auto","aspectRatio":"16/9","scale":"cover","sizeSlug":"large","linkDestination":"none","className":"is-style-rounded"} -->
-<figure class="wp-block-image size-large is-resized is-style-rounded"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/desk-notebook-overhead.webp" alt="<?php esc_attr_e( 'An open sketchbook of page layouts beside a pencil and a steel ruler.', 'origin-canvas' ); ?>" style="aspect-ratio:16/9;object-fit:cover;width:100%;height:auto"/></figure>
+<figure class="wp-block-image size-large is-resized is-style-rounded"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/desk-notebook-overhead.webp" alt="<?php esc_attr_e( 'An open sketchbook with pencil drawings of a room and a floor plan, beside a pencil, a steel ruler and a black mug.', 'origin-canvas' ); ?>" style="aspect-ratio:16/9;object-fit:cover;width:100%;height:auto"/></figure>
 <!-- /wp:image -->
 
 <!-- wp:columns {"style":{"spacing":{"margin":{"top":"var:preset|spacing|large"},"blockGap":{"top":"var:preset|spacing|compact","left":"var:preset|spacing|jumbo"}}}} -->
