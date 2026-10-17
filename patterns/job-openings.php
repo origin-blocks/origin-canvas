@@ -2,7 +2,7 @@
 /**
  * Title: Job Openings
  * Slug: origin-canvas/job-openings
- * Description: A list of open roles in ruled lines, each with the location, type and a link to apply.
+ * Description: A heading with a link to every role, over a list of open roles in ruled lines, each with the location, type and a link to apply.
  * Categories: text
  * Keywords: careers, hiring, recruitment, positions, staff
  * Viewport Width: 1500
@@ -22,10 +22,14 @@
 
 ?>
 <!-- wp:group {"tagName":"section","align":"full","style":{"border":{"top":{"color":"var:preset|color|border","width":"1px"}},"spacing":{"blockGap":"0","margin":{"top":"0","bottom":"0"},"padding":{"top":"var:preset|spacing|colossal","bottom":"var:preset|spacing|colossal"}}},"layout":{"type":"constrained"}} -->
-<section class="wp-block-group alignfull" style="border-top-color:var(--wp--preset--color--border);border-top-width:1px;margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--colossal);padding-bottom:var(--wp--preset--spacing--colossal)"><!-- wp:group {"align":"wide","style":{"spacing":{"margin":{"bottom":"var:preset|spacing|huge"}}},"layout":{"type":"default"}} -->
-<div class="wp-block-group alignwide" style="margin-bottom:var(--wp--preset--spacing--huge)"><!-- wp:heading {"level":2,"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"fontSize":"display"} -->
-<h2 class="wp-block-heading has-display-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Open roles', 'origin-canvas' ); ?></h2>
-<!-- /wp:heading --></div>
+<section class="wp-block-group alignfull" style="border-top-color:var(--wp--preset--color--border);border-top-width:1px;margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--colossal);padding-bottom:var(--wp--preset--spacing--colossal)"><!-- wp:group {"align":"wide","className":"origin-canvas-align-baseline","style":{"spacing":{"margin":{"bottom":"var:preset|spacing|huge"},"blockGap":{"top":"var:preset|spacing|small","left":"var:preset|spacing|extra-large"}}},"layout":{"type":"flex","flexWrap":"wrap","justifyContent":"space-between"}} -->
+<div class="wp-block-group alignwide origin-canvas-align-baseline" style="margin-bottom:var(--wp--preset--spacing--huge)"><!-- wp:heading {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"fontSize":"huge"} -->
+<h2 class="wp-block-heading has-huge-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Open roles', 'origin-canvas' ); ?></h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph {"className":"origin-canvas-no-shrink","style":{"typography":{"fontWeight":"600"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-heading","fontSize":"small"} -->
+<p class="origin-canvas-no-shrink has-text-heading-color has-text-color has-small-font-size" style="margin-top:0;margin-bottom:0;font-weight:600"><a href="#" style="text-decoration:none"><?php echo esc_html__( 'View all open roles', 'origin-canvas' ); ?> <span aria-hidden="true">&rarr;</span></a></p>
+<!-- /wp:paragraph --></div>
 <!-- /wp:group -->
 
 <!-- wp:columns {"align":"wide","verticalAlignment":"center","style":{"border":{"top":{"color":"var:preset|color|border","width":"1px"}},"spacing":{"padding":{"top":"var:preset|spacing|large","bottom":"var:preset|spacing|large"},"blockGap":{"top":"var:preset|spacing|medium","left":"var:preset|spacing|large"}}}} -->
