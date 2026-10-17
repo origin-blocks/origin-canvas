@@ -99,6 +99,15 @@ a {
 	text-decoration: none;
 }
 
+/* Every link fades its colour in 200ms on hover and focus, the nav link and button timing.
+   theme.json holds the hover colours but has no transition property. Nav links, buttons,
+   chips and the other links with their own transition rule are more specific and keep it. */
+@media (prefers-reduced-motion: no-preference) {
+	a {
+		transition: color 200ms ease;
+	}
+}
+
 .origin-canvas-links-plain a {
 	text-decoration: none;
 }
