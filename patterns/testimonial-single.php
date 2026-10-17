@@ -2,7 +2,7 @@
 /**
  * Title: Testimonial Band Tinted
  * Slug: origin-canvas/testimonial-single
- * Description: A tinted band with a quote set left, and a portrait beside the name and role.
+ * Description: A tinted band with a centered quote, and a portrait above the name and role.
  * Categories: testimonials
  * Keywords: client, review, praise, solo
  * Viewport Width: 1500
@@ -15,31 +15,31 @@
 
 ?>
 <!-- wp:group {"tagName":"section","align":"full","backgroundColor":"surface-muted","style":{"spacing":{"margin":{"top":"0","bottom":"0"},"padding":{"top":"var:preset|spacing|colossal","bottom":"var:preset|spacing|colossal"}}},"layout":{"type":"constrained"}} -->
-<section class="wp-block-group alignfull has-surface-muted-background-color has-background" style="margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--colossal);padding-bottom:var(--wp--preset--spacing--colossal)"><!-- wp:group {"align":"wide","style":{"spacing":{"blockGap":"var:preset|spacing|large"}},"layout":{"type":"constrained","justifyContent":"left"}} -->
-<div class="wp-block-group alignwide"><!-- wp:paragraph {"className":"origin-canvas-eyebrow","style":{"typography":{"textTransform":"uppercase","fontWeight":"600","letterSpacing":"0.06em"},"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|medium"}}},"textColor":"primary","fontSize":"extra-small"} -->
-<p class="origin-canvas-eyebrow has-primary-color has-text-color has-extra-small-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--medium);font-weight:600;letter-spacing:0.06em;text-transform:uppercase"><?php echo esc_html__( 'In their words', 'origin-canvas' ); ?></p>
+<section class="wp-block-group alignfull has-surface-muted-background-color has-background" style="margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--colossal);padding-bottom:var(--wp--preset--spacing--colossal)"><!-- wp:group {"align":"wide","style":{"spacing":{"blockGap":"var:preset|spacing|large"}},"layout":{"type":"constrained","justifyContent":"center"}} -->
+<div class="wp-block-group alignwide"><!-- wp:paragraph {"className":"origin-canvas-eyebrow","style":{"typography":{"textTransform":"uppercase","fontWeight":"600","letterSpacing":"0.06em","textAlign":"center"},"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|medium"}}},"textColor":"primary","fontSize":"extra-small"} -->
+<p class="origin-canvas-eyebrow has-text-align-center has-primary-color has-text-color has-extra-small-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--medium);font-weight:600;letter-spacing:0.06em;text-transform:uppercase"><?php echo esc_html__( 'In their words', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
-<!-- wp:group {"style":{"dimensions":{"minHeight":"27px"},"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|medium"}}},"className":"origin-canvas-quote-mark"} -->
-<div class="wp-block-group origin-canvas-quote-mark" style="min-height:27px;margin-top:0;margin-bottom:var(--wp--preset--spacing--medium)"></div>
+<!-- wp:group {"style":{"dimensions":{"minHeight":"27px"},"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|medium"}}},"className":"origin-canvas-quote-mark origin-canvas-quote-mark--center"} -->
+<div class="wp-block-group origin-canvas-quote-mark origin-canvas-quote-mark--center" style="min-height:27px;margin-top:0;margin-bottom:var(--wp--preset--spacing--medium)"></div>
 <!-- /wp:group -->
 
-<!-- wp:paragraph {"style":{"typography":{"lineHeight":"1.35","fontWeight":"500"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-heading","fontSize":"huge"} -->
-<p class="has-text-heading-color has-text-color has-huge-font-size" style="margin-top:0;margin-bottom:0;font-weight:500;line-height:1.35"><?php echo esc_html__( 'They asked about our clients before they designed a thing. The site finally feels like ours.', 'origin-canvas' ); ?></p>
+<!-- wp:paragraph {"style":{"typography":{"lineHeight":"1.35","fontWeight":"500","textAlign":"center"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-heading","fontSize":"huge"} -->
+<p class="has-text-align-center has-text-heading-color has-text-color has-huge-font-size" style="margin-top:0;margin-bottom:0;font-weight:500;line-height:1.35"><?php echo esc_html__( 'They asked about our clients before they designed a thing. The site finally feels like ours.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
-<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|medium","margin":{"top":"var:preset|spacing|extra-large"}}},"layout":{"type":"flex","orientation":"vertical","justifyContent":"left","verticalAlignment":"center"}} -->
+<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|medium","margin":{"top":"var:preset|spacing|extra-large"}}},"layout":{"type":"flex","orientation":"vertical","justifyContent":"center","verticalAlignment":"center"}} -->
 <div class="wp-block-group" style="margin-top:var(--wp--preset--spacing--extra-large)"><!-- wp:image {"aspectRatio":"1","scale":"cover","width":"64px","height":"64px","sizeSlug":"full","linkDestination":"none","className":"is-style-origin-canvas-rounded-full"} -->
 <figure class="wp-block-image size-full is-resized is-style-origin-canvas-rounded-full"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/avatar-catherine-rowe.webp" alt="<?php esc_attr_e( 'Portrait of Catherine Rowe, Partner at Ashby &amp; Rowe Law.', 'origin-canvas' ); ?>" style="aspect-ratio:1;object-fit:cover;width:64px;height:64px"/></figure>
 <!-- /wp:image -->
 
 <!-- wp:group {"style":{"spacing":{"blockGap":"0"}},"layout":{"type":"constrained"}} -->
-<div class="wp-block-group"><!-- wp:paragraph {"style":{"typography":{"fontWeight":"600"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-heading","fontSize":"regular"} -->
-<p class="has-text-heading-color has-text-color has-regular-font-size" style="margin-top:0;margin-bottom:0;font-weight:600"><?php echo esc_html__( 'Catherine Rowe', 'origin-canvas' ); ?></p>
+<div class="wp-block-group"><!-- wp:paragraph {"style":{"typography":{"fontWeight":"600","textAlign":"center"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-heading","fontSize":"regular"} -->
+<p class="has-text-align-center has-text-heading-color has-text-color has-regular-font-size" style="margin-top:0;margin-bottom:0;font-weight:600"><?php echo esc_html__( 'Catherine Rowe', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
-<!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"var:preset|spacing|extra-small","bottom":"0"}},"typography":{"fontWeight":"500"}},"textColor":"text-muted","fontSize":"small"} -->
-<p class="has-text-muted-color has-text-color has-small-font-size" style="margin-top:var(--wp--preset--spacing--extra-small);margin-bottom:0;font-weight:500"><?php echo esc_html__( 'Partner, Ashby &amp; Rowe Law', 'origin-canvas' ); ?></p>
+<!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"var:preset|spacing|extra-small","bottom":"0"}},"typography":{"fontWeight":"500","textAlign":"center"}},"textColor":"text-muted","fontSize":"small"} -->
+<p class="has-text-align-center has-text-muted-color has-text-color has-small-font-size" style="margin-top:var(--wp--preset--spacing--extra-small);margin-bottom:0;font-weight:500"><?php echo esc_html__( 'Partner, Ashby &amp; Rowe Law', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group --></div>
 <!-- /wp:group --></div>
