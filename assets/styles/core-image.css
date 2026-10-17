@@ -5,9 +5,10 @@
 	flex-shrink: 0;
 }
 
-/* Rounded Full */
+/* Rounded Full. The style is a circle, so its 1:1 beats the aspect ratio an image
+   saves inline (a pattern photo at 3/2 or 4/5 would otherwise become a pill). */
 .is-style-origin-canvas-rounded-full img {
-	aspect-ratio: 1 / 1;
+	aspect-ratio: 1 / 1 !important;
 	border-radius: 9999px;
 	object-fit: cover;
 }
