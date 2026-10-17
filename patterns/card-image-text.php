@@ -55,7 +55,7 @@
 <!-- wp:column {"verticalAlignment":"stretch","backgroundColor":"surface-base","style":{"border":{"radius":"var:custom|radius|medium"},"spacing":{"padding":{"top":"var:preset|spacing|small","right":"var:preset|spacing|small","bottom":"var:preset|spacing|large","left":"var:preset|spacing|small"}}}} -->
 <div class="wp-block-column is-vertically-aligned-stretch has-surface-base-background-color has-background" style="border-radius:var(--wp--custom--radius--medium);padding-top:var(--wp--preset--spacing--small);padding-right:var(--wp--preset--spacing--small);padding-bottom:var(--wp--preset--spacing--large);padding-left:var(--wp--preset--spacing--small)"><!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|medium"}},"layout":{"type":"constrained"}} -->
 <div class="wp-block-group"><!-- wp:image {"aspectRatio":"3/2","linkDestination":"none","className":"is-style-rounded"} -->
-<figure class="wp-block-image is-style-rounded"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/card-image-text-2.webp" alt="<?php esc_attr_e( 'A printed house photograph and floor plan on a pale stone work surface.', 'origin-canvas' ); ?>" style="aspect-ratio:3/2"/></figure>
+<figure class="wp-block-image is-style-rounded"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/card-image-text-2.webp" alt="<?php esc_attr_e( 'A printed house photograph and floor plan on a pale oak desk, with a mug, a glass of water and material samples.', 'origin-canvas' ); ?>" style="aspect-ratio:3/2"/></figure>
 <!-- /wp:image -->
 
 <!-- wp:group {"style":{"spacing":{"padding":{"left":"var:preset|spacing|medium","right":"var:preset|spacing|medium"},"blockGap":"var:preset|spacing|compact"}},"layout":{"type":"constrained"}} -->
