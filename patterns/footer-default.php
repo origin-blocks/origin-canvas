@@ -81,9 +81,12 @@
 <!-- /wp:spacer -->
 <!-- wp:group {"align":"wide","className":"has-text-body-color has-text-color","style":{"spacing":{"padding":{"top":"0"}}}} -->
 <div class="wp-block-group alignwide has-text-body-color has-text-color" style="padding-top:0"><!-- wp:group {"layout":{"type":"flex","justifyContent":"space-between","verticalAlignment":"center"}} -->
-<div class="wp-block-group"><!-- wp:paragraph {"textColor":"text-body","fontSize":"small"} -->
-<p class="has-text-body-color has-text-color has-small-font-size"><?php echo esc_html__( '&copy; 2026 Origin. All rights reserved.', 'origin-canvas' ); ?></p>
-<!-- /wp:paragraph -->
+<div class="wp-block-group"><!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|extra-small"}},"layout":{"type":"flex","verticalAlignment":"center"}} -->
+<div class="wp-block-group"><!-- wp:site-title {"level":0,"isLink":false,"fontSize":"small","style":{"typography":{"fontWeight":"400","lineHeight":"1.5"}}} /-->
+<!-- wp:paragraph {"textColor":"text-body","fontSize":"small"} -->
+<p class="has-text-body-color has-text-color has-small-font-size"><?php echo esc_html__( '&copy; 2026. All rights reserved.', 'origin-canvas' ); ?></p>
+<!-- /wp:paragraph --></div>
+<!-- /wp:group -->
 <!-- wp:social-links {"iconColor":"text-body","size":"has-normal-icon-size","className":"has-icon-color is-style-logos-only","style":{"spacing":{"margin":{"right":"0","left":"0"}}},"layout":{"type":"flex","justifyContent":"right"}} -->
 <ul class="wp-block-social-links has-normal-icon-size has-icon-color is-style-logos-only" style="margin-right:0;margin-left:0"><!-- wp:social-link {"url":"#","service":"x"} /-->
 <!-- wp:social-link {"url":"#","service":"github"} /-->
