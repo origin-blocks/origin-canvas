@@ -161,38 +161,38 @@
 
 <!-- wp:group {"align":"wide","style":{"spacing":{"blockGap":"var:preset|spacing|large"}},"layout":{"type":"grid","columnCount":6,"minimumColumnWidth":"8rem"}} -->
 <div class="wp-block-group alignwide"><!-- wp:group {"layout":{"type":"flex","justifyContent":"center","verticalAlignment":"center"}} -->
-<div class="wp-block-group"><!-- wp:image {"width":"137px","height":"auto","sizeSlug":"full","linkDestination":"none","style":{"color":{"duotone":"var:preset|duotone|logo-gray"},"border":{"radius":"0px"}}} -->
-<figure class="wp-block-image size-full is-resized has-custom-border"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/logo-westmount.png" alt="<?php esc_attr_e( 'Westmount Realty', 'origin-canvas' ); ?>" style="border-radius:0px;width:137px;height:auto"/></figure>
+<div class="wp-block-group"><!-- wp:image {"width":"137px","height":"auto","sizeSlug":"full","linkDestination":"none","style":{"color":{"duotone":"var:preset|duotone|logo-gray"}}} -->
+<figure class="wp-block-image size-full is-resized"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/logo-westmount.png" alt="<?php esc_attr_e( 'Westmount Realty', 'origin-canvas' ); ?>" style="width:137px;height:auto"/></figure>
 <!-- /wp:image --></div>
 <!-- /wp:group -->
 
 <!-- wp:group {"layout":{"type":"flex","justifyContent":"center","verticalAlignment":"center"}} -->
-<div class="wp-block-group"><!-- wp:image {"width":"149px","height":"auto","sizeSlug":"full","linkDestination":"none","style":{"color":{"duotone":"var:preset|duotone|logo-gray"},"border":{"radius":"0px"}}} -->
-<figure class="wp-block-image size-full is-resized has-custom-border"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/logo-ashby-rowe.png" alt="<?php esc_attr_e( 'Ashby &amp; Rowe Law', 'origin-canvas' ); ?>" style="border-radius:0px;width:149px;height:auto"/></figure>
+<div class="wp-block-group"><!-- wp:image {"width":"149px","height":"auto","sizeSlug":"full","linkDestination":"none","style":{"color":{"duotone":"var:preset|duotone|logo-gray"}}} -->
+<figure class="wp-block-image size-full is-resized"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/logo-ashby-rowe.png" alt="<?php esc_attr_e( 'Ashby &amp; Rowe Law', 'origin-canvas' ); ?>" style="width:149px;height:auto"/></figure>
 <!-- /wp:image --></div>
 <!-- /wp:group -->
 
 <!-- wp:group {"layout":{"type":"flex","justifyContent":"center","verticalAlignment":"center"}} -->
-<div class="wp-block-group"><!-- wp:image {"width":"119px","height":"auto","sizeSlug":"full","linkDestination":"none","style":{"color":{"duotone":"var:preset|duotone|logo-gray"},"border":{"radius":"0px"}}} -->
-<figure class="wp-block-image size-full is-resized has-custom-border"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/logo-kestrel.png" alt="<?php esc_attr_e( 'Kestrel Physical Therapy', 'origin-canvas' ); ?>" style="border-radius:0px;width:119px;height:auto"/></figure>
+<div class="wp-block-group"><!-- wp:image {"width":"119px","height":"auto","sizeSlug":"full","linkDestination":"none","style":{"color":{"duotone":"var:preset|duotone|logo-gray"}}} -->
+<figure class="wp-block-image size-full is-resized"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/logo-kestrel.png" alt="<?php esc_attr_e( 'Kestrel Physical Therapy', 'origin-canvas' ); ?>" style="width:119px;height:auto"/></figure>
 <!-- /wp:image --></div>
 <!-- /wp:group -->
 
 <!-- wp:group {"layout":{"type":"flex","justifyContent":"center","verticalAlignment":"center"}} -->
-<div class="wp-block-group"><!-- wp:image {"width":"122px","height":"auto","sizeSlug":"full","linkDestination":"none","style":{"color":{"duotone":"var:preset|duotone|logo-gray"},"border":{"radius":"0px"}}} -->
-<figure class="wp-block-image size-full is-resized has-custom-border"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/logo-northgate.png" alt="<?php esc_attr_e( 'Northgate Cycle Works', 'origin-canvas' ); ?>" style="border-radius:0px;width:122px;height:auto"/></figure>
+<div class="wp-block-group"><!-- wp:image {"width":"122px","height":"auto","sizeSlug":"full","linkDestination":"none","style":{"color":{"duotone":"var:preset|duotone|logo-gray"}}} -->
+<figure class="wp-block-image size-full is-resized"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/logo-northgate.png" alt="<?php esc_attr_e( 'Northgate Cycle Works', 'origin-canvas' ); ?>" style="width:122px;height:auto"/></figure>
 <!-- /wp:image --></div>
 <!-- /wp:group -->
 
 <!-- wp:group {"metadata":{"blockVisibility":{"viewport":{"mobile":false}}},"layout":{"type":"flex","justifyContent":"center","verticalAlignment":"center"}} -->
-<div class="wp-block-group"><!-- wp:image {"width":"162px","height":"auto","sizeSlug":"full","linkDestination":"none","style":{"color":{"duotone":"var:preset|duotone|logo-gray"},"border":{"radius":"0px"}}} -->
-<figure class="wp-block-image size-full is-resized has-custom-border"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/logo-clearwater.png" alt="<?php esc_attr_e( 'Clearwater Accounting', 'origin-canvas' ); ?>" style="border-radius:0px;width:162px;height:auto"/></figure>
+<div class="wp-block-group"><!-- wp:image {"width":"162px","height":"auto","sizeSlug":"full","linkDestination":"none","style":{"color":{"duotone":"var:preset|duotone|logo-gray"}}} -->
+<figure class="wp-block-image size-full is-resized"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/logo-clearwater.png" alt="<?php esc_attr_e( 'Clearwater Accounting', 'origin-canvas' ); ?>" style="width:162px;height:auto"/></figure>
 <!-- /wp:image --></div>
 <!-- /wp:group -->
 
 <!-- wp:group {"metadata":{"blockVisibility":{"viewport":{"mobile":false}}},"layout":{"type":"flex","justifyContent":"center","verticalAlignment":"center"}} -->
-<div class="wp-block-group"><!-- wp:image {"width":"91px","height":"auto","sizeSlug":"full","linkDestination":"none","style":{"color":{"duotone":"var:preset|duotone|logo-gray"},"border":{"radius":"0px"}}} -->
-<figure class="wp-block-image size-full is-resized has-custom-border"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/logo-fairview.png" alt="<?php esc_attr_e( 'Fairview Architects', 'origin-canvas' ); ?>" style="border-radius:0px;width:91px;height:auto"/></figure>
+<div class="wp-block-group"><!-- wp:image {"width":"91px","height":"auto","sizeSlug":"full","linkDestination":"none","style":{"color":{"duotone":"var:preset|duotone|logo-gray"}}} -->
+<figure class="wp-block-image size-full is-resized"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/logo-fairview.png" alt="<?php esc_attr_e( 'Fairview Architects', 'origin-canvas' ); ?>" style="width:91px;height:auto"/></figure>
 <!-- /wp:image --></div>
 <!-- /wp:group --></div>
 <!-- /wp:group --></div>
