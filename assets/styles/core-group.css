@@ -63,8 +63,7 @@
 	width: 34px;
 }
 
-/* Centred variant. No shipped pattern uses it; it stays for saved content
-   that carries the class. */
+/* Centred variant — testimonial-single. */
 .wp-block-group.origin-canvas-quote-mark.origin-canvas-quote-mark--center {
 	margin-inline: auto !important;
 }
