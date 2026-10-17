@@ -33,8 +33,8 @@
 
 <!-- wp:group {"align":"wide","style":{"spacing":{"blockGap":{"top":"var:preset|spacing|huge","left":"var:preset|spacing|large"}}},"layout":{"type":"grid","minimumColumnWidth":"28rem"}} -->
 <div class="wp-block-group alignwide"><!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|medium"}},"layout":{"type":"default"}} -->
-<div class="wp-block-group"><!-- wp:image {"aspectRatio":"3/2","scale":"cover","sizeSlug":"full","linkDestination":"none"} -->
-<figure class="wp-block-image size-full"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/card-image-text-northgate.webp" alt="<?php esc_attr_e( 'An orange bicycle on a repair stand in a bright workshop, with tools on a pegboard behind.', 'origin-canvas' ); ?>" style="aspect-ratio:3/2;object-fit:cover"/></figure>
+<div class="wp-block-group"><!-- wp:image {"aspectRatio":"3/2","scale":"cover","sizeSlug":"full","linkDestination":"none","className":"is-style-rounded"} -->
+<figure class="wp-block-image size-full is-style-rounded"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/card-image-text-northgate.webp" alt="<?php esc_attr_e( 'An orange bicycle on a repair stand in a bright workshop, with tools on a pegboard behind.', 'origin-canvas' ); ?>" style="aspect-ratio:3/2;object-fit:cover"/></figure>
 <!-- /wp:image -->
 
 <!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|compact"}},"layout":{"type":"default"}} -->
@@ -53,8 +53,8 @@
 <!-- /wp:group -->
 
 <!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|medium"}},"layout":{"type":"default"}} -->
-<div class="wp-block-group"><!-- wp:image {"aspectRatio":"3/2","scale":"cover","sizeSlug":"full","linkDestination":"none"} -->
-<figure class="wp-block-image size-full"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/card-image-text-2.webp" alt="<?php esc_attr_e( 'A printed house photograph and floor plan on a pale stone work surface.', 'origin-canvas' ); ?>" style="aspect-ratio:3/2;object-fit:cover"/></figure>
+<div class="wp-block-group"><!-- wp:image {"aspectRatio":"3/2","scale":"cover","sizeSlug":"full","linkDestination":"none","className":"is-style-rounded"} -->
+<figure class="wp-block-image size-full is-style-rounded"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/card-image-text-2.webp" alt="<?php esc_attr_e( 'A printed house photograph and floor plan on a pale stone work surface.', 'origin-canvas' ); ?>" style="aspect-ratio:3/2;object-fit:cover"/></figure>
 <!-- /wp:image -->
 
 <!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|compact"}},"layout":{"type":"default"}} -->
@@ -73,8 +73,8 @@
 <!-- /wp:group -->
 
 <!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|medium"}},"layout":{"type":"default"}} -->
-<div class="wp-block-group"><!-- wp:image {"aspectRatio":"3/2","scale":"cover","sizeSlug":"full","linkDestination":"none"} -->
-<figure class="wp-block-image size-full"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/card-image-text-mercer-street.webp" alt="<?php esc_attr_e( 'Frame corner samples, a mat cutter, and a framed print on a framer&#8217;s workbench.', 'origin-canvas' ); ?>" style="aspect-ratio:3/2;object-fit:cover"/></figure>
+<div class="wp-block-group"><!-- wp:image {"aspectRatio":"3/2","scale":"cover","sizeSlug":"full","linkDestination":"none","className":"is-style-rounded"} -->
+<figure class="wp-block-image size-full is-style-rounded"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/card-image-text-mercer-street.webp" alt="<?php esc_attr_e( 'Frame corner samples, a mat cutter, and a framed print on a framer&#8217;s workbench.', 'origin-canvas' ); ?>" style="aspect-ratio:3/2;object-fit:cover"/></figure>
 <!-- /wp:image -->
 
 <!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|compact"}},"layout":{"type":"default"}} -->
@@ -93,8 +93,8 @@
 <!-- /wp:group -->
 
 <!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|medium"}},"layout":{"type":"default"}} -->
-<div class="wp-block-group"><!-- wp:image {"aspectRatio":"3/2","scale":"cover","sizeSlug":"full","linkDestination":"none"} -->
-<figure class="wp-block-image size-full"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/card-blog-3.webp" alt="<?php esc_attr_e( 'A notebook, paper layouts, and black-and-white prints arranged on a light studio table.', 'origin-canvas' ); ?>" style="aspect-ratio:3/2;object-fit:cover"/></figure>
+<div class="wp-block-group"><!-- wp:image {"aspectRatio":"3/2","scale":"cover","sizeSlug":"full","linkDestination":"none","className":"is-style-rounded"} -->
+<figure class="wp-block-image size-full is-style-rounded"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/card-blog-3.webp" alt="<?php esc_attr_e( 'A notebook, paper layouts, and black-and-white prints arranged on a light studio table.', 'origin-canvas' ); ?>" style="aspect-ratio:3/2;object-fit:cover"/></figure>
 <!-- /wp:image -->
 
 <!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|compact"}},"layout":{"type":"default"}} -->

@@ -654,13 +654,10 @@
 				}
 			},
 			"core/image": {
-				"border": {
-					"radius": "var(--wp--custom--radius--medium)"
-				},
 				"variations": {
 					"rounded": {
 						"border": {
-							"radius": "9999px"
+							"radius": "var(--wp--custom--radius--medium)"
 						}
 					}
 				}
