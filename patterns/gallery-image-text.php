@@ -2,7 +2,7 @@
 /**
  * Title: Gallery List
  * Slug: origin-canvas/gallery-image-text
- * Description: Photos the width of the content, one under another, each with a short title beside a description.
+ * Description: A heading with a link beside it, over photos the width of the content, one under another, each with a short title beside a description.
  * Categories: gallery
  * Keywords: story, studio, process, showcase
  * Viewport Width: 1500
@@ -15,9 +15,15 @@
 ?>
 <!-- wp:group {"tagName":"section","align":"full","style":{"spacing":{"margin":{"top":"0","bottom":"0"},"padding":{"top":"var:preset|spacing|colossal","bottom":"var:preset|spacing|colossal"}}},"layout":{"type":"constrained"}} -->
 <section class="wp-block-group alignfull" style="margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--colossal);padding-bottom:var(--wp--preset--spacing--colossal)"><!-- wp:group {"align":"wide","style":{"spacing":{"blockGap":"var:preset|spacing|jumbo"}},"layout":{"type":"default"}} -->
-<div class="wp-block-group alignwide"><!-- wp:heading {"level":2,"style":{"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|huge"}}},"fontSize":"display"} -->
-<h2 class="wp-block-heading has-display-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--huge)"><?php echo esc_html__( 'Inside the studio', 'origin-canvas' ); ?></h2>
+<div class="wp-block-group alignwide"><!-- wp:group {"className":"origin-canvas-align-baseline","style":{"spacing":{"blockGap":{"top":"var:preset|spacing|small","left":"var:preset|spacing|extra-large"}}},"layout":{"type":"flex","flexWrap":"wrap","justifyContent":"space-between"}} -->
+<div class="wp-block-group origin-canvas-align-baseline"><!-- wp:heading {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"fontSize":"huge"} -->
+<h2 class="wp-block-heading has-huge-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Inside the studio', 'origin-canvas' ); ?></h2>
 <!-- /wp:heading -->
+
+<!-- wp:paragraph {"className":"origin-canvas-no-shrink","style":{"typography":{"fontWeight":"600"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-heading","fontSize":"small"} -->
+<p class="origin-canvas-no-shrink has-text-heading-color has-text-color has-small-font-size" style="margin-top:0;margin-bottom:0;font-weight:600"><a href="#" style="text-decoration:none"><?php echo esc_html__( 'About the studio', 'origin-canvas' ); ?> <span aria-hidden="true">&rarr;</span></a></p>
+<!-- /wp:paragraph --></div>
+<!-- /wp:group -->
 
 <!-- wp:group {"style":{"spacing":{"blockGap":"0"}},"layout":{"type":"default"}} -->
 <div class="wp-block-group"><!-- wp:image {"width":"100%","height":"auto","aspectRatio":"16/9","scale":"cover","sizeSlug":"large","linkDestination":"none","className":"is-style-rounded"} -->
