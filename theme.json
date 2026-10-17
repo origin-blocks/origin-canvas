@@ -653,6 +653,18 @@
 					"fontSize": "var(--wp--preset--font-size--small)"
 				}
 			},
+			"core/image": {
+				"border": {
+					"radius": "var(--wp--custom--radius--medium)"
+				},
+				"variations": {
+					"rounded": {
+						"border": {
+							"radius": "9999px"
+						}
+					}
+				}
+			},
 			"core/navigation": {
 				"elements": {
 					"link": {
