@@ -16,6 +16,6 @@
 ?>
 <!-- wp:pattern {"slug":"origin-canvas/hero-centered-logos"} /-->
 <!-- wp:pattern {"slug":"origin-canvas/work-grid"} /-->
-<!-- wp:pattern {"slug":"origin-canvas/features-3-col-icons"} /-->
+<!-- wp:pattern {"slug":"origin-canvas/features-accordion"} /-->
 <!-- wp:pattern {"slug":"origin-canvas/testimonial-highlight-dark"} /-->
 <!-- wp:pattern {"slug":"origin-canvas/cta-band"} /-->
