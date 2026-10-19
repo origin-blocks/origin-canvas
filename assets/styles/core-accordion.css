@@ -148,6 +148,14 @@
 	text-decoration: none;
 }
 
+/* A coloured phrase after the question, made with the editor's text colour format, sets
+   at regular weight so it reads as a gloss on the question, not part of it. The editor
+   has no inline weight format, and the heading's own weight reaches the whole question,
+   so neither theme.json nor a block setting can reach the phrase alone. */
+.wp-block-accordion.is-style-origin-canvas-accordion-minimal .wp-block-accordion-heading__toggle-title > mark.has-inline-color {
+	font-weight: 400;
+}
+
 /* Core clears the outline without drawing one of its own. */
 .wp-block-accordion.is-style-origin-canvas-accordion-minimal > .wp-block-accordion-item > .wp-block-accordion-heading > .wp-block-accordion-heading__toggle:focus-visible {
 	border-radius: var(--wp--custom--radius--small);
