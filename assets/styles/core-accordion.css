@@ -148,12 +148,13 @@
 	text-decoration: none;
 }
 
-/* A coloured phrase after the question, made with the editor's text colour format, sets
-   at regular weight so it reads as a gloss on the question, not part of it. The editor
+/* A coloured note after the question, made with the editor's text colour format, sets
+   lighter than the question so it reads as a gloss on it, not part of it. The editor
    has no inline weight format, and the heading's own weight reaches the whole question,
-   so neither theme.json nor a block setting can reach the phrase alone. */
+   so neither theme.json nor a block setting can reach the note alone. The weight is
+   settings.custom.accordion.noteWeight in theme.json, so a style variation can change it. */
 .wp-block-accordion.is-style-origin-canvas-accordion-minimal .wp-block-accordion-heading__toggle-title > mark.has-inline-color {
-	font-weight: 400;
+	font-weight: var(--wp--custom--accordion--note-weight);
 }
 
 /* Core clears the outline without drawing one of its own. */
