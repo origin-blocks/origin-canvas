@@ -134,7 +134,8 @@
 :is(.wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container {
 	background: var(--wp--preset--color--surface-base);
 	border: none;
-	border-radius: 8px;
+	/* 12px: a container of hover-filled controls; the item radius 4 nests in it (12 - 8 padding) */
+	border-radius: var(--wp--custom--radius--medium-large);
 	box-shadow: var(--wp--preset--shadow--medium);
 	font-size: var(--wp--preset--font-size--small);
 	min-width: 200px;
@@ -162,7 +163,7 @@
 }
 
 :is(.wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container .wp-block-navigation-item__content {
-	border-radius: 6px;
+	border-radius: var(--wp--custom--radius--small);
 	padding: var(--wp--preset--spacing--small) var(--wp--preset--spacing--medium);
 }
 
@@ -174,7 +175,7 @@
 
 :is(.wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container .wp-block-navigation-submenu__toggle {
 	align-items: center;
-	border-radius: 6px;
+	border-radius: var(--wp--custom--radius--small);
 	display: inline-flex;
 	gap: var(--wp--preset--spacing--extra-small);
 	padding: var(--wp--preset--spacing--small);
@@ -269,7 +270,8 @@
 }
 
 :is(.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.is-style-origin-canvas-hover-pill:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container .wp-block-navigation-item {
-	border-radius: 8px;
+	/* 4px: nests in the 12px submenu card */
+	border-radius: var(--wp--custom--radius--small);
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -626,7 +628,7 @@
  * size and centring while the glyph lands exactly on the hamburger's axis.
  */
 .origin-canvas-mobile-menu .wp-block-navigation-overlay-close {
-	border-radius: 10px;
+	border-radius: var(--wp--custom--radius--medium);
 	color: var(--wp--preset--color--text-heading);
 	height: 44px;
 	margin-inline-end: -10px;

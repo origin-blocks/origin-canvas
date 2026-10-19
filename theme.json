@@ -93,6 +93,7 @@
 			"radius": {
 				"small": "4px",
 				"medium": "8px",
+				"medium-large": "12px",
 				"large": "16px"
 			},
 			"dark": {
