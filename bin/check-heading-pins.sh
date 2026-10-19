@@ -8,6 +8,12 @@
 # This fails the build if a heading-role block pins either property, or if a heading
 # sets a raw font size instead of a preset. Both have happened; see CLAUDE.md rule 7.
 #
+# One named part is allowed a weight: the note in brackets after a Minimal accordion
+# title, which is the editor's inline colour mark inside the title span. The title keeps
+# the variation's heading weight; only the note reads lighter, and its weight is the
+# custom variable settings.custom.accordion.noteWeight, so a variation can still change
+# it. The rule must name that exact selector and read that variable, nothing else.
+#
 # Run from the theme root:  bash bin/check-heading-pins.sh
 
 set -euo pipefail
@@ -188,6 +194,12 @@ RULE    = re.compile(r'([^{}]+)\{([^{}]*)\}', re.S)
 
 fail = False
 
+NOTE_SEL = (r'\.wp-block-accordion\.is-style-origin-canvas-accordion-minimal '
+            r'\.wp-block-accordion-heading__toggle-title > mark\.has-inline-color')
+NOTE_DECL = 'font-weight:var(--wp--custom--accordion--note-weight)'
+PINNED_DECL = re.compile(
+    r'(?<![\w-])(?:font-weight|letter-spacing|font|font-variation-settings)\s*:[^;}]*', re.I)
+
 COMMENT_CSS = re.compile(r'/\*.*?\*/', re.S)
 
 
@@ -218,6 +230,11 @@ def scan(css, label):
             # specificity, so each heading's own Typography controls still win
             # (CLAUDE.md rule 7). Only this exact selector is exempt.
             if re.fullmatch(r'\.origin-canvas-sidebar\s+:where\(h2\)', ' '.join(one.split())):
+                continue
+            # The accordion title note (see the header): this exact selector, and a
+            # body whose only pinned declaration is the note-weight variable.
+            if (re.fullmatch(NOTE_SEL, ' '.join(one.split()))
+                    and [re.sub(r'\s+', '', m.group(0)) for m in PINNED_DECL.finditer(body)] == [NOTE_DECL]):
                 continue
             if HEADING.search(one):
                 flat = ' '.join(one.split())
