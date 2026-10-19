@@ -2,7 +2,7 @@
 /**
  * Title: Features List
  * Slug: origin-canvas/features-accordion
- * Description: A centered heading over a stacked list of services that expand to reveal a short description, a list of what is included, the time and price, and a text link.
+ * Description: A centered heading over a stacked list of services that expand to reveal a short description beside a list of what is included, the time and price, and a text link.
  * Categories: origin-canvas/features
  * Keywords: expandable, collapsible, offerings, capabilities, toggle
  * Block Types:
@@ -35,12 +35,15 @@
 <!-- /wp:accordion-heading -->
 
 <!-- wp:accordion-panel -->
-<div role="region" class="wp-block-accordion-panel"><!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|medium"}},"layout":{"type":"constrained","justifyContent":"left"}} -->
-<div class="wp-block-group"><!-- wp:paragraph {"textColor":"text-body","fontSize":"regular-plus"} -->
+<div role="region" class="wp-block-accordion-panel"><!-- wp:columns {"verticalAlignment":"top","style":{"spacing":{"margin":{"top":"0","bottom":"0"},"blockGap":{"top":"var:preset|spacing|medium","left":"var:preset|spacing|huge"}}}} -->
+<div class="wp-block-columns are-vertically-aligned-top" style="margin-top:0;margin-bottom:0"><!-- wp:column {"verticalAlignment":"top","width":"58.33%"} -->
+<div class="wp-block-column is-vertically-aligned-top" style="flex-basis:58.33%"><!-- wp:paragraph {"textColor":"text-body","fontSize":"regular-plus"} -->
 <p class="has-text-body-color has-text-color has-regular-plus-font-size"><?php echo esc_html__( 'A mark, colors and type that hold together on a sign, a card and a screen. You comment on each draft before it is final. It suits a business whose look no longer matches its work.', 'origin-canvas' ); ?></p>
-<!-- /wp:paragraph -->
+<!-- /wp:paragraph --></div>
+<!-- /wp:column -->
 
-<!-- wp:list {"className":"is-style-origin-canvas-list-check-neutral","textColor":"text-body","fontSize":"regular"} -->
+<!-- wp:column {"verticalAlignment":"top","width":"41.67%","style":{"spacing":{"blockGap":"var:preset|spacing|medium"}}} -->
+<div class="wp-block-column is-vertically-aligned-top" style="flex-basis:41.67%"><!-- wp:list {"className":"is-style-origin-canvas-list-check-neutral","textColor":"text-body","fontSize":"regular"} -->
 <ul class="wp-block-list is-style-origin-canvas-list-check-neutral has-text-body-color has-text-color has-regular-font-size"><!-- wp:list-item -->
 <li><?php echo esc_html__( 'A mark and a wordmark', 'origin-canvas' ); ?></li>
 <!-- /wp:list-item -->
@@ -61,7 +64,8 @@
 <!-- wp:paragraph {"style":{"typography":{"fontWeight":"600"}},"textColor":"text-heading","fontSize":"regular"} -->
 <p class="has-text-heading-color has-text-color has-regular-font-size" style="font-weight:600"><a href="#" style="text-decoration:none"><?php echo esc_html__( 'See identity work', 'origin-canvas' ); ?> <span aria-hidden="true">&rarr;</span></a></p>
 <!-- /wp:paragraph --></div>
-<!-- /wp:group --></div>
+<!-- /wp:column --></div>
+<!-- /wp:columns --></div>
 <!-- /wp:accordion-panel --></div>
 <!-- /wp:accordion-item -->
 
@@ -71,12 +75,15 @@
 <!-- /wp:accordion-heading -->
 
 <!-- wp:accordion-panel -->
-<div role="region" class="wp-block-accordion-panel"><!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|medium"}},"layout":{"type":"constrained","justifyContent":"left"}} -->
-<div class="wp-block-group"><!-- wp:paragraph {"textColor":"text-body","fontSize":"regular-plus"} -->
+<div role="region" class="wp-block-accordion-panel"><!-- wp:columns {"verticalAlignment":"top","style":{"spacing":{"margin":{"top":"0","bottom":"0"},"blockGap":{"top":"var:preset|spacing|medium","left":"var:preset|spacing|huge"}}}} -->
+<div class="wp-block-columns are-vertically-aligned-top" style="margin-top:0;margin-bottom:0"><!-- wp:column {"verticalAlignment":"top","width":"58.33%"} -->
+<div class="wp-block-column is-vertically-aligned-top" style="flex-basis:58.33%"><!-- wp:paragraph {"textColor":"text-body","fontSize":"regular-plus"} -->
 <p class="has-text-body-color has-text-color has-regular-plus-font-size"><?php echo esc_html__( 'A site with the pages you need and a clear way for customers to reach you. We design around your copy and check every page on phones and desktops. It suits a business that has outgrown its site.', 'origin-canvas' ); ?></p>
-<!-- /wp:paragraph -->
+<!-- /wp:paragraph --></div>
+<!-- /wp:column -->
 
-<!-- wp:list {"className":"is-style-origin-canvas-list-check-neutral","textColor":"text-body","fontSize":"regular"} -->
+<!-- wp:column {"verticalAlignment":"top","width":"41.67%","style":{"spacing":{"blockGap":"var:preset|spacing|medium"}}} -->
+<div class="wp-block-column is-vertically-aligned-top" style="flex-basis:41.67%"><!-- wp:list {"className":"is-style-origin-canvas-list-check-neutral","textColor":"text-body","fontSize":"regular"} -->
 <ul class="wp-block-list is-style-origin-canvas-list-check-neutral has-text-body-color has-text-color has-regular-font-size"><!-- wp:list-item -->
 <li><?php echo esc_html__( 'An hour of training for your team', 'origin-canvas' ); ?></li>
 <!-- /wp:list-item -->
@@ -97,7 +104,8 @@
 <!-- wp:paragraph {"style":{"typography":{"fontWeight":"600"}},"textColor":"text-heading","fontSize":"regular"} -->
 <p class="has-text-heading-color has-text-color has-regular-font-size" style="font-weight:600"><a href="#" style="text-decoration:none"><?php echo esc_html__( 'See website work', 'origin-canvas' ); ?> <span aria-hidden="true">&rarr;</span></a></p>
 <!-- /wp:paragraph --></div>
-<!-- /wp:group --></div>
+<!-- /wp:column --></div>
+<!-- /wp:columns --></div>
 <!-- /wp:accordion-panel --></div>
 <!-- /wp:accordion-item -->
 
@@ -107,12 +115,15 @@
 <!-- /wp:accordion-heading -->
 
 <!-- wp:accordion-panel -->
-<div role="region" class="wp-block-accordion-panel"><!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|medium"}},"layout":{"type":"constrained","justifyContent":"left"}} -->
-<div class="wp-block-group"><!-- wp:paragraph {"textColor":"text-body","fontSize":"regular-plus"} -->
+<div role="region" class="wp-block-accordion-panel"><!-- wp:columns {"verticalAlignment":"top","style":{"spacing":{"margin":{"top":"0","bottom":"0"},"blockGap":{"top":"var:preset|spacing|medium","left":"var:preset|spacing|huge"}}}} -->
+<div class="wp-block-columns are-vertically-aligned-top" style="margin-top:0;margin-bottom:0"><!-- wp:column {"verticalAlignment":"top","width":"58.33%"} -->
+<div class="wp-block-column is-vertically-aligned-top" style="flex-basis:58.33%"><!-- wp:paragraph {"textColor":"text-body","fontSize":"regular-plus"} -->
 <p class="has-text-body-color has-text-color has-regular-plus-font-size"><?php echo esc_html__( 'Copy that sounds like you, for a new site or the one you have. We start with a call, then send each page for your comments. It suits owners who know their trade but not how to write about it.', 'origin-canvas' ); ?></p>
-<!-- /wp:paragraph -->
+<!-- /wp:paragraph --></div>
+<!-- /wp:column -->
 
-<!-- wp:list {"className":"is-style-origin-canvas-list-check-neutral","textColor":"text-body","fontSize":"regular"} -->
+<!-- wp:column {"verticalAlignment":"top","width":"41.67%","style":{"spacing":{"blockGap":"var:preset|spacing|medium"}}} -->
+<div class="wp-block-column is-vertically-aligned-top" style="flex-basis:41.67%"><!-- wp:list {"className":"is-style-origin-canvas-list-check-neutral","textColor":"text-body","fontSize":"regular"} -->
 <ul class="wp-block-list is-style-origin-canvas-list-check-neutral has-text-body-color has-text-color has-regular-font-size"><!-- wp:list-item -->
 <li><?php echo esc_html__( 'Headlines, page copy and button labels', 'origin-canvas' ); ?></li>
 <!-- /wp:list-item -->
@@ -133,7 +144,8 @@
 <!-- wp:paragraph {"style":{"typography":{"fontWeight":"600"}},"textColor":"text-heading","fontSize":"regular"} -->
 <p class="has-text-heading-color has-text-color has-regular-font-size" style="font-weight:600"><a href="#" style="text-decoration:none"><?php echo esc_html__( 'See copy samples', 'origin-canvas' ); ?> <span aria-hidden="true">&rarr;</span></a></p>
 <!-- /wp:paragraph --></div>
-<!-- /wp:group --></div>
+<!-- /wp:column --></div>
+<!-- /wp:columns --></div>
 <!-- /wp:accordion-panel --></div>
 <!-- /wp:accordion-item -->
 
@@ -143,12 +155,15 @@
 <!-- /wp:accordion-heading -->
 
 <!-- wp:accordion-panel -->
-<div role="region" class="wp-block-accordion-panel"><!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|medium"}},"layout":{"type":"constrained","justifyContent":"left"}} -->
-<div class="wp-block-group"><!-- wp:paragraph {"textColor":"text-body","fontSize":"regular-plus"} -->
+<div role="region" class="wp-block-accordion-panel"><!-- wp:columns {"verticalAlignment":"top","style":{"spacing":{"margin":{"top":"0","bottom":"0"},"blockGap":{"top":"var:preset|spacing|medium","left":"var:preset|spacing|huge"}}}} -->
+<div class="wp-block-columns are-vertically-aligned-top" style="margin-top:0;margin-bottom:0"><!-- wp:column {"verticalAlignment":"top","width":"58.33%"} -->
+<div class="wp-block-column is-vertically-aligned-top" style="flex-basis:58.33%"><!-- wp:paragraph {"textColor":"text-body","fontSize":"regular-plus"} -->
 <p class="has-text-body-color has-text-color has-regular-plus-font-size"><?php echo esc_html__( 'We look after the site once it is live, so small jobs never pile up. Send us a request when you need an update or fix. It suits a business whose site changes often.', 'origin-canvas' ); ?></p>
-<!-- /wp:paragraph -->
+<!-- /wp:paragraph --></div>
+<!-- /wp:column -->
 
-<!-- wp:list {"className":"is-style-origin-canvas-list-check-neutral","textColor":"text-body","fontSize":"regular"} -->
+<!-- wp:column {"verticalAlignment":"top","width":"41.67%","style":{"spacing":{"blockGap":"var:preset|spacing|medium"}}} -->
+<div class="wp-block-column is-vertically-aligned-top" style="flex-basis:41.67%"><!-- wp:list {"className":"is-style-origin-canvas-list-check-neutral","textColor":"text-body","fontSize":"regular"} -->
 <ul class="wp-block-list is-style-origin-canvas-list-check-neutral has-text-body-color has-text-color has-regular-font-size"><!-- wp:list-item -->
 <li><?php echo esc_html__( 'Updates, fixes and new pages', 'origin-canvas' ); ?></li>
 <!-- /wp:list-item -->
@@ -169,7 +184,8 @@
 <!-- wp:paragraph {"style":{"typography":{"fontWeight":"600"}},"textColor":"text-heading","fontSize":"regular"} -->
 <p class="has-text-heading-color has-text-color has-regular-font-size" style="font-weight:600"><a href="#" style="text-decoration:none"><?php echo esc_html__( 'See care plans', 'origin-canvas' ); ?> <span aria-hidden="true">&rarr;</span></a></p>
 <!-- /wp:paragraph --></div>
-<!-- /wp:group --></div>
+<!-- /wp:column --></div>
+<!-- /wp:columns --></div>
 <!-- /wp:accordion-panel --></div>
 <!-- /wp:accordion-item --></div>
 <!-- /wp:accordion --></section>
