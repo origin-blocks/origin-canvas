@@ -18,7 +18,7 @@
 <section class="wp-block-group alignfull has-surface-muted-background-color has-background" style="padding-top:var(--wp--preset--spacing--colossal);padding-bottom:var(--wp--preset--spacing--colossal)"><!-- wp:columns {"align":"wide","verticalAlignment":"center","style":{"spacing":{"blockGap":{"top":"var:preset|spacing|extra-large","left":"var:preset|spacing|jumbo"}}}} -->
 <div class="wp-block-columns alignwide are-vertically-aligned-center"><!-- wp:column {"verticalAlignment":"center","width":"50%"} -->
 <div class="wp-block-column is-vertically-aligned-center" style="flex-basis:50%"><!-- wp:image {"aspectRatio":"16/9","scale":"cover","sizeSlug":"full","linkDestination":"none","className":"is-style-rounded"} -->
-<figure class="wp-block-image size-full is-style-rounded"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/studio-review.webp" alt="<?php esc_attr_e( 'Two people at an oak table: one types on a laptop, the other marks up a printed website wireframe, with a black mug beside them.', 'origin-canvas' ); ?>" style="aspect-ratio:16/9;object-fit:cover"/></figure>
+<figure class="wp-block-image size-full is-style-rounded"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/studio-review.webp" alt="<?php esc_attr_e( 'A Calder Veterinary appointment card filled in for Wednesday, November 4 at 10:30 am, beside a holder of new cards on the reception counter.', 'origin-canvas' ); ?>" style="aspect-ratio:16/9;object-fit:cover"/></figure>
 <!-- /wp:image --></div>
 <!-- /wp:column -->
 

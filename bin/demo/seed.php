@@ -117,17 +117,17 @@ foreach ( array(
 
 $img = array();
 foreach ( array(
-	'wireframe' => array( 'studio-wireframe-review.webp', 'Printed wireframes laid out on a table for review' ),
-	'type'      => array( 'studio-type-proofs.webp', 'Three type specimens and marked-up copy on an oak table' ),
-	'review'    => array( 'studio-review.webp', 'Two people reviewing a printed wireframe and a laptop at a shared desk' ),
-	'worktable' => array( 'studio-worktable.webp', 'A studio worktable with a closed laptop, a black notebook and a fan of paint swatches' ),
-	'workshop'  => array( 'hero-cover-thistle-pine.webp', 'A woodworking shop with tools on the wall' ),
-	'meeting'   => array( 'gallery-meeting-table.webp', 'A meeting table set up for a client call' ),
-	'laptop'    => array( 'workspace-laptop.webp', 'A closed laptop, printed layouts and a notebook on a tidy desk' ),
-	'paper'     => array( 'gallery-paper-stock.webp', 'Paper stock samples fanned out on a desk' ),
-	'screen'    => array( 'gallery-screen-review.webp', 'A website reviewed on a large screen' ),
-	'proofs'    => array( 'gallery-proof-wall.webp', 'A wall of printed page proofs' ),
-	'layouts'   => array( 'studio-one-project.webp', 'Three printed page layouts marked up on a desk' ),
+	'wireframe'  => array( 'studio-wireframe-review.webp', 'Three printed Kestrel website wireframes on a treatment table in the clinic, with a pen note to make the top image smaller' ),
+	'stationery' => array( 'studio-worktable.webp', 'The Ashby & Rowe stationery in window light: a letter, an envelope, a business card, a compliments slip and four color chips' ),
+	'door'       => array( 'gallery-paper-stock.webp', 'The oxblood front door of Ashby & Rowe in an old brick wall, with a brass name plaque beside it' ),
+	'sketch'     => array( 'desk-notebook-overhead.webp', 'A pencil wireframe of the Northgate Cycle Works home page taped to a grey table, with a pink sticky note' ),
+	'studio'     => array( 'workspace-laptop.webp', 'The studio inside a converted warehouse: desks with monitors, a pinboard and a large-format printer' ),
+	'workshop'   => array( 'hero-cover-thistle-pine.webp', 'Walnut and ash boards on a steel rack behind a maple workbench in a woodshop' ),
+	'brief'      => array( 'card-blog-1.webp', 'A printed Kestrel Physical Therapy website brief on a clipboard, with blue pen notes' ),
+	'street'     => array( 'card-blog-3.webp', 'The studio, a white-painted brick warehouse, seen from the street in late sun, with lit desks behind its glass roll-up door' ),
+	'folder'     => array( 'gallery-guidelines.webp', 'A green Clearwater Accounting tax folder on a walnut meeting table, with a legal pad of figures' ),
+	'sign'       => array( 'gallery-screen-review.webp', 'A blue Westmount Realty for-sale sign on the lawn of a brick ranch house' ),
+	'layouts'    => array( 'studio-one-project.webp', 'Three printed page layouts marked up on a desk' ),
 ) as $key => $image ) {
 	$img[ $key ] = oc_demo_import_image( $image[0], $image[1] );
 }
@@ -235,7 +235,7 @@ $posts = array(
 		'author'  => 'claire',
 		'cat'     => 'web',
 		'tags'    => array( 'process', 'launch', 'client work' ),
-		'image'   => 'wireframe',
+		'image'   => 'studio',
 		'excerpt' => 'The plan we send every client before they sign, week by week, with the parts that tend to move.',
 		'content' => $long,
 	),
@@ -246,13 +246,13 @@ $posts = array(
 		'author'  => 'marcus',
 		'cat'     => 'brand',
 		'tags'    => array( 'type', 'client work' ),
-		'image'   => 'type',
+		'image'   => 'stationery',
 		'content' => implode(
 			"\n\n",
 			array(
 				oc_demo_p( 'Ashby &amp; Rowe Law asked for an identity that looked settled without looking old. We tested eleven pairings over two weeks and kept two faces: a serif for headings and letters, and a sans for forms and the website&#8217;s small text.' ),
 				oc_demo_p( 'The deciding test was their own correspondence. We set three real client letters in each pairing and printed them on the firm&#8217;s paper, and the partners chose from the stack in under ten minutes.' ),
-				oc_demo_image( $img['proofs'] ),
+				oc_demo_image( $img['door'] ),
 				oc_demo_p( 'Two faces covers everything the firm sends, from engagement letters to the sign on the door, and it keeps the license cost to one renewal a year.' ),
 			)
 		),
@@ -264,7 +264,7 @@ $posts = array(
 		'author'  => 'hannah',
 		'cat'     => 'studio',
 		'tags'    => array( 'copywriting', 'process' ),
-		'image'   => 'review',
+		'image'   => 'sketch',
 		'content' => implode(
 			"\n\n",
 			array(
@@ -281,7 +281,7 @@ $posts = array(
 		'author'  => 'claire',
 		'cat'     => 'studio',
 		'tags'    => array( 'pricing', 'small business' ),
-		'image'   => 'worktable',
+		'image'   => 'street',
 		'content' => implode(
 			"\n\n",
 			array(
@@ -328,7 +328,7 @@ $posts = array(
 		'author'  => 'hannah',
 		'cat'     => 'studio',
 		'tags'    => array( 'process', 'small business' ),
-		'image'   => 'meeting',
+		'image'   => 'brief',
 		'content' => implode(
 			"\n\n",
 			array(
@@ -355,7 +355,7 @@ $posts = array(
 		'author'  => 'marcus',
 		'cat'     => 'web',
 		'tags'    => array( 'launch', 'client work' ),
-		'image'   => 'laptop',
+		'image'   => 'wireframe',
 		'content' => implode(
 			"\n\n",
 			array(
@@ -371,7 +371,7 @@ $posts = array(
 		'author'  => 'hannah',
 		'cat'     => 'brand',
 		'tags'    => array( 'color', 'print' ),
-		'image'   => 'paper',
+		'image'   => 'folder',
 		'content' => implode(
 			"\n\n",
 			array(
@@ -387,7 +387,7 @@ $posts = array(
 		'author'  => 'claire',
 		'cat'     => 'web',
 		'tags'    => array( 'launch', 'small business' ),
-		'image'   => 'screen',
+		'image'   => 'sign',
 		'content' => implode(
 			"\n\n",
 			array(
