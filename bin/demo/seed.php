@@ -124,7 +124,7 @@ foreach ( array(
 	'studio'     => array( 'workspace-laptop.webp', 'The studio inside a converted warehouse: desks with monitors, a pinboard and a large-format printer' ),
 	'workshop'   => array( 'hero-cover-thistle-pine.webp', 'Walnut and ash boards on a steel rack behind a maple workbench in a woodshop' ),
 	'brief'      => array( 'card-blog-1.webp', 'A printed Kestrel Physical Therapy website brief on a clipboard, with blue pen notes' ),
-	'card'       => array( 'studio-review.webp', 'A Calder Veterinary appointment card filled in for Wednesday, November 4 at 10:30 am, on the reception counter' ),
+	'street'     => array( 'card-blog-3.webp', 'The studio, a white-painted brick warehouse, seen from the street in late sun, with lit desks behind its glass roll-up door' ),
 	'folder'     => array( 'gallery-guidelines.webp', 'A green Clearwater Accounting tax folder on a walnut meeting table, with a legal pad of figures' ),
 	'sign'       => array( 'gallery-screen-review.webp', 'A blue Westmount Realty for-sale sign on the lawn of a brick ranch house' ),
 	'layouts'    => array( 'studio-one-project.webp', 'Three printed page layouts marked up on a desk' ),
@@ -235,7 +235,7 @@ $posts = array(
 		'author'  => 'claire',
 		'cat'     => 'web',
 		'tags'    => array( 'process', 'launch', 'client work' ),
-		'image'   => 'sketch',
+		'image'   => 'studio',
 		'excerpt' => 'The plan we send every client before they sign, week by week, with the parts that tend to move.',
 		'content' => $long,
 	),
@@ -264,7 +264,7 @@ $posts = array(
 		'author'  => 'hannah',
 		'cat'     => 'studio',
 		'tags'    => array( 'copywriting', 'process' ),
-		'image'   => 'brief',
+		'image'   => 'sketch',
 		'content' => implode(
 			"\n\n",
 			array(
@@ -281,7 +281,7 @@ $posts = array(
 		'author'  => 'claire',
 		'cat'     => 'studio',
 		'tags'    => array( 'pricing', 'small business' ),
-		'image'   => 'folder',
+		'image'   => 'street',
 		'content' => implode(
 			"\n\n",
 			array(
@@ -328,7 +328,7 @@ $posts = array(
 		'author'  => 'hannah',
 		'cat'     => 'studio',
 		'tags'    => array( 'process', 'small business' ),
-		'image'   => 'studio',
+		'image'   => 'brief',
 		'content' => implode(
 			"\n\n",
 			array(
@@ -371,7 +371,7 @@ $posts = array(
 		'author'  => 'hannah',
 		'cat'     => 'brand',
 		'tags'    => array( 'color', 'print' ),
-		'image'   => 'card',
+		'image'   => 'folder',
 		'content' => implode(
 			"\n\n",
 			array(
