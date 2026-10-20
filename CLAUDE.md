@@ -359,14 +359,15 @@ readme, guides and docs follow `voice.md` and `docs.md`; names follow `brands/or
 pattern title, description, keyword and category rules in this file stay here. Add writing rules
 to the guide, never here.
 
-## Every ruling becomes code, a check or an issue
-A round is not done until every owner decision in it lives in the code, in a check, or in a
-GitHub issue in this repo, in the same step as the change. Private rationale goes in a private
+## Every design decision becomes code, a check or an issue
+A round is not done until every design decision in it (the owner's, or one made under the owner's
+standing instructions) lives in the code, in a check, or in a GitHub issue in this repo, in the
+same step as the change. Private rationale goes in a private
 issue outside this repo.
 
 - No decision lives only in a scratch folder, a chat or an agent's memory.
-- Merge gate: before any branch merges, the reviewer matches every commit that cites an owner
-  ruling against the code, check or issue that holds it. If none does, the merge stops.
+- Merge gate: before any branch merges, the reviewer matches every commit that cites a ruling or
+  decision against the code, check or issue that holds it. If none does, the merge stops.
 - Never commit design notes, lessons or an archive to this repo.
 
 ## Sources of truth
