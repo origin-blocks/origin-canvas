@@ -5,6 +5,20 @@ patterns live in `patterns/*.php`; each is a PHP file whose doc-block header reg
 and whose body is block markup. This file's rules are BINDING — read them before creating,
 renaming, or recategorizing any pattern.
 
+## Who the design is for
+The business plan is the one source for audience, brand and look (private, outside this
+repo: `brand.md` and `design.md`). This summary follows it; where they differ, the plan wins.
+Read the plan before any design decision that changes a visual value.
+
+- **Audience:** solo builders, freelancers and small teams who build WordPress sites, for
+  clients or for themselves; small agencies are next.
+- **Surfaces:** the theme's frame, setup and docs are judged for that builder. Demo pages and
+  patterns are judged for the visitors of the business the page portrays (an attorney's
+  clients, a gym's new members) and for the job of each row. When the business is unknown,
+  check contrasting real uses; never impose Origin's own look.
+- **Before changing a visual value:** name the reader and the surface, look at the change on
+  the real page, and say what the reader gains. Fitting a scale is not a reason.
+
 ## Where rules and notes live
 - Design rules live in ODS, the shared design system. It is private and lives outside this repo.
 - Mechanical rules are enforced by `bin/check-*.sh`.
