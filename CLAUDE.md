@@ -8,7 +8,7 @@ renaming, or recategorizing any pattern.
 ## Who the design is for
 The business plan's `brand.md` (private, outside this repo) is the one source for who the
 design is for and the brand's character; this summary follows it, and where they differ it
-wins. Design rules live in ODS, not in the business plan.
+wins. The shared design principles live outside this repo, not in the business plan.
 
 - **Audience:** solo builders, freelancers and small teams who build WordPress sites, for
   clients or for themselves; small agencies are next.
@@ -20,10 +20,11 @@ wins. Design rules live in ODS, not in the business plan.
   the real page, and say what the reader gains. Fitting a scale is not a reason.
 
 ## Where rules and notes live
-- Design rules live in ODS, the shared design system. It is private and lives outside this repo.
+- The shared design principles are private and live outside this repo.
+- Canvas design decisions live in the code, in `bin/check-*.sh` and in this repo's GitHub issues.
 - Mechanical rules are enforced by `bin/check-*.sh`.
-- Private Canvas design and engineering notes live outside this repo. Record new traps there,
-  never in a file in this repo.
+- Record a new trap as a check, a code comment or an issue. Private detail goes in a private issue
+  outside this repo, never in a file here.
 - Never commit design notes or lessons to the repo.
 - Report verification honestly: name the method of each check, and list any check not done.
 
@@ -85,7 +86,7 @@ that contains a CTA is `hero` (1), not `call-to-action` (14); a pricing table wi
 introduces them — registering or using a category outside this fixed set is forbidden.
 
 ### 3. Names — role-based, never page-scoped
-Section names, titles, descriptions and keywords follow ODS `RULES.md` "Pattern names": job, then
+Section names, titles, descriptions and keywords follow this rule: job, then
 layout, then style, and never a position or page word in a name or description. Keywords may carry
 true use words ("about page", "introduction"). A shipped slug is never renamed.
 
@@ -146,7 +147,7 @@ Per-field rules:
   (registered via `register_block_pattern` in `functions.php`) and the theme landing page's own
   showcase sections (`pattern-showcase`, `style-variations`, `template-showcase`, `token-system`,
   `product-grid`), which only `page-landing-01` places, and retired patterns (`breath-statement`),
-  which keep their file and slug until a major version deletes them (ODS "Pattern names").
+  which keep their file and slug until a major version deletes them.
 - **Keywords:** 3–6 comma-separated terms a user might *type* that are **not already** in the
   Title, Slug, Description, or Category — synonyms, alternate names, content words and true
   use words (rule 3). Never repeat a word that already appears in those fields: WordPress joins
@@ -358,16 +359,16 @@ readme, guides and docs follow `voice.md` and `docs.md`; names follow `brands/or
 pattern title, description, keyword and category rules in this file stay here. Add writing rules
 to the guide, never here.
 
-## Record every ruling
-A round is not done until every owner decision in it is written down. A shared rule goes in ODS
-`RULES.md`. A Canvas-only decision goes in the private Canvas notes. Both live outside this repo.
+## Every design decision becomes code, a check or an issue
+A round is not done until every design decision in it (the owner's, or one made under the owner's
+standing instructions) lives in the code, in a check, or in a GitHub issue in this repo, in the
+same step as the change. Private rationale goes in a private
+issue outside this repo.
 
-- Write it in the same step as the code change.
-- Replace the old line. Never add "superseded" lines. Move history to the private archive.
 - No decision lives only in a scratch folder, a chat or an agent's memory.
-- Merge gate: before any branch merges, the reviewer (Codex) matches every commit that cites an owner
-  ruling against ODS and the private notes. If one is not recorded, the merge stops.
-- Never commit design notes, lessons or the archive to this repo. They are private.
+- Merge gate: before any branch merges, the reviewer matches every commit that cites a ruling or
+  decision against the code, check or issue that holds it. If none does, the merge stops.
+- Never commit design notes, lessons or an archive to this repo.
 
 ## Sources of truth
 Pattern roadmap: GitHub issues labelled `pattern`, grouped by batch milestone at
