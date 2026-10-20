@@ -2,8 +2,8 @@
 /**
  * Text color: every text role the theme ships, on every ground it sits on, in the type it is
  * set in. Specimens are blocks taken from the registered patterns; sources are found as the
- * page renders. Ends with "Rules vs runtime": where ODS RULES.md or the private Canvas notes
- * (kept outside this repo) disagree with the shipped theme. Listed, not fixed.
+ * page renders. Ends with "Rules vs runtime":
+ * where the earlier written rules (now GitHub issues) disagreed with the shipped theme. Listed, not fixed.
  *
  * @package Origin
  */
@@ -410,7 +410,7 @@ $oc_ds_roles   = array(
 	</div>
 
 	<h3 class="has-large-font-size">Rules vs runtime</h3>
-	<p class="ocds-intent has-text-body-color has-text-color">Where ODS <code>RULES.md</code> or the private Canvas notes disagree with the shipped theme. Listed for a decision; nothing here changes the theme. File and line numbers are read from the active theme as the page renders.</p>
+	<p class="ocds-intent has-text-body-color has-text-color">Where the earlier written rules disagreed with the shipped theme. Each item is now tracked as a GitHub issue in this repo; nothing here changes the theme. File and line numbers are read from the active theme as the page renders.</p>
 	<ol class="ocds-rvr has-text-body-color has-text-color">
 		<li><strong>Secondary text on dark bands.</strong> The notes set it at on-dark 72%. Shipped: 72% in <?php echo esc_html( oc_demo_ds_uses_text( oc_demo_ds_uses( 'dark--text) 72%' ) ) ); ?>; 65% in <?php echo esc_html( oc_demo_ds_uses_text( oc_demo_ds_uses( 'dark--text) 65%' ) ) ); ?>; 62% in <?php echo esc_html( oc_demo_ds_uses_text( oc_demo_ds_uses( 'dark--text) 62%' ) ) ); ?>; 50% in <?php echo esc_html( oc_demo_ds_uses_text( oc_demo_ds_uses( 'dark--text) 50%' ) ) ); ?>.</li>
 		<li><strong>The faded half of the dark stat band statement.</strong> RULES, "Light and dark" (Ruled, Oct 8): that faint second half is a defect, and each product fixes it with an existing token. Shipped: an inline <code>opacity:0.72</code> span in <?php echo esc_html( oc_demo_ds_block( 'stat-band-dark', array( 'contains' => 'opacity:' ) )['src'] ); ?>. It paints close to on-dark 72%, but by opacity, not a token; see its tile for the measured ratio.</li>
