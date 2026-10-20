@@ -118,7 +118,7 @@ foreach ( array(
 $img = array();
 foreach ( array(
 	'wireframe'  => array( 'studio-wireframe-review.webp', 'Three printed Kestrel website wireframes on a treatment table in the clinic, with a pen note to make the top image smaller' ),
-	'stationery' => array( 'studio-worktable.webp', 'The Ashby & Rowe stationery in window light: a letter, envelopes, a business card, a compliments slip and four color chips' ),
+	'stationery' => array( 'studio-worktable.webp', 'The Ashby & Rowe stationery in window light: a letter, an envelope, a business card, a compliments slip and four color chips' ),
 	'door'       => array( 'gallery-paper-stock.webp', 'The oxblood front door of Ashby & Rowe in an old brick wall, with a brass name plaque beside it' ),
 	'sketch'     => array( 'desk-notebook-overhead.webp', 'A pencil wireframe of the Northgate Cycle Works home page taped to a grey table, with a pink sticky note' ),
 	'studio'     => array( 'workspace-laptop.webp', 'The studio inside a converted warehouse: desks with monitors, a pinboard and a large-format printer' ),
@@ -235,7 +235,7 @@ $posts = array(
 		'author'  => 'claire',
 		'cat'     => 'web',
 		'tags'    => array( 'process', 'launch', 'client work' ),
-		'image'   => 'wireframe',
+		'image'   => 'sketch',
 		'excerpt' => 'The plan we send every client before they sign, week by week, with the parts that tend to move.',
 		'content' => $long,
 	),
@@ -264,7 +264,7 @@ $posts = array(
 		'author'  => 'hannah',
 		'cat'     => 'studio',
 		'tags'    => array( 'copywriting', 'process' ),
-		'image'   => 'sketch',
+		'image'   => 'brief',
 		'content' => implode(
 			"\n\n",
 			array(
@@ -281,7 +281,7 @@ $posts = array(
 		'author'  => 'claire',
 		'cat'     => 'studio',
 		'tags'    => array( 'pricing', 'small business' ),
-		'image'   => 'studio',
+		'image'   => 'folder',
 		'content' => implode(
 			"\n\n",
 			array(
@@ -328,7 +328,7 @@ $posts = array(
 		'author'  => 'hannah',
 		'cat'     => 'studio',
 		'tags'    => array( 'process', 'small business' ),
-		'image'   => 'brief',
+		'image'   => 'studio',
 		'content' => implode(
 			"\n\n",
 			array(
@@ -355,7 +355,7 @@ $posts = array(
 		'author'  => 'marcus',
 		'cat'     => 'web',
 		'tags'    => array( 'launch', 'client work' ),
-		'image'   => 'card',
+		'image'   => 'wireframe',
 		'content' => implode(
 			"\n\n",
 			array(
@@ -371,7 +371,7 @@ $posts = array(
 		'author'  => 'hannah',
 		'cat'     => 'brand',
 		'tags'    => array( 'color', 'print' ),
-		'image'   => 'folder',
+		'image'   => 'card',
 		'content' => implode(
 			"\n\n",
 			array(
