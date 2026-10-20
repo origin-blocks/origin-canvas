@@ -6,9 +6,9 @@ and whose body is block markup. This file's rules are BINDING — read them befo
 renaming, or recategorizing any pattern.
 
 ## Who the design is for
-The business plan is the one source for audience, brand and look (private, outside this
-repo: `brand.md` and `design.md`). This summary follows it; where they differ, the plan wins.
-Read the plan before any design decision that changes a visual value.
+The business plan's `brand.md` (private, outside this repo) is the one source for who the
+design is for and the brand's character; this summary follows it, and where they differ it
+wins. Design rules live in ODS, not in the business plan.
 
 - **Audience:** solo builders, freelancers and small teams who build WordPress sites, for
   clients or for themselves; small agencies are next.
