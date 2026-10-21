@@ -80,7 +80,7 @@ Pattern image "Ben Carter team card portrait" (patterns/images/portrait-ben-cart
 
 Pattern image "Fairview Architects house" (patterns/images/architecture-interior.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
-Pattern image "Ash & Pine Woodworks workshop" (patterns/images/hero-cover-thistle-pine.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+Pattern image "Ash & Pine Woodworks timber stack" (patterns/images/hero-cover-thistle-pine.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
 Pattern image "Northgate Cycle Works shop front" (patterns/images/card-image-text-northgate.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 

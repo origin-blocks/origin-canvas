@@ -122,7 +122,7 @@ foreach ( array(
 	'door'       => array( 'gallery-paper-stock.webp', 'The oxblood front door of Ashby & Rowe in an old brick wall, with a brass name plaque beside it' ),
 	'sketch'     => array( 'desk-notebook-overhead.webp', 'A pencil wireframe of the Northgate Cycle Works home page taped to a grey table, with a pink sticky note' ),
 	'studio'     => array( 'workspace-laptop.webp', 'The studio inside a converted warehouse: desks with monitors, a pinboard and a large-format printer' ),
-	'workshop'   => array( 'hero-cover-thistle-pine.webp', 'Walnut and ash boards on a steel rack behind a maple workbench in a woodshop' ),
+	'workshop'   => array( 'hero-cover-thistle-pine.webp', 'Oak and ash boards, one charred black, standing upright against a pale workshop wall, with chisels on a wall rack' ),
 	'brief'      => array( 'card-blog-1.webp', 'A printed Kestrel Physical Therapy website brief on a clipboard, with blue pen notes' ),
 	'street'     => array( 'card-blog-3.webp', 'The studio, a white-painted brick warehouse, seen from the street in late sun, with lit desks behind its glass roll-up door' ),
 	'folder'     => array( 'gallery-guidelines.webp', 'A green Clearwater Accounting tax folder on a walnut meeting table, with a legal pad of figures' ),
