@@ -25,8 +25,8 @@ wins. The shared design principles live outside this repo, not in the business p
 - Mechanical rules are enforced by `bin/check-*.sh`. Among them: `check-column-splits.sh`,
   `check-layout-widths.sh`, `check-image-slots.sh`, `check-post-card-twins.sh`,
   `check-roster-names.sh` (reads the roster from the writing guide clone) and
-  `check-shipped-values.sh` (compares with every release tag; run it with `--release` before a
-  release).
+  `check-shipped-values.sh` (compares with every release tag). `bin/package-theme.sh` runs the
+  repo-only ones, the shipped-values check with `--release`, so a pending removal stops the package.
 - Record a new trap as a check, a code comment or an issue. Private detail goes in a private issue
   outside this repo, never in a file here.
 - Never commit design notes or lessons to the repo.
