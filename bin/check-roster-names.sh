@@ -16,8 +16,8 @@
 #     bin/demo/seed.php (case-insensitive for tags). A one-word tag, such as "launch", is
 #     an ordinary word and is not checked;
 #   - a written date, such as "Apr 18, 2026".
-# Allowed: the footer Services links in footer-default and footer-dark, which share two
-# names with the demo categories. They are placeholder copy the user replaces
+# Allowed: the links under the Services label in footer-default and footer-dark, which
+# share two names with the demo categories. They are placeholder copy the user replaces
 # (orchestrator decision, #130).
 #
 # Run from the theme root:  bash bin/check-roster-names.sh [files…]
@@ -67,9 +67,12 @@ if not categories:
     sys.exit(1)
 copy = sorted(set(titles) | set(categories))
 
-# The footer Services links: placeholder copy (orchestrator decision, #130).
+# The footer Services links: placeholder copy (orchestrator decision, #130). Allowed only
+# as a link under the Services label in these two files.
 ALLOWED = {(path, name) for path in ('patterns/footer-default.php', 'patterns/footer-dark.php')
            for name in ('Brand identity', 'Websites')}
+LABEL = re.compile(r"<p\b(?:(?!<a\b).)*esc_html__\( '([^']+)'")
+LINK = "<a href=\"#\"><?php echo esc_html__( '%s', 'origin-canvas' ); ?></a>"
 
 DYNAMIC = re.compile(r'<!--\s+wp:(query|post-[a-z-]+|comments?[a-z-]*|query-title'
                      r'|term-description|categories|tag-cloud|latest-posts|archives)[\s/]')
@@ -85,14 +88,18 @@ if not files:
 
 fail = False
 for path in files:
+    label = None
     for n, line in enumerate(open(path), 1):
+        m = LABEL.search(line)
+        if m:
+            label = m.group(1)
         # Text in markup is HTML-escaped: "Ash &amp; Pine" is "Ash & Pine".
         plain = line.replace('&amp;', '&').replace('&#038;', '&')
         found = [name for name in names + copy if name in plain]
         found += [tag for tag in tags if tag in plain.lower()]
         found += [m.group(0) for m in DATE.finditer(plain)]
         for hit in found:
-            if (path, hit) in ALLOWED:
+            if (path, hit) in ALLOWED and label == 'Services' and LINK % hit in line:
                 continue
             print('  ✗  %s:%d holds "%s": demo data belongs in the demo site, not a part, '
                   'template or dynamic pattern' % (path, n, hit))
