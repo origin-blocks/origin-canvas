@@ -7,7 +7,8 @@
 #           to 180 px
 #   card    1200 × 800 px (3:2): any other Image block in a card pattern (category
 #           origin-canvas/card), which must also crop at aspectRatio 3/2
-# An image in a slot must be a theme file in patterns/images/, so its size can be read.
+# The img src of an image in a slot must be a theme file in patterns/images/, so its size
+# can be read.
 #
 # Other slots (gallery tiles, portrait features) have no ruled size yet and are not
 # checked. Sizes are read from the files' own headers (WebP, PNG).
@@ -23,7 +24,8 @@ sys.path.insert(0, 'bin/lib')
 from block_tree import parse, walk, class_names
 
 CARD, AVATAR = (1200, 800), (480, 480)
-IMAGE = re.compile(r'/patterns/images/([A-Za-z0-9_.-]+\.(?:webp|png))')
+SRC = re.compile(r'<img\b[^>]*?\ssrc="([^"]*)"')
+IMAGE = re.compile(r'/patterns/images/([A-Za-z0-9_.-]+\.(?:webp|png))$')
 CATEGORY = re.compile(r'^[ \t*]*Categories:\s*(\S+)', re.M)
 
 def size(path):
@@ -65,7 +67,8 @@ for path in files:
         else:
             continue
         count += 1
-        m = IMAGE.search(text[node['start']:node['end']])
+        src = SRC.search(text[node['start']:node['end']])
+        m = IMAGE.search(src.group(1)) if src else None
         if not m:
             print('  ✗  %s:%d %s image is not a file in patterns/images/; its size cannot be read'
                   % (path, node['line'], slot))
