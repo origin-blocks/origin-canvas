@@ -5,7 +5,9 @@
 # of the Layout control: a user who widens the site in Global Styles sees every block move
 # but that one (#130). Write the width by role instead: a group that should reach the wide
 # width takes align "wide" and no contentSize (cta-band-dark, hero-statement), and a fixed
-# cell inside Columns takes a column width (team-grid).
+# cell inside Columns takes a column width (team-grid). A container whose content should run
+# to the wide width names the wide width's variable, var(--wp--style--global--wide-size), as
+# its contentSize (hidden-page-wide, #135).
 #
 # Fails on any block attribute whose value is theme.json's settings.layout.contentSize or
 # wideSize, read at run time, or a width those settings have shipped with (720px, 1200px),
@@ -25,10 +27,6 @@ layout = json.load(open('theme.json'))['settings']['layout']
 WIDTHS = {'720px': 'contentSize', '1200px': 'wideSize'}
 WIDTHS.update({layout['contentSize']: 'contentSize', layout['wideSize']: 'wideSize'})
 
-# Known, waiting on a fix in its own branch (#135): the wide page scaffold sets its post
-# content to the wide width as a literal.
-KNOWN = {('patterns/hidden-page-wide.php', 'post-content', 'layout.contentSize', '1200px')}
-
 def literals(value, path=''):
     if isinstance(value, dict):
         for key, inner in value.items():
@@ -42,13 +40,9 @@ def literals(value, path=''):
 files = sys.argv[1:] or sorted(glob.glob('patterns/*.php') + glob.glob('parts/*.html')
                               + glob.glob('templates/*.html'))
 fail = False
-known = 0
 for path in files:
     for node in walk(parse(path)):
         for where, value in literals(node['attrs']):
-            if (path, node['name'], where, value) in KNOWN:
-                known += 1
-                continue
             print('  ✗  %s:%d %s sets %s to %s, a %s from Global Styles; write it by role'
                   % (path, node['line'], node['name'], where, value, WIDTHS[value]))
             fail = True
@@ -56,6 +50,6 @@ for path in files:
 if fail:
     sys.exit(1)
 print('Layout widths:')
-print('  ✓  no block writes the content or wide width (%s) as a literal (%d known, #135)'
-      % (', '.join(sorted(WIDTHS)), known))
+print('  ✓  no block writes the content or wide width (%s) as a literal'
+      % ', '.join(sorted(WIDTHS)))
 PY
