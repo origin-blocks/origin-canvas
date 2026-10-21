@@ -157,11 +157,14 @@
 	font-weight: var(--wp--custom--accordion--note-weight);
 }
 
-/* Core clears the outline without drawing one of its own. */
+/* The question takes the field ring on focus: primary, 4px at 25%, the ring style.css gives
+   every field. A toggle is an interactive control, so it focuses like one (#119). The
+   transparent outline replaces the browser's and still paints in forced-colors mode, where
+   the ring is dropped. */
 .wp-block-accordion.is-style-origin-canvas-accordion-minimal > .wp-block-accordion-item > .wp-block-accordion-heading > .wp-block-accordion-heading__toggle:focus-visible {
 	border-radius: var(--wp--custom--radius--small);
-	outline: 2px solid var(--wp--preset--color--primary);
-	outline-offset: 2px;
+	box-shadow: 0 0 0 var(--wp--preset--spacing--extra-small) color-mix(in srgb, var(--wp--preset--color--primary) 25%, transparent);
+	outline: 2px solid transparent;
 }
 
 /* Everything above is appearance and applies to everyone. The panel opens at once:
