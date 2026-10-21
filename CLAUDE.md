@@ -370,6 +370,9 @@ same step as the change. Private rationale goes in a private
 issue outside this repo.
 
 - No decision lives only in a scratch folder, a chat or an agent's memory.
+- An issue that holds a rule closes only when the rule lives in a check in `bin/` (its exceptions
+  named in the check, each with a reason) or in a code comment next to the code it governs, or is
+  dropped on purpose with the reason stated on the issue. A closed issue is history, not a rule.
 - Merge gate: before any branch merges, the reviewer matches every commit that cites a ruling or
   decision against the code, check or issue that holds it. If none does, the merge stops.
 - Never commit design notes, lessons or an archive to this repo.
