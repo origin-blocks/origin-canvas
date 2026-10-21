@@ -193,7 +193,9 @@ textarea:disabled {
 	cursor: not-allowed;
 }
 
-/* Checkboxes and radios */
+/* Checkboxes and radios. Checked, a checkbox is a primary fill with a white check and a radio
+   is a primary border and dot: a tiny checked marker reads as a bullet, not an action. On
+   focus-visible both take the field's border and ring, since they are form inputs (#119). */
 input[type="checkbox"],
 input[type="radio"] {
 	appearance: none;
@@ -222,9 +224,12 @@ input[type="radio"] {
 	border-radius: 50%;
 }
 
-input[type="checkbox"]:checked,
-input[type="radio"]:checked {
+input[type="checkbox"]:checked {
 	background: var(--wp--preset--color--primary);
+	border-color: var(--wp--preset--color--primary);
+}
+
+input[type="radio"]:checked {
 	border-color: var(--wp--preset--color--primary);
 }
 
@@ -241,7 +246,7 @@ input[type="checkbox"]:checked::after {
 }
 
 input[type="radio"]:checked::after {
-	background: #fff;
+	background: var(--wp--preset--color--primary);
 	border-radius: 50%;
 	content: "";
 	height: 8px;
