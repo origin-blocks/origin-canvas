@@ -142,8 +142,10 @@
 }
 
 /* Core underlines the question on hover. An underline reads as a link to somewhere else,
-   and this one opens a panel in place, so it shifts colour instead. */
-.wp-block-accordion.is-style-origin-canvas-accordion-minimal > .wp-block-accordion-item > .wp-block-accordion-heading > .wp-block-accordion-heading__toggle:hover .wp-block-accordion-heading__toggle-title {
+   and this one opens a panel in place, so it shifts colour instead. Focus shifts it too: the
+   field ring alone is too faint to carry focus, and every cue has a second carrier (#119). */
+.wp-block-accordion.is-style-origin-canvas-accordion-minimal > .wp-block-accordion-item > .wp-block-accordion-heading > .wp-block-accordion-heading__toggle:hover .wp-block-accordion-heading__toggle-title,
+.wp-block-accordion.is-style-origin-canvas-accordion-minimal > .wp-block-accordion-item > .wp-block-accordion-heading > .wp-block-accordion-heading__toggle:focus-visible .wp-block-accordion-heading__toggle-title {
 	color: var(--wp--preset--color--primary);
 	text-decoration: none;
 }
