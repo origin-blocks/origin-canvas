@@ -24,7 +24,7 @@ wins. The shared design principles live outside this repo, not in the business p
 - Canvas design decisions live in the code, in `bin/check-*.sh` and in this repo's GitHub issues.
 - Mechanical rules are enforced by `bin/check-*.sh`. Among them: `check-column-splits.sh`,
   `check-layout-widths.sh`, `check-image-slots.sh`, `check-post-card-twins.sh`,
-  `check-roster-names.sh` (reads the roster from the writing guide clone) and
+  `check-page-h1.sh`, `check-roster-names.sh` (reads the roster from the writing guide clone) and
   `check-shipped-values.sh` (compares with every release tag). `bin/package-theme.sh` runs the
   repo-only ones, the shipped-values check with `--release`, so a pending removal stops the package.
 - Record a new trap as a check, a code comment or an issue. Private detail goes in a private issue
