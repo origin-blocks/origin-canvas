@@ -8,7 +8,8 @@
 # cell inside Columns takes a column width (team-grid).
 #
 # Fails on any block attribute whose value is theme.json's settings.layout.contentSize or
-# wideSize, read at run time.
+# wideSize, read at run time, or a width those settings have shipped with (720px, 1200px),
+# so a literal left behind by a change to the presets still fails.
 #
 # Run from the theme root:  bash bin/check-layout-widths.sh [files…]
 
@@ -21,7 +22,8 @@ sys.path.insert(0, 'bin/lib')
 from block_tree import parse, walk
 
 layout = json.load(open('theme.json'))['settings']['layout']
-WIDTHS = {layout['contentSize']: 'contentSize', layout['wideSize']: 'wideSize'}
+WIDTHS = {'720px': 'contentSize', '1200px': 'wideSize'}
+WIDTHS.update({layout['contentSize']: 'contentSize', layout['wideSize']: 'wideSize'})
 
 # Known, waiting on a fix in its own branch (#130): the wide page scaffold sets its post
 # content to the wide width as a literal.
@@ -47,7 +49,7 @@ for path in files:
             if (path, node['name'], where, value) in KNOWN:
                 known += 1
                 continue
-            print('  ✗  %s:%d %s sets %s to %s, the %s from Global Styles; write it by role'
+            print('  ✗  %s:%d %s sets %s to %s, a %s from Global Styles; write it by role'
                   % (path, node['line'], node['name'], where, value, WIDTHS[value]))
             fail = True
 
