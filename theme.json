@@ -400,6 +400,11 @@
 			}
 		},
 		"elements": {
+			"button": {
+				"dimensions": {
+					"minHeight": "44px"
+				}
+			},
 			"link": {
 				"color": {
 					"text": "var(--wp--preset--color--text-heading)"
