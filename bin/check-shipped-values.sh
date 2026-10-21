@@ -8,8 +8,8 @@
 # with a sunset note. Never a $wpdb query or a content change (theme review rules). A
 # shipped pattern slug is never renamed.
 #
-# This compares the working tree with the latest release tag (or the tag given) and fails
-# on any value the release had that the tree has lost:
+# This compares the working tree with every release tag and fails on any value a release
+# had that the tree has lost:
 #   pattern     a Slug in patterns/
 #   template    a file in templates/, or a customTemplates name in theme.json
 #   part        a file in parts/, or a templateParts name in theme.json
@@ -18,37 +18,85 @@
 #               Styles list passes while its is-style- class is still styled (the shim)
 #   class       an origin-canvas- or is-style-origin-canvas- class styled in the theme's
 #               CSS, or a block style variation in theme.json
-# A value retired on purpose goes in RETIRED below with its reason: the shim and its
-# sunset, or the ruling that accepts the break.
+# Two lists hold the exceptions, each entry with its reason:
+#   RELEASED  removals that already shipped in a release, without a shim. Listed so each
+#             one is on record; restoring one is the owner's call.
+#   PENDING   removals on develop since the latest release, waiting on the owner: a shim
+#             with a sunset, or a ruling that accepts the break. They pass day to day and
+#             fail with --release, so none ships undecided.
 #
-# Run from the theme root:  bash bin/check-shipped-values.sh [tag]
+# Run from the theme root:  bash bin/check-shipped-values.sh [--release]
 
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
-TAG="${1:-$(git tag --list '[0-9]*.[0-9]*.[0-9]*' --sort=-v:refname | head -1)}"
-git rev-parse -q --verify "$TAG^{commit}" >/dev/null || {
-	echo "check-shipped-values.sh: no release tag $TAG. Run git fetch --tags." >&2
+[ -n "$(git tag --list '[0-9]*.[0-9]*.[0-9]*')" ] || {
+	echo "check-shipped-values.sh: no release tags. Run git fetch --tags." >&2
 	exit 1
 }
 
-python3 -B - "$TAG" <<'PY'
+python3 -B - "$@" <<'PY'
 import glob, json, os, re, subprocess, sys
 
-tag = sys.argv[1]
+release = '--release' in sys.argv[1:]
+tags = subprocess.run(['git', 'tag', '--list', '[0-9]*.[0-9]*.[0-9]*', '--sort=v:refname'],
+                      capture_output=True, text=True, check=True).stdout.split()
 
-# value -> why it may be gone. Each entry names its shim and sunset, or its ruling.
-RETIRED = {
-    # Styled in 1.3.1; develop moved each look into block settings or a utility and
-    # dropped the class's CSS, so a copy saved from 1.3.1 renders differently. Waiting on
-    # the owner: add a shim or accept the change (#130).
-    'class origin-canvas-card-blog-image': 'pending owner, #130',
-    'class origin-canvas-group-head': 'pending owner, #130',
-    'class origin-canvas-main-nav': 'pending owner, #130',
-    'class origin-canvas-process-step-number': 'pending owner, #130',
-    'class origin-canvas-sidebar-categories': 'pending owner, #130',
-    'class origin-canvas-testimonial-card': 'pending owner, #130',
-    'class origin-canvas-type-ramp': 'pending owner, #130',
+# Removed in a release, without a shim: value -> the release it left, and why.
+RELEASED = {
+    'style blur-image-less': '1.0.2, block styles renamed with the origin-canvas- prefix',
+    'style blur-image-more': '1.0.2, block styles renamed with the origin-canvas- prefix',
+    'style dark-code': '1.0.2, block styles renamed with the origin-canvas- prefix',
+    'style excerpt-truncate-2': '1.0.2, block styles renamed with the origin-canvas- prefix',
+    'style excerpt-truncate-3': '1.0.2, block styles renamed with the origin-canvas- prefix',
+    'style list-check': '1.0.2, block styles renamed with the origin-canvas- prefix',
+    'style list-check-circle': '1.0.2, block styles renamed with the origin-canvas- prefix',
+    'style media-boxed': '1.0.2, block styles renamed with the origin-canvas- prefix',
+    'style outline-strong': '1.0.2, block styles renamed with the origin-canvas- prefix',
+    'style preformatted-dark': '1.0.2, block styles renamed with the origin-canvas- prefix',
+    'style rounded-full': '1.0.2, block styles renamed with the origin-canvas- prefix',
+    'style separator-dotted': '1.0.2, block styles renamed with the origin-canvas- prefix',
+    'style separator-thin': '1.0.2, block styles renamed with the origin-canvas- prefix',
+    'style term-button': '1.0.2, block styles renamed with the origin-canvas- prefix',
+    'class is-style-outline-strong': '1.0.2, block styles renamed with the origin-canvas- prefix',
+    'class is-style-wire': '1.0.2',
+    'class is-style-origin-canvas-icon-accessibility': '1.0.3',
+    'class is-style-origin-canvas-icon-compass': '1.0.3',
+    'class is-style-origin-canvas-icon-contrast': '1.0.3',
+    'class is-style-origin-canvas-icon-layers': '1.0.3',
+    'class is-style-origin-canvas-icon-layout-dashboard': '1.0.3',
+    'class is-style-origin-canvas-icon-monitor-smartphone': '1.0.3',
+    'class is-style-origin-canvas-icon-palette': '1.0.3',
+    'class is-style-origin-canvas-icon-ruler': '1.0.3',
+    'class is-style-origin-canvas-icon-type': '1.0.3',
+    'class is-style-origin-canvas-icon-zap': '1.0.3',
+    'template home': '1.0.4',
+    'class is-style-origin-canvas-term-button': '1.1.0',
+    'style origin-canvas-term-button': '1.1.0',
+    'pattern origin-canvas/hidden-home': '1.1.0, the front page became the user\'s own page',
+    'template front-page': '1.1.0, the front page became the user\'s own page',
+    'pattern origin-canvas/page-home-01': '1.2.0, renamed page-studio (CLAUDE.md rule 3)',
+    'class origin-canvas-post-grid-arrow': '1.2.0',
+    'class origin-canvas-post-grid-card': '1.2.0',
+    'class origin-canvas-post-grid-category': '1.2.0',
+    'class origin-canvas-post-grid-content': '1.2.0',
+    'class origin-canvas-post-grid-excerpt': '1.2.0',
+    'class origin-canvas-post-grid-footer': '1.2.0',
+    'class origin-canvas-post-grid-title': '1.2.0',
+    'preset font-family display': '1.3.0',
+}
+
+# Removed on develop since the latest release: value -> what is waiting. Each look moved
+# into block settings or a utility and the class lost its CSS, so a copy saved from 1.3.1
+# renders differently.
+PENDING = {
+    'class origin-canvas-card-blog-image': 'owner: shim or accept (#130)',
+    'class origin-canvas-group-head': 'owner: shim or accept (#130)',
+    'class origin-canvas-main-nav': 'owner: shim or accept (#130)',
+    'class origin-canvas-process-step-number': 'owner: shim or accept (#130)',
+    'class origin-canvas-sidebar-categories': 'owner: shim or accept (#130)',
+    'class origin-canvas-testimonial-card': 'owner: shim or accept (#130)',
+    'class origin-canvas-type-ramp': 'owner: shim or accept (#130)',
 }
 
 CLASS = re.compile(r'\.((?:is-style-)?origin-canvas-[a-z0-9_-]+)')
@@ -110,19 +158,34 @@ def values(tree):
         found.update('style ' + s for s in re.findall(r"'name'\s*=>\s*'([a-z0-9-]+)'", m.group(0)))
     return found
 
-shipped, now = values(Tree(tag)), values(Tree(None))
+shipped = {}
+for tag in tags:
+    for value in values(Tree(tag)):
+        shipped[value] = tag  # the last release that had it
+now = values(Tree(None))
 fail = False
-print('Shipped values (since %s):' % tag)
-for value in sorted(shipped - now):
+released = 0
+print('Shipped values (releases %s to %s):' % (tags[0], tags[-1]))
+for value in sorted(set(shipped) - now):
     if value.startswith('style ') and 'class is-style-' + value[6:] in now:
         print('  ✓  %s left the Styles list; its class is still styled' % value)
-    elif value in RETIRED:
-        print('  ~  %s is gone: %s' % (value, RETIRED[value]))
+    elif value in RELEASED and shipped[value] != tags[-1]:
+        released += 1
+    elif value in PENDING:
+        print('  %s  %s last shipped in %s and is gone: %s' % ('✗' if release else '!', value,
+                                                 shipped[value], PENDING[value]))
+        fail = fail or release
     else:
-        print('  ✗  %s shipped in %s and is gone: restore it, shim it, or list it in RETIRED '
-              'with its reason' % (value, tag))
+        print('  ✗  %s shipped in %s and is gone: restore it, shim it, or list it with its '
+              'reason' % (value, shipped[value]))
         fail = True
+stale = sorted(v for v in list(RELEASED) + list(PENDING) if v in now)
+for value in stale:
+    print('  ✗  %s is listed as gone but is back; take it off the list' % value)
+    fail = True
 if fail:
     sys.exit(1)
-print('  ✓  %d values from %s are still supported' % (len(shipped & now), tag))
+print('  ✓  %d values from the releases are still supported; %d left in a past release '
+      '(RELEASED)%s' % (len(set(shipped) & now), released,
+                        ', %d pending' % len(PENDING) if PENDING else ''))
 PY
