@@ -8,8 +8,8 @@
 #
 #   card      fill and corner radius (the card Group, the image's top corners)
 #   image     aspect ratio
-#   category  color, size, weight and case
-#   title     heading level, size and color (the loop's title is a link: its link color)
+#   category  color, size, weight and case, and the loop's link color at rest
+#   title     heading level, size and color, and the loop's link color at rest
 #   excerpt   color and size
 #
 # A radius token is read from theme.json, so var:custom|radius|medium and 8px agree.
@@ -50,6 +50,11 @@ def first(nodes, test, what, path):
     print('  ✗  %s: no %s found; update this check if the pattern changed' % (path, what))
     sys.exit(1)
 
+def link_color(node):
+    """The resting link color a block sets for its own links, or None."""
+    return color(node['attrs'].get('style', {}).get('elements', {}).get('link', {})
+                 .get('color', {}).get('text'))
+
 def typo(node):
     a = node['attrs']
     t = a.get('style', {}).get('typography', {})
@@ -87,16 +92,21 @@ image = first(nodes, lambda n: n['name'] == 'post-featured-image', 'Post Feature
 category = first(nodes, lambda n: n['name'] == 'post-terms', 'Post Terms', loop_path)
 title = first(nodes, lambda n: n['name'] == 'post-title', 'Post Title', loop_path)
 excerpt = first(nodes, lambda n: n['name'] == 'post-excerpt', 'Post Excerpt', loop_path)
-link = title['attrs'].get('style', {}).get('elements', {}).get('link', {}).get('color', {}).get('text')
 loop = {
     'card fill': group['attrs']['backgroundColor'],
     'card radius': sorted(set(corners(image['attrs'], TOP) + corners(group['attrs'], BOTTOM))),
     'image aspect ratio': image['attrs'].get('aspectRatio'),
     'category color, size, weight, case': typo(category),
     'title level, size, color': (title['attrs'].get('level', 2), title['attrs'].get('fontSize'),
-                                 title['attrs'].get('textColor') or color(link)),
+                                 link_color(title) or title['attrs'].get('textColor')),
     'excerpt color, size': (excerpt['attrs'].get('textColor'), excerpt['attrs'].get('fontSize')),
 }
+# The loop's category and title are links: what shows at rest is the link color, so it
+# must match the card's text color as well as the block's own text color.
+card['category link color'] = card['category color, size, weight, case'][0]
+card['title link color'] = card['title level, size, color'][2]
+loop['category link color'] = link_color(category)
+loop['title link color'] = link_color(title)
 
 fail = False
 print('Post card twins:')
