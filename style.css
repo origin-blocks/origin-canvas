@@ -751,8 +751,8 @@ html {
  * Hidden Sidebar: the rail in parts/sidebar.html.
  *
  * Only what the blocks cannot set. core/search has no padding control, so the
- * field and button drop to 40 tall to suit a 373px rail; the 404 search keeps the
- * default size. Latest Posts has no date controls. The list resets, the
+ * field and button take tighter padding to suit a 373px rail and sit on the 44px
+ * floor; the 404 search keeps the default size. Latest Posts has no date controls. The list resets, the
  * featured image gap and the block title cover blocks an owner may add to the
  * rail in the Site Editor: Categories, Archives, Latest Comments, and Latest
  * Posts with images on.
