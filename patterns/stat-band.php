@@ -28,8 +28,8 @@
 <p class="origin-canvas-figure has-text-align-center has-primary-color has-text-color has-display-2-xl-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--medium);font-weight:700;line-height:1"><?php echo esc_html__( '38', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
-<!-- wp:paragraph {"style":{"color":{"text":"rgba(243,244,246,0.72)"},"spacing":{"margin":{"top":"0","bottom":"0"}},"typography":{"textAlign":"center"}},"fontSize":"small"} -->
-<p class="has-text-align-center has-text-color has-small-font-size" style="color:rgba(243,244,246,0.72);margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Sites launched', 'origin-canvas' ); ?></p>
+<!-- wp:paragraph {"style":{"color":{"text":"color-mix(in srgb, var(--wp--custom--dark--text) 72%, transparent)"},"spacing":{"margin":{"top":"0","bottom":"0"}},"typography":{"textAlign":"center"}},"fontSize":"small"} -->
+<p class="has-text-align-center has-text-color has-small-font-size" style="color:color-mix(in srgb, var(--wp--custom--dark--text) 72%, transparent);margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Sites launched', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column -->
 
@@ -38,8 +38,8 @@
 <p class="origin-canvas-figure has-text-align-center has-primary-color has-text-color has-display-2-xl-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--medium);font-weight:700;line-height:1"><?php echo esc_html__( '8', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
-<!-- wp:paragraph {"style":{"color":{"text":"rgba(243,244,246,0.72)"},"spacing":{"margin":{"top":"0","bottom":"0"}},"typography":{"textAlign":"center"}},"fontSize":"small"} -->
-<p class="has-text-align-center has-text-color has-small-font-size" style="color:rgba(243,244,246,0.72);margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Years working together', 'origin-canvas' ); ?></p>
+<!-- wp:paragraph {"style":{"color":{"text":"color-mix(in srgb, var(--wp--custom--dark--text) 72%, transparent)"},"spacing":{"margin":{"top":"0","bottom":"0"}},"typography":{"textAlign":"center"}},"fontSize":"small"} -->
+<p class="has-text-align-center has-text-color has-small-font-size" style="color:color-mix(in srgb, var(--wp--custom--dark--text) 72%, transparent);margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Years working together', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column -->
 
@@ -48,8 +48,8 @@
 <p class="origin-canvas-figure has-text-align-center has-primary-color has-text-color has-display-2-xl-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--medium);font-weight:700;line-height:1"><?php echo esc_html__( '94%', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
-<!-- wp:paragraph {"style":{"color":{"text":"rgba(243,244,246,0.72)"},"spacing":{"margin":{"top":"0","bottom":"0"}},"typography":{"textAlign":"center"}},"fontSize":"small"} -->
-<p class="has-text-align-center has-text-color has-small-font-size" style="color:rgba(243,244,246,0.72);margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Repeat or referral clients', 'origin-canvas' ); ?></p>
+<!-- wp:paragraph {"style":{"color":{"text":"color-mix(in srgb, var(--wp--custom--dark--text) 72%, transparent)"},"spacing":{"margin":{"top":"0","bottom":"0"}},"typography":{"textAlign":"center"}},"fontSize":"small"} -->
+<p class="has-text-align-center has-text-color has-small-font-size" style="color:color-mix(in srgb, var(--wp--custom--dark--text) 72%, transparent);margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Repeat or referral clients', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns --></section>
