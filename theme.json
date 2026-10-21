@@ -548,7 +548,7 @@
 						},
 						":hover": {
 							"color": {
-								"background": "color-mix(in srgb, var(--wp--preset--color--on-dark) 12%, transparent)",
+								"background": "color-mix(in srgb, var(--wp--preset--color--on-dark) 8%, transparent)",
 								"text": "var(--wp--preset--color--on-dark)"
 							},
 							"border": {
@@ -558,7 +558,7 @@
 						},
 						":focus-visible": {
 							"color": {
-								"background": "color-mix(in srgb, var(--wp--preset--color--on-dark) 12%, transparent)",
+								"background": "color-mix(in srgb, var(--wp--preset--color--on-dark) 8%, transparent)",
 								"text": "var(--wp--preset--color--on-dark)"
 							},
 							"border": {
