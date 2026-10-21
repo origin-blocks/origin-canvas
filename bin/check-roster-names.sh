@@ -46,6 +46,16 @@ if not studio or not clients:
     sys.exit(1)
 names = sorted({r[0] for r in studio} | {r[0] for r in clients} | {r[2] for r in clients})
 
+seed = open('bin/demo/seed.php').read()
+titles = re.findall(r"^\t\t'title'\s*=>\s*'([^']+)'", seed, re.M)
+tags = sorted({t for group in re.findall(r"'tags'\s*=>\s*array\(([^)]*)\)", seed)
+               for t in re.findall(r"'([^']+)'", group) if ' ' in t})
+if not titles or not tags:
+    print('check-roster-names.sh: no demo post titles or tags in bin/demo/seed.php; '
+          'update this check.')
+    sys.exit(1)
+copy = sorted(set(titles))
+
 DYNAMIC = re.compile(r'<!--\s+wp:(query|post-[a-z-]+|comments?[a-z-]*|query-title'
                      r'|term-description|categories|tag-cloud|latest-posts|archives)[\s/]')
 PART = re.compile(r'^[ \t*]*Categories:\s*(header|footer|hidden)\s*$', re.M | re.I)
@@ -63,7 +73,8 @@ for path in files:
     for n, line in enumerate(open(path), 1):
         # Text in markup is HTML-escaped: "Ash &amp; Pine" is "Ash & Pine".
         plain = line.replace('&amp;', '&').replace('&#038;', '&')
-        found = [name for name in names if name in plain]
+        found = [name for name in names + copy if name in plain]
+        found += [tag for tag in tags if tag in plain.lower()]
         found += [m.group(0) for m in DATE.finditer(plain)]
         for hit in found:
             print('  ✗  %s:%d holds "%s": demo data belongs in the demo site, not a part, '
@@ -73,6 +84,7 @@ for path in files:
 if fail:
     sys.exit(1)
 print('Roster names:')
-print('  ✓  %d parts, templates and dynamic patterns hold none of %d roster names and '
-      'no written date' % (len(files), len(names)))
+print('  ✓  %d parts, templates and dynamic patterns hold none of %d roster names, '
+      '%d demo post titles and tags, and no written date'
+      % (len(files), len(names), len(copy) + len(tags)))
 PY
