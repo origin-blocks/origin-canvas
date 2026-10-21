@@ -7,13 +7,17 @@
 # share, role by role:
 #
 #   card      fill and corner radius (the card Group, the image's top corners)
+#   inset     the space from the card's edges and image to its text: the loop's text
+#             Group pads all four sides; the static card pads the sides on its text
+#             Group and the bottom on the card, with the card's block gap below the image
 #   image     aspect ratio
 #   category  color, size, weight and case, and the loop's link color at rest
 #   title     heading level, size and color, and the loop's link color at rest
 #   excerpt   color and size
 #
 # A radius token is read from theme.json, so var:custom|radius|medium and 8px agree.
-# Padding, tracking and the meta line are not compared: the twins differ there today.
+# Tracking and the meta line are not compared: the static card names the author and
+# reading time, the loop shows only the date.
 #
 # Run from the theme root:  bash bin/check-post-card-twins.sh [card.php loop.php]
 
@@ -55,6 +59,9 @@ def link_color(node):
     return color(node['attrs'].get('style', {}).get('elements', {}).get('link', {})
                  .get('color', {}).get('text'))
 
+def spacing(node):
+    return node['attrs'].get('style', {}).get('spacing', {})
+
 def typo(node):
     a = node['attrs']
     t = a.get('style', {}).get('typography', {})
@@ -71,11 +78,15 @@ image = first(nodes, lambda n: n['name'] == 'image', 'Image', card_path)
 category = first(nodes, lambda n: n['name'] == 'paragraph' and n['attrs'].get('style', {})
                  .get('typography', {}).get('textTransform') == 'uppercase',
                  'uppercase category paragraph', card_path)
+text = first(group['children'], lambda n: n['name'] == 'group', 'text Group in the card', card_path)
 title = first(nodes, lambda n: n['name'] == 'heading', 'Heading', card_path)
 excerpt = first(nodes, lambda n: n['name'] == 'paragraph' and n['attrs'].get('textColor') == 'text-body',
                 'text-body excerpt paragraph', card_path)
 card = {
     'card fill': group['attrs']['backgroundColor'],
+    'inset top, right, bottom, left': (
+        spacing(group).get('blockGap'), spacing(text).get('padding', {}).get('right'),
+        spacing(group).get('padding', {}).get('bottom'), spacing(text).get('padding', {}).get('left')),
     'card radius': sorted(set(corners(group['attrs'], ALL) + corners(image['attrs'], TOP))),
     'image aspect ratio': image['attrs'].get('aspectRatio'),
     'category color, size, weight, case': typo(category),
@@ -94,6 +105,8 @@ title = first(nodes, lambda n: n['name'] == 'post-title', 'Post Title', loop_pat
 excerpt = first(nodes, lambda n: n['name'] == 'post-excerpt', 'Post Excerpt', loop_path)
 loop = {
     'card fill': group['attrs']['backgroundColor'],
+    'inset top, right, bottom, left': tuple(spacing(group).get('padding', {}).get(side)
+                                            for side in ('top', 'right', 'bottom', 'left')),
     'card radius': sorted(set(corners(image['attrs'], TOP) + corners(group['attrs'], BOTTOM))),
     'image aspect ratio': image['attrs'].get('aspectRatio'),
     'category color, size, weight, case': typo(category),
