@@ -12,7 +12,13 @@
 # those become parts and templates. They must not hold:
 #   - a name or company from the roster (the Studio and Clients tables in the writing
 #     guide's brands/origin-patterns.md, read at run time so the list has one home);
+#   - a demo post title, category name, or tag name of two words or more, read from
+#     bin/demo/seed.php (case-insensitive for tags). A one-word tag, such as "launch", is
+#     an ordinary word and is not checked;
 #   - a written date, such as "Apr 18, 2026".
+# Allowed: the footer Services links in footer-default and footer-dark, which share two
+# names with the demo categories. They are placeholder copy the user replaces
+# (orchestrator decision, #130).
 #
 # Run from the theme root:  bash bin/check-roster-names.sh [files…]
 # The roster is read from $ORIGIN_PATTERNS_BRAND, by default
@@ -54,7 +60,16 @@ if not titles or not tags:
     print('check-roster-names.sh: no demo post titles or tags in bin/demo/seed.php; '
           'update this check.')
     sys.exit(1)
-copy = sorted(set(titles))
+categories = re.findall(r"^\t'[a-z]+'\s*=>\s*array\(\s*'([^']+)',",
+                        seed.split('/* Categories and tags. */')[-1], re.M)
+if not categories:
+    print('check-roster-names.sh: no demo categories in bin/demo/seed.php; update this check.')
+    sys.exit(1)
+copy = sorted(set(titles) | set(categories))
+
+# The footer Services links: placeholder copy (orchestrator decision, #130).
+ALLOWED = {(path, name) for path in ('patterns/footer-default.php', 'patterns/footer-dark.php')
+           for name in ('Brand identity', 'Websites')}
 
 DYNAMIC = re.compile(r'<!--\s+wp:(query|post-[a-z-]+|comments?[a-z-]*|query-title'
                      r'|term-description|categories|tag-cloud|latest-posts|archives)[\s/]')
@@ -77,6 +92,8 @@ for path in files:
         found += [tag for tag in tags if tag in plain.lower()]
         found += [m.group(0) for m in DATE.finditer(plain)]
         for hit in found:
+            if (path, hit) in ALLOWED:
+                continue
             print('  ✗  %s:%d holds "%s": demo data belongs in the demo site, not a part, '
                   'template or dynamic pattern' % (path, n, hit))
             fail = True
@@ -85,6 +102,6 @@ if fail:
     sys.exit(1)
 print('Roster names:')
 print('  ✓  %d parts, templates and dynamic patterns hold none of %d roster names, '
-      '%d demo post titles and tags, and no written date'
+      '%d demo post titles, categories and tags, and no written date'
       % (len(files), len(names), len(copy) + len(tags)))
 PY
