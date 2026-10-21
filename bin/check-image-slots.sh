@@ -3,15 +3,21 @@
 # Demo images are cut to their slot, so a picture is sharp at its largest and no slot
 # carries a heavier file than it shows (#130):
 #
-#   avatar  480 × 480 px (1:1): an Image block styled Rounded Full, shown as a circle up
-#           to 180 px
-#   card    1200 × 800 px (3:2): any other Image block in a card pattern (category
-#           origin-canvas/card), which must also crop at aspectRatio 3/2
+#   avatar   480 × 480 px (1:1): an Image block styled Rounded Full, shown as a circle
+#            up to 180 px
+#   card     1200 × 800 px (3:2): any other Image block in a card pattern (category
+#            origin-canvas/card), which must also crop at aspectRatio 3/2
+#   gallery  1536 × 1024 px (3:2): an Image block at aspectRatio 3/2 in a gallery
+#            pattern (category gallery)
+#   portrait 1120 × 1400 px (4:5): an Image block at aspectRatio 4/5 outside a team
+#            pattern; team portraits are people, cut at 480 × 600, and not ruled here
+# The gallery and portrait slots take the sizes their images shipped at (orchestrator
+# decision, #130).
 # The img src of an image in a slot must be a theme file in patterns/images/, so its size
 # can be read.
 #
-# Other slots (gallery tiles, portrait features) have no ruled size yet and are not
-# checked. Sizes are read from the files' own headers (WebP, PNG).
+# Other images have no ruled slot and are not checked. Sizes are read from the files' own
+# headers (WebP, PNG).
 #
 # Run from the theme root:  bash bin/check-image-slots.sh [files…]
 
@@ -23,7 +29,7 @@ import glob, re, struct, sys
 sys.path.insert(0, 'bin/lib')
 from block_tree import parse, walk, class_names
 
-CARD, AVATAR = (1200, 800), (480, 480)
+CARD, AVATAR, GALLERY, PORTRAIT = (1200, 800), (480, 480), (1536, 1024), (1120, 1400)
 SRC = re.compile(r'<img\b[^>]*?\ssrc="([^"]*)"')
 IMAGE = re.compile(r'/patterns/images/([A-Za-z0-9_.-]+\.(?:webp|png))$')
 CATEGORY = re.compile(r'^[ \t*]*Categories:\s*(\S+)', re.M)
@@ -52,7 +58,8 @@ count = 0
 for path in files:
     text = open(path).read()
     category = CATEGORY.search(text)
-    card = bool(category) and category.group(1) == 'origin-canvas/card'
+    category = category.group(1) if category else ''
+    card = category == 'origin-canvas/card'
     for node in walk(parse(path)):
         if node['name'] != 'image':
             continue
@@ -64,6 +71,10 @@ for path in files:
                 print('  ✗  %s:%d card image crops at %s; the card slot is 3/2'
                       % (path, node['line'], node['attrs'].get('aspectRatio') or 'no ratio'))
                 fail = True
+        elif category == 'gallery' and node['attrs'].get('aspectRatio') == '3/2':
+            slot, want = 'gallery', GALLERY
+        elif category != 'team' and node['attrs'].get('aspectRatio') == '4/5':
+            slot, want = 'portrait', PORTRAIT
         else:
             continue
         count += 1
@@ -84,5 +95,5 @@ for path in files:
 if fail:
     sys.exit(1)
 print('Image slots:')
-print('  ✓  %d card and avatar images are cut to their slot (1200 × 800, 480 × 480)' % count)
+print('  ✓  %d avatar, card, gallery and portrait images are cut to their slot' % count)
 PY
