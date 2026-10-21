@@ -25,7 +25,7 @@ layout = json.load(open('theme.json'))['settings']['layout']
 WIDTHS = {'720px': 'contentSize', '1200px': 'wideSize'}
 WIDTHS.update({layout['contentSize']: 'contentSize', layout['wideSize']: 'wideSize'})
 
-# Known, waiting on a fix in its own branch (#130): the wide page scaffold sets its post
+# Known, waiting on a fix in its own branch (#135): the wide page scaffold sets its post
 # content to the wide width as a literal.
 KNOWN = {('patterns/hidden-page-wide.php', 'post-content', 'layout.contentSize', '1200px')}
 
@@ -56,6 +56,6 @@ for path in files:
 if fail:
     sys.exit(1)
 print('Layout widths:')
-print('  ✓  no block writes the content or wide width (%s) as a literal (%d known, #130)'
+print('  ✓  no block writes the content or wide width (%s) as a literal (%d known, #135)'
       % (', '.join(sorted(WIDTHS)), known))
 PY
