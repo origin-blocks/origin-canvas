@@ -19,11 +19,13 @@
 #   class       an origin-canvas- or is-style-origin-canvas- class styled in the theme's
 #               CSS, or a block style variation in theme.json
 # Two lists hold the exceptions, each entry with its reason:
-#   RELEASED  removals that already shipped in a release, without a shim. Listed so each
-#             one is on record; restoring one is the owner's call.
-#   PENDING   removals on develop since the latest release, waiting on the owner: a shim
-#             with a sunset, or a ruling that accepts the break. They pass day to day and
-#             fail with --release, so none ships undecided.
+#   RELEASED  removals that already shipped in a release, without a shim. Restoring them
+#             now would change pages users have already updated (orchestrator decision,
+#             #130).
+#   PENDING   removals on develop since the latest release that wait on a decision: a
+#             shim with a sunset, or a ruling that accepts the break. They pass day to day
+#             and fail with --release, so none ships undecided. A decided removal moves
+#             to RETIRED with its ruling.
 #
 # Run from the theme root:  bash bin/check-shipped-values.sh [--release]
 
@@ -42,7 +44,9 @@ release = '--release' in sys.argv[1:]
 tags = subprocess.run(['git', 'tag', '--list', '[0-9]*.[0-9]*.[0-9]*', '--sort=v:refname'],
                       capture_output=True, text=True, check=True).stdout.split()
 
-# Removed in a release, without a shim: value -> the release it left, and why.
+# Removed in a release, without a shim: value -> the release it left, and why. Each one
+# left two to five releases ago; restoring it now would change pages users have already
+# updated, so it stays gone (orchestrator decision, #130).
 RELEASED = {
     'style blur-image-less': '1.0.2, block styles renamed with the origin-canvas- prefix',
     'style blur-image-more': '1.0.2, block styles renamed with the origin-canvas- prefix',
@@ -86,18 +90,20 @@ RELEASED = {
     'preset font-family display': '1.3.0',
 }
 
-# Removed on develop since the latest release: value -> what is waiting. Each look moved
-# into block settings or a utility and the class lost its CSS, so a copy saved from 1.3.1
-# renders differently.
-PENDING = {
-    'class origin-canvas-card-blog-image': 'owner: shim or accept (#130)',
-    'class origin-canvas-group-head': 'owner: shim or accept (#130)',
-    'class origin-canvas-main-nav': 'owner: shim or accept (#130)',
-    'class origin-canvas-process-step-number': 'owner: shim or accept (#130)',
-    'class origin-canvas-sidebar-categories': 'owner: shim or accept (#130)',
-    'class origin-canvas-testimonial-card': 'owner: shim or accept (#130)',
-    'class origin-canvas-type-ramp': 'owner: shim or accept (#130)',
+# Removed on develop since the latest release, decided: value -> the ruling.
+RETIRED = {
+    # Landing showcase only (Inserter false): the loss is accepted (orchestrator
+    # decision, #130).
+    'class origin-canvas-group-head': 'landing showcase only, loss accepted',
+    'class origin-canvas-type-ramp': 'landing showcase only, loss accepted',
+    # Its one rule never applied: core's position: absolute outranked it and the flyout
+    # card already sets the z-index (b50f5cb), so no saved page changes.
+    'class origin-canvas-main-nav': 'its rule had no effect, nothing to keep',
 }
+
+# Removed on develop since the latest release, waiting on a decision: value -> what is
+# waiting.
+PENDING = {}
 
 CLASS = re.compile(r'\.((?:is-style-)?origin-canvas-[a-z0-9_-]+)')
 SLUG = re.compile(r'^[ \t/*#@]*Slug:\s*(\S+)', re.M | re.I)
@@ -171,6 +177,9 @@ for value in sorted(set(shipped) - now):
         print('  ✓  %s left the Styles list; its class is still styled' % value)
     elif value in RELEASED and shipped[value] != tags[-1]:
         released += 1
+    elif value in RETIRED:
+        print('  ~  %s last shipped in %s and is retired: %s' % (value, shipped[value],
+                                                               RETIRED[value]))
     elif value in PENDING:
         print('  %s  %s last shipped in %s and is gone: %s' % ('✗' if release else '!', value,
                                                  shipped[value], PENDING[value]))
@@ -179,7 +188,7 @@ for value in sorted(set(shipped) - now):
         print('  ✗  %s shipped in %s and is gone: restore it, shim it, or list it with its '
               'reason' % (value, shipped[value]))
         fail = True
-stale = sorted(v for v in list(RELEASED) + list(PENDING) if v in now)
+stale = sorted(v for v in list(RELEASED) + list(RETIRED) + list(PENDING) if v in now)
 for value in stale:
     print('  ✗  %s is listed as gone but is back; take it off the list' % value)
     fail = True

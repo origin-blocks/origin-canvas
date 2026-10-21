@@ -765,6 +765,14 @@ html {
 	display: block;
 }
 
+/* Shim, sunset 2.0.0. The category rows keep their count at its size with
+   origin-canvas-no-shrink since the release after 1.3.1. Rails saved from 1.3.1 carry
+   no such class on the count: this keeps it from shrinking. The pattern still carries
+   origin-canvas-sidebar-categories; flex: none adds nothing to no-shrink there. */
+.origin-canvas-sidebar-categories .wp-block-term-count {
+	flex: none;
+}
+
 .origin-canvas-search-compact input.wp-block-search__input:not([type="button"]):not([type="reset"]):not([type="submit"]):not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="file"]) {
 	padding: 8px 12px;
 }
