@@ -144,7 +144,9 @@ textarea {
 	line-height: inherit;
 }
 
-/* Form fields */
+/* Form fields. Fields and a lone visible action are at least 44px tall, so the hit target
+   does not depend on line height (#119). Buttons take the same floor from theme.json,
+   styles.elements.button, which reaches every button block, search button and form submit. */
 input:not([type="button"]):not([type="reset"]):not([type="submit"]):not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="file"]),
 select,
 textarea {
@@ -153,6 +155,7 @@ textarea {
 	border-radius: var(--wp--custom--radius--medium);
 	color: var(--wp--preset--color--text-body);
 	font-size: var(--wp--preset--font-size--regular);
+	min-height: 44px;
 	padding: var(--wp--preset--spacing--compact) var(--wp--preset--spacing--medium);
 	width: 100%;
 }
@@ -193,7 +196,9 @@ textarea:disabled {
 	cursor: not-allowed;
 }
 
-/* Checkboxes and radios */
+/* Checkboxes and radios. Checked, a checkbox is a primary fill with a white check and a radio
+   is a primary border and dot: a tiny checked marker reads as a bullet, not an action. On
+   focus-visible both take the field's border and ring, since they are form inputs (#119). */
 input[type="checkbox"],
 input[type="radio"] {
 	appearance: none;
@@ -222,9 +227,12 @@ input[type="radio"] {
 	border-radius: 50%;
 }
 
-input[type="checkbox"]:checked,
-input[type="radio"]:checked {
+input[type="checkbox"]:checked {
 	background: var(--wp--preset--color--primary);
+	border-color: var(--wp--preset--color--primary);
+}
+
+input[type="radio"]:checked {
 	border-color: var(--wp--preset--color--primary);
 }
 
@@ -241,7 +249,7 @@ input[type="checkbox"]:checked::after {
 }
 
 input[type="radio"]:checked::after {
-	background: #fff;
+	background: var(--wp--preset--color--primary);
 	border-radius: 50%;
 	content: "";
 	height: 8px;
@@ -743,8 +751,8 @@ html {
  * Hidden Sidebar: the rail in parts/sidebar.html.
  *
  * Only what the blocks cannot set. core/search has no padding control, so the
- * field and button drop to 40 tall to suit a 373px rail; the 404 search keeps the
- * default size. Latest Posts has no date controls. The list resets, the
+ * field and button take tighter padding to suit a 373px rail and sit on the 44px
+ * floor; the 404 search keeps the default size. Latest Posts has no date controls. The list resets, the
  * featured image gap and the block title cover blocks an owner may add to the
  * rail in the Site Editor: Categories, Archives, Latest Comments, and Latest
  * Posts with images on.
@@ -1036,15 +1044,11 @@ html {
  * hamburger do not fit a phone width on one row, so the ghost "View demo" is hidden
  * (by the button's own Hide setting, up to 782px) and the site title drops to
  * screen-reader-only while the site logo carries the brand; the title link is still a tab stop, so it un-clips while focused. A site
- * with no logo keeps its title. "Download" stays, with a 44px floor because the
- * theme pins no button line-height, and the hamburger packs beside it. Child
+ * with no logo keeps its title. "Download" stays, on the theme's 44px button floor
+ * (theme.json), and the hamburger packs beside it. Child
  * combinators keep the hamburger rule off the overlay's own Navigation block.
  */
 @media (max-width: 599px) {
-	.origin-canvas-header-marketing .wp-block-button__link {
-		min-height: 44px;
-	}
-
 	.origin-canvas-header-marketing .wp-block-group:has(> .wp-block-site-logo) > .wp-block-site-title:not(:focus-within) {
 		clip-path: inset(50%);
 		height: 1px;
@@ -1064,9 +1068,7 @@ html {
  * breakpoint the nav is only the open button; `order` sends it last so the row
  * reads [title] … [button][open], with the open button at the gutter edge on the
  * axis the overlay ✕ is tuned to. `margin-left: auto` on the
- * buttons packs the button beside it. The 44px floor is the header-marketing rule:
- * the theme pins no button line-height, so the mobile padding clamp alone lands
- * short of the tap target.
+ * buttons packs the button beside it.
  */
 @media (max-width: 599px) {
 	.origin-canvas-header-with-button > .wp-block-group > .wp-block-navigation {
@@ -1075,10 +1077,6 @@ html {
 
 	.origin-canvas-header-with-button > .wp-block-group > .wp-block-buttons {
 		margin-left: auto;
-	}
-
-	.origin-canvas-header-with-button .wp-block-button__link {
-		min-height: 44px;
 	}
 }
 

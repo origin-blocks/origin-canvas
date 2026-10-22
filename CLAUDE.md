@@ -24,7 +24,7 @@ wins. The shared design principles live outside this repo, not in the business p
 - Canvas design decisions live in the code, in `bin/check-*.sh` and in this repo's GitHub issues.
 - Mechanical rules are enforced by `bin/check-*.sh`. Among them: `check-column-splits.sh`,
   `check-layout-widths.sh`, `check-image-slots.sh`, `check-post-card-twins.sh`,
-  `check-roster-names.sh` (reads the roster from the writing guide clone) and
+  `check-page-h1.sh`, `check-roster-names.sh` (reads the roster from the writing guide clone) and
   `check-shipped-values.sh` (compares with every release tag). `bin/package-theme.sh` runs the
   repo-only ones, the shipped-values check with `--release`, so a pending removal stops the package.
 - Record a new trap as a check, a code comment or an issue. Private detail goes in a private issue
@@ -165,8 +165,11 @@ Every **colour** = palette slug. Every **spacing** = spacing preset slug. Every 
 font-size preset slug. The theme's scales are fluid (`clamp()`); hardcoding px in a pattern
 silently opts that value out of fluid type/spacing and out of every style variation.
 
-- Inline hex is permitted ONLY for dark sections (`#111827` bg, `#F3F4F6` text), since
-  `custom.dark.*` is not a palette, and for sanctioned per-product identity marks.
+- Inline hex is permitted ONLY for sanctioned per-product identity marks.
+- Dark bands write no hex. `custom.dark.bg` is `text-heading` and `custom.dark.text` is
+  `on-dark`, so a variation's ink reaches every dark pattern; new dark patterns use the
+  `text-heading` and `on-dark` presets directly. Secondary text is `on-dark` at 72%, hover
+  fills 8% and lines 12%, each a `color-mix` of `var(--wp--custom--dark--text)` (#127).
 - **If a design hands you a value that isn't on the scale, do NOT hardcode it.** Snap it to
   the nearest scale step and tell the designer to update their board, or file a `theme.json`
   change to add the step. Those are the only two options.
