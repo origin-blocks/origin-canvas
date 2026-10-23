@@ -17,8 +17,8 @@
 <h1 class="wp-block-heading has-text-align-center has-display-2-xl-font-size" style="margin-bottom:var(--wp--preset--spacing--medium);font-style:normal">404</h1>
 <!-- /wp:heading -->
 
-<!-- wp:paragraph {"style":{"spacing":{"margin":{"bottom":"var:preset|spacing|huge"}},"typography":{"textAlign":"center"}},"textColor":"text-body","fontSize":"medium"} -->
-<p class="has-text-align-center has-text-body-color has-text-color has-medium-font-size" style="margin-bottom:var(--wp--preset--spacing--huge)"><?php echo esc_html__( "We couldn't find the page you're looking for. It may have been moved or deleted. Please use the search bar or menu to locate your content.", 'origin-canvas' ); ?></p>
+<!-- wp:paragraph {"style":{"spacing":{"margin":{"bottom":"var:preset|spacing|huge"}},"typography":{"textAlign":"center"}},"textColor":"contrast-2","fontSize":"medium"} -->
+<p class="has-text-align-center has-contrast-2-color has-text-color has-medium-font-size" style="margin-bottom:var(--wp--preset--spacing--huge)"><?php echo esc_html__( "We couldn't find the page you're looking for. It may have been moved or deleted. Please use the search bar or menu to locate your content.", 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
 <!-- wp:search {"label":"Search","showLabel":false,"width":100,"widthUnit":"%","buttonText":"Search"} /--></div>

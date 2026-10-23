@@ -23,16 +23,16 @@
 <!-- /wp:column -->
 
 <!-- wp:column {"verticalAlignment":"center","width":"50%","style":{"spacing":{"blockGap":"var:preset|spacing|medium"}}} -->
-<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:50%"><!-- wp:heading {"level":2,"style":{"typography":{"lineHeight":"1.1"},"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|medium"}}},"textColor":"text-heading","fontSize":"huge"} -->
-<h2 class="wp-block-heading has-text-heading-color has-text-color has-huge-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--medium);line-height:1.1"><?php echo esc_html__( 'Why the schedule holds', 'origin-canvas' ); ?></h2>
+<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:50%"><!-- wp:heading {"level":2,"style":{"typography":{"lineHeight":"1.1"},"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|medium"}}},"textColor":"contrast","fontSize":"huge"} -->
+<h2 class="wp-block-heading has-contrast-color has-text-color has-huge-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--medium);line-height:1.1"><?php echo esc_html__( 'Why the schedule holds', 'origin-canvas' ); ?></h2>
 <!-- /wp:heading -->
 
-<!-- wp:paragraph {"textColor":"text-body","fontSize":"regular-plus"} -->
-<p class="has-text-body-color has-text-color has-regular-plus-font-size"><?php echo esc_html__( 'We plan the work before we promise a date, so you know when to expect it.', 'origin-canvas' ); ?></p>
+<!-- wp:paragraph {"textColor":"contrast-2","fontSize":"regular-plus"} -->
+<p class="has-contrast-2-color has-text-color has-regular-plus-font-size"><?php echo esc_html__( 'We plan the work before we promise a date, so you know when to expect it.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
-<!-- wp:paragraph {"textColor":"text-body","fontSize":"regular-plus"} -->
-<p class="has-text-body-color has-text-color has-regular-plus-font-size"><?php echo esc_html__( 'Most of our clients are shops, studios, and practices between five and fifty people. They come to us because they want the site to sound like them.', 'origin-canvas' ); ?></p>
+<!-- wp:paragraph {"textColor":"contrast-2","fontSize":"regular-plus"} -->
+<p class="has-contrast-2-color has-text-color has-regular-plus-font-size"><?php echo esc_html__( 'Most of our clients are shops, studios, and practices between five and fifty people. They come to us because they want the site to sound like them.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns --></section>

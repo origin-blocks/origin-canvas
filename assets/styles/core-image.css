@@ -15,7 +15,7 @@
 
 /* Boxed */
 .is-style-origin-canvas-media-boxed img {
-	border: 1px solid var(--wp--preset--color--border);
+	border: 1px solid var(--wp--preset--color--base-5);
 	border-radius: 8px;
 	box-shadow: var(--wp--preset--shadow--small);
 }

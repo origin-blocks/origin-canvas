@@ -12,7 +12,7 @@
    — and the two have to agree. */
 .wp-block-search__button-inside .wp-block-search__inside-wrapper {
 	padding: 4px;
-	background-color: var(--wp--preset--color--surface-base);
+	background-color: var(--wp--preset--color--base);
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -54,5 +54,5 @@
    and the two edges this file removes would come back. */
 .wp-block-search__button-inside
 	.wp-block-search__inside-wrapper:has(.wp-block-search__input:disabled) {
-	background-color: var(--wp--preset--color--surface-muted);
+	background-color: var(--wp--preset--color--base-2);
 }

@@ -14,26 +14,26 @@
  */
 
 ?>
-<!-- wp:group {"backgroundColor":"surface-muted","style":{"border":{"radius":"var:custom|radius|medium"},"spacing":{"padding":{"top":"0","right":"0","bottom":"var:preset|spacing|extra-large","left":"0"},"blockGap":"var:preset|spacing|extra-large"}},"layout":{"type":"constrained"}} -->
-<div class="wp-block-group has-surface-muted-background-color has-background" style="border-radius:var(--wp--custom--radius--medium);padding-top:0;padding-right:0;padding-bottom:var(--wp--preset--spacing--extra-large);padding-left:0"><!-- wp:image {"aspectRatio":"3/2","linkDestination":"none","style":{"border":{"radius":{"topLeft":"var:custom|radius|medium","topRight":"var:custom|radius|medium"}}}} -->
+<!-- wp:group {"backgroundColor":"base-2","style":{"border":{"radius":"var:custom|radius|medium"},"spacing":{"padding":{"top":"0","right":"0","bottom":"var:preset|spacing|extra-large","left":"0"},"blockGap":"var:preset|spacing|extra-large"}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group has-base-2-background-color has-background" style="border-radius:var(--wp--custom--radius--medium);padding-top:0;padding-right:0;padding-bottom:var(--wp--preset--spacing--extra-large);padding-left:0"><!-- wp:image {"aspectRatio":"3/2","linkDestination":"none","style":{"border":{"radius":{"topLeft":"var:custom|radius|medium","topRight":"var:custom|radius|medium"}}}} -->
 <figure class="wp-block-image has-custom-border"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/card-blog-1.webp" alt="<?php esc_attr_e( 'A printed Kestrel Physical Therapy website brief on a clipboard, with blue pen notes and the clinic&#8217;s orange appointment card clipped to the corner.', 'origin-canvas' ); ?>" style="border-top-left-radius:var(--wp--custom--radius--medium);border-top-right-radius:var(--wp--custom--radius--medium);aspect-ratio:3/2"/></figure>
 <!-- /wp:image -->
 
 <!-- wp:group {"style":{"spacing":{"padding":{"left":"var:preset|spacing|extra-large","right":"var:preset|spacing|extra-large"},"blockGap":"0"}},"layout":{"type":"constrained"}} -->
-<div class="wp-block-group" style="padding-right:var(--wp--preset--spacing--extra-large);padding-left:var(--wp--preset--spacing--extra-large)"><!-- wp:paragraph {"style":{"typography":{"textTransform":"uppercase","letterSpacing":"0.06em","fontWeight":"500"},"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|small"}}},"textColor":"text-muted","fontSize":"extra-small"} -->
-<p class="has-text-muted-color has-text-color has-extra-small-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--small);font-weight:500;letter-spacing:0.06em;text-transform:uppercase"><?php echo esc_html__( 'Studio journal', 'origin-canvas' ); ?></p>
+<div class="wp-block-group" style="padding-right:var(--wp--preset--spacing--extra-large);padding-left:var(--wp--preset--spacing--extra-large)"><!-- wp:paragraph {"style":{"typography":{"textTransform":"uppercase","letterSpacing":"0.06em","fontWeight":"500"},"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|small"}}},"textColor":"contrast-3","fontSize":"extra-small"} -->
+<p class="has-contrast-3-color has-text-color has-extra-small-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--small);font-weight:500;letter-spacing:0.06em;text-transform:uppercase"><?php echo esc_html__( 'Studio journal', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
-<!-- wp:heading {"level":3,"style":{"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|compact"}}},"textColor":"text-heading","fontSize":"medium"} -->
-<h3 class="wp-block-heading has-text-heading-color has-text-color has-medium-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--compact)"><?php echo esc_html__( 'What we send a client in week one', 'origin-canvas' ); ?></h3>
+<!-- wp:heading {"level":3,"style":{"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|small-medium"}}},"textColor":"contrast","fontSize":"medium"} -->
+<h3 class="wp-block-heading has-contrast-color has-text-color has-medium-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--small-medium)"><?php echo esc_html__( 'What we send a client in week one', 'origin-canvas' ); ?></h3>
 <!-- /wp:heading -->
 
-<!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|medium"}}},"textColor":"text-body","fontSize":"regular"} -->
-<p class="has-text-body-color has-text-color has-regular-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--medium)"><?php echo esc_html__( 'Before any pixels, we share a single page laying out who the site is for, what it needs to do, and what we&#8217;ll cut from the brief to keep things honest.', 'origin-canvas' ); ?></p>
+<!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|medium"}}},"textColor":"contrast-2","fontSize":"regular"} -->
+<p class="has-contrast-2-color has-text-color has-regular-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--medium)"><?php echo esc_html__( 'Before any pixels, we share a single page laying out who the site is for, what it needs to do, and what we&#8217;ll cut from the brief to keep things honest.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
-<!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-muted","fontSize":"small"} -->
-<p class="has-text-muted-color has-text-color has-small-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Claire Bennett', 'origin-canvas' ); ?> &middot; <?php echo esc_html__( 'Apr 18, 2026', 'origin-canvas' ); ?> &middot; <?php echo esc_html__( '4 min read', 'origin-canvas' ); ?></p>
+<!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"contrast-3","fontSize":"small"} -->
+<p class="has-contrast-3-color has-text-color has-small-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Claire Bennett', 'origin-canvas' ); ?> &middot; <?php echo esc_html__( 'Apr 18, 2026', 'origin-canvas' ); ?> &middot; <?php echo esc_html__( '4 min read', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group --></div>
 <!-- /wp:group -->

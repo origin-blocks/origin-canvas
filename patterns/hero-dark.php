@@ -26,7 +26,7 @@
 <p class="has-text-align-center has-regular-plus-font-size"><?php echo esc_html__( 'We make brand identity and websites for small teams that have something to say and don&#8217;t want to shout about it.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
-<!-- wp:buttons {"style":{"spacing":{"blockGap":"var:preset|spacing|compact","margin":{"top":"var:preset|spacing|extra-large"}}},"layout":{"type":"flex","justifyContent":"center","orientation":"horizontal"}} -->
+<!-- wp:buttons {"style":{"spacing":{"blockGap":"var:preset|spacing|small-medium","margin":{"top":"var:preset|spacing|extra-large"}}},"layout":{"type":"flex","justifyContent":"center","orientation":"horizontal"}} -->
 <div class="wp-block-buttons" style="margin-top:var(--wp--preset--spacing--extra-large)"><!-- wp:button {"className":"is-style-origin-canvas-fill-primary"} -->
 <div class="wp-block-button is-style-origin-canvas-fill-primary"><a class="wp-block-button__link wp-element-button"><?php echo esc_html__( 'See recent work', 'origin-canvas' ); ?></a></div>
 <!-- /wp:button -->

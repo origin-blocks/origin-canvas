@@ -23,11 +23,11 @@
 <h1 class="wp-block-heading has-display-xl-font-size has-text-align-left" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Sites and identities that earn a second look.', 'origin-canvas' ); ?></h1>
 <!-- /wp:heading -->
 
-<!-- wp:paragraph {"style":{"typography":{"textAlign":"left"}},"textColor":"text-body","fontSize":"regular-plus"} -->
-<p class="has-text-align-left has-text-body-color has-text-color has-regular-plus-font-size"><?php echo esc_html__( 'We work with founders who want their website to feel as considered as the rest of what they make.', 'origin-canvas' ); ?></p>
+<!-- wp:paragraph {"style":{"typography":{"textAlign":"left"}},"textColor":"contrast-2","fontSize":"regular-plus"} -->
+<p class="has-text-align-left has-contrast-2-color has-text-color has-regular-plus-font-size"><?php echo esc_html__( 'We work with founders who want their website to feel as considered as the rest of what they make.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
-<!-- wp:buttons {"style":{"spacing":{"blockGap":"var:preset|spacing|compact","margin":{"top":"var:preset|spacing|extra-large"}}},"layout":{"type":"flex","justifyContent":"left","orientation":"horizontal"}} -->
+<!-- wp:buttons {"style":{"spacing":{"blockGap":"var:preset|spacing|small-medium","margin":{"top":"var:preset|spacing|extra-large"}}},"layout":{"type":"flex","justifyContent":"left","orientation":"horizontal"}} -->
 <div class="wp-block-buttons" style="margin-top:var(--wp--preset--spacing--extra-large)"><!-- wp:button -->
 <div class="wp-block-button"><a class="wp-block-button__link wp-element-button"><?php echo esc_html__( 'View our work', 'origin-canvas' ); ?></a></div>
 <!-- /wp:button -->

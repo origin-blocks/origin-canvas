@@ -26,7 +26,7 @@
 
 .wp-block-calendar table caption {
 	caption-side: top;
-	padding: 0 0 var(--wp--preset--spacing--compact);
+	padding: 0 0 var(--wp--preset--spacing--small-medium);
 	font-size: max(0.875em, var(--wp--preset--font-size--extra-small));
 	font-weight: 600;
 	letter-spacing: 0.06em;
@@ -37,7 +37,7 @@
 /* The caption sits inside the table, so theme.json's day colour inherits into it. This is
    the one place that colour is overridden, and only when the author has not set one. */
 .wp-block-calendar table:not(.has-text-color) caption {
-	color: var(--wp--preset--color--text-heading);
+	color: var(--wp--preset--color--contrast);
 }
 
 .wp-block-calendar table th,
@@ -52,8 +52,8 @@
 }
 
 .wp-block-calendar table thead th {
-	padding: 0 var(--wp--preset--spacing--extra-small) var(--wp--preset--spacing--compact);
-	border-bottom: 1px solid var(--wp--preset--color--border);
+	padding: 0 var(--wp--preset--spacing--extra-small) var(--wp--preset--spacing--small-medium);
+	border-bottom: 1px solid var(--wp--preset--color--base-5);
 	font-size: max(0.875em, var(--wp--preset--font-size--extra-small));
 	font-weight: 600;
 	letter-spacing: 0.06em;
@@ -64,16 +64,16 @@
    element to carry it, so every row keeps the same height. Nothing typographic is stated
    here: a day number is the block's plain text, so it follows whatever the block is set to. */
 .wp-block-calendar table tbody td {
-	padding: var(--wp--preset--spacing--compact) var(--wp--preset--spacing--extra-small);
+	padding: var(--wp--preset--spacing--small-medium) var(--wp--preset--spacing--extra-small);
 	vertical-align: middle;
 }
 
 /* The link pulls back over that padding so its ground covers the whole cell. */
 .wp-block-calendar table tbody td a {
 	display: block;
-	margin: calc(var(--wp--preset--spacing--compact) * -1)
+	margin: calc(var(--wp--preset--spacing--small-medium) * -1)
 		calc(var(--wp--preset--spacing--extra-small) * -1);
-	padding: var(--wp--preset--spacing--compact) var(--wp--preset--spacing--extra-small);
+	padding: var(--wp--preset--spacing--small-medium) var(--wp--preset--spacing--extra-small);
 	border-radius: var(--wp--custom--radius--small);
 	font-weight: 600;
 }
@@ -85,7 +85,7 @@
 }
 
 .wp-block-calendar table tbody td a:hover {
-	background-color: var(--wp--preset--color--surface-muted);
+	background-color: var(--wp--preset--color--base-2);
 }
 
 /* Today is marked whether or not it has a post, so the ground is on the cell. The grounds
@@ -93,13 +93,13 @@
    never on a `td`, so the two never contest the same element, and a today cell that
    vanished under an author background would have lost information. */
 .wp-block-calendar table tbody td#today {
-	background-color: var(--wp--preset--color--surface-subtle);
+	background-color: var(--wp--preset--color--base-3);
 	border-radius: var(--wp--custom--radius--small);
 	font-weight: 600;
 }
 
 .wp-block-calendar table:not(.has-text-color) tbody td#today {
-	color: var(--wp--preset--color--text-heading);
+	color: var(--wp--preset--color--contrast);
 }
 
 .wp-block-calendar .wp-calendar-nav {
@@ -108,7 +108,7 @@
 	justify-content: space-between;
 	flex-wrap: wrap;
 	gap: var(--wp--preset--spacing--extra-small);
-	margin-top: var(--wp--preset--spacing--compact);
+	margin-top: var(--wp--preset--spacing--small-medium);
 	font-size: max(0.875em, var(--wp--preset--font-size--extra-small));
 }
 
@@ -130,7 +130,7 @@
  * through to whatever theme.json or Global Styles sets for the block's links — which is the
  * layer that owns it. */
 .wp-block-calendar table:not(.has-link-color) ~ .wp-calendar-nav a:not(:hover) {
-	color: var(--wp--preset--color--text-body);
+	color: var(--wp--preset--color--contrast-2);
 }
 
 /* Calendar links are navigation, never prose, so the content-link underline is excluded. */

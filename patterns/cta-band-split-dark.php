@@ -25,14 +25,14 @@
 <h2 class="wp-block-heading origin-canvas-text-balance has-text-color has-display-font-size" style="color:var(--wp--custom--dark--text);margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Your project could be next on our desk.', 'origin-canvas' ); ?></h2>
 <!-- /wp:heading -->
 
-<!-- wp:paragraph {"style":{"color":{"text":"color-mix(in srgb, var(--wp--custom--dark--text) 72%, transparent)"},"spacing":{"margin":{"top":"var:preset|spacing|compact","bottom":"0"}}},"fontSize":"regular-plus"} -->
-<p class="has-text-color has-regular-plus-font-size" style="color:color-mix(in srgb, var(--wp--custom--dark--text) 72%, transparent);margin-top:var(--wp--preset--spacing--compact);margin-bottom:0"><?php echo esc_html__( 'A 20-minute call is the fastest way to find out if we fit.', 'origin-canvas' ); ?></p>
+<!-- wp:paragraph {"style":{"color":{"text":"color-mix(in srgb, var(--wp--custom--dark--text) 72%, transparent)"},"spacing":{"margin":{"top":"var:preset|spacing|small-medium","bottom":"0"}}},"fontSize":"regular-plus"} -->
+<p class="has-text-color has-regular-plus-font-size" style="color:color-mix(in srgb, var(--wp--custom--dark--text) 72%, transparent);margin-top:var(--wp--preset--spacing--small-medium);margin-bottom:0"><?php echo esc_html__( 'A 20-minute call is the fastest way to find out if we fit.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group -->
 
-<!-- wp:buttons {"style":{"spacing":{"blockGap":"var:preset|spacing|compact"}},"layout":{"type":"flex","orientation":"horizontal"}} -->
-<div class="wp-block-buttons"><!-- wp:button {"backgroundColor":"on-dark","textColor":"text-heading","url":"#"} -->
-<div class="wp-block-button"><a class="wp-block-button__link has-text-heading-color has-on-dark-background-color has-text-color has-background wp-element-button" href="#"><?php echo esc_html__( 'Book a 20-minute call', 'origin-canvas' ); ?></a></div>
+<!-- wp:buttons {"style":{"spacing":{"blockGap":"var:preset|spacing|small-medium"}},"layout":{"type":"flex","orientation":"horizontal"}} -->
+<div class="wp-block-buttons"><!-- wp:button {"backgroundColor":"base-2","textColor":"contrast","url":"#"} -->
+<div class="wp-block-button"><a class="wp-block-button__link has-contrast-color has-base-2-background-color has-text-color has-background wp-element-button" href="#"><?php echo esc_html__( 'Book a 20-minute call', 'origin-canvas' ); ?></a></div>
 <!-- /wp:button -->
 
 <!-- wp:button {"className":"is-style-origin-canvas-outline-light","url":"#"} -->

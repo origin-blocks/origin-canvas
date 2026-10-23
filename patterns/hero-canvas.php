@@ -25,8 +25,8 @@
 <!-- /wp:heading -->
 
 <!-- wp:group {"layout":{"type":"constrained"}} -->
-<div class="wp-block-group"><!-- wp:paragraph {"style":{"typography":{"textAlign":"center"}},"textColor":"text-body","fontSize":"medium"} -->
-<p class="has-text-align-center has-text-body-color has-text-color has-medium-font-size"><?php echo esc_html__( 'A Full Site Editing theme where templates, patterns, typography, and color work as one system, so every build starts closer to finished.', 'origin-canvas' ); ?></p>
+<div class="wp-block-group"><!-- wp:paragraph {"style":{"typography":{"textAlign":"center"}},"textColor":"contrast-2","fontSize":"medium"} -->
+<p class="has-text-align-center has-contrast-2-color has-text-color has-medium-font-size"><?php echo esc_html__( 'A Full Site Editing theme where templates, patterns, typography, and color work as one system, so every build starts closer to finished.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group -->
 
@@ -37,13 +37,13 @@
 <!-- /wp:button --></div>
 <!-- /wp:buttons -->
 
-<!-- wp:paragraph {"style":{"typography":{"fontWeight":"500"},"elements":{"link":{"typography":{"textDecoration":"none"}}}},"textColor":"text-heading","fontSize":"regular"} -->
-<p class="has-text-heading-color has-text-color has-regular-font-size" style="font-weight:500"><a href="#" style="text-decoration:none"><?php echo esc_html__( 'Explore patterns', 'origin-canvas' ); ?> <span aria-hidden="true">&rarr;</span></a></p>
+<!-- wp:paragraph {"style":{"typography":{"fontWeight":"500"},"elements":{"link":{"typography":{"textDecoration":"none"}}}},"textColor":"contrast","fontSize":"regular"} -->
+<p class="has-contrast-color has-text-color has-regular-font-size" style="font-weight:500"><a href="#" style="text-decoration:none"><?php echo esc_html__( 'Explore patterns', 'origin-canvas' ); ?> <span aria-hidden="true">&rarr;</span></a></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group -->
 
-<!-- wp:paragraph {"textColor":"text-muted","fontSize":"small","style":{"spacing":{"margin":{"top":"var:preset|spacing|large","bottom":"0"}},"typography":{"textAlign":"center"}}} -->
-<p class="has-text-align-center has-text-muted-color has-text-color has-small-font-size" style="margin-top:var(--wp--preset--spacing--large);margin-bottom:0"><?php echo esc_html__( 'GPL licensed &middot; WordPress 7.0+ &middot; No page builder required', 'origin-canvas' ); ?></p>
+<!-- wp:paragraph {"textColor":"contrast-3","fontSize":"small","style":{"spacing":{"margin":{"top":"var:preset|spacing|large","bottom":"0"}},"typography":{"textAlign":"center"}}} -->
+<p class="has-text-align-center has-contrast-3-color has-text-color has-small-font-size" style="margin-top:var(--wp--preset--spacing--large);margin-bottom:0"><?php echo esc_html__( 'GPL licensed &middot; WordPress 7.0+ &middot; No page builder required', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group --></section>
 <!-- /wp:group -->

@@ -6,9 +6,9 @@
 }
 
 .is-style-origin-canvas-tag-chip a {
-	background: var(--wp--preset--color--surface-muted);
+	background: var(--wp--preset--color--base-2);
 	border-radius: var(--wp--custom--radius--medium);
-	color: var(--wp--preset--color--text-heading);
+	color: var(--wp--preset--color--contrast);
 	display: inline-flex;
 	/**
 	 * Core renders an inline font-size:Npt per tag (count-weighted); the chip
@@ -26,7 +26,7 @@
 }
 
 .is-style-origin-canvas-tag-chip a:hover {
-	background: var(--wp--preset--color--border);
+	background: var(--wp--preset--color--base-5);
 }
 
 /* Same in-content guard as term-chip: the base rule above only ties

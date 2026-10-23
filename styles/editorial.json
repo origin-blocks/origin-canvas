@@ -19,64 +19,64 @@
 					"color": "#E8456B"
 				},
 				{
-					"slug": "surface-base",
-					"name": "Surface Base",
+					"slug": "base",
+					"name": "Base",
 					"color": "#FAFAF8"
 				},
 				{
-					"slug": "surface-muted",
-					"name": "Surface Muted",
+					"slug": "base-2",
+					"name": "Base 2",
 					"color": "#F5F3EF"
 				},
 				{
-					"slug": "surface-subtle",
-					"name": "Surface Subtle",
+					"slug": "base-3",
+					"name": "Base 3",
 					"color": "#EFEDE8"
 				},
 				{
-					"slug": "surface-subtle-hover",
-					"name": "Surface Subtle Hover",
+					"slug": "base-4",
+					"name": "Base 4",
 					"color": "#E8E5DF"
 				},
 				{
-					"slug": "border",
-					"name": "Border",
+					"slug": "base-5",
+					"name": "Base 5",
 					"color": "#E7E5E4"
 				},
 				{
-					"slug": "input-border",
-					"name": "Border Default",
+					"slug": "base-6",
+					"name": "Base 6",
 					"color": "#D6D3D1"
 				},
 				{
-					"slug": "border-control",
-					"name": "Border Control",
+					"slug": "base-7",
+					"name": "Base 7",
+					"color": "#B8B6B3"
+				},
+				{
+					"slug": "contrast-5",
+					"name": "Contrast 5",
 					"color": "#828B98"
 				},
 				{
-					"slug": "border-strong",
-					"name": "Border Strong",
+					"slug": "contrast-4",
+					"name": "Contrast 4",
 					"color": "#6B7280"
 				},
 				{
-					"slug": "text-heading",
-					"name": "Text Heading",
-					"color": "#1C1917"
-				},
-				{
-					"slug": "text-body",
-					"name": "Text Body",
-					"color": "#44403C"
-				},
-				{
-					"slug": "text-muted",
-					"name": "Text Muted",
+					"slug": "contrast-3",
+					"name": "Contrast 3",
 					"color": "#57534E"
 				},
 				{
-					"slug": "on-dark",
-					"name": "On Dark",
-					"color": "#F3F4F6"
+					"slug": "contrast-2",
+					"name": "Contrast 2",
+					"color": "#44403C"
+				},
+				{
+					"slug": "contrast",
+					"name": "Contrast",
+					"color": "#1C1917"
 				}
 			]
 		},

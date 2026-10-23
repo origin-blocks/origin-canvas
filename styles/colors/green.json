@@ -7,68 +7,68 @@
 			"palette": [
 				{
 					"slug": "primary",
-					"color": "#16A34A",
-					"name": "Primary"
+					"name": "Primary",
+					"color": "#16A34A"
 				},
 				{
-					"slug": "surface-base",
-					"color": "#FFFFFF",
-					"name": "Surface Base"
+					"slug": "base",
+					"name": "Base",
+					"color": "#FFFFFF"
 				},
 				{
-					"slug": "surface-muted",
-					"color": "#F3F4F6",
-					"name": "Surface Muted"
+					"slug": "base-2",
+					"name": "Base 2",
+					"color": "#F3F4F6"
 				},
 				{
-					"slug": "surface-subtle",
-					"color": "#EEF2F6",
-					"name": "Surface Subtle"
+					"slug": "base-3",
+					"name": "Base 3",
+					"color": "#EEF2F6"
 				},
 				{
-					"slug": "surface-subtle-hover",
-					"color": "#E7ECF2",
-					"name": "Surface Subtle Hover"
+					"slug": "base-4",
+					"name": "Base 4",
+					"color": "#E7ECF2"
 				},
 				{
-					"slug": "border",
-					"color": "#E5E7EB",
-					"name": "Border"
+					"slug": "base-5",
+					"name": "Base 5",
+					"color": "#E5E7EB"
 				},
 				{
-					"slug": "input-border",
-					"color": "#D1D5DB",
-					"name": "Border Default"
+					"slug": "base-6",
+					"name": "Base 6",
+					"color": "#D1D5DB"
 				},
 				{
-					"slug": "border-control",
-					"color": "#828B98",
-					"name": "Border Control"
+					"slug": "base-7",
+					"name": "Base 7",
+					"color": "#B4B6BC"
 				},
 				{
-					"slug": "border-strong",
-					"color": "#6B7280",
-					"name": "Border Strong"
+					"slug": "contrast-5",
+					"name": "Contrast 5",
+					"color": "#828B98"
 				},
 				{
-					"slug": "text-heading",
-					"color": "#111827",
-					"name": "Text Heading"
+					"slug": "contrast-4",
+					"name": "Contrast 4",
+					"color": "#6B7280"
 				},
 				{
-					"slug": "text-body",
-					"color": "#374151",
-					"name": "Text Body"
+					"slug": "contrast-3",
+					"name": "Contrast 3",
+					"color": "#4B5563"
 				},
 				{
-					"slug": "text-muted",
-					"color": "#4B5563",
-					"name": "Text Muted"
+					"slug": "contrast-2",
+					"name": "Contrast 2",
+					"color": "#374151"
 				},
 				{
-					"slug": "on-dark",
-					"color": "#F3F4F6",
-					"name": "On Dark"
+					"slug": "contrast",
+					"name": "Contrast",
+					"color": "#111827"
 				}
 			]
 		}
