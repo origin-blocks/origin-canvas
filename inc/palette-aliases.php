@@ -452,6 +452,26 @@ if ( ! function_exists( 'origin_canvas_palette_enqueue_aliases' ) ) {
 add_action( 'wp_enqueue_scripts', 'origin_canvas_palette_enqueue_aliases', 9 );
 add_action( 'enqueue_block_assets', 'origin_canvas_palette_enqueue_aliases' );
 
+if ( ! function_exists( 'origin_canvas_palette_aliases_first' ) ) {
+	/**
+	 * Front end: the aliases print before global-styles on every page. A block theme renders its
+	 * template before wp_head, and a block that enqueues global-styles while it renders (a block
+	 * style variation does) puts it in the queue ahead of the aliases; a dependency holds the order.
+	 *
+	 * @return void
+	 */
+	function origin_canvas_palette_aliases_first() {
+		if ( is_admin() || ! wp_style_is( 'origin-canvas-palette-aliases', 'enqueued' ) ) {
+			return;
+		}
+		$styles = wp_styles();
+		if ( isset( $styles->registered['global-styles'] ) && ! in_array( 'origin-canvas-palette-aliases', $styles->registered['global-styles']->deps, true ) ) {
+			$styles->registered['global-styles']->deps[] = 'origin-canvas-palette-aliases';
+		}
+	}
+}
+add_action( 'wp_print_styles', 'origin_canvas_palette_aliases_first', 9 );
+
 if ( ! function_exists( 'origin_canvas_palette_editor_twins' ) ) {
 	/**
 	 * Both editors: the theme's twins as one theme style of the canvas.
