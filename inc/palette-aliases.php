@@ -499,3 +499,35 @@ if ( ! function_exists( 'origin_canvas_palette_editor_twins' ) ) {
 	}
 }
 add_filter( 'block_editor_settings_all', 'origin_canvas_palette_editor_twins' );
+
+if ( ! function_exists( 'origin_canvas_palette_enqueue_editor_names' ) ) {
+	/**
+	 * Both editors: edit components that look a colour slug up in the palette get the new slug
+	 * for an old one the palette lacks (assets/js/editor-palette.js). Stored attributes stay.
+	 *
+	 * @return void
+	 */
+	function origin_canvas_palette_enqueue_editor_names() {
+		if ( ! origin_canvas_palette_aliases_on() ) {
+			return;
+		}
+		$path  = get_theme_file_path( 'assets/js/editor-palette.js' );
+		$mtime = file_exists( $path ) ? filemtime( $path ) : false;
+		wp_enqueue_script(
+			'origin-canvas-editor-palette',
+			get_theme_file_uri( 'assets/js/editor-palette.js' ),
+			array( 'wp-hooks', 'wp-compose', 'wp-element', 'wp-block-editor' ),
+			$mtime ? $mtime : ORIGIN_CANVAS_VERSION,
+			false
+		);
+		wp_localize_script(
+			'origin-canvas-editor-palette',
+			'originCanvasEditorPalette',
+			array(
+				'map'   => origin_canvas_palette_map()['color'],
+				'attrs' => array_keys( origin_canvas_palette_rules()['slug_attrs'] ),
+			)
+		);
+	}
+}
+add_action( 'enqueue_block_editor_assets', 'origin_canvas_palette_enqueue_editor_names' );
