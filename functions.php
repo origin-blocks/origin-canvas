@@ -15,6 +15,7 @@ if ( ! defined( 'ORIGIN_CANVAS_VERSION' ) ) {
 require_once get_template_directory() . '/inc/palette-map.php';
 require_once get_template_directory() . '/inc/palette-blocks.php';
 require_once get_template_directory() . '/inc/palette-css.php';
+require_once get_template_directory() . '/inc/palette-global-styles.php';
 
 if ( ! function_exists( 'origin_canvas_setup' ) ) {
 	/**
