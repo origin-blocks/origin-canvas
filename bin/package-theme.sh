@@ -29,6 +29,9 @@ bash "$SCRIPT_DIR/check-layout-widths.sh"
 bash "$SCRIPT_DIR/check-image-slots.sh"
 bash "$SCRIPT_DIR/check-post-card-twins.sh"
 bash "$SCRIPT_DIR/check-page-h1.sh"
+# No old palette code outside the compatibility layer, and $wpdb only in the migration's
+# two files (#116).
+bash "$SCRIPT_DIR/check-palette-names.sh"
 # A shipped value removed since the last release must have its shim or ruling before the
 # package is built: pending removals fail here.
 bash "$SCRIPT_DIR/check-shipped-values.sh" --release

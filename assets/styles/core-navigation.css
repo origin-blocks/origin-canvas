@@ -392,8 +392,8 @@
 /**
  * Navigation on a dark band: a nav whose text color is base-2. Core marks it
  * with has-base-2-color, so the rules key on that and follow the block's own
- * setting on any dark band. A nav saved before the #116 rename still holds
- * has-on-dark-color; the twin rules generated in inc/palette-aliases.php match it. A nav saved with the origin-canvas-nav-dark class
+ * setting on any dark band. A nav saved before the #116 rename still holds the
+ * old On Dark text class; the twin rules generated in inc/palette-aliases.php match it. A nav saved with the origin-canvas-nav-dark class
  * matches too, whatever its text color. The flyout's dark ground is the block's "Submenu &
  * overlay background" setting; the card rule above still supplies radius,
  * padding, width, type, shadow and z-index. Ink on ink, the 12% base-2 hairline
