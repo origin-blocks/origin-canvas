@@ -13,6 +13,8 @@ if ( ! defined( 'ORIGIN_CANVAS_VERSION' ) ) {
 
 // The palette rename (#116): the map, the migration and the compatibility aliases.
 require_once get_template_directory() . '/inc/palette-map.php';
+require_once get_template_directory() . '/inc/palette-blocks.php';
+require_once get_template_directory() . '/inc/palette-css.php';
 
 if ( ! function_exists( 'origin_canvas_setup' ) ) {
 	/**
