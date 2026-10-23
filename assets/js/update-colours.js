@@ -97,20 +97,25 @@
 		init();
 	}
 
-	// Core adds the dismiss button to .is-dismissible notices; a click records the dismissal. A
-	// beacon survives the page being left right after the click.
+	// Core adds the dismiss button to .is-dismissible notices; a click records the dismissal. The
+	// request is synchronous: the next page load must already find the notice dismissed, and an
+	// asynchronous request can still be in flight when the user moves on. A beacon is the
+	// fallback where a synchronous request is refused.
 	document.addEventListener( 'click', ( event ) => {
 		const target = event.target && event.target.closest ? event.target.closest( '#origin-canvas-update-colours-notice .notice-dismiss' ) : null;
 		if ( ! target ) {
 			return;
 		}
 		const data = { action: 'origin_canvas_dismiss_update_colours_notice', _ajax_nonce: config.dismissNonce };
-		if ( window.navigator.sendBeacon ) {
+		try {
+			const xhr = new window.XMLHttpRequest();
+			xhr.open( 'POST', config.ajaxUrl, false );
+			xhr.setRequestHeader( 'Content-Type', 'application/x-www-form-urlencoded' );
+			xhr.send( new window.URLSearchParams( data ).toString() );
+		} catch ( e ) {
 			const body = new window.FormData();
 			Object.keys( data ).forEach( ( k ) => body.append( k, data[ k ] ) );
 			window.navigator.sendBeacon( config.ajaxUrl, body );
-		} else {
-			post( data );
 		}
 	} );
 }( window.originCanvasUpdateColours ) );
