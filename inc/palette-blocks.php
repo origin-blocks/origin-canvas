@@ -878,3 +878,42 @@ if ( ! function_exists( 'origin_canvas_palette_content_slug_refs' ) ) {
 		return $refs;
 	}
 }
+
+if ( ! function_exists( 'origin_canvas_palette_css_hits' ) ) {
+	/**
+	 * Old codes in a CSS or markup text: old variables, var:preset and var:custom references, and
+	 * old class names (never core's generic has-border-color).
+	 *
+	 * @param string $css Text.
+	 * @return string[]
+	 */
+	function origin_canvas_palette_css_hits( $css ) {
+		$css  = (string) $css;
+		$map  = origin_canvas_palette_map();
+		$hits = array();
+		$forms = array(
+			'color'      => array( '/--wp--preset--color--([a-z0-9-]+)/', '/var:preset\|color\|([a-z0-9-]+)/' ),
+			'spacing'    => array( '/--wp--preset--spacing--([a-z0-9-]+)/', '/var:preset\|spacing\|([a-z0-9-]+)/' ),
+			'lineHeight' => array( '/--wp--custom--line-height--([a-z0-9-]+)/', '/var:custom\|line-height\|([a-z0-9-]+)/' ),
+		);
+		foreach ( $forms as $kind => $patterns ) {
+			foreach ( $patterns as $re ) {
+				if ( preg_match_all( $re, $css, $m ) ) {
+					foreach ( $m[1] as $slug ) {
+						if ( isset( $map[ $kind ][ $slug ] ) ) {
+							$hits[] = 'var~' . $kind . '-' . $slug;
+						}
+					}
+				}
+			}
+		}
+		if ( preg_match_all( '/(?<![a-zA-Z0-9_-])has-([a-z0-9-]+?)-(background-color|border-color|color)(?![a-zA-Z0-9_-])/', $css, $m, PREG_SET_ORDER ) ) {
+			foreach ( $m as $x ) {
+				if ( 'has-border-color' !== $x[0] && isset( $map['color'][ $x[1] ] ) ) {
+					$hits[] = 'class=' . $x[0];
+				}
+			}
+		}
+		return array_values( array_unique( $hits ) );
+	}
+}
