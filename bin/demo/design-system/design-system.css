@@ -48,12 +48,12 @@
    sideways when it runs out of room, so it never widens the page. */
 
 .ocds-jump {
-	background: var(--wp--preset--color--surface-base);
-	border-block: 1px solid var(--wp--preset--color--border);
+	background: var(--wp--preset--color--base);
+	border-block: 1px solid var(--wp--preset--color--base-5);
 	margin-bottom: var(--wp--preset--spacing--jumbo);
 	margin-inline: calc(-1 * var(--wp--preset--spacing--large));
 	overflow-x: auto;
-	padding: var(--wp--preset--spacing--compact) var(--wp--preset--spacing--large);
+	padding: var(--wp--preset--spacing--small-medium) var(--wp--preset--spacing--large);
 	position: sticky;
 	top: var(--wp-admin--admin-bar--height, 0px);
 	z-index: 10;
@@ -79,9 +79,9 @@
 }
 
 .ocds-next {
-	border: 1px solid var(--wp--preset--color--border);
+	border: 1px solid var(--wp--preset--color--base-5);
 	border-radius: 999px;
-	line-height: var(--wp--custom--line-height--body);
+	line-height: var(--wp--custom--line-height--normal);
 	padding: 0 var(--wp--preset--spacing--small);
 }
 
@@ -99,7 +99,7 @@
 }
 
 .ocds-section + .ocds-section {
-	border-top: 1px solid var(--wp--preset--color--border);
+	border-top: 1px solid var(--wp--preset--color--base-5);
 	margin-top: var(--wp--preset--spacing--jumbo);
 	padding-top: var(--wp--preset--spacing--jumbo);
 }
@@ -114,7 +114,7 @@
 }
 
 .ocds-intent {
-	margin-block: var(--wp--preset--spacing--compact) 0;
+	margin-block: var(--wp--preset--spacing--small-medium) 0;
 	max-width: 66ch;
 }
 
@@ -139,7 +139,7 @@
 
 .ocds-ground {
 	background: var(--ocds-ground);
-	border: 1px solid var(--wp--preset--color--border);
+	border: 1px solid var(--wp--preset--color--base-5);
 	border-radius: var(--wp--custom--radius--medium);
 	display: flex;
 	flex-direction: column;
@@ -161,7 +161,7 @@
 	display: flex;
 	flex-direction: column;
 	gap: var(--wp--preset--spacing--extra-small);
-	padding-top: var(--wp--preset--spacing--compact);
+	padding-top: var(--wp--preset--spacing--small-medium);
 }
 
 .ocds-cap > * {
@@ -186,7 +186,7 @@
 .ocds-roles li {
 	align-items: center;
 	display: flex;
-	gap: var(--wp--preset--spacing--compact);
+	gap: var(--wp--preset--spacing--small-medium);
 }
 
 /* Page grounds: each page pattern's sections in order, one swatch each. A panel inside an
@@ -201,10 +201,10 @@
 
 .ocds-strip {
 	display: grid;
-	gap: var(--wp--preset--spacing--compact);
+	gap: var(--wp--preset--spacing--small-medium);
 	grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr));
 	list-style: none;
-	margin: var(--wp--preset--spacing--compact) 0 0;
+	margin: var(--wp--preset--spacing--small-medium) 0 0;
 	padding: 0;
 }
 
@@ -218,11 +218,11 @@
 
 .ocds-swatch {
 	background: var(--ocds-ground);
-	border: 1px solid var(--wp--preset--color--border);
+	border: 1px solid var(--wp--preset--color--base-5);
 	border-radius: var(--wp--custom--radius--medium);
 	display: flex;
 	height: 3rem;
-	padding: var(--wp--preset--spacing--compact) var(--wp--preset--spacing--large);
+	padding: var(--wp--preset--spacing--small-medium) var(--wp--preset--spacing--large);
 }
 
 .ocds-swatch > span {
@@ -246,8 +246,8 @@
 
 .ocds-matrix th,
 .ocds-matrix td {
-	border: 1px solid var(--wp--preset--color--border);
-	padding: var(--wp--preset--spacing--compact);
+	border: 1px solid var(--wp--preset--color--base-5);
+	padding: var(--wp--preset--spacing--small-medium);
 	text-align: start;
 	vertical-align: top;
 }
@@ -290,13 +290,13 @@
 }
 
 .ocds-frame-body {
-	border: 1px solid var(--wp--preset--color--border);
+	border: 1px solid var(--wp--preset--color--base-5);
 	border-radius: var(--wp--custom--radius--medium);
 	overflow: hidden;
 }
 
 .ocds-frame > figcaption {
-	margin-top: var(--wp--preset--spacing--compact);
+	margin-top: var(--wp--preset--spacing--small-medium);
 }
 
 /* Rules vs runtime */

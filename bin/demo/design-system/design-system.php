@@ -75,7 +75,7 @@ function oc_demo_ds_src( $file, $needle, $after = '' ) {
  * file. Specimens are real shipped blocks, so a pattern change shows here.
  *
  * The ground is the nearest fill among the block and its ancestors: a palette slug as its
- * preset variable, a raw value as written, or surface-base (the page) when nothing sets one.
+ * preset variable, a raw value as written, or base (the page) when nothing sets one.
  * The text color the block inherits from its ancestors is found the same way, so a block
  * shown alone keeps the color its section gives it.
  *
@@ -91,7 +91,7 @@ function oc_demo_ds_src( $file, $needle, $after = '' ) {
 function oc_demo_ds_block( $slug, $want ) {
 	$file    = 'patterns/' . $slug . '.php';
 	$pattern = WP_Block_Patterns_Registry::get_instance()->get_registered( 'origin-canvas/' . $slug );
-	$page    = 'var(--wp--preset--color--surface-base)';
+	$page    = 'var(--wp--preset--color--base)';
 	$stack   = array();
 	foreach ( $pattern ? parse_blocks( $pattern['content'] ) : array() as $block ) {
 		$stack[] = array( $block, $page, '' );
@@ -301,18 +301,18 @@ function oc_demo_ds_tile( $t ) {
 			<?php endif; ?>
 		</div>
 		<figcaption class="ocds-cap">
-			<code class="has-text-heading-color has-text-color"><?php echo esc_html( $t['name'] ); ?></code>
+			<code class="has-contrast-color has-text-color"><?php echo esc_html( $t['name'] ); ?></code>
 			<?php if ( ! isset( $t['text'] ) || $t['text'] ) : ?>
-				<span class="ocds-num has-text-body-color has-text-color has-small-font-size"><span data-ocds-hex></span><br><span data-ocds-ratio></span></span>
+				<span class="ocds-num has-contrast-2-color has-text-color has-small-font-size"><span data-ocds-hex></span><br><span data-ocds-ratio></span></span>
 			<?php endif; ?>
 			<?php if ( ! empty( $t['fill'] ) ) : ?>
-				<span class="ocds-num has-text-body-color has-text-color has-small-font-size" data-ocds-sep></span>
+				<span class="ocds-num has-contrast-2-color has-text-color has-small-font-size" data-ocds-sep></span>
 			<?php endif; ?>
-			<span class="has-text-body-color has-text-color has-small-font-size"><?php echo esc_html( $t['use'] ); ?></span>
+			<span class="has-contrast-2-color has-text-color has-small-font-size"><?php echo esc_html( $t['use'] ); ?></span>
 			<?php if ( ! empty( $t['note'] ) ) : ?>
-				<span class="has-text-heading-color has-text-color has-small-font-size"><strong><?php echo esc_html( $t['note'] ); ?></strong></span>
+				<span class="has-contrast-color has-text-color has-small-font-size"><strong><?php echo esc_html( $t['note'] ); ?></strong></span>
 			<?php endif; ?>
-			<span class="has-text-muted-color has-text-color has-extra-small-font-size"><?php echo esc_html( $t['src'] ); ?></span>
+			<span class="has-contrast-3-color has-text-color has-extra-small-font-size"><?php echo esc_html( $t['src'] ); ?></span>
 		</figcaption>
 	</figure>
 	<?php
