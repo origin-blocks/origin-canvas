@@ -20,6 +20,7 @@ require_once get_template_directory() . '/inc/palette-state.php';
 require_once get_template_directory() . '/inc/palette-detect.php';
 require_once get_template_directory() . '/inc/palette-aliases.php';
 require_once get_template_directory() . '/inc/palette-migrate.php';
+require_once get_template_directory() . '/inc/palette-presence.php';
 
 if ( ! function_exists( 'origin_canvas_setup' ) ) {
 	/**
