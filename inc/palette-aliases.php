@@ -284,6 +284,40 @@ if ( ! function_exists( 'origin_canvas_palette_twins_for' ) ) {
 	}
 }
 
+if ( ! function_exists( 'origin_canvas_palette_editor_twin_css' ) ) {
+	/**
+	 * Child twins as the editors take them: each selector item one class stronger, through a
+	 * :not() of a class no element holds, so what it matches is unchanged. The editors print
+	 * core's global styles after every theme style and canvas asset (editor.js
+	 * useGlobalStylesRenderer: [ ...nonGlobalStyles, ...styles ]), so core's colour class (0-1-0,
+	 * !important) and its :root variables would win over a twin that wins by order on the front
+	 * end, where the child sheet prints after global-styles.
+	 *
+	 * @param string $css Child twin CSS.
+	 * @return string
+	 */
+	function origin_canvas_palette_editor_twin_css( $css ) {
+		return origin_canvas_palette_css_scan(
+			(string) $css,
+			static function ( $prelude, $body ) {
+				$items = array();
+				foreach ( origin_canvas_palette_css_split_items( $prelude ) as $item ) {
+					$trimmed = rtrim( $item );
+					$tail    = (string) substr( $item, strlen( $trimmed ) );
+					// Before a trailing pseudo-element, which must end the selector.
+					$at = preg_match( '/(::[a-zA-Z-]+(?:\([^)]*\))?|:(?:before|after|first-line|first-letter))$/i', $trimmed, $m ) ? strlen( $trimmed ) - strlen( $m[0] ) : strlen( $trimmed );
+					$items[] = substr( $trimmed, 0, $at ) . ':not(.origin-canvas-editor-twin)' . substr( $trimmed, $at ) . $tail;
+				}
+				return array(
+					'prelude' => implode( ',', $items ),
+					'body'    => $body,
+				);
+			},
+			true
+		);
+	}
+}
+
 if ( ! function_exists( 'origin_canvas_palette_twin_css' ) ) {
 	/**
 	 * The theme's twins of one of its own files: its rules keyed on a new class, for content that
@@ -381,6 +415,9 @@ if ( ! function_exists( 'origin_canvas_palette_attach_handle_twins' ) ) {
 			$child = realpath( get_stylesheet_directory() );
 			if ( $child && 0 === strpos( $file, trailingslashit( $child ) ) ) {
 				$css = origin_canvas_palette_twins_for( $file, 'child' );
+				if ( $child_only && '' !== $css ) {
+					$css = origin_canvas_palette_editor_twin_css( $css );
+				}
 			}
 		}
 		if ( '' !== $css ) {
@@ -489,9 +526,8 @@ add_action( 'wp_print_styles', 'origin_canvas_palette_aliases_first', 9 );
 if ( ! function_exists( 'origin_canvas_palette_editor_twins' ) ) {
 	/**
 	 * Both editors: the theme's twins, and the child twins of every child theme file the editors
-	 * load as an editor style, as one theme style of the canvas. Theme styles print after the
-	 * global styles (block-editor.php:557), as the child's own file does, so a twin of a child
-	 * rule wins over core's colour classes where the child rule does.
+	 * load as an editor style, as one theme style of the canvas, beside the child's own file. The
+	 * child twins take the editor form (origin_canvas_palette_editor_twin_css()).
 	 *
 	 * @param array $settings Editor settings.
 	 * @return array
@@ -516,7 +552,7 @@ if ( ! function_exists( 'origin_canvas_palette_editor_twins' ) ) {
 				$file = realpath( get_theme_file_path( $style ) );
 				if ( $file && ! isset( $seen[ $file ] ) && 0 === strpos( $file, trailingslashit( $child ) ) ) {
 					$seen[ $file ] = true;
-					$css          .= origin_canvas_palette_twins_for( $file, 'child' );
+					$css          .= origin_canvas_palette_editor_twin_css( origin_canvas_palette_twins_for( $file, 'child' ) );
 				}
 			}
 		}
