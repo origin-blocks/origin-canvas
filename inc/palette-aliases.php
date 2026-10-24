@@ -345,10 +345,12 @@ if ( ! function_exists( 'origin_canvas_palette_attach_handle_twins' ) ) {
 	 * Attach the twins of the file one handle serves, inline after it, once per request: the
 	 * theme's twins for its style.css and core-navigation.css, the child twins for a child file.
 	 *
-	 * @param string $handle Style handle.
+	 * @param string $handle     Style handle.
+	 * @param bool   $child_only Only a child file's twins (the editors get the theme's own twins
+	 *                           through their settings).
 	 * @return void
 	 */
-	function origin_canvas_palette_attach_handle_twins( $handle ) {
+	function origin_canvas_palette_attach_handle_twins( $handle, $child_only = false ) {
 		static $done = array();
 		if ( isset( $done[ $handle ] ) ) {
 			return;
@@ -359,7 +361,7 @@ if ( ! function_exists( 'origin_canvas_palette_attach_handle_twins' ) ) {
 			return;
 		}
 		$css = '';
-		foreach ( array_keys( origin_canvas_palette_rules()['twins']['files'] ) as $relative ) {
+		foreach ( $child_only ? array() : array_keys( origin_canvas_palette_rules()['twins']['files'] ) as $relative ) {
 			$own = realpath( get_template_directory() . '/' . $relative );
 			if ( $own && $own === $file ) {
 				$css = origin_canvas_palette_twin_css( $file );
@@ -391,17 +393,20 @@ if ( ! function_exists( 'origin_canvas_palette_aliases_on' ) ) {
 
 if ( ! function_exists( 'origin_canvas_palette_attach_twins' ) ) {
 	/**
-	 * Front end: the twins of every queued style handle, by the file it serves. Runs inside
-	 * wp_print_styles(), after core has inlined small sheets.
+	 * The twins of every queued style handle, by the file it serves. Runs inside wp_print_styles(),
+	 * after core has inlined small sheets: on the front end, and in the admin where core prints the
+	 * editor canvas assets enqueued on enqueue_block_assets (block-editor.php:342-369). There a
+	 * child theme's sheet gets its child twins; the theme's own twins reach the editors through
+	 * their settings.
 	 *
 	 * @return void
 	 */
 	function origin_canvas_palette_attach_twins() {
-		if ( is_admin() || ! origin_canvas_palette_aliases_on() ) {
+		if ( ! origin_canvas_palette_aliases_on() ) {
 			return;
 		}
 		foreach ( (array) wp_styles()->queue as $handle ) {
-			origin_canvas_palette_attach_handle_twins( $handle );
+			origin_canvas_palette_attach_handle_twins( $handle, is_admin() );
 		}
 	}
 }
@@ -474,18 +479,37 @@ add_action( 'wp_print_styles', 'origin_canvas_palette_aliases_first', 9 );
 
 if ( ! function_exists( 'origin_canvas_palette_editor_twins' ) ) {
 	/**
-	 * Both editors: the theme's twins as one theme style of the canvas.
+	 * Both editors: the theme's twins, and the child twins of every child theme file the editors
+	 * load as an editor style, as one theme style of the canvas. Theme styles print after the
+	 * global styles (block-editor.php:557), as the child's own file does, so a twin of a child
+	 * rule wins over core's colour classes where the child rule does.
 	 *
 	 * @param array $settings Editor settings.
 	 * @return array
 	 */
 	function origin_canvas_palette_editor_twins( $settings ) {
+		global $editor_styles;
 		if ( ! origin_canvas_palette_aliases_on() ) {
 			return $settings;
 		}
 		$css = '';
 		foreach ( array_keys( origin_canvas_palette_rules()['twins']['files'] ) as $relative ) {
 			$css .= origin_canvas_palette_twin_css( get_template_directory() . '/' . $relative );
+		}
+		$child = is_child_theme() ? realpath( get_stylesheet_directory() ) : false;
+		if ( $child && is_array( $editor_styles ) && current_theme_supports( 'editor-styles' ) ) {
+			$seen = array();
+			// Resolved as core does (get_block_editor_theme_styles()): the child's file when it has one.
+			foreach ( $editor_styles as $style ) {
+				if ( ! is_string( $style ) || preg_match( '~^(https?:)?//~', $style ) ) {
+					continue;
+				}
+				$file = realpath( get_theme_file_path( $style ) );
+				if ( $file && ! isset( $seen[ $file ] ) && 0 === strpos( $file, trailingslashit( $child ) ) ) {
+					$seen[ $file ] = true;
+					$css          .= origin_canvas_palette_twins_for( $file, 'child' );
+				}
+			}
 		}
 		if ( '' !== $css ) {
 			$settings['styles']   = isset( $settings['styles'] ) && is_array( $settings['styles'] ) ? $settings['styles'] : array();
