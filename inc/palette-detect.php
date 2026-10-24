@@ -39,7 +39,23 @@ if ( ! function_exists( 'origin_canvas_palette_tokens' ) ) {
 		foreach ( array( 'color--', 'spacing--compact', 'line-height--body' ) as $raw ) {
 			$tokens[] = substr( origin_canvas_palette_encode_attr_string( $raw ), 1, -1 );
 		}
+		$tokens[] = origin_canvas_palette_escape_token();
 		return $tokens;
+	}
+}
+
+if ( ! function_exists( 'origin_canvas_palette_escape_token' ) ) {
+	/**
+	 * The prefilter token for a slug written with JSON escapes in block attributes:
+	 * "textColor":"text\u002dheading" is valid JSON for the slug text-heading, and any character of
+	 * a slug may be escaped so. Every slug character is ASCII, so each escaped form holds "\u00".
+	 * Over-inclusive (core itself writes "--", "<", ">", "&" and quotes in attribute strings so);
+	 * the walk decodes the attributes and decides.
+	 *
+	 * @return string
+	 */
+	function origin_canvas_palette_escape_token() {
+		return '\\u00';
 	}
 }
 
@@ -60,6 +76,9 @@ if ( ! function_exists( 'origin_canvas_palette_destination_tokens' ) ) {
 		}
 		foreach ( array_keys( isset( $map['lineHeight'] ) ? (array) $map['lineHeight'] : array() ) as $d ) {
 			array_push( $tokens, 'line-height|' . $d, 'line-height--' . $d, substr( origin_canvas_palette_encode_attr_string( 'line-height--' . $d ), 1, -1 ) );
+		}
+		if ( $tokens ) {
+			$tokens[] = origin_canvas_palette_escape_token();
 		}
 		return $tokens;
 	}
