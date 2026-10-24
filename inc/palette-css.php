@@ -688,28 +688,44 @@ if ( ! function_exists( 'origin_canvas_palette_css_prop_twin' ) ) {
 if ( ! function_exists( 'origin_canvas_palette_css_decl_twins' ) ) {
 	/**
 	 * The declaration twins of one rule body: list of array( 'at' => value end offset,
-	 * 'text' => '<new name>:<value bytes>' ). None for a new name the body already declares.
+	 * 'text' => '<new name>:<value bytes>' ), in order.
+	 *
+	 * Every declaration of an old preset property gets its own twin right after it, so with
+	 * repeated declarations (red, then blue, or one with !important) the new name wins with the
+	 * same value the old one does. A twin is a declaration of the new name right after the old one
+	 * with the same value bytes; a declaration already followed by its twin gets none, so a second
+	 * run changes nothing. A new name the body declares on its own takes no twins.
 	 *
 	 * @param string $body  Rule body.
 	 * @param array  $extra Collision map.
 	 * @return array
 	 */
 	function origin_canvas_palette_css_decl_twins( $body, $extra = array() ) {
-		$decls    = origin_canvas_palette_css_declarations( $body );
-		$declared = array();
-		foreach ( $decls as $d ) {
-			$declared[ $d['prop'] ] = true;
+		$decls = origin_canvas_palette_css_declarations( $body );
+		$news  = array();
+		$vals  = array();
+		foreach ( $decls as $k => $d ) {
+			$news[ $k ] = origin_canvas_palette_css_prop_twin( $d['prop'], $extra );
+			$vals[ $k ] = substr( $body, $d['value_start'], $d['value_end'] - $d['value_start'] );
+		}
+		$is_twin = array();
+		$own     = array();
+		foreach ( $decls as $k => $d ) {
+			if ( $k > 0 && '' !== $news[ $k - 1 ] && $news[ $k - 1 ] === $d['prop'] && $vals[ $k - 1 ] === $vals[ $k ] ) {
+				$is_twin[ $k ] = true;
+			} else {
+				$own[ $d['prop'] ] = true;
+			}
 		}
 		$out = array();
-		foreach ( $decls as $d ) {
-			$new = origin_canvas_palette_css_prop_twin( $d['prop'], $extra );
-			if ( '' === $new || isset( $declared[ $new ] ) ) {
+		foreach ( $decls as $k => $d ) {
+			$new = $news[ $k ];
+			if ( '' === $new || isset( $own[ $new ] ) || isset( $is_twin[ $k + 1 ] ) ) {
 				continue;
 			}
-			$declared[ $new ] = true;
-			$out[]            = array(
+			$out[] = array(
 				'at'   => $d['value_end'],
-				'text' => $new . ':' . substr( $body, $d['value_start'], $d['value_end'] - $d['value_start'] ),
+				'text' => $new . ':' . $vals[ $k ],
 			);
 		}
 		return $out;
