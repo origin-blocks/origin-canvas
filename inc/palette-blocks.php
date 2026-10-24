@@ -474,6 +474,99 @@ if ( ! function_exists( 'origin_canvas_palette_truthy' ) ) {
 	}
 }
 
+if ( ! class_exists( 'Origin_Canvas_Palette_Tag_Scanner' ) ) {
+	/**
+	 * Core's tag processor, used only to find where each opening tag starts and ends: it walks
+	 * comments, raw text and quoted attribute values as a browser does, so a "<" or ">" inside an
+	 * attribute value never starts or ends a tag.
+	 */
+	class Origin_Canvas_Palette_Tag_Scanner extends WP_HTML_Tag_Processor {
+		/**
+		 * The opening tags of a markup string.
+		 *
+		 * @param string $html Markup.
+		 * @return array List of array( offset, tag text ).
+		 */
+		public static function openers( $html ) {
+			$html = (string) $html;
+			$out  = array();
+			if ( false === strpos( $html, '<' ) ) {
+				return $out;
+			}
+			$p = new self( $html );
+			while ( $p->next_tag() ) {
+				if ( $p->set_bookmark( 'tag' ) ) {
+					$span  = $p->bookmarks['tag'];
+					$out[] = array( $span->start, substr( $html, $span->start, $span->length ) );
+				}
+			}
+			return $out;
+		}
+	}
+}
+
+if ( ! function_exists( 'origin_canvas_palette_tag_attribute' ) ) {
+	/**
+	 * Where the value of a tag's attribute is: the first attribute of that name, as a browser
+	 * reads it (later duplicates are ignored), parsed by the rules of core's tag processor
+	 * (class-wp-html-tag-processor.php parse_next_attribute()). Text inside another attribute's
+	 * value is never taken for an attribute.
+	 *
+	 * @param string $tag  One opening tag, "<" to ">".
+	 * @param string $name Attribute name, lower case.
+	 * @return array|null array( value offset, value length ) in $tag, or null when absent or empty.
+	 */
+	function origin_canvas_palette_tag_attribute( $tag, $name ) {
+		$len = strlen( $tag );
+		$i   = 1 + strcspn( $tag, " \t\f\r\n/>", 1 );
+		while ( $i < $len ) {
+			$i += strspn( $tag, " \t\f\r\n/", $i );
+			if ( $i >= $len || '>' === $tag[ $i ] ) {
+				return null;
+			}
+			$n    = '=' === $tag[ $i ] ? 1 + strcspn( $tag, "=/> \t\f\r\n", $i + 1 ) : strcspn( $tag, "=/> \t\f\r\n", $i );
+			$attr = substr( $tag, $i, $n );
+			$i   += $n;
+			$i   += strspn( $tag, " \t\f\r\n", $i );
+			$val  = null;
+			if ( $i < $len && '=' === $tag[ $i ] ) {
+				++$i;
+				$i += strspn( $tag, " \t\f\r\n", $i );
+				if ( $i < $len && ( '"' === $tag[ $i ] || "'" === $tag[ $i ] ) ) {
+					$end = strpos( $tag, $tag[ $i ], $i + 1 );
+					if ( false === $end ) {
+						return null;
+					}
+					$val = array( $i + 1, $end - $i - 1 );
+					$i   = $end + 1;
+				} else {
+					$n   = strcspn( $tag, "> \t\f\r\n", $i );
+					$val = array( $i, $n );
+					$i  += $n;
+				}
+			}
+			if ( strtolower( $attr ) === $name ) {
+				return ( null === $val || 0 === $val[1] ) ? null : $val;
+			}
+		}
+		return null;
+	}
+}
+
+if ( ! function_exists( 'origin_canvas_palette_tag_value' ) ) {
+	/**
+	 * The raw value of a tag's attribute, or ''.
+	 *
+	 * @param string $tag  One opening tag.
+	 * @param string $name Attribute name, lower case.
+	 * @return string
+	 */
+	function origin_canvas_palette_tag_value( $tag, $name ) {
+		$span = origin_canvas_palette_tag_attribute( $tag, $name );
+		return null === $span ? '' : substr( $tag, $span[0], $span[1] );
+	}
+}
+
 if ( ! function_exists( 'origin_canvas_palette_tag_edits' ) ) {
 	/**
 	 * Edits for one block's own tags, from what its attributes renamed.
@@ -534,65 +627,66 @@ if ( ! function_exists( 'origin_canvas_palette_tag_edits' ) ) {
 		$needs_generic = origin_canvas_palette_has_border_colour( $attrs );
 		if ( null !== $border_text ) {
 			foreach ( $ranges as $r ) {
-				preg_match_all( '/<[a-zA-Z][^>]*>/', substr( $content, $r[0], $r[1] - $r[0] ), $tags );
-				foreach ( $tags[0] as $tag ) {
-					if ( preg_match( '/\sclass=(["\'])(.*?)\1/s', $tag, $cm ) ) {
-						foreach ( preg_split( '/\s+/', $cm[2] ) as $x ) {
-							if ( 'has-border-color' === $x ) {
-								++$border_tokens;
-							}
+				foreach ( Origin_Canvas_Palette_Tag_Scanner::openers( substr( $content, $r[0], $r[1] - $r[0] ) ) as $t ) {
+					foreach ( preg_split( '/\s+/', origin_canvas_palette_tag_value( $t[1], 'class' ) ) as $x ) {
+						if ( 'has-border-color' === $x ) {
+							++$border_tokens;
 						}
 					}
 				}
 			}
 		}
 
+		// Only the class and style attributes of the block's own tags change, found by an
+		// attribute-aware scan: a class-like string inside another attribute (a link title) stays.
 		$edits       = array();
 		$border_done = false;
 		foreach ( $ranges as $r ) {
-			$seg = substr( $content, $r[0], $r[1] - $r[0] );
-			preg_match_all( '/<[a-zA-Z][^>]*>/', $seg, $tags, PREG_OFFSET_CAPTURE );
-			foreach ( $tags[0] as $t ) {
-				$tag_start = $r[0] + $t[1];
-				$tag       = $t[0];
-				$tag       = preg_replace_callback(
-					'/(\sclass=(["\']))(.*?)(\2)/s',
-					static function ( $m ) use ( $class_renames, $border_text, $needs_generic, $border_tokens, &$border_done ) {
-						$parts = preg_split( '/(\s+)/', $m[3], -1, PREG_SPLIT_DELIM_CAPTURE );
-						foreach ( $parts as $k => $tok ) {
-							foreach ( $class_renames as $rename ) {
-								if ( $rename[0] === $tok ) {
-									$parts[ $k ] = $rename[1];
-									break;
-								}
+			foreach ( Origin_Canvas_Palette_Tag_Scanner::openers( substr( $content, $r[0], $r[1] - $r[0] ) ) as $t ) {
+				$tag_start = $r[0] + $t[0];
+				$tag       = $t[1];
+				$changes   = array();
+				$class     = origin_canvas_palette_tag_attribute( $tag, 'class' );
+				if ( null !== $class ) {
+					$parts = preg_split( '/(\s+)/', substr( $tag, $class[0], $class[1] ), -1, PREG_SPLIT_DELIM_CAPTURE );
+					foreach ( $parts as $k => $tok ) {
+						foreach ( $class_renames as $rename ) {
+							if ( $rename[0] === $tok ) {
+								$parts[ $k ] = $rename[1];
+								break;
 							}
 						}
-						if ( null !== $border_text && ! $border_done ) {
-							$idx = array_search( 'has-border-color', $parts, true );
-							if ( false !== $idx ) {
-								$parts[ $idx ] = ( ! $needs_generic || $border_tokens >= 2 ) ? $border_text : $border_text . ' has-border-color';
-								$border_done   = true;
-							}
+					}
+					if ( null !== $border_text && ! $border_done ) {
+						$idx = array_search( 'has-border-color', $parts, true );
+						if ( false !== $idx ) {
+							$parts[ $idx ] = ( ! $needs_generic || $border_tokens >= 2 ) ? $border_text : $border_text . ' has-border-color';
+							$border_done   = true;
 						}
-						return $m[1] . implode( '', $parts ) . $m[4];
-					},
-					$tag,
-					1
+					}
+					$changes[] = array( $class[0], $class[1], implode( '', $parts ) );
+				}
+				$style = origin_canvas_palette_tag_attribute( $tag, 'style' );
+				if ( null !== $style ) {
+					$v = substr( $tag, $style[0], $style[1] );
+					foreach ( $style_re as $re ) {
+						$v = preg_replace( $re[0], str_replace( array( '\\', '$' ), array( '\\\\', '\\$' ), $re[1] ), $v );
+					}
+					$changes[] = array( $style[0], $style[1], $v );
+				}
+				// Right to left, so each offset still holds.
+				usort(
+					$changes,
+					static function ( $a, $b ) {
+						return $b[0] - $a[0];
+					}
 				);
-				$tag       = preg_replace_callback(
-					'/(\sstyle=(["\']))(.*?)(\2)/s',
-					static function ( $m ) use ( $style_re ) {
-						$v = $m[3];
-						foreach ( $style_re as $re ) {
-							$v = preg_replace( $re[0], str_replace( array( '\\', '$' ), array( '\\\\', '\\$' ), $re[1] ), $v );
-						}
-						return $m[1] . $v . $m[4];
-					},
-					$tag,
-					1
-				);
-				if ( $tag !== $t[0] ) {
-					$edits[] = array( $tag_start, $tag_start + strlen( $t[0] ), $tag );
+				$next = $tag;
+				foreach ( $changes as $c ) {
+					$next = substr( $next, 0, $c[0] ) . $c[2] . substr( $next, $c[0] + $c[1] );
+				}
+				if ( $next !== $tag ) {
+					$edits[] = array( $tag_start, $tag_start + strlen( $tag ), $next );
 				}
 			}
 		}
@@ -702,17 +796,14 @@ if ( ! function_exists( 'origin_canvas_palette_markup_hits' ) ) {
 	function origin_canvas_palette_markup_hits( $markup ) {
 		$map  = origin_canvas_palette_map();
 		$hits = array();
-		preg_match_all( '/<[a-zA-Z][^>]*>/', (string) $markup, $tags );
-		foreach ( $tags[0] as $tag ) {
-			if ( preg_match( '/\sclass=(["\'])(.*?)\1/s', $tag, $cm ) ) {
-				foreach ( preg_split( '/\s+/', $cm[2] ) as $tok ) {
-					// has-border-color alone is core's generic class: not evidence.
-					if ( 'has-border-color' !== $tok && preg_match( '/^has-([a-z0-9-]+?)-(background-color|border-color|color)$/D', $tok, $m ) && isset( $map['color'][ $m[1] ] ) ) {
-						$hits[] = 'class=' . $tok;
-					}
+		foreach ( Origin_Canvas_Palette_Tag_Scanner::openers( $markup ) as $t ) {
+			foreach ( preg_split( '/\s+/', origin_canvas_palette_tag_value( $t[1], 'class' ) ) as $tok ) {
+				// has-border-color alone is core's generic class: not evidence.
+				if ( 'has-border-color' !== $tok && preg_match( '/^has-([a-z0-9-]+?)-(background-color|border-color|color)$/D', $tok, $m ) && isset( $map['color'][ $m[1] ] ) ) {
+					$hits[] = 'class=' . $tok;
 				}
 			}
-			if ( preg_match( '/\sstyle=(["\'])(.*?)\1/s', $tag, $sm ) && preg_match_all( '/var\(--wp--preset--color--([a-z0-9-]+)\)/', $sm[2], $vars ) ) {
+			if ( preg_match_all( '/var\(--wp--preset--color--([a-z0-9-]+)\)/', origin_canvas_palette_tag_value( $t[1], 'style' ), $vars ) ) {
 				foreach ( $vars[1] as $v ) {
 					if ( isset( $map['color'][ $v ] ) ) {
 						$hits[] = 'style~' . $v;
