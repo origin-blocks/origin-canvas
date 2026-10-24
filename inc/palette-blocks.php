@@ -982,10 +982,11 @@ if ( ! function_exists( 'origin_canvas_palette_css_hits' ) ) {
 		$css  = (string) $css;
 		$map  = origin_canvas_palette_map();
 		$hits = array();
+		$end   = origin_canvas_palette_ident_end();
 		$forms = array(
-			'color'      => array( '/--wp--preset--color--([a-z0-9-]+)/', '/var:preset\|color\|([a-z0-9-]+)/' ),
-			'spacing'    => array( '/--wp--preset--spacing--([a-z0-9-]+)/', '/var:preset\|spacing\|([a-z0-9-]+)/' ),
-			'lineHeight' => array( '/--wp--custom--line-height--([a-z0-9-]+)/', '/var:custom\|line-height\|([a-z0-9-]+)/' ),
+			'color'      => array( '/--wp--preset--color--([a-z0-9-]+)' . $end . '/', '/var:preset\|color\|([a-z0-9-]+)' . $end . '/' ),
+			'spacing'    => array( '/--wp--preset--spacing--([a-z0-9-]+)' . $end . '/', '/var:preset\|spacing\|([a-z0-9-]+)' . $end . '/' ),
+			'lineHeight' => array( '/--wp--custom--line-height--([a-z0-9-]+)' . $end . '/', '/var:custom\|line-height\|([a-z0-9-]+)' . $end . '/' ),
 		);
 		foreach ( $forms as $kind => $patterns ) {
 			foreach ( $patterns as $re ) {

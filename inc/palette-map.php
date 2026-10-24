@@ -58,6 +58,19 @@ if ( ! function_exists( 'origin_canvas_palette_map' ) ) {
 	}
 }
 
+if ( ! function_exists( 'origin_canvas_palette_ident_end' ) ) {
+	/**
+	 * The regex lookahead that ends a slug inside a CSS identifier: a rename matches only a whole
+	 * name, never one followed by a name character, a backslash escape or a non-ASCII byte
+	 * (--wp--preset--color--text-muted_custom is another variable). Byte patterns, no /u flag.
+	 *
+	 * @return string
+	 */
+	function origin_canvas_palette_ident_end() {
+		return '(?![-A-Za-z0-9_\\\\\x80-\xff])';
+	}
+}
+
 if ( ! function_exists( 'origin_canvas_palette_rules' ) ) {
 	/**
 	 * The rules the palette units share, beside the map.

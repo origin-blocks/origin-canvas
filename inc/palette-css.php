@@ -57,12 +57,13 @@ if ( ! function_exists( 'origin_canvas_palette_rename_refs' ) ) {
 	 * @return string
 	 */
 	function origin_canvas_palette_rename_refs( $s, $extra = array() ) {
+		$end      = origin_canvas_palette_ident_end();
 		$patterns = array(
-			array( '/var:preset\|color\|([a-z0-9-]+)/', 'color', 'var:preset|color|' ),
+			array( '/var:preset\|color\|([a-z0-9-]+)' . $end . '/', 'color', 'var:preset|color|' ),
 			array( '/var\(--wp--preset--color--([a-z0-9-]+)\)/', 'color', 'var(--wp--preset--color--' ),
-			array( '/var:preset\|spacing\|([a-z0-9-]+)/', 'spacing', 'var:preset|spacing|' ),
+			array( '/var:preset\|spacing\|([a-z0-9-]+)' . $end . '/', 'spacing', 'var:preset|spacing|' ),
 			array( '/var\(--wp--preset--spacing--([a-z0-9-]+)\)/', 'spacing', 'var(--wp--preset--spacing--' ),
-			array( '/var:custom\|line-height\|([a-z0-9-]+)/', 'lineHeight', 'var:custom|line-height|' ),
+			array( '/var:custom\|line-height\|([a-z0-9-]+)' . $end . '/', 'lineHeight', 'var:custom|line-height|' ),
 			array( '/var\(--wp--custom--line-height--([a-z0-9-]+)\)/', 'lineHeight', 'var(--wp--custom--line-height--' ),
 		);
 		foreach ( $patterns as $p ) {
@@ -751,7 +752,7 @@ if ( ! function_exists( 'origin_canvas_palette_css_rename_vars_in' ) ) {
 			static function ( $plain ) use ( $forms, $extra ) {
 				foreach ( $forms as $kind => $prefix ) {
 					$plain = preg_replace_callback(
-						'/var\(\s*' . preg_quote( $prefix, '/' ) . '([a-z0-9-]+)/',
+						'/var\(\s*' . preg_quote( $prefix, '/' ) . '([a-z0-9-]+)' . origin_canvas_palette_ident_end() . '/',
 						static function ( $m ) use ( $kind, $prefix, $extra ) {
 							$to = origin_canvas_palette_lookup( $kind, $m[1], $extra );
 							if ( '' === $to ) {
@@ -933,7 +934,7 @@ if ( ! function_exists( 'origin_canvas_palette_css_refs' ) ) {
 					$body,
 					static function ( $plain ) use ( $forms, $want, &$refs ) {
 						foreach ( $forms as $kind => $prefix ) {
-							if ( preg_match_all( '/var\(\s*' . preg_quote( $prefix, '/' ) . '([a-z0-9-]+)/', $plain, $all ) ) {
+							if ( preg_match_all( '/var\(\s*' . preg_quote( $prefix, '/' ) . '([a-z0-9-]+)' . origin_canvas_palette_ident_end() . '/', $plain, $all ) ) {
 								foreach ( $all[1] as $s ) {
 									if ( isset( $want[ $kind ][ $s ] ) ) {
 										$refs[ $kind ][ $s ] = true;
