@@ -485,6 +485,9 @@ if ( ! function_exists( 'origin_canvas_palette_admin_assets' ) ) {
 					'cssFailed'   => __( 'Your Additional CSS could not be updated. Run this again.', 'origin-canvas' ),
 					'gsCssFailed' => __( 'The custom CSS in your saved styles could not be updated. Run this again.', 'origin-canvas' ),
 					'nothing'   => __( 'Nothing left to update.', 'origin-canvas' ),
+					'working'   => __( 'Updating colours…', 'origin-canvas' ),
+					/* translators: %d: number of items. */
+					'progress'  => __( 'Updating colours… %d items left.', 'origin-canvas' ),
 					'stopped'   => __( 'The update stopped. Run it again to continue.', 'origin-canvas' ),
 				),
 			)
