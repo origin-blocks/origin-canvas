@@ -89,6 +89,13 @@ if ( ! function_exists( 'origin_canvas_palette_update_batch' ) ) {
 
 		if ( ! empty( $journal['done'] ) ) {
 			$d = origin_canvas_palette_detect( true );
+			if ( ! origin_canvas_palette_ensure_snapshot() ) {
+				// No content moves before the collision snapshot exists.
+				$response['global_styles'] = 'failed';
+				$response['remaining']     = (int) $d['content'];
+				$response['done']          = true;
+				return $response;
+			}
 			if ( $d['global_styles'] > 0 ) {
 				$r                         = origin_canvas_palette_rewrite_global_styles_report();
 				$response['global_styles'] = ( $r['changed'] + $r['failed'] > 0 ) ? 'failed' : 'updated';

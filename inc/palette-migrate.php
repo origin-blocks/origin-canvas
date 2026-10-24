@@ -127,6 +127,38 @@ if ( ! function_exists( 'origin_canvas_palette_filter_user_data' ) ) {
 }
 add_filter( 'wp_theme_json_data_user', 'origin_canvas_palette_filter_user_data', 5 );
 
+if ( ! function_exists( 'origin_canvas_palette_ensure_snapshot' ) ) {
+	/**
+	 * Until the first admin load completes: record the active record's collisions and the
+	 * snapshot of the content that references them, once, while no content has moved.
+	 *
+	 * @return bool False when a snapshot is needed and could not be saved; the caller then writes
+	 *              nothing.
+	 */
+	function origin_canvas_palette_ensure_snapshot() {
+		if ( origin_canvas_palette_state()['palette_rewrite'] || false !== get_option( 'origin_canvas_palette_collisions', false ) ) {
+			return true;
+		}
+		$active = origin_canvas_palette_active_global_styles_id();
+		$post   = $active ? get_post( $active ) : null;
+		$data   = $post instanceof WP_Post ? json_decode( (string) $post->post_content ) : null;
+		if ( ! is_object( $data ) || empty( $data->isGlobalStylesUserThemeJSON ) ) { // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase -- core's key.
+			return true;
+		}
+		$root = origin_canvas_palette_collisions( $data )['root'];
+		if ( ! $root['color'] && ! $root['spacing'] && ! $root['lineHeight'] ) {
+			return true;
+		}
+		if ( add_option( 'origin_canvas_palette_collisions', array( 'map' => $root ) + origin_canvas_palette_collision_snapshot( $root ), '', false ) ) {
+			return true;
+		}
+		// add_option() also returns false when another request added the record first.
+		wp_cache_delete( 'origin_canvas_palette_collisions', 'options' );
+		wp_cache_delete( 'notoptions', 'options' );
+		return false !== get_option( 'origin_canvas_palette_collisions', false );
+	}
+}
+
 if ( ! function_exists( 'origin_canvas_palette_rewrite_global_styles_report' ) ) {
 	/**
 	 * Rewrite every Global Styles post of this theme, revisions before their record, each kept
@@ -143,19 +175,13 @@ if ( ! function_exists( 'origin_canvas_palette_rewrite_global_styles_report' ) )
 			'changed' => 0,
 			'failed'  => 0,
 		);
-		$posts  = origin_canvas_palette_global_styles_posts();
-
-		if ( ! origin_canvas_palette_state()['palette_rewrite'] ) {
-			$active = origin_canvas_palette_active_global_styles_id();
-			$post   = $active ? get_post( $active ) : null;
-			$data   = $post instanceof WP_Post ? json_decode( (string) $post->post_content ) : null;
-			if ( is_object( $data ) && ! empty( $data->isGlobalStylesUserThemeJSON ) ) { // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase -- core's key.
-				$root = origin_canvas_palette_collisions( $data )['root'];
-				if ( ( $root['color'] || $root['spacing'] || $root['lineHeight'] ) && false === get_option( 'origin_canvas_palette_collisions', false ) ) {
-					add_option( 'origin_canvas_palette_collisions', array( 'map' => $root ) + origin_canvas_palette_collision_snapshot( $root ), '', false );
-				}
-			}
+		if ( ! origin_canvas_palette_ensure_snapshot() ) {
+			// Without the snapshot, content that uses the user's own destination swatch could not
+			// follow it to the legacy slug: write nothing, so the next admin page retries.
+			$report['failed'] = 1;
+			return $report;
 		}
+		$posts = origin_canvas_palette_global_styles_posts();
 
 		// Revisions first, then their record.
 		$groups = array();
