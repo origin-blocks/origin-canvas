@@ -254,14 +254,17 @@ if ( ! function_exists( 'origin_canvas_palette_twins_for' ) ) {
 		if ( ! $real || ! is_readable( $real ) ) {
 			return '';
 		}
-		$key = md5( $real . '|' . filemtime( $real ) . '|' . filesize( $real ) . '|' . $direction . '|' . ORIGIN_CANVAS_VERSION );
+		// One transient per file and direction, so an edited file or a theme update replaces its
+		// row instead of adding one; the file's state is kept inside the value.
+		$key   = md5( $real . '|' . $direction );
+		$stamp = filemtime( $real ) . '|' . filesize( $real ) . '|' . ORIGIN_CANVAS_VERSION;
 		if ( isset( $memo[ $key ] ) ) {
 			return $memo[ $key ];
 		}
 		$cached = get_transient( 'origin_canvas_palette_twins_' . $key );
-		if ( is_string( $cached ) ) {
-			$memo[ $key ] = $cached;
-			return $cached;
+		if ( is_array( $cached ) && isset( $cached['stamp'], $cached['css'] ) && $cached['stamp'] === $stamp && is_string( $cached['css'] ) ) {
+			$memo[ $key ] = $cached['css'];
+			return $cached['css'];
 		}
 		$text = (string) file_get_contents( $real ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- a local theme file.
 		if ( 'theme' === $direction ) {
@@ -269,7 +272,13 @@ if ( ! function_exists( 'origin_canvas_palette_twins_for' ) ) {
 		} else {
 			$css = origin_canvas_palette_css_twins( $text, origin_canvas_palette_old_classes(), true );
 		}
-		set_transient( 'origin_canvas_palette_twins_' . $key, $css );
+		set_transient(
+			'origin_canvas_palette_twins_' . $key,
+			array(
+				'stamp' => $stamp,
+				'css'   => $css,
+			)
+		);
 		$memo[ $key ] = $css;
 		return $css;
 	}
