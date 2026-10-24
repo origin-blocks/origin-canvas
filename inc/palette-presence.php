@@ -69,7 +69,8 @@ if ( ! function_exists( 'origin_canvas_palette_valid_tab' ) ) {
 
 if ( ! function_exists( 'origin_canvas_palette_presence_touch' ) ) {
 	/**
-	 * Refresh this user's and tab's row on a post, pruning expired rows. At most 20 live rows.
+	 * Refresh this user's and tab's row on a post, pruning expired rows. Every open tab keeps its
+	 * row, however many there are: a tab without one would leave its post unprotected.
 	 *
 	 * @param int    $post_id Post ID.
 	 * @param int    $user_id User ID.
@@ -83,7 +84,6 @@ if ( ! function_exists( 'origin_canvas_palette_presence_touch' ) ) {
 		$prefix = $user_id . ':' . $tab . ':';
 		$new    = $prefix . (int) $expiry;
 		$mine   = null;
-		$live   = 0;
 		foreach ( (array) get_post_meta( $post_id, $key ) as $row ) {
 			$row   = (string) $row;
 			$parts = explode( ':', $row );
@@ -93,13 +93,11 @@ if ( ! function_exists( 'origin_canvas_palette_presence_touch' ) ) {
 			}
 			if ( ! isset( $parts[2] ) || (int) $parts[2] <= $now ) {
 				delete_post_meta( $post_id, $key, $row );
-				continue;
 			}
-			++$live;
 		}
 		if ( null !== $mine ) {
 			update_post_meta( $post_id, $key, $new, $mine );
-		} elseif ( $live < 20 ) {
+		} else {
 			add_post_meta( $post_id, $key, $new );
 		}
 	}
