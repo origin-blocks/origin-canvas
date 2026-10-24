@@ -21,7 +21,7 @@
 	}
 
 	function run( button, status, report ) {
-		const total = { updated: 0, locked: new Set(), changed: new Set(), failed: new Set(), gs: 'none', css: 'none', remaining: 0 };
+		const total = { updated: 0, locked: new Set(), changed: new Set(), failed: new Set(), gs: 'none', additionalCss: 'none', gsCss: 'none', remaining: 0 };
 		button.disabled = true;
 		status.setAttribute( 'data-done', '0' );
 		report.innerHTML = '';
@@ -47,10 +47,14 @@
 			if ( total.gs === 'failed' ) {
 				line( s.gsFailed );
 			}
-			if ( total.css === 'failed' ) {
+			if ( total.additionalCss === 'failed' ) {
 				line( s.cssFailed );
 			}
-			if ( total.remaining === 0 ) {
+			if ( total.gsCss === 'failed' ) {
+				line( s.gsCssFailed );
+			}
+			// Done only when nothing is left and every store moved.
+			if ( total.remaining === 0 && ! [ total.gs, total.additionalCss, total.gsCss ].includes( 'failed' ) ) {
 				line( s.nothing );
 			}
 			button.disabled = false;
@@ -68,7 +72,8 @@
 					( r.changed || [] ).forEach( ( id ) => total.changed.add( id ) );
 					( r.failed || [] ).forEach( ( id ) => total.failed.add( id ) );
 					total.gs = worst( total.gs, r.global_styles );
-					total.css = worst( total.css, r.css );
+					total.additionalCss = worst( total.additionalCss, r.additional_css );
+					total.gsCss = worst( total.gsCss, r.global_styles_css );
 					if ( r.done ) {
 						finish();
 					} else {

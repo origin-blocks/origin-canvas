@@ -27,36 +27,36 @@ if ( ! function_exists( 'origin_canvas_palette_user_css_step' ) ) {
 	 * Apply the twin rule to each user stylesheet, in place, kept once before its first write.
 	 *
 	 * @param array $journal The journal; css_moved gains each store written.
-	 * @return string 'none', 'updated' or 'failed'.
+	 * @return array{additional_css: string, global_styles_css: string} Per store: 'none',
+	 *               'updated' or 'failed'.
 	 */
 	function origin_canvas_palette_user_css_step( &$journal ) {
-		$failed  = false;
-		$written = false;
+		$names  = array(
+			'custom_css'    => 'additional_css',
+			'global_styles' => 'global_styles_css',
+		);
+		$result = array(
+			'additional_css'    => 'none',
+			'global_styles_css' => 'none',
+		);
 		foreach ( origin_canvas_palette_user_css_stores() as $store ) {
+			$name = $names[ $store['kind'] ];
 			$next = origin_canvas_palette_user_css_next( $store );
 			if ( $next === $store['content'] ) {
 				continue;
 			}
-			if ( ! origin_canvas_palette_keep_original( $store['id'], $store['content'] ) ) {
-				$failed = true;
+			if ( ! origin_canvas_palette_keep_original( $store['id'], $store['content'] ) || 'updated' !== origin_canvas_palette_write_post( $store['id'], $store['content'], $next ) ) {
+				$result[ $name ] = 'failed';
 				continue;
 			}
-			$result = origin_canvas_palette_write_post( $store['id'], $store['content'], $next );
-			if ( 'updated' !== $result ) {
-				$failed = true;
-				continue;
-			}
-			$written                = true;
+			$result[ $name ]        = 'updated';
 			$journal['css_moved'][] = (int) $store['id'];
 			$journal['css_moved']   = origin_canvas_palette_unique_ids( $journal['css_moved'] );
 			if ( 'global_styles' === $store['kind'] ) {
 				wp_clean_theme_json_cache();
 			}
 		}
-		if ( $failed ) {
-			return 'failed';
-		}
-		return $written ? 'updated' : 'none';
+		return $result;
 	}
 }
 
@@ -76,15 +76,17 @@ if ( ! function_exists( 'origin_canvas_palette_update_batch' ) ) {
 		$size     = max( 1, (int) $size );
 		$journal  = origin_canvas_palette_journal();
 		$response = array(
-			'updated'       => 0,
-			'skipped'       => array(),
-			'locked'        => array(),
-			'changed'       => array(),
-			'failed'        => array(),
-			'global_styles' => 'none',
-			'css'           => 'none',
-			'remaining'     => 0,
-			'done'          => false,
+			'updated'           => 0,
+			'skipped'           => array(),
+			'locked'            => array(),
+			'changed'           => array(),
+			'failed'            => array(),
+			'global_styles'     => 'none',
+			'css'               => 'none',
+			'additional_css'    => 'none',
+			'global_styles_css' => 'none',
+			'remaining'         => 0,
+			'done'              => false,
 		);
 
 		if ( ! empty( $journal['done'] ) ) {
@@ -100,7 +102,10 @@ if ( ! function_exists( 'origin_canvas_palette_update_batch' ) ) {
 				$r                         = origin_canvas_palette_rewrite_global_styles_report();
 				$response['global_styles'] = ( $r['changed'] + $r['failed'] > 0 ) ? 'failed' : 'updated';
 			}
-			$response['css'] = origin_canvas_palette_user_css_step( $journal );
+			$stores                        = origin_canvas_palette_user_css_step( $journal );
+			$response['additional_css']    = $stores['additional_css'];
+			$response['global_styles_css'] = $stores['global_styles_css'];
+			$response['css']               = in_array( 'failed', $stores, true ) ? 'failed' : ( in_array( 'updated', $stores, true ) ? 'updated' : 'none' );
 			if ( 'failed' === $response['css'] ) {
 				$journal['done'] = true;
 				origin_canvas_palette_save_journal( $journal );
@@ -476,8 +481,9 @@ if ( ! function_exists( 'origin_canvas_palette_admin_assets' ) ) {
 					'changed'   => __( '%d items changed while this ran. Run this again.', 'origin-canvas' ),
 					/* translators: %d: number of items. */
 					'failed'    => __( '%d items could not be saved. Run this again.', 'origin-canvas' ),
-					'gsFailed'  => __( 'Your saved styles could not be updated. Run this again.', 'origin-canvas' ),
-					'cssFailed' => __( 'Your Additional CSS could not be updated. Run this again.', 'origin-canvas' ),
+					'gsFailed'    => __( 'Your saved styles could not be updated. Run this again.', 'origin-canvas' ),
+					'cssFailed'   => __( 'Your Additional CSS could not be updated. Run this again.', 'origin-canvas' ),
+					'gsCssFailed' => __( 'The custom CSS in your saved styles could not be updated. Run this again.', 'origin-canvas' ),
 					'nothing'   => __( 'Nothing left to update.', 'origin-canvas' ),
 					'stopped'   => __( 'The update stopped. Run it again to continue.', 'origin-canvas' ),
 				),
