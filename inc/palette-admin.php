@@ -10,18 +10,6 @@
  * @package Origin_Canvas
  */
 
-if ( ! function_exists( 'origin_canvas_palette_unique_ids' ) ) {
-	/**
-	 * A list of unique integer IDs.
-	 *
-	 * @param array $ids IDs.
-	 * @return int[]
-	 */
-	function origin_canvas_palette_unique_ids( $ids ) {
-		return array_values( array_unique( array_map( 'intval', (array) $ids ) ) );
-	}
-}
-
 if ( ! function_exists( 'origin_canvas_palette_user_css_step' ) ) {
 	/**
 	 * Apply the twin rule to each user stylesheet, in place, kept once before its first write.
@@ -51,7 +39,7 @@ if ( ! function_exists( 'origin_canvas_palette_user_css_step' ) ) {
 			}
 			$result[ $name ]        = 'updated';
 			$journal['css_moved'][] = (int) $store['id'];
-			$journal['css_moved']   = origin_canvas_palette_unique_ids( $journal['css_moved'] );
+			$journal['css_moved']   = wp_parse_id_list( $journal['css_moved'] );
 			if ( 'global_styles' === $store['kind'] ) {
 				wp_clean_theme_json_cache();
 			}
@@ -140,7 +128,7 @@ if ( ! function_exists( 'origin_canvas_palette_update_batch' ) ) {
 				$merged[] = $id;
 			}
 		}
-		$merged = origin_canvas_palette_unique_ids( $merged );
+		$merged = wp_parse_id_list( $merged );
 		sort( $merged, SORT_NUMERIC );
 		if ( count( $ids ) === $ask ) {
 			// A later chunk brings the snapshot posts above this one.
@@ -201,10 +189,10 @@ if ( ! function_exists( 'origin_canvas_palette_update_batch' ) ) {
 			}
 			$journal['cursor'] = $id;
 		}
-		$journal['skipped']        = origin_canvas_palette_unique_ids( $journal['skipped'] );
-		$journal['failed']         = origin_canvas_palette_unique_ids( $journal['failed'] );
-		$journal['collision_done'] = origin_canvas_palette_unique_ids( $journal['collision_done'] );
-		$response['skipped']       = origin_canvas_palette_unique_ids( array_merge( $response['locked'], $response['changed'] ) );
+		$journal['skipped']        = wp_parse_id_list( $journal['skipped'] );
+		$journal['failed']         = wp_parse_id_list( $journal['failed'] );
+		$journal['collision_done'] = wp_parse_id_list( $journal['collision_done'] );
+		$response['skipped']       = wp_parse_id_list( array_merge( $response['locked'], $response['changed'] ) );
 
 		if ( $finished && count( $ids ) < $ask ) {
 			// The walk ends: count what is left (locked, changed and failed posts still count).
@@ -373,7 +361,8 @@ if ( ! function_exists( 'origin_canvas_palette_render_page' ) ) {
 		}
 		$d = origin_canvas_palette_detect( true );
 		echo '<div class="wrap"><h1>' . esc_html__( 'Update colours', 'origin-canvas' ) . '</h1>';
-		echo '<p>' . esc_html__( 'Origin Canvas renamed its colours. Your site looks the same. This moves your posts, pages, templates, template parts, synced patterns and navigation menus to the new colour names, a few at a time, and adds the new colour names beside the old ones in Additional CSS. Anything open in an editor is skipped. Run this again after you close it.', 'origin-canvas' ) . '</p>';
+		echo '<p>' . esc_html__( 'Origin Canvas renamed its colours. Your site looks the same.', 'origin-canvas' ) . '</p>';
+		echo '<p>' . esc_html__( 'This moves your posts, pages, templates, template parts, synced patterns and navigation menus to the new colour names, a few at a time, and adds the new colour names beside the old ones in Additional CSS. Anything open in an editor is skipped. Run this again after you close it.', 'origin-canvas' ) . '</p>';
 
 		$hits      = origin_canvas_palette_child_class_hits();
 		$negations = origin_canvas_palette_child_negations();

@@ -55,18 +55,6 @@ if ( ! function_exists( 'origin_canvas_palette_enqueue_presence' ) ) {
 }
 add_action( 'enqueue_block_editor_assets', 'origin_canvas_palette_enqueue_presence' );
 
-if ( ! function_exists( 'origin_canvas_palette_valid_tab' ) ) {
-	/**
-	 * Whether a tab ID has the shape of a UUID.
-	 *
-	 * @param mixed $tab Tab ID.
-	 * @return bool
-	 */
-	function origin_canvas_palette_valid_tab( $tab ) {
-		return is_string( $tab ) && 1 === preg_match( '/^[a-f0-9-]{36}$/D', $tab );
-	}
-}
-
 if ( ! function_exists( 'origin_canvas_palette_presence_touch' ) ) {
 	/**
 	 * Refresh this user's and tab's row on a post, pruning expired rows. Every open tab keeps its
@@ -117,7 +105,7 @@ if ( ! function_exists( 'origin_canvas_palette_heartbeat_received' ) ) {
 		}
 		$report = $data['origin_canvas_editing'];
 		$tab    = isset( $report['tab'] ) ? $report['tab'] : '';
-		if ( ! origin_canvas_palette_valid_tab( $tab ) || empty( $report['entities'] ) || ! is_array( $report['entities'] ) ) {
+		if ( ! wp_is_uuid( $tab, 4 ) || empty( $report['entities'] ) || ! is_array( $report['entities'] ) ) {
 			return $response;
 		}
 		$types   = origin_canvas_palette_rules()['types'];
@@ -162,7 +150,7 @@ if ( ! function_exists( 'origin_canvas_palette_editor_left' ) ) {
 	function origin_canvas_palette_editor_left() {
 		check_ajax_referer( 'origin_canvas_editor_left' );
 		$tab = isset( $_POST['tab'] ) ? sanitize_text_field( wp_unslash( $_POST['tab'] ) ) : '';
-		if ( ! origin_canvas_palette_valid_tab( $tab ) ) {
+		if ( ! wp_is_uuid( $tab, 4 ) ) {
 			wp_send_json_error( null, 400 );
 		}
 		$prefix = get_current_user_id() . ':' . $tab . ':';
@@ -174,7 +162,7 @@ if ( ! function_exists( 'origin_canvas_palette_editor_left' ) ) {
 				'meta_value'   => $prefix, // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value -- as above.
 				'meta_compare' => 'LIKE',
 				'fields'       => 'ids',
-				'numberposts'  => 60,
+				'numberposts'  => -1,
 			)
 		);
 		foreach ( $ids as $id ) {

@@ -15,23 +15,30 @@
 	const map = config.map || {};
 	const attrs = config.attrs || [];
 
-	const withNewNames = wp.compose.createHigherOrderComponent(
-		( BlockEdit ) => ( props ) => {
-			const [ custom, theme, defaults ] = wp.blockEditor.useSettings( 'color.palette.custom', 'color.palette.theme', 'color.palette.default' );
-			const attributes = useMemo( () => {
-				const slugs = new Set( [ ...( custom || [] ), ...( theme || [] ), ...( defaults || [] ) ].map( ( c ) => c && c.slug ) );
-				let next = null;
-				for ( const a of attrs ) {
-					const v = props.attributes ? props.attributes[ a ] : undefined;
-					if ( typeof v === 'string' && map[ v ] && ! slugs.has( v ) && slugs.has( map[ v ] ) ) {
-						next = next || { ...props.attributes };
-						next[ a ] = map[ v ];
-					}
+	const isOld = ( v ) => typeof v === 'string' && Object.prototype.hasOwnProperty.call( map, v );
+	const hasOld = ( attributes ) => !! attributes && attrs.some( ( a ) => isOld( attributes[ a ] ) );
+
+	// The palette hooks run only for a block that holds an old slug. Once its last old slug is
+	// replaced, the block's edit component mounts again without this wrapper, once.
+	const WithNames = ( { BlockEdit, props } ) => {
+		const [ custom, theme, defaults ] = wp.blockEditor.useSettings( 'color.palette.custom', 'color.palette.theme', 'color.palette.default' );
+		const attributes = useMemo( () => {
+			const slugs = new Set( [ ...( custom || [] ), ...( theme || [] ), ...( defaults || [] ) ].map( ( c ) => c && c.slug ) );
+			let next = null;
+			for ( const a of attrs ) {
+				const v = props.attributes[ a ];
+				if ( isOld( v ) && ! slugs.has( v ) && slugs.has( map[ v ] ) ) {
+					next = next || { ...props.attributes };
+					next[ a ] = map[ v ];
 				}
-				return next || props.attributes;
-			}, [ props.attributes, custom, theme, defaults ] );
-			return createElement( BlockEdit, attributes === props.attributes ? props : { ...props, attributes } );
-		},
+			}
+			return next || props.attributes;
+		}, [ props.attributes, custom, theme, defaults ] );
+		return createElement( BlockEdit, attributes === props.attributes ? props : { ...props, attributes } );
+	};
+
+	const withNewNames = wp.compose.createHigherOrderComponent(
+		( BlockEdit ) => ( props ) => ( hasOld( props.attributes ) ? createElement( WithNames, { BlockEdit, props } ) : createElement( BlockEdit, props ) ),
 		'withOriginCanvasPaletteNames'
 	);
 

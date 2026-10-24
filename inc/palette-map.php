@@ -178,9 +178,6 @@ if ( ! function_exists( 'origin_canvas_palette_rules' ) ) {
 			'types'             => array( 'post', 'page', 'wp_template', 'wp_template_part', 'wp_block', 'wp_navigation' ),
 			'recent_save_types' => array( 'wp_template', 'wp_template_part', 'wp_navigation' ),
 			'editor_screens'    => array( 'post.php', 'post-new.php', 'site-editor.php' ),
-			// The candidate query's prefilter tokens (inc/palette-detect.php builds them with the
-			// attribute encoder).
-			'tokens'            => function_exists( 'origin_canvas_palette_tokens' ) ? origin_canvas_palette_tokens() : array(),
 		);
 
 		return $rules;
