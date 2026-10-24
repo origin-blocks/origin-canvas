@@ -464,7 +464,8 @@ if ( ! function_exists( 'origin_canvas_palette_admin_assets' ) ) {
 		}
 		$path  = get_theme_file_path( 'assets/js/update-colours.js' );
 		$mtime = file_exists( $path ) ? filemtime( $path ) : false;
-		wp_enqueue_script( 'origin-canvas-update-colours', get_theme_file_uri( 'assets/js/update-colours.js' ), array(), $mtime ? $mtime : ORIGIN_CANVAS_VERSION, true );
+		wp_enqueue_script( 'origin-canvas-update-colours', get_theme_file_uri( 'assets/js/update-colours.js' ), array( 'wp-i18n' ), $mtime ? $mtime : ORIGIN_CANVAS_VERSION, true );
+		wp_set_script_translations( 'origin-canvas-update-colours', 'origin-canvas' );
 		wp_localize_script(
 			'origin-canvas-update-colours',
 			'originCanvasUpdateColours',
@@ -472,24 +473,6 @@ if ( ! function_exists( 'origin_canvas_palette_admin_assets' ) ) {
 				'ajaxUrl'      => admin_url( 'admin-ajax.php' ),
 				'nonce'        => wp_create_nonce( 'origin_canvas_update_colours' ),
 				'dismissNonce' => wp_create_nonce( 'origin_canvas_dismiss_update_colours_notice' ),
-				'strings'      => array(
-					/* translators: %d: number of items. */
-					'updated'   => __( 'Updated %d items.', 'origin-canvas' ),
-					/* translators: %d: number of items. */
-					'locked'    => __( '%d items were open in an editor. Close them and run this again.', 'origin-canvas' ),
-					/* translators: %d: number of items. */
-					'changed'   => __( '%d items changed while this ran. Run this again.', 'origin-canvas' ),
-					/* translators: %d: number of items. */
-					'failed'    => __( '%d items could not be saved. Run this again.', 'origin-canvas' ),
-					'gsFailed'    => __( 'Your saved styles could not be updated. Run this again.', 'origin-canvas' ),
-					'cssFailed'   => __( 'Your Additional CSS could not be updated. Run this again.', 'origin-canvas' ),
-					'gsCssFailed' => __( 'The custom CSS in your saved styles could not be updated. Run this again.', 'origin-canvas' ),
-					'nothing'   => __( 'Nothing left to update.', 'origin-canvas' ),
-					'working'   => __( 'Updating colours…', 'origin-canvas' ),
-					/* translators: %d: number of items. */
-					'progress'  => __( 'Updating colours… %d items left.', 'origin-canvas' ),
-					'stopped'   => __( 'The update stopped. Run it again to continue.', 'origin-canvas' ),
-				),
 			)
 		);
 	}

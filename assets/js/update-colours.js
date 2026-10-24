@@ -5,8 +5,28 @@
 	if ( ! config ) {
 		return;
 	}
-	const s = config.strings || {};
-	const fill = ( text, n ) => String( text ).replace( '%d', String( n ) );
+	const { __, _n, sprintf } = window.wp.i18n;
+	const s = {
+		working: __( 'Updating colours…', 'origin-canvas' ),
+		gsFailed: __( 'Your saved styles could not be updated. Run this again.', 'origin-canvas' ),
+		cssFailed: __( 'Your Additional CSS could not be updated. Run this again.', 'origin-canvas' ),
+		gsCssFailed: __( 'The custom CSS in your saved styles could not be updated. Run this again.', 'origin-canvas' ),
+		nothing: __( 'Nothing left to update.', 'origin-canvas' ),
+		stopped: __( 'The update stopped. Run it again to continue.', 'origin-canvas' ),
+	};
+	// Counts take the plural form of the site's language.
+	const count = {
+		/* translators: %d: number of items. */
+		updated: ( n ) => sprintf( _n( 'Updated %d item.', 'Updated %d items.', n, 'origin-canvas' ), n ),
+		/* translators: %d: number of items. */
+		locked: ( n ) => sprintf( _n( '%d item was open in an editor. Close it and run this again.', '%d items were open in an editor. Close them and run this again.', n, 'origin-canvas' ), n ),
+		/* translators: %d: number of items. */
+		changed: ( n ) => sprintf( _n( '%d item changed while this ran. Run this again.', '%d items changed while this ran. Run this again.', n, 'origin-canvas' ), n ),
+		/* translators: %d: number of items. */
+		failed: ( n ) => sprintf( _n( '%d item could not be saved. Run this again.', '%d items could not be saved. Run this again.', n, 'origin-canvas' ), n ),
+		/* translators: %d: number of items. */
+		progress: ( n ) => sprintf( _n( 'Updating colours… %d item left.', 'Updating colours… %d items left.', n, 'origin-canvas' ), n ),
+	};
 	const RANK = { none: 0, updated: 1, failed: 2 };
 	const worst = ( a, b ) => ( ( RANK[ b ] || 0 ) > ( RANK[ a ] || 0 ) ? b : a );
 
@@ -37,16 +57,16 @@
 		const finish = () => {
 			status.setAttribute( 'data-done', '1' );
 			if ( total.updated > 0 ) {
-				line( fill( s.updated, total.updated ) );
+				line( count.updated( total.updated ) );
 			}
 			if ( total.locked.size ) {
-				line( fill( s.locked, total.locked.size ) );
+				line( count.locked( total.locked.size ) );
 			}
 			if ( total.changed.size ) {
-				line( fill( s.changed, total.changed.size ) );
+				line( count.changed( total.changed.size ) );
 			}
 			if ( total.failed.size ) {
-				line( fill( s.failed, total.failed.size ) );
+				line( count.failed( total.failed.size ) );
 			}
 			if ( total.gs === 'failed' ) {
 				line( s.gsFailed );
@@ -82,7 +102,7 @@
 					if ( r.done ) {
 						finish();
 					} else {
-						status.textContent = fill( s.progress, total.remaining );
+						status.textContent = count.progress( total.remaining );
 						step();
 					}
 				} )
