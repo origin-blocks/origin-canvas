@@ -1009,3 +1009,62 @@ if ( ! function_exists( 'origin_canvas_palette_css_hits' ) ) {
 		return array_values( array_unique( $hits ) );
 	}
 }
+
+if ( ! function_exists( 'origin_canvas_palette_css_code_hits' ) ) {
+	/**
+	 * Old codes in a stylesheet's code: as origin_canvas_palette_css_hits(), outside comments,
+	 * quoted strings and url() arguments, which the rewrite also leaves. A comment that names an
+	 * old variable is not an old code in use.
+	 *
+	 * @param string $css CSS.
+	 * @return string[]
+	 */
+	function origin_canvas_palette_css_code_hits( $css ) {
+		$code = array();
+		origin_canvas_palette_css_map_outside(
+			(string) $css,
+			static function ( $plain ) use ( &$code ) {
+				$code[] = $plain;
+				return $plain;
+			}
+		);
+		return origin_canvas_palette_css_hits( implode( ' ', $code ) );
+	}
+}
+
+if ( ! function_exists( 'origin_canvas_palette_json_hits' ) ) {
+	/**
+	 * Old codes in the strings of a decoded JSON value (a child theme.json, a Customizer
+	 * changeset): a CSS string (under a key named css, or a custom_css setting's value) is read as
+	 * code, every other string as a value.
+	 *
+	 * @param mixed  $v   Decoded value.
+	 * @param string $key Its key.
+	 * @return bool
+	 */
+	function origin_canvas_palette_json_hits( $v, $key = '' ) {
+		if ( is_string( $v ) ) {
+			return (bool) ( 'css' === $key ? origin_canvas_palette_css_code_hits( $v ) : origin_canvas_palette_css_hits( $v ) );
+		}
+		if ( is_object( $v ) ) {
+			$v = get_object_vars( $v );
+		}
+		if ( ! is_array( $v ) ) {
+			return false;
+		}
+		foreach ( $v as $k => $x ) {
+			// A changeset holds Additional CSS as custom_css[<stylesheet>] => { value: <css> }.
+			if ( 0 === strpos( (string) $k, 'custom_css[' ) && ( is_array( $x ) || is_object( $x ) ) ) {
+				$x = (array) $x;
+				if ( isset( $x['value'] ) && is_string( $x['value'] ) && origin_canvas_palette_css_code_hits( $x['value'] ) ) {
+					return true;
+				}
+				continue;
+			}
+			if ( origin_canvas_palette_json_hits( $x, (string) $k ) ) {
+				return true;
+			}
+		}
+		return false;
+	}
+}

@@ -512,7 +512,7 @@ if ( ! function_exists( 'origin_canvas_palette_found_elsewhere' ) ) {
 	 */
 	function origin_canvas_palette_found_elsewhere() {
 		$css_post = wp_get_custom_css_post();
-		if ( $css_post instanceof WP_Post && origin_canvas_palette_css_hits( $css_post->post_content ) ) {
+		if ( $css_post instanceof WP_Post && origin_canvas_palette_css_code_hits( $css_post->post_content ) ) {
 			return true;
 		}
 		foreach ( (array) get_option( 'widget_block', array() ) as $w ) {
@@ -544,20 +544,20 @@ if ( ! function_exists( 'origin_canvas_palette_found_elsewhere' ) ) {
 			)
 		);
 		foreach ( $changesets as $cs ) {
-			if ( origin_canvas_palette_css_hits( $cs->post_content ) ) {
+			if ( origin_canvas_palette_json_hits( json_decode( (string) $cs->post_content ) ) ) {
 				return true;
 			}
 		}
 		$files = origin_canvas_palette_child_files();
 		foreach ( $files['css'] as $f ) {
-			if ( origin_canvas_palette_css_hits( (string) file_get_contents( $f ) ) ) { // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- a local theme file.
+			if ( origin_canvas_palette_css_code_hits( (string) file_get_contents( $f ) ) ) { // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- a local theme file.
 				return true;
 			}
 		}
 		foreach ( $files['json'] as $f ) {
-			$text = (string) file_get_contents( $f ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- a local theme file.
+			$data = json_decode( (string) file_get_contents( $f ) ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- a local theme file.
 			// A palette on old slugs is a settings entry, not a CSS reference: read it as JSON.
-			if ( origin_canvas_palette_settings_hits( json_decode( $text ) ) || origin_canvas_palette_css_hits( $text ) ) {
+			if ( origin_canvas_palette_settings_hits( $data ) || origin_canvas_palette_json_hits( $data ) ) {
 				return true;
 			}
 		}
@@ -769,7 +769,7 @@ if ( ! function_exists( 'origin_canvas_palette_recount_styles' ) ) {
 			if ( origin_canvas_palette_user_css_next( $store ) !== $store['content'] ) {
 				++$css;
 			}
-			if ( 'custom_css' === $store['kind'] && origin_canvas_palette_css_hits( $store['content'] ) ) {
+			if ( 'custom_css' === $store['kind'] && origin_canvas_palette_css_code_hits( $store['content'] ) ) {
 				$found = true;
 			}
 		}
