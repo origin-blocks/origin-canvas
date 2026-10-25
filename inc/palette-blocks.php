@@ -567,6 +567,27 @@ if ( ! function_exists( 'origin_canvas_palette_tag_value' ) ) {
 	}
 }
 
+if ( ! function_exists( 'origin_canvas_palette_tag_quote' ) ) {
+	/**
+	 * A rewritten attribute value as it goes into the tag. An unquoted value that gains whitespace
+	 * (has-border-color becoming "has-base-5-color has-border-color") is written in double quotes,
+	 * or a browser reads its second token as a separate attribute; a value that stays one token,
+	 * or was quoted, keeps its bytes.
+	 *
+	 * @param string $tag    The opening tag the value sits in.
+	 * @param array  $change array( value offset, value length, new value ).
+	 * @return string
+	 */
+	function origin_canvas_palette_tag_quote( $tag, $change ) {
+		list( $at, $len, $value ) = $change;
+		$quoted                   = $at > 0 && ( '"' === $tag[ $at - 1 ] || "'" === $tag[ $at - 1 ] );
+		if ( $quoted || substr( $tag, $at, $len ) === $value || strlen( $value ) === strcspn( $value, " \t\f\r\n" ) ) {
+			return $value;
+		}
+		return '"' . str_replace( '"', '&quot;', $value ) . '"';
+	}
+}
+
 if ( ! function_exists( 'origin_canvas_palette_tag_edits' ) ) {
 	/**
 	 * Edits for one block's own tags, from what its attributes renamed.
@@ -683,7 +704,7 @@ if ( ! function_exists( 'origin_canvas_palette_tag_edits' ) ) {
 				);
 				$next = $tag;
 				foreach ( $changes as $c ) {
-					$next = substr( $next, 0, $c[0] ) . $c[2] . substr( $next, $c[0] + $c[1] );
+					$next = substr( $next, 0, $c[0] ) . origin_canvas_palette_tag_quote( $tag, $c ) . substr( $next, $c[0] + $c[1] );
 				}
 				if ( $next !== $tag ) {
 					$edits[] = array( $tag_start, $tag_start + strlen( $tag ), $next );
