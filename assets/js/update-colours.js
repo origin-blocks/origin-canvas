@@ -11,7 +11,7 @@
 		gsFailed: __( 'Your saved styles could not be updated. Run this again.', 'origin-canvas' ),
 		cssFailed: __( 'Your Additional CSS could not be updated. Run this again.', 'origin-canvas' ),
 		gsCssFailed: __( 'The custom CSS in your saved styles could not be updated. Run this again.', 'origin-canvas' ),
-		nothing: __( 'Nothing left to update.', 'origin-canvas' ),
+		nothing: __( 'Done. Your content uses the new colour names.', 'origin-canvas' ),
 		stopped: __( 'The update stopped. Run it again to continue.', 'origin-canvas' ),
 	};
 	// Counts take the plural form of the site's language.

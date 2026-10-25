@@ -379,7 +379,7 @@ if ( ! function_exists( 'origin_canvas_palette_render_page' ) ) {
 		echo '<div class="wrap"><h1>' . esc_html__( 'Update colours', 'origin-canvas' ) . '</h1>';
 		echo '<p>' . esc_html__( 'Origin Canvas renamed its colours. Your site looks the same.', 'origin-canvas' ) . '</p>';
 		echo origin_canvas_palette_on_dark_line(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped inside.
-		echo '<p>' . esc_html__( 'This moves your posts, pages, templates, template parts, synced patterns and navigation menus to the new colour names, a few at a time, and adds the new colour names beside the old ones in Additional CSS. Anything open in an editor is skipped. Run this again after you close it.', 'origin-canvas' ) . '</p>';
+		echo '<p>' . esc_html__( 'This moves your posts, pages, templates, template parts, synced patterns and navigation menus to the new colour names, a few at a time, and adds the new colour names beside the old ones in Additional CSS. Anything open in an editor is skipped. Close them, then run this again.', 'origin-canvas' ) . '</p>';
 
 		$hits      = origin_canvas_palette_child_class_hits();
 		$negations = origin_canvas_palette_child_negations();
