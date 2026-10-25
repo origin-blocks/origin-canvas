@@ -598,6 +598,52 @@ if ( ! function_exists( 'origin_canvas_palette_css_expand_prelude' ) ) {
 	}
 }
 
+if ( ! function_exists( 'origin_canvas_palette_css_skip_blank' ) ) {
+	/**
+	 * The offset of the first byte at or after $i that is not whitespace or inside a comment.
+	 *
+	 * @param string $text Text.
+	 * @param int    $i    Start offset.
+	 * @return int
+	 */
+	function origin_canvas_palette_css_skip_blank( $text, $i ) {
+		$len = strlen( $text );
+		while ( $i < $len ) {
+			if ( origin_canvas_palette_css_is_space( $text[ $i ] ) ) {
+				++$i;
+			} elseif ( '/' === $text[ $i ] && $i + 1 < $len && '*' === $text[ $i + 1 ] ) {
+				$i += origin_canvas_palette_css_protected_at( $text, $i );
+			} else {
+				break;
+			}
+		}
+		return $i;
+	}
+}
+
+if ( ! function_exists( 'origin_canvas_palette_css_prop_name' ) ) {
+	/**
+	 * A declaration's property name from the text before its colon. Comments and whitespace before
+	 * and after the name are skipped, as CSS reads them (a comment, then --x:red, declares --x);
+	 * text with anything else beside the name is returned trimmed, so it matches no property.
+	 *
+	 * @param string $text Text before the colon.
+	 * @return string
+	 */
+	function origin_canvas_palette_css_prop_name( $text ) {
+		$start = origin_canvas_palette_css_skip_blank( $text, 0 );
+		$end   = $start;
+		$len   = strlen( $text );
+		while ( $end < $len && ! origin_canvas_palette_css_is_space( $text[ $end ] ) && ! ( '/' === $text[ $end ] && $end + 1 < $len && '*' === $text[ $end + 1 ] ) ) {
+			++$end;
+		}
+		if ( origin_canvas_palette_css_skip_blank( $text, $end ) < $len ) {
+			return trim( $text );
+		}
+		return substr( $text, $start, $end - $start );
+	}
+}
+
 if ( ! function_exists( 'origin_canvas_palette_css_declarations' ) ) {
 	/**
 	 * The declarations of one rule body (braces included): list of array( 'prop' => string,
@@ -644,7 +690,7 @@ if ( ! function_exists( 'origin_canvas_palette_css_declarations' ) ) {
 			} elseif ( ';' === $ch && 0 === $depth && 0 === $brace ) {
 				if ( -1 !== $colon ) {
 					$out[] = array(
-						'prop'        => trim( substr( $body, $start, $colon - $start ) ),
+						'prop'        => origin_canvas_palette_css_prop_name( substr( $body, $start, $colon - $start ) ),
 						'value_start' => $colon + 1,
 						'value_end'   => $i,
 					);
