@@ -385,8 +385,12 @@ if ( ! function_exists( 'origin_canvas_palette_served_file' ) ) {
 
 if ( ! function_exists( 'origin_canvas_palette_attach_handle_twins' ) ) {
 	/**
-	 * Attach the twins of the file one handle serves, inline after it, once per request: the
-	 * theme's twins for its style.css and core-navigation.css, the child twins for a child file.
+	 * Attach the twins of the file one handle serves, inline after it, once per handle in each
+	 * WP_Styles instance: the theme's twins for its style.css and core-navigation.css, the child
+	 * twins for a child file. Core prints the editor canvas assets from a WP_Styles of its own
+	 * (_wp_get_iframed_editor_assets()), so a handle done there is done again in the page's own
+	 * instance, where a non-iframed editor prints it. The instances are held, so an ID is never
+	 * reused; twins a shared registration already holds are not added twice.
 	 *
 	 * @param string $handle     Style handle.
 	 * @param bool   $child_only Only a child file's twins (the editors get the theme's own twins
@@ -394,12 +398,18 @@ if ( ! function_exists( 'origin_canvas_palette_attach_handle_twins' ) ) {
 	 * @return void
 	 */
 	function origin_canvas_palette_attach_handle_twins( $handle, $child_only = false ) {
-		static $done = array();
-		if ( isset( $done[ $handle ] ) ) {
+		static $done = null;
+		if ( null === $done ) {
+			$done = new SplObjectStorage();
+		}
+		$styles  = wp_styles();
+		$handles = $done->contains( $styles ) ? $done[ $styles ] : array();
+		if ( isset( $handles[ $handle ] ) ) {
 			return;
 		}
-		$done[ $handle ] = true;
-		$file            = origin_canvas_palette_served_file( $handle );
+		$handles[ $handle ] = true;
+		$done[ $styles ]    = $handles;
+		$file               = origin_canvas_palette_served_file( $handle );
 		if ( '' === $file ) {
 			return;
 		}
@@ -420,7 +430,7 @@ if ( ! function_exists( 'origin_canvas_palette_attach_handle_twins' ) ) {
 				}
 			}
 		}
-		if ( '' !== $css ) {
+		if ( '' !== $css && ! in_array( $css, (array) $styles->get_data( $handle, 'after' ), true ) ) {
 			wp_add_inline_style( $handle, $css );
 		}
 	}
