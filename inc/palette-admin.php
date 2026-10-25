@@ -349,6 +349,22 @@ if ( ! function_exists( 'origin_canvas_palette_admin_menu' ) ) {
 }
 add_action( 'admin_menu', 'origin_canvas_palette_admin_menu' );
 
+if ( ! function_exists( 'origin_canvas_palette_on_dark_line' ) ) {
+	/**
+	 * The one line the page and the notice add when the first admin load merged a customised
+	 * On Dark into Base 2 (state key on_dark_merged), else ''.
+	 *
+	 * @return string Paragraph markup.
+	 */
+	function origin_canvas_palette_on_dark_line() {
+		$state = origin_canvas_palette_state();
+		if ( empty( $state['on_dark_merged'] ) ) {
+			return '';
+		}
+		return '<p>' . esc_html__( 'One colour changed: your On Dark swatch now uses Base 2.', 'origin-canvas' ) . '</p>';
+	}
+}
+
 if ( ! function_exists( 'origin_canvas_palette_render_page' ) ) {
 	/**
 	 * The Update colours page.
@@ -362,6 +378,7 @@ if ( ! function_exists( 'origin_canvas_palette_render_page' ) ) {
 		$d = origin_canvas_palette_detect( true );
 		echo '<div class="wrap"><h1>' . esc_html__( 'Update colours', 'origin-canvas' ) . '</h1>';
 		echo '<p>' . esc_html__( 'Origin Canvas renamed its colours. Your site looks the same.', 'origin-canvas' ) . '</p>';
+		echo origin_canvas_palette_on_dark_line(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped inside.
 		echo '<p>' . esc_html__( 'This moves your posts, pages, templates, template parts, synced patterns and navigation menus to the new colour names, a few at a time, and adds the new colour names beside the old ones in Additional CSS. Anything open in an editor is skipped. Run this again after you close it.', 'origin-canvas' ) . '</p>';
 
 		$hits      = origin_canvas_palette_child_class_hits();
@@ -429,11 +446,12 @@ if ( ! function_exists( 'origin_canvas_palette_notice' ) ) {
 			return;
 		}
 		printf(
-			'<div id="origin-canvas-update-colours-notice" class="notice notice-info is-dismissible"><p>%1$s <a href="%2$s">%3$s</a> %4$s</p></div>',
+			'<div id="origin-canvas-update-colours-notice" class="notice notice-info is-dismissible"><p>%1$s <a href="%2$s">%3$s</a> %4$s</p>%5$s</div>',
 			esc_html__( 'Origin Canvas has new colour names. Your site looks the same.', 'origin-canvas' ),
 			esc_url( admin_url( 'themes.php?page=origin-canvas-update-colours' ) ),
 			esc_html__( 'Update colours', 'origin-canvas' ),
-			esc_html__( 'to move your content to the new names.', 'origin-canvas' )
+			esc_html__( 'to move your content to the new names.', 'origin-canvas' ),
+			origin_canvas_palette_on_dark_line() // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped inside.
 		);
 	}
 }

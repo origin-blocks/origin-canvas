@@ -307,6 +307,37 @@ if ( ! function_exists( 'origin_canvas_palette_mix' ) ) {
 	}
 }
 
+if ( ! function_exists( 'origin_canvas_palette_colour_key' ) ) {
+	/**
+	 * A palette entry's colour as the merge compares it: a hex colour in upper case, any other
+	 * value trimmed.
+	 *
+	 * @param object $e Palette entry.
+	 * @return string
+	 */
+	function origin_canvas_palette_colour_key( $e ) {
+		$c = isset( $e->color ) && is_string( $e->color ) ? trim( $e->color ) : '';
+		return null === origin_canvas_palette_hex( $c ) ? $c : strtoupper( $c );
+	}
+}
+
+if ( ! function_exists( 'origin_canvas_palette_merge_changed' ) ) {
+	/**
+	 * Whether a merge dropped an entry whose colour differed from the Base 2 entry it merged into
+	 * (a customised On Dark), since the last reset. The first admin load reads it per record.
+	 *
+	 * @param bool|null $set True to record a change, false to reset, null to read.
+	 * @return bool
+	 */
+	function origin_canvas_palette_merge_changed( $set = null ) {
+		static $changed = false;
+		if ( null !== $set ) {
+			$changed = $set;
+		}
+		return $changed;
+	}
+}
+
 if ( ! function_exists( 'origin_canvas_palette_transform_palette_list' ) ) {
 	/**
 	 * Rewrite one palette.theme list that holds an old slug: collisions, renames, the Base 2
@@ -378,6 +409,9 @@ if ( ! function_exists( 'origin_canvas_palette_transform_palette_list' ) ) {
 			}
 			foreach ( $on as $i ) {
 				if ( $i !== $kept && in_array( $origins[ $i ], array_slice( $from, 1 ), true ) ) {
+					if ( origin_canvas_palette_colour_key( $list[ $i ] ) !== origin_canvas_palette_colour_key( $list[ $kept ] ) ) {
+						origin_canvas_palette_merge_changed( true );
+					}
 					unset( $list[ $i ] );
 				}
 			}

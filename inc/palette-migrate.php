@@ -171,9 +171,10 @@ if ( ! function_exists( 'origin_canvas_palette_rewrite_global_styles_report' ) )
 	 */
 	function origin_canvas_palette_rewrite_global_styles_report() {
 		$report = array(
-			'updated' => 0,
-			'changed' => 0,
-			'failed'  => 0,
+			'updated'        => 0,
+			'changed'        => 0,
+			'failed'         => 0,
+			'on_dark_merged' => null, // Null when no post was read.
 		);
 		if ( ! origin_canvas_palette_ensure_snapshot() ) {
 			// Without the snapshot, content that uses the user's own destination swatch could not
@@ -181,7 +182,8 @@ if ( ! function_exists( 'origin_canvas_palette_rewrite_global_styles_report' ) )
 			$report['failed'] = 1;
 			return $report;
 		}
-		$posts = origin_canvas_palette_global_styles_posts();
+		$posts                    = origin_canvas_palette_global_styles_posts();
+		$report['on_dark_merged'] = false;
 
 		// Revisions first, then their record.
 		$groups = array();
@@ -200,7 +202,13 @@ if ( ! function_exists( 'origin_canvas_palette_rewrite_global_styles_report' ) )
 			);
 			foreach ( $group as $p ) {
 				$content = (string) $p->post_content;
-				$next    = origin_canvas_palette_rewrite_global_styles_json( $content );
+				origin_canvas_palette_merge_changed( false );
+				$next = origin_canvas_palette_rewrite_global_styles_json( $content );
+				// A published record whose saved On Dark differed from the Base 2 it merges into:
+				// the site no longer looks quite the same, and the page and the notice say so.
+				if ( 'revision' !== $p->post_type && 'publish' === $p->post_status && origin_canvas_palette_merge_changed() ) {
+					$report['on_dark_merged'] = true;
+				}
 				if ( null === $next || $next === $content ) {
 					continue;
 				}
@@ -242,15 +250,19 @@ if ( ! function_exists( 'origin_canvas_palette_first_admin_load' ) ) {
 		}
 		$r = origin_canvas_palette_rewrite_global_styles_report();
 		if ( 0 === $r['changed'] + $r['failed'] ) {
-			origin_canvas_palette_update_state(
-				array(
-					'palette_rewrite'        => time(),
-					'palette_rewrite_failed' => 0,
-				)
+			$changes = array(
+				'palette_rewrite'        => time(),
+				'palette_rewrite_failed' => 0,
 			);
 		} else {
-			origin_canvas_palette_update_state( array( 'palette_rewrite_failed' => $r['changed'] + $r['failed'] ) );
+			$changes = array( 'palette_rewrite_failed' => $r['changed'] + $r['failed'] );
 		}
+		// Set once, from the first load that read the saved styles: a retry reads posts the first
+		// try already rewrote, where the On Dark entry is gone.
+		if ( null !== $r['on_dark_merged'] && ! array_key_exists( 'on_dark_merged', origin_canvas_palette_state() ) ) {
+			$changes['on_dark_merged'] = $r['on_dark_merged'];
+		}
+		origin_canvas_palette_update_state( $changes );
 		delete_transient( 'origin_canvas_palette_scan' );
 	}
 }
