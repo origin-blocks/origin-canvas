@@ -686,16 +686,29 @@ if ( ! function_exists( 'origin_canvas_palette_css_prop_twin' ) ) {
 	}
 }
 
+if ( ! function_exists( 'origin_canvas_palette_css_value_key' ) ) {
+	/**
+	 * A declaration value as the twin rule compares it: its trimmed text and its !important.
+	 *
+	 * @param string $value Value bytes.
+	 * @return string
+	 */
+	function origin_canvas_palette_css_value_key( $value ) {
+		$important = (bool) preg_match( '/!\s*important\s*$/i', $value );
+		$text      = trim( preg_replace( '/!\s*important\s*$/i', '', $value ) );
+		return $text . '|' . ( $important ? 'important' : '' );
+	}
+}
+
 if ( ! function_exists( 'origin_canvas_palette_css_decl_twins' ) ) {
 	/**
 	 * The declaration twins of one rule body: list of array( 'at' => value end offset,
 	 * 'text' => '<new name>:<value bytes>' ), in order.
 	 *
-	 * Every declaration of an old preset property gets its own twin right after it, so with
-	 * repeated declarations (red, then blue, or one with !important) the new name wins with the
-	 * same value the old one does. A twin is a declaration of the new name right after the old one
-	 * with the same value bytes; a declaration already followed by its twin gets none, so a second
-	 * run changes nothing. A new name the body declares on its own takes no twins.
+	 * A twin is skipped only when the declaration right after the old one already is its twin: the
+	 * new name with the same value and the same !important, so a second run changes nothing. Every
+	 * other old declaration gets its twin, so repeated declarations (red, then blue) keep their
+	 * order and the last one still wins.
 	 *
 	 * @param string $body  Rule body.
 	 * @param array  $extra Collision map.
@@ -703,30 +716,23 @@ if ( ! function_exists( 'origin_canvas_palette_css_decl_twins' ) ) {
 	 */
 	function origin_canvas_palette_css_decl_twins( $body, $extra = array() ) {
 		$decls = origin_canvas_palette_css_declarations( $body );
-		$news  = array();
-		$vals  = array();
+		$out   = array();
 		foreach ( $decls as $k => $d ) {
-			$news[ $k ] = origin_canvas_palette_css_prop_twin( $d['prop'], $extra );
-			$vals[ $k ] = substr( $body, $d['value_start'], $d['value_end'] - $d['value_start'] );
-		}
-		$is_twin = array();
-		$own     = array();
-		foreach ( $decls as $k => $d ) {
-			if ( $k > 0 && '' !== $news[ $k - 1 ] && $news[ $k - 1 ] === $d['prop'] && $vals[ $k - 1 ] === $vals[ $k ] ) {
-				$is_twin[ $k ] = true;
-			} else {
-				$own[ $d['prop'] ] = true;
-			}
-		}
-		$out = array();
-		foreach ( $decls as $k => $d ) {
-			$new = $news[ $k ];
-			if ( '' === $new || isset( $own[ $new ] ) || isset( $is_twin[ $k + 1 ] ) ) {
+			$new = origin_canvas_palette_css_prop_twin( $d['prop'], $extra );
+			if ( '' === $new ) {
 				continue;
+			}
+			$value = substr( $body, $d['value_start'], $d['value_end'] - $d['value_start'] );
+			if ( isset( $decls[ $k + 1 ] ) && $new === $decls[ $k + 1 ]['prop'] ) {
+				$next = $decls[ $k + 1 ];
+				$next = substr( $body, $next['value_start'], $next['value_end'] - $next['value_start'] );
+				if ( origin_canvas_palette_css_value_key( $next ) === origin_canvas_palette_css_value_key( $value ) ) {
+					continue;
+				}
 			}
 			$out[] = array(
 				'at'   => $d['value_end'],
-				'text' => $new . ':' . $vals[ $k ],
+				'text' => $new . ':' . $value,
 			);
 		}
 		return $out;
