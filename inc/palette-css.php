@@ -739,6 +739,19 @@ if ( ! function_exists( 'origin_canvas_palette_css_decl_twins' ) ) {
 	}
 }
 
+if ( ! function_exists( 'origin_canvas_palette_css_var_end' ) ) {
+	/**
+	 * The regex lookahead that ends a variable name inside var(): whitespace, a comma, the closing
+	 * parenthesis or the end of the plain text. Any other next byte makes it another name
+	 * (--wp--preset--color--text-muted_custom, an escape, a non-ASCII byte), which stays as it is.
+	 *
+	 * @return string
+	 */
+	function origin_canvas_palette_css_var_end() {
+		return '(?=[\s,)]|$)';
+	}
+}
+
 if ( ! function_exists( 'origin_canvas_palette_css_rename_vars_in' ) ) {
 	/**
 	 * Rename var() references to old presets in a declaration text, outside protected runs.
@@ -758,7 +771,7 @@ if ( ! function_exists( 'origin_canvas_palette_css_rename_vars_in' ) ) {
 			static function ( $plain ) use ( $forms, $extra ) {
 				foreach ( $forms as $kind => $prefix ) {
 					$plain = preg_replace_callback(
-						'/var\(\s*' . preg_quote( $prefix, '/' ) . '([a-z0-9-]+)' . origin_canvas_palette_ident_end() . '/',
+						'/var\(\s*' . preg_quote( $prefix, '/' ) . '([a-z0-9-]+)' . origin_canvas_palette_css_var_end() . '/',
 						static function ( $m ) use ( $kind, $prefix, $extra ) {
 							$to = origin_canvas_palette_lookup( $kind, $m[1], $extra );
 							if ( '' === $to ) {
@@ -940,7 +953,7 @@ if ( ! function_exists( 'origin_canvas_palette_css_refs' ) ) {
 					$body,
 					static function ( $plain ) use ( $forms, $want, &$refs ) {
 						foreach ( $forms as $kind => $prefix ) {
-							if ( preg_match_all( '/var\(\s*' . preg_quote( $prefix, '/' ) . '([a-z0-9-]+)' . origin_canvas_palette_ident_end() . '/', $plain, $all ) ) {
+							if ( preg_match_all( '/var\(\s*' . preg_quote( $prefix, '/' ) . '([a-z0-9-]+)' . origin_canvas_palette_css_var_end() . '/', $plain, $all ) ) {
 								foreach ( $all[1] as $s ) {
 									if ( isset( $want[ $kind ][ $s ] ) ) {
 										$refs[ $kind ][ $s ] = true;
