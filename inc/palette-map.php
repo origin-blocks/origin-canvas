@@ -15,7 +15,8 @@ if ( ! function_exists( 'origin_canvas_palette_map' ) ) {
 	 *
 	 * Collisions: a saved palette entry on a destination slug (base, base-2 … contrast), in a list
 	 * that also holds the old slug that maps to it, is the user's own swatch. It keeps its value
-	 * under the first free `<slug>-legacy` slug; nothing is dropped but the merged On Dark entry.
+	 * under the first free `<slug>-legacy` slug; nothing is dropped but the merged On Dark entry,
+	 * which gets no legacy swatch, whatever its saved value (owner ruling, Oct 24).
 	 *
 	 * border-control and border-strong never shipped (develop only). They are mapped so a site
 	 * built from develop, and the checks that read this file, see one complete map.
@@ -131,13 +132,6 @@ if ( ! function_exists( 'origin_canvas_palette_rules' ) ) {
 			// New slug => the old slugs merged into it, the winner first.
 			'merge'             => array(
 				'base-2' => array( 'surface-muted', 'on-dark' ),
-			),
-			// A saved On Dark that differs from every shipped value and from the kept Base 2.
-			'legacy'            => array(
-				'from'    => 'on-dark',
-				'slug'    => 'on-dark-legacy',
-				'name'    => 'On Dark (legacy)',
-				'shipped' => array( '#F3F4F6' ),
 			),
 			'legacy_suffix'     => array(
 				'slug' => '-legacy',

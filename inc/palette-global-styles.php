@@ -310,15 +310,14 @@ if ( ! function_exists( 'origin_canvas_palette_mix' ) ) {
 if ( ! function_exists( 'origin_canvas_palette_transform_palette_list' ) ) {
 	/**
 	 * Rewrite one palette.theme list that holds an old slug: collisions, renames, the Base 2
-	 * merge, the On Dark legacy swatch and, at the root only, the missing slugs.
+	 * merge and, at the root only, the missing slugs.
 	 *
-	 * @param array    $list       The list.
-	 * @param array    $collisions Colour collisions of this level (dest => legacy).
-	 * @param stdClass $palette    The level's palette object (for the slugs other lists use).
-	 * @param bool     $root       Whether this is the root list.
+	 * @param array $list       The list.
+	 * @param array $collisions Colour collisions of this level (dest => legacy).
+	 * @param bool  $root       Whether this is the root list.
 	 * @return array
 	 */
-	function origin_canvas_palette_transform_palette_list( $list, $collisions, $palette, $root ) {
+	function origin_canvas_palette_transform_palette_list( $list, $collisions, $root ) {
 		$map   = origin_canvas_palette_map()['color'];
 		$rules = origin_canvas_palette_rules();
 
@@ -357,7 +356,9 @@ if ( ! function_exists( 'origin_canvas_palette_transform_palette_list' ) ) {
 
 		// (iii) The merge: of the entries now on base-2, keep the one from surface-muted (else the
 		// first) and drop the on-dark entry. A slug the saved list held twice stays as saved.
-		$dropped = null;
+		// No On Dark legacy swatch, in any case (owner ruling, Oct 24): every on-dark reference
+		// reads Base 2, whatever its saved value was. The collision legacy slugs of (i) stay, since
+		// there a user swatch would be lost outright.
 		foreach ( $rules['merge'] as $target => $from ) {
 			$on = array();
 			foreach ( $list as $i => $e ) {
@@ -376,71 +377,12 @@ if ( ! function_exists( 'origin_canvas_palette_transform_palette_list' ) ) {
 				}
 			}
 			foreach ( $on as $i ) {
-				if ( $i !== $kept && $origins[ $i ] === $rules['legacy']['from'] ) {
-					if ( null === $dropped ) {
-						$dropped = array(
-							'entry' => $list[ $i ],
-							'kept'  => $list[ $kept ],
-						);
-					}
+				if ( $i !== $kept && in_array( $origins[ $i ], array_slice( $from, 1 ), true ) ) {
 					unset( $list[ $i ] );
 				}
 			}
 		}
 		$list = array_values( $list );
-
-		// (iv) The On Dark legacy swatch: a dropped On Dark that differs from every shipped value
-		// and from the kept Base 2 keeps its value, right after Base 2.
-		if ( null !== $dropped && isset( $dropped['entry']->color ) && is_string( $dropped['entry']->color ) ) {
-			$colour  = $dropped['entry']->color;
-			$shipped = array_map( 'strtoupper', $rules['legacy']['shipped'] );
-			$kept    = isset( $dropped['kept']->color ) && is_string( $dropped['kept']->color ) ? $dropped['kept']->color : '';
-			if ( ! in_array( strtoupper( $colour ), $shipped, true ) && strtoupper( $colour ) !== strtoupper( $kept ) ) {
-				$used = array();
-				foreach ( array( 'theme', 'custom', 'default' ) as $origin ) {
-					if ( isset( $palette->$origin ) && is_array( $palette->$origin ) ) {
-						foreach ( $palette->$origin as $e ) {
-							$slug = origin_canvas_palette_entry_slug( $e );
-							if ( null !== $slug ) {
-								$used[ $slug ] = true;
-							}
-						}
-					}
-				}
-				foreach ( $list as $e ) {
-					$slug = origin_canvas_palette_entry_slug( $e );
-					if ( null !== $slug ) {
-						$used[ $slug ] = true;
-					}
-				}
-				foreach ( $collisions as $legacy ) {
-					$used[ $legacy ] = true;
-				}
-				$slug = $rules['legacy']['slug'];
-				for ( $n = 2; isset( $used[ $slug ] ); $n++ ) {
-					$slug = $rules['legacy']['slug'] . '-' . $n;
-				}
-				$at = 0;
-				foreach ( $list as $i => $e ) {
-					if ( $e === $dropped['kept'] ) {
-						$at = $i + 1;
-						break;
-					}
-				}
-				array_splice(
-					$list,
-					$at,
-					0,
-					array(
-						(object) array(
-							'slug'  => $slug,
-							'name'  => $rules['legacy']['name'],
-							'color' => $colour,
-						),
-					)
-				);
-			}
-		}
 
 		// (v) The root list only, when not empty: every slug of the new palette still missing goes
 		// in after the nearest earlier slug present. A block-level list keeps inheriting the rest.
@@ -529,7 +471,7 @@ if ( ! function_exists( 'origin_canvas_palette_transform_level' ) ) {
 				}
 			}
 			if ( $holds ) {
-				$pal->theme = origin_canvas_palette_transform_palette_list( $pal->theme, $collisions['color'], $pal, $root );
+				$pal->theme = origin_canvas_palette_transform_palette_list( $pal->theme, $collisions['color'], $root );
 			}
 		}
 
