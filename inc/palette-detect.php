@@ -769,12 +769,29 @@ if ( ! function_exists( 'origin_canvas_palette_recount_styles' ) ) {
 	/**
 	 * Recount the Global Styles and user CSS stores in the cache after a save to one of them.
 	 *
+	 * One Global Styles save fires this twice, for the revision and for the record, over the same
+	 * saved stores; the second call finds the stores as the first counted them and returns, so a
+	 * request counts each state of the stores once.
+	 *
 	 * @return void
 	 */
 	function origin_canvas_palette_recount_styles() {
+		static $counted = null;
+		$posts          = origin_canvas_palette_global_styles_posts();
+		$stores         = origin_canvas_palette_user_css_stores();
+		$key            = array();
+		foreach ( $posts as $p ) {
+			$key[] = array( (int) $p->ID, (string) $p->post_content );
+		}
+		$key = md5( serialize( array( $key, $stores ) ) ); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_serialize -- a fingerprint, never stored.
+		if ( $key === $counted ) {
+			return;
+		}
+		$counted = $key;
+
 		$found         = false;
 		$global_styles = 0;
-		foreach ( origin_canvas_palette_global_styles_posts() as $p ) {
+		foreach ( $posts as $p ) {
 			$h = origin_canvas_palette_global_styles_hits( $p->post_content );
 			if ( $h['fixable'] ) {
 				++$global_styles;
@@ -784,7 +801,7 @@ if ( ! function_exists( 'origin_canvas_palette_recount_styles' ) ) {
 			}
 		}
 		$css = 0;
-		foreach ( origin_canvas_palette_user_css_stores() as $store ) {
+		foreach ( $stores as $store ) {
 			if ( origin_canvas_palette_user_css_next( $store ) !== $store['content'] ) {
 				++$css;
 			}
