@@ -340,8 +340,9 @@ if ( ! function_exists( 'origin_canvas_palette_path_kind' ) ) {
 			$kinds['color']  = 'color' === $second
 				|| ( 'elements' === $second && in_array( 'color', array_slice( $p, 2 ), true ) )
 				|| ( 'border' === $second && ( ( isset( $p[2] ) && 'color' === $p[2] ) || ( isset( $p[3] ) && 'color' === $p[3] ) ) );
-			$kinds['spacing']    = 'spacing' === $second;
-			$kinds['lineHeight'] = 'typography' === $second;
+			$kinds['spacing'] = 'spacing' === $second;
+			// The line height field only: a fontFamily or letterSpacing that names the variable is text.
+			$kinds['lineHeight'] = 'typography' === $second && 3 === count( $p ) && 'lineHeight' === $p[2];
 		}
 		return $kinds;
 	}
@@ -381,17 +382,23 @@ if ( ! function_exists( 'origin_canvas_palette_rename_value' ) ) {
 				},
 				$out
 			);
-			$out = preg_replace_callback(
-				'/var\(--wp--preset--color--([a-z0-9-]+)\)/',
-				static function ( $m ) use ( &$seen, $extra ) {
-					$to = origin_canvas_palette_lookup( 'color', $m[1], $extra );
-					if ( '' === $to ) {
-						return $m[0];
-					}
-					$seen['vars'][ $m[1] ] = true;
-					return 'var(--wp--preset--color--' . $to . ')';
-				},
-				$out
+			// Walked as CSS: a quoted string, a url() argument or a comment keeps its bytes.
+			$out = origin_canvas_palette_css_map_outside(
+				$out,
+				static function ( $plain ) use ( &$seen, $extra ) {
+					return preg_replace_callback(
+						'/var\(--wp--preset--color--([a-z0-9-]+)\)/',
+						static function ( $m ) use ( &$seen, $extra ) {
+							$to = origin_canvas_palette_lookup( 'color', $m[1], $extra );
+							if ( '' === $to ) {
+								return $m[0];
+							}
+							$seen['vars'][ $m[1] ] = true;
+							return 'var(--wp--preset--color--' . $to . ')';
+						},
+						$plain
+					);
+				}
 			);
 		}
 		if ( $kinds['spacing'] ) {
@@ -409,17 +416,22 @@ if ( ! function_exists( 'origin_canvas_palette_rename_value' ) ) {
 			);
 		}
 		if ( $kinds['lineHeight'] ) {
-			$out = preg_replace_callback(
-				'/var\(--wp--custom--line-height--([a-z0-9-]+)\)/',
-				static function ( $m ) use ( &$seen, $extra ) {
-					$to = origin_canvas_palette_lookup( 'lineHeight', $m[1], $extra );
-					if ( '' === $to ) {
-						return $m[0];
-					}
-					$seen['lineHeight'][ $m[1] ] = true;
-					return 'var(--wp--custom--line-height--' . $to . ')';
-				},
-				$out
+			$out = origin_canvas_palette_css_map_outside(
+				$out,
+				static function ( $plain ) use ( &$seen, $extra ) {
+					return preg_replace_callback(
+						'/var\(--wp--custom--line-height--([a-z0-9-]+)\)/',
+						static function ( $m ) use ( &$seen, $extra ) {
+							$to = origin_canvas_palette_lookup( 'lineHeight', $m[1], $extra );
+							if ( '' === $to ) {
+								return $m[0];
+							}
+							$seen['lineHeight'][ $m[1] ] = true;
+							return 'var(--wp--custom--line-height--' . $to . ')';
+						},
+						$plain
+					);
+				}
 			);
 		}
 		return $out === $v ? null : $out;
@@ -1008,6 +1020,16 @@ if ( ! function_exists( 'origin_canvas_palette_content_slug_refs' ) ) {
 		$rules = origin_canvas_palette_rules();
 		$note  = static function ( $p, $v ) use ( &$refs, $want ) {
 			$kinds = origin_canvas_palette_path_kinds( $p );
+			// The value's code as the rewrite reads it: quoted strings, url() and comments left out.
+			$code = array();
+			origin_canvas_palette_css_map_outside(
+				$v,
+				static function ( $plain ) use ( &$code ) {
+					$code[] = $plain;
+					return $plain;
+				}
+			);
+			$code = implode( ' ', $code );
 			if ( $kinds['slug'] ) {
 				if ( isset( $want['color'][ $v ] ) ) {
 					$refs['color'][ $v ] = true;
@@ -1018,7 +1040,7 @@ if ( ! function_exists( 'origin_canvas_palette_content_slug_refs' ) ) {
 				if ( preg_match( '/^var:preset\|color\|([a-z0-9-]+)$/D', $v, $m ) && isset( $want['color'][ $m[1] ] ) ) {
 					$refs['color'][ $m[1] ] = true;
 				}
-				if ( preg_match_all( '/var\(--wp--preset--color--([a-z0-9-]+)\)/', $v, $all ) ) {
+				if ( preg_match_all( '/var\(--wp--preset--color--([a-z0-9-]+)\)/', $code, $all ) ) {
 					foreach ( $all[1] as $s ) {
 						if ( isset( $want['color'][ $s ] ) ) {
 							$refs['color'][ $s ] = true;
@@ -1029,7 +1051,7 @@ if ( ! function_exists( 'origin_canvas_palette_content_slug_refs' ) ) {
 			if ( $kinds['spacing'] && preg_match( '/^var:preset\|spacing\|([a-z0-9-]+)$/D', $v, $m ) && isset( $want['spacing'][ $m[1] ] ) ) {
 				$refs['spacing'][ $m[1] ] = true;
 			}
-			if ( $kinds['lineHeight'] && preg_match_all( '/var\(--wp--custom--line-height--([a-z0-9-]+)\)/', $v, $all ) ) {
+			if ( $kinds['lineHeight'] && preg_match_all( '/var\(--wp--custom--line-height--([a-z0-9-]+)\)/', $code, $all ) ) {
 				foreach ( $all[1] as $s ) {
 					if ( isset( $want['lineHeight'][ $s ] ) ) {
 						$refs['lineHeight'][ $s ] = true;
