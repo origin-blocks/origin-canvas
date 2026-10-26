@@ -36,7 +36,7 @@
 <!-- /wp:group -->
 
 <!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"contrast-2","fontSize":"small"} -->
-<p class="has-contrast-2-color has-text-color has-small-font-size" style="margin-top:0;margin-bottom:0"><?php echo wp_kses_post( __( 'Eleven named colors, from <strong>primary</strong> to <strong>on-dark</strong>, used everywhere.', 'origin-canvas' ) ); ?></p>
+<p class="has-contrast-2-color has-text-color has-small-font-size" style="margin-top:0;margin-bottom:0"><?php echo wp_kses_post( __( 'Thirteen named colors, from <strong>primary</strong> to <strong>contrast</strong>, used everywhere.', 'origin-canvas' ) ); ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group -->
 
