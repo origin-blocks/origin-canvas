@@ -279,7 +279,12 @@ if ( ! function_exists( 'origin_canvas_palette_failed_rewrite_notice' ) ) {
 		if ( ! current_user_can( 'edit_theme_options' ) || $state['palette_rewrite'] || (int) $state['palette_rewrite_failed'] <= 0 ) {
 			return;
 		}
-		echo '<div class="notice notice-warning"><p>' . esc_html__( 'Some saved styles have not moved to the new colour names yet. Origin Canvas tries again on your next admin page. Your site looks the same meanwhile.', 'origin-canvas' ) . '</p></div>';
+		$text = __( 'Some saved styles have not moved to the new colour names yet. Origin Canvas tries again on your next admin page.', 'origin-canvas' );
+		// A merged customised On Dark changed how the site looks (owner ruling, Oct 26).
+		if ( empty( $state['on_dark_merged'] ) ) {
+			$text .= ' ' . __( 'Your site looks the same meanwhile.', 'origin-canvas' );
+		}
+		echo '<div class="notice notice-warning"><p>' . esc_html( $text ) . '</p></div>';
 	}
 }
 add_action( 'admin_notices', 'origin_canvas_palette_failed_rewrite_notice' );

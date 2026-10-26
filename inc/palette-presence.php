@@ -14,6 +14,11 @@ if ( ! function_exists( 'origin_canvas_palette_presence_window' ) ) {
 	/**
 	 * How long a report holds, in seconds: core's post lock window.
 	 *
+	 * Residual: core suspends Heartbeat in any editor tab idle for 60 minutes (heartbeat.js), so
+	 * such a tab drops out after this window, as core's own post lock does. Update colours may then
+	 * rewrite its item; a later save from that tab is kept by the conditional write, and detection
+	 * offers Update colours again, so no edit is lost.
+	 *
 	 * @return int
 	 */
 	function origin_canvas_palette_presence_window() {
