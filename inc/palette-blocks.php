@@ -1260,7 +1260,8 @@ if ( ! function_exists( 'origin_canvas_palette_json_hits' ) ) {
 	function origin_canvas_palette_json_hits( $v, $key = '', $path = array() ) {
 		if ( is_string( $v ) ) {
 			if ( 'css' === $key ) {
-				return (bool) origin_canvas_palette_css_code_hits( $v );
+				// styles.css is a stylesheet; a css below it is block CSS, read as core prints it.
+				return (bool) ( array( 'styles', 'css' ) === $path ? origin_canvas_palette_css_code_hits( $v ) : origin_canvas_palette_block_css_hits( $v ) );
 			}
 			return origin_canvas_palette_json_field( $path ) && origin_canvas_palette_rename_refs( $v ) !== $v;
 		}

@@ -247,26 +247,32 @@ if ( ! function_exists( 'origin_canvas_palette_over' ) ) {
 if ( ! function_exists( 'origin_canvas_palette_deep_rename' ) ) {
 	/**
 	 * Rename references in every string of a node; a string under a key named css goes through
-	 * the CSS rule (declaration values only), every other through rename_refs().
+	 * the CSS rule (declaration values only), every other through rename_refs(). With $block, a
+	 * css string is a block's custom CSS (every css below styles.css's own level), read as core
+	 * prints it.
 	 *
 	 * @param mixed  $v     Node.
 	 * @param array  $extra Collision map.
 	 * @param string $key   The node's key.
+	 * @param bool   $block A css string here is block CSS.
 	 * @return mixed
 	 */
-	function origin_canvas_palette_deep_rename( $v, $extra, $key = '' ) {
+	function origin_canvas_palette_deep_rename( $v, $extra, $key = '', $block = false ) {
 		if ( is_string( $v ) ) {
-			return 'css' === $key ? origin_canvas_palette_css_rename_vars( $v, $extra ) : origin_canvas_palette_rename_refs( $v, $extra );
+			if ( 'css' === $key ) {
+				return $block ? origin_canvas_palette_rewrite_block_css( $v, array(), true, $extra, false ) : origin_canvas_palette_css_rename_vars( $v, $extra );
+			}
+			return origin_canvas_palette_rename_refs( $v, $extra );
 		}
 		if ( is_array( $v ) ) {
 			foreach ( $v as $i => $x ) {
-				$v[ $i ] = origin_canvas_palette_deep_rename( $x, $extra );
+				$v[ $i ] = origin_canvas_palette_deep_rename( $x, $extra, '', $block );
 			}
 			return $v;
 		}
 		if ( is_object( $v ) ) {
 			foreach ( get_object_vars( $v ) as $k => $x ) {
-				$v->$k = origin_canvas_palette_deep_rename( $x, $extra, (string) $k );
+				$v->$k = origin_canvas_palette_deep_rename( $x, $extra, (string) $k, $block );
 			}
 			return $v;
 		}
@@ -609,11 +615,12 @@ if ( ! function_exists( 'origin_canvas_palette_transform_global_styles' ) ) {
 					if ( 'blocks' === $k && is_object( $v ) ) {
 						foreach ( get_object_vars( $v ) as $name => $b ) {
 							$block_map = origin_canvas_palette_over( $root, isset( $collisions['blocks'][ $name ] ) ? $collisions['blocks'][ $name ] : null );
-							$v->$name  = origin_canvas_palette_deep_rename( $b, $block_map );
+							$v->$name  = origin_canvas_palette_deep_rename( $b, $block_map, '', true );
 						}
 						continue;
 					}
-					$styles->$k = origin_canvas_palette_deep_rename( $v, $root, (string) $k );
+					// styles.css is the site's stylesheet; a css below another key is block CSS.
+					$styles->$k = 'css' === $k ? origin_canvas_palette_deep_rename( $v, $root, 'css' ) : origin_canvas_palette_deep_rename( $v, $root, (string) $k, true );
 				}
 			} else {
 				$data->styles = origin_canvas_palette_deep_rename( $styles, $root, 'styles' );
@@ -730,7 +737,13 @@ if ( ! function_exists( 'origin_canvas_palette_string_hits' ) ) {
 	 */
 	function origin_canvas_palette_string_hits( $v, $path, $key, &$hits ) {
 		if ( is_string( $v ) ) {
-			$next = 'css' === $key ? origin_canvas_palette_css_rename_vars( $v ) : origin_canvas_palette_rename_refs( $v );
+			if ( 'css' !== $key ) {
+				$next = origin_canvas_palette_rename_refs( $v );
+			} elseif ( 'styles.css' === $path ) {
+				$next = origin_canvas_palette_css_rename_vars( $v );
+			} else {
+				$next = origin_canvas_palette_rewrite_block_css( $v, array(), true, array(), false );
+			}
 			if ( $next !== $v ) {
 				$hits[] = $path;
 			}
@@ -782,21 +795,31 @@ if ( ! function_exists( 'origin_canvas_palette_global_styles_hits' ) ) {
 		}
 		$classes = origin_canvas_palette_old_classes();
 		$css     = array();
-		$collect = static function ( $v, $key ) use ( &$collect, &$css ) {
+		$block   = array();
+		$collect = static function ( $v, $key, $path ) use ( &$collect, &$css, &$block ) {
 			if ( is_string( $v ) ) {
-				if ( 'css' === $key ) {
+				if ( 'css' === $key && 'styles.css' === $path ) {
 					$css[] = $v;
+				} elseif ( 'css' === $key ) {
+					$block[] = $v; // Block CSS, read as core prints it.
 				}
 				return;
 			}
 			if ( is_array( $v ) || is_object( $v ) ) {
 				foreach ( ( is_object( $v ) ? get_object_vars( $v ) : $v ) as $k => $x ) {
-					$collect( $x, is_object( $v ) ? (string) $k : '' );
+					$collect( $x, is_object( $v ) ? (string) $k : '', $path . '.' . $k );
 				}
 			}
 		};
 		if ( isset( $data->styles ) ) {
-			$collect( $data->styles, 'styles' );
+			$collect( $data->styles, 'styles', 'styles' );
+		}
+		foreach ( $block as $text ) {
+			foreach ( origin_canvas_palette_block_css_hits( $text ) as $h ) {
+				if ( 0 === strpos( $h, 'class=' ) ) {
+					$out['alias'][] = 'styles.css=' . substr( $h, 6 );
+				}
+			}
 		}
 		foreach ( $css as $text ) {
 			origin_canvas_palette_css_scan(

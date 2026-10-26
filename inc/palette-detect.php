@@ -414,16 +414,20 @@ if ( ! function_exists( 'origin_canvas_palette_user_css_stores' ) ) {
 
 if ( ! function_exists( 'origin_canvas_palette_rewrite_css_strings' ) ) {
 	/**
-	 * Apply $fn to every string under a key named css in a decoded node.
+	 * Apply $fn( css, block ) to every string under a key named css in a decoded node. block is
+	 * false for the css directly in the node passed with $top (styles.css, the site's
+	 * stylesheet) and true for every css below it (a block's custom CSS, read as core prints it).
 	 *
 	 * @param mixed    $v   Node.
-	 * @param callable $fn  string => string.
+	 * @param callable $fn  ( string, bool ) => string.
 	 * @param string   $key The node's key.
+	 * @param bool     $top The node is the styles root.
+	 * @param bool     $in  The node's parent is the styles root.
 	 * @return mixed
 	 */
-	function origin_canvas_palette_rewrite_css_strings( $v, $fn, $key = '' ) {
+	function origin_canvas_palette_rewrite_css_strings( $v, $fn, $key = '', $top = false, $in = false ) {
 		if ( is_string( $v ) ) {
-			return 'css' === $key ? $fn( $v ) : $v;
+			return 'css' === $key ? $fn( $v, ! $in ) : $v;
 		}
 		if ( is_array( $v ) ) {
 			foreach ( $v as $i => $x ) {
@@ -433,7 +437,7 @@ if ( ! function_exists( 'origin_canvas_palette_rewrite_css_strings' ) ) {
 		}
 		if ( is_object( $v ) ) {
 			foreach ( get_object_vars( $v ) as $k => $x ) {
-				$v->$k = origin_canvas_palette_rewrite_css_strings( $x, $fn, (string) $k );
+				$v->$k = origin_canvas_palette_rewrite_css_strings( $x, $fn, (string) $k, false, $top );
 			}
 		}
 		return $v;
@@ -466,10 +470,11 @@ if ( ! function_exists( 'origin_canvas_palette_user_css_next' ) ) {
 		// Variables in the record's css were renamed at the first admin load, hence false.
 		$data->styles = origin_canvas_palette_rewrite_css_strings(
 			$data->styles,
-			static function ( $css ) use ( $collisions ) {
-				return origin_canvas_palette_rewrite_user_css( $css, $collisions, false );
+			static function ( $css, $block ) use ( $collisions ) {
+				return $block ? origin_canvas_palette_rewrite_block_css( $css, $collisions, false ) : origin_canvas_palette_rewrite_user_css( $css, $collisions, false );
 			},
-			'styles'
+			'styles',
+			true
 		);
 		if ( wp_json_encode( $data->styles ) === $before ) {
 			return $content;

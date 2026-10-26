@@ -1817,3 +1817,180 @@ if ( ! function_exists( 'origin_canvas_palette_css_collision_extra' ) ) {
 		return $out;
 	}
 }
+
+if ( ! function_exists( 'origin_canvas_palette_block_css_parts' ) ) {
+	/**
+	 * A block's custom CSS (a css string under styles.blocks.<block>, its variations or elements,
+	 * or a block's style.css attribute) as core prints it (WP_Theme_JSON::process_blocks_custom_css()):
+	 * the text split on every &; a part with no { is declarations of the block; any other part is
+	 * one nested rule, its selector before the {, its declarations after it with every } dropped,
+	 * joined to the block selector (as a descendant when it starts with a space); a part that does
+	 * not split in two at { is not printed. List of array( 'text' => part, 'kind' =>
+	 * 'decls'|'rule'|'skip', 'brace' => offset of { in a rule ).
+	 *
+	 * @param string $css Block CSS.
+	 * @return array
+	 */
+	function origin_canvas_palette_block_css_parts( $css ) {
+		$out = array();
+		foreach ( explode( '&', (string) $css ) as $text ) {
+			$p = array(
+				'text'  => $text,
+				'kind'  => 'skip',
+				'brace' => -1,
+			);
+			if ( '' !== $text && false === strpos( $text, '{' ) ) {
+				$p['kind'] = 'decls';
+			} elseif ( '' !== $text && 2 === count( explode( '{', str_replace( '}', '', $text ) ) ) ) {
+				$p['kind']  = 'rule';
+				$p['brace'] = strpos( $text, '{' );
+			}
+			$out[] = $p;
+		}
+		return $out;
+	}
+}
+
+if ( ! function_exists( 'origin_canvas_palette_block_css_decls' ) ) {
+	/**
+	 * The declarations of one part of a block's CSS and the bytes after them: array( decls, tail ).
+	 * For a rule, the text after its { up to its last }; the } and what follows is the tail.
+	 *
+	 * @param array $p A part from origin_canvas_palette_block_css_parts().
+	 * @return array{0: string, 1: string}
+	 */
+	function origin_canvas_palette_block_css_decls( $p ) {
+		if ( 'decls' === $p['kind'] ) {
+			return array( $p['text'], '' );
+		}
+		$after = (string) substr( $p['text'], $p['brace'] + 1 );
+		$close = strrpos( $after, '}' );
+		return false === $close ? array( $after, '' ) : array( substr( $after, 0, $close ), substr( $after, $close ) );
+	}
+}
+
+if ( ! function_exists( 'origin_canvas_palette_block_css_rename_decls' ) ) {
+	/**
+	 * Declarations of a block's CSS part with old preset variables renamed and old preset
+	 * properties twinned, as in a rule body. Text holding a brace is left as it is: core drops
+	 * every } of a part, so it is not one body.
+	 *
+	 * @param string $decls Declarations.
+	 * @param array  $extra Collision map.
+	 * @return string
+	 */
+	function origin_canvas_palette_block_css_rename_decls( $decls, $extra = array() ) {
+		if ( false !== strpbrk( $decls, '{}' ) ) {
+			return $decls;
+		}
+		return (string) substr( origin_canvas_palette_css_rename_body( '{' . $decls . '}', $extra ), 1, -1 );
+	}
+}
+
+if ( ! function_exists( 'origin_canvas_palette_rewrite_block_css' ) ) {
+	/**
+	 * The in-place rewrite of a block's custom CSS, in core's reading of it: with $vars, variables
+	 * renamed and old preset declarations twinned, in the block's own declarations and in each
+	 * nested rule; with $classes_on, negations expanded in place (core reads :not(a, b) as one
+	 * selector) and each new variant of a nested rule written as a rule of its own after it,
+	 * &<selector>{<declarations>}, so the old-class rule stays as it was and the new one is scoped
+	 * to the block as the old one is. A comma between & parts would be read by core as
+	 * declarations, so variants are never joined to a selector. A second run changes nothing.
+	 *
+	 * @param string $css        Block CSS.
+	 * @param array  $collisions Collision map (dest => legacy), for classes.
+	 * @param bool   $vars       Rename variables too.
+	 * @param array  $var_extra  The gated collision map for variables.
+	 * @param bool   $classes_on Add the class variants.
+	 * @return string
+	 */
+	function origin_canvas_palette_rewrite_block_css( $css, $collisions = array(), $vars = true, $var_extra = array(), $classes_on = true ) {
+		$parts     = origin_canvas_palette_block_css_parts( $css );
+		$classes   = origin_canvas_palette_old_classes();
+		$collision = origin_canvas_palette_css_collision_classes( $collisions );
+		$key       = static function ( $sel ) {
+			return ( ' ' === substr( $sel, 0, 1 ) ? ' ' : '' ) . origin_canvas_palette_css_trim( $sel );
+		};
+		$sels      = array();
+		$present   = array();
+		foreach ( $parts as $i => $p ) {
+			if ( 'rule' === $p['kind'] ) {
+				$sel         = substr( $p['text'], 0, $p['brace'] );
+				$sels[ $i ]  = $classes_on && origin_canvas_palette_css_balanced( $sel ) ? origin_canvas_palette_css_expand_negations( $sel, $classes ) : $sel;
+				$present[ $key( $sels[ $i ] ) ] = true;
+			}
+		}
+		$base = array();
+		foreach ( $sels as $i => $sel ) {
+			$base[ $i ] = $classes_on && origin_canvas_palette_css_balanced( $sel ) ? array_flip( origin_canvas_palette_css_variants( $sel, $classes ) ) : array();
+		}
+		$out = array();
+		foreach ( $parts as $i => $p ) {
+			if ( 'skip' === $p['kind'] ) {
+				$out[] = $p['text'];
+				continue;
+			}
+			list( $decls, $tail ) = origin_canvas_palette_block_css_decls( $p );
+			$next                 = $vars ? origin_canvas_palette_block_css_rename_decls( $decls, $var_extra ) : $decls;
+			if ( 'decls' === $p['kind'] ) {
+				$out[] = $next;
+				continue;
+			}
+			$sel   = $sels[ $i ];
+			$text  = $sel . '{' . $next . $tail;
+			$lead  = ' ' === substr( $sel, 0, 1 ) ? ' ' : '';
+			$is_variant = false;
+			foreach ( $base as $j => $vs ) {
+				if ( $j !== $i && isset( $vs[ origin_canvas_palette_css_trim( $sel ) ] ) ) {
+					$is_variant = true;
+					break;
+				}
+			}
+			$map = ( $is_variant || ! $collision ) ? $classes : array_merge( $classes, $collision );
+			if ( $classes_on && origin_canvas_palette_css_balanced( $sel ) ) {
+				foreach ( origin_canvas_palette_css_variants( $sel, $map ) as $v ) {
+					if ( ! isset( $present[ $lead . $v ] ) ) {
+						$present[ $lead . $v ] = true;
+						$text                 .= '&' . $lead . $v . '{' . str_replace( '}', '', $next ) . '}';
+					}
+				}
+			}
+			$out[] = $text;
+		}
+		return implode( '&', $out );
+	}
+}
+
+if ( ! function_exists( 'origin_canvas_palette_block_css_hits' ) ) {
+	/**
+	 * Old codes in a block's custom CSS, in core's reading of it: old classes in each nested
+	 * rule's selector and old variables in the declarations, read as code.
+	 *
+	 * @param string $css Block CSS.
+	 * @return string[]
+	 */
+	function origin_canvas_palette_block_css_hits( $css ) {
+		$hits    = array();
+		$classes = origin_canvas_palette_old_classes();
+		foreach ( origin_canvas_palette_block_css_parts( $css ) as $p ) {
+			if ( 'skip' === $p['kind'] ) {
+				continue;
+			}
+			if ( 'rule' === $p['kind'] ) {
+				$sel = substr( $p['text'], 0, $p['brace'] );
+				if ( origin_canvas_palette_css_balanced( $sel ) ) {
+					foreach ( origin_canvas_palette_css_tokens( $sel, $classes ) as $t ) {
+						$hits[] = 'class=' . $t['cls'];
+					}
+				}
+			}
+			list( $decls ) = origin_canvas_palette_block_css_decls( $p );
+			foreach ( origin_canvas_palette_css_code_hits( 'x{' . str_replace( array( '{', '}' ), '', $decls ) . '}' ) as $h ) {
+				if ( 0 !== strpos( $h, 'class=' ) ) {
+					$hits[] = $h;
+				}
+			}
+		}
+		return array_values( array_unique( $hits ) );
+	}
+}
