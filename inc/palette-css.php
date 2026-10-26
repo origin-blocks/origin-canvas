@@ -8,7 +8,8 @@
  *
  * - Scanner: comments, quoted strings and url() arguments are skipped and kept byte for byte;
  *   @media, @supports, @container, @layer, @scope, @document and @starting-style are descended
- *   into, at the top level and nested in a style rule; every other at-rule is kept whole.
+ *   into, at the top level and nested in a style rule; every other at-rule is kept whole. <!--
+ *   and --> between top-level rules are read as whitespace, as CSS reads them, and kept.
  * - Token: a class .c with c in the class map, in a style rule's prelude, outside strings,
  *   comments, escapes and attribute selectors; or the value c of a class attribute selector
  *   with = or ~= and that one class ([class~=c], [class="c" i]). Substring forms (*=, ^=, $=)
@@ -305,12 +306,13 @@ if ( ! function_exists( 'origin_canvas_palette_css_scan' ) ) {
 			}
 			return $in_place ? '{' . $out . '}' : $out;
 		};
-		$walk = static function ( $text ) use ( &$walk, $nest, $on_rule, $in_place ) {
+		$walk = static function ( $text, $top = false ) use ( &$walk, $nest, $on_rule, $in_place ) {
 			$out = '';
 			$len = strlen( $text );
 			$i   = 0;
 			while ( $i < $len ) {
-				// Leading whitespace and comments between rules.
+				// Leading whitespace and comments between rules; between top-level rules also <!--
+				// and -->, which CSS skips there (and only there), so they never join a prelude.
 				$j = $i;
 				while ( true ) {
 					while ( $j < $len && origin_canvas_palette_css_is_space( $text[ $j ] ) ) {
@@ -318,6 +320,10 @@ if ( ! function_exists( 'origin_canvas_palette_css_scan' ) ) {
 					}
 					if ( $j + 1 < $len && '/' === $text[ $j ] && '*' === $text[ $j + 1 ] ) {
 						$j += origin_canvas_palette_css_protected_at( $text, $j );
+						continue;
+					}
+					if ( $top && ( '<!--' === substr( $text, $j, 4 ) || '-->' === substr( $text, $j, 3 ) ) ) {
+						$j += '<' === $text[ $j ] ? 4 : 3;
 						continue;
 					}
 					break;
@@ -398,7 +404,7 @@ if ( ! function_exists( 'origin_canvas_palette_css_scan' ) ) {
 			}
 			return $out;
 		};
-		return $walk( (string) $css );
+		return $walk( (string) $css, true );
 	}
 }
 
