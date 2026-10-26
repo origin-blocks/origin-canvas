@@ -369,7 +369,9 @@ if ( ! function_exists( 'origin_canvas_palette_css_closed' ) ) {
 	/**
 	 * The text with what CSS closes at its end written out: an open comment, quoted string or
 	 * url(), then each open (, [ and { in turn. For shadow output, where text follows: a body left
-	 * open at the end of a stylesheet would otherwise take in the rules after it.
+	 * open at the end of a stylesheet would otherwise take in the rules after it. A backslash at
+	 * the end, outside a comment, is dropped first: CSS reads it as nothing, and kept it would
+	 * escape the closer.
 	 *
 	 * @param string $text CSS.
 	 * @return string
@@ -388,7 +390,14 @@ if ( ! function_exists( 'origin_canvas_palette_css_closed' ) ) {
 			$n = origin_canvas_palette_css_protected_at( $text, $i );
 			if ( $n ) {
 				if ( $i + $n >= $len ) {
-					$tail = origin_canvas_palette_css_run_closer( substr( $text, $i ) );
+					$run = substr( $text, $i );
+					if ( '/' !== $run[0] && origin_canvas_palette_css_lone_backslash( $run ) ) {
+						// CSS reads a backslash at the end of the text as nothing; kept, it would
+						// escape the closer written after it.
+						$text = substr( $text, 0, -1 );
+						$run  = substr( $run, 0, -1 );
+					}
+					$tail = '' === $run ? '' : origin_canvas_palette_css_run_closer( $run );
 				}
 				$i += $n;
 				continue;
@@ -402,6 +411,29 @@ if ( ! function_exists( 'origin_canvas_palette_css_closed' ) ) {
 			++$i;
 		}
 		return $text . $tail . implode( '', array_reverse( $open ) );
+	}
+}
+
+if ( ! function_exists( 'origin_canvas_palette_css_lone_backslash' ) ) {
+	/**
+	 * Whether a run that reaches the end of the text (an escape, a quoted string or a url()) ends
+	 * in a backslash that no other backslash escapes.
+	 *
+	 * @param string $run The run, from its first byte to the end of the text.
+	 * @return bool
+	 */
+	function origin_canvas_palette_css_lone_backslash( $run ) {
+		$m = strlen( $run );
+		for ( $j = 0; $j < $m; ) {
+			if ( '\\' !== $run[ $j ] ) {
+				++$j;
+			} elseif ( $j === $m - 1 ) {
+				return true;
+			} else {
+				$j += "\r\n" === substr( $run, $j + 1, 2 ) ? 3 : 2;
+			}
+		}
+		return false;
 	}
 }
 
