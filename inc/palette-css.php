@@ -321,9 +321,35 @@ if ( ! function_exists( 'origin_canvas_palette_css_scan' ) ) {
 	}
 }
 
+if ( ! function_exists( 'origin_canvas_palette_css_bracket_end' ) ) {
+	/**
+	 * Offset just past the ] that closes the attribute selector opening at $i, comments and
+	 * quoted strings skipped, so a ] inside one does not close it; the text's length when none does.
+	 *
+	 * @param string $text Selector text.
+	 * @param int    $i    Offset of '['.
+	 * @return int
+	 */
+	function origin_canvas_palette_css_bracket_end( $text, $i ) {
+		$len = strlen( $text );
+		for ( $j = $i + 1; $j < $len; ) {
+			$n = origin_canvas_palette_css_selector_protected_at( $text, $j );
+			if ( $n ) {
+				$j += $n;
+				continue;
+			}
+			if ( ']' === $text[ $j ] ) {
+				return $j + 1;
+			}
+			++$j;
+		}
+		return $len;
+	}
+}
+
 if ( ! function_exists( 'origin_canvas_palette_css_split_items' ) ) {
 	/**
-	 * Split on commas at parenthesis and bracket depth 0, outside protected runs.
+	 * Split on commas at parenthesis and bracket depth 0, outside comments and quoted strings.
 	 *
 	 * @param string $text Selector text.
 	 * @return string[]
@@ -334,7 +360,7 @@ if ( ! function_exists( 'origin_canvas_palette_css_split_items' ) ) {
 		$start = 0;
 		$len   = strlen( $text );
 		for ( $i = 0; $i < $len; ) {
-			$n = origin_canvas_palette_css_protected_at( $text, $i );
+			$n = origin_canvas_palette_css_selector_protected_at( $text, $i );
 			if ( $n ) {
 				$i += $n;
 				continue;
@@ -365,11 +391,10 @@ if ( ! function_exists( 'origin_canvas_palette_css_tokens' ) ) {
 	 * @return array
 	 */
 	function origin_canvas_palette_css_tokens( $text, $map ) {
-		$out     = array();
-		$nots    = array();
-		$depth   = 0;
-		$bracket = 0;
-		$len     = strlen( $text );
+		$out   = array();
+		$nots  = array();
+		$depth = 0;
+		$len   = strlen( $text );
 		for ( $i = 0; $i < $len; ) {
 			$ch = $text[ $i ];
 			$n  = origin_canvas_palette_css_selector_protected_at( $text, $i );
@@ -378,17 +403,7 @@ if ( ! function_exists( 'origin_canvas_palette_css_tokens' ) ) {
 				continue;
 			}
 			if ( '[' === $ch ) {
-				++$bracket;
-				++$i;
-				continue;
-			}
-			if ( ']' === $ch ) {
-				--$bracket;
-				++$i;
-				continue;
-			}
-			if ( $bracket > 0 ) {
-				++$i;
+				$i = origin_canvas_palette_css_bracket_end( $text, $i );
 				continue;
 			}
 			if ( ':' === $ch && 0 === strncasecmp( substr( $text, $i, 5 ), ':not(', 5 ) ) {
@@ -493,8 +508,7 @@ if ( ! function_exists( 'origin_canvas_palette_css_expand_negations' ) ) {
 				continue;
 			}
 			if ( '[' === $ch ) {
-				$e    = strpos( $text, ']', $i );
-				$stop = false === $e ? $len : $e + 1;
+				$stop = origin_canvas_palette_css_bracket_end( $text, $i );
 				$out .= substr( $text, $i, $stop - $i );
 				$i    = $stop;
 				continue;
