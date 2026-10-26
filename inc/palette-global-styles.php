@@ -747,7 +747,10 @@ if ( ! function_exists( 'origin_canvas_palette_string_hits' ) ) {
 if ( ! function_exists( 'origin_canvas_palette_global_styles_hits' ) ) {
 	/**
 	 * Old codes in a stored Global Styles record: fixable (what the transform changes) and alias
-	 * (class selectors in css strings, which Update colours twins).
+	 * (class selectors in css strings, which Update colours twins). A record the rewrite cannot
+	 * change (no isGlobalStylesUserThemeJSON marker, or a plain palette list) has nothing fixable:
+	 * its old codes count as alias only, so the aliases load and Update colours is not offered
+	 * for a record it would leave as it is.
 	 *
 	 * @param string $json Stored content.
 	 * @return array{fixable: string[], alias: string[]}
@@ -806,6 +809,15 @@ if ( ! function_exists( 'origin_canvas_palette_global_styles_hits' ) ) {
 				},
 				true
 			);
+		}
+		if ( $out['fixable'] ) {
+			$merged = origin_canvas_palette_merge_changed(); // The report's per-record flag, kept.
+			$next   = origin_canvas_palette_rewrite_global_styles_json( (string) $json );
+			origin_canvas_palette_merge_changed( $merged );
+			if ( null === $next || (string) $json === $next ) {
+				$out['alias']   = array_merge( $out['alias'], $out['fixable'] );
+				$out['fixable'] = array();
+			}
 		}
 		return $out;
 	}
