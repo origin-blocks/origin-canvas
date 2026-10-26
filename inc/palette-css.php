@@ -11,7 +11,8 @@
  *   into, at the top level and nested in a style rule; every other at-rule is kept whole. <!--
  *   and --> between top-level rules are read as whitespace, as CSS reads them, and kept. A style
  *   rule whose selector does not balance is one a browser drops: it is kept whole and read as
- *   nothing.
+ *   nothing. So is a top-level rule whose prelude holds a stray }, as CSS reads one; the rules
+ *   after it are read.
  * - Token: a class .c with c in the class map, in a style rule's prelude, outside strings,
  *   comments, escapes and attribute selectors; or the value c of a class attribute selector
  *   with = or ~= and that one class ([class~=c], [class="c" i]). Substring forms (*=, ^=, $=)
@@ -630,9 +631,10 @@ if ( ! function_exists( 'origin_canvas_palette_css_scan' ) ) {
 					break;
 				}
 				// The prelude: up to { or ; at depth 0, outside protected runs.
-				$k    = $i;
-				$end  = -1;
-				$semi = false;
+				$k     = $i;
+				$end   = -1;
+				$semi  = false;
+				$stray = false;
 				while ( $k < $len ) {
 					$n = origin_canvas_palette_css_protected_at( $text, $k );
 					if ( $n ) {
@@ -649,7 +651,12 @@ if ( ! function_exists( 'origin_canvas_palette_css_scan' ) ) {
 						break;
 					}
 					if ( '}' === $text[ $k ] ) {
-						break; // A stray closer: keep the rest as it is.
+						if ( ! $top ) {
+							break; // A stray closer: keep the rest as it is.
+						}
+						// At the top level CSS reads a stray } as part of the next rule's prelude, which
+						// is then invalid and dropped; the rules after it still apply.
+						$stray = true;
 					}
 					++$k;
 				}
@@ -680,7 +687,7 @@ if ( ! function_exists( 'origin_canvas_palette_css_scan' ) ) {
 					} elseif ( $in_place ) {
 						$out .= $prelude . $body;
 					}
-				} elseif ( ! origin_canvas_palette_css_balanced( $prelude ) ) {
+				} elseif ( $stray || ! origin_canvas_palette_css_balanced( $prelude ) ) {
 					if ( $in_place && $keep_dropped ) {
 						$out .= $prelude . $body;
 					}
