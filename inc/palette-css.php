@@ -293,17 +293,18 @@ if ( ! function_exists( 'origin_canvas_palette_css_descends' ) ) {
 
 if ( ! function_exists( 'origin_canvas_palette_css_balanced' ) ) {
 	/**
-	 * Whether a selector's parentheses and brackets balance: the depth never goes below 0 and ends
-	 * at 0, outside comments, quoted strings and escapes. A browser drops a rule whose selector
-	 * does not balance (.a), .b), and the items of one cannot be told apart, so a twin of it would
-	 * hold the whole prelude again and grow on every pass.
+	 * Whether a selector's parentheses and brackets balance: each ( closed by a ) and each [ by a ],
+	 * in order, outside comments, quoted strings and escapes; and no pseudo-class name that decodes
+	 * to hold a bracket (:not\28 is no :not( but an invalid name). A browser drops a rule whose
+	 * selector does not balance (.a), .b), and the items of one cannot be told apart, so a twin of
+	 * it would hold the whole prelude again and grow on every pass.
 	 *
 	 * @param string $text Selector text.
 	 * @return bool
 	 */
 	function origin_canvas_palette_css_balanced( $text ) {
-		$depth = 0;
-		$len   = strlen( $text );
+		$open = array();
+		$len  = strlen( $text );
 		for ( $i = 0; $i < $len; ) {
 			$n = origin_canvas_palette_css_selector_protected_at( $text, $i );
 			if ( $n ) {
@@ -311,14 +312,22 @@ if ( ! function_exists( 'origin_canvas_palette_css_balanced' ) ) {
 				continue;
 			}
 			$ch = $text[ $i ];
+			if ( ':' === $ch ) {
+				list( $name ) = origin_canvas_palette_css_ident_at( $text, ':' === substr( $text, $i + 1, 1 ) ? $i + 2 : $i + 1 );
+				if ( strpbrk( $name, '()[]' ) ) {
+					return false;
+				}
+			}
 			if ( '(' === $ch || '[' === $ch ) {
-				++$depth;
-			} elseif ( ( ')' === $ch || ']' === $ch ) && --$depth < 0 ) {
+				$open[] = $ch;
+			} elseif ( ')' === $ch && '(' !== array_pop( $open ) ) {
+				return false;
+			} elseif ( ']' === $ch && '[' !== array_pop( $open ) ) {
 				return false;
 			}
 			++$i;
 		}
-		return 0 === $depth;
+		return ! $open;
 	}
 }
 
