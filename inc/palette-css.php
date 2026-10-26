@@ -238,7 +238,8 @@ if ( ! function_exists( 'origin_canvas_palette_css_scan' ) ) {
 	 * ends at { and is neither an at-rule nor a custom property is a style rule. It goes through
 	 * $on_rule with $nested true, & kept, and its own body is walked the same way; declarations
 	 * and nested at-rules stay as they are. In shadow output a nested rule's shadow sits inside its
-	 * parent's prelude, as the callback returned it, so it keeps its nested context.
+	 * parent's prelude, as the callback returned it, so it keeps its nested context. In place, a
+	 * callback that walks the nested rules itself returns 'flat' => true, and its body is kept.
 	 *
 	 * @param string   $css      CSS.
 	 * @param callable $on_rule  Rule callback.
@@ -248,64 +249,28 @@ if ( ! function_exists( 'origin_canvas_palette_css_scan' ) ) {
 	function origin_canvas_palette_css_scan( $css, $on_rule, $in_place ) {
 		$descend = array( 'media', 'supports', 'container', 'layer', 'scope', 'document' );
 		$nest    = static function ( $body ) use ( &$nest, $on_rule, $in_place ) {
-			$len = strlen( $body );
-			if ( $len < 2 || '{' !== $body[0] || '}' !== $body[ $len - 1 ] ) {
+			$parts = origin_canvas_palette_css_body_parts( $body );
+			if ( null === $parts ) {
 				return $in_place ? $body : '';
 			}
-			$inner = substr( $body, 1, -1 );
-			$len  -= 2;
-			$out   = '';
-			$i     = 0;
-			while ( $i < $len ) {
-				$k    = $i;
-				$stop = -1;
-				$semi = false;
-				while ( $k < $len ) {
-					$n = origin_canvas_palette_css_protected_at( $inner, $k );
-					if ( $n ) {
-						$k += $n;
-						continue;
-					}
-					if ( ';' === $inner[ $k ] || '{' === $inner[ $k ] ) {
-						$stop = $k;
-						$semi = ';' === $inner[ $k ];
-						break;
-					}
-					if ( '}' === $inner[ $k ] ) {
-						break; // A stray closer: keep the rest as it is.
-					}
-					++$k;
-				}
-				if ( -1 === $stop ) {
-					$out .= $in_place ? substr( $inner, $i ) : '';
-					break;
-				}
-				if ( $semi ) {
-					$out .= $in_place ? substr( $inner, $i, $stop + 1 - $i ) : '';
-					$i    = $stop + 1;
+			$out = '';
+			foreach ( $parts as $p ) {
+				if ( isset( $p['text'] ) ) {
+					$out .= $in_place ? $p['text'] : '';
 					continue;
 				}
-				$lead  = origin_canvas_palette_css_skip_blank( $inner, $i );
-				$sel   = substr( $inner, $lead, $stop - $lead );
-				$close = origin_canvas_palette_css_close_brace( $inner, $stop );
-				$sub   = substr( $inner, $stop, $close + 1 - $stop );
-				if ( '@' === substr( $sel, 0, 1 ) || '--' === substr( $sel, 0, 2 ) ) {
-					$out .= $in_place ? substr( $inner, $i, $close + 1 - $i ) : '';
-				} else {
-					$r = $on_rule( $sel, $sub, true );
-					if ( $in_place ) {
-						$out .= substr( $inner, $i, $lead - $i ) . ( $r ? $r['prelude'] . $nest( $r['body'] ) : $sel . $nest( $sub ) );
-					} else {
-						if ( $r && isset( $r['shadow'] ) ) {
-							$out .= $r['shadow'];
-						}
-						$deep = $nest( $sub );
-						if ( '' !== $deep ) {
-							$out .= trim( $r ? $r['prelude'] : $sel ) . '{' . $deep . '}';
-						}
-					}
+				$r = $on_rule( $p['sel'], $p['body'], true );
+				if ( $in_place ) {
+					$out .= $p['lead'] . ( $r ? $r['prelude'] . ( empty( $r['flat'] ) ? $nest( $r['body'] ) : $r['body'] ) : $p['sel'] . $nest( $p['body'] ) );
+					continue;
 				}
-				$i = $close + 1;
+				if ( $r && isset( $r['shadow'] ) ) {
+					$out .= $r['shadow'];
+				}
+				$deep = $nest( $p['body'] );
+				if ( '' !== $deep ) {
+					$out .= trim( $r ? $r['prelude'] : $p['sel'] ) . '{' . $deep . '}';
+				}
 			}
 			return $in_place ? '{' . $out . '}' : $out;
 		};
@@ -387,7 +352,7 @@ if ( ! function_exists( 'origin_canvas_palette_css_scan' ) ) {
 				} else {
 					$r = $on_rule( $prelude, $body, false );
 					if ( $in_place ) {
-						$out .= $r ? $r['prelude'] . $nest( $r['body'] ) : $prelude . $nest( $body );
+						$out .= $r ? $r['prelude'] . ( empty( $r['flat'] ) ? $nest( $r['body'] ) : $r['body'] ) : $prelude . $nest( $body );
 					} else {
 						if ( $r && isset( $r['shadow'] ) ) {
 							$out .= $r['shadow'];
@@ -403,6 +368,70 @@ if ( ! function_exists( 'origin_canvas_palette_css_scan' ) ) {
 			return $out;
 		};
 		return $walk( (string) $css );
+	}
+}
+
+if ( ! function_exists( 'origin_canvas_palette_css_body_parts' ) ) {
+	/**
+	 * A style rule's body (braces included) cut into its parts, in order: array( 'text' => … ) for
+	 * declarations, comments and nested at-rules or custom properties, kept as they are, and
+	 * array( 'lead' => …, 'sel' => …, 'body' => … ) for each nested style rule, where lead is the
+	 * whitespace and comments before its prelude. Null when the body is not one whole block.
+	 *
+	 * @param string $body Rule body.
+	 * @return array|null
+	 */
+	function origin_canvas_palette_css_body_parts( $body ) {
+		$len = strlen( $body );
+		if ( $len < 2 || '{' !== $body[0] || '}' !== $body[ $len - 1 ] ) {
+			return null;
+		}
+		$inner = substr( $body, 1, -1 );
+		$len  -= 2;
+		$parts = array();
+		$i     = 0;
+		while ( $i < $len ) {
+			$k    = $i;
+			$stop = -1;
+			while ( $k < $len ) {
+				$n = origin_canvas_palette_css_protected_at( $inner, $k );
+				if ( $n ) {
+					$k += $n;
+					continue;
+				}
+				if ( ';' === $inner[ $k ] || '{' === $inner[ $k ] ) {
+					$stop = $k;
+					break;
+				}
+				if ( '}' === $inner[ $k ] ) {
+					break; // A stray closer: keep the rest as it is.
+				}
+				++$k;
+			}
+			if ( -1 === $stop ) {
+				$parts[] = array( 'text' => substr( $inner, $i ) );
+				break;
+			}
+			if ( ';' === $inner[ $stop ] ) {
+				$parts[] = array( 'text' => substr( $inner, $i, $stop + 1 - $i ) );
+				$i       = $stop + 1;
+				continue;
+			}
+			$lead  = origin_canvas_palette_css_skip_blank( $inner, $i );
+			$sel   = substr( $inner, $lead, $stop - $lead );
+			$close = origin_canvas_palette_css_close_brace( $inner, $stop );
+			if ( '@' === substr( $sel, 0, 1 ) || '--' === substr( $sel, 0, 2 ) ) {
+				$parts[] = array( 'text' => substr( $inner, $i, $close + 1 - $i ) );
+			} else {
+				$parts[] = array(
+					'lead' => substr( $inner, $i, $lead - $i ),
+					'sel'  => $sel,
+					'body' => substr( $inner, $stop, $close + 1 - $stop ),
+				);
+			}
+			$i = $close + 1;
+		}
+		return $parts;
 	}
 }
 

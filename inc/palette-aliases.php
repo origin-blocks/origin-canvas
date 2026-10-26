@@ -287,7 +287,10 @@ if ( ! function_exists( 'origin_canvas_palette_twins_for' ) ) {
 if ( ! function_exists( 'origin_canvas_palette_editor_twin_css' ) ) {
 	/**
 	 * Child twins as the editors take them: each selector item one class stronger, through a
-	 * :not() of a class no element holds, so what it matches is unchanged. The editors print
+	 * :not() of a class no element holds, so what it matches is unchanged. Once per nesting chain:
+	 * a rule with declarations of its own, or with no nested rule, takes it, and its nested rules
+	 * inherit it through &; a rule that holds only nested rules (the shadow's parent of a nested
+	 * twin) keeps its selector as the child wrote it, and its nested rules take it in turn. The editors print
 	 * core's global styles after every theme style and canvas asset (editor.js
 	 * useGlobalStylesRenderer: [ ...nonGlobalStyles, ...styles ]), so core's colour class (0-1-0,
 	 * !important) and its :root variables would win over a twin that wins by order on the front
@@ -297,22 +300,49 @@ if ( ! function_exists( 'origin_canvas_palette_editor_twin_css' ) ) {
 	 * @return string
 	 */
 	function origin_canvas_palette_editor_twin_css( $css ) {
-		return origin_canvas_palette_css_scan(
-			(string) $css,
-			static function ( $prelude, $body ) {
-				$items = array();
-				foreach ( origin_canvas_palette_css_split_items( $prelude ) as $item ) {
-					// Before a pseudo-element, which must end the selector; before a trailing comment.
-					$at      = origin_canvas_palette_css_append_at( $item );
-					$items[] = substr( $item, 0, $at ) . ':not(.origin-canvas-editor-twin)' . substr( $item, $at );
+		$twin = static function ( $prelude ) {
+			$items = array();
+			foreach ( origin_canvas_palette_css_split_items( $prelude ) as $item ) {
+				// Before a pseudo-element, which must end the selector; before a trailing comment.
+				$at      = origin_canvas_palette_css_append_at( $item );
+				$items[] = substr( $item, 0, $at ) . ':not(.origin-canvas-editor-twin)' . substr( $item, $at );
+			}
+			return implode( ',', $items );
+		};
+		$rule = static function ( $prelude, $body ) use ( &$rule, $twin ) {
+			$parts  = origin_canvas_palette_css_body_parts( $body );
+			$own    = null === $parts;
+			$nested = false;
+			foreach ( null === $parts ? array() : $parts as $p ) {
+				if ( ! isset( $p['text'] ) ) {
+					$nested = true;
+				} elseif ( strlen( $p['text'] ) > origin_canvas_palette_css_skip_blank( $p['text'], 0 ) ) {
+					$own = true;
 				}
+			}
+			if ( $own || ! $nested ) {
 				return array(
-					'prelude' => implode( ',', $items ),
+					'prelude' => $twin( $prelude ),
 					'body'    => $body,
+					'flat'    => true,
 				);
-			},
-			true
-		);
+			}
+			$out = '';
+			foreach ( $parts as $p ) {
+				if ( isset( $p['text'] ) ) {
+					$out .= $p['text'];
+					continue;
+				}
+				$r    = $rule( $p['sel'], $p['body'] );
+				$out .= $p['lead'] . $r['prelude'] . $r['body'];
+			}
+			return array(
+				'prelude' => $prelude,
+				'body'    => '{' . $out . '}',
+				'flat'    => true,
+			);
+		};
+		return origin_canvas_palette_css_scan( (string) $css, $rule, true );
 	}
 }
 
