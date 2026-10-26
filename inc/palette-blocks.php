@@ -689,10 +689,17 @@ if ( ! function_exists( 'origin_canvas_palette_tag_edits' ) ) {
 				}
 				$style = origin_canvas_palette_tag_attribute( $tag, 'style' );
 				if ( null !== $style ) {
-					$v = substr( $tag, $style[0], $style[1] );
-					foreach ( $style_re as $re ) {
-						$v = preg_replace( $re[0], str_replace( array( '\\', '$' ), array( '\\\\', '\\$' ), $re[1] ), $v );
-					}
+					// Declaration values only: a quoted string (--caption:'var(…)') or a comment in the
+					// style attribute is text, not a colour reference, and keeps its bytes.
+					$v         = origin_canvas_palette_css_map_outside(
+						substr( $tag, $style[0], $style[1] ),
+						static function ( $plain ) use ( $style_re ) {
+							foreach ( $style_re as $re ) {
+								$plain = preg_replace( $re[0], str_replace( array( '\\', '$' ), array( '\\\\', '\\$' ), $re[1] ), $plain );
+							}
+							return $plain;
+						}
+					);
 					$changes[] = array( $style[0], $style[1], $v );
 				}
 				// Right to left, so each offset still holds.
