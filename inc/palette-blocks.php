@@ -1110,7 +1110,8 @@ if ( ! function_exists( 'origin_canvas_palette_css_code_hits' ) ) {
 	 * An old class counts only where the rewrite reads one: a class token in a style rule's
 	 * selector (.has-text-muted-color, or the one-class value of [class~=…] or [class=…]), nested
 	 * or inside a descended at-rule. An old class name in any other attribute's value or in a
-	 * declaration value is text, not a recognised colour field, so it does not mark a site.
+	 * declaration value is text, not a recognised colour field, so it does not mark a site. A rule
+	 * a browser drops (a selector that does not balance) is read as nothing, as the rewrite leaves it.
 	 *
 	 * @param string $css CSS.
 	 * @return string[]
@@ -1118,7 +1119,14 @@ if ( ! function_exists( 'origin_canvas_palette_css_code_hits' ) ) {
 	function origin_canvas_palette_css_code_hits( $css ) {
 		$code = array();
 		origin_canvas_palette_css_map_outside(
-			(string) $css,
+			origin_canvas_palette_css_scan(
+				(string) $css,
+				static function () {
+					return null;
+				},
+				true,
+				false
+			),
 			static function ( $plain ) use ( &$code ) {
 				$code[] = preg_replace( '/\\\\.?|[\x80-\xff]/s', '_', $plain );
 				return $plain;

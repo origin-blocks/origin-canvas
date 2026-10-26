@@ -9,7 +9,9 @@
  * - Scanner: comments, quoted strings and url() arguments are skipped and kept byte for byte;
  *   @media, @supports, @container, @layer, @scope, @document and @starting-style are descended
  *   into, at the top level and nested in a style rule; every other at-rule is kept whole. <!--
- *   and --> between top-level rules are read as whitespace, as CSS reads them, and kept.
+ *   and --> between top-level rules are read as whitespace, as CSS reads them, and kept. A style
+ *   rule whose selector does not balance is one a browser drops: it is kept whole and read as
+ *   nothing.
  * - Token: a class .c with c in the class map, in a style rule's prelude, outside strings,
  *   comments, escapes and attribute selectors; or the value c of a class attribute selector
  *   with = or ~= and that one class ([class~=c], [class="c" i]). Substring forms (*=, ^=, $=)
@@ -255,12 +257,48 @@ if ( ! function_exists( 'origin_canvas_palette_css_descends' ) ) {
 	}
 }
 
+if ( ! function_exists( 'origin_canvas_palette_css_balanced' ) ) {
+	/**
+	 * Whether a selector's parentheses and brackets balance: the depth never goes below 0 and ends
+	 * at 0, outside comments, quoted strings and escapes. A browser drops a rule whose selector
+	 * does not balance (.a), .b), and the items of one cannot be told apart, so a twin of it would
+	 * hold the whole prelude again and grow on every pass.
+	 *
+	 * @param string $text Selector text.
+	 * @return bool
+	 */
+	function origin_canvas_palette_css_balanced( $text ) {
+		$depth = 0;
+		$len   = strlen( $text );
+		for ( $i = 0; $i < $len; ) {
+			$n = origin_canvas_palette_css_selector_protected_at( $text, $i );
+			if ( $n ) {
+				$i += $n;
+				continue;
+			}
+			$ch = $text[ $i ];
+			if ( '(' === $ch || '[' === $ch ) {
+				++$depth;
+			} elseif ( ( ')' === $ch || ']' === $ch ) && --$depth < 0 ) {
+				return false;
+			}
+			++$i;
+		}
+		return 0 === $depth;
+	}
+}
+
 if ( ! function_exists( 'origin_canvas_palette_css_scan' ) ) {
 	/**
 	 * Walk the style rules. $on_rule( $prelude, $body, $nested ) returns null (unchanged) or
 	 * array( 'prelude' => …, 'body' => …, 'shadow' => … ), where body includes its braces.
 	 * In place: the stylesheet with each changed rule put back, every other byte kept. Shadow:
 	 * only the changed rules' shadow text, inside their descended at-rule preludes.
+	 *
+	 * A style rule whose prelude does not balance (origin_canvas_palette_css_balanced()) is one a
+	 * browser drops: it never reaches $on_rule, its nested rules are not walked, it is kept byte for
+	 * byte in place (left out when $keep_dropped is false) and has no shadow. So the rewrite, the
+	 * shadows and every read of old codes pass it by alike.
 	 *
 	 * Nested style rules (CSS nesting) are walked too: inside a style rule's body, a prelude that
 	 * ends at { and is neither an at-rule nor a custom property is a style rule. It goes through
@@ -273,13 +311,14 @@ if ( ! function_exists( 'origin_canvas_palette_css_scan' ) ) {
 	 * nested context. In place, a callback that walks the nested rules itself returns
 	 * 'flat' => true, and its body is kept.
 	 *
-	 * @param string   $css      CSS.
-	 * @param callable $on_rule  Rule callback.
-	 * @param bool     $in_place In-place or shadow output.
+	 * @param string   $css          CSS.
+	 * @param callable $on_rule      Rule callback.
+	 * @param bool     $in_place     In-place or shadow output.
+	 * @param bool     $keep_dropped In place, keep the rules a browser drops.
 	 * @return string
 	 */
-	function origin_canvas_palette_css_scan( $css, $on_rule, $in_place ) {
-		$nest = static function ( $body ) use ( &$nest, $on_rule, $in_place ) {
+	function origin_canvas_palette_css_scan( $css, $on_rule, $in_place, $keep_dropped = true ) {
+		$nest = static function ( $body ) use ( &$nest, $on_rule, $in_place, $keep_dropped ) {
 			$parts = origin_canvas_palette_css_body_parts( $body );
 			if ( null === $parts ) {
 				return $in_place ? $body : '';
@@ -303,6 +342,10 @@ if ( ! function_exists( 'origin_canvas_palette_css_scan' ) ) {
 					}
 					continue;
 				}
+				if ( ! origin_canvas_palette_css_balanced( $p['sel'] ) ) {
+					$out .= $in_place && $keep_dropped ? $p['lead'] . $p['sel'] . $p['body'] : '';
+					continue;
+				}
 				$r = $on_rule( $p['sel'], $p['body'], true );
 				if ( $in_place ) {
 					$out .= $p['lead'] . ( $r ? $r['prelude'] . ( empty( $r['flat'] ) ? $nest( $r['body'] ) : $r['body'] ) : $p['sel'] . $nest( $p['body'] ) );
@@ -318,7 +361,7 @@ if ( ! function_exists( 'origin_canvas_palette_css_scan' ) ) {
 			}
 			return $in_place ? '{' . $out . '}' : $out;
 		};
-		$walk = static function ( $text, $top = false ) use ( &$walk, $nest, $on_rule, $in_place ) {
+		$walk = static function ( $text, $top = false ) use ( &$walk, $nest, $on_rule, $in_place, $keep_dropped ) {
 			$out = '';
 			$len = strlen( $text );
 			$i   = 0;
@@ -396,6 +439,10 @@ if ( ! function_exists( 'origin_canvas_palette_css_scan' ) ) {
 							$out .= trim( $prelude ) . '{' . $inner . '}';
 						}
 					} elseif ( $in_place ) {
+						$out .= $prelude . $body;
+					}
+				} elseif ( ! origin_canvas_palette_css_balanced( $prelude ) ) {
+					if ( $in_place && $keep_dropped ) {
 						$out .= $prelude . $body;
 					}
 				} else {
