@@ -201,7 +201,8 @@ if ( ! function_exists( 'origin_canvas_palette_css_selector_protected_at' ) ) {
 	/**
 	 * Length of a comment, quoted string or escape starting at $i in a selector, or 0. A selector
 	 * reads none of them as code: a class or a parenthesis inside one is left as it is, and an
-	 * escaped quote, bracket, comma or parenthesis is part of an identifier.
+	 * escaped quote, bracket, comma or parenthesis is part of an identifier. An escape is whole:
+	 * up to six hex digits take one whitespace after them (\31 , \ ), so no item ends inside one.
 	 *
 	 * @param string $text Selector text.
 	 * @param int    $i    Offset.
@@ -210,7 +211,11 @@ if ( ! function_exists( 'origin_canvas_palette_css_selector_protected_at' ) ) {
 	function origin_canvas_palette_css_selector_protected_at( $text, $i ) {
 		$ch = $text[ $i ];
 		if ( '\\' === $ch ) {
-			return min( 2, strlen( $text ) - $i ); // An escape, never the start of a url() here.
+			// An escape, never the start of a url() here. A backslash and a newline is no escape.
+			if ( false !== strpos( "\n\r\f", (string) substr( $text, $i + 1, 1 ) ) ) {
+				return min( 2, strlen( $text ) - $i );
+			}
+			return origin_canvas_palette_css_escape_at( $text, $i )[1] - $i;
 		}
 		if ( '"' === $ch || "'" === $ch || ( '/' === $ch && '*' === substr( $text, $i + 1, 1 ) ) ) {
 			return origin_canvas_palette_css_protected_at( $text, $i );
@@ -461,7 +466,7 @@ if ( ! function_exists( 'origin_canvas_palette_css_scan' ) ) {
 					}
 					$inner = ( $r && isset( $r['shadow'] ) ? $r['shadow'] : '' ) . $nest( $p['body'] );
 					if ( '' !== $inner ) {
-						$out .= trim( $p['at'] ) . '{' . $inner . '}';
+						$out .= origin_canvas_palette_css_trim( $p['at'] ) . '{' . $inner . '}';
 					}
 					continue;
 				}
@@ -479,7 +484,7 @@ if ( ! function_exists( 'origin_canvas_palette_css_scan' ) ) {
 				}
 				$deep = $nest( $p['body'] );
 				if ( '' !== $deep ) {
-					$out .= trim( $r ? $r['prelude'] : $p['sel'] ) . '{' . $deep . '}';
+					$out .= origin_canvas_palette_css_trim( $r ? $r['prelude'] : $p['sel'] ) . '{' . $deep . '}';
 				}
 			}
 			return $in_place ? '{' . $out . ( $shut ? '}' : '' ) : $out;
@@ -559,7 +564,7 @@ if ( ! function_exists( 'origin_canvas_palette_css_scan' ) ) {
 						if ( $in_place ) {
 							$out .= $prelude . '{' . $inner . ( $close < $len ? '}' : '' );
 						} elseif ( '' !== $inner ) {
-							$out .= trim( $prelude ) . '{' . $inner . '}';
+							$out .= origin_canvas_palette_css_trim( $prelude ) . '{' . $inner . '}';
 						}
 					} elseif ( $in_place ) {
 						$out .= $prelude . $body;
@@ -578,7 +583,7 @@ if ( ! function_exists( 'origin_canvas_palette_css_scan' ) ) {
 						}
 						$deep = $nest( $body );
 						if ( '' !== $deep ) {
-							$out .= trim( $r ? $r['prelude'] : $prelude ) . '{' . $deep . '}';
+							$out .= origin_canvas_palette_css_trim( $r ? $r['prelude'] : $prelude ) . '{' . $deep . '}';
 						}
 					}
 				}
@@ -949,6 +954,46 @@ if ( ! function_exists( 'origin_canvas_palette_css_split_items' ) ) {
 	}
 }
 
+if ( ! function_exists( 'origin_canvas_palette_css_code_end' ) ) {
+	/**
+	 * Offset just past a selector text's last byte that is not whitespace, an escape counted
+	 * whole: the space in #x\  or \31  belongs to its escape, so it stays with the item.
+	 *
+	 * @param string $text Selector text.
+	 * @return int
+	 */
+	function origin_canvas_palette_css_code_end( $text ) {
+		$len = strlen( $text );
+		$end = 0;
+		for ( $i = 0; $i < $len; ) {
+			$n = origin_canvas_palette_css_selector_protected_at( $text, $i );
+			if ( $n ) {
+				$i  += $n;
+				$end = $i;
+				continue;
+			}
+			if ( ! origin_canvas_palette_css_is_space( $text[ $i ] ) ) {
+				$end = $i + 1;
+			}
+			++$i;
+		}
+		return $end;
+	}
+}
+
+if ( ! function_exists( 'origin_canvas_palette_css_trim' ) ) {
+	/**
+	 * A selector item without the whitespace around it; the whitespace an escape takes stays.
+	 *
+	 * @param string $text Selector text.
+	 * @return string
+	 */
+	function origin_canvas_palette_css_trim( $text ) {
+		$text = ltrim( (string) $text, " \t\n\r\f\v" );
+		return (string) substr( $text, 0, origin_canvas_palette_css_code_end( $text ) );
+	}
+}
+
 if ( ! function_exists( 'origin_canvas_palette_css_tokens' ) ) {
 	/**
 	 * Class tokens in a selector text that are keys of $map, outside comments, strings, escapes
@@ -1060,7 +1105,7 @@ if ( ! function_exists( 'origin_canvas_palette_css_variants' ) ) {
 					$out = substr( $out, 0, $pos[ $i ]['start'] ) . $map[ $pos[ $i ]['cls'] ] . substr( $out, $pos[ $i ]['end'] );
 				}
 			}
-			return trim( $out );
+			return origin_canvas_palette_css_trim( $out );
 		};
 		if ( $n > 4 ) {
 			return array( $build( ( 1 << $n ) - 1 ) );
@@ -1130,7 +1175,7 @@ if ( ! function_exists( 'origin_canvas_palette_css_expand_negations' ) ) {
 				foreach ( origin_canvas_palette_css_split_items( $arg ) as $a ) {
 					$a                    = origin_canvas_palette_css_expand_negations( $a, $map );
 					$args[]               = $a;
-					$present[ trim( $a ) ] = true;
+					$present[ origin_canvas_palette_css_trim( $a ) ] = true;
 				}
 				$added = '';
 				foreach ( $args as $a ) {
@@ -1163,9 +1208,10 @@ if ( ! function_exists( 'origin_canvas_palette_css_expand_prelude_parts' ) ) {
 	 * @return array
 	 */
 	function origin_canvas_palette_css_expand_prelude_parts( $prelude, $classes, $collision_classes = array() ) {
-		preg_match( '/\s*$/D', $prelude, $lm );
-		$lead     = $lm[0];
-		$body     = substr( $prelude, 0, strlen( $prelude ) - strlen( $lead ) );
+		// The whitespace before {, not the one an escape takes: #x\  ends in an escaped space.
+		$cut      = origin_canvas_palette_css_code_end( $prelude );
+		$lead     = (string) substr( $prelude, $cut );
+		$body     = substr( $prelude, 0, $cut );
 		$raw      = origin_canvas_palette_css_split_items( $body );
 		$expanded = array();
 		$changed  = array();
@@ -1174,9 +1220,9 @@ if ( ! function_exists( 'origin_canvas_palette_css_expand_prelude_parts' ) ) {
 			$e              = origin_canvas_palette_css_expand_negations( $item, $classes );
 			$expanded[ $i ] = $e;
 			if ( $e !== $item ) {
-				$changed[] = trim( $e );
+				$changed[] = origin_canvas_palette_css_trim( $e );
 			}
-			$present[ trim( $e ) ] = true;
+			$present[ origin_canvas_palette_css_trim( $e ) ] = true;
 		}
 		// An item is a variant of another when some other item becomes it by the base map.
 		$base_variants = array();
@@ -1187,7 +1233,7 @@ if ( ! function_exists( 'origin_canvas_palette_css_expand_prelude_parts' ) ) {
 		foreach ( $expanded as $i => $e ) {
 			$is_variant = false;
 			foreach ( $expanded as $j => $o ) {
-				if ( $j !== $i && isset( $base_variants[ $j ][ trim( $e ) ] ) ) {
+				if ( $j !== $i && isset( $base_variants[ $j ][ origin_canvas_palette_css_trim( $e ) ] ) ) {
 					$is_variant = true;
 					break;
 				}
@@ -1531,7 +1577,7 @@ if ( ! function_exists( 'origin_canvas_palette_css_twins' ) ) {
 				if ( $props ) {
 					$twins = origin_canvas_palette_css_decl_twins( $body );
 					if ( $twins ) {
-						$shadow .= trim( $r['prelude'] ) . origin_canvas_palette_css_closed( '{' . implode( ';', wp_list_pluck( $twins, 'text' ) ) );
+						$shadow .= origin_canvas_palette_css_trim( $r['prelude'] ) . origin_canvas_palette_css_closed( '{' . implode( ';', wp_list_pluck( $twins, 'text' ) ) );
 					}
 				}
 				return '' === $shadow ? null : array(

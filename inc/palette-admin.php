@@ -311,7 +311,7 @@ if ( ! function_exists( 'origin_canvas_palette_child_negations' ) ) {
 								}
 								$pairs[ $t['cls'] ] = $classes[ $t['cls'] ];
 							}
-							$out[ $path ][ trim( $item ) ] = $pairs;
+							$out[ $path ][ origin_canvas_palette_css_trim( $item ) ] = $pairs;
 						}
 						return null;
 					},
