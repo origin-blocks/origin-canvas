@@ -522,6 +522,64 @@ if ( ! function_exists( 'origin_canvas_palette_child_files' ) ) {
 	}
 }
 
+if ( ! function_exists( 'origin_canvas_palette_option_hits' ) ) {
+	/**
+	 * Whether a widget option or the theme mods hold an old code in a recognised colour field,
+	 * the one read for the scan and the save hook. Block widgets: their block markup, as posts are
+	 * read. Text and Custom HTML widgets: the class and style attributes of their tags. Theme mods
+	 * (no 1.3.1 field stores a palette code in one): the tags of each string, and an old variable
+	 * or var:preset reference in it. An old class name in prose is text, not a field.
+	 *
+	 * @param string $option Option name.
+	 * @param mixed  $value  Its value.
+	 * @return bool
+	 */
+	function origin_canvas_palette_option_hits( $option, $value ) {
+		if ( ! is_array( $value ) ) {
+			return false;
+		}
+		$keys = array(
+			'widget_block'       => 'content',
+			'widget_text'        => 'text',
+			'widget_custom_html' => 'content',
+		);
+		if ( isset( $keys[ $option ] ) ) {
+			$key = $keys[ $option ];
+			foreach ( $value as $w ) {
+				if ( ! is_array( $w ) || ! isset( $w[ $key ] ) || ! is_string( $w[ $key ] ) ) {
+					continue;
+				}
+				if ( 'widget_block' === $option ) {
+					$h = origin_canvas_palette_content_hits( $w[ $key ] );
+					if ( $h['reachable'] || $h['alias'] ) {
+						return true;
+					}
+				} elseif ( origin_canvas_palette_markup_hits( $w[ $key ] ) ) {
+					return true;
+				}
+			}
+			return false;
+		}
+		if ( 0 !== strpos( (string) $option, 'theme_mods_' ) ) {
+			return false;
+		}
+		foreach ( $value as $v ) {
+			if ( ! is_string( $v ) ) {
+				continue;
+			}
+			if ( origin_canvas_palette_markup_hits( $v ) ) {
+				return true;
+			}
+			foreach ( origin_canvas_palette_css_hits( $v ) as $h ) {
+				if ( 0 !== strpos( $h, 'class=' ) ) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+}
+
 if ( ! function_exists( 'origin_canvas_palette_found_elsewhere' ) ) {
 	/**
 	 * Whether a store other than posts and Global Styles holds an old code: Additional CSS,
@@ -534,25 +592,13 @@ if ( ! function_exists( 'origin_canvas_palette_found_elsewhere' ) ) {
 		if ( $css_post instanceof WP_Post && origin_canvas_palette_css_code_hits( $css_post->post_content ) ) {
 			return true;
 		}
-		foreach ( (array) get_option( 'widget_block', array() ) as $w ) {
-			if ( is_array( $w ) && isset( $w['content'] ) && is_string( $w['content'] ) ) {
-				$h = origin_canvas_palette_content_hits( $w['content'] );
-				if ( $h['reachable'] || $h['alias'] ) {
-					return true;
-				}
-			}
-		}
-		foreach ( array( 'widget_text' => 'text', 'widget_custom_html' => 'content' ) as $option => $key ) {
-			foreach ( (array) get_option( $option, array() ) as $w ) {
-				if ( is_array( $w ) && isset( $w[ $key ] ) && is_string( $w[ $key ] ) && origin_canvas_palette_markup_hits( $w[ $key ] ) ) {
-					return true;
-				}
-			}
-		}
-		foreach ( (array) get_theme_mods() as $v ) {
-			if ( is_string( $v ) && ( origin_canvas_palette_markup_hits( $v ) || origin_canvas_palette_css_hits( $v ) ) ) {
+		foreach ( array( 'widget_block', 'widget_text', 'widget_custom_html' ) as $option ) {
+			if ( origin_canvas_palette_option_hits( $option, get_option( $option, array() ) ) ) {
 				return true;
 			}
+		}
+		if ( origin_canvas_palette_option_hits( 'theme_mods_' . get_stylesheet(), get_theme_mods() ) ) {
+			return true;
 		}
 		$changesets = get_posts(
 			array(
@@ -886,44 +932,29 @@ add_action( 'before_delete_post', 'origin_canvas_palette_on_delete', 10, 2 );
 
 if ( ! function_exists( 'origin_canvas_palette_on_option' ) ) {
 	/**
-	 * Widgets and theme mods: an old code in the new value turns the aliases on. No count changes.
+	 * Widgets and theme mods: an old code in a recognised field of the new value turns the aliases
+	 * on, read as the scan reads that option. No count changes.
 	 *
-	 * @param mixed $a The old value (update) or the option name (add).
-	 * @param mixed $b The new value (update) or the value (add).
+	 * @param mixed       $a      The old value (update) or the option name (add).
+	 * @param mixed       $b      The new value (update) or the value (add).
+	 * @param string|null $option The option name (update).
 	 * @return void
 	 */
-	function origin_canvas_palette_on_option( $a, $b ) {
+	function origin_canvas_palette_on_option( $a, $b, $option = null ) {
 		if ( origin_canvas_palette_state()['palette_detected'] ) {
 			return;
 		}
-		$found = false;
-		$walk  = static function ( $v ) use ( &$walk, &$found ) {
-			if ( $found ) {
-				return;
-			}
-			if ( is_string( $v ) ) {
-				$h     = origin_canvas_palette_content_hits( $v );
-				$found = $h['reachable'] || $h['alias'] || origin_canvas_palette_markup_hits( $v ) || origin_canvas_palette_css_hits( $v );
-				return;
-			}
-			if ( is_array( $v ) ) {
-				foreach ( $v as $x ) {
-					$walk( $x );
-				}
-			}
-		};
-		$walk( $b );
-		if ( $found ) {
+		if ( origin_canvas_palette_option_hits( is_string( $option ) ? $option : (string) $a, $b ) ) {
 			origin_canvas_palette_update_state( array( 'palette_detected' => true ) );
 		}
 	}
 }
 foreach ( array( 'widget_block', 'widget_text', 'widget_custom_html' ) as $origin_canvas_palette_option ) {
-	add_action( 'update_option_' . $origin_canvas_palette_option, 'origin_canvas_palette_on_option', 10, 2 );
+	add_action( 'update_option_' . $origin_canvas_palette_option, 'origin_canvas_palette_on_option', 10, 3 );
 	add_action( 'add_option_' . $origin_canvas_palette_option, 'origin_canvas_palette_on_option', 10, 2 );
 }
 unset( $origin_canvas_palette_option );
-add_action( 'update_option_theme_mods_' . get_stylesheet(), 'origin_canvas_palette_on_option', 10, 2 );
+add_action( 'update_option_theme_mods_' . get_stylesheet(), 'origin_canvas_palette_on_option', 10, 3 );
 add_action( 'add_option_theme_mods_' . get_stylesheet(), 'origin_canvas_palette_on_option', 10, 2 );
 
 if ( ! function_exists( 'origin_canvas_palette_on_switch_theme' ) ) {

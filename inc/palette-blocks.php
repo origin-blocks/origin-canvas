@@ -1011,10 +1011,11 @@ if ( ! function_exists( 'origin_canvas_palette_css_hits' ) ) {
 		$map  = origin_canvas_palette_map();
 		$hits = array();
 		$end   = origin_canvas_palette_ident_end();
+		$lead  = '(?<![-A-Za-z0-9_])'; // --my--wp--preset--color--… is another variable.
 		$forms = array(
-			'color'      => array( '/--wp--preset--color--([a-z0-9-]+)' . $end . '/', '/var:preset\|color\|([a-z0-9-]+)' . $end . '/' ),
-			'spacing'    => array( '/--wp--preset--spacing--([a-z0-9-]+)' . $end . '/', '/var:preset\|spacing\|([a-z0-9-]+)' . $end . '/' ),
-			'lineHeight' => array( '/--wp--custom--line-height--([a-z0-9-]+)' . $end . '/', '/var:custom\|line-height\|([a-z0-9-]+)' . $end . '/' ),
+			'color'      => array( '/' . $lead . '--wp--preset--color--([a-z0-9-]+)' . $end . '/', '/' . $lead . 'var:preset\|color\|([a-z0-9-]+)' . $end . '/' ),
+			'spacing'    => array( '/' . $lead . '--wp--preset--spacing--([a-z0-9-]+)' . $end . '/', '/' . $lead . 'var:preset\|spacing\|([a-z0-9-]+)' . $end . '/' ),
+			'lineHeight' => array( '/' . $lead . '--wp--custom--line-height--([a-z0-9-]+)' . $end . '/', '/' . $lead . 'var:custom\|line-height\|([a-z0-9-]+)' . $end . '/' ),
 		);
 		foreach ( $forms as $kind => $patterns ) {
 			foreach ( $patterns as $re ) {
