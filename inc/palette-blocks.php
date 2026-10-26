@@ -1204,29 +1204,65 @@ if ( ! function_exists( 'origin_canvas_palette_css_code_hits' ) ) {
 	}
 }
 
-if ( ! function_exists( 'origin_canvas_palette_json_hits' ) ) {
+if ( ! function_exists( 'origin_canvas_palette_json_field' ) ) {
 	/**
-	 * Old codes in the strings of a decoded JSON value (a child theme.json, a Customizer
-	 * changeset): a CSS string (under a key named css, or a custom_css setting's value) is read as
-	 * code, every other string as a value: only its old variables and var:preset or var:custom
-	 * references count. An old class name in a value (a tagline, a description) is text, not a
-	 * recognised colour field, so it does not mark a site.
+	 * Whether a path in a decoded theme.json (a child theme.json or style variation) is a field
+	 * the rewrite reads as a style value: under styles, a value below a color or spacing key or a
+	 * typography lineHeight; under settings or settings.blocks.<block>, a palette entry's color, a
+	 * gradient entry's gradient, and the spacing and custom values. Prose (a title, a description,
+	 * an entry's name) and other style values (a fontFamily) are not.
 	 *
-	 * @param mixed  $v   Decoded value.
-	 * @param string $key Its key.
+	 * @param array $path Keys from the root.
 	 * @return bool
 	 */
-	function origin_canvas_palette_json_hits( $v, $key = '' ) {
-		if ( is_string( $v ) ) {
-			if ( 'css' === $key ) {
-				return (bool) origin_canvas_palette_css_code_hits( $v );
-			}
-			foreach ( origin_canvas_palette_css_hits( $v ) as $h ) {
-				if ( 0 !== strpos( $h, 'class=' ) ) {
+	function origin_canvas_palette_json_field( $path ) {
+		$path = array_map( 'strval', $path );
+		$n    = count( $path );
+		if ( $n < 2 ) {
+			return false;
+		}
+		if ( 'styles' === $path[0] ) {
+			for ( $i = 1; $i < $n; $i++ ) {
+				if ( 'color' === $path[ $i ] || 'spacing' === $path[ $i ] || ( 'typography' === $path[ $i ] && 'lineHeight' === ( $path[ $i + 1 ] ?? '' ) ) ) {
 					return true;
 				}
 			}
 			return false;
+		}
+		if ( 'settings' !== $path[0] ) {
+			return false;
+		}
+		$i = 'blocks' === $path[1] ? 3 : 1;
+		$k = $path[ $i ] ?? '';
+		if ( 'custom' === $k || 'spacing' === $k ) {
+			return true;
+		}
+		$list = $path[ $i + 1 ] ?? '';
+		return 'color' === $k && ( ( 'palette' === $list && 'color' === $path[ $n - 1 ] ) || ( 'gradients' === $list && 'gradient' === $path[ $n - 1 ] ) );
+	}
+}
+
+if ( ! function_exists( 'origin_canvas_palette_json_hits' ) ) {
+	/**
+	 * Old codes in a decoded JSON value (a child theme.json or style variation, a Customizer
+	 * changeset), read only where a colour field is: a CSS string (under a key named css, or a
+	 * custom_css setting's value) as code; a string at a field origin_canvas_palette_json_field()
+	 * names as a style value, its old var:preset, var:custom and var() references read as the
+	 * rewrite reads them (code only: a quoted string or a comment in it is text). Any other string
+	 * (a tagline, a description, a font family) is text, not a recognised colour field, so it does
+	 * not mark a site.
+	 *
+	 * @param mixed  $v    Decoded value.
+	 * @param string $key  Its key.
+	 * @param array  $path Keys from the root, its key last.
+	 * @return bool
+	 */
+	function origin_canvas_palette_json_hits( $v, $key = '', $path = array() ) {
+		if ( is_string( $v ) ) {
+			if ( 'css' === $key ) {
+				return (bool) origin_canvas_palette_css_code_hits( $v );
+			}
+			return origin_canvas_palette_json_field( $path ) && origin_canvas_palette_rename_refs( $v ) !== $v;
 		}
 		if ( is_object( $v ) ) {
 			$v = get_object_vars( $v );
@@ -1243,7 +1279,7 @@ if ( ! function_exists( 'origin_canvas_palette_json_hits' ) ) {
 				}
 				continue;
 			}
-			if ( origin_canvas_palette_json_hits( $x, (string) $k ) ) {
+			if ( origin_canvas_palette_json_hits( $x, (string) $k, array_merge( $path, array( (string) $k ) ) ) ) {
 				return true;
 			}
 		}
