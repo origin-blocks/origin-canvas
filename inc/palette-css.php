@@ -112,7 +112,9 @@ if ( ! function_exists( 'origin_canvas_palette_css_protected_at' ) ) {
 	/**
 	 * Length of a protected run (comment, quoted string, url() argument, escape) starting at $i,
 	 * or 0. An escape is a backslash and the byte after it: CSS reads \' or \{ as part of an
-	 * identifier, never as the start of a string or a block.
+	 * identifier, never as the start of a string or a block. A url() is read by
+	 * origin_canvas_palette_css_url_at(), its name decoded, so a run that starts with a backslash
+	 * and is longer than 2 bytes is an escaped url( name.
 	 *
 	 * @param string $text CSS.
 	 * @param int    $i    Offset.
@@ -120,6 +122,10 @@ if ( ! function_exists( 'origin_canvas_palette_css_protected_at' ) ) {
 	 */
 	function origin_canvas_palette_css_protected_at( $text, $i ) {
 		$len = strlen( $text );
+		$url = origin_canvas_palette_css_url_at( $text, $i );
+		if ( $url ) {
+			return $url;
+		}
 		if ( '\\' === $text[ $i ] ) {
 			return min( 2, $len - $i );
 		}
@@ -140,27 +146,52 @@ if ( ! function_exists( 'origin_canvas_palette_css_protected_at' ) ) {
 			}
 			return min( $j + 1, $len ) - $i;
 		}
-		if ( ( 'u' === $ch || 'U' === $ch ) && 0 === strncasecmp( substr( $text, $i, 4 ), 'url(', 4 ) ) {
-			$prev = $i > 0 ? $text[ $i - 1 ] : '';
-			if ( '' !== $prev && 1 === strspn( $prev, 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-' ) ) {
-				return 0;
-			}
-			$j = $i + 4;
-			while ( $j < $len && origin_canvas_palette_css_is_space( $text[ $j ] ) ) {
-				++$j;
-			}
-			if ( $j < $len && ( '"' === $text[ $j ] || "'" === $text[ $j ] ) ) {
-				return 0; // A quoted argument is a string, skipped as one.
-			}
-			// The first ) that is not escaped ends it: url(x\)'y) is one argument.
-			for ( $e = $j; $e < $len && ')' !== $text[ $e ]; $e++ ) {
-				if ( '\\' === $text[ $e ] ) {
-					++$e;
-				}
-			}
-			return min( $e + 1, $len ) - $i;
-		}
 		return 0;
+	}
+}
+
+if ( ! function_exists( 'origin_canvas_palette_css_url_at' ) ) {
+	/**
+	 * Length of an unquoted url() starting at $i, function name included, or 0. The name is
+	 * compared decoded, as CSS reads it: u\72l( and \75rl( are url(. A name byte before it
+	 * (a letter, digit, _, -, a non-ASCII byte or a hex escape with its whitespace) makes it
+	 * another function.
+	 *
+	 * @param string $text CSS.
+	 * @param int    $i    Offset.
+	 * @return int
+	 */
+	function origin_canvas_palette_css_url_at( $text, $i ) {
+		$ch = $text[ $i ];
+		if ( 'u' !== $ch && 'U' !== $ch && '\\' !== $ch ) {
+			return 0;
+		}
+		list( $name, $j ) = origin_canvas_palette_css_ident_at( $text, $i );
+		if ( 'url' !== strtolower( $name ) || '(' !== substr( $text, $j, 1 ) ) {
+			return 0;
+		}
+		$prev = $i > 0 ? $text[ $i - 1 ] : '';
+		if ( '' !== $prev && ( ord( $prev ) >= 0x80 || 1 === strspn( $prev, 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-' ) ) ) {
+			return 0;
+		}
+		if ( '' !== $prev && origin_canvas_palette_css_is_space( $prev ) && preg_match( '/\\\\[0-9a-fA-F]{1,6}(?:\r\n|\s)$/', substr( $text, max( 0, $i - 9 ), $i - max( 0, $i - 9 ) ) ) ) {
+			return 0;
+		}
+		$len = strlen( $text );
+		++$j;
+		while ( $j < $len && origin_canvas_palette_css_is_space( $text[ $j ] ) ) {
+			++$j;
+		}
+		if ( $j < $len && ( '"' === $text[ $j ] || "'" === $text[ $j ] ) ) {
+			return 0; // A quoted argument is a string, skipped as one.
+		}
+		// The first ) that is not escaped ends it: url(x\)'y) is one argument.
+		for ( $e = $j; $e < $len && ')' !== $text[ $e ]; $e++ ) {
+			if ( '\\' === $text[ $e ] ) {
+				++$e;
+			}
+		}
+		return min( $e + 1, $len ) - $i;
 	}
 }
 
@@ -176,7 +207,10 @@ if ( ! function_exists( 'origin_canvas_palette_css_selector_protected_at' ) ) {
 	 */
 	function origin_canvas_palette_css_selector_protected_at( $text, $i ) {
 		$ch = $text[ $i ];
-		if ( '"' === $ch || "'" === $ch || '\\' === $ch || ( '/' === $ch && '*' === substr( $text, $i + 1, 1 ) ) ) {
+		if ( '\\' === $ch ) {
+			return min( 2, strlen( $text ) - $i ); // An escape, never the start of a url() here.
+		}
+		if ( '"' === $ch || "'" === $ch || ( '/' === $ch && '*' === substr( $text, $i + 1, 1 ) ) ) {
 			return origin_canvas_palette_css_protected_at( $text, $i );
 		}
 		return 0;
@@ -199,7 +233,7 @@ if ( ! function_exists( 'origin_canvas_palette_css_map_outside' ) ) {
 		$len   = strlen( $text );
 		for ( $i = 0; $i < $len; ) {
 			$n = origin_canvas_palette_css_protected_at( $text, $i );
-			if ( $n && '\\' === $text[ $i ] ) {
+			if ( $n && '\\' === $text[ $i ] && $n <= 2 ) { // An escape; a longer run is an escaped url( name.
 				$i += $n;
 			} elseif ( $n ) {
 				$out  .= $fn( substr( $text, $start, $i - $start ) ) . substr( $text, $i, $n );

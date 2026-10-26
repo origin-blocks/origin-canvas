@@ -624,7 +624,7 @@ if ( ! function_exists( 'origin_canvas_palette_attr_map_outside' ) ) {
 		$tlen  = strlen( $text );
 		for ( $i = 0; $i < $tlen; ) {
 			$n = origin_canvas_palette_css_protected_at( $text, $i );
-			if ( $n && '\\' === $text[ $i ] ) {
+			if ( $n && '\\' === $text[ $i ] && $n <= 2 ) { // An escape; a longer run is an escaped url( name.
 				$i += $n;
 			} elseif ( $n ) {
 				$out  .= $fn( substr( $raw, $at[ $start ], $at[ $i ] - $at[ $start ] ) ) . substr( $raw, $at[ $i ], $at[ $i + $n ] - $at[ $i ] );
