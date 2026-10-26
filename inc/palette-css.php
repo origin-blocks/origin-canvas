@@ -66,13 +66,14 @@ if ( ! function_exists( 'origin_canvas_palette_rename_refs' ) ) {
 	 */
 	function origin_canvas_palette_rename_refs( $s, $extra = array() ) {
 		$end      = origin_canvas_palette_ident_end();
+		$var_end  = origin_canvas_palette_css_var_end(); // var() as the css reader takes it: spaces, a fallback.
 		$patterns = array(
 			array( '/var:preset\|color\|([a-z0-9-]+)' . $end . '/', 'color', 'var:preset|color|' ),
-			array( '/var\(--wp--preset--color--([a-z0-9-]+)\)/', 'color', 'var(--wp--preset--color--' ),
+			array( '/var\(\s*--wp--preset--color--([a-z0-9-]+)' . $var_end . '/', 'color', '--wp--preset--color--' ),
 			array( '/var:preset\|spacing\|([a-z0-9-]+)' . $end . '/', 'spacing', 'var:preset|spacing|' ),
-			array( '/var\(--wp--preset--spacing--([a-z0-9-]+)\)/', 'spacing', 'var(--wp--preset--spacing--' ),
+			array( '/var\(\s*--wp--preset--spacing--([a-z0-9-]+)' . $var_end . '/', 'spacing', '--wp--preset--spacing--' ),
 			array( '/var:custom\|line-height\|([a-z0-9-]+)' . $end . '/', 'lineHeight', 'var:custom|line-height|' ),
-			array( '/var\(--wp--custom--line-height--([a-z0-9-]+)\)/', 'lineHeight', 'var(--wp--custom--line-height--' ),
+			array( '/var\(\s*--wp--custom--line-height--([a-z0-9-]+)' . $var_end . '/', 'lineHeight', '--wp--custom--line-height--' ),
 		);
 		return origin_canvas_palette_css_map_outside(
 			(string) $s,
@@ -85,7 +86,8 @@ if ( ! function_exists( 'origin_canvas_palette_rename_refs' ) ) {
 							if ( '' === $to ) {
 								return $m[0];
 							}
-							return $p[2] . $to . ( ')' === substr( $m[0], -1 ) ? ')' : '' );
+							$pos = strpos( $m[0], $p[2] . $m[1] );
+							return substr( $m[0], 0, $pos ) . $p[2] . $to . substr( $m[0], $pos + strlen( $p[2] . $m[1] ) );
 						},
 						$plain
 					);
