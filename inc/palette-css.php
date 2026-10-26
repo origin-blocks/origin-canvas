@@ -10,7 +10,9 @@
  *   @media, @supports, @container, @layer, @scope and @document are descended into; every other
  *   at-rule is kept whole.
  * - Token: a class .c with c in the class map, in a style rule's prelude, outside strings,
- *   comments, escapes and attribute selectors.
+ *   comments, escapes and attribute selectors; or the value c of a class attribute selector
+ *   with = or ~= and that one class ([class~=c], [class="c" i]). Substring forms (*=, ^=, $=)
+ *   are no token: a documented limit.
  * - Items: the prelude split on commas at parenthesis and bracket depth 0, outside strings,
  *   comments and escapes.
  * - Negation: inside :not(…), each argument item holding a token gets its variants added as
@@ -586,7 +588,8 @@ if ( ! function_exists( 'origin_canvas_palette_css_split_items' ) ) {
 if ( ! function_exists( 'origin_canvas_palette_css_tokens' ) ) {
 	/**
 	 * Class tokens in a selector text that are keys of $map, outside comments, strings, escapes
-	 * and attribute selectors: list of array( start, end, cls, negated ). A class name goes on
+	 * and attribute selectors, plus the one-class value of a [class=…] or [class~=…] selector:
+	 * list of array( start, end, cls, negated ). A class name goes on
 	 * past an escape or a non-ASCII byte (.has-text-muted-color\:hover is another class), so a
 	 * name followed by one is no token.
 	 *
@@ -607,7 +610,23 @@ if ( ! function_exists( 'origin_canvas_palette_css_tokens' ) ) {
 				continue;
 			}
 			if ( '[' === $ch ) {
-				$i = origin_canvas_palette_css_bracket_end( $text, $i );
+				// A class attribute selector with = or ~= and one class as its value, unquoted or
+				// quoted, with an optional i or s flag, is a class token: its twin carries the new
+				// class in the same form. *=, ^= and $= forms are not (a documented limit).
+				$stop  = origin_canvas_palette_css_bracket_end( $text, $i );
+				$inner = substr( $text, $i + 1, max( 0, $stop - $i - 2 ) );
+				if ( ']' === substr( $text, $stop - 1, 1 ) && preg_match( '/^\s*class\s*~?=\s*(?:"([a-zA-Z0-9_-]+)"|\'([a-zA-Z0-9_-]+)\'|([a-zA-Z0-9_-]+))\s*(?:[iIsS]\s*)?$/D', $inner, $m, PREG_OFFSET_CAPTURE ) ) {
+					$v = end( $m );
+					if ( array_key_exists( $v[0], $map ) ) {
+						$out[] = array(
+							'start'   => $i + 1 + $v[1],
+							'end'     => $i + 1 + $v[1] + strlen( $v[0] ),
+							'cls'     => $v[0],
+							'negated' => count( $nots ) > 0,
+						);
+					}
+				}
+				$i = $stop;
 				continue;
 			}
 			$na = origin_canvas_palette_css_not_at( $text, $i );
