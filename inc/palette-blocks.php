@@ -658,6 +658,52 @@ if ( ! function_exists( 'origin_canvas_palette_attr_map_outside' ) ) {
 	}
 }
 
+if ( ! function_exists( 'origin_canvas_palette_attr_map_decls' ) ) {
+	/**
+	 * Apply $fn( text, property ) to the value of each declaration of a style attribute's raw
+	 * value, outside its strings, comments, url() arguments and escapes; every other byte, character
+	 * references included, is kept. Declarations are found in the decoded CSS, as core's tag
+	 * processor gives it, so a &quot; in a value does not end it.
+	 *
+	 * @param string   $raw Raw attribute value.
+	 * @param callable $fn  ( string, string ) => string; the property is lower-cased.
+	 * @return string
+	 */
+	function origin_canvas_palette_attr_map_decls( $raw, $fn ) {
+		$raw  = (string) $raw;
+		$len  = strlen( $raw );
+		$text = '';
+		$at   = array(); // The raw offset of each decoded byte.
+		for ( $i = 0; $i < $len; ) {
+			$n = 0;
+			$c = '&' === $raw[ $i ] ? WP_HTML_Decoder::read_character_reference( 'attribute', $raw, $i, $n ) : null;
+			if ( null === $c ) {
+				$c = $raw[ $i ];
+				$n = 1;
+			}
+			$text .= $c;
+			for ( $k = strlen( $c ); $k > 0; $k-- ) {
+				$at[] = $i;
+			}
+			$i += $n;
+		}
+		$at[] = $len;
+		$out  = $raw;
+		foreach ( array_reverse( origin_canvas_palette_css_declarations( '{' . $text . '}' ) ) as $d ) {
+			$from = $at[ $d['value_start'] - 1 ];
+			$to   = $at[ $d['value_end'] - 1 ];
+			$prop = strtolower( $d['prop'] );
+			$out  = substr( $out, 0, $from ) . origin_canvas_palette_attr_map_outside(
+				substr( $raw, $from, $to - $from ),
+				static function ( $plain ) use ( $fn, $prop ) {
+					return $fn( $plain, $prop );
+				}
+			) . substr( $out, $to );
+		}
+		return $out;
+	}
+}
+
 if ( ! function_exists( 'origin_canvas_palette_tag_edits' ) ) {
 	/**
 	 * Edits for one block's own tags, from what its attributes renamed.
@@ -692,15 +738,22 @@ if ( ! function_exists( 'origin_canvas_palette_tag_edits' ) ) {
 				$class_renames[] = array( 'has-' . $old . '-' . $derived, 'has-' . origin_canvas_palette_lookup( 'color', $old, $extra ) . '-' . $derived );
 			}
 		}
+		// Each rename reaches only the declarations core writes for its kind of field: a shadow or a
+		// font family that names the same variable keeps it, as its attribute does.
+		$props    = array(
+			'color'      => '/^(color|background|background-color|border(-(top|right|bottom|left))?-color)$/D',
+			'spacing'    => '/^((padding|margin)(-(top|right|bottom|left))?|gap|row-gap|column-gap)$/D',
+			'lineHeight' => '/^line-height$/D',
+		);
 		$style_re = array();
 		foreach ( array_keys( $seen['vars'] ) as $s ) {
-			$style_re[] = array( '/var\(--wp--preset--color--' . preg_quote( $s, '/' ) . '\)/', 'var(--wp--preset--color--' . origin_canvas_palette_lookup( 'color', $s, $extra ) . ')' );
+			$style_re[] = array( '/var\(--wp--preset--color--' . preg_quote( $s, '/' ) . '\)/', 'var(--wp--preset--color--' . origin_canvas_palette_lookup( 'color', $s, $extra ) . ')', $props['color'] );
 		}
 		foreach ( array_keys( $seen['spacing'] ) as $s ) {
-			$style_re[] = array( '/var\(--wp--preset--spacing--' . preg_quote( $s, '/' ) . '\)/', 'var(--wp--preset--spacing--' . origin_canvas_palette_lookup( 'spacing', $s, $extra ) . ')' );
+			$style_re[] = array( '/var\(--wp--preset--spacing--' . preg_quote( $s, '/' ) . '\)/', 'var(--wp--preset--spacing--' . origin_canvas_palette_lookup( 'spacing', $s, $extra ) . ')', $props['spacing'] );
 		}
 		foreach ( array_keys( $seen['lineHeight'] ) as $s ) {
-			$style_re[] = array( '/var\(--wp--custom--line-height--' . preg_quote( $s, '/' ) . '\)/', 'var(--wp--custom--line-height--' . origin_canvas_palette_lookup( 'lineHeight', $s, $extra ) . ')' );
+			$style_re[] = array( '/var\(--wp--custom--line-height--' . preg_quote( $s, '/' ) . '\)/', 'var(--wp--custom--line-height--' . origin_canvas_palette_lookup( 'lineHeight', $s, $extra ) . ')', $props['lineHeight'] );
 		}
 
 		$ranges = array();
@@ -761,11 +814,13 @@ if ( ! function_exists( 'origin_canvas_palette_tag_edits' ) ) {
 				if ( null !== $style ) {
 					// Declaration values only: a quoted string (--caption:'var(…)', or &quot;…&quot;) or a
 					// comment in the style attribute is text, not a colour reference, and keeps its bytes.
-					$v         = origin_canvas_palette_attr_map_outside(
+					$v         = origin_canvas_palette_attr_map_decls(
 						substr( $tag, $style[0], $style[1] ),
-						static function ( $plain ) use ( $style_re ) {
+						static function ( $plain, $prop ) use ( $style_re ) {
 							foreach ( $style_re as $re ) {
-								$plain = preg_replace( $re[0], str_replace( array( '\\', '$' ), array( '\\\\', '\\$' ), $re[1] ), $plain );
+								if ( preg_match( $re[2], $prop ) ) {
+									$plain = preg_replace( $re[0], str_replace( array( '\\', '$' ), array( '\\\\', '\\$' ), $re[1] ), $plain );
+								}
 							}
 							return $plain;
 						}
