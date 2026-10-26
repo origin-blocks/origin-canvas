@@ -796,7 +796,12 @@ if ( ! function_exists( 'origin_canvas_palette_css_expand_negations' ) ) {
 						}
 					}
 				}
-				$arg     = (string) substr( $text, $na, max( 0, $j - $na ) );
+				if ( $j >= $len ) {
+					// No ) closes it: the rest is kept as it is, so a selector a browser drops stays dropped.
+					$out .= substr( $text, $i );
+					break;
+				}
+				$arg     = (string) substr( $text, $na, $j - $na );
 				$args    = array();
 				$present = array();
 				foreach ( origin_canvas_palette_css_split_items( $arg ) as $a ) {

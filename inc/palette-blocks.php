@@ -588,6 +588,56 @@ if ( ! function_exists( 'origin_canvas_palette_tag_quote' ) ) {
 	}
 }
 
+if ( ! function_exists( 'origin_canvas_palette_attr_map_outside' ) ) {
+	/**
+	 * As origin_canvas_palette_css_map_outside(), for the raw value of a style attribute. Strings,
+	 * comments, url() arguments and escapes are found in the decoded CSS, as core's tag processor
+	 * gives it (in a double-quoted attribute a CSS string is written &quot;…&quot;), and $fn runs
+	 * on the raw bytes outside them, so every byte $fn does not change, character references
+	 * included, is kept.
+	 *
+	 * @param string   $raw Raw attribute value.
+	 * @param callable $fn  string => string.
+	 * @return string
+	 */
+	function origin_canvas_palette_attr_map_outside( $raw, $fn ) {
+		$raw  = (string) $raw;
+		$len  = strlen( $raw );
+		$text = '';
+		$at   = array(); // The raw offset of each decoded byte.
+		for ( $i = 0; $i < $len; ) {
+			$n = 0;
+			$c = '&' === $raw[ $i ] ? WP_HTML_Decoder::read_character_reference( 'attribute', $raw, $i, $n ) : null;
+			if ( null === $c ) {
+				$c = $raw[ $i ];
+				$n = 1;
+			}
+			$text .= $c;
+			for ( $k = strlen( $c ); $k > 0; $k-- ) {
+				$at[] = $i;
+			}
+			$i += $n;
+		}
+		$at[]  = $len;
+		$out   = '';
+		$start = 0;
+		$tlen  = strlen( $text );
+		for ( $i = 0; $i < $tlen; ) {
+			$n = origin_canvas_palette_css_protected_at( $text, $i );
+			if ( $n && '\\' === $text[ $i ] ) {
+				$i += $n;
+			} elseif ( $n ) {
+				$out  .= $fn( substr( $raw, $at[ $start ], $at[ $i ] - $at[ $start ] ) ) . substr( $raw, $at[ $i ], $at[ $i + $n ] - $at[ $i ] );
+				$i    += $n;
+				$start = $i;
+			} else {
+				++$i;
+			}
+		}
+		return $out . $fn( (string) substr( $raw, $at[ $start ] ) );
+	}
+}
+
 if ( ! function_exists( 'origin_canvas_palette_tag_edits' ) ) {
 	/**
 	 * Edits for one block's own tags, from what its attributes renamed.
@@ -689,9 +739,9 @@ if ( ! function_exists( 'origin_canvas_palette_tag_edits' ) ) {
 				}
 				$style = origin_canvas_palette_tag_attribute( $tag, 'style' );
 				if ( null !== $style ) {
-					// Declaration values only: a quoted string (--caption:'var(…)') or a comment in the
-					// style attribute is text, not a colour reference, and keeps its bytes.
-					$v         = origin_canvas_palette_css_map_outside(
+					// Declaration values only: a quoted string (--caption:'var(…)', or &quot;…&quot;) or a
+					// comment in the style attribute is text, not a colour reference, and keeps its bytes.
+					$v         = origin_canvas_palette_attr_map_outside(
 						substr( $tag, $style[0], $style[1] ),
 						static function ( $plain ) use ( $style_re ) {
 							foreach ( $style_re as $re ) {
@@ -816,7 +866,9 @@ if ( ! function_exists( 'origin_canvas_palette_rewrite_content' ) ) {
 
 if ( ! function_exists( 'origin_canvas_palette_markup_hits' ) ) {
 	/**
-	 * Old references in tag class and style attributes of a markup string (not text).
+	 * Old references in tag class and style attributes of a markup string (not text): old colour
+	 * classes, and old colour, spacing and line height variables outside the style attribute's
+	 * strings and comments.
 	 *
 	 * @param string $markup Markup.
 	 * @return string[]
@@ -831,13 +883,22 @@ if ( ! function_exists( 'origin_canvas_palette_markup_hits' ) ) {
 					$hits[] = 'class=' . $tok;
 				}
 			}
-			if ( preg_match_all( '/var\(--wp--preset--color--([a-z0-9-]+)\)/', origin_canvas_palette_tag_value( $t[1], 'style' ), $vars ) ) {
-				foreach ( $vars[1] as $v ) {
-					if ( isset( $map['color'][ $v ] ) ) {
-						$hits[] = 'style~' . $v;
+			// Every old preset variable, outside the style attribute's strings and comments.
+			origin_canvas_palette_attr_map_outside(
+				origin_canvas_palette_tag_value( $t[1], 'style' ),
+				static function ( $plain ) use ( $map, &$hits ) {
+					foreach ( array( 'color' => '--wp--preset--color--', 'spacing' => '--wp--preset--spacing--', 'lineHeight' => '--wp--custom--line-height--' ) as $kind => $prefix ) {
+						if ( preg_match_all( '/var\(' . preg_quote( $prefix, '/' ) . '([a-z0-9-]+)\)/', $plain, $vars ) ) {
+							foreach ( $vars[1] as $v ) {
+								if ( isset( $map[ $kind ][ $v ] ) ) {
+									$hits[] = 'style~' . ( 'color' === $kind ? '' : $kind . '-' ) . $v;
+								}
+							}
+						}
 					}
+					return $plain;
 				}
-			}
+			);
 		}
 		return $hits;
 	}
