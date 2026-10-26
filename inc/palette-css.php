@@ -53,8 +53,10 @@ if ( ! function_exists( 'origin_canvas_palette_old_classes' ) ) {
 
 if ( ! function_exists( 'origin_canvas_palette_rename_refs' ) ) {
 	/**
-	 * Rename preset references in one string that is not CSS: var:preset refs, CSS variables and
-	 * the custom line height. One lookup per captured slug, the collision map first.
+	 * Rename preset references in one style value (a string not under a css key): var:preset refs,
+	 * CSS variables and the custom line height. The value is walked as CSS, so a quoted string
+	 * (a fontFamily "var(…)"), a url() argument or a comment in it keeps its bytes. One lookup per
+	 * captured slug, the collision map first.
 	 *
 	 * @param string $s     The string.
 	 * @param array  $extra Collision map of the map's shape.
@@ -70,20 +72,25 @@ if ( ! function_exists( 'origin_canvas_palette_rename_refs' ) ) {
 			array( '/var:custom\|line-height\|([a-z0-9-]+)' . $end . '/', 'lineHeight', 'var:custom|line-height|' ),
 			array( '/var\(--wp--custom--line-height--([a-z0-9-]+)\)/', 'lineHeight', 'var(--wp--custom--line-height--' ),
 		);
-		foreach ( $patterns as $p ) {
-			$s = preg_replace_callback(
-				$p[0],
-				static function ( $m ) use ( $p, $extra ) {
-					$to = origin_canvas_palette_lookup( $p[1], $m[1], $extra );
-					if ( '' === $to ) {
-						return $m[0];
-					}
-					return $p[2] . $to . ( ')' === substr( $m[0], -1 ) ? ')' : '' );
-				},
-				$s
-			);
-		}
-		return $s;
+		return origin_canvas_palette_css_map_outside(
+			(string) $s,
+			static function ( $plain ) use ( $patterns, $extra ) {
+				foreach ( $patterns as $p ) {
+					$plain = preg_replace_callback(
+						$p[0],
+						static function ( $m ) use ( $p, $extra ) {
+							$to = origin_canvas_palette_lookup( $p[1], $m[1], $extra );
+							if ( '' === $to ) {
+								return $m[0];
+							}
+							return $p[2] . $to . ( ')' === substr( $m[0], -1 ) ? ')' : '' );
+						},
+						$plain
+					);
+				}
+				return $plain;
+			}
+		);
 	}
 }
 
