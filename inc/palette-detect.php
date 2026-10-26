@@ -269,7 +269,8 @@ if ( ! function_exists( 'origin_canvas_palette_collision_extra' ) ) {
 	 * The snapshot was taken at the first admin load, before any content moved, when every
 	 * reference to a collided destination was the user's swatch. The legacy check makes a retry
 	 * after an interrupted write map nothing; collision_done keeps a later edit from being mapped
-	 * again.
+	 * again. A destination the post no longer references (its block deleted or recoloured since)
+	 * has nothing to protect and maps nothing, so the post's entry completes.
 	 *
 	 * @param int    $id      Post ID.
 	 * @param string $content Its content now.
@@ -284,16 +285,25 @@ if ( ! function_exists( 'origin_canvas_palette_collision_extra' ) ) {
 		if ( in_array( (int) $id, array_map( 'intval', (array) origin_canvas_palette_journal()['collision_done'] ), true ) ) {
 			return array();
 		}
-		$out = array();
+		$want = array();
 		foreach ( array( 'color', 'spacing', 'lineHeight' ) as $kind ) {
+			$want[ $kind ] = array();
 			foreach ( isset( $snap[ $kind ] ) ? (array) $snap[ $kind ] : array() as $d ) {
-				if ( ! isset( $record['map'][ $kind ][ $d ] ) ) {
-					continue;
+				if ( isset( $record['map'][ $kind ][ $d ] ) ) {
+					$want[ $kind ][] = (string) $d;
+					$want[ $kind ][] = (string) $record['map'][ $kind ][ $d ];
 				}
-				$legacy = $record['map'][ $kind ][ $d ];
-				$found  = origin_canvas_palette_content_slug_refs( $content, array( $kind => array( $legacy ) ) );
-				if ( ! $found[ $kind ] ) {
-					$out[ $kind ][ $d ] = $legacy;
+			}
+		}
+		$found = origin_canvas_palette_content_slug_refs( $content, $want );
+		$out   = array();
+		foreach ( $want as $kind => $list ) {
+			$has = array_flip( array_map( 'strval', $found[ $kind ] ) ); // A numeric slug comes back as an int key.
+			for ( $k = 0, $n = count( $list ); $k < $n; $k += 2 ) {
+				// The destination still referenced (a reference removed since the snapshot leaves
+				// nothing to protect), and the legacy name not yet written.
+				if ( isset( $has[ $list[ $k ] ] ) && ! isset( $has[ $list[ $k + 1 ] ] ) ) {
+					$out[ $kind ][ $list[ $k ] ] = $list[ $k + 1 ];
 				}
 			}
 		}
