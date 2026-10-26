@@ -140,7 +140,7 @@ if ( ! function_exists( 'origin_canvas_palette_css_protected_at' ) ) {
 			$j = $i + 1;
 			while ( $j < $len && $text[ $j ] !== $ch ) {
 				if ( '\\' === $text[ $j ] ) {
-					++$j;
+					$j += "\r\n" === substr( $text, $j + 1, 2 ) ? 2 : 1; // CSS reads CRLF as one newline.
 				} elseif ( "\n" === $text[ $j ] ) {
 					break;
 				}
@@ -284,12 +284,17 @@ if ( ! function_exists( 'origin_canvas_palette_css_descends' ) ) {
 	/**
 	 * Whether an at-rule prelude opens a block the scanner walks: a conditional or grouping rule
 	 * whose block holds style rules (at the top level) or a rule body (nested in a style rule).
+	 * The name is compared decoded, as CSS reads it: @m\65 dia is @media.
 	 *
 	 * @param string $prelude Prelude, from its first byte of code.
 	 * @return bool
 	 */
 	function origin_canvas_palette_css_descends( $prelude ) {
-		return preg_match( '/^@([a-zA-Z-]+)/', $prelude, $at ) && in_array( strtolower( $at[1] ), array( 'media', 'supports', 'container', 'layer', 'scope', 'document', 'starting-style' ), true );
+		if ( '@' !== substr( $prelude, 0, 1 ) ) {
+			return false;
+		}
+		list( $name ) = origin_canvas_palette_css_ident_at( $prelude, 1 );
+		return in_array( strtolower( $name ), array( 'media', 'supports', 'container', 'layer', 'scope', 'document', 'starting-style' ), true );
 	}
 }
 
@@ -684,7 +689,9 @@ if ( ! function_exists( 'origin_canvas_palette_css_class_attr' ) ) {
 			$start = $p + 1;
 			$value = '';
 			for ( $p = $start; $p < $len && $q !== $inner[ $p ]; ) {
-				if ( '\\' === $inner[ $p ] ) {
+				if ( '\\' === $inner[ $p ] && 1 === preg_match( '/\G\\\\(?:\r\n|[\n\r\f])/', $inner, $nl, 0, $p ) ) {
+					$p += strlen( $nl[0] ); // A backslash and a newline inside a string are removed.
+				} elseif ( '\\' === $inner[ $p ] ) {
 					list( $b, $p ) = origin_canvas_palette_css_escape_at( $inner, $p );
 					$value        .= $b;
 				} else {
