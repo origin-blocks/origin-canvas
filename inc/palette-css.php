@@ -7,8 +7,8 @@
  * a new class, for content that still holds the old one):
  *
  * - Scanner: comments, quoted strings and url() arguments are skipped and kept byte for byte;
- *   @media, @supports, @container, @layer, @scope and @document are descended into; every other
- *   at-rule is kept whole.
+ *   @media, @supports, @container, @layer, @scope, @document and @starting-style are descended
+ *   into, at the top level and nested in a style rule; every other at-rule is kept whole.
  * - Token: a class .c with c in the class map, in a style rule's prelude, outside strings,
  *   comments, escapes and attribute selectors; or the value c of a class attribute selector
  *   with = or ~= and that one class ([class~=c], [class="c" i]). Substring forms (*=, ^=, $=)
@@ -229,6 +229,19 @@ if ( ! function_exists( 'origin_canvas_palette_css_close_brace' ) ) {
 	}
 }
 
+if ( ! function_exists( 'origin_canvas_palette_css_descends' ) ) {
+	/**
+	 * Whether an at-rule prelude opens a block the scanner walks: a conditional or grouping rule
+	 * whose block holds style rules (at the top level) or a rule body (nested in a style rule).
+	 *
+	 * @param string $prelude Prelude, from its first byte of code.
+	 * @return bool
+	 */
+	function origin_canvas_palette_css_descends( $prelude ) {
+		return preg_match( '/^@([a-zA-Z-]+)/', $prelude, $at ) && in_array( strtolower( $at[1] ), array( 'media', 'supports', 'container', 'layer', 'scope', 'document', 'starting-style' ), true );
+	}
+}
+
 if ( ! function_exists( 'origin_canvas_palette_css_scan' ) ) {
 	/**
 	 * Walk the style rules. $on_rule( $prelude, $body, $nested ) returns null (unchanged) or
@@ -239,9 +252,13 @@ if ( ! function_exists( 'origin_canvas_palette_css_scan' ) ) {
 	 * Nested style rules (CSS nesting) are walked too: inside a style rule's body, a prelude that
 	 * ends at { and is neither an at-rule nor a custom property is a style rule. It goes through
 	 * $on_rule with $nested true, & kept, and its own body is walked the same way; declarations
-	 * and nested at-rules stay as they are. In shadow output a nested rule's shadow sits inside its
-	 * parent's prelude, as the callback returned it, so it keeps its nested context. In place, a
-	 * callback that walks the nested rules itself returns 'flat' => true, and its body is kept.
+	 * stay as they are. A descended at-rule nested in a style rule (.card{@media …{…}}) holds a
+	 * rule body: its declarations go through $on_rule as the rule &, nested true, and its nested
+	 * rules and at-rules are walked the same way; its prelude is kept. Other nested at-rules stay
+	 * whole. In shadow output a nested rule's shadow sits inside its parent's prelude (and a
+	 * nested at-rule's inside its own prelude), as the callback returned it, so it keeps its
+	 * nested context. In place, a callback that walks the nested rules itself returns
+	 * 'flat' => true, and its body is kept.
 	 *
 	 * @param string   $css      CSS.
 	 * @param callable $on_rule  Rule callback.
@@ -249,8 +266,7 @@ if ( ! function_exists( 'origin_canvas_palette_css_scan' ) ) {
 	 * @return string
 	 */
 	function origin_canvas_palette_css_scan( $css, $on_rule, $in_place ) {
-		$descend = array( 'media', 'supports', 'container', 'layer', 'scope', 'document' );
-		$nest    = static function ( $body ) use ( &$nest, $on_rule, $in_place ) {
+		$nest = static function ( $body ) use ( &$nest, $on_rule, $in_place ) {
 			$parts = origin_canvas_palette_css_body_parts( $body );
 			if ( null === $parts ) {
 				return $in_place ? $body : '';
@@ -259,6 +275,19 @@ if ( ! function_exists( 'origin_canvas_palette_css_scan' ) ) {
 			foreach ( $parts as $p ) {
 				if ( isset( $p['text'] ) ) {
 					$out .= $in_place ? $p['text'] : '';
+					continue;
+				}
+				if ( isset( $p['at'] ) ) {
+					// Its declarations belong to the parent rule, read here as the rule &.
+					$r = $on_rule( '&', $p['body'], true );
+					if ( $in_place ) {
+						$out .= $p['lead'] . $p['at'] . ( $r ? ( empty( $r['flat'] ) ? $nest( $r['body'] ) : $r['body'] ) : $nest( $p['body'] ) );
+						continue;
+					}
+					$inner = ( $r && isset( $r['shadow'] ) ? $r['shadow'] : '' ) . $nest( $p['body'] );
+					if ( '' !== $inner ) {
+						$out .= trim( $p['at'] ) . '{' . $inner . '}';
+					}
 					continue;
 				}
 				$r = $on_rule( $p['sel'], $p['body'], true );
@@ -276,7 +305,7 @@ if ( ! function_exists( 'origin_canvas_palette_css_scan' ) ) {
 			}
 			return $in_place ? '{' . $out . '}' : $out;
 		};
-		$walk    = static function ( $text ) use ( &$walk, $nest, $on_rule, $in_place, $descend ) {
+		$walk = static function ( $text ) use ( &$walk, $nest, $on_rule, $in_place ) {
 			$out = '';
 			$len = strlen( $text );
 			$i   = 0;
@@ -340,8 +369,8 @@ if ( ! function_exists( 'origin_canvas_palette_css_scan' ) ) {
 				}
 				$close = origin_canvas_palette_css_close_brace( $text, $end );
 				$body  = substr( $text, $end, $close + 1 - $end );
-				if ( preg_match( '/^@([a-zA-Z-]+)/', $prelude, $at ) ) {
-					if ( in_array( strtolower( $at[1] ), $descend, true ) ) {
+				if ( '@' === substr( $prelude, 0, 1 ) ) {
+					if ( origin_canvas_palette_css_descends( $prelude ) ) {
 						$inner = $walk( (string) substr( $text, $end + 1, $close - $end - 1 ) );
 						if ( $in_place ) {
 							$out .= $prelude . '{' . $inner . '}';
@@ -376,9 +405,11 @@ if ( ! function_exists( 'origin_canvas_palette_css_scan' ) ) {
 if ( ! function_exists( 'origin_canvas_palette_css_body_parts' ) ) {
 	/**
 	 * A style rule's body (braces included) cut into its parts, in order: array( 'text' => … ) for
-	 * declarations, comments and nested at-rules or custom properties, kept as they are, and
-	 * array( 'lead' => …, 'sel' => …, 'body' => … ) for each nested style rule, where lead is the
-	 * whitespace and comments before its prelude. Null when the body is not one whole block.
+	 * declarations, comments, custom properties and at-rules the scanner keeps whole, kept as they
+	 * are; array( 'lead' => …, 'sel' => …, 'body' => … ) for each nested style rule, where lead is
+	 * the whitespace and comments before its prelude; and array( 'lead' => …, 'at' => …,
+	 * 'body' => … ) for each nested at-rule the scanner descends into, whose body is a rule body.
+	 * Null when the body is not one whole block.
 	 *
 	 * @param string $body Rule body.
 	 * @return array|null
@@ -422,7 +453,13 @@ if ( ! function_exists( 'origin_canvas_palette_css_body_parts' ) ) {
 			$lead  = origin_canvas_palette_css_skip_blank( $inner, $i );
 			$sel   = substr( $inner, $lead, $stop - $lead );
 			$close = origin_canvas_palette_css_close_brace( $inner, $stop );
-			if ( '@' === substr( $sel, 0, 1 ) || '--' === substr( $sel, 0, 2 ) ) {
+			if ( origin_canvas_palette_css_descends( $sel ) ) {
+				$parts[] = array(
+					'lead' => substr( $inner, $i, $lead - $i ),
+					'at'   => $sel,
+					'body' => substr( $inner, $stop, $close + 1 - $stop ),
+				);
+			} elseif ( '@' === substr( $sel, 0, 1 ) || '--' === substr( $sel, 0, 2 ) ) {
 				$parts[] = array( 'text' => substr( $inner, $i, $close + 1 - $i ) );
 			} else {
 				$parts[] = array(

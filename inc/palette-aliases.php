@@ -295,7 +295,9 @@ if ( ! function_exists( 'origin_canvas_palette_editor_twin_css' ) ) {
 	 * :not() of a class no element holds, so what it matches is unchanged. Once per nesting chain:
 	 * a rule with declarations of its own, or with no nested rule, takes it, and its nested rules
 	 * inherit it through &; a rule that holds only nested rules (the shadow's parent of a nested
-	 * twin) keeps its selector as the child wrote it, and its nested rules take it in turn. The editors print
+	 * twin) keeps its selector as the child wrote it, and its nested rules take it in turn. A
+	 * nested at-rule is part of its parent's chain: its declarations count as the parent's own,
+	 * and its style rules take the :not() as nested rules do. The editors print
 	 * core's global styles after every theme style and canvas asset (editor.js
 	 * useGlobalStylesRenderer: [ ...nonGlobalStyles, ...styles ]), so core's colour class (0-1-0,
 	 * !important) and its :root variables would win over a twin that wins by order on the front
@@ -314,36 +316,48 @@ if ( ! function_exists( 'origin_canvas_palette_editor_twin_css' ) ) {
 			}
 			return implode( ',', $items );
 		};
-		$rule = static function ( $prelude, $body ) use ( &$rule, $twin ) {
-			$parts  = origin_canvas_palette_css_body_parts( $body );
-			$own    = null === $parts;
-			$nested = false;
-			foreach ( null === $parts ? array() : $parts as $p ) {
-				if ( ! isset( $p['text'] ) ) {
-					$nested = true;
-				} elseif ( strlen( $p['text'] ) > origin_canvas_palette_css_skip_blank( $p['text'], 0 ) ) {
-					$own = true;
+		$own     = static function ( $parts ) use ( &$own ) {
+			foreach ( $parts as $p ) {
+				if ( isset( $p['text'] ) ? strlen( $p['text'] ) > origin_canvas_palette_css_skip_blank( $p['text'], 0 ) : isset( $p['at'] ) && $own( (array) origin_canvas_palette_css_body_parts( $p['body'] ) ) ) {
+					return true;
 				}
 			}
-			if ( $own || ! $nested ) {
+			return false;
+		};
+		$nests   = static function ( $parts ) use ( &$nests ) {
+			foreach ( $parts as $p ) {
+				if ( isset( $p['sel'] ) || ( isset( $p['at'] ) && $nests( (array) origin_canvas_palette_css_body_parts( $p['body'] ) ) ) ) {
+					return true;
+				}
+			}
+			return false;
+		};
+		$descend = static function ( $parts ) use ( &$descend, &$rule ) {
+			$out = '';
+			foreach ( $parts as $p ) {
+				if ( isset( $p['text'] ) ) {
+					$out .= $p['text'];
+				} elseif ( isset( $p['at'] ) ) {
+					$out .= $p['lead'] . $p['at'] . '{' . $descend( (array) origin_canvas_palette_css_body_parts( $p['body'] ) ) . '}';
+				} else {
+					$r    = $rule( $p['sel'], $p['body'] );
+					$out .= $p['lead'] . $r['prelude'] . $r['body'];
+				}
+			}
+			return $out;
+		};
+		$rule    = static function ( $prelude, $body ) use ( $own, $nests, $descend, $twin ) {
+			$parts = origin_canvas_palette_css_body_parts( $body );
+			if ( null === $parts || $own( $parts ) || ! $nests( $parts ) ) {
 				return array(
 					'prelude' => $twin( $prelude ),
 					'body'    => $body,
 					'flat'    => true,
 				);
 			}
-			$out = '';
-			foreach ( $parts as $p ) {
-				if ( isset( $p['text'] ) ) {
-					$out .= $p['text'];
-					continue;
-				}
-				$r    = $rule( $p['sel'], $p['body'] );
-				$out .= $p['lead'] . $r['prelude'] . $r['body'];
-			}
 			return array(
 				'prelude' => $prelude,
-				'body'    => '{' . $out . '}',
+				'body'    => '{' . $descend( $parts ) . '}',
 				'flat'    => true,
 			);
 		};
