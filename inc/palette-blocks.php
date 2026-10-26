@@ -1043,7 +1043,12 @@ if ( ! function_exists( 'origin_canvas_palette_css_code_hits' ) ) {
 	 * Old codes in a stylesheet's code: as origin_canvas_palette_css_hits(), outside comments,
 	 * quoted strings and url() arguments, which the rewrite also leaves. A comment that names an
 	 * old variable is not an old code in use. An escape or a non-ASCII byte is read as a name
-	 * byte, as CSS reads it, so .has-text-muted-color\:hover names another class.
+	 * byte, as CSS reads it.
+	 *
+	 * An old class counts only where the rewrite reads one: a class token in a style rule's
+	 * selector (.has-text-muted-color, or the one-class value of [class~=…] or [class=…]), nested
+	 * or inside a descended at-rule. An old class name in any other attribute's value or in a
+	 * declaration value is text, not a recognised colour field, so it does not mark a site.
 	 *
 	 * @param string $css CSS.
 	 * @return string[]
@@ -1057,7 +1062,24 @@ if ( ! function_exists( 'origin_canvas_palette_css_code_hits' ) ) {
 				return $plain;
 			}
 		);
-		return origin_canvas_palette_css_hits( implode( ' ', $code ) );
+		$hits = array();
+		foreach ( origin_canvas_palette_css_hits( implode( ' ', $code ) ) as $h ) {
+			if ( 0 !== strpos( $h, 'class=' ) ) {
+				$hits[] = $h;
+			}
+		}
+		$classes = origin_canvas_palette_old_classes();
+		origin_canvas_palette_css_scan(
+			(string) $css,
+			static function ( $prelude ) use ( &$hits, $classes ) {
+				foreach ( origin_canvas_palette_css_tokens( $prelude, $classes ) as $t ) {
+					$hits[] = 'class=' . $t['cls'];
+				}
+				return null;
+			},
+			true
+		);
+		return array_values( array_unique( $hits ) );
 	}
 }
 
