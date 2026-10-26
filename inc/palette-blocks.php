@@ -321,8 +321,10 @@ if ( ! function_exists( 'origin_canvas_palette_lookup' ) ) {
 
 if ( ! function_exists( 'origin_canvas_palette_path_kind' ) ) {
 	/**
-	 * Which recognised field an attribute path is: 'slug', 'color', 'spacing', 'lineHeight' or ''.
-	 * A colour path can also be '' for kinds below; callers test each kind.
+	 * Which recognised field an attribute path is: 'slug', 'color', 'spacing', 'lineHeight', 'css'
+	 * or ''. A colour path can also be '' for kinds below; callers test each kind. css is the
+	 * block's own Additional CSS (WordPress 7.0, block-supports/custom-css.php: style.css), which
+	 * core prints as a block's custom CSS.
 	 *
 	 * @param array $p Path.
 	 * @return array<string, bool>
@@ -334,6 +336,7 @@ if ( ! function_exists( 'origin_canvas_palette_path_kind' ) ) {
 			'color'      => false,
 			'spacing'    => false,
 			'lineHeight' => false,
+			'css'        => 2 === count( $p ) && 'style' === $p[0] && 'css' === $p[1],
 		);
 		if ( isset( $p[0] ) && 'style' === $p[0] ) {
 			$second          = isset( $p[1] ) ? $p[1] : null;
@@ -367,6 +370,11 @@ if ( ! function_exists( 'origin_canvas_palette_rename_value' ) ) {
 				return $to;
 			}
 			return null;
+		}
+		if ( $kinds['css'] ) {
+			// Read as core prints it; it is not in the markup, so the block's tags take no edit for it.
+			$out = origin_canvas_palette_rewrite_block_css( $v, $extra, true, $extra );
+			return $out === $v ? null : $out;
 		}
 		$out = $v;
 		if ( $kinds['color'] ) {
