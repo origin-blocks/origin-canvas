@@ -182,19 +182,23 @@ if ( ! function_exists( 'origin_canvas_palette_alias_css' ) ) {
 	 * (core's shape, never has-border-color), and per block the alias variables on the selector
 	 * core prints that block's own variables on.
 	 *
+	 * The per-request memo is kept per site and stylesheet: a multisite request that prints styles
+	 * for two sites through switch_to_blog() gives each site its own aliases.
+	 *
 	 * @return string
 	 */
 	function origin_canvas_palette_alias_css() {
-		static $css = null;
-		if ( null !== $css ) {
-			return $css;
+		static $memo = array();
+		$site = get_current_blog_id() . '|' . get_stylesheet();
+		if ( isset( $memo[ $site ] ) ) {
+			return $memo[ $site ];
 		}
 		$levels = origin_canvas_palette_alias_levels();
 		$key    = md5( ORIGIN_CANVAS_VERSION . '|' . get_stylesheet() . '|' . wp_json_encode( $levels ) );
 		$cached = get_transient( 'origin_canvas_palette_aliases' );
 		if ( is_array( $cached ) && isset( $cached['key'], $cached['css'] ) && $cached['key'] === $key ) {
-			$css = (string) $cached['css'];
-			return $css;
+			$memo[ $site ] = (string) $cached['css'];
+			return $memo[ $site ];
 		}
 
 		$root = origin_canvas_palette_alias_decls( $levels['root'], array( 'color', 'spacing', 'lineHeight' ) );
@@ -236,6 +240,7 @@ if ( ! function_exists( 'origin_canvas_palette_alias_css' ) ) {
 				'css' => $css,
 			)
 		);
+		$memo[ $site ] = $css;
 		return $css;
 	}
 }
