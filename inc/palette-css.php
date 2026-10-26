@@ -435,6 +435,43 @@ if ( ! function_exists( 'origin_canvas_palette_css_body_parts' ) ) {
 	}
 }
 
+if ( ! function_exists( 'origin_canvas_palette_css_skip_comments' ) ) {
+	/**
+	 * The offset past any comments that start at $i, whitespace not included. Inside a selector
+	 * token a comment counts as nothing (CSS drops comments before it reads tokens), so .x, a
+	 * colon before not( and a colon before a pseudo-element are read across one.
+	 *
+	 * @param string $text Selector text.
+	 * @param int    $i    Offset.
+	 * @return int
+	 */
+	function origin_canvas_palette_css_skip_comments( $text, $i ) {
+		$len = strlen( $text );
+		while ( $i + 1 < $len && '/' === $text[ $i ] && '*' === $text[ $i + 1 ] ) {
+			$i += origin_canvas_palette_css_protected_at( $text, $i );
+		}
+		return $i;
+	}
+}
+
+if ( ! function_exists( 'origin_canvas_palette_css_not_at' ) ) {
+	/**
+	 * Where the argument of a :not( at $i starts, or -1. A colon, any comments and not( (any case)
+	 * open one; the comment bytes stay where they are.
+	 *
+	 * @param string $text Selector text.
+	 * @param int    $i    Offset.
+	 * @return int
+	 */
+	function origin_canvas_palette_css_not_at( $text, $i ) {
+		if ( ':' !== $text[ $i ] ) {
+			return -1;
+		}
+		$j = origin_canvas_palette_css_skip_comments( $text, $i + 1 );
+		return 0 === strncasecmp( substr( $text, $j, 4 ), 'not(', 4 ) ? $j + 4 : -1;
+	}
+}
+
 if ( ! function_exists( 'origin_canvas_palette_css_bracket_end' ) ) {
 	/**
 	 * Offset just past the ] that closes the attribute selector opening at $i, comments and
@@ -495,8 +532,12 @@ if ( ! function_exists( 'origin_canvas_palette_css_append_at' ) ) {
 				++$depth;
 			} elseif ( ')' === $ch ) {
 				--$depth;
-			} elseif ( ':' === $ch && 0 === $depth && ( ':' === substr( $item, $i + 1, 1 ) || preg_match( '/\G:(?:before|after|first-line|first-letter)(?![a-zA-Z0-9_-])/i', $item, $m, 0, $i ) ) ) {
-				return $i;
+			} elseif ( ':' === $ch && 0 === $depth ) {
+				// A comment after the colon counts as nothing: a colon, a comment and before is :before.
+				$k = origin_canvas_palette_css_skip_comments( $item, $i + 1 );
+				if ( ':' === substr( $item, $k, 1 ) || preg_match( '/\G(?:before|after|first-line|first-letter)(?![a-zA-Z0-9_-])/i', $item, $m, 0, $k ) ) {
+					return $i;
+				}
 			}
 			if ( ! origin_canvas_palette_css_is_space( $ch ) ) {
 				$end = $i + 1;
@@ -569,10 +610,11 @@ if ( ! function_exists( 'origin_canvas_palette_css_tokens' ) ) {
 				$i = origin_canvas_palette_css_bracket_end( $text, $i );
 				continue;
 			}
-			if ( ':' === $ch && 0 === strncasecmp( substr( $text, $i, 5 ), ':not(', 5 ) ) {
+			$na = origin_canvas_palette_css_not_at( $text, $i );
+			if ( -1 !== $na ) {
 				++$depth;
 				$nots[] = $depth;
-				$i     += 5;
+				$i      = $na;
 				continue;
 			}
 			if ( '(' === $ch ) {
@@ -589,19 +631,20 @@ if ( ! function_exists( 'origin_canvas_palette_css_tokens' ) ) {
 				continue;
 			}
 			if ( '.' === $ch ) {
-				$l = strspn( $text, 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-', $i + 1 );
+				$s = origin_canvas_palette_css_skip_comments( $text, $i + 1 );
+				$l = strspn( $text, 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-', $s );
 				if ( $l > 0 ) {
-					$cls  = substr( $text, $i + 1, $l );
-					$next = substr( $text, $i + 1 + $l, 1 );
+					$cls  = substr( $text, $s, $l );
+					$next = substr( $text, $s + $l, 1 );
 					if ( array_key_exists( $cls, $map ) && '\\' !== $next && ( '' === $next || ord( $next ) < 0x80 ) ) {
 						$out[] = array(
-							'start'   => $i + 1,
-							'end'     => $i + 1 + $l,
+							'start'   => $s,
+							'end'     => $s + $l,
 							'cls'     => $cls,
 							'negated' => count( $nots ) > 0,
 						);
 					}
-					$i += 1 + $l;
+					$i = $s + $l;
 					continue;
 				}
 			}
@@ -677,10 +720,11 @@ if ( ! function_exists( 'origin_canvas_palette_css_expand_negations' ) ) {
 				$i    = $stop;
 				continue;
 			}
-			if ( ':' === $ch && 0 === strncasecmp( substr( $text, $i, 5 ), ':not(', 5 ) ) {
+			$na = origin_canvas_palette_css_not_at( $text, $i );
+			if ( -1 !== $na ) {
 				// Find the matching parenthesis.
 				$depth = 0;
-				for ( $j = $i + 4; $j < $len; $j++ ) {
+				for ( $j = $na - 1; $j < $len; $j++ ) {
 					$c = $text[ $j ];
 					$m = origin_canvas_palette_css_selector_protected_at( $text, $j );
 					if ( $m ) {
@@ -696,7 +740,7 @@ if ( ! function_exists( 'origin_canvas_palette_css_expand_negations' ) ) {
 						}
 					}
 				}
-				$arg     = (string) substr( $text, $i + 5, max( 0, $j - $i - 5 ) );
+				$arg     = (string) substr( $text, $na, max( 0, $j - $na ) );
 				$args    = array();
 				$present = array();
 				foreach ( origin_canvas_palette_css_split_items( $arg ) as $a ) {
@@ -713,7 +757,7 @@ if ( ! function_exists( 'origin_canvas_palette_css_expand_negations' ) ) {
 						}
 					}
 				}
-				$out .= substr( $text, $i, 5 ) . implode( ',', $args ) . $added . ')';
+				$out .= substr( $text, $i, $na - $i ) . implode( ',', $args ) . $added . ')';
 				$i    = $j + 1;
 				continue;
 			}
