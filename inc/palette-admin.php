@@ -106,6 +106,8 @@ if ( ! function_exists( 'origin_canvas_palette_update_batch' ) ) {
 				array(
 					'cursor'  => 0,
 					'skipped' => array(),
+					'locked'  => array(),
+					'changed' => array(),
 					'failed'  => array(),
 					'done'    => false,
 					'start'   => time(),
@@ -169,6 +171,7 @@ if ( ! function_exists( 'origin_canvas_palette_update_batch' ) ) {
 			++$handled;
 			if ( '' !== origin_canvas_palette_open_reason( $post ) ) {
 				$response['locked'][] = $id;
+				$journal['locked'][]  = $id;
 				$journal['skipped'][] = $id;
 			} else {
 				$result = origin_canvas_palette_write_post( $id, $content, $next );
@@ -181,6 +184,7 @@ if ( ! function_exists( 'origin_canvas_palette_update_batch' ) ) {
 					}
 				} elseif ( 'changed' === $result ) {
 					$response['changed'][] = $id;
+					$journal['changed'][]  = $id;
 					$journal['skipped'][]  = $id;
 				} else {
 					$response['failed'][] = $id;
@@ -190,6 +194,8 @@ if ( ! function_exists( 'origin_canvas_palette_update_batch' ) ) {
 			$journal['cursor'] = $id;
 		}
 		$journal['skipped']        = wp_parse_id_list( $journal['skipped'] );
+		$journal['locked']         = wp_parse_id_list( $journal['locked'] );
+		$journal['changed']        = wp_parse_id_list( $journal['changed'] );
 		$journal['failed']         = wp_parse_id_list( $journal['failed'] );
 		$journal['collision_done'] = wp_parse_id_list( $journal['collision_done'] );
 		$response['skipped']       = wp_parse_id_list( array_merge( $response['locked'], $response['changed'] ) );
@@ -198,6 +204,12 @@ if ( ! function_exists( 'origin_canvas_palette_update_batch' ) ) {
 			// The walk ends: count what is left (locked, changed and failed posts still count).
 			$journal['done'] = true;
 			origin_canvas_palette_save_journal( $journal );
+			// The whole run's skips and failures, earlier batches included: a run resumed after a
+			// reload reports them, not only what its last batch met.
+			$response['locked']    = wp_parse_id_list( array_merge( $response['locked'], $journal['locked'] ) );
+			$response['changed']   = wp_parse_id_list( array_merge( $response['changed'], $journal['changed'] ) );
+			$response['failed']    = wp_parse_id_list( array_merge( $response['failed'], $journal['failed'] ) );
+			$response['skipped']   = wp_parse_id_list( array_merge( $response['locked'], $response['changed'], $journal['skipped'] ) );
 			$d                     = origin_canvas_palette_detect( true );
 			$response['remaining'] = (int) $d['content'];
 			$response['done']      = true;

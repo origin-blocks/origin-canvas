@@ -77,6 +77,8 @@ if ( ! function_exists( 'origin_canvas_palette_journal' ) ) {
 			array(
 				'cursor'         => 0,
 				'skipped'        => array(),
+				'locked'         => array(),
+				'changed'        => array(),
 				'failed'         => array(),
 				'done'           => true,
 				'start'          => 0,

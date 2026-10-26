@@ -79,6 +79,9 @@
 			// Done only when nothing is left and every store moved.
 			if ( total.remaining === 0 && ! [ total.gs, total.additionalCss, total.gsCss ].includes( 'failed' ) ) {
 				line( s.nothing );
+			} else if ( total.remaining > 0 && ! total.locked.size && ! total.changed.size && ! total.failed.size ) {
+				// Content is left and no line above says why: never a blank report.
+				line( s.stopped );
 			}
 			status.textContent = '';
 			button.disabled = false;
