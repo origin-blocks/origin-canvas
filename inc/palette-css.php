@@ -66,14 +66,10 @@ if ( ! function_exists( 'origin_canvas_palette_rename_refs' ) ) {
 	 */
 	function origin_canvas_palette_rename_refs( $s, $extra = array() ) {
 		$end      = origin_canvas_palette_ident_end();
-		$var_end  = origin_canvas_palette_css_var_end(); // var() as the css reader takes it: spaces, a fallback.
 		$patterns = array(
 			array( '/var:preset\|color\|([a-z0-9-]+)' . $end . '/', 'color', 'var:preset|color|' ),
-			array( '/var\(\s*--wp--preset--color--([a-z0-9-]+)' . $var_end . '/', 'color', '--wp--preset--color--' ),
 			array( '/var:preset\|spacing\|([a-z0-9-]+)' . $end . '/', 'spacing', 'var:preset|spacing|' ),
-			array( '/var\(\s*--wp--preset--spacing--([a-z0-9-]+)' . $var_end . '/', 'spacing', '--wp--preset--spacing--' ),
 			array( '/var:custom\|line-height\|([a-z0-9-]+)' . $end . '/', 'lineHeight', 'var:custom|line-height|' ),
-			array( '/var\(\s*--wp--custom--line-height--([a-z0-9-]+)' . $var_end . '/', 'lineHeight', '--wp--custom--line-height--' ),
 		);
 		return origin_canvas_palette_css_map_outside(
 			(string) $s,
@@ -92,9 +88,92 @@ if ( ! function_exists( 'origin_canvas_palette_rename_refs' ) ) {
 						$plain
 					);
 				}
-				return $plain;
+				// CSS variables, read as CSS reads them: var( and the name decoded.
+				return origin_canvas_palette_css_rename_var_refs( $plain, $extra );
 			}
 		);
+	}
+}
+
+if ( ! function_exists( 'origin_canvas_palette_css_var_refs' ) ) {
+	/**
+	 * The var() references in a text outside comments, strings and url() arguments, read as CSS
+	 * reads them: the function name and the variable name are compared decoded (v\61r( is var(,
+	 * --wp--preset--color--text-mute\64 is --wp--preset--color--text-muted), any case for var.
+	 * A name ends at whitespace, a comma, ) or the end of the text; any other byte makes it another
+	 * name. List of array( name start, name end, decoded name ).
+	 *
+	 * @param string $plain Text.
+	 * @return array
+	 */
+	function origin_canvas_palette_css_var_refs( $plain ) {
+		$out = array();
+		$len = strlen( $plain );
+		for ( $i = 0; $i < $len; ) {
+			list( $name, $end ) = origin_canvas_palette_css_ident_at( $plain, $i );
+			if ( $end === $i ) {
+				++$i;
+				continue;
+			}
+			$i = $end;
+			if ( 'var' !== strtolower( $name ) || '(' !== substr( $plain, $end, 1 ) ) {
+				continue;
+			}
+			$s = $end + 1;
+			while ( $s < $len && origin_canvas_palette_css_is_space( $plain[ $s ] ) ) {
+				++$s;
+			}
+			list( $var, $e ) = origin_canvas_palette_css_ident_at( $plain, $s );
+			if ( $e > $s && ( $e >= $len || ',' === $plain[ $e ] || ')' === $plain[ $e ] || origin_canvas_palette_css_is_space( $plain[ $e ] ) ) ) {
+				$out[] = array( $s, $e, $var );
+			}
+			$i = $end + 1; // A fallback may hold another var().
+		}
+		return $out;
+	}
+}
+
+if ( ! function_exists( 'origin_canvas_palette_css_var_kind' ) ) {
+	/**
+	 * The kind and slug of a decoded preset variable name: array( kind, prefix, slug ), or null.
+	 *
+	 * @param string $name Variable name, decoded.
+	 * @return array|null
+	 */
+	function origin_canvas_palette_css_var_kind( $name ) {
+		$forms = array(
+			'color'      => '--wp--preset--color--',
+			'spacing'    => '--wp--preset--spacing--',
+			'lineHeight' => '--wp--custom--line-height--',
+		);
+		foreach ( $forms as $kind => $prefix ) {
+			if ( 0 === strpos( $name, $prefix ) ) {
+				$slug = (string) substr( $name, strlen( $prefix ) );
+				return '' !== $slug && strlen( $slug ) === strspn( $slug, 'abcdefghijklmnopqrstuvwxyz0123456789-' ) ? array( $kind, $prefix, $slug ) : null;
+			}
+		}
+		return null;
+	}
+}
+
+if ( ! function_exists( 'origin_canvas_palette_css_rename_var_refs' ) ) {
+	/**
+	 * Rename the old preset variables that var() references name in a plain text (no comments,
+	 * strings or url() arguments in it). The renamed name is written plain; every other byte stays.
+	 *
+	 * @param string $plain Text.
+	 * @param array  $extra Collision map.
+	 * @return string
+	 */
+	function origin_canvas_palette_css_rename_var_refs( $plain, $extra = array() ) {
+		foreach ( array_reverse( origin_canvas_palette_css_var_refs( $plain ) ) as $r ) {
+			$v = origin_canvas_palette_css_var_kind( $r[2] );
+			$to = $v ? origin_canvas_palette_lookup( $v[0], $v[2], $extra ) : '';
+			if ( '' !== $to ) {
+				$plain = substr( $plain, 0, $r[0] ) . $v[1] . $to . substr( $plain, $r[1] );
+			}
+		}
+		return $plain;
 	}
 }
 
@@ -1460,19 +1539,6 @@ if ( ! function_exists( 'origin_canvas_palette_css_decl_twins' ) ) {
 	}
 }
 
-if ( ! function_exists( 'origin_canvas_palette_css_var_end' ) ) {
-	/**
-	 * The regex lookahead that ends a variable name inside var(): whitespace, a comma, the closing
-	 * parenthesis or the end of the plain text. Any other next byte makes it another name
-	 * (--wp--preset--color--text-muted_custom, an escape, a non-ASCII byte), which stays as it is.
-	 *
-	 * @return string
-	 */
-	function origin_canvas_palette_css_var_end() {
-		return '(?=[\s,)]|$)';
-	}
-}
-
 if ( ! function_exists( 'origin_canvas_palette_css_rename_vars_in' ) ) {
 	/**
 	 * Rename var() references to old presets in a declaration text, outside protected runs.
@@ -1482,29 +1548,10 @@ if ( ! function_exists( 'origin_canvas_palette_css_rename_vars_in' ) ) {
 	 * @return string
 	 */
 	function origin_canvas_palette_css_rename_vars_in( $text, $extra = array() ) {
-		$forms = array(
-			'color'      => '--wp--preset--color--',
-			'spacing'    => '--wp--preset--spacing--',
-			'lineHeight' => '--wp--custom--line-height--',
-		);
 		return origin_canvas_palette_css_map_outside(
 			$text,
-			static function ( $plain ) use ( $forms, $extra ) {
-				foreach ( $forms as $kind => $prefix ) {
-					$plain = preg_replace_callback(
-						'/var\(\s*' . preg_quote( $prefix, '/' ) . '([a-z0-9-]+)' . origin_canvas_palette_css_var_end() . '/',
-						static function ( $m ) use ( $kind, $prefix, $extra ) {
-							$to = origin_canvas_palette_lookup( $kind, $m[1], $extra );
-							if ( '' === $to ) {
-								return $m[0];
-							}
-							$pos = strpos( $m[0], $prefix . $m[1] );
-							return substr( $m[0], 0, $pos ) . $prefix . $to . substr( $m[0], $pos + strlen( $prefix . $m[1] ) );
-						},
-						$plain
-					);
-				}
-				return $plain;
+			static function ( $plain ) use ( $extra ) {
+				return origin_canvas_palette_css_rename_var_refs( $plain, $extra );
 			}
 		);
 	}
@@ -1678,14 +1725,11 @@ if ( ! function_exists( 'origin_canvas_palette_css_refs' ) ) {
 				}
 				origin_canvas_palette_css_map_outside(
 					$body,
-					static function ( $plain ) use ( $forms, $want, &$refs ) {
-						foreach ( $forms as $kind => $prefix ) {
-							if ( preg_match_all( '/var\(\s*' . preg_quote( $prefix, '/' ) . '([a-z0-9-]+)' . origin_canvas_palette_css_var_end() . '/', $plain, $all ) ) {
-								foreach ( $all[1] as $s ) {
-									if ( isset( $want[ $kind ][ $s ] ) ) {
-										$refs[ $kind ][ $s ] = true;
-									}
-								}
+					static function ( $plain ) use ( $want, &$refs ) {
+						foreach ( origin_canvas_palette_css_var_refs( $plain ) as $r ) {
+							$v = origin_canvas_palette_css_var_kind( $r[2] );
+							if ( $v && isset( $want[ $v[0] ][ $v[2] ] ) ) {
+								$refs[ $v[0] ][ $v[2] ] = true;
 							}
 						}
 						return $plain;

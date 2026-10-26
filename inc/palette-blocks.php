@@ -1122,12 +1122,41 @@ if ( ! function_exists( 'origin_canvas_palette_css_hits' ) ) {
 	}
 }
 
+if ( ! function_exists( 'origin_canvas_palette_css_decode_names' ) ) {
+	/**
+	 * A CSS text with each escape decoded, as CSS reads a name: an escaped letter, digit or - is
+	 * that byte (text-mute\64 is text-muted, v\61r is var); any other escaped byte, a backslash
+	 * and a newline, and a non-ASCII byte are _, a name byte that is in no code. For reading only.
+	 *
+	 * @param string $text CSS.
+	 * @return string
+	 */
+	function origin_canvas_palette_css_decode_names( $text ) {
+		$out = '';
+		$len = strlen( $text );
+		for ( $i = 0; $i < $len; ) {
+			$c = $text[ $i ];
+			if ( '\\' === $c && $i + 1 < $len && false === strpos( "\n\r\f", $text[ $i + 1 ] ) ) {
+				list( $b, $i ) = origin_canvas_palette_css_escape_at( $text, $i );
+				$out          .= 1 === strspn( $b, 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-' ) ? $b : '_';
+			} elseif ( '\\' === $c ) {
+				$out .= '_';
+				$i   += min( 2, $len - $i );
+			} else {
+				$out .= ord( $c ) >= 0x80 ? '_' : $c;
+				++$i;
+			}
+		}
+		return $out;
+	}
+}
+
 if ( ! function_exists( 'origin_canvas_palette_css_code_hits' ) ) {
 	/**
 	 * Old codes in a stylesheet's code: as origin_canvas_palette_css_hits(), outside comments,
 	 * quoted strings and url() arguments, which the rewrite also leaves. A comment that names an
-	 * old variable is not an old code in use. An escape or a non-ASCII byte is read as a name
-	 * byte, as CSS reads it.
+	 * old variable is not an old code in use. Escapes are decoded and a non-ASCII byte is a name
+	 * byte, as CSS reads them (--wp--preset--color--text-mute\64 is an old variable).
 	 *
 	 * An old class counts only where the rewrite reads one: a class token in a style rule's
 	 * selector (.has-text-muted-color, or the one-class value of [class~=…] or [class=…]), nested
@@ -1150,7 +1179,7 @@ if ( ! function_exists( 'origin_canvas_palette_css_code_hits' ) ) {
 				false
 			),
 			static function ( $plain ) use ( &$code ) {
-				$code[] = preg_replace( '/\\\\.?|[\x80-\xff]/s', '_', $plain );
+				$code[] = origin_canvas_palette_css_decode_names( $plain );
 				return $plain;
 			}
 		);
