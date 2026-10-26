@@ -771,7 +771,8 @@ if ( ! function_exists( 'origin_canvas_palette_recount_styles' ) ) {
 	 *
 	 * One Global Styles save fires this twice, for the revision and for the record, over the same
 	 * saved stores; the second call finds the stores as the first counted them and returns, so a
-	 * request counts each state of the stores once.
+	 * request counts each state of the stores once. The blog is part of the fingerprint: cloned
+	 * sites saved in one request through switch_to_blog() can hold the same post IDs and content.
 	 *
 	 * @return void
 	 */
@@ -783,7 +784,7 @@ if ( ! function_exists( 'origin_canvas_palette_recount_styles' ) ) {
 		foreach ( $posts as $p ) {
 			$key[] = array( (int) $p->ID, (string) $p->post_content );
 		}
-		$key = md5( serialize( array( $key, $stores ) ) ); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_serialize -- a fingerprint, never stored.
+		$key = md5( serialize( array( get_current_blog_id(), $key, $stores ) ) ); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_serialize -- a fingerprint, never stored.
 		if ( $key === $counted ) {
 			return;
 		}
