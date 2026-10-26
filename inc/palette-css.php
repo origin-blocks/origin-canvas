@@ -141,6 +141,24 @@ if ( ! function_exists( 'origin_canvas_palette_css_protected_at' ) ) {
 	}
 }
 
+if ( ! function_exists( 'origin_canvas_palette_css_selector_protected_at' ) ) {
+	/**
+	 * Length of a comment or quoted string starting at $i in a selector, or 0. A selector reads
+	 * neither as code: a class or a parenthesis inside one is left as it is.
+	 *
+	 * @param string $text Selector text.
+	 * @param int    $i    Offset.
+	 * @return int
+	 */
+	function origin_canvas_palette_css_selector_protected_at( $text, $i ) {
+		$ch = $text[ $i ];
+		if ( '"' === $ch || "'" === $ch || ( '/' === $ch && '*' === substr( $text, $i + 1, 1 ) ) ) {
+			return origin_canvas_palette_css_protected_at( $text, $i );
+		}
+		return 0;
+	}
+}
+
 if ( ! function_exists( 'origin_canvas_palette_css_map_outside' ) ) {
 	/**
 	 * Apply $fn to the text outside comments, strings and url() arguments.
@@ -339,8 +357,8 @@ if ( ! function_exists( 'origin_canvas_palette_css_split_items' ) ) {
 
 if ( ! function_exists( 'origin_canvas_palette_css_tokens' ) ) {
 	/**
-	 * Class tokens in a selector text that are keys of $map, outside strings and attribute
-	 * selectors: list of array( start, end, cls, negated ).
+	 * Class tokens in a selector text that are keys of $map, outside comments, strings and
+	 * attribute selectors: list of array( start, end, cls, negated ).
 	 *
 	 * @param string $text Selector text.
 	 * @param array  $map  Class map.
@@ -354,7 +372,7 @@ if ( ! function_exists( 'origin_canvas_palette_css_tokens' ) ) {
 		$len     = strlen( $text );
 		for ( $i = 0; $i < $len; ) {
 			$ch = $text[ $i ];
-			$n  = ( '"' === $ch || "'" === $ch ) ? origin_canvas_palette_css_protected_at( $text, $i ) : 0;
+			$n  = origin_canvas_palette_css_selector_protected_at( $text, $i );
 			if ( $n ) {
 				$i += $n;
 				continue;
@@ -468,7 +486,7 @@ if ( ! function_exists( 'origin_canvas_palette_css_expand_negations' ) ) {
 		$len = strlen( $text );
 		while ( $i < $len ) {
 			$ch = $text[ $i ];
-			$n  = ( '"' === $ch || "'" === $ch ) ? origin_canvas_palette_css_protected_at( $text, $i ) : 0;
+			$n  = origin_canvas_palette_css_selector_protected_at( $text, $i );
 			if ( $n ) {
 				$out .= substr( $text, $i, $n );
 				$i   += $n;
@@ -486,7 +504,7 @@ if ( ! function_exists( 'origin_canvas_palette_css_expand_negations' ) ) {
 				$depth = 0;
 				for ( $j = $i + 4; $j < $len; $j++ ) {
 					$c = $text[ $j ];
-					$m = ( '"' === $c || "'" === $c ) ? origin_canvas_palette_css_protected_at( $text, $j ) : 0;
+					$m = origin_canvas_palette_css_selector_protected_at( $text, $j );
 					if ( $m ) {
 						$j += $m - 1;
 						continue;
