@@ -485,6 +485,141 @@ if ( ! function_exists( 'origin_canvas_palette_css_body_parts' ) ) {
 	}
 }
 
+if ( ! function_exists( 'origin_canvas_palette_css_escape_at' ) ) {
+	/**
+	 * The escape at $i (a backslash not followed by a newline) as CSS decodes it: array( byte,
+	 * end ). Up to six hex digits and one whitespace after them are one code point; any other byte
+	 * stands for itself. A code point outside ASCII, and 0, which CSS reads as U+FFFD, is the one
+	 * placeholder byte 0x80: every name this is compared with is ASCII.
+	 *
+	 * @param string $text Text.
+	 * @param int    $i    Offset of the backslash.
+	 * @return array{0: string, 1: int}
+	 */
+	function origin_canvas_palette_css_escape_at( $text, $i ) {
+		$len = strlen( $text );
+		$j   = $i + 1;
+		if ( $j >= $len ) {
+			return array( "\x80", $len );
+		}
+		$hex = strspn( $text, '0123456789abcdefABCDEF', $j, 6 );
+		if ( $hex ) {
+			$cp = hexdec( substr( $text, $j, $hex ) );
+			$j += $hex;
+			if ( "\r\n" === substr( $text, $j, 2 ) ) {
+				$j += 2;
+			} elseif ( $j < $len && origin_canvas_palette_css_is_space( $text[ $j ] ) ) {
+				++$j;
+			}
+			return array( $cp > 0 && $cp < 0x80 ? chr( $cp ) : "\x80", $j );
+		}
+		return array( ord( $text[ $j ] ) < 0x80 ? $text[ $j ] : "\x80", $j + 1 );
+	}
+}
+
+if ( ! function_exists( 'origin_canvas_palette_css_ident_at' ) ) {
+	/**
+	 * The name that starts at $i, decoded as CSS reads it, for comparison only: array( name, end ).
+	 * Name bytes are letters, digits, _ and -, any non-ASCII byte (read as 0x80) and escapes, so
+	 * n\6ft is not and has-text-muted-colo\72 is has-text-muted-color; end includes the
+	 * whitespace a hex escape takes. The bytes in the text are never changed.
+	 *
+	 * @param string $text Text.
+	 * @param int    $i    Offset.
+	 * @return array{0: string, 1: int}
+	 */
+	function origin_canvas_palette_css_ident_at( $text, $i ) {
+		$len  = strlen( $text );
+		$name = '';
+		while ( $i < $len ) {
+			$c = $text[ $i ];
+			if ( '\\' === $c ) {
+				if ( $i + 1 < $len && false !== strpos( "\n\r\f", $text[ $i + 1 ] ) ) {
+					break;
+				}
+				list( $b, $i ) = origin_canvas_palette_css_escape_at( $text, $i );
+				$name         .= $b;
+			} elseif ( ord( $c ) >= 0x80 ) {
+				$name .= "\x80";
+				++$i;
+			} elseif ( 1 === strspn( $c, 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-' ) ) {
+				$name .= $c;
+				++$i;
+			} else {
+				break;
+			}
+		}
+		return array( $name, $i );
+	}
+}
+
+if ( ! function_exists( 'origin_canvas_palette_css_class_attr' ) ) {
+	/**
+	 * The class a class attribute selector holds, from the text between its brackets: array(
+	 * value start, value end, class ), or null. The form is class, = or ~=, one class unquoted or
+	 * quoted, and an optional i or s flag, with whitespace between the parts; names, the value and
+	 * the flag are compared decoded ([cl\61ss~=…] is a class selector, [class\~=…] is not). For a
+	 * quoted value the range is the text inside the quotes.
+	 *
+	 * @param string $inner Text between [ and ].
+	 * @return array|null
+	 */
+	function origin_canvas_palette_css_class_attr( $inner ) {
+		$len  = strlen( $inner );
+		$skip = static function ( $p ) use ( $inner, $len ) {
+			while ( $p < $len && origin_canvas_palette_css_is_space( $inner[ $p ] ) ) {
+				++$p;
+			}
+			return $p;
+		};
+		list( $name, $p ) = origin_canvas_palette_css_ident_at( $inner, $skip( 0 ) );
+		if ( 'class' !== $name ) {
+			return null;
+		}
+		$p = $skip( $p );
+		if ( '~=' === substr( $inner, $p, 2 ) ) {
+			$p += 2;
+		} elseif ( '=' === substr( $inner, $p, 1 ) ) {
+			++$p;
+		} else {
+			return null;
+		}
+		$p = $skip( $p );
+		$q = substr( $inner, $p, 1 );
+		if ( '"' === $q || "'" === $q ) {
+			$start = $p + 1;
+			$value = '';
+			for ( $p = $start; $p < $len && $q !== $inner[ $p ]; ) {
+				if ( '\\' === $inner[ $p ] ) {
+					list( $b, $p ) = origin_canvas_palette_css_escape_at( $inner, $p );
+					$value        .= $b;
+				} else {
+					$value .= $inner[ $p ];
+					++$p;
+				}
+			}
+			if ( $p >= $len ) {
+				return null;
+			}
+			$end = $p;
+			++$p;
+		} else {
+			$start               = $p;
+			list( $value, $end ) = origin_canvas_palette_css_ident_at( $inner, $p );
+			$p                   = $end;
+		}
+		$p                = $skip( $p );
+		list( $flag, $f ) = origin_canvas_palette_css_ident_at( $inner, $p );
+		if ( '' !== $flag ) {
+			if ( ! in_array( strtolower( $flag ), array( 'i', 's' ), true ) ) {
+				return null;
+			}
+			$p = $skip( $f );
+		}
+		return $p === $len && '' !== $value ? array( $start, $end, $value ) : null;
+	}
+}
+
 if ( ! function_exists( 'origin_canvas_palette_css_skip_comments' ) ) {
 	/**
 	 * The offset past any comments that start at $i, whitespace not included. Inside a selector
@@ -506,8 +641,8 @@ if ( ! function_exists( 'origin_canvas_palette_css_skip_comments' ) ) {
 
 if ( ! function_exists( 'origin_canvas_palette_css_not_at' ) ) {
 	/**
-	 * Where the argument of a :not( at $i starts, or -1. A colon, any comments and not( (any case)
-	 * open one; the comment bytes stay where they are.
+	 * Where the argument of a :not( at $i starts, or -1. A colon, any comments and not( (any case,
+	 * escapes decoded: n\6ft) open one; the comment bytes stay where they are.
 	 *
 	 * @param string $text Selector text.
 	 * @param int    $i    Offset.
@@ -517,8 +652,8 @@ if ( ! function_exists( 'origin_canvas_palette_css_not_at' ) ) {
 		if ( ':' !== $text[ $i ] ) {
 			return -1;
 		}
-		$j = origin_canvas_palette_css_skip_comments( $text, $i + 1 );
-		return 0 === strncasecmp( substr( $text, $j, 4 ), 'not(', 4 ) ? $j + 4 : -1;
+		list( $name, $j ) = origin_canvas_palette_css_ident_at( $text, origin_canvas_palette_css_skip_comments( $text, $i + 1 ) );
+		return 'not' === strtolower( $name ) && '(' === substr( $text, $j, 1 ) ? $j + 1 : -1;
 	}
 }
 
@@ -584,8 +719,10 @@ if ( ! function_exists( 'origin_canvas_palette_css_append_at' ) ) {
 				--$depth;
 			} elseif ( ':' === $ch && 0 === $depth ) {
 				// A comment after the colon counts as nothing: a colon, a comment and before is :before.
-				$k = origin_canvas_palette_css_skip_comments( $item, $i + 1 );
-				if ( ':' === substr( $item, $k, 1 ) || preg_match( '/\G(?:before|after|first-line|first-letter)(?![a-zA-Z0-9_-])/i', $item, $m, 0, $k ) ) {
+				// Its name is compared decoded: :\62 efore is :before.
+				$k            = origin_canvas_palette_css_skip_comments( $item, $i + 1 );
+				list( $name ) = origin_canvas_palette_css_ident_at( $item, $k );
+				if ( ':' === substr( $item, $k, 1 ) || in_array( strtolower( $name ), array( 'before', 'after', 'first-line', 'first-letter' ), true ) ) {
 					return $i;
 				}
 			}
@@ -637,9 +774,10 @@ if ( ! function_exists( 'origin_canvas_palette_css_tokens' ) ) {
 	/**
 	 * Class tokens in a selector text that are keys of $map, outside comments, strings, escapes
 	 * and attribute selectors, plus the one-class value of a [class=…] or [class~=…] selector:
-	 * list of array( start, end, cls, negated ). A class name goes on
-	 * past an escape or a non-ASCII byte (.has-text-muted-color\:hover is another class), so a
-	 * name followed by one is no token.
+	 * list of array( start, end, cls, negated ). A class name is compared decoded: it goes on past
+	 * an escape or a non-ASCII byte (.has-text-muted-color\:hover is another class), and an old
+	 * class written with an escape (.has-text-muted-colo\72) is that class. A twin writes the new
+	 * class plain over the token's bytes.
 	 *
 	 * @param string $text Selector text.
 	 * @param array  $map  Class map.
@@ -661,18 +799,15 @@ if ( ! function_exists( 'origin_canvas_palette_css_tokens' ) ) {
 				// A class attribute selector with = or ~= and one class as its value, unquoted or
 				// quoted, with an optional i or s flag, is a class token: its twin carries the new
 				// class in the same form. *=, ^= and $= forms are not (a documented limit).
-				$stop  = origin_canvas_palette_css_bracket_end( $text, $i );
-				$inner = substr( $text, $i + 1, max( 0, $stop - $i - 2 ) );
-				if ( ']' === substr( $text, $stop - 1, 1 ) && preg_match( '/^\s*class\s*~?=\s*(?:"([a-zA-Z0-9_-]+)"|\'([a-zA-Z0-9_-]+)\'|([a-zA-Z0-9_-]+))\s*(?:[iIsS]\s*)?$/D', $inner, $m, PREG_OFFSET_CAPTURE ) ) {
-					$v = end( $m );
-					if ( array_key_exists( $v[0], $map ) ) {
-						$out[] = array(
-							'start'   => $i + 1 + $v[1],
-							'end'     => $i + 1 + $v[1] + strlen( $v[0] ),
-							'cls'     => $v[0],
-							'negated' => count( $nots ) > 0,
-						);
-					}
+				$stop = origin_canvas_palette_css_bracket_end( $text, $i );
+				$attr = ']' === substr( $text, $stop - 1, 1 ) ? origin_canvas_palette_css_class_attr( substr( $text, $i + 1, $stop - $i - 2 ) ) : null;
+				if ( $attr && array_key_exists( $attr[2], $map ) ) {
+					$out[] = array(
+						'start'   => $i + 1 + $attr[0],
+						'end'     => $i + 1 + $attr[1],
+						'cls'     => $attr[2],
+						'negated' => count( $nots ) > 0,
+					);
 				}
 				$i = $stop;
 				continue;
@@ -698,20 +833,18 @@ if ( ! function_exists( 'origin_canvas_palette_css_tokens' ) ) {
 				continue;
 			}
 			if ( '.' === $ch ) {
-				$s = origin_canvas_palette_css_skip_comments( $text, $i + 1 );
-				$l = strspn( $text, 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-', $s );
-				if ( $l > 0 ) {
-					$cls  = substr( $text, $s, $l );
-					$next = substr( $text, $s + $l, 1 );
-					if ( array_key_exists( $cls, $map ) && '\\' !== $next && ( '' === $next || ord( $next ) < 0x80 ) ) {
+				$s                 = origin_canvas_palette_css_skip_comments( $text, $i + 1 );
+				list( $cls, $end ) = origin_canvas_palette_css_ident_at( $text, $s );
+				if ( $end > $s ) {
+					if ( array_key_exists( $cls, $map ) ) {
 						$out[] = array(
 							'start'   => $s,
-							'end'     => $s + $l,
+							'end'     => $end,
 							'cls'     => $cls,
 							'negated' => count( $nots ) > 0,
 						);
 					}
-					$i = $s + $l;
+					$i = $end;
 					continue;
 				}
 			}
