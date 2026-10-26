@@ -302,11 +302,9 @@ if ( ! function_exists( 'origin_canvas_palette_editor_twin_css' ) ) {
 			static function ( $prelude, $body ) {
 				$items = array();
 				foreach ( origin_canvas_palette_css_split_items( $prelude ) as $item ) {
-					$trimmed = rtrim( $item );
-					$tail    = (string) substr( $item, strlen( $trimmed ) );
-					// Before a trailing pseudo-element, which must end the selector.
-					$at = preg_match( '/(::[a-zA-Z-]+(?:\([^)]*\))?|:(?:before|after|first-line|first-letter))$/i', $trimmed, $m ) ? strlen( $trimmed ) - strlen( $m[0] ) : strlen( $trimmed );
-					$items[] = substr( $trimmed, 0, $at ) . ':not(.origin-canvas-editor-twin)' . substr( $trimmed, $at ) . $tail;
+					// Before a pseudo-element, which must end the selector; before a trailing comment.
+					$at      = origin_canvas_palette_css_append_at( $item );
+					$items[] = substr( $item, 0, $at ) . ':not(.origin-canvas-editor-twin)' . substr( $item, $at );
 				}
 				return array(
 					'prelude' => implode( ',', $items ),

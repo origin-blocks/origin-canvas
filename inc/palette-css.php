@@ -347,6 +347,57 @@ if ( ! function_exists( 'origin_canvas_palette_css_bracket_end' ) ) {
 	}
 }
 
+if ( ! function_exists( 'origin_canvas_palette_css_append_at' ) ) {
+	/**
+	 * Where a simple selector joins the end of an item's last compound: before its first
+	 * pseudo-element (::x, or :before, :after, :first-line, :first-letter) outside parentheses and
+	 * attribute selectors, else just past its last byte of code. Comments, quoted strings and
+	 * escaped characters are opaque, so a comment after the selector keeps its place and a
+	 * pseudo-element named in one is not read.
+	 *
+	 * @param string $item Selector item.
+	 * @return int
+	 */
+	function origin_canvas_palette_css_append_at( $item ) {
+		$len   = strlen( $item );
+		$depth = 0;
+		$end   = 0;
+		for ( $i = 0; $i < $len; ) {
+			$n = origin_canvas_palette_css_selector_protected_at( $item, $i );
+			if ( $n ) {
+				if ( '/' !== $item[ $i ] ) {
+					$end = $i + $n;
+				}
+				$i += $n;
+				continue;
+			}
+			$ch = $item[ $i ];
+			if ( '\\' === $ch ) {
+				$i  += 2;
+				$end = min( $i, $len );
+				continue;
+			}
+			if ( '[' === $ch ) {
+				$i   = origin_canvas_palette_css_bracket_end( $item, $i );
+				$end = $i;
+				continue;
+			}
+			if ( '(' === $ch ) {
+				++$depth;
+			} elseif ( ')' === $ch ) {
+				--$depth;
+			} elseif ( ':' === $ch && 0 === $depth && ( ':' === substr( $item, $i + 1, 1 ) || preg_match( '/\G:(?:before|after|first-line|first-letter)(?![a-zA-Z0-9_-])/i', $item, $m, 0, $i ) ) ) {
+				return $i;
+			}
+			if ( ! origin_canvas_palette_css_is_space( $ch ) ) {
+				$end = $i + 1;
+			}
+			++$i;
+		}
+		return $end;
+	}
+}
+
 if ( ! function_exists( 'origin_canvas_palette_css_split_items' ) ) {
 	/**
 	 * Split on commas at parenthesis and bracket depth 0, outside comments and quoted strings.
