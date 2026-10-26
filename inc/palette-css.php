@@ -1164,7 +1164,9 @@ if ( ! function_exists( 'origin_canvas_palette_css_prop_name' ) ) {
 	/**
 	 * A declaration's property name from the text before its colon. Comments and whitespace before
 	 * and after the name are skipped, as CSS reads them (a comment, then --x:red, declares --x);
-	 * text with anything else beside the name is returned trimmed, so it matches no property.
+	 * text with anything else beside the name is returned trimmed, so it matches no property. The
+	 * name is returned decoded, as CSS compares it (--wp--preset--color--text-mute\64 declares
+	 * --wp--preset--color--text-muted); it is only compared, never written back.
 	 *
 	 * @param string $text Text before the colon.
 	 * @return string
@@ -1174,12 +1176,15 @@ if ( ! function_exists( 'origin_canvas_palette_css_prop_name' ) ) {
 		$end   = $start;
 		$len   = strlen( $text );
 		while ( $end < $len && ! origin_canvas_palette_css_is_space( $text[ $end ] ) && ! ( '/' === $text[ $end ] && $end + 1 < $len && '*' === $text[ $end + 1 ] ) ) {
-			++$end;
+			// An escape is one unit, with the whitespace a hex escape takes (comp\61 ct).
+			$end = '\\' === $text[ $end ] ? origin_canvas_palette_css_escape_at( $text, $end )[1] : $end + 1;
 		}
 		if ( origin_canvas_palette_css_skip_blank( $text, $end ) < $len ) {
 			return trim( $text );
 		}
-		return substr( $text, $start, $end - $start );
+		$name              = substr( $text, $start, $end - $start );
+		list( $plain, $at ) = origin_canvas_palette_css_ident_at( $name, 0 );
+		return strlen( $name ) === $at ? $plain : $name;
 	}
 }
 
