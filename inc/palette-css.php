@@ -9,9 +9,10 @@
  * - Scanner: comments, quoted strings and url() arguments are skipped and kept byte for byte;
  *   @media, @supports, @container, @layer, @scope and @document are descended into; every other
  *   at-rule is kept whole.
- * - Token: a class .c with c in the class map, in a style rule's prelude, outside strings and
- *   attribute selectors.
- * - Items: the prelude split on commas at parenthesis and bracket depth 0, outside strings.
+ * - Token: a class .c with c in the class map, in a style rule's prelude, outside strings,
+ *   comments, escapes and attribute selectors.
+ * - Items: the prelude split on commas at parenthesis and bracket depth 0, outside strings,
+ *   comments and escapes.
  * - Negation: inside :not(…), each argument item holding a token gets its variants added as
  *   further arguments, so the selector excludes both names and keeps its specificity.
  * - Variants: every old/new combination of an item's positive tokens except all-old; more than
@@ -97,7 +98,9 @@ if ( ! function_exists( 'origin_canvas_palette_css_is_space' ) ) {
 
 if ( ! function_exists( 'origin_canvas_palette_css_protected_at' ) ) {
 	/**
-	 * Length of a protected run (comment, quoted string, url() argument) starting at $i, or 0.
+	 * Length of a protected run (comment, quoted string, url() argument, escape) starting at $i,
+	 * or 0. An escape is a backslash and the byte after it: CSS reads \' or \{ as part of an
+	 * identifier, never as the start of a string or a block.
 	 *
 	 * @param string $text CSS.
 	 * @param int    $i    Offset.
@@ -105,6 +108,9 @@ if ( ! function_exists( 'origin_canvas_palette_css_protected_at' ) ) {
 	 */
 	function origin_canvas_palette_css_protected_at( $text, $i ) {
 		$len = strlen( $text );
+		if ( '\\' === $text[ $i ] ) {
+			return min( 2, $len - $i );
+		}
 		if ( '/' === $text[ $i ] && $i + 1 < $len && '*' === $text[ $i + 1 ] ) {
 			$e = strpos( $text, '*/', $i + 2 );
 			return ( false === $e ? $len : $e + 2 ) - $i;
@@ -143,8 +149,9 @@ if ( ! function_exists( 'origin_canvas_palette_css_protected_at' ) ) {
 
 if ( ! function_exists( 'origin_canvas_palette_css_selector_protected_at' ) ) {
 	/**
-	 * Length of a comment or quoted string starting at $i in a selector, or 0. A selector reads
-	 * neither as code: a class or a parenthesis inside one is left as it is.
+	 * Length of a comment, quoted string or escape starting at $i in a selector, or 0. A selector
+	 * reads none of them as code: a class or a parenthesis inside one is left as it is, and an
+	 * escaped quote, bracket, comma or parenthesis is part of an identifier.
 	 *
 	 * @param string $text Selector text.
 	 * @param int    $i    Offset.
@@ -152,7 +159,7 @@ if ( ! function_exists( 'origin_canvas_palette_css_selector_protected_at' ) ) {
 	 */
 	function origin_canvas_palette_css_selector_protected_at( $text, $i ) {
 		$ch = $text[ $i ];
-		if ( '"' === $ch || "'" === $ch || ( '/' === $ch && '*' === substr( $text, $i + 1, 1 ) ) ) {
+		if ( '"' === $ch || "'" === $ch || '\\' === $ch || ( '/' === $ch && '*' === substr( $text, $i + 1, 1 ) ) ) {
 			return origin_canvas_palette_css_protected_at( $text, $i );
 		}
 		return 0;
@@ -161,7 +168,9 @@ if ( ! function_exists( 'origin_canvas_palette_css_selector_protected_at' ) ) {
 
 if ( ! function_exists( 'origin_canvas_palette_css_map_outside' ) ) {
 	/**
-	 * Apply $fn to the text outside comments, strings and url() arguments.
+	 * Apply $fn to the text outside comments, strings and url() arguments. An escape is skipped
+	 * as one unit but stays in the plain text, so a name followed by an escape
+	 * (--wp--preset--color--text-muted\@x) is still read as one name, not cut before it.
 	 *
 	 * @param string   $text CSS.
 	 * @param callable $fn   string => string.
@@ -173,7 +182,9 @@ if ( ! function_exists( 'origin_canvas_palette_css_map_outside' ) ) {
 		$len   = strlen( $text );
 		for ( $i = 0; $i < $len; ) {
 			$n = origin_canvas_palette_css_protected_at( $text, $i );
-			if ( $n ) {
+			if ( $n && '\\' === $text[ $i ] ) {
+				$i += $n;
+			} elseif ( $n ) {
 				$out  .= $fn( substr( $text, $start, $i - $start ) ) . substr( $text, $i, $n );
 				$i    += $n;
 				$start = $i;
@@ -372,11 +383,6 @@ if ( ! function_exists( 'origin_canvas_palette_css_append_at' ) ) {
 				continue;
 			}
 			$ch = $item[ $i ];
-			if ( '\\' === $ch ) {
-				$i  += 2;
-				$end = min( $i, $len );
-				continue;
-			}
 			if ( '[' === $ch ) {
 				$i   = origin_canvas_palette_css_bracket_end( $item, $i );
 				$end = $i;
@@ -400,7 +406,8 @@ if ( ! function_exists( 'origin_canvas_palette_css_append_at' ) ) {
 
 if ( ! function_exists( 'origin_canvas_palette_css_split_items' ) ) {
 	/**
-	 * Split on commas at parenthesis and bracket depth 0, outside comments and quoted strings.
+	 * Split on commas at parenthesis and bracket depth 0, outside comments, quoted strings and
+	 * escapes.
 	 *
 	 * @param string $text Selector text.
 	 * @return string[]
@@ -434,8 +441,10 @@ if ( ! function_exists( 'origin_canvas_palette_css_split_items' ) ) {
 
 if ( ! function_exists( 'origin_canvas_palette_css_tokens' ) ) {
 	/**
-	 * Class tokens in a selector text that are keys of $map, outside comments, strings and
-	 * attribute selectors: list of array( start, end, cls, negated ).
+	 * Class tokens in a selector text that are keys of $map, outside comments, strings, escapes
+	 * and attribute selectors: list of array( start, end, cls, negated ). A class name goes on
+	 * past an escape or a non-ASCII byte (.has-text-muted-color\:hover is another class), so a
+	 * name followed by one is no token.
 	 *
 	 * @param string $text Selector text.
 	 * @param array  $map  Class map.
@@ -479,8 +488,9 @@ if ( ! function_exists( 'origin_canvas_palette_css_tokens' ) ) {
 			if ( '.' === $ch ) {
 				$l = strspn( $text, 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-', $i + 1 );
 				if ( $l > 0 ) {
-					$cls = substr( $text, $i + 1, $l );
-					if ( array_key_exists( $cls, $map ) ) {
+					$cls  = substr( $text, $i + 1, $l );
+					$next = substr( $text, $i + 1 + $l, 1 );
+					if ( array_key_exists( $cls, $map ) && '\\' !== $next && ( '' === $next || ord( $next ) < 0x80 ) ) {
 						$out[] = array(
 							'start'   => $i + 1,
 							'end'     => $i + 1 + $l,

@@ -1035,7 +1035,8 @@ if ( ! function_exists( 'origin_canvas_palette_css_code_hits' ) ) {
 	/**
 	 * Old codes in a stylesheet's code: as origin_canvas_palette_css_hits(), outside comments,
 	 * quoted strings and url() arguments, which the rewrite also leaves. A comment that names an
-	 * old variable is not an old code in use.
+	 * old variable is not an old code in use. An escape or a non-ASCII byte is read as a name
+	 * byte, as CSS reads it, so .has-text-muted-color\:hover names another class.
 	 *
 	 * @param string $css CSS.
 	 * @return string[]
@@ -1045,7 +1046,7 @@ if ( ! function_exists( 'origin_canvas_palette_css_code_hits' ) ) {
 		origin_canvas_palette_css_map_outside(
 			(string) $css,
 			static function ( $plain ) use ( &$code ) {
-				$code[] = $plain;
+				$code[] = preg_replace( '/\\\\.?|[\x80-\xff]/s', '_', $plain );
 				return $plain;
 			}
 		);
