@@ -1535,7 +1535,8 @@ if ( ! function_exists( 'origin_canvas_palette_css_value_key' ) ) {
 if ( ! function_exists( 'origin_canvas_palette_css_decl_twins' ) ) {
 	/**
 	 * The declaration twins of one rule body: list of array( 'at' => value end offset,
-	 * 'text' => '<new name>:<value bytes>' ), in order.
+	 * 'text' => '<new name>:<value bytes>', 'open' => bool ), in order. An open one's value runs
+	 * into a construct left open at the end of the text; the in-place rewrite writes no twin for it.
 	 *
 	 * A twin is skipped only when the declaration right after the old one already is its twin: the
 	 * new name with the same value and the same !important, so a second run changes nothing. Every
@@ -1565,6 +1566,9 @@ if ( ! function_exists( 'origin_canvas_palette_css_decl_twins' ) ) {
 			$out[] = array(
 				'at'   => $d['value_end'],
 				'text' => $new . ':' . $value,
+				// A value that runs into an open comment, string, url( or bracket, or a backslash, at
+				// the end of the text: a twin written after it would land inside it.
+				'open' => origin_canvas_palette_css_closed( $value ) !== $value,
 			);
 		}
 		return $out;
@@ -1604,6 +1608,9 @@ if ( ! function_exists( 'origin_canvas_palette_css_rename_body' ) ) {
 		$twins = origin_canvas_palette_css_decl_twins( $body, $extra );
 		$next  = $body;
 		foreach ( array_reverse( $twins ) as $t ) {
+			if ( $t['open'] ) {
+				continue; // Unterminated: its bytes stay, with no twin in place.
+			}
 			$next = substr( $next, 0, $t['at'] ) . ';' . $t['text'] . substr( $next, $t['at'] );
 		}
 		return $vars ? origin_canvas_palette_css_rename_vars_in( $next, $extra ) : $next;
