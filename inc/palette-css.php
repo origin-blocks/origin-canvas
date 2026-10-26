@@ -564,26 +564,21 @@ if ( ! function_exists( 'origin_canvas_palette_css_class_attr' ) ) {
 	/**
 	 * The class a class attribute selector holds, from the text between its brackets: array(
 	 * value start, value end, class ), or null. The form is class, = or ~=, one class unquoted or
-	 * quoted, and an optional i or s flag, with whitespace between the parts; names, the value and
-	 * the flag are compared decoded ([cl\61ss~=…] is a class selector, [class\~=…] is not). For a
-	 * quoted value the range is the text inside the quotes.
+	 * quoted, and an optional i or s flag, with whitespace and comments between the parts
+	 * (a comment between class and ~= is kept and read as nothing); names, the value and the flag are
+	 * compared decoded ([cl\61ss~=…] is a class selector, [class\~=…] is not). For a quoted value
+	 * the range is the text inside the quotes.
 	 *
 	 * @param string $inner Text between [ and ].
 	 * @return array|null
 	 */
 	function origin_canvas_palette_css_class_attr( $inner ) {
-		$len  = strlen( $inner );
-		$skip = static function ( $p ) use ( $inner, $len ) {
-			while ( $p < $len && origin_canvas_palette_css_is_space( $inner[ $p ] ) ) {
-				++$p;
-			}
-			return $p;
-		};
-		list( $name, $p ) = origin_canvas_palette_css_ident_at( $inner, $skip( 0 ) );
+		$len = strlen( $inner );
+		list( $name, $p ) = origin_canvas_palette_css_ident_at( $inner, origin_canvas_palette_css_skip_blank( $inner, 0 ) );
 		if ( 'class' !== $name ) {
 			return null;
 		}
-		$p = $skip( $p );
+		$p = origin_canvas_palette_css_skip_blank( $inner, $p );
 		if ( '~=' === substr( $inner, $p, 2 ) ) {
 			$p += 2;
 		} elseif ( '=' === substr( $inner, $p, 1 ) ) {
@@ -591,7 +586,7 @@ if ( ! function_exists( 'origin_canvas_palette_css_class_attr' ) ) {
 		} else {
 			return null;
 		}
-		$p = $skip( $p );
+		$p = origin_canvas_palette_css_skip_blank( $inner, $p );
 		$q = substr( $inner, $p, 1 );
 		if ( '"' === $q || "'" === $q ) {
 			$start = $p + 1;
@@ -615,13 +610,13 @@ if ( ! function_exists( 'origin_canvas_palette_css_class_attr' ) ) {
 			list( $value, $end ) = origin_canvas_palette_css_ident_at( $inner, $p );
 			$p                   = $end;
 		}
-		$p                = $skip( $p );
+		$p                = origin_canvas_palette_css_skip_blank( $inner, $p );
 		list( $flag, $f ) = origin_canvas_palette_css_ident_at( $inner, $p );
 		if ( '' !== $flag ) {
 			if ( ! in_array( strtolower( $flag ), array( 'i', 's' ), true ) ) {
 				return null;
 			}
-			$p = $skip( $f );
+			$p = origin_canvas_palette_css_skip_blank( $inner, $f );
 		}
 		return $p === $len && '' !== $value ? array( $start, $end, $value ) : null;
 	}
