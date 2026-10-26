@@ -143,8 +143,13 @@ if ( ! function_exists( 'origin_canvas_palette_css_protected_at' ) ) {
 			if ( $j < $len && ( '"' === $text[ $j ] || "'" === $text[ $j ] ) ) {
 				return 0; // A quoted argument is a string, skipped as one.
 			}
-			$e = strpos( $text, ')', $j );
-			return ( false === $e ? $len : $e + 1 ) - $i;
+			// The first ) that is not escaped ends it: url(x\)'y) is one argument.
+			for ( $e = $j; $e < $len && ')' !== $text[ $e ]; $e++ ) {
+				if ( '\\' === $text[ $e ] ) {
+					++$e;
+				}
+			}
+			return min( $e + 1, $len ) - $i;
 		}
 		return 0;
 	}
