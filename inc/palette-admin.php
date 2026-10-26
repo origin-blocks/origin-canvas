@@ -413,7 +413,7 @@ if ( ! function_exists( 'origin_canvas_palette_render_page' ) ) {
 
 		echo '<p><button type="button" class="button button-primary" id="origin-canvas-update-colours-run">' . esc_html__( 'Update colours', 'origin-canvas' ) . '</button></p>';
 		echo '<p id="origin-canvas-update-colours-status" data-remaining="' . esc_attr( (string) (int) $d['content'] ) . '" data-done="0" aria-live="polite"></p>';
-		echo '<ul id="origin-canvas-update-colours-report"></ul></div>';
+		echo '<ul id="origin-canvas-update-colours-report" aria-live="polite"></ul></div>';
 	}
 }
 

@@ -45,14 +45,13 @@
 		button.disabled = true;
 		status.setAttribute( 'data-done', '0' );
 		report.innerHTML = '';
-		// The status is the live region: screen readers hear the progress and the outcome there.
+		// Two live regions, each line shown once: the status carries the progress while the run is
+		// in flight, and the report list carries the outcome, one announced item per line.
 		status.textContent = s.working;
-		const said = [];
 		const line = ( text ) => {
 			const li = document.createElement( 'li' );
 			li.textContent = text;
 			report.appendChild( li );
-			said.push( text );
 		};
 		const finish = () => {
 			status.setAttribute( 'data-done', '1' );
@@ -81,7 +80,7 @@
 			if ( total.remaining === 0 && ! [ total.gs, total.additionalCss, total.gsCss ].includes( 'failed' ) ) {
 				line( s.nothing );
 			}
-			status.textContent = said.join( ' ' );
+			status.textContent = '';
 			button.disabled = false;
 		};
 		const step = () => {
@@ -108,7 +107,7 @@
 				} )
 				.catch( () => {
 					line( s.stopped );
-					status.textContent = s.stopped;
+					status.textContent = '';
 					button.disabled = false;
 				} );
 		};
