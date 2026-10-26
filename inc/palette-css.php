@@ -229,10 +229,16 @@ if ( ! function_exists( 'origin_canvas_palette_css_close_brace' ) ) {
 
 if ( ! function_exists( 'origin_canvas_palette_css_scan' ) ) {
 	/**
-	 * Walk the style rules. $on_rule( $prelude, $body ) returns null (unchanged) or
+	 * Walk the style rules. $on_rule( $prelude, $body, $nested ) returns null (unchanged) or
 	 * array( 'prelude' => …, 'body' => …, 'shadow' => … ), where body includes its braces.
 	 * In place: the stylesheet with each changed rule put back, every other byte kept. Shadow:
 	 * only the changed rules' shadow text, inside their descended at-rule preludes.
+	 *
+	 * Nested style rules (CSS nesting) are walked too: inside a style rule's body, a prelude that
+	 * ends at { and is neither an at-rule nor a custom property is a style rule. It goes through
+	 * $on_rule with $nested true, & kept, and its own body is walked the same way; declarations
+	 * and nested at-rules stay as they are. In shadow output a nested rule's shadow sits inside its
+	 * parent's prelude, as the callback returned it, so it keeps its nested context.
 	 *
 	 * @param string   $css      CSS.
 	 * @param callable $on_rule  Rule callback.
@@ -241,7 +247,69 @@ if ( ! function_exists( 'origin_canvas_palette_css_scan' ) ) {
 	 */
 	function origin_canvas_palette_css_scan( $css, $on_rule, $in_place ) {
 		$descend = array( 'media', 'supports', 'container', 'layer', 'scope', 'document' );
-		$walk    = static function ( $text ) use ( &$walk, $on_rule, $in_place, $descend ) {
+		$nest    = static function ( $body ) use ( &$nest, $on_rule, $in_place ) {
+			$len = strlen( $body );
+			if ( $len < 2 || '{' !== $body[0] || '}' !== $body[ $len - 1 ] ) {
+				return $in_place ? $body : '';
+			}
+			$inner = substr( $body, 1, -1 );
+			$len  -= 2;
+			$out   = '';
+			$i     = 0;
+			while ( $i < $len ) {
+				$k    = $i;
+				$stop = -1;
+				$semi = false;
+				while ( $k < $len ) {
+					$n = origin_canvas_palette_css_protected_at( $inner, $k );
+					if ( $n ) {
+						$k += $n;
+						continue;
+					}
+					if ( ';' === $inner[ $k ] || '{' === $inner[ $k ] ) {
+						$stop = $k;
+						$semi = ';' === $inner[ $k ];
+						break;
+					}
+					if ( '}' === $inner[ $k ] ) {
+						break; // A stray closer: keep the rest as it is.
+					}
+					++$k;
+				}
+				if ( -1 === $stop ) {
+					$out .= $in_place ? substr( $inner, $i ) : '';
+					break;
+				}
+				if ( $semi ) {
+					$out .= $in_place ? substr( $inner, $i, $stop + 1 - $i ) : '';
+					$i    = $stop + 1;
+					continue;
+				}
+				$lead  = origin_canvas_palette_css_skip_blank( $inner, $i );
+				$sel   = substr( $inner, $lead, $stop - $lead );
+				$close = origin_canvas_palette_css_close_brace( $inner, $stop );
+				$sub   = substr( $inner, $stop, $close + 1 - $stop );
+				if ( '@' === substr( $sel, 0, 1 ) || '--' === substr( $sel, 0, 2 ) ) {
+					$out .= $in_place ? substr( $inner, $i, $close + 1 - $i ) : '';
+				} else {
+					$r = $on_rule( $sel, $sub, true );
+					if ( $in_place ) {
+						$out .= substr( $inner, $i, $lead - $i ) . ( $r ? $r['prelude'] . $nest( $r['body'] ) : $sel . $nest( $sub ) );
+					} else {
+						if ( $r && isset( $r['shadow'] ) ) {
+							$out .= $r['shadow'];
+						}
+						$deep = $nest( $sub );
+						if ( '' !== $deep ) {
+							$out .= trim( $r ? $r['prelude'] : $sel ) . '{' . $deep . '}';
+						}
+					}
+				}
+				$i = $close + 1;
+			}
+			return $in_place ? '{' . $out . '}' : $out;
+		};
+		$walk    = static function ( $text ) use ( &$walk, $nest, $on_rule, $in_place, $descend ) {
 			$out = '';
 			$len = strlen( $text );
 			$i   = 0;
@@ -317,11 +385,17 @@ if ( ! function_exists( 'origin_canvas_palette_css_scan' ) ) {
 						$out .= $prelude . $body;
 					}
 				} else {
-					$r = $on_rule( $prelude, $body );
+					$r = $on_rule( $prelude, $body, false );
 					if ( $in_place ) {
-						$out .= $r ? $r['prelude'] . $r['body'] : $prelude . $body;
-					} elseif ( $r && isset( $r['shadow'] ) && '' !== $r['shadow'] ) {
-						$out .= $r['shadow'];
+						$out .= $r ? $r['prelude'] . $nest( $r['body'] ) : $prelude . $nest( $body );
+					} else {
+						if ( $r && isset( $r['shadow'] ) ) {
+							$out .= $r['shadow'];
+						}
+						$deep = $nest( $body );
+						if ( '' !== $deep ) {
+							$out .= trim( $r ? $r['prelude'] : $prelude ) . '{' . $deep . '}';
+						}
 					}
 				}
 				$i = $close + 1;
@@ -930,19 +1004,22 @@ if ( ! function_exists( 'origin_canvas_palette_css_rename_vars_in' ) ) {
 
 if ( ! function_exists( 'origin_canvas_palette_css_rename_body' ) ) {
 	/**
-	 * One rule body with declaration twins inserted and var() references renamed.
+	 * One rule body with declaration twins inserted and, with $vars, var() references renamed. A
+	 * nested rule's body takes its twins only: its parent's rename already reached its values, and
+	 * a second rename could take a renamed value on to a collided name.
 	 *
 	 * @param string $body  Rule body.
 	 * @param array  $extra Collision map.
+	 * @param bool   $vars  Rename var() references too.
 	 * @return string
 	 */
-	function origin_canvas_palette_css_rename_body( $body, $extra = array() ) {
+	function origin_canvas_palette_css_rename_body( $body, $extra = array(), $vars = true ) {
 		$twins = origin_canvas_palette_css_decl_twins( $body, $extra );
 		$next  = $body;
 		foreach ( array_reverse( $twins ) as $t ) {
 			$next = substr( $next, 0, $t['at'] ) . ';' . $t['text'] . substr( $next, $t['at'] );
 		}
-		return origin_canvas_palette_css_rename_vars_in( $next, $extra );
+		return $vars ? origin_canvas_palette_css_rename_vars_in( $next, $extra ) : $next;
 	}
 }
 
@@ -958,8 +1035,8 @@ if ( ! function_exists( 'origin_canvas_palette_css_rename_vars' ) ) {
 	function origin_canvas_palette_css_rename_vars( $css, $extra = array() ) {
 		return origin_canvas_palette_css_scan(
 			(string) $css,
-			static function ( $prelude, $body ) use ( $extra ) {
-				$next = origin_canvas_palette_css_rename_body( $body, $extra );
+			static function ( $prelude, $body, $nested = false ) use ( $extra ) {
+				$next = origin_canvas_palette_css_rename_body( $body, $extra, ! $nested );
 				return $next === $body ? null : array(
 					'prelude' => $prelude,
 					'body'    => $next,
@@ -972,8 +1049,10 @@ if ( ! function_exists( 'origin_canvas_palette_css_rename_vars' ) ) {
 
 if ( ! function_exists( 'origin_canvas_palette_css_twins' ) ) {
 	/**
-	 * Shadow output for a stylesheet the theme cannot edit: per changed rule, the changed items
-	 * and the rule's body; with $props, also a rule of the declaration twins.
+		 * Shadow output for a stylesheet the theme cannot edit: per changed rule, the changed items
+	 * and the rule's body; with $props, also a rule of the declaration twins. A nested rule's
+	 * shadow sits inside its parent's expanded prelude, so it reaches the parent's old and new
+	 * forms.
 	 *
 	 * @param string $css     CSS.
 	 * @param array  $classes Class map (new => old for the theme, old => new for a child theme).
@@ -993,7 +1072,7 @@ if ( ! function_exists( 'origin_canvas_palette_css_twins' ) ) {
 					}
 				}
 				return '' === $shadow ? null : array(
-					'prelude' => $prelude,
+					'prelude' => $r['prelude'],
 					'body'    => $body,
 					'shadow'  => $shadow,
 				);
