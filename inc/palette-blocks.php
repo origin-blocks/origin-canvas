@@ -1157,7 +1157,9 @@ if ( ! function_exists( 'origin_canvas_palette_json_hits' ) ) {
 	/**
 	 * Old codes in the strings of a decoded JSON value (a child theme.json, a Customizer
 	 * changeset): a CSS string (under a key named css, or a custom_css setting's value) is read as
-	 * code, every other string as a value.
+	 * code, every other string as a value: only its old variables and var:preset or var:custom
+	 * references count. An old class name in a value (a tagline, a description) is text, not a
+	 * recognised colour field, so it does not mark a site.
 	 *
 	 * @param mixed  $v   Decoded value.
 	 * @param string $key Its key.
@@ -1165,7 +1167,15 @@ if ( ! function_exists( 'origin_canvas_palette_json_hits' ) ) {
 	 */
 	function origin_canvas_palette_json_hits( $v, $key = '' ) {
 		if ( is_string( $v ) ) {
-			return (bool) ( 'css' === $key ? origin_canvas_palette_css_code_hits( $v ) : origin_canvas_palette_css_hits( $v ) );
+			if ( 'css' === $key ) {
+				return (bool) origin_canvas_palette_css_code_hits( $v );
+			}
+			foreach ( origin_canvas_palette_css_hits( $v ) as $h ) {
+				if ( 0 !== strpos( $h, 'class=' ) ) {
+					return true;
+				}
+			}
+			return false;
 		}
 		if ( is_object( $v ) ) {
 			$v = get_object_vars( $v );
