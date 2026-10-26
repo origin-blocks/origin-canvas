@@ -251,7 +251,8 @@ if ( ! function_exists( 'origin_canvas_palette_css_map_outside' ) ) {
 
 if ( ! function_exists( 'origin_canvas_palette_css_close_brace' ) ) {
 	/**
-	 * Offset of the brace that closes the block opening at $open.
+	 * Offset of the brace that closes the block opening at $open, or the text's length when none
+	 * does: CSS closes a block left open at the end of the text there, with no byte of its own.
 	 *
 	 * @param string $text CSS.
 	 * @param int    $open Offset of '{'.
@@ -276,7 +277,78 @@ if ( ! function_exists( 'origin_canvas_palette_css_close_brace' ) ) {
 			}
 			++$i;
 		}
-		return $len - 1;
+		return $len;
+	}
+}
+
+if ( ! function_exists( 'origin_canvas_palette_css_closed' ) ) {
+	/**
+	 * The text with what CSS closes at its end written out: an open comment, quoted string or
+	 * url(), then each open (, [ and { in turn. For shadow output, where text follows: a body left
+	 * open at the end of a stylesheet would otherwise take in the rules after it.
+	 *
+	 * @param string $text CSS.
+	 * @return string
+	 */
+	function origin_canvas_palette_css_closed( $text ) {
+		$text  = (string) $text;
+		$len   = strlen( $text );
+		$open  = array();
+		$pairs = array(
+			'{' => '}',
+			'(' => ')',
+			'[' => ']',
+		);
+		$tail  = '';
+		for ( $i = 0; $i < $len; ) {
+			$n = origin_canvas_palette_css_protected_at( $text, $i );
+			if ( $n ) {
+				if ( $i + $n >= $len ) {
+					$tail = origin_canvas_palette_css_run_closer( substr( $text, $i ) );
+				}
+				$i += $n;
+				continue;
+			}
+			$ch = $text[ $i ];
+			if ( isset( $pairs[ $ch ] ) ) {
+				$open[] = $pairs[ $ch ];
+			} elseif ( $open && end( $open ) === $ch ) {
+				array_pop( $open );
+			}
+			++$i;
+		}
+		return $text . $tail . implode( '', array_reverse( $open ) );
+	}
+}
+
+if ( ! function_exists( 'origin_canvas_palette_css_run_closer' ) ) {
+	/**
+	 * What closes a protected run that reaches the end of the text: '*' . '/' for an open comment,
+	 * the quote for an open string, ) for an open url(; '' when it is closed or an escape.
+	 *
+	 * @param string $run The run, from its first byte to the end of the text.
+	 * @return string
+	 */
+	function origin_canvas_palette_css_run_closer( $run ) {
+		$ch = $run[0];
+		$m  = strlen( $run );
+		if ( '/' === $ch ) {
+			return $m >= 4 && '*/' === substr( $run, -2 ) ? '' : '*/';
+		}
+		if ( '"' === $ch || "'" === $ch ) {
+			for ( $j = 1; $j < $m; $j++ ) {
+				if ( '\\' === $run[ $j ] ) {
+					++$j;
+				} elseif ( $ch === $run[ $j ] || "\n" === $run[ $j ] ) {
+					return '';
+				}
+			}
+			return $ch;
+		}
+		if ( '\\' === $ch && $m <= 2 ) {
+			return '';
+		}
+		return ')' === substr( $run, -1 ) && '\\' !== substr( $run, -2, 1 ) ? '' : ')'; // An unquoted url( argument.
 	}
 }
 
@@ -373,6 +445,7 @@ if ( ! function_exists( 'origin_canvas_palette_css_scan' ) ) {
 			if ( null === $parts ) {
 				return $in_place ? $body : '';
 			}
+			$shut = origin_canvas_palette_css_close_brace( $body, 0 ) < strlen( $body ); // Not left open at the end.
 			$out = '';
 			foreach ( $parts as $p ) {
 				if ( isset( $p['text'] ) ) {
@@ -409,7 +482,7 @@ if ( ! function_exists( 'origin_canvas_palette_css_scan' ) ) {
 					$out .= trim( $r ? $r['prelude'] : $p['sel'] ) . '{' . $deep . '}';
 				}
 			}
-			return $in_place ? '{' . $out . '}' : $out;
+			return $in_place ? '{' . $out . ( $shut ? '}' : '' ) : $out;
 		};
 		$walk = static function ( $text, $top = false ) use ( &$walk, $nest, $on_rule, $in_place, $keep_dropped ) {
 			$out = '';
@@ -484,7 +557,7 @@ if ( ! function_exists( 'origin_canvas_palette_css_scan' ) ) {
 					if ( origin_canvas_palette_css_descends( $prelude ) ) {
 						$inner = $walk( (string) substr( $text, $end + 1, $close - $end - 1 ) );
 						if ( $in_place ) {
-							$out .= $prelude . '{' . $inner . '}';
+							$out .= $prelude . '{' . $inner . ( $close < $len ? '}' : '' );
 						} elseif ( '' !== $inner ) {
 							$out .= trim( $prelude ) . '{' . $inner . '}';
 						}
@@ -531,11 +604,16 @@ if ( ! function_exists( 'origin_canvas_palette_css_body_parts' ) ) {
 	 */
 	function origin_canvas_palette_css_body_parts( $body ) {
 		$len = strlen( $body );
-		if ( $len < 2 || '{' !== $body[0] || '}' !== $body[ $len - 1 ] ) {
+		if ( $len < 1 || '{' !== $body[0] ) {
 			return null;
 		}
-		$inner = substr( $body, 1, -1 );
-		$len  -= 2;
+		// Closed by its last byte, or left open at the end of the stylesheet.
+		$close = origin_canvas_palette_css_close_brace( $body, 0 );
+		if ( $close < $len - 1 ) {
+			return null;
+		}
+		$inner = $close < $len ? substr( $body, 1, -1 ) : substr( $body, 1 );
+		$len   = strlen( $inner );
 		$parts = array();
 		$i     = 0;
 		while ( $i < $len ) {
@@ -1448,11 +1526,12 @@ if ( ! function_exists( 'origin_canvas_palette_css_twins' ) ) {
 			(string) $css,
 			static function ( $prelude, $body ) use ( $classes, $props ) {
 				$r      = origin_canvas_palette_css_expand_prelude_parts( $prelude, $classes );
-				$shadow = $r['changed'] ? implode( ', ', $r['changed'] ) . $body : '';
+				// Closed: a body left open at the end of the sheet would take in the shadow after it.
+				$shadow = $r['changed'] ? implode( ', ', $r['changed'] ) . origin_canvas_palette_css_closed( $body ) : '';
 				if ( $props ) {
 					$twins = origin_canvas_palette_css_decl_twins( $body );
 					if ( $twins ) {
-						$shadow .= trim( $r['prelude'] ) . '{' . implode( ';', wp_list_pluck( $twins, 'text' ) ) . '}';
+						$shadow .= trim( $r['prelude'] ) . origin_canvas_palette_css_closed( '{' . implode( ';', wp_list_pluck( $twins, 'text' ) ) );
 					}
 				}
 				return '' === $shadow ? null : array(
