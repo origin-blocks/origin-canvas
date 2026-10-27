@@ -11,8 +11,8 @@
  *   into, at the top level and nested in a style rule; every other at-rule is kept whole. <!--
  *   and --> between top-level rules are read as whitespace, as CSS reads them, and kept. A style
  *   rule whose selector does not balance is one a browser drops: it is kept whole and read as
- *   nothing. So is a top-level rule whose prelude holds a stray }, as CSS reads one; the rules
- *   after it are read.
+ *   nothing. So is a top-level rule whose prelude holds a stray }, as CSS reads one, and a rule
+ *   whose prelude holds a stray ; (only an at-rule ends at ;); the rules after it are read.
  * - Token: a class .c with c in the class map, in a style rule's prelude, outside strings,
  *   comments, escapes and attribute selectors; or the value c of a class attribute selector
  *   with = or ~= and that one class ([class~=c], [class="c" i]). Substring forms (*=, ^=, $=)
@@ -577,6 +577,9 @@ if ( ! function_exists( 'origin_canvas_palette_css_balanced' ) ) {
 				continue;
 			}
 			$ch = $text[ $i ];
+			if ( ';' === $ch ) {
+				return false; // A stray ; joined to a prelude.
+			}
 			if ( ':' === $ch ) {
 				list( $name ) = origin_canvas_palette_css_ident_at( $text, ':' === substr( $text, $i + 1, 1 ) ? $i + 2 : $i + 1 );
 				if ( strpbrk( $name, '()[]' ) ) {
@@ -714,7 +717,9 @@ if ( ! function_exists( 'origin_canvas_palette_css_scan' ) ) {
 						$end = $k;
 						break;
 					}
-					if ( ';' === $text[ $k ] ) {
+					// Only an at-rule ends at ;. Before a style rule CSS reads a stray ; as part of its
+					// prelude, which is then invalid (origin_canvas_palette_css_balanced()) and dropped.
+					if ( ';' === $text[ $k ] && '@' === $text[ $i ] ) {
 						$end  = $k;
 						$semi = true;
 						break;
