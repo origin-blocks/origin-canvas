@@ -542,8 +542,8 @@ if ( ! function_exists( 'origin_canvas_palette_option_hits' ) ) {
 	 * Whether a widget option or the theme mods hold an old code in a recognised colour field,
 	 * the one read for the scan and the save hook. Block widgets: their block markup, as posts are
 	 * read. Text and Custom HTML widgets: the class and style attributes of their tags. Theme mods
-	 * (no 1.3.1 field stores a palette code in one): the tags of each string, and an old variable
-	 * or var:preset reference in it. An old class name in prose is text, not a field.
+	 * (no 1.3.1 field stores a palette code in one): each string as
+	 * origin_canvas_palette_theme_mod_hits() reads it. An old code in prose is text, not a field.
 	 *
 	 * @param string $option Option name.
 	 * @param mixed  $value  Its value.
@@ -579,19 +579,75 @@ if ( ! function_exists( 'origin_canvas_palette_option_hits' ) ) {
 			return false;
 		}
 		foreach ( $value as $v ) {
-			if ( ! is_string( $v ) ) {
-				continue;
-			}
-			if ( origin_canvas_palette_markup_hits( $v ) ) {
+			if ( is_string( $v ) && origin_canvas_palette_theme_mod_hits( $v ) ) {
 				return true;
-			}
-			foreach ( origin_canvas_palette_css_hits( $v ) as $h ) {
-				if ( 0 !== strpos( $h, 'class=' ) ) {
-					return true;
-				}
 			}
 		}
 		return false;
+	}
+}
+
+if ( ! function_exists( 'origin_canvas_palette_theme_mod_hits' ) ) {
+	/**
+	 * Whether one theme mod string holds an old code in a recognised colour field: the class or
+	 * style attribute of a tag in it; a value that is exactly a reference (var(--wp--preset--…),
+	 * with any fallback, or var:preset|…); or a CSS-like value whose declaration names an old
+	 * preset property or references an old variable in its value. Prose that names an old code is
+	 * text (point 5): it never marks a site.
+	 *
+	 * @param string $v The value.
+	 * @return bool
+	 */
+	function origin_canvas_palette_theme_mod_hits( $v ) {
+		if ( origin_canvas_palette_markup_hits( $v ) ) {
+			return true;
+		}
+		$map = origin_canvas_palette_map();
+		$old = static function ( $name ) use ( $map ) {
+			$k = origin_canvas_palette_css_var_kind( $name );
+			return $k && isset( $map[ $k[0] ][ $k[2] ] );
+		};
+		$t = trim( $v );
+		if ( preg_match( '/^var:(preset\|color|preset\|spacing|custom\|line-height)\|([a-z0-9-]+)$/D', $t, $m ) ) {
+			$kinds = array(
+				'preset|color'      => 'color',
+				'preset|spacing'    => 'spacing',
+				'custom|line-height' => 'lineHeight',
+			);
+			return isset( $map[ $kinds[ $m[1] ] ][ $m[2] ] );
+		}
+		if ( preg_match( '/^var\s*\(/i', $t ) && ')' === substr( $t, -1 ) ) {
+			$refs = origin_canvas_palette_css_var_refs( $t );
+			if ( $refs && $old( $refs[0][2] ) ) {
+				return true;
+			}
+		}
+		$hit  = false;
+		$body = static function ( $b ) use ( &$hit, $old ) {
+			foreach ( origin_canvas_palette_css_declarations( $b ) as $d ) {
+				if ( $old( $d['prop'] ) ) {
+					$hit = true;
+				}
+				foreach ( origin_canvas_palette_css_var_refs( substr( $b, $d['value_start'], $d['value_end'] - $d['value_start'] ) ) as $r ) {
+					if ( $old( $r[2] ) ) {
+						$hit = true;
+					}
+				}
+			}
+			return null;
+		};
+		if ( false === strpbrk( $t, '{}' ) ) {
+			$body( '{' . $t . '}' );
+		} else {
+			origin_canvas_palette_css_scan(
+				$t,
+				static function ( $prelude, $b ) use ( $body ) {
+					return $body( $b );
+				},
+				true
+			);
+		}
+		return $hit;
 	}
 }
 
