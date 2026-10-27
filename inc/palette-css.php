@@ -1958,6 +1958,41 @@ if ( ! function_exists( 'origin_canvas_palette_block_css_rename_decls' ) ) {
 	}
 }
 
+if ( ! function_exists( 'origin_canvas_palette_block_css_twin_decls' ) ) {
+	/**
+	 * A rule part's text after its { with a twin beside each old preset property declaration, as
+	 * core reads the declarations: every } dropped, so `{--old:red;} --old:blue` declares both.
+	 * Each twin is written at the byte that ends its declaration, before any } after it, so the
+	 * part keeps its own bytes and a plain body gets what a rule body gets. A second run adds
+	 * nothing (origin_canvas_palette_css_decl_twins() skips a twin that is there).
+	 *
+	 * @param string $after The part's text after its {.
+	 * @param array  $extra Collision map.
+	 * @return string
+	 */
+	function origin_canvas_palette_block_css_twin_decls( $after, $extra = array() ) {
+		$at   = array(); // Offset in $after of each byte core keeps.
+		$read = '';
+		$len  = strlen( $after );
+		for ( $k = 0; $k < $len; $k++ ) {
+			if ( '}' !== $after[ $k ] ) {
+				$at[]  = $k;
+				$read .= $after[ $k ];
+			}
+		}
+		$out = $after;
+		foreach ( array_reverse( origin_canvas_palette_css_decl_twins( '{' . $read . '}', $extra ) ) as $t ) {
+			if ( $t['open'] ) {
+				continue; // Unterminated: its bytes stay, with no twin in place.
+			}
+			$j   = $t['at'] - 1; // The declaration's end in the text core reads.
+			$x   = 0 === $j ? 0 : $at[ $j - 1 ] + 1;
+			$out = substr( $out, 0, $x ) . ';' . $t['text'] . substr( $out, $x );
+		}
+		return $out;
+	}
+}
+
 if ( ! function_exists( 'origin_canvas_palette_block_css_chunk' ) ) {
 	/**
 	 * What core prints for one part of a block's CSS under the selector .x: core's own
@@ -2216,16 +2251,10 @@ if ( ! function_exists( 'origin_canvas_palette_rewrite_block_css' ) ) {
 				$texts[ $i ] = $vars ? origin_canvas_palette_block_css_rename_decls( $p['text'], $var_extra ) : $p['text'];
 				continue;
 			}
-			// The part keeps its own bytes with its variables renamed; when it is one plain body (its
-			// only } at the end) its declarations are twinned as in a rule body too.
+			// The part keeps its own bytes with its variables renamed and its declarations twinned
+			// as core reads them (origin_canvas_palette_block_css_twin_decls()).
 			$after = (string) substr( $p['text'], $p['brace'] + 1 );
-			if ( ! $vars ) {
-				$own = $after;
-			} elseif ( strpos( $after, '}' ) === strlen( $after ) - 1 ) {
-				$own = origin_canvas_palette_block_css_rename_decls( substr( $after, 0, -1 ), $var_extra ) . '}';
-			} else {
-				$own = origin_canvas_palette_css_rename_vars_in( $after, $var_extra );
-			}
+			$own   = $vars ? origin_canvas_palette_css_rename_vars_in( origin_canvas_palette_block_css_twin_decls( $after, $var_extra ), $var_extra ) : $after;
 			$owns[ $i ]  = $own;
 			$texts[ $i ] = $sels[ $i ] . '{' . $own;
 		}
@@ -2241,6 +2270,37 @@ if ( ! function_exists( 'origin_canvas_palette_rewrite_block_css' ) ) {
 			}
 			$sel        = $sels[ $i ];
 			$lead       = $lead_of( $sel );
+			// A part in the run of variants right after an earlier part (an earlier pass wrote them:
+			// a variant selector with that part's declarations) gets none of its own: that part's
+			// variants hold every class combination already.
+			$in_run = false;
+			for ( $j = $i - 1; $j >= 0 && 'rule' === $parts[ $j ]['kind'] && ! $in_run; $j-- ) {
+				$in_run = true;
+				for ( $m = $j + 1; $m <= $i; $m++ ) {
+					if ( ! isset( $base[ $j ][ origin_canvas_palette_css_trim( $sels[ $m ] ) ] ) || $lead_of( $sels[ $m ] ) !== $lead_of( $sels[ $j ] ) || $owns[ $m ] !== str_replace( '}', '', $owns[ $j ] ) . '}' ) {
+						$in_run = false;
+						break;
+					}
+				}
+			}
+			// The same for a copy in the run written before a later part (its copies, an earlier pass:
+			// the same declarations, a comment open at the end closed).
+			for ( $k = $i + 1; $k < $n && ! $in_run; $k++ ) {
+				if ( 'rule' !== $parts[ $k ]['kind'] || ! $reading[ $k ]['live'] || ! isset( $base[ $k ][ origin_canvas_palette_css_trim( $sel ) ] ) || $lead_of( $sels[ $k ] ) !== $lead || ( $owns[ $k ] !== $owns[ $i ] && $owns[ $k ] . '*/' !== $owns[ $i ] ) ) {
+					continue;
+				}
+				$in_run = true;
+				for ( $m = $i + 1; $m < $k; $m++ ) {
+					if ( 'rule' === $parts[ $m ]['kind'] && $reading[ $m ]['live'] && ! isset( $base[ $k ][ origin_canvas_palette_css_trim( $sels[ $m ] ) ] ) ) {
+						$in_run = false;
+						break;
+					}
+				}
+			}
+			if ( $in_run ) {
+				$out[] = $text;
+				continue;
+			}
 			$is_variant = false;
 			foreach ( $base as $j => $vs ) {
 				if ( $j !== $i && isset( $vs[ origin_canvas_palette_css_trim( $sel ) ] ) ) {
