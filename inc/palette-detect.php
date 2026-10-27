@@ -637,7 +637,11 @@ if ( ! function_exists( 'origin_canvas_palette_theme_mod_hits' ) ) {
 			return null;
 		};
 		if ( false === strpbrk( $t, '{}' ) ) {
-			$body( '{' . $t . '}' );
+			// No braces: declarations only when every piece is one, on a custom property or a CSS
+			// colour, spacing or line-height property. A sentence with a colon is text.
+			if ( origin_canvas_palette_theme_mod_decls( $t ) ) {
+				$body( '{' . $t . '}' );
+			}
 		} else {
 			origin_canvas_palette_css_scan(
 				$t,
@@ -648,6 +652,57 @@ if ( ! function_exists( 'origin_canvas_palette_theme_mod_hits' ) ) {
 			);
 		}
 		return $hit;
+	}
+}
+
+if ( ! function_exists( 'origin_canvas_palette_theme_mod_decls' ) ) {
+	/**
+	 * Whether a theme mod string with no braces reads as declarations: every piece between ;s
+	 * (outside comments, strings and brackets) is empty, a comment, or a name, a colon and a
+	 * value, the name a custom property or a CSS colour, spacing or line-height property.
+	 * "Note: use var(--…) for muted text." names no property, so it is text.
+	 *
+	 * @param string $t The value, trimmed.
+	 * @return bool
+	 */
+	function origin_canvas_palette_theme_mod_decls( $t ) {
+		$known = '/^(?:--[A-Za-z0-9_-]+|color|background(?:-color|-image)?|border(?:-(?:top|right|bottom|left|block|inline)(?:-(?:start|end))?)?(?:-color)?|outline(?:-color)?|fill|stroke|text-decoration(?:-color)?|text-emphasis(?:-color)?|caret-color|accent-color|column-rule(?:-color)?|box-shadow|text-shadow|padding(?:-(?:top|right|bottom|left|block|inline)(?:-(?:start|end))?)?|margin(?:-(?:top|right|bottom|left|block|inline)(?:-(?:start|end))?)?|gap|row-gap|column-gap|inset(?:-(?:block|inline)(?:-(?:start|end))?)?|top|right|bottom|left|line-height)$/iD';
+		$any   = false;
+		$piece = '';
+		$depth = 0;
+		$len   = strlen( $t );
+		for ( $i = 0; $i <= $len; ) {
+			if ( $i < $len ) {
+				$n = origin_canvas_palette_css_protected_at( $t, $i );
+				if ( $n ) {
+					// A comment is nothing; a string, url( or escape stays in the piece.
+					$piece .= '/' === $t[ $i ] && '*' === substr( $t, $i + 1, 1 ) ? ' ' : substr( $t, $i, $n );
+					$i     += $n;
+					continue;
+				}
+			}
+			$ch = $i < $len ? $t[ $i ] : ';';
+			if ( ';' === $ch && ( 0 === $depth || $i === $len ) ) {
+				$code = trim( $piece );
+				if ( '' !== $code ) {
+					$colon = strpos( $code, ':' );
+					if ( false === $colon || ! preg_match( $known, trim( substr( $code, 0, $colon ) ) ) ) {
+						return false;
+					}
+					$any = true;
+				}
+				$piece = '';
+			} else {
+				if ( '(' === $ch || '[' === $ch ) {
+					++$depth;
+				} elseif ( ( ')' === $ch || ']' === $ch ) && $depth > 0 ) {
+					--$depth;
+				}
+				$piece .= $ch;
+			}
+			++$i;
+		}
+		return $any;
 	}
 }
 
