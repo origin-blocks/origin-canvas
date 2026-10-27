@@ -704,6 +704,41 @@ if ( ! function_exists( 'origin_canvas_palette_attr_map_decls' ) ) {
 	}
 }
 
+if ( ! function_exists( 'origin_canvas_palette_class_split' ) ) {
+	/**
+	 * A raw class attribute value split as HTML reads it: tokens and the HTML whitespace between
+	 * them, written raw or as a character reference (&#32;, &#x9;, &Tab;, &NewLine;), each
+	 * separator kept as one element of the list (odd offsets), with its bytes.
+	 *
+	 * @param string $raw Raw attribute value.
+	 * @return string[]
+	 */
+	function origin_canvas_palette_class_split( $raw ) {
+		return preg_split( '/((?:[ \t\n\f\r]|&#0*(?:32|9|10|12|13)(?![0-9]);?|&#[xX]0*(?:20|9|[aAcCdD])(?![0-9a-fA-F]);?|&(?:Tab|NewLine);)+)/', (string) $raw, -1, PREG_SPLIT_DELIM_CAPTURE );
+	}
+}
+
+if ( ! function_exists( 'origin_canvas_palette_decode_name_refs' ) ) {
+	/**
+	 * A style value with each character reference that stands for a name character (a letter, a
+	 * digit, _ or -) read as that character, so var(--wp--preset--color--text&#45;muted) is the
+	 * old variable; every other reference is kept as written.
+	 *
+	 * @param string $text Raw text.
+	 * @return string
+	 */
+	function origin_canvas_palette_decode_name_refs( $text ) {
+		return (string) preg_replace_callback(
+			'/&(?:#\d+|#[xX][0-9a-fA-F]+|[a-zA-Z]+);?/',
+			static function ( $m ) {
+				$d = WP_HTML_Decoder::decode_attribute( $m[0] );
+				return 1 === preg_match( '/^[a-zA-Z0-9_-]$/D', $d ) ? $d : $m[0];
+			},
+			$text
+		);
+	}
+}
+
 if ( ! function_exists( 'origin_canvas_palette_tag_edits' ) ) {
 	/**
 	 * Edits for one block's own tags, from what its attributes renamed.
@@ -772,7 +807,7 @@ if ( ! function_exists( 'origin_canvas_palette_tag_edits' ) ) {
 		if ( null !== $border_text ) {
 			foreach ( $ranges as $r ) {
 				foreach ( Origin_Canvas_Palette_Tag_Scanner::openers( substr( $content, $r[0], $r[1] - $r[0] ) ) as $t ) {
-					foreach ( preg_split( '/\s+/', origin_canvas_palette_tag_value( $t[1], 'class' ) ) as $x ) {
+					foreach ( origin_canvas_palette_class_split( origin_canvas_palette_tag_value( $t[1], 'class' ) ) as $x ) {
 						if ( 'has-border-color' === WP_HTML_Decoder::decode_attribute( $x ) ) {
 							++$border_tokens;
 						}
@@ -793,12 +828,13 @@ if ( ! function_exists( 'origin_canvas_palette_tag_edits' ) ) {
 				$class     = origin_canvas_palette_tag_attribute( $tag, 'class' );
 				if ( null !== $class ) {
 					// A token is compared by its value, character references decoded as core's tag
-					// processor and the editor read it (has-text&#45;muted-color is has-text-muted-color);
-					// a renamed token is written plain, every other keeps its bytes.
-					$parts   = preg_split( '/(\s+)/', substr( $tag, $class[0], $class[1] ), -1, PREG_SPLIT_DELIM_CAPTURE );
+					// processor and the editor read it (has-text&#45;muted-color is has-text-muted-color),
+					// and tokens are split at HTML whitespace written raw or as a reference (&#32;, &Tab;);
+					// a renamed token is written plain, every other token and separator keeps its bytes.
+					$parts   = origin_canvas_palette_class_split( substr( $tag, $class[0], $class[1] ) );
 					$decoded = array();
 					foreach ( $parts as $k => $tok ) {
-						$decoded[ $k ] = false === strpos( $tok, '&' ) ? $tok : WP_HTML_Decoder::decode_attribute( $tok );
+						$decoded[ $k ] = 1 === $k % 2 ? ' ' : ( false === strpos( $tok, '&' ) ? $tok : WP_HTML_Decoder::decode_attribute( $tok ) );
 						foreach ( $class_renames as $rename ) {
 							if ( $rename[0] === $decoded[ $k ] ) {
 								$parts[ $k ] = $rename[1];
@@ -822,12 +858,25 @@ if ( ! function_exists( 'origin_canvas_palette_tag_edits' ) ) {
 					$v         = origin_canvas_palette_attr_map_decls(
 						substr( $tag, $style[0], $style[1] ),
 						static function ( $plain, $prop ) use ( $style_re ) {
-							foreach ( $style_re as $re ) {
-								if ( preg_match( $re[2], $prop ) ) {
-									$plain = preg_replace( $re[0], str_replace( array( '\\', '$' ), array( '\\\\', '\\$' ), $re[1] ), $plain );
+							$rename = static function ( $text ) use ( $style_re, $prop ) {
+								foreach ( $style_re as $re ) {
+									if ( preg_match( $re[2], $prop ) ) {
+										$text = preg_replace( $re[0], str_replace( array( '\\', '$' ), array( '\\\\', '\\$' ), $re[1] ), $text );
+									}
+								}
+								return $text;
+							};
+							$next   = $rename( $plain );
+							if ( $next === $plain && false !== strpos( $plain, '&' ) ) {
+								// A name written with character references: renamed on its decoded form, which
+								// is then written plain; a value with nothing to rename keeps its bytes.
+								$decoded = origin_canvas_palette_decode_name_refs( $plain );
+								$renamed = $rename( $decoded );
+								if ( $renamed !== $decoded ) {
+									$next = $renamed;
 								}
 							}
-							return $plain;
+							return $next;
 						}
 					);
 					$changes[] = array( $style[0], $style[1], $v );
