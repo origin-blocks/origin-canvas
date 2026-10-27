@@ -1284,8 +1284,9 @@ if ( ! function_exists( 'origin_canvas_palette_css_code_hits' ) ) {
 if ( ! function_exists( 'origin_canvas_palette_json_field' ) ) {
 	/**
 	 * Whether a path in a decoded theme.json (a child theme.json or style variation) is a field
-	 * the rewrite reads as a style value: under styles, a value below a color or spacing key or a
-	 * typography lineHeight; under settings or settings.blocks.<block>, a palette entry's color, a
+	 * the rewrite reads as a style value: under styles, a value below a color, spacing or shadow
+	 * key or a typography lineHeight (the Global Styles reader renames every style value, a shadow
+	 * too); under settings or settings.blocks.<block>, a palette entry's color, a
 	 * gradient entry's gradient, and the spacing and custom values. Prose (a title, a description,
 	 * an entry's name) and other style values (a fontFamily) are not.
 	 *
@@ -1300,7 +1301,7 @@ if ( ! function_exists( 'origin_canvas_palette_json_field' ) ) {
 		}
 		if ( 'styles' === $path[0] ) {
 			for ( $i = 1; $i < $n; $i++ ) {
-				if ( 'color' === $path[ $i ] || 'spacing' === $path[ $i ] || ( 'typography' === $path[ $i ] && 'lineHeight' === ( $path[ $i + 1 ] ?? '' ) ) ) {
+				if ( 'color' === $path[ $i ] || 'spacing' === $path[ $i ] || 'shadow' === $path[ $i ] || ( 'typography' === $path[ $i ] && 'lineHeight' === ( $path[ $i + 1 ] ?? '' ) ) ) {
 					return true;
 				}
 			}
