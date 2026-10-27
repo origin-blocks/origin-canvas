@@ -773,7 +773,7 @@ if ( ! function_exists( 'origin_canvas_palette_tag_edits' ) ) {
 			foreach ( $ranges as $r ) {
 				foreach ( Origin_Canvas_Palette_Tag_Scanner::openers( substr( $content, $r[0], $r[1] - $r[0] ) ) as $t ) {
 					foreach ( preg_split( '/\s+/', origin_canvas_palette_tag_value( $t[1], 'class' ) ) as $x ) {
-						if ( 'has-border-color' === $x ) {
+						if ( 'has-border-color' === WP_HTML_Decoder::decode_attribute( $x ) ) {
 							++$border_tokens;
 						}
 					}
@@ -792,17 +792,22 @@ if ( ! function_exists( 'origin_canvas_palette_tag_edits' ) ) {
 				$changes   = array();
 				$class     = origin_canvas_palette_tag_attribute( $tag, 'class' );
 				if ( null !== $class ) {
-					$parts = preg_split( '/(\s+)/', substr( $tag, $class[0], $class[1] ), -1, PREG_SPLIT_DELIM_CAPTURE );
+					// A token is compared by its value, character references decoded as core's tag
+					// processor and the editor read it (has-text&#45;muted-color is has-text-muted-color);
+					// a renamed token is written plain, every other keeps its bytes.
+					$parts   = preg_split( '/(\s+)/', substr( $tag, $class[0], $class[1] ), -1, PREG_SPLIT_DELIM_CAPTURE );
+					$decoded = array();
 					foreach ( $parts as $k => $tok ) {
+						$decoded[ $k ] = false === strpos( $tok, '&' ) ? $tok : WP_HTML_Decoder::decode_attribute( $tok );
 						foreach ( $class_renames as $rename ) {
-							if ( $rename[0] === $tok ) {
+							if ( $rename[0] === $decoded[ $k ] ) {
 								$parts[ $k ] = $rename[1];
 								break;
 							}
 						}
 					}
 					if ( null !== $border_text && ! $border_done ) {
-						$idx = array_search( 'has-border-color', $parts, true );
+						$idx = array_search( 'has-border-color', $decoded, true );
 						if ( false !== $idx ) {
 							$parts[ $idx ] = ( ! $needs_generic || $border_tokens >= 2 ) ? $border_text : $border_text . ' has-border-color';
 							$border_done   = true;
