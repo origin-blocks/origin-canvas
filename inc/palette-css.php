@@ -1903,7 +1903,9 @@ if ( ! function_exists( 'origin_canvas_palette_rewrite_block_css' ) ) {
 	 * selector) and each new variant of a nested rule written as a rule of its own after it,
 	 * &<selector>{<declarations>}, so the old-class rule stays as it was and the new one is scoped
 	 * to the block as the old one is. A comma between & parts would be read by core as
-	 * declarations, so variants are never joined to a selector. A second run changes nothing.
+	 * declarations, so variants are never joined to a selector. Each part gets its own variants,
+	 * nothing is merged across parts, so a later repeat of a selector still wins for the new class.
+	 * A second run changes nothing.
 	 *
 	 * @param string $css        Block CSS.
 	 * @param array  $collisions Collision map (dest => legacy), for classes.
@@ -1925,12 +1927,10 @@ if ( ! function_exists( 'origin_canvas_palette_rewrite_block_css' ) ) {
 			return $lead_of( $sel ) . origin_canvas_palette_css_trim( $sel );
 		};
 		$sels      = array();
-		$present   = array();
 		foreach ( $parts as $i => $p ) {
 			if ( 'rule' === $p['kind'] ) {
-				$sel         = substr( $p['text'], 0, $p['brace'] );
-				$sels[ $i ]  = $classes_on && origin_canvas_palette_css_balanced( $sel ) ? origin_canvas_palette_css_expand_negations( $sel, $classes ) : $sel;
-				$present[ $key( $sels[ $i ] ) ] = true;
+				$sel        = substr( $p['text'], 0, $p['brace'] );
+				$sels[ $i ] = $classes_on && origin_canvas_palette_css_balanced( $sel ) ? origin_canvas_palette_css_expand_negations( $sel, $classes ) : $sel;
 			}
 		}
 		$base = array();
@@ -1971,10 +1971,20 @@ if ( ! function_exists( 'origin_canvas_palette_rewrite_block_css' ) ) {
 			}
 			$map = ( $is_variant || ! $collision ) ? $classes : array_merge( $classes, $collision );
 			if ( $classes_on && origin_canvas_palette_css_balanced( $sel ) ) {
+				$want = array();
 				foreach ( origin_canvas_palette_css_variants( $sel, $map ) as $v ) {
-					if ( ! isset( $present[ $lead . $v ] ) ) {
-						$present[ $lead . $v ] = true;
-						$text                 .= '&' . $lead . $v . '{' . $next . '}';
+					$want[ $lead . $v ] = true;
+				}
+				// A variant already right after its own part (a second pass) is not added again; a
+				// repeated selector later in the text gets its own variants after it, in cascade order.
+				$following = array();
+				$n         = count( $parts );
+				for ( $j = $i + 1; $j < $n && 'rule' === $parts[ $j ]['kind'] && isset( $want[ $key( $sels[ $j ] ) ] ); $j++ ) {
+					$following[ $key( $sels[ $j ] ) ] = true;
+				}
+				foreach ( $want as $v => $unused ) {
+					if ( ! isset( $following[ $v ] ) ) {
+						$text .= '&' . $v . '{' . $next . '}';
 					}
 				}
 			}
