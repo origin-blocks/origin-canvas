@@ -457,6 +457,33 @@ if ( ! function_exists( 'origin_canvas_palette_css_closed' ) ) {
 	}
 }
 
+if ( ! function_exists( 'origin_canvas_palette_css_open_at_end' ) ) {
+	/**
+	 * Whether a text runs into an open comment, quoted string or url() at its end. Text printed
+	 * after such a text sits inside the construct (core joins a block's CSS parts with nothing
+	 * between them), so nothing may be written after it.
+	 *
+	 * @param string $text CSS.
+	 * @return bool
+	 */
+	function origin_canvas_palette_css_open_at_end( $text ) {
+		$text = (string) $text;
+		$len  = strlen( $text );
+		for ( $i = 0; $i < $len; ) {
+			$n = origin_canvas_palette_css_protected_at( $text, $i );
+			if ( ! $n ) {
+				++$i;
+				continue;
+			}
+			if ( $i + $n >= $len && '' !== origin_canvas_palette_css_run_closer( substr( $text, $i ) ) ) {
+				return true;
+			}
+			$i += $n;
+		}
+		return false;
+	}
+}
+
 if ( ! function_exists( 'origin_canvas_palette_css_lone_backslash' ) ) {
 	/**
 	 * Whether a run that reaches the end of the text (an escape, a quoted string or a url()) ends
@@ -2001,7 +2028,10 @@ if ( ! function_exists( 'origin_canvas_palette_rewrite_block_css' ) ) {
 				}
 			}
 			$map = ( $is_variant || ! $collision ) ? $classes : array_merge( $classes, $collision );
-			if ( $classes_on && origin_canvas_palette_css_balanced( $sel ) ) {
+			// The last part, run into an open comment, string or url( at the end: a variant after it
+			// would sit inside that construct as core prints it, so it gets none; its bytes stay.
+			$open = count( $parts ) - 1 === $i && origin_canvas_palette_css_open_at_end( $after );
+			if ( $classes_on && ! $open && origin_canvas_palette_css_balanced( $sel ) ) {
 				$want = array();
 				foreach ( origin_canvas_palette_css_variants( $sel, $map ) as $v ) {
 					$want[ $lead . $v ] = true;
