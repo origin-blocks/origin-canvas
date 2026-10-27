@@ -2120,6 +2120,19 @@ if ( ! function_exists( 'origin_canvas_palette_block_css_reading' ) ) {
 	}
 }
 
+if ( ! function_exists( 'origin_canvas_palette_block_css_printed' ) ) {
+	/**
+	 * What core prints for a block's CSS under the selector .x: the text its references are read
+	 * in. A part core does not print (nested braces, no selector) is not in it.
+	 *
+	 * @param string $css Block CSS.
+	 * @return string
+	 */
+	function origin_canvas_palette_block_css_printed( $css ) {
+		return origin_canvas_palette_block_css_reading( origin_canvas_palette_block_css_parts( $css ) )['print'];
+	}
+}
+
 if ( ! function_exists( 'origin_canvas_palette_block_css_copy' ) ) {
 	/**
 	 * The parts that give a variant of live rule part $i the declarations CSS reads for the part

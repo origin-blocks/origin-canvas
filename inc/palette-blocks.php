@@ -1148,8 +1148,9 @@ if ( ! function_exists( 'origin_canvas_palette_content_slug_refs' ) ) {
 			);
 			$code = implode( ' ', $code );
 			if ( $kinds['css'] ) {
-				// A block's own CSS (style.css): its var() references are the block's references.
-				foreach ( origin_canvas_palette_css_var_slugs( $v ) as $r ) {
+				// A block's own CSS (style.css): its var() references are the block's references, in
+				// the text core prints only (a part core does not print references nothing).
+				foreach ( origin_canvas_palette_css_var_slugs( origin_canvas_palette_block_css_printed( $v ) ) as $r ) {
 					if ( isset( $want[ $r[0] ][ $r[1] ] ) ) {
 						$refs[ $r[0] ][ $r[1] ] = true;
 					}
