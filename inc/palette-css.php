@@ -1737,7 +1737,16 @@ if ( ! function_exists( 'origin_canvas_palette_css_twins' ) ) {
 				// Closed: a body left open at the end of the sheet would take in the shadow after it.
 				$shadow = $r['changed'] ? implode( ', ', $r['changed'] ) . origin_canvas_palette_css_closed( $body ) : '';
 				if ( $props ) {
-					$twins = origin_canvas_palette_css_decl_twins( $body );
+					// A value that runs into a comment, string, url( or bracket left open at the end of
+					// the sheet gets no twin, as in place: closing it would declare what CSS never reads.
+					$twins = array_values(
+						array_filter(
+							origin_canvas_palette_css_decl_twins( $body ),
+							static function ( $t ) {
+								return ! $t['open'];
+							}
+						)
+					);
 					if ( $twins ) {
 						$shadow .= origin_canvas_palette_css_trim( $r['prelude'] ) . origin_canvas_palette_css_closed( '{' . implode( ';', wp_list_pluck( $twins, 'text' ) ) );
 					}
@@ -2115,6 +2124,31 @@ if ( ! function_exists( 'origin_canvas_palette_block_css_reading' ) ) {
 			}
 			$pos = $close + 1;
 		}
+		// What a part printed inside an earlier rule starts in: an open comment ('/*'), a string
+		// (its quote), or something else ('?'); '' at the top level or in a rule body.
+		$runs = array();
+		for ( $j = 0; $j < $len; ) {
+			$n = origin_canvas_palette_css_protected_at( $print, $j );
+			if ( $n ) {
+				$runs[] = array( $j, $j + $n );
+				$j     += $n;
+				continue;
+			}
+			++$j;
+		}
+		foreach ( $out as $i => $r ) {
+			$out[ $i ]['entry'] = '';
+			if ( -1 === $r['start'] || $r['live'] ) {
+				continue;
+			}
+			foreach ( $runs as $run ) {
+				if ( $run[0] < $r['start'] && $r['start'] < $run[1] ) {
+					$c                  = $print[ $run[0] ];
+					$out[ $i ]['entry'] = '/' === $c ? '/*' : ( '"' === $c || "'" === $c ? $c : '?' );
+					break;
+				}
+			}
+		}
 		$out['print'] = $print;
 		return $out;
 	}
@@ -2151,10 +2185,13 @@ if ( ! function_exists( 'origin_canvas_palette_block_css_copy' ) ) {
 	 * @param string $own     Part $i's rewritten text after its {.
 	 * @param array  $reading From origin_canvas_palette_block_css_reading().
 	 * @param int    $i       Part index.
-	 * @param string $variant The variant's selector, its leading whitespace included.
+	 * @param string   $variant The variant's selector, its leading whitespace included.
+	 * @param callable $redo    ( kind 'own'|'decls', entry, text ) => the text as a pass rewrites it
+	 *                          there: a copied text the copy changes (a comment closed, a part cut
+	 *                          at its }) is written as the next pass reads it, so that pass keeps it.
 	 * @return array|null|false List of part texts.
 	 */
-	function origin_canvas_palette_block_css_copy( $parts, $texts, $own, $reading, $i, $variant ) {
+	function origin_canvas_palette_block_css_copy( $parts, $texts, $own, $reading, $i, $variant, $redo ) {
 		$close = $reading[ $i ]['close'];
 		$end   = $reading[ $i ]['start'] + strlen( $reading[ $i ]['chunk'] ) - 1;
 		if ( $close === $end ) {
@@ -2177,7 +2214,11 @@ if ( ! function_exists( 'origin_canvas_palette_block_css_copy' ) ) {
 			for ( $k = $i + 1; $k <= $last; $k++ ) {
 				$copy[] = $texts[ $k ];
 			}
-			$copy[ count( $copy ) - 1 ] .= '*/';
+			if ( $last === $i ) {
+				$copy[0] = $variant . '{' . $redo( 'own', '', $own . '*/' );
+			} else {
+				$copy[ count( $copy ) - 1 ] .= '*/';
+			}
 			return $copy;
 		}
 		for ( $k = $i + 1; $k < $n; $k++ ) {
@@ -2192,10 +2233,11 @@ if ( ! function_exists( 'origin_canvas_palette_block_css_copy' ) ) {
 			// A } inside a declarations part (a rule part's are dropped): the copy ends before it,
 			// and core's own } closes the rule. Core prints the part trimmed.
 			$at = $close - $r['start'] - strpos( $r['chunk'], '{' ) - 1;
-			if ( 'decls' !== $parts[ $k ]['kind'] || $texts[ $k ] !== $parts[ $k ]['text'] || $at < 0 ) {
+			$text = $parts[ $k ]['text'];
+			if ( 'decls' !== $parts[ $k ]['kind'] || $at < 0 ) {
 				return false;
 			}
-			$copy[ count( $copy ) - 1 ] = substr( $texts[ $k ], 0, strlen( $texts[ $k ] ) - strlen( ltrim( $texts[ $k ] ) ) + $at );
+			$copy[ count( $copy ) - 1 ] = $redo( 'decls', $r['entry'], substr( $text, 0, strlen( $text ) - strlen( ltrim( $text ) ) + $at ) );
 			return $copy;
 		}
 		return false;
@@ -2251,7 +2293,21 @@ if ( ! function_exists( 'origin_canvas_palette_rewrite_block_css' ) ) {
 		foreach ( $sels as $i => $sel ) {
 			$base[ $i ] = $classes_on && origin_canvas_palette_css_balanced( $sel ) ? array_flip( origin_canvas_palette_css_variants( $sel, $classes ) ) : array();
 		}
-		// First every part's own text; then the variants, which copy rewritten parts.
+		// First every part's own text; then the variants, which copy rewritten parts. $redo is the
+		// one rewrite of a text: a rule part's text after its { ('own'), or a declarations part read
+		// in the construct it is printed in ($entry, '' at the top level).
+		$redo    = static function ( $kind, $entry, $text ) use ( $vars, $var_extra ) {
+			if ( ! $vars || '?' === $entry ) {
+				return $text; // Inside a url( or a nested block: its bytes stay.
+			}
+			if ( 'own' === $kind ) {
+				return origin_canvas_palette_css_rename_vars_in( origin_canvas_palette_block_css_twin_decls( $text, $var_extra ), $var_extra );
+			}
+			if ( 'rule' === $kind ) {
+				return (string) substr( origin_canvas_palette_css_rename_vars_in( $entry . $text, $var_extra ), strlen( $entry ) );
+			}
+			return (string) substr( origin_canvas_palette_block_css_rename_decls( $entry . $text, $var_extra ), strlen( $entry ) );
+		};
 		$reading = origin_canvas_palette_block_css_reading( $parts );
 		$texts   = array();
 		$owns    = array();
@@ -2260,14 +2316,20 @@ if ( ! function_exists( 'origin_canvas_palette_rewrite_block_css' ) ) {
 				$texts[ $i ] = $p['text'];
 				continue;
 			}
-			if ( 'decls' === $p['kind'] ) {
-				$texts[ $i ] = $vars ? origin_canvas_palette_block_css_rename_decls( $p['text'], $var_extra ) : $p['text'];
+			$entry = $reading[ $i ]['entry'];
+			if ( '' !== $entry || 'decls' === $p['kind'] ) {
+				// Printed inside an earlier part's comment or string: read with that construct open
+				// in front, so nothing inside it is renamed or twinned; text after it closes is that
+				// rule's declarations. Inside anything else (a url(, a nested block), its bytes stay.
+				$texts[ $i ] = $redo( $p['kind'], $entry, $p['text'] );
+				if ( 'rule' === $p['kind'] ) {
+					$owns[ $i ] = (string) substr( $texts[ $i ], strpos( $texts[ $i ], '{' ) + 1 );
+				}
 				continue;
 			}
 			// The part keeps its own bytes with its variables renamed and its declarations twinned
 			// as core reads them (origin_canvas_palette_block_css_twin_decls()).
-			$after = (string) substr( $p['text'], $p['brace'] + 1 );
-			$own   = $vars ? origin_canvas_palette_css_rename_vars_in( origin_canvas_palette_block_css_twin_decls( $after, $var_extra ), $var_extra ) : $after;
+			$own   = $redo( 'own', '', (string) substr( $p['text'], $p['brace'] + 1 ) );
 			$owns[ $i ]  = $own;
 			$texts[ $i ] = $sels[ $i ] . '{' . $own;
 		}
@@ -2333,7 +2395,7 @@ if ( ! function_exists( 'origin_canvas_palette_rewrite_block_css' ) ) {
 			$copies = array();
 			$after  = false;
 			foreach ( $want as $v => $unused ) {
-				$copy = origin_canvas_palette_block_css_copy( $parts, $texts, $owns[ $i ], $reading, $i, $v );
+				$copy = origin_canvas_palette_block_css_copy( $parts, $texts, $owns[ $i ], $reading, $i, $v, $redo );
 				if ( null === $copy ) {
 					$after = true;
 				} elseif ( false === $copy ) {
@@ -2354,11 +2416,12 @@ if ( ! function_exists( 'origin_canvas_palette_rewrite_block_css' ) ) {
 			if ( $after ) {
 				// The rule closes in its own print: each variant goes right after the part, with the
 				// declarations as core prints them (every } dropped, a tail after a } included). One
-				// already right after its own part (a second pass) is not added again; a repeated
-				// selector later in the text gets its own variants after it, in cascade order.
+				// already right after its own part (a second pass: its selector and the same
+				// declarations) is not added again; a repeated selector later in the text, or one with
+				// other declarations, gets its own variants after it, in cascade order.
 				$next      = str_replace( '}', '', $owns[ $i ] );
 				$following = array();
-				for ( $j = $i + 1; $j < $n && 'rule' === $parts[ $j ]['kind'] && isset( $want[ $key( $sels[ $j ] ) ] ); $j++ ) {
+				for ( $j = $i + 1; $j < $n && 'rule' === $parts[ $j ]['kind'] && isset( $want[ $key( $sels[ $j ] ) ] ) && $owns[ $j ] === $next . '}'; $j++ ) {
 					$following[ $key( $sels[ $j ] ) ] = true;
 				}
 				foreach ( $want as $v => $unused ) {
@@ -2400,7 +2463,13 @@ if ( ! function_exists( 'origin_canvas_palette_block_css_hits' ) ) {
 					}
 				}
 			}
-			$decls = origin_canvas_palette_block_css_decls( $p );
+			// A part printed inside an earlier part's comment or string is read with that construct
+			// open in front, as the rewrite reads it; one inside anything else is not code it renames.
+			$entry = $reading[ $i ]['entry'];
+			if ( '?' === $entry ) {
+				continue;
+			}
+			$decls = '' === $entry ? origin_canvas_palette_block_css_decls( $p ) : str_replace( '}', '', $entry . $p['text'] );
 			foreach ( origin_canvas_palette_css_code_hits( 'x{' . str_replace( '{', '', $decls ) . '}' ) as $h ) {
 				if ( 0 !== strpos( $h, 'class=' ) ) {
 					$hits[] = $h;
