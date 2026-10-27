@@ -1958,6 +1958,202 @@ if ( ! function_exists( 'origin_canvas_palette_block_css_rename_decls' ) ) {
 	}
 }
 
+if ( ! function_exists( 'origin_canvas_palette_block_css_chunk' ) ) {
+	/**
+	 * What core prints for one part of a block's CSS under the selector .x: core's own
+	 * WP_Theme_JSON::process_blocks_custom_css() when it is loaded (it prints each part on its own
+	 * and joins them with nothing between), else the same form written here. '' for a part core
+	 * does not print.
+	 *
+	 * @param string $text One part, with no &.
+	 * @return string
+	 */
+	function origin_canvas_palette_block_css_chunk( $text ) {
+		if ( class_exists( 'WP_Theme_JSON' ) && is_callable( array( 'WP_Theme_JSON', 'process_blocks_custom_css' ) ) ) {
+			return (string) WP_Theme_JSON::process_blocks_custom_css( $text, '.x' );
+		}
+		if ( empty( $text ) ) {
+			return '';
+		}
+		if ( false === strpos( $text, '{' ) ) {
+			return ':root :where(.x){' . trim( $text ) . '}';
+		}
+		$part = explode( '{', str_replace( '}', '', $text ) );
+		return 2 === count( $part ) ? ':root :where(.x' . $part[0] . '){' . trim( $part[1] ) . '}' : '';
+	}
+}
+
+if ( ! function_exists( 'origin_canvas_palette_css_block_close' ) ) {
+	/**
+	 * Offset of the } that closes the block opening at $open, as CSS reads it, or -1 when the text
+	 * ends first: comments, strings, url() arguments and escapes are skipped, and a } inside an
+	 * open ( or [ closes nothing (the reading of origin_canvas_palette_css_closed()).
+	 *
+	 * @param string $text CSS.
+	 * @param int    $open Offset of '{'.
+	 * @return int
+	 */
+	function origin_canvas_palette_css_block_close( $text, $open ) {
+		$stack = array();
+		$pairs = array(
+			'{' => '}',
+			'(' => ')',
+			'[' => ']',
+		);
+		$len   = strlen( $text );
+		for ( $i = $open; $i < $len; ) {
+			$n = origin_canvas_palette_css_protected_at( $text, $i );
+			if ( $n ) {
+				$i += $n;
+				continue;
+			}
+			$ch = $text[ $i ];
+			if ( isset( $pairs[ $ch ] ) ) {
+				$stack[] = $pairs[ $ch ];
+			} elseif ( $stack && end( $stack ) === $ch ) {
+				array_pop( $stack );
+				if ( ! $stack ) {
+					return $i;
+				}
+			}
+			++$i;
+		}
+		return -1;
+	}
+}
+
+if ( ! function_exists( 'origin_canvas_palette_block_css_reading' ) ) {
+	/**
+	 * How CSS reads core's print of a block's CSS: a comment or string left open in one part runs
+	 * on into the parts printed after it, since core splits on every &, an & in a comment or a
+	 * string too. Per part, array( 'chunk' => printed text, 'start' => its offset in the print,
+	 * 'live' => it starts a rule of its own (its print begins at the top level and its own { opens
+	 * the rule), 'close' => for a live part, the offset of the } that closes its rule, -1 at the end
+	 * of the text ). A part printed inside an earlier part's rule is not live; neither is one core
+	 * does not print. Also 'print' => the whole print.
+	 *
+	 * @param array $parts From origin_canvas_palette_block_css_parts().
+	 * @return array
+	 */
+	function origin_canvas_palette_block_css_reading( $parts ) {
+		$out   = array();
+		$print = '';
+		foreach ( $parts as $i => $p ) {
+			$chunk     = origin_canvas_palette_block_css_chunk( $p['text'] );
+			$out[ $i ] = array(
+				'chunk' => $chunk,
+				'start' => '' === $chunk ? -1 : strlen( $print ),
+				'live'  => false,
+				'close' => -1,
+			);
+			$print    .= $chunk;
+		}
+		$len = strlen( $print );
+		for ( $pos = 0; $pos < $len; ) {
+			// Whitespace and comments before a prelude; then the prelude, to its {.
+			$q = $pos;
+			while ( $q < $len && ( origin_canvas_palette_css_is_space( $print[ $q ] ) || '/*' === substr( $print, $q, 2 ) ) ) {
+				$q += origin_canvas_palette_css_is_space( $print[ $q ] ) ? 1 : origin_canvas_palette_css_protected_at( $print, $q );
+			}
+			$b = -1;
+			for ( $j = $q; $j < $len; ) {
+				$n = origin_canvas_palette_css_protected_at( $print, $j );
+				if ( $n ) {
+					$j += $n;
+					continue;
+				}
+				if ( '{' === $print[ $j ] ) {
+					$b = $j;
+					break;
+				}
+				++$j;
+			}
+			$close = -1 === $b ? -1 : origin_canvas_palette_css_block_close( $print, $b );
+			foreach ( $out as $i => $r ) {
+				if ( $r['start'] === $q && $b === $q + strpos( $r['chunk'], '{' ) ) {
+					$out[ $i ]['live']  = true;
+					$out[ $i ]['close'] = $close;
+				}
+			}
+			if ( -1 === $b || -1 === $close ) {
+				break;
+			}
+			$pos = $close + 1;
+		}
+		$out['print'] = $print;
+		return $out;
+	}
+}
+
+if ( ! function_exists( 'origin_canvas_palette_block_css_copy' ) ) {
+	/**
+	 * The parts that give a variant of live rule part $i the declarations CSS reads for the part
+	 * when its rule runs on past its own print (a comment or string holding an &): the parts from
+	 * $i to the one whose print closes the rule, the first one's selector swapped for the variant.
+	 * Printed, they read the same as the original but for the selector, so they go right before
+	 * part $i, at its place in the cascade. A rule closed by a } inside a later declarations part
+	 * takes that part up to the }; one left open at the end of the text in a comment only takes
+	 * the parts to the last one printed, with the comment closed. null when the rule closes in its
+	 * own print (the variant goes after the part, as for any rule), and false when it cannot be
+	 * copied: a string, url( or bracket left open at the end, or a close core's print cannot
+	 * reproduce.
+	 *
+	 * @param array  $parts   Parts.
+	 * @param array  $texts   The parts' rewritten texts.
+	 * @param string $own     Part $i's rewritten text after its {.
+	 * @param array  $reading From origin_canvas_palette_block_css_reading().
+	 * @param int    $i       Part index.
+	 * @param string $variant The variant's selector, its leading whitespace included.
+	 * @return array|null|false List of part texts.
+	 */
+	function origin_canvas_palette_block_css_copy( $parts, $texts, $own, $reading, $i, $variant ) {
+		$close = $reading[ $i ]['close'];
+		$end   = $reading[ $i ]['start'] + strlen( $reading[ $i ]['chunk'] ) - 1;
+		if ( $close === $end ) {
+			return null;
+		}
+		$copy = array( $variant . '{' . $own );
+		$n    = count( $parts );
+		if ( -1 === $close ) {
+			// Open at the end of the text: only a comment can be closed here and read the same.
+			$rest = (string) substr( $reading['print'], $reading[ $i ]['start'] + strpos( $reading[ $i ]['chunk'], '{' ) + 1 );
+			if ( origin_canvas_palette_css_closed( $rest ) !== $rest . '*/' ) {
+				return false;
+			}
+			$last = $i;
+			for ( $k = $i + 1; $k < $n; $k++ ) {
+				if ( '' !== $reading[ $k ]['chunk'] ) {
+					$last = $k;
+				}
+			}
+			for ( $k = $i + 1; $k <= $last; $k++ ) {
+				$copy[] = $texts[ $k ];
+			}
+			$copy[ count( $copy ) - 1 ] .= '*/';
+			return $copy;
+		}
+		for ( $k = $i + 1; $k < $n; $k++ ) {
+			$copy[] = $texts[ $k ];
+			$r      = $reading[ $k ];
+			if ( '' === $r['chunk'] || $close >= $r['start'] + strlen( $r['chunk'] ) ) {
+				continue;
+			}
+			if ( $close === $r['start'] + strlen( $r['chunk'] ) - 1 ) {
+				return $copy;
+			}
+			// A } inside a declarations part (a rule part's are dropped): the copy ends before it,
+			// and core's own } closes the rule. Core prints the part trimmed.
+			$at = $close - $r['start'] - strpos( $r['chunk'], '{' ) - 1;
+			if ( 'decls' !== $parts[ $k ]['kind'] || $texts[ $k ] !== $parts[ $k ]['text'] || $at < 0 ) {
+				return false;
+			}
+			$copy[ count( $copy ) - 1 ] = substr( $texts[ $k ], 0, strlen( $texts[ $k ] ) - strlen( ltrim( $texts[ $k ] ) ) + $at );
+			return $copy;
+		}
+		return false;
+	}
+}
+
 if ( ! function_exists( 'origin_canvas_palette_rewrite_block_css' ) ) {
 	/**
 	 * The in-place rewrite of a block's custom CSS, in core's reading of it: with $vars, variables
@@ -1968,16 +2164,23 @@ if ( ! function_exists( 'origin_canvas_palette_rewrite_block_css' ) ) {
 	 * to the block as the old one is. A comma between & parts would be read by core as
 	 * declarations, so variants are never joined to a selector. Each part gets its own variants,
 	 * nothing is merged across parts, so a later repeat of a selector still wins for the new class.
-	 * A second run changes nothing.
+	 * Core splits on every &, one in a comment or a string too, so a rule can run on past its own
+	 * part in core's print (origin_canvas_palette_block_css_reading()): its variants are copies of
+	 * the parts it spans, written before it (origin_canvas_palette_block_css_copy()), and a part
+	 * printed inside it gets none. A second run changes nothing.
 	 *
 	 * @param string $css        Block CSS.
 	 * @param array  $collisions Collision map (dest => legacy), for classes.
 	 * @param bool   $vars       Rename variables too.
 	 * @param array  $var_extra  The gated collision map for variables.
 	 * @param bool   $classes_on Add the class variants.
+	 * @param array  $limits     Set to the selectors (trimmed) of old-class rules that get no
+	 *                           variant: a rule core's print leaves open at the end of the text in
+	 *                           a string, url( or bracket, so no copy reads the same.
 	 * @return string
 	 */
-	function origin_canvas_palette_rewrite_block_css( $css, $collisions = array(), $vars = true, $var_extra = array(), $classes_on = true ) {
+	function origin_canvas_palette_rewrite_block_css( $css, $collisions = array(), $vars = true, $var_extra = array(), $classes_on = true, &$limits = null ) {
+		$limits    = array();
 		$parts     = origin_canvas_palette_block_css_parts( $css );
 		$classes   = origin_canvas_palette_old_classes();
 		$collision = origin_canvas_palette_css_collision_classes( $collisions );
@@ -2000,19 +2203,21 @@ if ( ! function_exists( 'origin_canvas_palette_rewrite_block_css' ) ) {
 		foreach ( $sels as $i => $sel ) {
 			$base[ $i ] = $classes_on && origin_canvas_palette_css_balanced( $sel ) ? array_flip( origin_canvas_palette_css_variants( $sel, $classes ) ) : array();
 		}
-		$out = array();
+		// First every part's own text; then the variants, which copy rewritten parts.
+		$reading = origin_canvas_palette_block_css_reading( $parts );
+		$texts   = array();
+		$owns    = array();
 		foreach ( $parts as $i => $p ) {
 			if ( 'skip' === $p['kind'] ) {
-				$out[] = $p['text'];
+				$texts[ $i ] = $p['text'];
 				continue;
 			}
 			if ( 'decls' === $p['kind'] ) {
-				$out[] = $vars ? origin_canvas_palette_block_css_rename_decls( $p['text'], $var_extra ) : $p['text'];
+				$texts[ $i ] = $vars ? origin_canvas_palette_block_css_rename_decls( $p['text'], $var_extra ) : $p['text'];
 				continue;
 			}
 			// The part keeps its own bytes with its variables renamed; when it is one plain body (its
-			// only } at the end) its declarations are twinned as in a rule body too. Its variants take
-			// the declarations as core prints them: every } dropped, a tail after a } included.
+			// only } at the end) its declarations are twinned as in a rule body too.
 			$after = (string) substr( $p['text'], $p['brace'] + 1 );
 			if ( ! $vars ) {
 				$own = $after;
@@ -2021,10 +2226,21 @@ if ( ! function_exists( 'origin_canvas_palette_rewrite_block_css' ) ) {
 			} else {
 				$own = origin_canvas_palette_css_rename_vars_in( $after, $var_extra );
 			}
-			$next  = str_replace( '}', '', $own );
-			$sel   = $sels[ $i ];
-			$text  = $sel . '{' . $own;
-			$lead  = $lead_of( $sel );
+			$owns[ $i ]  = $own;
+			$texts[ $i ] = $sels[ $i ] . '{' . $own;
+		}
+		$out = array();
+		$n   = count( $parts );
+		foreach ( $parts as $i => $p ) {
+			$text = $texts[ $i ];
+			// Only a part whose print starts a rule of its own gets variants: one printed inside an
+			// earlier part's comment or string is that rule's text.
+			if ( 'rule' !== $p['kind'] || ! $reading[ $i ]['live'] || ! $classes_on || ! origin_canvas_palette_css_balanced( $sels[ $i ] ) ) {
+				$out[] = $text;
+				continue;
+			}
+			$sel        = $sels[ $i ];
+			$lead       = $lead_of( $sel );
 			$is_variant = false;
 			foreach ( $base as $j => $vs ) {
 				if ( $j !== $i && isset( $vs[ origin_canvas_palette_css_trim( $sel ) ] ) ) {
@@ -2032,19 +2248,43 @@ if ( ! function_exists( 'origin_canvas_palette_rewrite_block_css' ) ) {
 					break;
 				}
 			}
-			$map = ( $is_variant || ! $collision ) ? $classes : array_merge( $classes, $collision );
-			// The last part, run into an open comment, string or url( at the end: a variant after it
-			// would sit inside that construct as core prints it, so it gets none; its bytes stay.
-			$open = count( $parts ) - 1 === $i && origin_canvas_palette_css_open_at_end( $after );
-			if ( $classes_on && ! $open && origin_canvas_palette_css_balanced( $sel ) ) {
-				$want = array();
-				foreach ( origin_canvas_palette_css_variants( $sel, $map ) as $v ) {
-					$want[ $lead . $v ] = true;
+			$map  = ( $is_variant || ! $collision ) ? $classes : array_merge( $classes, $collision );
+			$want = array();
+			foreach ( origin_canvas_palette_css_variants( $sel, $map ) as $v ) {
+				$want[ $lead . $v ] = true;
+			}
+			if ( ! $want ) {
+				$out[] = $text;
+				continue;
+			}
+			$copies = array();
+			$after  = false;
+			foreach ( $want as $v => $unused ) {
+				$copy = origin_canvas_palette_block_css_copy( $parts, $texts, $owns[ $i ], $reading, $i, $v );
+				if ( null === $copy ) {
+					$after = true;
+				} elseif ( false === $copy ) {
+					$limits[] = origin_canvas_palette_css_trim( $sel );
+				} else {
+					$copies[] = implode( '&', $copy );
 				}
-				// A variant already right after its own part (a second pass) is not added again; a
-				// repeated selector later in the text gets its own variants after it, in cascade order.
+			}
+			if ( $copies ) {
+				// A rule that runs on past its own print: each variant is a copy of the parts its rule
+				// spans, right before the part. A copy already there (a second pass) is not added again.
+				$block  = implode( '&', $copies );
+				$so_far = implode( '&', $out );
+				if ( ! ( substr( $so_far, -strlen( $block ) ) === $block && ( strlen( $so_far ) === strlen( $block ) || '&' === $so_far[ strlen( $so_far ) - strlen( $block ) - 1 ] ) ) ) {
+					$out[] = $block;
+				}
+			}
+			if ( $after ) {
+				// The rule closes in its own print: each variant goes right after the part, with the
+				// declarations as core prints them (every } dropped, a tail after a } included). One
+				// already right after its own part (a second pass) is not added again; a repeated
+				// selector later in the text gets its own variants after it, in cascade order.
+				$next      = str_replace( '}', '', $owns[ $i ] );
 				$following = array();
-				$n         = count( $parts );
 				for ( $j = $i + 1; $j < $n && 'rule' === $parts[ $j ]['kind'] && isset( $want[ $key( $sels[ $j ] ) ] ); $j++ ) {
 					$following[ $key( $sels[ $j ] ) ] = true;
 				}
@@ -2056,14 +2296,16 @@ if ( ! function_exists( 'origin_canvas_palette_rewrite_block_css' ) ) {
 			}
 			$out[] = $text;
 		}
+		$limits = array_values( array_unique( $limits ) );
 		return implode( '&', $out );
 	}
 }
 
 if ( ! function_exists( 'origin_canvas_palette_block_css_hits' ) ) {
 	/**
-	 * Old codes in a block's custom CSS, in core's reading of it: old classes in each nested
-	 * rule's selector and old variables in the declarations, read as code.
+	 * Old codes in a block's custom CSS, in core's reading of it: old classes in the selector of
+	 * each nested rule whose print starts a rule of its own (one printed inside an earlier part's
+	 * comment or string is text) and old variables in the declarations, read as code.
 	 *
 	 * @param string $css Block CSS.
 	 * @return string[]
@@ -2071,11 +2313,13 @@ if ( ! function_exists( 'origin_canvas_palette_block_css_hits' ) ) {
 	function origin_canvas_palette_block_css_hits( $css ) {
 		$hits    = array();
 		$classes = origin_canvas_palette_old_classes();
-		foreach ( origin_canvas_palette_block_css_parts( $css ) as $p ) {
+		$parts   = origin_canvas_palette_block_css_parts( $css );
+		$reading = origin_canvas_palette_block_css_reading( $parts );
+		foreach ( $parts as $i => $p ) {
 			if ( 'skip' === $p['kind'] ) {
 				continue;
 			}
-			if ( 'rule' === $p['kind'] ) {
+			if ( 'rule' === $p['kind'] && $reading[ $i ]['live'] ) {
 				$sel = substr( $p['text'], 0, $p['brace'] );
 				if ( origin_canvas_palette_css_balanced( $sel ) ) {
 					foreach ( origin_canvas_palette_css_tokens( $sel, $classes ) as $t ) {

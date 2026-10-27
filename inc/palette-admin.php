@@ -323,6 +323,61 @@ if ( ! function_exists( 'origin_canvas_palette_child_negations' ) ) {
 	}
 }
 
+if ( ! function_exists( 'origin_canvas_palette_block_css_limit_list' ) ) {
+	/**
+	 * Block CSS rules on an old colour class that the rewrite cannot give the new class: a rule
+	 * core's print leaves open at the end of the text in a string, url( or bracket
+	 * (origin_canvas_palette_rewrite_block_css()'s limits). Read from the active Global Styles
+	 * record's block CSS and from each candidate post's block style.css; the page lists each, as
+	 * information.
+	 *
+	 * @return array<string, string[]> Where => selectors.
+	 */
+	function origin_canvas_palette_block_css_limit_list() {
+		$out  = array();
+		$read = static function ( $where, $css ) use ( &$out ) {
+			$limits = array();
+			origin_canvas_palette_rewrite_block_css( $css, array(), true, array(), true, $limits );
+			if ( $limits ) {
+				$out[ $where ] = array_values( array_unique( array_merge( $out[ $where ] ?? array(), $limits ) ) );
+			}
+		};
+		$id = origin_canvas_palette_active_global_styles_id();
+		$gs = $id ? get_post( $id ) : null;
+		$gs = $gs instanceof WP_Post ? json_decode( $gs->post_content, true ) : null;
+		if ( is_array( $gs ) && isset( $gs['styles'] ) && is_array( $gs['styles'] ) ) {
+			$walk = static function ( $v, $path ) use ( &$walk, $read ) {
+				foreach ( $v as $k => $x ) {
+					if ( is_array( $x ) ) {
+						$walk( $x, array_merge( $path, array( (string) $k ) ) );
+					} elseif ( 'css' === $k && is_string( $x ) && $path ) {
+						/* translators: %s: the Global Styles path of a block's CSS, such as blocks › core/paragraph. */
+						$read( sprintf( __( 'Global Styles, %s', 'origin-canvas' ), implode( ' › ', $path ) ), $x );
+					}
+				}
+			};
+			$walk( $gs['styles'], array() );
+		}
+		origin_canvas_palette_each_candidate(
+			static function ( $post ) use ( $read ) {
+				$blocks = parse_blocks( $post->post_content );
+				while ( $blocks ) {
+					$b = array_shift( $blocks );
+					if ( ! empty( $b['innerBlocks'] ) ) {
+						$blocks = array_merge( $b['innerBlocks'], $blocks );
+					}
+					$css = $b['attrs']['style']['css'] ?? null;
+					if ( is_string( $css ) ) {
+						$title = get_the_title( $post );
+						$read( ( '' === $title ? '' : $title . ' ' ) . '#' . $post->ID, $css );
+					}
+				}
+			}
+		);
+		return $out;
+	}
+}
+
 if ( ! function_exists( 'origin_canvas_palette_page_hook' ) ) {
 	/**
 	 * The Update colours page's hook suffix, once registered.
@@ -423,6 +478,18 @@ if ( ! function_exists( 'origin_canvas_palette_render_page' ) ) {
 				echo '</ul>';
 			}
 			echo '</div>';
+		}
+
+		$limits = origin_canvas_palette_block_css_limit_list();
+		if ( $limits ) {
+			echo '<div id="origin-canvas-update-colours-block-css" class="notice notice-info inline">';
+			echo '<p>' . wp_kses( __( 'These block CSS rules on an old colour class are left open at the end, in a string, a <code>url()</code> or a bracket. The new class cannot get the same styles. To keep them when a block moves to the new name, close each rule.', 'origin-canvas' ), array( 'code' => array() ) ) . '</p><ul>';
+			foreach ( $limits as $where => $sels ) {
+				foreach ( $sels as $sel ) {
+					echo '<li>' . esc_html( $where ) . ': <code>' . esc_html( $sel ) . '</code></li>';
+				}
+			}
+			echo '</ul></div>';
 		}
 
 		echo '<p><button type="button" class="button button-primary" id="origin-canvas-update-colours-run">' . esc_html__( 'Update colours', 'origin-canvas' ) . '</button></p>';
