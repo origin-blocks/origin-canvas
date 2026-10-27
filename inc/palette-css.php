@@ -1542,10 +1542,10 @@ if ( ! function_exists( 'origin_canvas_palette_css_declarations' ) ) {
 			if ( '(' === $ch || '[' === $ch ) {
 				++$depth;
 			} elseif ( ')' === $ch || ']' === $ch ) {
-				--$depth;
-			} elseif ( '{' === $ch ) {
+				$depth = max( 0, $depth - 1 ); // A stray closer invalidates its declaration, not later ones.
+			} elseif ( '{' === $ch && 0 === $depth ) {
 				++$brace;
-			} elseif ( '}' === $ch ) {
+			} elseif ( '}' === $ch && 0 === $depth && $brace ) {
 				--$brace;
 				if ( 0 === $brace ) {
 					// A nested rule ends: what follows starts a new declaration.
@@ -1949,21 +1949,57 @@ if ( ! function_exists( 'origin_canvas_palette_block_css_decls' ) ) {
 	}
 }
 
+if ( ! function_exists( 'origin_canvas_palette_block_css_decls_end' ) ) {
+	/**
+	 * End of the declarations CSS applies in a bare block-CSS part. False if a nested opening
+	 * brace occurs first; such a part is not one declaration body.
+	 *
+	 * @param string $decls Bare declarations as core prints them.
+	 * @return int|false
+	 */
+	function origin_canvas_palette_block_css_decls_end( $decls ) {
+		$len = strlen( $decls );
+		$stack = array();
+		for ( $i = 0; $i < $len; ) {
+			$n = origin_canvas_palette_css_protected_at( $decls, $i );
+			if ( $n ) {
+				$i += $n;
+				continue;
+			}
+			$ch = $decls[ $i ];
+			if ( '(' === $ch || '[' === $ch ) {
+				$stack[] = '(' === $ch ? ')' : ']';
+			} elseif ( $stack && end( $stack ) === $ch ) {
+				array_pop( $stack );
+			} elseif ( ! $stack && '{' === $ch ) {
+				return false;
+			} elseif ( ! $stack && '}' === $ch ) {
+				return $i;
+			}
+			++$i;
+		}
+		return $len;
+	}
+}
+
 if ( ! function_exists( 'origin_canvas_palette_block_css_rename_decls' ) ) {
 	/**
 	 * Declarations of a block's CSS part with old preset variables renamed and old preset
-	 * properties twinned, as in a rule body. Text holding a brace is left as it is: core drops
-	 * every } of a part, so it is not one body.
+	 * properties twinned, as in a rule body. Core prints a declarations part raw inside a rule:
+	 * its first top-level } closes that rule, so only the text before it is declarations.
+	 * Keep the rest byte for byte. A { is not a declaration and remains untouched.
 	 *
 	 * @param string $decls Declarations.
 	 * @param array  $extra Collision map.
 	 * @return string
 	 */
 	function origin_canvas_palette_block_css_rename_decls( $decls, $extra = array() ) {
-		if ( false !== strpbrk( $decls, '{}' ) ) {
+		$end = origin_canvas_palette_block_css_decls_end( $decls );
+		if ( false === $end ) {
 			return $decls;
 		}
-		return (string) substr( origin_canvas_palette_css_rename_body( '{' . $decls . '}', $extra ), 1, -1 );
+		$prefix = substr( $decls, 0, $end );
+		return (string) substr( origin_canvas_palette_css_rename_body( '{' . $prefix . '}', $extra ), 1, -1 ) . substr( $decls, $end );
 	}
 }
 
@@ -2470,6 +2506,13 @@ if ( ! function_exists( 'origin_canvas_palette_block_css_hits' ) ) {
 				continue;
 			}
 			$decls = '' === $entry ? origin_canvas_palette_block_css_decls( $p ) : str_replace( '}', '', $entry . $p['text'] );
+			if ( 'decls' === $p['kind'] && '' === $entry ) {
+				$end = origin_canvas_palette_block_css_decls_end( $decls );
+				if ( false === $end ) {
+					continue;
+				}
+				$decls = substr( $decls, 0, $end );
+			}
 			foreach ( origin_canvas_palette_css_code_hits( 'x{' . str_replace( '{', '', $decls ) . '}' ) as $h ) {
 				if ( 0 !== strpos( $h, 'class=' ) ) {
 					$hits[] = $h;
