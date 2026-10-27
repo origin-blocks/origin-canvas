@@ -1831,7 +1831,8 @@ if ( ! function_exists( 'origin_canvas_palette_block_css_parts' ) ) {
 	 * or a block's style.css attribute) as core prints it (WP_Theme_JSON::process_blocks_custom_css()):
 	 * the text split on every &; a part with no { is declarations of the block; any other part is
 	 * one nested rule, its selector before the {, its declarations after it with every } dropped,
-	 * joined to the block selector (as a descendant when it starts with a space); a part that does
+	 * joined to the block selector (scoped when it starts with a space, otherwise appended as
+	 * written, so a leading tab or newline is a descendant too); a part that does
 	 * not split in two at { is not printed. List of array( 'text' => part, 'kind' =>
 	 * 'decls'|'rule'|'skip', 'brace' => offset of { in a rule ).
 	 *
@@ -1915,8 +1916,13 @@ if ( ! function_exists( 'origin_canvas_palette_rewrite_block_css' ) ) {
 		$parts     = origin_canvas_palette_block_css_parts( $css );
 		$classes   = origin_canvas_palette_old_classes();
 		$collision = origin_canvas_palette_css_collision_classes( $collisions );
-		$key       = static function ( $sel ) {
-			return ( ' ' === substr( $sel, 0, 1 ) ? ' ' : '' ) . origin_canvas_palette_css_trim( $sel );
+		// Core joins a selector to the block's as written: any leading whitespace (a space, a tab,
+		// a newline) makes it a descendant, so a variant keeps the same whitespace bytes.
+		$lead_of   = static function ( $sel ) {
+			return (string) substr( $sel, 0, strspn( $sel, " \t\n\r\f" ) );
+		};
+		$key       = static function ( $sel ) use ( $lead_of ) {
+			return $lead_of( $sel ) . origin_canvas_palette_css_trim( $sel );
 		};
 		$sels      = array();
 		$present   = array();
@@ -1946,7 +1952,7 @@ if ( ! function_exists( 'origin_canvas_palette_rewrite_block_css' ) ) {
 			$sel   = $sels[ $i ];
 			// Renamed, the rule is written as core prints it, one body; unchanged, its bytes stay.
 			$text  = $sel . ( $next === $decls ? substr( $p['text'], $p['brace'] ) : '{' . $next . '}' );
-			$lead  = ' ' === substr( $sel, 0, 1 ) ? ' ' : '';
+			$lead  = $lead_of( $sel );
 			$is_variant = false;
 			foreach ( $base as $j => $vs ) {
 				if ( $j !== $i && isset( $vs[ origin_canvas_palette_css_trim( $sel ) ] ) ) {
