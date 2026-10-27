@@ -178,6 +178,33 @@ if ( ! function_exists( 'origin_canvas_palette_css_rename_var_refs' ) ) {
 	}
 }
 
+if ( ! function_exists( 'origin_canvas_palette_css_var_slugs' ) ) {
+	/**
+	 * The preset variables that var() references in a CSS text name, outside comments, strings
+	 * and url() arguments, read as origin_canvas_palette_css_var_refs() reads them: list of
+	 * array( kind, slug ).
+	 *
+	 * @param string $text CSS.
+	 * @return array
+	 */
+	function origin_canvas_palette_css_var_slugs( $text ) {
+		$out = array();
+		origin_canvas_palette_css_map_outside(
+			(string) $text,
+			static function ( $plain ) use ( &$out ) {
+				foreach ( origin_canvas_palette_css_var_refs( $plain ) as $r ) {
+					$v = origin_canvas_palette_css_var_kind( $r[2] );
+					if ( $v ) {
+						$out[] = array( $v[0], $v[2] );
+					}
+				}
+				return $plain;
+			}
+		);
+		return $out;
+	}
+}
+
 if ( ! function_exists( 'origin_canvas_palette_css_is_space' ) ) {
 	/**
 	 * Whether a byte is CSS whitespace.

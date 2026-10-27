@@ -1057,8 +1057,8 @@ if ( ! function_exists( 'origin_canvas_palette_content_hits' ) ) {
 if ( ! function_exists( 'origin_canvas_palette_content_slug_refs' ) ) {
 	/**
 	 * Of the given slugs per kind, those a reachable block references in the fields the rewrite
-	 * reads: slug attributes, colour, spacing and line height paths. A malformed post references
-	 * none.
+	 * reads: slug attributes, colour, spacing and line height paths, and the var() references of
+	 * a block's own CSS (style.css). A malformed post references none.
 	 *
 	 * @param string $content Block markup.
 	 * @param array  $slugs   array( 'color' => string[], 'spacing' => string[], 'lineHeight' => string[] ).
@@ -1093,6 +1093,15 @@ if ( ! function_exists( 'origin_canvas_palette_content_slug_refs' ) ) {
 				}
 			);
 			$code = implode( ' ', $code );
+			if ( $kinds['css'] ) {
+				// A block's own CSS (style.css): its var() references are the block's references.
+				foreach ( origin_canvas_palette_css_var_slugs( $v ) as $r ) {
+					if ( isset( $want[ $r[0] ][ $r[1] ] ) ) {
+						$refs[ $r[0] ][ $r[1] ] = true;
+					}
+				}
+				return null;
+			}
 			if ( $kinds['slug'] ) {
 				if ( isset( $want['color'][ $v ] ) ) {
 					$refs['color'][ $v ] = true;
