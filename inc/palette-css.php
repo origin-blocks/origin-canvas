@@ -1943,15 +1943,24 @@ if ( ! function_exists( 'origin_canvas_palette_rewrite_block_css' ) ) {
 				$out[] = $p['text'];
 				continue;
 			}
-			$decls = origin_canvas_palette_block_css_decls( $p );
-			$next  = $vars ? origin_canvas_palette_block_css_rename_decls( $decls, $var_extra ) : $decls;
 			if ( 'decls' === $p['kind'] ) {
-				$out[] = $next;
+				$out[] = $vars ? origin_canvas_palette_block_css_rename_decls( $p['text'], $var_extra ) : $p['text'];
 				continue;
 			}
+			// The part keeps its own bytes with its variables renamed; when it is one plain body (its
+			// only } at the end) its declarations are twinned as in a rule body too. Its variants take
+			// the declarations as core prints them: every } dropped, a tail after a } included.
+			$after = (string) substr( $p['text'], $p['brace'] + 1 );
+			if ( ! $vars ) {
+				$own = $after;
+			} elseif ( strpos( $after, '}' ) === strlen( $after ) - 1 ) {
+				$own = origin_canvas_palette_block_css_rename_decls( substr( $after, 0, -1 ), $var_extra ) . '}';
+			} else {
+				$own = origin_canvas_palette_css_rename_vars_in( $after, $var_extra );
+			}
+			$next  = str_replace( '}', '', $own );
 			$sel   = $sels[ $i ];
-			// Renamed, the rule is written as core prints it, one body; unchanged, its bytes stay.
-			$text  = $sel . ( $next === $decls ? substr( $p['text'], $p['brace'] ) : '{' . $next . '}' );
+			$text  = $sel . '{' . $own;
 			$lead  = $lead_of( $sel );
 			$is_variant = false;
 			foreach ( $base as $j => $vs ) {
