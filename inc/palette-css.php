@@ -1860,19 +1860,19 @@ if ( ! function_exists( 'origin_canvas_palette_block_css_parts' ) ) {
 
 if ( ! function_exists( 'origin_canvas_palette_block_css_decls' ) ) {
 	/**
-	 * The declarations of one part of a block's CSS and the bytes after them: array( decls, tail ).
-	 * For a rule, the text after its { up to its last }; the } and what follows is the tail.
+	 * The declarations of one part of a block's CSS, as core prints them: a declarations part
+	 * whole; for a rule, all the text after its { with every } dropped, so text after a } is
+	 * declarations of the same rule (`.x{color:red;} font-weight:700` prints as
+	 * `{color:red; font-weight:700}`).
 	 *
 	 * @param array $p A part from origin_canvas_palette_block_css_parts().
-	 * @return array{0: string, 1: string}
+	 * @return string
 	 */
 	function origin_canvas_palette_block_css_decls( $p ) {
 		if ( 'decls' === $p['kind'] ) {
-			return array( $p['text'], '' );
+			return $p['text'];
 		}
-		$after = (string) substr( $p['text'], $p['brace'] + 1 );
-		$close = strrpos( $after, '}' );
-		return false === $close ? array( $after, '' ) : array( substr( $after, 0, $close ), substr( $after, $close ) );
+		return str_replace( '}', '', (string) substr( $p['text'], $p['brace'] + 1 ) );
 	}
 }
 
@@ -1937,14 +1937,15 @@ if ( ! function_exists( 'origin_canvas_palette_rewrite_block_css' ) ) {
 				$out[] = $p['text'];
 				continue;
 			}
-			list( $decls, $tail ) = origin_canvas_palette_block_css_decls( $p );
-			$next                 = $vars ? origin_canvas_palette_block_css_rename_decls( $decls, $var_extra ) : $decls;
+			$decls = origin_canvas_palette_block_css_decls( $p );
+			$next  = $vars ? origin_canvas_palette_block_css_rename_decls( $decls, $var_extra ) : $decls;
 			if ( 'decls' === $p['kind'] ) {
 				$out[] = $next;
 				continue;
 			}
 			$sel   = $sels[ $i ];
-			$text  = $sel . '{' . $next . $tail;
+			// Renamed, the rule is written as core prints it, one body; unchanged, its bytes stay.
+			$text  = $sel . ( $next === $decls ? substr( $p['text'], $p['brace'] ) : '{' . $next . '}' );
 			$lead  = ' ' === substr( $sel, 0, 1 ) ? ' ' : '';
 			$is_variant = false;
 			foreach ( $base as $j => $vs ) {
@@ -1958,7 +1959,7 @@ if ( ! function_exists( 'origin_canvas_palette_rewrite_block_css' ) ) {
 				foreach ( origin_canvas_palette_css_variants( $sel, $map ) as $v ) {
 					if ( ! isset( $present[ $lead . $v ] ) ) {
 						$present[ $lead . $v ] = true;
-						$text                 .= '&' . $lead . $v . '{' . str_replace( '}', '', $next ) . '}';
+						$text                 .= '&' . $lead . $v . '{' . $next . '}';
 					}
 				}
 			}
@@ -1991,8 +1992,8 @@ if ( ! function_exists( 'origin_canvas_palette_block_css_hits' ) ) {
 					}
 				}
 			}
-			list( $decls ) = origin_canvas_palette_block_css_decls( $p );
-			foreach ( origin_canvas_palette_css_code_hits( 'x{' . str_replace( array( '{', '}' ), '', $decls ) . '}' ) as $h ) {
+			$decls = origin_canvas_palette_block_css_decls( $p );
+			foreach ( origin_canvas_palette_css_code_hits( 'x{' . str_replace( '{', '', $decls ) . '}' ) as $h ) {
 				if ( 0 !== strpos( $h, 'class=' ) ) {
 					$hits[] = $h;
 				}
