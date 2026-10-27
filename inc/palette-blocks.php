@@ -1006,28 +1006,23 @@ if ( ! function_exists( 'origin_canvas_palette_markup_hits' ) ) {
 		$map  = origin_canvas_palette_map();
 		$hits = array();
 		foreach ( Origin_Canvas_Palette_Tag_Scanner::openers( $markup ) as $t ) {
-			foreach ( preg_split( '/\s+/', origin_canvas_palette_tag_value( $t[1], 'class' ) ) as $tok ) {
+			// Tokens split and compared as HTML reads them: has-text&#45;muted-color is the old class.
+			foreach ( origin_canvas_palette_class_split( origin_canvas_palette_tag_value( $t[1], 'class' ) ) as $k => $raw ) {
+				$tok = 1 === $k % 2 ? '' : WP_HTML_Decoder::decode_attribute( $raw );
 				// has-border-color alone is core's generic class: not evidence.
 				if ( 'has-border-color' !== $tok && preg_match( '/^has-([a-z0-9-]+?)-(background-color|border-color|color)$/D', $tok, $m ) && isset( $map['color'][ $m[1] ] ) ) {
 					$hits[] = 'class=' . $tok;
 				}
 			}
-			// Every old preset variable, outside the style attribute's strings and comments.
-			origin_canvas_palette_attr_map_outside(
-				origin_canvas_palette_tag_value( $t[1], 'style' ),
-				static function ( $plain ) use ( $map, &$hits ) {
-					foreach ( array( 'color' => '--wp--preset--color--', 'spacing' => '--wp--preset--spacing--', 'lineHeight' => '--wp--custom--line-height--' ) as $kind => $prefix ) {
-						if ( preg_match_all( '/var\(' . preg_quote( $prefix, '/' ) . '([a-z0-9-]+)\)/', $plain, $vars ) ) {
-							foreach ( $vars[1] as $v ) {
-								if ( isset( $map[ $kind ][ $v ] ) ) {
-									$hits[] = 'style~' . ( 'color' === $kind ? '' : $kind . '-' ) . $v;
-								}
-							}
-						}
-					}
-					return $plain;
+			// Every old preset variable in the style attribute, decoded as HTML reads it and read as
+			// CSS reads var(): outside strings and comments, with comments allowed around the name
+			// (var(/**/--wp--preset--color--text-muted)).
+			foreach ( origin_canvas_palette_css_var_refs( WP_HTML_Decoder::decode_attribute( origin_canvas_palette_tag_value( $t[1], 'style' ) ) ) as $r ) {
+				$v = origin_canvas_palette_css_var_kind( $r[2] );
+				if ( $v && isset( $map[ $v[0] ][ $v[2] ] ) ) {
+					$hits[] = 'style~' . ( 'color' === $v[0] ? '' : $v[0] . '-' ) . $v[2];
 				}
-			);
+			}
 		}
 		return $hits;
 	}
