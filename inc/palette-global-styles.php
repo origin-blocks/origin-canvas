@@ -244,6 +244,21 @@ if ( ! function_exists( 'origin_canvas_palette_over' ) ) {
 	}
 }
 
+if ( ! function_exists( 'origin_canvas_palette_is_label' ) ) {
+	/**
+	 * Whether an object key in a Global Styles record names a label: a palette or gradient entry's
+	 * name, a title, a description. A label is text a person reads, never a colour field, so the
+	 * rewrite keeps it byte for byte and detection does not count it (point 5). Under
+	 * settings.custom every key is a CSS custom property's name, so the walk there reads none.
+	 *
+	 * @param string $key Object key.
+	 * @return bool
+	 */
+	function origin_canvas_palette_is_label( $key ) {
+		return 'name' === $key || 'title' === $key || 'description' === $key;
+	}
+}
+
 if ( ! function_exists( 'origin_canvas_palette_deep_rename' ) ) {
 	/**
 	 * Rename references in every string of a node; a string under a key named css goes through
@@ -257,7 +272,10 @@ if ( ! function_exists( 'origin_canvas_palette_deep_rename' ) ) {
 	 * @param bool   $block A css string here is block CSS.
 	 * @return mixed
 	 */
-	function origin_canvas_palette_deep_rename( $v, $extra, $key = '', $block = false ) {
+	function origin_canvas_palette_deep_rename( $v, $extra, $key = '', $block = false, $labels = true ) {
+		if ( is_string( $v ) && $labels && origin_canvas_palette_is_label( $key ) ) {
+			return $v; // A label (a palette or gradient name, a title, a description) is text.
+		}
 		if ( is_string( $v ) ) {
 			if ( 'css' === $key ) {
 				return $block ? origin_canvas_palette_rewrite_block_css( $v, array(), true, $extra, false ) : origin_canvas_palette_css_rename_vars( $v, $extra );
@@ -266,13 +284,13 @@ if ( ! function_exists( 'origin_canvas_palette_deep_rename' ) ) {
 		}
 		if ( is_array( $v ) ) {
 			foreach ( $v as $i => $x ) {
-				$v[ $i ] = origin_canvas_palette_deep_rename( $x, $extra, '', $block );
+				$v[ $i ] = origin_canvas_palette_deep_rename( $x, $extra, '', $block, $labels );
 			}
 			return $v;
 		}
 		if ( is_object( $v ) ) {
 			foreach ( get_object_vars( $v ) as $k => $x ) {
-				$v->$k = origin_canvas_palette_deep_rename( $x, $extra, (string) $k, $block );
+				$v->$k = origin_canvas_palette_deep_rename( $x, $extra, (string) $k, $block, $labels );
 			}
 			return $v;
 		}
@@ -581,7 +599,8 @@ if ( ! function_exists( 'origin_canvas_palette_rename_settings_strings' ) ) {
 		}
 		foreach ( array( 'typography', 'spacing', 'custom' ) as $key ) {
 			if ( isset( $level->$key ) ) {
-				$level->$key = origin_canvas_palette_deep_rename( $level->$key, $extra, $key );
+				// Every key under custom names a CSS custom property (--wp--custom--…), so none is a label.
+				$level->$key = origin_canvas_palette_deep_rename( $level->$key, $extra, $key, false, 'custom' !== $key );
 			}
 		}
 	}
@@ -735,7 +754,10 @@ if ( ! function_exists( 'origin_canvas_palette_string_hits' ) ) {
 	 * @param array  $hits Collected hits.
 	 * @return void
 	 */
-	function origin_canvas_palette_string_hits( $v, $path, $key, &$hits ) {
+	function origin_canvas_palette_string_hits( $v, $path, $key, &$hits, $labels = true ) {
+		if ( is_string( $v ) && $labels && origin_canvas_palette_is_label( $key ) ) {
+			return; // A label is text, kept as it is.
+		}
 		if ( is_string( $v ) ) {
 			if ( 'css' !== $key ) {
 				$next = origin_canvas_palette_rename_refs( $v );
@@ -751,7 +773,7 @@ if ( ! function_exists( 'origin_canvas_palette_string_hits' ) ) {
 		}
 		if ( is_array( $v ) || is_object( $v ) ) {
 			foreach ( ( is_object( $v ) ? get_object_vars( $v ) : $v ) as $k => $x ) {
-				origin_canvas_palette_string_hits( $x, $path . '.' . $k, is_object( $v ) ? (string) $k : '', $hits );
+				origin_canvas_palette_string_hits( $x, $path . '.' . $k, is_object( $v ) ? (string) $k : '', $hits, $labels );
 			}
 		}
 	}
@@ -789,7 +811,7 @@ if ( ! function_exists( 'origin_canvas_palette_global_styles_hits' ) ) {
 			}
 			foreach ( array( 'typography', 'spacing', 'custom' ) as $key ) {
 				if ( isset( $level->$key ) ) {
-					origin_canvas_palette_string_hits( $level->$key, $at . '.' . $key, $key, $out['fixable'] );
+					origin_canvas_palette_string_hits( $level->$key, $at . '.' . $key, $key, $out['fixable'], 'custom' !== $key );
 				}
 			}
 		}
