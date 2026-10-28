@@ -40,7 +40,24 @@ if ( ! function_exists( 'origin_canvas_palette_tokens' ) ) {
 			$tokens[] = substr( origin_canvas_palette_encode_attr_string( $raw ), 1, -1 );
 		}
 		$tokens[] = origin_canvas_palette_escape_token();
+		$tokens[] = origin_canvas_palette_reference_token();
 		return $tokens;
+	}
+}
+
+if ( ! function_exists( 'origin_canvas_palette_reference_token' ) ) {
+	/**
+	 * The prefilter token for an old class or variable written with HTML character references in
+	 * markup: class="has-text&#45;muted-color" and var(--wp--preset--color--text&#x2d;muted) are the
+	 * old codes as HTML reads them, and any character of the name may be written so. A name is
+	 * letters, digits and hyphens, which have no named reference, so each such form holds "&#"
+	 * (&#45;, &#x2d;, &#X2D, &#0099;). Over-inclusive (a curly quote is often stored as &#8217;);
+	 * the walk decodes the markup and decides.
+	 *
+	 * @return string
+	 */
+	function origin_canvas_palette_reference_token() {
+		return '&#';
 	}
 }
 
