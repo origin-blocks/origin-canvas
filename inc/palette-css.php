@@ -1525,7 +1525,7 @@ if ( ! function_exists( 'origin_canvas_palette_css_declarations' ) ) {
 		$len   = strlen( $body );
 		$start = 1;
 		$colon = -1;
-		$depth = 0;
+		$stack = array(); // The closer each open ( or [ waits for: a ) closes only a (, a ] only a [.
 		$brace = 0;
 		$end   = $len - 1; // The closing brace, when there is one.
 		if ( $len < 2 || '}' !== $body[ $len - 1 ] ) {
@@ -1539,11 +1539,16 @@ if ( ! function_exists( 'origin_canvas_palette_css_declarations' ) ) {
 					continue;
 				}
 			}
-			$ch = $i < $end ? $body[ $i ] : ';';
+			$ch    = $i < $end ? $body[ $i ] : ';';
+			$depth = count( $stack );
 			if ( '(' === $ch || '[' === $ch ) {
-				++$depth;
+				$stack[] = '(' === $ch ? ')' : ']';
 			} elseif ( ')' === $ch || ']' === $ch ) {
-				$depth = max( 0, $depth - 1 ); // A stray closer invalidates its declaration, not later ones.
+				// The other closer inside a ( or [ is a token of its value; a stray one invalidates
+				// its declaration, not later ones.
+				if ( $stack && end( $stack ) === $ch ) {
+					array_pop( $stack );
+				}
 			} elseif ( '{' === $ch && 0 === $depth ) {
 				++$brace;
 			} elseif ( '}' === $ch && 0 === $depth && $brace ) {
