@@ -836,10 +836,20 @@ if ( ! function_exists( 'origin_canvas_palette_global_styles_hits' ) ) {
 		if ( isset( $data->styles ) ) {
 			$collect( $data->styles, 'styles', 'styles' );
 		}
+		$map = origin_canvas_palette_map();
 		foreach ( $block as $text ) {
 			foreach ( origin_canvas_palette_block_css_hits( $text ) as $h ) {
 				if ( 0 === strpos( $h, 'class=' ) ) {
 					$out['alias'][] = 'styles.css=' . substr( $h, 6 );
+				}
+			}
+			// An old variable core prints that the bytes cannot rename (a } inside the reference):
+			// the rewrite keeps it and the Update colours page lists it; only the aliases carry it.
+			foreach ( origin_canvas_palette_block_css_var_reading( $text )['split'] as $split ) {
+				foreach ( $split[1] as $r ) {
+					if ( isset( $map[ $r[0] ][ $r[1] ] ) ) {
+						$out['alias'][] = 'styles.css~' . ( 'color' === $r[0] ? '' : $r[0] . '-' ) . $r[1];
+					}
 				}
 			}
 		}
