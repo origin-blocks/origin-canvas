@@ -717,18 +717,145 @@ if ( ! function_exists( 'origin_canvas_palette_class_split' ) ) {
 	}
 }
 
+if ( ! function_exists( 'origin_canvas_palette_own_codes' ) ) {
+	/**
+	 * The codes in a block's own tags (its own HTML, not its inner blocks'), read as
+	 * origin_canvas_palette_markup_hits() reads raw HTML: colour classes in class attributes and
+	 * variables in style attributes that the map, or the collision map, renames. Core's Highlight
+	 * format saves <mark class="has-inline-color has-text-muted-color"> in a paragraph's text, which
+	 * the block's content attribute is read from, so a rename there keeps the block valid.
+	 *
+	 * A code the block's attributes still name after their rename (a custom class in className, a
+	 * shadow on the variable) is held: save() writes it from them, so it keeps its name and only
+	 * the aliases carry it. List of array( 'kind', 'slug', 'to', 'class' (the class token, or ''
+	 * for a variable), 'held' ).
+	 *
+	 * @param string      $content Markup.
+	 * @param array       $node    Block node.
+	 * @param string|null $after   The block's attribute JSON after its rename ('' for none), or null
+	 *                             when it does not parse: every code is then held.
+	 * @param array       $extra   Collision map.
+	 * @return array
+	 */
+	function origin_canvas_palette_own_codes( $content, $node, $after, $extra = array() ) {
+		$held = array();
+		if ( null !== $after && '' !== $after ) {
+			origin_canvas_palette_edit_json_strings(
+				$after,
+				static function ( $q, $v ) use ( &$held ) {
+					$held[] = $v;
+					return null;
+				}
+			);
+		}
+		$held  = implode( "\n", $held );
+		$named = static function ( $text ) use ( $held, $after ) {
+			return null === $after || 1 === preg_match( '/(?<![A-Za-z0-9_-])' . preg_quote( $text, '/' ) . '(?![A-Za-z0-9_-])/', $held );
+		};
+		$pipes = array(
+			'color'      => 'var:preset|color|',
+			'spacing'    => 'var:preset|spacing|',
+			'lineHeight' => 'var:custom|line-height|',
+		);
+		$out   = array();
+		foreach ( $node['segments'] as $seg ) {
+			if ( ! isset( $seg['text'] ) ) {
+				continue;
+			}
+			$html = substr( $content, $seg['text'][0], $seg['text'][1] - $seg['text'][0] );
+			foreach ( Origin_Canvas_Palette_Tag_Scanner::openers( $html ) as $t ) {
+				foreach ( origin_canvas_palette_class_split( origin_canvas_palette_tag_value( $t[1], 'class' ) ) as $k => $raw ) {
+					$tok = 1 === $k % 2 ? '' : WP_HTML_Decoder::decode_attribute( $raw );
+					// has-border-color alone is core's generic class, never a code.
+					if ( 'has-border-color' === $tok || 0 !== strpos( $tok, 'has-' ) ) {
+						continue;
+					}
+					foreach ( array( 'background-color', 'border-color', 'color' ) as $kind ) {
+						$slug = substr( $tok, 4, - strlen( '-' . $kind ) );
+						if ( '-' . $kind === substr( $tok, - strlen( '-' . $kind ) ) && '' !== (string) $slug && '' !== origin_canvas_palette_lookup( 'color', $slug, $extra ) ) {
+							$to    = 'has-' . origin_canvas_palette_lookup( 'color', $slug, $extra ) . '-' . $kind;
+							$out[] = array(
+								'kind'  => 'color',
+								'slug'  => $slug,
+								'to'    => $to,
+								'class' => $tok,
+								'held'  => $named( $tok ),
+							);
+							break;
+						}
+					}
+				}
+				foreach ( origin_canvas_palette_css_var_refs( WP_HTML_Decoder::decode_attribute( origin_canvas_palette_tag_value( $t[1], 'style' ) ) ) as $r ) {
+					$v  = origin_canvas_palette_css_var_kind( $r[2] );
+					$to = $v ? origin_canvas_palette_lookup( $v[0], $v[2], $extra ) : '';
+					if ( '' !== $to ) {
+						$out[] = array(
+							'kind'  => $v[0],
+							'slug'  => $v[2],
+							'to'    => $to,
+							'class' => '',
+							'held'  => $named( $v[1] . $v[2] ) || $named( $pipes[ $v[0] ] . $v[2] ),
+						);
+					}
+				}
+			}
+		}
+		return $out;
+	}
+}
+
+if ( ! function_exists( 'origin_canvas_palette_renamed_attrs' ) ) {
+	/**
+	 * A block's attribute JSON after the rename, as origin_canvas_palette_rewrite_content() writes
+	 * it: '' for none, null when it does not parse.
+	 *
+	 * @param string $attrs_text Attribute JSON.
+	 * @param array  $extra      Collision map.
+	 * @return string|null
+	 */
+	function origin_canvas_palette_renamed_attrs( $attrs_text, $extra = array() ) {
+		if ( '' === $attrs_text ) {
+			return '';
+		}
+		if ( null === origin_canvas_palette_decode_attrs( $attrs_text ) ) {
+			return null;
+		}
+		$seen = origin_canvas_palette_new_seen();
+		return origin_canvas_palette_edit_json_strings(
+			$attrs_text,
+			static function ( $p, $v ) use ( &$seen, $extra ) {
+				return origin_canvas_palette_rename_value( $p, $v, $seen, $extra );
+			}
+		);
+	}
+}
+
 if ( ! function_exists( 'origin_canvas_palette_tag_edits' ) ) {
 	/**
-	 * Edits for one block's own tags, from what its attributes renamed.
+	 * Edits for one block's own tags, from what its attributes renamed, and for the codes in them
+	 * the attributes do not hold (origin_canvas_palette_own_codes()).
 	 *
 	 * @param string $content Markup.
 	 * @param array  $node    Block node.
 	 * @param mixed  $attrs   Decoded attributes.
 	 * @param array  $seen    What the attributes renamed.
 	 * @param array  $extra   Collision map.
+	 * @param string $after   The attribute JSON after the rename ('' for none).
 	 * @return array List of array( start, end, replacement ).
 	 */
-	function origin_canvas_palette_tag_edits( $content, $node, $attrs, $seen, $extra ) {
+	function origin_canvas_palette_tag_edits( $content, $node, $attrs, $seen, $extra, $after = '' ) {
+		$free_class = array();
+		$free_var   = array();
+		foreach ( origin_canvas_palette_own_codes( $content, $node, $after, $extra ) as $c ) {
+			if ( $c['held'] ) {
+				continue;
+			}
+			if ( '' !== $c['class'] ) {
+				$free_class[ $c['class'] ] = $c['to'];
+			} else {
+				$free_var[ $c['kind'] ][ $c['slug'] ] = $c['to'];
+			}
+		}
 		$rules         = origin_canvas_palette_rules();
 		$class_renames = array();
 		$border_text   = null;
@@ -819,6 +946,9 @@ if ( ! function_exists( 'origin_canvas_palette_tag_edits' ) ) {
 								break;
 							}
 						}
+						if ( 0 === $k % 2 && $parts[ $k ] === $tok && isset( $free_class[ $decoded[ $k ] ] ) ) {
+							$parts[ $k ] = $free_class[ $decoded[ $k ] ];
+						}
 					}
 					if ( null !== $border_text && ! $border_done ) {
 						$idx = array_search( 'has-border-color', $decoded, true );
@@ -857,6 +987,17 @@ if ( ! function_exists( 'origin_canvas_palette_tag_edits' ) ) {
 							return $plain;
 						}
 					);
+					// Then the codes the attributes do not hold, read as markup_hits() reads them
+					// (comments around the name, CSS escapes); each name is written plain.
+					if ( $free_var ) {
+						list( $text, $at ) = origin_canvas_palette_attr_decode( $v );
+						foreach ( array_reverse( origin_canvas_palette_css_var_refs( $text ) ) as $r ) {
+							$kv = origin_canvas_palette_css_var_kind( $r[2] );
+							if ( $kv && isset( $free_var[ $kv[0] ][ $kv[2] ] ) ) {
+								$v = substr( $v, 0, $at[ $r[0] ] ) . $kv[1] . $free_var[ $kv[0] ][ $kv[2] ] . substr( $v, $at[ $r[1] ] );
+							}
+						}
+					}
 					$changes[] = array( $style[0], $style[1], $v );
 				}
 				// Right to left, so each offset still holds.
@@ -935,22 +1076,22 @@ if ( ! function_exists( 'origin_canvas_palette_rewrite_content' ) ) {
 				if ( null === $child['name'] || in_array( $child['name'], $unreachable, true ) ) {
 					continue;
 				}
-				if ( '' !== $child['attrs_text'] ) {
-					$attrs = origin_canvas_palette_decode_attrs( $child['attrs_text'] );
-					if ( null !== $attrs ) {
-						$seen = origin_canvas_palette_new_seen();
-						$next = origin_canvas_palette_edit_json_strings(
-							$child['attrs_text'],
-							static function ( $p, $v ) use ( &$seen, $extra ) {
-								return origin_canvas_palette_rename_value( $p, $v, $seen, $extra );
-							}
-						);
-						if ( $next !== $child['attrs_text'] ) {
-							$edits[] = array( $child['attrs_start'], $child['attrs_start'] + strlen( $child['attrs_text'] ), $next );
-							foreach ( origin_canvas_palette_tag_edits( $content, $child, $attrs, $seen, $extra ) as $e ) {
-								$edits[] = $e;
-							}
+				$attrs = '' === $child['attrs_text'] ? array() : origin_canvas_palette_decode_attrs( $child['attrs_text'] );
+				if ( null !== $attrs ) {
+					$seen = origin_canvas_palette_new_seen();
+					$next = '' === $child['attrs_text'] ? '' : origin_canvas_palette_edit_json_strings(
+						$child['attrs_text'],
+						static function ( $p, $v ) use ( &$seen, $extra ) {
+							return origin_canvas_palette_rename_value( $p, $v, $seen, $extra );
 						}
+					);
+					if ( $next !== $child['attrs_text'] ) {
+						$edits[] = array( $child['attrs_start'], $child['attrs_start'] + strlen( $child['attrs_text'] ), $next );
+					}
+					// The block's own tags: what the attributes renamed, and the codes they do not hold
+					// (an inline Highlight class in the text), with or without an attribute change.
+					foreach ( origin_canvas_palette_tag_edits( $content, $child, $attrs, $seen, $extra, $next ) as $e ) {
+						$edits[] = $e;
 					}
 				}
 				$walk( origin_canvas_palette_children_of( $child ) );
@@ -1060,7 +1201,7 @@ if ( ! function_exists( 'origin_canvas_palette_content_hits' ) ) {
 			);
 			return $attrs;
 		};
-		$walk        = static function ( $nodes, $path ) use ( &$walk, &$reachable, &$alias, $scan, $content, $map, $rules, $malformed ) {
+		$walk        = static function ( $nodes, $path ) use ( &$walk, &$reachable, &$alias, $scan, $content, $map, $rules, $malformed, $extra ) {
 			foreach ( $nodes as $i => $child ) {
 				$p = $path . '/' . ( null === $child['name'] ? 'raw' : $child['name'] ) . '[' . $i . ']';
 				if ( null === $child['name'] ) {
@@ -1080,6 +1221,16 @@ if ( ! function_exists( 'origin_canvas_palette_content_hits' ) ) {
 					$attrs = $scan( $child['attrs_text'], $p, $alias );
 				} else {
 					$attrs = $scan( $child['attrs_text'], $p, $reachable );
+				}
+				// The block's own tags: a code its attributes do not hold is renamed by the rewrite
+				// (an inline Highlight class in the text); a held one only the aliases carry.
+				foreach ( origin_canvas_palette_own_codes( $content, $child, origin_canvas_palette_renamed_attrs( $child['attrs_text'], $extra ), $extra ) as $c ) {
+					$h = $p . '.html.' . ( '' !== $c['class'] ? 'class=' . $c['class'] : 'style~' . ( 'color' === $c['kind'] ? '' : $c['kind'] . '-' ) . $c['slug'] );
+					if ( $malformed || $c['held'] ) {
+						$alias[] = $h;
+					} else {
+						$reachable[] = $h;
+					}
 				}
 				if ( is_array( $attrs ) && isset( $attrs['className'] ) && is_string( $attrs['className'] ) ) {
 					foreach ( preg_split( '/\s+/', $attrs['className'] ) as $tok ) {
@@ -1180,13 +1331,26 @@ if ( ! function_exists( 'origin_canvas_palette_content_slug_refs' ) ) {
 			}
 			return null;
 		};
-		$walk  = static function ( $nodes ) use ( &$walk, $note, $rules ) {
+		// The wanted slugs as a collision map's shape, so the own-tags reader finds them.
+		$named = array();
+		foreach ( $want as $kind => $set ) {
+			foreach ( array_keys( $set ) as $s ) {
+				$named[ $kind ][ $s ] = (string) $s;
+			}
+		}
+		$walk  = static function ( $nodes ) use ( &$walk, &$refs, $note, $rules, $content, $want, $named ) {
 			foreach ( $nodes as $child ) {
 				if ( null === $child['name'] || in_array( $child['name'], $rules['unreachable'], true ) ) {
 					continue;
 				}
 				if ( '' !== $child['attrs_text'] && null !== origin_canvas_palette_decode_attrs( $child['attrs_text'] ) ) {
 					origin_canvas_palette_edit_json_strings( $child['attrs_text'], $note );
+				}
+				// The block's own tags, as the rewrite moves them: the codes the attributes do not hold.
+				foreach ( origin_canvas_palette_own_codes( $content, $child, origin_canvas_palette_renamed_attrs( $child['attrs_text'] ), $named ) as $c ) {
+					if ( ! $c['held'] && isset( $want[ $c['kind'] ][ $c['slug'] ] ) ) {
+						$refs[ $c['kind'] ][ $c['slug'] ] = true;
+					}
 				}
 				$walk( origin_canvas_palette_children_of( $child ) );
 			}
