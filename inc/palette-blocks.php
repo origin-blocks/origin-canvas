@@ -991,10 +991,10 @@ if ( ! function_exists( 'origin_canvas_palette_tag_edits' ) ) {
 					// (comments around the name, CSS escapes); each name is written plain.
 					if ( $free_var ) {
 						list( $text, $at ) = origin_canvas_palette_attr_decode( $v );
-						foreach ( array_reverse( origin_canvas_palette_css_var_refs( $text ) ) as $r ) {
-							$kv = origin_canvas_palette_css_var_kind( $r[2] );
+						foreach ( array_reverse( origin_canvas_palette_css_var_refs( $text ) ) as $ref ) {
+							$kv = origin_canvas_palette_css_var_kind( $ref[2] );
 							if ( $kv && isset( $free_var[ $kv[0] ][ $kv[2] ] ) ) {
-								$v = substr( $v, 0, $at[ $r[0] ] ) . $kv[1] . $free_var[ $kv[0] ][ $kv[2] ] . substr( $v, $at[ $r[1] ] );
+								$v = substr( $v, 0, $at[ $ref[0] ] ) . $kv[1] . $free_var[ $kv[0] ][ $kv[2] ] . substr( $v, $at[ $ref[1] ] );
 							}
 						}
 					}
