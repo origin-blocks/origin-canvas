@@ -1331,7 +1331,7 @@ if ( ! function_exists( 'origin_canvas_palette_json_field' ) ) {
 	 * key or a typography lineHeight (the Global Styles reader renames every style value, a shadow
 	 * too); under settings or settings.blocks.<block>, a palette entry's color, a
 	 * gradient entry's gradient, and the spacing and custom values. Prose (a title, a description,
-	 * an entry's name) and other style values (a fontFamily) are not.
+	 * an entry's name, outside settings custom) and other style values (a fontFamily) are not.
 	 *
 	 * @param array $path Keys from the root.
 	 * @return bool
@@ -1340,6 +1340,11 @@ if ( ! function_exists( 'origin_canvas_palette_json_field' ) ) {
 		$path = array_map( 'strval', $path );
 		$n    = count( $path );
 		if ( $n < 2 ) {
+			return false;
+		}
+		// A label (an entry's name, a title, a description) is text, as in a Global Styles record
+		// (origin_canvas_palette_is_label()); only under settings custom is every key a property's name.
+		if ( origin_canvas_palette_is_label( $path[ $n - 1 ] ) && ! ( 'settings' === $path[0] && 'custom' === ( $path[ 'blocks' === $path[1] ? 3 : 1 ] ?? '' ) ) ) {
 			return false;
 		}
 		if ( 'styles' === $path[0] ) {
