@@ -583,10 +583,39 @@ if ( ! function_exists( 'origin_canvas_palette_transform_level' ) ) {
 	}
 }
 
+if ( ! function_exists( 'origin_canvas_palette_palette_entries' ) ) {
+	/**
+	 * The palette entries of a settings level's color object that hold a string colour, in every
+	 * origin (a plain list, or theme, custom and default lists). Core prints an entry's colour as
+	 * its preset variable's value, so var(--wp--preset--color--text-muted) on a user's swatch is a
+	 * reference, read and renamed as one; the slug and name are not touched here. Keyed by
+	 * "<origin>.<index>" ("list" for a plain list).
+	 *
+	 * @param mixed $color The level's color object.
+	 * @return array<string, stdClass>
+	 */
+	function origin_canvas_palette_palette_entries( $color ) {
+		$out  = array();
+		$node = is_object( $color ) && isset( $color->palette ) ? $color->palette : null;
+		$lists = is_array( $node ) ? array( 'list' => $node ) : ( is_object( $node ) ? get_object_vars( $node ) : array() );
+		foreach ( $lists as $origin => $list ) {
+			if ( ! is_array( $list ) ) {
+				continue;
+			}
+			foreach ( $list as $i => $e ) {
+				if ( is_object( $e ) && isset( $e->color ) && is_string( $e->color ) ) {
+					$out[ $origin . '.' . $i ] = $e;
+				}
+			}
+		}
+		return $out;
+	}
+}
+
 if ( ! function_exists( 'origin_canvas_palette_rename_settings_strings' ) ) {
 	/**
-	 * Rename references in the strings of a settings level's gradients, typography, spacing and
-	 * custom settings.
+	 * Rename references in the strings of a settings level's palette colours, gradients,
+	 * typography, spacing and custom settings.
 	 *
 	 * @param stdClass $level Settings level.
 	 * @param array    $extra Collision map.
@@ -594,6 +623,9 @@ if ( ! function_exists( 'origin_canvas_palette_rename_settings_strings' ) ) {
 	 */
 	function origin_canvas_palette_rename_settings_strings( $level, $extra ) {
 		$color = origin_canvas_palette_obj( $level, 'color' );
+		foreach ( origin_canvas_palette_palette_entries( $color ) as $e ) {
+			$e->color = origin_canvas_palette_rename_refs( $e->color, $extra );
+		}
 		if ( $color && isset( $color->gradients ) ) {
 			$color->gradients = origin_canvas_palette_deep_rename( $color->gradients, $extra, 'gradients' );
 		}
@@ -806,6 +838,9 @@ if ( ! function_exists( 'origin_canvas_palette_global_styles_hits' ) ) {
 		foreach ( origin_canvas_palette_levels( $data ) as $name => $level ) {
 			$at    = '' === $name ? 'settings' : 'settings.blocks.' . $name;
 			$color = origin_canvas_palette_obj( $level, 'color' );
+			foreach ( origin_canvas_palette_palette_entries( $color ) as $where => $e ) {
+				origin_canvas_palette_string_hits( $e->color, $at . '.color.palette.' . $where . '.color', 'color', $out['fixable'] );
+			}
 			if ( $color && isset( $color->gradients ) ) {
 				origin_canvas_palette_string_hits( $color->gradients, $at . '.color.gradients', 'gradients', $out['fixable'] );
 			}
