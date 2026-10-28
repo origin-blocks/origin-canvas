@@ -1024,17 +1024,28 @@ if ( ! function_exists( 'origin_canvas_palette_content_hits' ) ) {
 		$alias       = array();
 		$tree        = origin_canvas_palette_parse( $content );
 		$malformed   = $tree['malformed'];
-		$scan        = static function ( $attrs_text, $p, &$into ) use ( $extra ) {
+		$scan        = static function ( $attrs_text, $p, &$into ) use ( $extra, $map, &$alias ) {
 			$attrs = origin_canvas_palette_decode_attrs( $attrs_text );
 			if ( null === $attrs ) {
 				return null;
 			}
 			origin_canvas_palette_edit_json_strings(
 				$attrs_text,
-				static function ( $q, $v ) use ( &$into, $p, $extra ) {
+				static function ( $q, $v ) use ( &$into, $p, $extra, $map, &$alias ) {
 					$s = origin_canvas_palette_new_seen();
 					if ( null !== origin_canvas_palette_rename_value( $q, $v, $s, $extra ) ) {
 						$into[] = $p . '.' . implode( '.', $q ) . '=' . $v;
+					}
+					// An old variable core prints in the block's CSS that the bytes cannot rename (a }
+					// inside the reference): only the aliases carry it.
+					if ( origin_canvas_palette_path_kinds( $q )['css'] ) {
+						foreach ( origin_canvas_palette_block_css_var_reading( $v )['split'] as $split ) {
+							foreach ( $split[1] as $r ) {
+								if ( isset( $map[ $r[0] ][ $r[1] ] ) ) {
+									$alias[] = $p . '.' . implode( '.', $q ) . '~' . $r[1];
+								}
+							}
+						}
 					}
 					return null;
 				}
@@ -1122,8 +1133,9 @@ if ( ! function_exists( 'origin_canvas_palette_content_slug_refs' ) ) {
 			$code = implode( ' ', $code );
 			if ( $kinds['css'] ) {
 				// A block's own CSS (style.css): its var() references are the block's references, in
-				// the text core prints only (a part core does not print references nothing).
-				foreach ( origin_canvas_palette_css_var_slugs( origin_canvas_palette_block_css_printed( $v ) ) as $r ) {
+				// the text core prints only (a part core does not print references nothing), and only
+				// where the bytes name the same ones, so the rewrite can move each one it counts.
+				foreach ( origin_canvas_palette_block_css_var_reading( $v )['refs'] as $r ) {
 					if ( isset( $want[ $r[0] ][ $r[1] ] ) ) {
 						$refs[ $r[0] ][ $r[1] ] = true;
 					}

@@ -2190,16 +2190,52 @@ if ( ! function_exists( 'origin_canvas_palette_block_css_reading' ) ) {
 	}
 }
 
-if ( ! function_exists( 'origin_canvas_palette_block_css_printed' ) ) {
+if ( ! function_exists( 'origin_canvas_palette_block_css_var_reading' ) ) {
 	/**
-	 * What core prints for a block's CSS under the selector .x: the text its references are read
-	 * in. A part core does not print (nested braces, no selector) is not in it.
+	 * The preset variables of a block's CSS as the rewrite can settle them. Each part is read as
+	 * origin_canvas_palette_block_css_hits() reads it: the declarations core prints (every } dropped
+	 * from a rule; a bare declarations part up to its first top-level }), and a part printed inside
+	 * an earlier part's comment or string with that construct open in front. The same text is read
+	 * as its bytes stand. Where the two name the same variables, the part's references count. Where
+	 * they differ (a } inside a reference: core prints var(--wp--preset--color--con}trast) as a
+	 * reference to contrast), the rewrite cannot rename it byte for byte: the part counts nothing
+	 * and is listed. array( 'refs' => list of array( kind, slug ), 'split' => list of array(
+	 * selector or declarations trimmed, list of array( kind, slug ) as core prints them ) ).
 	 *
 	 * @param string $css Block CSS.
-	 * @return string
+	 * @return array
 	 */
-	function origin_canvas_palette_block_css_printed( $css ) {
-		return origin_canvas_palette_block_css_reading( origin_canvas_palette_block_css_parts( $css ) )['print'];
+	function origin_canvas_palette_block_css_var_reading( $css ) {
+		$out     = array(
+			'refs'  => array(),
+			'split' => array(),
+		);
+		$parts   = origin_canvas_palette_block_css_parts( $css );
+		$reading = origin_canvas_palette_block_css_reading( $parts );
+		foreach ( $parts as $i => $p ) {
+			$entry = $reading[ $i ]['entry'];
+			if ( 'skip' === $p['kind'] || '?' === $entry ) {
+				continue;
+			}
+			if ( '' !== $entry || 'rule' === $p['kind'] ) {
+				$bytes = '' !== $entry ? $entry . $p['text'] : (string) substr( $p['text'], $p['brace'] + 1 );
+				$print = str_replace( '}', '', $bytes );
+			} else {
+				$end = origin_canvas_palette_block_css_decls_end( $p['text'] );
+				if ( false === $end ) {
+					continue;
+				}
+				$bytes = substr( $p['text'], 0, $end );
+				$print = $bytes;
+			}
+			$read = origin_canvas_palette_css_var_slugs( $print );
+			if ( origin_canvas_palette_css_var_slugs( $bytes ) === $read ) {
+				$out['refs'] = array_merge( $out['refs'], $read );
+			} elseif ( $read ) {
+				$out['split'][] = array( origin_canvas_palette_css_trim( 'rule' === $p['kind'] ? substr( $p['text'], 0, $p['brace'] ) : $p['text'] ), $read );
+			}
+		}
+		return $out;
 	}
 }
 

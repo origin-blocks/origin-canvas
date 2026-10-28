@@ -325,21 +325,38 @@ if ( ! function_exists( 'origin_canvas_palette_child_negations' ) ) {
 
 if ( ! function_exists( 'origin_canvas_palette_block_css_limit_list' ) ) {
 	/**
-	 * Block CSS rules on an old colour class that the rewrite cannot give the new class: a rule
-	 * core's print leaves open at the end of the text in a string, url( or bracket
-	 * (origin_canvas_palette_rewrite_block_css()'s limits). Read from the active Global Styles
-	 * record's block CSS and from each candidate post's block style.css; the page lists each, as
-	 * information.
+	 * Block CSS the rewrite cannot settle. 'open': rules on an old colour class that the rewrite
+	 * cannot give the new class, a rule core's print leaves open at the end of the text in a
+	 * string, url( or bracket (origin_canvas_palette_rewrite_block_css()'s limits). 'split': parts
+	 * holding a reference to a code the update renames that core prints but the bytes cannot
+	 * rename, a } inside the reference (origin_canvas_palette_block_css_var_reading()). Read from
+	 * the active Global Styles record's block CSS and from each candidate post's block style.css;
+	 * the page lists each, as information.
 	 *
-	 * @return array<string, string[]> Where => selectors.
+	 * @return array{open: array<string, string[]>, split: array<string, string[]>} Kind => where => selectors.
 	 */
 	function origin_canvas_palette_block_css_limit_list() {
-		$out  = array();
-		$read = static function ( $where, $css ) use ( &$out ) {
+		$out   = array(
+			'open'  => array(),
+			'split' => array(),
+		);
+		$extra = origin_canvas_palette_collision_record()['map'];
+		$read  = static function ( $where, $css ) use ( &$out, $extra ) {
 			$limits = array();
 			origin_canvas_palette_rewrite_block_css( $css, array(), true, array(), true, $limits );
 			if ( $limits ) {
-				$out[ $where ] = array_values( array_unique( array_merge( $out[ $where ] ?? array(), $limits ) ) );
+				$out['open'][ $where ] = array_values( array_unique( array_merge( $out['open'][ $where ] ?? array(), $limits ) ) );
+			}
+			$limits = array();
+			foreach ( origin_canvas_palette_block_css_var_reading( $css )['split'] as $split ) {
+				foreach ( $split[1] as $r ) {
+					if ( '' !== origin_canvas_palette_lookup( $r[0], $r[1], $extra ) ) {
+						$limits[] = $split[0];
+					}
+				}
+			}
+			if ( $limits ) {
+				$out['split'][ $where ] = array_values( array_unique( array_merge( $out['split'][ $where ] ?? array(), $limits ) ) );
 			}
 		};
 		$id = origin_canvas_palette_active_global_styles_id();
@@ -480,11 +497,24 @@ if ( ! function_exists( 'origin_canvas_palette_render_page' ) ) {
 			echo '</div>';
 		}
 
-		$limits = origin_canvas_palette_block_css_limit_list();
+		$lists  = origin_canvas_palette_block_css_limit_list();
+		$limits = $lists['open'];
 		if ( $limits ) {
 			echo '<div id="origin-canvas-update-colours-block-css" class="notice notice-info inline">';
 			echo '<p>' . wp_kses( __( 'These block CSS rules on an old colour class are left open at the end, in a string, a <code>url()</code> or a bracket. The new class cannot get the same styles. To keep them when a block moves to the new name, close each rule.', 'origin-canvas' ), array( 'code' => array() ) ) . '</p><ul>';
 			foreach ( $limits as $where => $sels ) {
+				foreach ( $sels as $sel ) {
+					echo '<li>' . esc_html( $where ) . ': <code>' . esc_html( $sel ) . '</code></li>';
+				}
+			}
+			echo '</ul></div>';
+		}
+
+		$split = $lists['split'];
+		if ( $split ) {
+			echo '<div id="origin-canvas-update-colours-block-css-split" class="notice notice-info inline">';
+			echo '<p>' . wp_kses( __( 'These block CSS rules have a <code>}</code> inside a variable name. WordPress drops the <code>}</code> when it prints the CSS, so the name cannot be updated here. To update it, remove the <code>}</code>.', 'origin-canvas' ), array( 'code' => array() ) ) . '</p><ul>';
+			foreach ( $split as $where => $sels ) {
 				foreach ( $sels as $sel ) {
 					echo '<li>' . esc_html( $where ) . ': <code>' . esc_html( $sel ) . '</code></li>';
 				}
