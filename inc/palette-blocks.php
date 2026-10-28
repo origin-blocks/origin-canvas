@@ -608,23 +608,19 @@ if ( ! function_exists( 'origin_canvas_palette_tag_quote' ) ) {
 	}
 }
 
-if ( ! function_exists( 'origin_canvas_palette_attr_map_outside' ) ) {
+if ( ! function_exists( 'origin_canvas_palette_attr_decode' ) ) {
 	/**
-	 * As origin_canvas_palette_css_map_outside(), for the raw value of a style attribute. Strings,
-	 * comments, url() arguments and escapes are found in the decoded CSS, as core's tag processor
-	 * gives it (in a double-quoted attribute a CSS string is written &quot;…&quot;), and $fn runs
-	 * on the raw bytes outside them, so every byte $fn does not change, character references
-	 * included, is kept.
+	 * A raw attribute value decoded as core's tag processor reads it, with the raw offset of each
+	 * decoded byte and, last, the raw length, so a span of the decoded text maps back to its bytes.
 	 *
-	 * @param string   $raw Raw attribute value.
-	 * @param callable $fn  string => string.
-	 * @return string
+	 * @param string $raw Raw attribute value.
+	 * @return array array( decoded text, int[] raw offsets ).
 	 */
-	function origin_canvas_palette_attr_map_outside( $raw, $fn ) {
+	function origin_canvas_palette_attr_decode( $raw ) {
 		$raw  = (string) $raw;
 		$len  = strlen( $raw );
 		$text = '';
-		$at   = array(); // The raw offset of each decoded byte.
+		$at   = array();
 		for ( $i = 0; $i < $len; ) {
 			$n = 0;
 			$c = '&' === $raw[ $i ] ? WP_HTML_Decoder::read_character_reference( 'attribute', $raw, $i, $n ) : null;
@@ -638,7 +634,26 @@ if ( ! function_exists( 'origin_canvas_palette_attr_map_outside' ) ) {
 			}
 			$i += $n;
 		}
-		$at[]  = $len;
+		$at[] = $len;
+		return array( $text, $at );
+	}
+}
+
+if ( ! function_exists( 'origin_canvas_palette_attr_map_outside' ) ) {
+	/**
+	 * As origin_canvas_palette_css_map_outside(), for the raw value of a style attribute. Strings,
+	 * comments, url() arguments and escapes are found in the decoded CSS, as core's tag processor
+	 * gives it (in a double-quoted attribute a CSS string is written &quot;…&quot;), and $fn runs
+	 * on the raw bytes outside them, so every byte $fn does not change, character references
+	 * included, is kept.
+	 *
+	 * @param string   $raw Raw attribute value.
+	 * @param callable $fn  string => string.
+	 * @return string
+	 */
+	function origin_canvas_palette_attr_map_outside( $raw, $fn ) {
+		$raw               = (string) $raw;
+		list( $text, $at ) = origin_canvas_palette_attr_decode( $raw );
 		$out   = '';
 		$start = 0;
 		$tlen  = strlen( $text );
@@ -670,24 +685,8 @@ if ( ! function_exists( 'origin_canvas_palette_attr_map_decls' ) ) {
 	 * @return string
 	 */
 	function origin_canvas_palette_attr_map_decls( $raw, $fn ) {
-		$raw  = (string) $raw;
-		$len  = strlen( $raw );
-		$text = '';
-		$at   = array(); // The raw offset of each decoded byte.
-		for ( $i = 0; $i < $len; ) {
-			$n = 0;
-			$c = '&' === $raw[ $i ] ? WP_HTML_Decoder::read_character_reference( 'attribute', $raw, $i, $n ) : null;
-			if ( null === $c ) {
-				$c = $raw[ $i ];
-				$n = 1;
-			}
-			$text .= $c;
-			for ( $k = strlen( $c ); $k > 0; $k-- ) {
-				$at[] = $i;
-			}
-			$i += $n;
-		}
-		$at[] = $len;
+		$raw               = (string) $raw;
+		list( $text, $at ) = origin_canvas_palette_attr_decode( $raw );
 		$out  = $raw;
 		foreach ( array_reverse( origin_canvas_palette_css_declarations( '{' . $text . '}' ) ) as $d ) {
 			$from = $at[ $d['value_start'] - 1 ];
@@ -715,27 +714,6 @@ if ( ! function_exists( 'origin_canvas_palette_class_split' ) ) {
 	 */
 	function origin_canvas_palette_class_split( $raw ) {
 		return preg_split( '/((?:[ \t\n\f\r]|&#0*(?:32|9|10|12|13)(?![0-9]);?|&#[xX]0*(?:20|9|[aAcCdD])(?![0-9a-fA-F]);?|&(?:Tab|NewLine);)+)/', (string) $raw, -1, PREG_SPLIT_DELIM_CAPTURE );
-	}
-}
-
-if ( ! function_exists( 'origin_canvas_palette_decode_name_refs' ) ) {
-	/**
-	 * A style value with each character reference that stands for a name character (a letter, a
-	 * digit, _ or -) read as that character, so var(--wp--preset--color--text&#45;muted) is the
-	 * old variable; every other reference is kept as written.
-	 *
-	 * @param string $text Raw text.
-	 * @return string
-	 */
-	function origin_canvas_palette_decode_name_refs( $text ) {
-		return (string) preg_replace_callback(
-			'/&(?:#\d+|#[xX][0-9a-fA-F]+|[a-zA-Z]+);?/',
-			static function ( $m ) {
-				$d = WP_HTML_Decoder::decode_attribute( $m[0] );
-				return 1 === preg_match( '/^[a-zA-Z0-9_-]$/D', $d ) ? $d : $m[0];
-			},
-			$text
-		);
 	}
 }
 
@@ -858,25 +836,25 @@ if ( ! function_exists( 'origin_canvas_palette_tag_edits' ) ) {
 					$v         = origin_canvas_palette_attr_map_decls(
 						substr( $tag, $style[0], $style[1] ),
 						static function ( $plain, $prop ) use ( $style_re ) {
-							$rename = static function ( $text ) use ( $style_re, $prop ) {
-								foreach ( $style_re as $re ) {
-									if ( preg_match( $re[2], $prop ) ) {
-										$text = preg_replace( $re[0], str_replace( array( '\\', '$' ), array( '\\\\', '\\$' ), $re[1] ), $text );
+							// Every reference is read decoded, as core's tag processor and the editor read
+							// it (var&#40;--wp--preset--color--text&#45;muted&#41; is the old variable), and
+							// all of them at once, so one written plain and one with references in the same
+							// value both move. A renamed reference is written plain; every other byte,
+							// character references included, keeps its bytes.
+							list( $text, $at ) = origin_canvas_palette_attr_decode( $plain );
+							$found             = array();
+							foreach ( $style_re as $re ) {
+								if ( preg_match( $re[2], $prop ) && preg_match_all( $re[0], $text, $m, PREG_OFFSET_CAPTURE ) ) {
+									foreach ( $m[0] as $x ) {
+										$found[ $x[1] ] = array( $x[1] + strlen( $x[0] ), $re[1] );
 									}
 								}
-								return $text;
-							};
-							$next   = $rename( $plain );
-							if ( $next === $plain && false !== strpos( $plain, '&' ) ) {
-								// A name written with character references: renamed on its decoded form, which
-								// is then written plain; a value with nothing to rename keeps its bytes.
-								$decoded = origin_canvas_palette_decode_name_refs( $plain );
-								$renamed = $rename( $decoded );
-								if ( $renamed !== $decoded ) {
-									$next = $renamed;
-								}
 							}
-							return $next;
+							krsort( $found );
+							foreach ( $found as $from => $f ) {
+								$plain = substr( $plain, 0, $at[ $from ] ) . $f[1] . substr( $plain, $at[ $f[0] ] );
+							}
+							return $plain;
 						}
 					);
 					$changes[] = array( $style[0], $style[1], $v );
