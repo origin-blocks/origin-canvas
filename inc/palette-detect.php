@@ -41,8 +41,8 @@ if ( ! function_exists( 'origin_canvas_palette_tokens' ) ) {
 		}
 		$tokens[] = origin_canvas_palette_escape_token();
 		$tokens[] = origin_canvas_palette_reference_token();
-		// A <style> element in markup is read as a stylesheet, where a name may be written with
-		// CSS escapes (text-mute\64): any post holding one is read (LIKE ignores case under the posts table collation).
+		// A <style> element in markup is read as a stylesheet: any post holding one is read (LIKE
+		// ignores case under the posts table collation).
 		$tokens[] = '<style';
 		return $tokens;
 	}
@@ -66,16 +66,17 @@ if ( ! function_exists( 'origin_canvas_palette_reference_token' ) ) {
 
 if ( ! function_exists( 'origin_canvas_palette_escape_token' ) ) {
 	/**
-	 * The prefilter token for a slug written with JSON escapes in block attributes:
-	 * "textColor":"text\u002dheading" is valid JSON for the slug text-heading, and any character of
-	 * a slug may be escaped so. Every slug character is ASCII, so each escaped form holds "\u00".
-	 * Over-inclusive (core itself writes "--", "<", ">", "&" and quotes in attribute strings so);
-	 * the walk decodes the attributes and decides.
+	 * The prefilter token for an old code written with escapes: a backslash. A slug written with
+	 * JSON escapes in block attributes ("textColor":"text\u002dheading") holds one, and so does a
+	 * variable name written with CSS escapes in markup, which CSS decodes
+	 * (var(--wp--preset--color--text-mute\64), colo\72, a non-hex colo\r, or an escape in the
+	 * --wp--preset-- part). Over-inclusive (core itself writes "--", "<", ">", "&" and quotes in
+	 * attribute strings as \u00 escapes); the walk decodes the markup and decides.
 	 *
 	 * @return string
 	 */
 	function origin_canvas_palette_escape_token() {
-		return '\\u00';
+		return '\\';
 	}
 }
 
