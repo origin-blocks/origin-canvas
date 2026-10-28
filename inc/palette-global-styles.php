@@ -612,6 +612,52 @@ if ( ! function_exists( 'origin_canvas_palette_palette_entries' ) ) {
 	}
 }
 
+if ( ! function_exists( 'origin_canvas_palette_typography_values' ) ) {
+	/**
+	 * The typography settings core reads as CSS values and prints as preset variables: each font
+	 * family's fontFamily, and each font size's size and fluid min and max, in every origin. Not a
+	 * fontFace (its src is a literal URL or file path, its fontFamily a font name), a name or a
+	 * slug. Keyed by the path below typography; each is array( object, key ).
+	 *
+	 * @param mixed $typography The level's typography object.
+	 * @return array<string, array>
+	 */
+	function origin_canvas_palette_typography_values( $typography ) {
+		$out   = array();
+		$specs = array(
+			'fontFamilies' => array( 'fontFamily' ),
+			'fontSizes'    => array( 'size' ),
+		);
+		foreach ( $specs as $key => $fields ) {
+			$node  = is_object( $typography ) && isset( $typography->$key ) ? $typography->$key : null;
+			$lists = is_array( $node ) ? array( '' => $node ) : ( is_object( $node ) ? get_object_vars( $node ) : array() );
+			foreach ( $lists as $origin => $list ) {
+				if ( ! is_array( $list ) ) {
+					continue;
+				}
+				foreach ( $list as $i => $e ) {
+					if ( ! is_object( $e ) ) {
+						continue;
+					}
+					$at = $key . ( '' === $origin ? '' : '.' . $origin ) . '.' . $i;
+					foreach ( $fields as $f ) {
+						if ( isset( $e->$f ) && is_string( $e->$f ) ) {
+							$out[ $at . '.' . $f ] = array( $e, $f );
+						}
+					}
+					$fluid = 'fontSizes' === $key && isset( $e->fluid ) && is_object( $e->fluid ) ? $e->fluid : null;
+					foreach ( array( 'min', 'max' ) as $f ) {
+						if ( $fluid && isset( $fluid->$f ) && is_string( $fluid->$f ) ) {
+							$out[ $at . '.fluid.' . $f ] = array( $fluid, $f );
+						}
+					}
+				}
+			}
+		}
+		return $out;
+	}
+}
+
 if ( ! function_exists( 'origin_canvas_palette_rename_settings_strings' ) ) {
 	/**
 	 * Rename references in the strings of a settings level's palette colours, gradients,
@@ -629,7 +675,10 @@ if ( ! function_exists( 'origin_canvas_palette_rename_settings_strings' ) ) {
 		if ( $color && isset( $color->gradients ) ) {
 			$color->gradients = origin_canvas_palette_deep_rename( $color->gradients, $extra, 'gradients' );
 		}
-		foreach ( array( 'typography', 'spacing', 'custom' ) as $key ) {
+		foreach ( origin_canvas_palette_typography_values( origin_canvas_palette_obj( $level, 'typography' ) ) as $slot ) {
+			$slot[0]->{$slot[1]} = origin_canvas_palette_rename_refs( $slot[0]->{$slot[1]}, $extra );
+		}
+		foreach ( array( 'spacing', 'custom' ) as $key ) {
 			if ( isset( $level->$key ) ) {
 				// Every key under custom names a CSS custom property (--wp--custom--…), so none is a label.
 				$level->$key = origin_canvas_palette_deep_rename( $level->$key, $extra, $key, false, 'custom' !== $key );
@@ -844,7 +893,10 @@ if ( ! function_exists( 'origin_canvas_palette_global_styles_hits' ) ) {
 			if ( $color && isset( $color->gradients ) ) {
 				origin_canvas_palette_string_hits( $color->gradients, $at . '.color.gradients', 'gradients', $out['fixable'] );
 			}
-			foreach ( array( 'typography', 'spacing', 'custom' ) as $key ) {
+			foreach ( origin_canvas_palette_typography_values( origin_canvas_palette_obj( $level, 'typography' ) ) as $where => $slot ) {
+				origin_canvas_palette_string_hits( $slot[0]->{$slot[1]}, $at . '.typography.' . $where, $slot[1], $out['fixable'] );
+			}
+			foreach ( array( 'spacing', 'custom' ) as $key ) {
 				if ( isset( $level->$key ) ) {
 					origin_canvas_palette_string_hits( $level->$key, $at . '.' . $key, $key, $out['fixable'], 'custom' !== $key );
 				}
