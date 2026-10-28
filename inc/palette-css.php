@@ -259,11 +259,12 @@ if ( ! function_exists( 'origin_canvas_palette_css_protected_at' ) ) {
 		}
 		$ch = $text[ $i ];
 		if ( '"' === $ch || "'" === $ch ) {
+			// CSS reads CR, FF and CRLF as LF before it reads tokens: any of them ends a string.
 			$j = $i + 1;
 			while ( $j < $len && $text[ $j ] !== $ch ) {
 				if ( '\\' === $text[ $j ] ) {
 					$j += "\r\n" === substr( $text, $j + 1, 2 ) ? 2 : 1; // CSS reads CRLF as one newline.
-				} elseif ( "\n" === $text[ $j ] ) {
+				} elseif ( "\n" === $text[ $j ] || "\r" === $text[ $j ] || "\f" === $text[ $j ] ) {
 					break;
 				}
 				++$j;
@@ -524,9 +525,9 @@ if ( ! function_exists( 'origin_canvas_palette_css_run_closer' ) ) {
 		if ( '"' === $ch || "'" === $ch ) {
 			for ( $j = 1; $j < $m; $j++ ) {
 				if ( '\\' === $run[ $j ] ) {
-					++$j;
-				} elseif ( $ch === $run[ $j ] || "\n" === $run[ $j ] ) {
-					return '';
+					$j += "\r\n" === substr( $run, $j + 1, 2 ) ? 2 : 1; // CSS reads CRLF as one newline.
+				} elseif ( $ch === $run[ $j ] || "\n" === $run[ $j ] || "\r" === $run[ $j ] || "\f" === $run[ $j ] ) {
+					return ''; // CR, FF and CRLF end a string as LF does.
 				}
 			}
 			return $ch;
