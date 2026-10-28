@@ -975,7 +975,7 @@ if ( ! function_exists( 'origin_canvas_palette_markup_hits' ) ) {
 	/**
 	 * Old references in tag class and style attributes of a markup string (not text): old colour
 	 * classes, and old colour, spacing and line height variables outside the style attribute's
-	 * strings and comments.
+	 * strings and comments; and in the text of each <style> element, read as Additional CSS is.
 	 *
 	 * @param string $markup Markup.
 	 * @return string[]
@@ -1000,6 +1000,14 @@ if ( ! function_exists( 'origin_canvas_palette_markup_hits' ) ) {
 				if ( $v && isset( $map[ $v[0] ][ $v[2] ] ) ) {
 					$hits[] = 'style~' . ( 'color' === $v[0] ? '' : $v[0] . '-' ) . $v[2];
 				}
+			}
+		}
+		// A <style> element's text is a stylesheet: its old classes in selectors and its old
+		// variables are working references, which only the aliases carry.
+		$p = new WP_HTML_Tag_Processor( (string) $markup );
+		while ( $p->next_tag( 'STYLE' ) ) {
+			foreach ( origin_canvas_palette_css_code_hits( (string) $p->get_modifiable_text() ) as $h ) {
+				$hits[] = 'style-element:' . $h;
 			}
 		}
 		return $hits;

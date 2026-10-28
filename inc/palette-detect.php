@@ -41,6 +41,9 @@ if ( ! function_exists( 'origin_canvas_palette_tokens' ) ) {
 		}
 		$tokens[] = origin_canvas_palette_escape_token();
 		$tokens[] = origin_canvas_palette_reference_token();
+		// A <style> element in markup is read as a stylesheet, where a name may be written with
+		// CSS escapes (text-mute\64): any post holding one is read (LIKE ignores case under the posts table collation).
+		$tokens[] = '<style';
 		return $tokens;
 	}
 }
