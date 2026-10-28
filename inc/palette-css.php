@@ -222,13 +222,14 @@ if ( ! function_exists( 'origin_canvas_palette_css_var_slugs' ) ) {
 
 if ( ! function_exists( 'origin_canvas_palette_css_is_space' ) ) {
 	/**
-	 * Whether a byte is CSS whitespace.
+	 * Whether a byte is CSS whitespace: space, tab, LF, CR or FF only. A vertical tab is a delim
+	 * token, so a name or a selector next to one is read as CSS reads it.
 	 *
 	 * @param string $c One byte.
 	 * @return bool
 	 */
 	function origin_canvas_palette_css_is_space( $c ) {
-		return ' ' === $c || "\t" === $c || "\n" === $c || "\r" === $c || "\f" === $c || "\v" === $c;
+		return ' ' === $c || "\t" === $c || "\n" === $c || "\r" === $c || "\f" === $c;
 	}
 }
 
@@ -1182,7 +1183,7 @@ if ( ! function_exists( 'origin_canvas_palette_css_trim' ) ) {
 	 * @return string
 	 */
 	function origin_canvas_palette_css_trim( $text ) {
-		$text = ltrim( (string) $text, " \t\n\r\f\v" );
+		$text = ltrim( (string) $text, " \t\n\r\f" );
 		return (string) substr( $text, 0, origin_canvas_palette_css_code_end( $text ) );
 	}
 }
@@ -1607,14 +1608,15 @@ if ( ! function_exists( 'origin_canvas_palette_css_prop_twin' ) ) {
 
 if ( ! function_exists( 'origin_canvas_palette_css_value_key' ) ) {
 	/**
-	 * A declaration value as the twin rule compares it: its trimmed text and its !important.
+	 * A declaration value as the twin rule compares it: its text trimmed of CSS whitespace, and its
+	 * !important (CSS whitespace only between the two, so blue!\vimportant is not important).
 	 *
 	 * @param string $value Value bytes.
 	 * @return string
 	 */
 	function origin_canvas_palette_css_value_key( $value ) {
-		$important = (bool) preg_match( '/!\s*important\s*$/i', $value );
-		$text      = trim( preg_replace( '/!\s*important\s*$/i', '', $value ) );
+		$important = (bool) preg_match( '/![ \t\n\r\f]*important[ \t\n\r\f]*$/iD', $value );
+		$text      = trim( preg_replace( '/![ \t\n\r\f]*important[ \t\n\r\f]*$/iD', '', $value ), " \t\n\r\f" );
 		return $text . '|' . ( $important ? 'important' : '' );
 	}
 }
