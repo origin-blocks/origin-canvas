@@ -319,6 +319,24 @@ if ( ! function_exists( 'origin_canvas_palette_lookup' ) ) {
 	}
 }
 
+if ( ! function_exists( 'origin_canvas_palette_style_prop' ) ) {
+	/**
+	 * The CSS property of a block style field that core's style engine prints with its var() kept,
+	 * outside the color, border and elements trees (class-wp-style-engine.php): style.shadow as
+	 * box-shadow and, from WordPress 7.1, style.background.gradient as background-image. Both are
+	 * colour fields; a dynamic block's JSON is their only source.
+	 *
+	 * @param array $p Path.
+	 * @return string|null
+	 */
+	function origin_canvas_palette_style_prop( $p ) {
+		if ( array( 'style', 'shadow' ) === $p ) {
+			return 'box-shadow';
+		}
+		return array( 'style', 'background', 'gradient' ) === $p ? 'background-image' : null;
+	}
+}
+
 if ( ! function_exists( 'origin_canvas_palette_path_kind' ) ) {
 	/**
 	 * Which recognised field an attribute path is: 'slug', 'color', 'spacing', 'lineHeight', 'css'
@@ -342,7 +360,8 @@ if ( ! function_exists( 'origin_canvas_palette_path_kind' ) ) {
 			$second          = isset( $p[1] ) ? $p[1] : null;
 			$kinds['color']  = 'color' === $second
 				|| ( 'elements' === $second && in_array( 'color', array_slice( $p, 2 ), true ) )
-				|| ( 'border' === $second && ( ( isset( $p[2] ) && 'color' === $p[2] ) || ( isset( $p[3] ) && 'color' === $p[3] ) ) );
+				|| ( 'border' === $second && ( ( isset( $p[2] ) && 'color' === $p[2] ) || ( isset( $p[3] ) && 'color' === $p[3] ) ) )
+				|| null !== origin_canvas_palette_style_prop( $p );
 			$kinds['spacing'] = 'spacing' === $second;
 			// The line height field only: a fontFamily or letterSpacing that names the variable is text.
 			$kinds['lineHeight'] = 'typography' === $second && 3 === count( $p ) && 'lineHeight' === $p[2];
@@ -408,6 +427,11 @@ if ( ! function_exists( 'origin_canvas_palette_rename_value' ) ) {
 					);
 				}
 			);
+			// A shadow or background gradient writes its own declaration, which the markup edit renames.
+			$prop = origin_canvas_palette_style_prop( $p );
+			if ( null !== $prop && $out !== $v ) {
+				$seen['props'][ $prop ] = true;
+			}
 		}
 		if ( $kinds['spacing'] ) {
 			$out = preg_replace_callback(
@@ -1072,7 +1096,7 @@ if ( ! function_exists( 'origin_canvas_palette_tag_edits' ) ) {
 		// Each rename reaches only the declarations core writes for its kind of field: a shadow or a
 		// font family that names the same variable keeps it, as its attribute does.
 		$props    = array(
-			'color'      => '/^(color|background|background-color|border(-(top|right|bottom|left))?-color)$/D',
+			'color'      => '/^(color|background|background-color|border(-(top|right|bottom|left))?-color' . ( $seen['props'] ? '|' . implode( '|', array_keys( $seen['props'] ) ) : '' ) . ')$/D',
 			'spacing'    => '/^((padding|margin)(-(top|right|bottom|left))?|gap|row-gap|column-gap)$/D',
 			'lineHeight' => '/^line-height$/D',
 		);
@@ -1239,6 +1263,7 @@ if ( ! function_exists( 'origin_canvas_palette_new_seen' ) ) {
 			'vars'       => array(),
 			'spacing'    => array(),
 			'lineHeight' => array(),
+			'props'      => array(),
 		);
 	}
 }
