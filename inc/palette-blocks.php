@@ -965,16 +965,17 @@ if ( ! function_exists( 'origin_canvas_palette_renamed_attrs' ) ) {
 	 * @param string $attrs_text Attribute JSON.
 	 * @param array  $extra      Collision map.
 	 * @param string $name       Block name.
+	 * @param array  $seen       What the attributes renamed, filled in.
 	 * @return string|null
 	 */
-	function origin_canvas_palette_renamed_attrs( $attrs_text, $extra = array(), $name = '' ) {
+	function origin_canvas_palette_renamed_attrs( $attrs_text, $extra = array(), $name = '', &$seen = null ) {
+		$seen = origin_canvas_palette_new_seen();
 		if ( '' === $attrs_text ) {
 			return '';
 		}
 		if ( null === origin_canvas_palette_decode_attrs( $attrs_text ) ) {
 			return null;
 		}
-		$seen = origin_canvas_palette_new_seen();
 		return origin_canvas_palette_rename_attrs_json( $attrs_text, $name, $seen, $extra );
 	}
 }
@@ -1034,10 +1035,7 @@ if ( ! function_exists( 'origin_canvas_palette_rename_attrs_json' ) ) {
 				return origin_canvas_palette_rename_attr( $name, $p, $v, $seen, $extra );
 			}
 		);
-		$renames = array();
-		foreach ( origin_canvas_palette_class_renames( $name, $seen, $extra ) as $r ) {
-			$renames[ $r[0] ] = $r[1];
-		}
+		$renames = origin_canvas_palette_class_name_renames( $name, $seen, $extra );
 		if ( ! $renames ) {
 			return $once;
 		}
@@ -1057,6 +1055,27 @@ if ( ! function_exists( 'origin_canvas_palette_rename_attrs_json' ) ) {
 				return $next === $v ? null : $next;
 			}
 		);
+	}
+}
+
+if ( ! function_exists( 'origin_canvas_palette_class_name_renames' ) ) {
+	/**
+	 * The className tokens the rewrite renames for a block, old token => new token: the classes its
+	 * renamed slug attributes rename (origin_canvas_palette_class_renames()). The rewrite and the
+	 * detection both read this, so a token the rewrite moves is a reachable hit and any other old
+	 * class in className stays alias-only.
+	 *
+	 * @param string $name  Block name.
+	 * @param array  $seen  What the attributes renamed.
+	 * @param array  $extra Collision map.
+	 * @return array
+	 */
+	function origin_canvas_palette_class_name_renames( $name, $seen, $extra ) {
+		$renames = array();
+		foreach ( origin_canvas_palette_class_renames( $name, $seen, $extra ) as $r ) {
+			$renames[ $r[0] ] = $r[1];
+		}
+		return $renames;
 	}
 }
 
@@ -1442,7 +1461,8 @@ if ( ! function_exists( 'origin_canvas_palette_content_hits' ) ) {
 				}
 				// The block's own tags: a code its attributes do not hold is renamed by the rewrite
 				// (an inline Highlight class in the text); a held one only the aliases carry.
-				foreach ( origin_canvas_palette_own_codes( $content, $child, origin_canvas_palette_renamed_attrs( $child['attrs_text'], $extra, $child['name'] ), $extra ) as $c ) {
+				$seen = null;
+				foreach ( origin_canvas_palette_own_codes( $content, $child, origin_canvas_palette_renamed_attrs( $child['attrs_text'], $extra, $child['name'], $seen ), $extra ) as $c ) {
 					$h = $p . '.html.' . ( '' !== $c['class'] ? 'class=' . $c['class'] : 'style~' . ( 'color' === $c['kind'] ? '' : $c['kind'] . '-' ) . $c['slug'] );
 					if ( $malformed || $c['held'] ) {
 						$alias[] = $h;
@@ -1451,8 +1471,14 @@ if ( ! function_exists( 'origin_canvas_palette_content_hits' ) ) {
 					}
 				}
 				if ( is_array( $attrs ) && isset( $attrs['className'] ) && is_string( $attrs['className'] ) ) {
+					// A token the rewrite renames with the block's renamed attribute, read as the rewrite
+					// splits className, is reachable; any other old class only the aliases carry.
+					$renames = $malformed ? array() : origin_canvas_palette_class_name_renames( $child['name'], $seen, $extra );
+					$tokens  = preg_split( '/[ \t\n\f\r]+/', $attrs['className'] );
 					foreach ( preg_split( '/\s+/', $attrs['className'] ) as $tok ) {
-						if ( 'has-border-color' !== $tok && preg_match( '/^has-([a-z0-9-]+?)-(background-color|border-color|color)$/D', $tok, $m ) && isset( $map['color'][ $m[1] ] ) ) {
+						if ( isset( $renames[ $tok ] ) && in_array( $tok, $tokens, true ) ) {
+							$reachable[] = $p . '.className=' . $tok;
+						} elseif ( 'has-border-color' !== $tok && preg_match( '/^has-([a-z0-9-]+?)-(background-color|border-color|color)$/D', $tok, $m ) && isset( $map['color'][ $m[1] ] ) ) {
 							$alias[] = $p . '.className=' . $tok;
 						}
 					}
