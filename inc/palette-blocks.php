@@ -1720,13 +1720,12 @@ if ( ! function_exists( 'origin_canvas_palette_css_code_hits' ) ) {
 if ( ! function_exists( 'origin_canvas_palette_json_field' ) ) {
 	/**
 	 * Whether a path in a decoded theme.json (a child theme.json or style variation) is a field
-	 * the rewrite reads as a style value: under styles, a value below a color, spacing or shadow
-	 * key, a border or dimensions value, or a typography lineHeight (the Global Styles reader
-	 * renames every style value, a shadow too); under settings or settings.blocks.<block>, a preset
-	 * entry's value as the Global Styles reader reads it (origin_canvas_palette_preset_specs(): a
-	 * palette colour, a gradient, a font size and its fluid min and max, a shadow, a radius or
-	 * dimension size), and the spacing and custom values. Prose (a title, a description, an entry's
-	 * name, outside settings custom) and other style values (a fontFamily) are not.
+	 * the rewrite reads as a style value: under styles, every value but a background image's url
+	 * (a literal), as the Global Styles reader renames every style value; under settings or
+	 * settings.blocks.<block>, a preset entry's value as the Global Styles reader reads it
+	 * (origin_canvas_palette_preset_specs(): a palette colour, a gradient, a font size and its fluid
+	 * min and max, a shadow, a radius or dimension size), and the spacing and custom values. Prose
+	 * (a title, a description, an entry's name, outside settings custom) is not.
 	 *
 	 * @param array $path Keys from the root.
 	 * @return bool
@@ -1743,12 +1742,9 @@ if ( ! function_exists( 'origin_canvas_palette_json_field' ) ) {
 			return false;
 		}
 		if ( 'styles' === $path[0] ) {
-			for ( $i = 1; $i < $n; $i++ ) {
-				if ( in_array( $path[ $i ], array( 'color', 'spacing', 'shadow', 'border', 'dimensions' ), true ) || ( 'typography' === $path[ $i ] && 'lineHeight' === ( $path[ $i + 1 ] ?? '' ) ) ) {
-					return true;
-				}
-			}
-			return false;
+			// Every style value, as the Global Styles reader reads them (deep_rename() and
+			// string_hits()), but a literal: a background image's url.
+			return ! origin_canvas_palette_is_literal( $path[ $n - 2 ], $path[ $n - 1 ] );
 		}
 		if ( 'settings' !== $path[0] ) {
 			return false;
