@@ -1438,8 +1438,30 @@ if ( ! function_exists( 'origin_canvas_palette_content_hits' ) ) {
 			);
 			return $attrs;
 		};
-		$walk        = static function ( $nodes, $path ) use ( &$walk, &$reachable, &$alias, $scan, $content, $map, $rules, $malformed, $extra ) {
+		// The post as the rewrite writes it, read only for a block with a held own-tag code: the rewrite
+		// only edits attribute JSON and tag attributes, so its tree has the same blocks in the same
+		// places, found by the same child indexes.
+		$after = null;
+		$twin  = static function ( $at ) use ( &$after, $content, $extra ) {
+			if ( null === $after ) {
+				$text  = origin_canvas_palette_rewrite_content( $content, $extra );
+				$after = array( $text, origin_canvas_palette_parse( $text )['children'] );
+			}
+			$nodes = $after[1];
+			$node  = null;
+			foreach ( $at as $step ) {
+				list( $i, $name ) = $step;
+				if ( ! isset( $nodes[ $i ] ) || $nodes[ $i ]['name'] !== $name ) {
+					return null;
+				}
+				$node  = $nodes[ $i ];
+				$nodes = origin_canvas_palette_children_of( $node );
+			}
+			return array( $after[0], $node );
+		};
+		$walk  = static function ( $nodes, $path, $at ) use ( &$walk, &$reachable, &$alias, $scan, $content, $twin, $map, $rules, $malformed, $extra ) {
 			foreach ( $nodes as $i => $child ) {
+				$here = array_merge( $at, array( array( $i, $child['name'] ) ) );
 				$p = $path . '/' . ( null === $child['name'] ? 'raw' : $child['name'] ) . '[' . $i . ']';
 				if ( null === $child['name'] ) {
 					foreach ( origin_canvas_palette_markup_hits( substr( $content, $child['start'], $child['end'] - $child['start'] ) ) as $h ) {
@@ -1460,12 +1482,31 @@ if ( ! function_exists( 'origin_canvas_palette_content_hits' ) ) {
 					$attrs = $scan( $child['attrs_text'], $p, $reachable, $child['name'] );
 				}
 				// The block's own tags: a code its attributes do not hold is renamed by the rewrite
-				// (an inline Highlight class in the text); a held one only the aliases carry.
-				$seen = null;
-				foreach ( origin_canvas_palette_own_codes( $content, $child, origin_canvas_palette_renamed_attrs( $child['attrs_text'], $extra, $child['name'], $seen ), $extra ) as $c ) {
+				// (an inline Highlight class in the text); a held one only the aliases carry, unless the
+				// rewrite moves it with a renamed attribute all the same (the bare slug text-muted in
+				// className beside textColor text-muted): a held code the rewritten block's tags no longer
+				// hold is reachable, so detection counts what the rewrite does.
+				$seen  = null;
+				$codes = origin_canvas_palette_own_codes( $content, $child, origin_canvas_palette_renamed_attrs( $child['attrs_text'], $extra, $child['name'], $seen ), $extra );
+				$moved = null;
+				$left  = array();
+				if ( ! $malformed && in_array( true, array_column( $codes, 'held' ), true ) ) {
+					$moved = $twin( $here );
+					if ( null !== $moved ) {
+						foreach ( origin_canvas_palette_own_codes( $moved[0], $moved[1], origin_canvas_palette_renamed_attrs( $moved[1]['attrs_text'], $extra, $moved[1]['name'] ), $extra ) as $c ) {
+							$k          = $c['kind'] . '|' . $c['slug'] . '|' . $c['class'];
+							$left[ $k ] = ( isset( $left[ $k ] ) ? $left[ $k ] : 0 ) + 1;
+						}
+					}
+				}
+				foreach ( $codes as $c ) {
 					$h = $p . '.html.' . ( '' !== $c['class'] ? 'class=' . $c['class'] : 'style~' . ( 'color' === $c['kind'] ? '' : $c['kind'] . '-' ) . $c['slug'] );
-					if ( $malformed || $c['held'] ) {
+					$k = $c['kind'] . '|' . $c['slug'] . '|' . $c['class'];
+					if ( $malformed || ( $c['held'] && ( null === $moved || ! empty( $left[ $k ] ) ) ) ) {
 						$alias[] = $h;
+						if ( ! empty( $left[ $k ] ) ) {
+							--$left[ $k ];
+						}
 					} else {
 						$reachable[] = $h;
 					}
@@ -1483,10 +1524,10 @@ if ( ! function_exists( 'origin_canvas_palette_content_hits' ) ) {
 						}
 					}
 				}
-				$walk( origin_canvas_palette_children_of( $child ), $p );
+				$walk( origin_canvas_palette_children_of( $child ), $p, $here );
 			}
 		};
-		$walk( $tree['children'], $malformed ? '/malformed' : '' );
+		$walk( $tree['children'], $malformed ? '/malformed' : '', array() );
 		return array(
 			'reachable' => $reachable,
 			'alias'     => $alias,
