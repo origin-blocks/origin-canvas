@@ -731,7 +731,8 @@ if ( ! function_exists( 'origin_canvas_palette_own_codes' ) ) {
 	 * after the rename: a block's own colour attribute (withColors( { titleColor: 'color' } ), a
 	 * deprecated Pullquote's mainColor) holds the slug under a key the map does not know, and
 	 * save() writes the class or variable from it. List of array( 'kind', 'slug', 'to', 'class'
-	 * (the class token, or '' for a variable), 'held' ).
+	 * (the class token, or '' for a variable), 'held' ). Variables are compared decoded on both
+	 * sides, so the attribute and the markup move together or neither moves.
 	 *
 	 * @param string      $content Markup.
 	 * @param array       $node    Block node.
@@ -751,10 +752,19 @@ if ( ! function_exists( 'origin_canvas_palette_own_codes' ) ) {
 				}
 			);
 		}
+		// The variables the attributes name, read as CSS reads them, the form the markup's names are
+		// compared in: a shadow on text-mute\64 holds --wp--preset--color--text-muted, which save()
+		// writes back from it.
+		$vars = array();
+		foreach ( $held as $v ) {
+			foreach ( origin_canvas_palette_css_var_refs( $v ) as $r ) {
+				$vars[ $r[2] ] = true;
+			}
+		}
 		$bare  = array_fill_keys( $held, true );
 		$held  = implode( "\n", $held );
-		$named = static function ( $text, $slug ) use ( $held, $after, $bare ) {
-			return null === $after || isset( $bare[ $slug ] ) || 1 === preg_match( '/(?<![A-Za-z0-9_-])' . preg_quote( $text, '/' ) . '(?![A-Za-z0-9_-])/', $held );
+		$named = static function ( $text, $slug ) use ( $held, $after, $bare, $vars ) {
+			return null === $after || isset( $bare[ $slug ] ) || isset( $vars[ $text ] ) || 1 === preg_match( '/(?<![A-Za-z0-9_-])' . preg_quote( $text, '/' ) . '(?![A-Za-z0-9_-])/', $held );
 		};
 		$pipes = array(
 			'color'      => 'var:preset|color|',
