@@ -951,10 +951,86 @@ if ( ! function_exists( 'origin_canvas_palette_renamed_attrs' ) ) {
 			return null;
 		}
 		$seen = origin_canvas_palette_new_seen();
-		return origin_canvas_palette_edit_json_strings(
+		return origin_canvas_palette_rename_attrs_json( $attrs_text, $name, $seen, $extra );
+	}
+}
+
+if ( ! function_exists( 'origin_canvas_palette_class_renames' ) ) {
+	/**
+	 * The class renames a block's renamed slug attributes make: array( old token, new token ) for
+	 * each slug attribute's class (the old slug border as text colour excepted: it shares core's
+	 * generic has-border-color and is handled apart) and each derived class (the Separator's).
+	 *
+	 * @param string $name  Block name.
+	 * @param array  $seen  What the attributes renamed.
+	 * @param array  $extra Collision map.
+	 * @return array
+	 */
+	function origin_canvas_palette_class_renames( $name, $seen, $extra ) {
+		$rules = origin_canvas_palette_rules();
+		$out   = array();
+		foreach ( $seen['slugs'] as $pair ) {
+			list( $attr, $old ) = $pair;
+			$kind               = $rules['slug_attrs'][ $attr ];
+			if ( null === $kind || ( 'textColor' === $attr && 'border' === $old ) ) {
+				continue;
+			}
+			$out[] = array( 'has-' . $old . '-' . $kind, 'has-' . origin_canvas_palette_lookup( 'color', $old, $extra ) . '-' . $kind );
+		}
+		foreach ( $seen['slugs'] as $pair ) {
+			list( $attr, $old ) = $pair;
+			if ( isset( $rules['derived'][ $name ][ $attr ] ) ) {
+				$derived = $rules['derived'][ $name ][ $attr ];
+				$out[]   = array( 'has-' . $old . '-' . $derived, 'has-' . origin_canvas_palette_lookup( 'color', $old, $extra ) . '-' . $derived );
+			}
+		}
+		return $out;
+	}
+}
+
+if ( ! function_exists( 'origin_canvas_palette_rename_attrs_json' ) ) {
+	/**
+	 * A block's attribute JSON renamed: each string value through origin_canvas_palette_rename_attr(),
+	 * then, where a renamed slug attribute renames a class, the same token in className too (a user
+	 * typed the generated class into Additional CSS classes). Core's save writes both from the
+	 * attributes, so the attribute and the markup move together and the block stays valid. className
+	 * is split at the whitespace HTML splits a class attribute at, as the markup's tokens are; every
+	 * other token and separator keeps its bytes.
+	 *
+	 * @param string $attrs_text Attribute JSON.
+	 * @param string $name       Block name.
+	 * @param array  $seen       What the attributes renamed, filled in.
+	 * @param array  $extra      Collision map.
+	 * @return string
+	 */
+	function origin_canvas_palette_rename_attrs_json( $attrs_text, $name, &$seen, $extra ) {
+		$once    = origin_canvas_palette_edit_json_strings(
 			$attrs_text,
 			static function ( $p, $v ) use ( &$seen, $extra, $name ) {
 				return origin_canvas_palette_rename_attr( $name, $p, $v, $seen, $extra );
+			}
+		);
+		$renames = array();
+		foreach ( origin_canvas_palette_class_renames( $name, $seen, $extra ) as $r ) {
+			$renames[ $r[0] ] = $r[1];
+		}
+		if ( ! $renames ) {
+			return $once;
+		}
+		return origin_canvas_palette_edit_json_strings(
+			$once,
+			static function ( $p, $v ) use ( $renames ) {
+				if ( array( 'className' ) !== $p ) {
+					return null;
+				}
+				$parts = preg_split( '/([ \t\n\f\r]+)/', $v, -1, PREG_SPLIT_DELIM_CAPTURE );
+				foreach ( $parts as $k => $tok ) {
+					if ( 0 === $k % 2 && isset( $renames[ $tok ] ) ) {
+						$parts[ $k ] = $renames[ $tok ];
+					}
+				}
+				$next = implode( '', $parts );
+				return $next === $v ? null : $next;
 			}
 		);
 	}
@@ -986,26 +1062,11 @@ if ( ! function_exists( 'origin_canvas_palette_tag_edits' ) ) {
 				$free_var[ $c['kind'] ][ $c['slug'] ] = $c['to'];
 			}
 		}
-		$rules         = origin_canvas_palette_rules();
-		$class_renames = array();
+		$class_renames = origin_canvas_palette_class_renames( $node['name'], $seen, $extra );
 		$border_text   = null;
 		foreach ( $seen['slugs'] as $pair ) {
-			list( $attr, $old ) = $pair;
-			$kind               = $rules['slug_attrs'][ $attr ];
-			if ( null === $kind ) {
-				continue;
-			}
-			if ( 'textColor' === $attr && 'border' === $old ) {
+			if ( array( 'textColor', 'border' ) === $pair ) {
 				$border_text = 'has-' . origin_canvas_palette_lookup( 'color', 'border', $extra ) . '-color';
-				continue;
-			}
-			$class_renames[] = array( 'has-' . $old . '-' . $kind, 'has-' . origin_canvas_palette_lookup( 'color', $old, $extra ) . '-' . $kind );
-		}
-		foreach ( $seen['slugs'] as $pair ) {
-			list( $attr, $old ) = $pair;
-			if ( isset( $rules['derived'][ $node['name'] ][ $attr ] ) ) {
-				$derived         = $rules['derived'][ $node['name'] ][ $attr ];
-				$class_renames[] = array( 'has-' . $old . '-' . $derived, 'has-' . origin_canvas_palette_lookup( 'color', $old, $extra ) . '-' . $derived );
 			}
 		}
 		// Each rename reaches only the declarations core writes for its kind of field: a shadow or a
@@ -1209,12 +1270,7 @@ if ( ! function_exists( 'origin_canvas_palette_rewrite_content' ) ) {
 				$attrs = '' === $child['attrs_text'] ? array() : origin_canvas_palette_decode_attrs( $child['attrs_text'] );
 				if ( null !== $attrs ) {
 					$seen = origin_canvas_palette_new_seen();
-					$next = '' === $child['attrs_text'] ? '' : origin_canvas_palette_edit_json_strings(
-						$child['attrs_text'],
-						static function ( $p, $v ) use ( &$seen, $extra, $child ) {
-							return origin_canvas_palette_rename_attr( $child['name'], $p, $v, $seen, $extra );
-						}
-					);
+					$next = '' === $child['attrs_text'] ? '' : origin_canvas_palette_rename_attrs_json( $child['attrs_text'], $child['name'], $seen, $extra );
 					if ( $next !== $child['attrs_text'] ) {
 						$edits[] = array( $child['attrs_start'], $child['attrs_start'] + strlen( $child['attrs_text'] ), $next );
 					}
