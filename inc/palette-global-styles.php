@@ -259,6 +259,21 @@ if ( ! function_exists( 'origin_canvas_palette_is_label' ) ) {
 	}
 }
 
+if ( ! function_exists( 'origin_canvas_palette_is_literal' ) ) {
+	/**
+	 * Whether a key below a parent key holds a literal, never a CSS value: a background image's
+	 * url, which core prints as url( '…' ) (class-wp-style-engine.php get_url_or_value_css_declaration()),
+	 * so a var( in it is part of the address, not a reference.
+	 *
+	 * @param string $parent The parent's key.
+	 * @param string $key    The key.
+	 * @return bool
+	 */
+	function origin_canvas_palette_is_literal( $parent, $key ) {
+		return 'backgroundImage' === $parent && 'url' === $key;
+	}
+}
+
 if ( ! function_exists( 'origin_canvas_palette_deep_rename' ) ) {
 	/**
 	 * Rename references in every string of a node; a string under a key named css goes through
@@ -290,7 +305,9 @@ if ( ! function_exists( 'origin_canvas_palette_deep_rename' ) ) {
 		}
 		if ( is_object( $v ) ) {
 			foreach ( get_object_vars( $v ) as $k => $x ) {
-				$v->$k = origin_canvas_palette_deep_rename( $x, $extra, (string) $k, $block, $labels );
+				if ( ! origin_canvas_palette_is_literal( $key, (string) $k ) ) {
+					$v->$k = origin_canvas_palette_deep_rename( $x, $extra, (string) $k, $block, $labels );
+				}
 			}
 			return $v;
 		}
@@ -847,7 +864,9 @@ if ( ! function_exists( 'origin_canvas_palette_string_hits' ) ) {
 		}
 		if ( is_array( $v ) || is_object( $v ) ) {
 			foreach ( ( is_object( $v ) ? get_object_vars( $v ) : $v ) as $k => $x ) {
-				origin_canvas_palette_string_hits( $x, $path . '.' . $k, is_object( $v ) ? (string) $k : '', $hits, $labels );
+				if ( ! is_object( $v ) || ! origin_canvas_palette_is_literal( $key, (string) $k ) ) {
+					origin_canvas_palette_string_hits( $x, $path . '.' . $k, is_object( $v ) ? (string) $k : '', $hits, $labels );
+				}
 			}
 		}
 	}
