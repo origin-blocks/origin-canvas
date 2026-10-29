@@ -734,14 +734,63 @@ if ( ! function_exists( 'origin_canvas_palette_theme_mod_decls' ) ) {
 	}
 }
 
+if ( ! function_exists( 'origin_canvas_palette_footnotes_found' ) ) {
+	/**
+	 * Whether a post's footnotes hold an old code. Core keeps a post's footnotes in its footnotes
+	 * meta, a JSON list of { content, id }, and prints each content through wp_kses_post()
+	 * (blocks/footnotes.php), which keeps class and style on mark, so a Highlight mark there is a
+	 * working reference. Update colours writes post_content only, under its own byte compare and
+	 * backup, so footnotes are alias hits: only the aliases carry them. One prepared query reads the
+	 * meta rows of the six types whose value holds a token (origin_canvas_palette_tokens()), paged
+	 * by meta_id; each content is read as markup_hits() reads raw HTML.
+	 *
+	 * @return bool
+	 */
+	function origin_canvas_palette_footnotes_found() {
+		global $wpdb;
+		$tokens = origin_canvas_palette_tokens();
+		if ( ! $tokens ) {
+			return false;
+		}
+		$types    = origin_canvas_palette_rules()['types'];
+		$statuses = origin_canvas_palette_statuses();
+		$likes    = array();
+		foreach ( $tokens as $token ) {
+			$likes[] = '%' . $wpdb->esc_like( $token ) . '%';
+		}
+		$sql  = "SELECT /* origin_canvas_palette_footnotes */ m.meta_id, m.meta_value FROM {$wpdb->postmeta} m INNER JOIN {$wpdb->posts} p ON p.ID = m.post_id WHERE m.meta_key = 'footnotes'";
+		$sql .= ' AND p.post_type IN (' . implode( ', ', array_fill( 0, count( $types ), '%s' ) ) . ')';
+		$sql .= ' AND p.post_status IN (' . implode( ', ', array_fill( 0, count( $statuses ), '%s' ) ) . ')';
+		$sql .= ' AND m.meta_id > %d AND ( ' . implode( ' OR ', array_fill( 0, count( $likes ), 'm.meta_value LIKE %s' ) ) . ' ) ORDER BY m.meta_id ASC LIMIT 200';
+		$after = 0;
+		do {
+			// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery -- prepared here; a LIKE prefilter core has no API for.
+			$rows = (array) $wpdb->get_results( $wpdb->prepare( $sql, array_merge( $types, $statuses, array( $after ), $likes ) ) );
+			foreach ( $rows as $row ) {
+				$after = (int) $row->meta_id;
+				$notes = json_decode( (string) $row->meta_value, true );
+				foreach ( is_array( $notes ) ? $notes : array() as $note ) {
+					if ( is_array( $note ) && isset( $note['content'] ) && is_string( $note['content'] ) && origin_canvas_palette_markup_hits( $note['content'] ) ) {
+						return true;
+					}
+				}
+			}
+		} while ( count( $rows ) === 200 );
+		return false;
+	}
+}
+
 if ( ! function_exists( 'origin_canvas_palette_found_elsewhere' ) ) {
 	/**
-	 * Whether a store other than posts and Global Styles holds an old code: Additional CSS,
-	 * widgets, theme mods, Customizer changesets and the child theme.
+	 * Whether a store other than posts and Global Styles holds an old code: footnotes, Additional
+	 * CSS, widgets, theme mods, Customizer changesets and the child theme.
 	 *
 	 * @return bool
 	 */
 	function origin_canvas_palette_found_elsewhere() {
+		if ( origin_canvas_palette_footnotes_found() ) {
+			return true;
+		}
 		$css_post = wp_get_custom_css_post();
 		if ( $css_post instanceof WP_Post && origin_canvas_palette_css_code_hits( $css_post->post_content ) ) {
 			return true;
