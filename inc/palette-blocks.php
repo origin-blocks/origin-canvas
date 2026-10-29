@@ -727,8 +727,11 @@ if ( ! function_exists( 'origin_canvas_palette_own_codes' ) ) {
 	 *
 	 * A code the block's attributes still name after their rename (a custom class in className, a
 	 * shadow on the variable) is held: save() writes it from them, so it keeps its name and only
-	 * the aliases carry it. List of array( 'kind', 'slug', 'to', 'class' (the class token, or ''
-	 * for a variable), 'held' ).
+	 * the aliases carry it. So is a code whose old slug is, bare, the whole of an attribute string
+	 * after the rename: a block's own colour attribute (withColors( { titleColor: 'color' } ), a
+	 * deprecated Pullquote's mainColor) holds the slug under a key the map does not know, and
+	 * save() writes the class or variable from it. List of array( 'kind', 'slug', 'to', 'class'
+	 * (the class token, or '' for a variable), 'held' ).
 	 *
 	 * @param string      $content Markup.
 	 * @param array       $node    Block node.
@@ -748,9 +751,10 @@ if ( ! function_exists( 'origin_canvas_palette_own_codes' ) ) {
 				}
 			);
 		}
+		$bare  = array_fill_keys( $held, true );
 		$held  = implode( "\n", $held );
-		$named = static function ( $text ) use ( $held, $after ) {
-			return null === $after || 1 === preg_match( '/(?<![A-Za-z0-9_-])' . preg_quote( $text, '/' ) . '(?![A-Za-z0-9_-])/', $held );
+		$named = static function ( $text, $slug ) use ( $held, $after, $bare ) {
+			return null === $after || isset( $bare[ $slug ] ) || 1 === preg_match( '/(?<![A-Za-z0-9_-])' . preg_quote( $text, '/' ) . '(?![A-Za-z0-9_-])/', $held );
 		};
 		$pipes = array(
 			'color'      => 'var:preset|color|',
@@ -779,7 +783,7 @@ if ( ! function_exists( 'origin_canvas_palette_own_codes' ) ) {
 								'slug'  => $slug,
 								'to'    => $to,
 								'class' => $tok,
-								'held'  => $named( $tok ),
+								'held'  => $named( $tok, $slug ),
 							);
 							break;
 						}
@@ -794,7 +798,7 @@ if ( ! function_exists( 'origin_canvas_palette_own_codes' ) ) {
 							'slug'  => $v[2],
 							'to'    => $to,
 							'class' => '',
-							'held'  => $named( $v[1] . $v[2] ) || $named( $pipes[ $v[0] ] . $v[2] ),
+							'held'  => $named( $v[1] . $v[2], $v[2] ) || $named( $pipes[ $v[0] ] . $v[2], $v[2] ),
 						);
 					}
 				}
