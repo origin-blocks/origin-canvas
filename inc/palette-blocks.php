@@ -1512,12 +1512,12 @@ if ( ! function_exists( 'origin_canvas_palette_content_hits' ) ) {
 					}
 				}
 				if ( is_array( $attrs ) && isset( $attrs['className'] ) && is_string( $attrs['className'] ) ) {
-					// A token the rewrite renames with the block's renamed attribute, read as the rewrite
-					// splits className, is reachable; any other old class only the aliases carry.
+					// className split as HTML splits a class list, as the rewrite and a class selector read
+					// it: a token the rewrite renames with the block's renamed attribute is reachable; any
+					// other old class only the aliases carry.
 					$renames = $malformed ? array() : origin_canvas_palette_class_name_renames( $child['name'], $seen, $extra );
-					$tokens  = preg_split( '/[ \t\n\f\r]+/', $attrs['className'] );
-					foreach ( preg_split( '/\s+/', $attrs['className'] ) as $tok ) {
-						if ( isset( $renames[ $tok ] ) && in_array( $tok, $tokens, true ) ) {
+					foreach ( preg_split( '/[ \t\n\f\r]+/', $attrs['className'] ) as $tok ) {
+						if ( isset( $renames[ $tok ] ) ) {
 							$reachable[] = $p . '.className=' . $tok;
 						} elseif ( 'has-border-color' !== $tok && preg_match( '/^has-([a-z0-9-]+?)-(background-color|border-color|color)$/D', $tok, $m ) && isset( $map['color'][ $m[1] ] ) ) {
 							$alias[] = $p . '.className=' . $tok;
