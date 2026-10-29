@@ -263,7 +263,9 @@ if ( ! function_exists( 'origin_canvas_palette_is_literal' ) ) {
 	/**
 	 * Whether a key below a parent key holds a literal, never a CSS value: a background image's
 	 * url, which core prints as url( '…' ) (class-wp-style-engine.php get_url_or_value_css_declaration()),
-	 * so a var( in it is part of the address, not a reference.
+	 * so a var( in it is part of the address, not a reference. Callers ask in the styles tree only:
+	 * under settings.custom the same keys name a custom property (--wp--custom--background-image--url),
+	 * whose value core prints as it is.
 	 *
 	 * @param string $parent The parent's key.
 	 * @param string $key    The key.
@@ -284,29 +286,32 @@ if ( ! function_exists( 'origin_canvas_palette_deep_rename' ) ) {
 	 * @param mixed  $v     Node.
 	 * @param array  $extra Collision map.
 	 * @param string $key   The node's key.
-	 * @param bool   $block A css string here is block CSS.
+	 * @param bool   $block  A css string here is block CSS (the styles tree, where a background
+	 *                       image's url is a literal).
+	 * @param bool   $custom Below settings.custom: every key names a custom property, so no string
+	 *                       is a label or a stylesheet, and each is a plain CSS value.
 	 * @return mixed
 	 */
-	function origin_canvas_palette_deep_rename( $v, $extra, $key = '', $block = false, $labels = true ) {
-		if ( is_string( $v ) && $labels && origin_canvas_palette_is_label( $key ) ) {
+	function origin_canvas_palette_deep_rename( $v, $extra, $key = '', $block = false, $custom = false ) {
+		if ( is_string( $v ) && ! $custom && origin_canvas_palette_is_label( $key ) ) {
 			return $v; // A label (a palette or gradient name, a title, a description) is text.
 		}
 		if ( is_string( $v ) ) {
-			if ( 'css' === $key ) {
+			if ( 'css' === $key && ! $custom ) {
 				return $block ? origin_canvas_palette_rewrite_block_css( $v, array(), true, $extra, false ) : origin_canvas_palette_css_rename_vars( $v, $extra );
 			}
 			return origin_canvas_palette_rename_refs( $v, $extra );
 		}
 		if ( is_array( $v ) ) {
 			foreach ( $v as $i => $x ) {
-				$v[ $i ] = origin_canvas_palette_deep_rename( $x, $extra, '', $block, $labels );
+				$v[ $i ] = origin_canvas_palette_deep_rename( $x, $extra, '', $block, $custom );
 			}
 			return $v;
 		}
 		if ( is_object( $v ) ) {
 			foreach ( get_object_vars( $v ) as $k => $x ) {
-				if ( ! origin_canvas_palette_is_literal( $key, (string) $k ) ) {
-					$v->$k = origin_canvas_palette_deep_rename( $x, $extra, (string) $k, $block, $labels );
+				if ( ! ( $block && origin_canvas_palette_is_literal( $key, (string) $k ) ) ) {
+					$v->$k = origin_canvas_palette_deep_rename( $x, $extra, (string) $k, $block, $custom );
 				}
 			}
 			return $v;
@@ -691,7 +696,7 @@ if ( ! function_exists( 'origin_canvas_palette_rename_settings_strings' ) ) {
 		foreach ( array( 'spacing', 'custom' ) as $key ) {
 			if ( isset( $level->$key ) ) {
 				// Every key under custom names a CSS custom property (--wp--custom--…), so none is a label.
-				$level->$key = origin_canvas_palette_deep_rename( $level->$key, $extra, $key, false, 'custom' !== $key );
+				$level->$key = origin_canvas_palette_deep_rename( $level->$key, $extra, $key, false, 'custom' === $key );
 			}
 		}
 	}
@@ -843,14 +848,15 @@ if ( ! function_exists( 'origin_canvas_palette_string_hits' ) ) {
 	 * @param string $path Path.
 	 * @param string $key  Key.
 	 * @param array  $hits Collected hits.
+	 * @param bool   $custom Below settings.custom: every string is a plain CSS value.
 	 * @return void
 	 */
-	function origin_canvas_palette_string_hits( $v, $path, $key, &$hits, $labels = true ) {
-		if ( is_string( $v ) && $labels && origin_canvas_palette_is_label( $key ) ) {
+	function origin_canvas_palette_string_hits( $v, $path, $key, &$hits, $custom = false ) {
+		if ( is_string( $v ) && ! $custom && origin_canvas_palette_is_label( $key ) ) {
 			return; // A label is text, kept as it is.
 		}
 		if ( is_string( $v ) ) {
-			if ( 'css' !== $key ) {
+			if ( 'css' !== $key || $custom ) {
 				$next = origin_canvas_palette_rename_refs( $v );
 			} elseif ( 'styles.css' === $path ) {
 				$next = origin_canvas_palette_css_rename_vars( $v );
@@ -864,8 +870,9 @@ if ( ! function_exists( 'origin_canvas_palette_string_hits' ) ) {
 		}
 		if ( is_array( $v ) || is_object( $v ) ) {
 			foreach ( ( is_object( $v ) ? get_object_vars( $v ) : $v ) as $k => $x ) {
-				if ( ! is_object( $v ) || ! origin_canvas_palette_is_literal( $key, (string) $k ) ) {
-					origin_canvas_palette_string_hits( $x, $path . '.' . $k, is_object( $v ) ? (string) $k : '', $hits, $labels );
+				// A literal is skipped in the styles tree only, as the rewrite skips it.
+				if ( ! is_object( $v ) || 0 !== strpos( $path . '.', 'styles.' ) || ! origin_canvas_palette_is_literal( $key, (string) $k ) ) {
+					origin_canvas_palette_string_hits( $x, $path . '.' . $k, is_object( $v ) ? (string) $k : '', $hits, $custom );
 				}
 			}
 		}
@@ -907,7 +914,7 @@ if ( ! function_exists( 'origin_canvas_palette_global_styles_hits' ) ) {
 			}
 			foreach ( array( 'spacing', 'custom' ) as $key ) {
 				if ( isset( $level->$key ) ) {
-					origin_canvas_palette_string_hits( $level->$key, $at . '.' . $key, $key, $out['fixable'], 'custom' !== $key );
+					origin_canvas_palette_string_hits( $level->$key, $at . '.' . $key, $key, $out['fixable'], 'custom' === $key );
 				}
 			}
 		}

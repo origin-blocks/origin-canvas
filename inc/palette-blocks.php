@@ -1793,7 +1793,9 @@ if ( ! function_exists( 'origin_canvas_palette_json_hits' ) ) {
 	 */
 	function origin_canvas_palette_json_hits( $v, $key = '', $path = array() ) {
 		if ( is_string( $v ) ) {
-			if ( 'css' === $key ) {
+			// Under settings custom every key names a custom property, so a css there is a plain value.
+			$custom = isset( $path[1] ) && 'settings' === $path[0] && 'custom' === ( $path[ 'blocks' === $path[1] ? 3 : 1 ] ?? '' );
+			if ( 'css' === $key && ! $custom ) {
 				// styles.css is a stylesheet; a css below it is block CSS, read as core prints it.
 				return (bool) ( array( 'styles', 'css' ) === $path ? origin_canvas_palette_css_code_hits( $v ) : origin_canvas_palette_block_css_hits( $v ) );
 			}
