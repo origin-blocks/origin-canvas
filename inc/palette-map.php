@@ -168,6 +168,15 @@ if ( ! function_exists( 'origin_canvas_palette_rules' ) ) {
 			'derived'           => array(
 				'core/separator' => array( 'backgroundColor' => 'color' ),
 			),
+			// Blocks that store rich text in a string attribute core prints as HTML, Highlight marks
+			// included (navigation-link.php renders the label through wp_kses_post(), which keeps
+			// class and style on mark): attribute names, read and renamed as markup.
+			'html_attrs'        => array(
+				'core/navigation-link'    => array( 'label' ),
+				'core/navigation-submenu' => array( 'label' ),
+				'core/home-link'          => array( 'label' ),
+				'core/read-more'          => array( 'content' ),
+			),
 			'unreachable'       => array( 'core/html', 'core/freeform' ),
 			'types'             => array( 'post', 'page', 'wp_template', 'wp_template_part', 'wp_block', 'wp_navigation' ),
 			'recent_save_types' => array( 'wp_template', 'wp_template_part', 'wp_navigation' ),
