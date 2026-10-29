@@ -39,12 +39,22 @@ if ( ! function_exists( 'origin_canvas_palette_tokens' ) ) {
 		foreach ( array( 'color--', 'spacing--compact', 'line-height--body' ) as $raw ) {
 			$tokens[] = substr( origin_canvas_palette_encode_attr_string( $raw ), 1, -1 );
 		}
-		$tokens[] = origin_canvas_palette_escape_token();
-		$tokens[] = origin_canvas_palette_reference_token();
-		// A <style> element in markup is read as a stylesheet: any post holding one is read (LIKE
-		// ignores case under the posts table collation).
-		$tokens[] = '<style';
+		$tokens = array_merge( $tokens, origin_canvas_palette_form_tokens() );
 		return $tokens;
+	}
+}
+
+if ( ! function_exists( 'origin_canvas_palette_form_tokens' ) ) {
+	/**
+	 * The prefilter tokens for a code in a written form a slug token does not match: an escape, a
+	 * character reference, or a <style> element in markup, which is read as a stylesheet (LIKE
+	 * ignores case under the posts table collation). One list for the candidate query and the
+	 * collision snapshot's query, so the snapshot reads every post the walk can find a code in.
+	 *
+	 * @return string[]
+	 */
+	function origin_canvas_palette_form_tokens() {
+		return array( origin_canvas_palette_escape_token(), origin_canvas_palette_reference_token(), '<style' );
 	}
 }
 
@@ -98,10 +108,7 @@ if ( ! function_exists( 'origin_canvas_palette_destination_tokens' ) ) {
 		foreach ( array_keys( isset( $map['lineHeight'] ) ? (array) $map['lineHeight'] : array() ) as $d ) {
 			array_push( $tokens, 'line-height|' . $d, 'line-height--' . $d, substr( origin_canvas_palette_encode_attr_string( 'line-height--' . $d ), 1, -1 ) );
 		}
-		if ( $tokens ) {
-			$tokens[] = origin_canvas_palette_escape_token();
-		}
-		return $tokens;
+		return $tokens ? array_merge( $tokens, origin_canvas_palette_form_tokens() ) : $tokens;
 	}
 }
 
