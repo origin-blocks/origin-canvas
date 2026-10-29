@@ -583,72 +583,67 @@ if ( ! function_exists( 'origin_canvas_palette_transform_level' ) ) {
 	}
 }
 
-if ( ! function_exists( 'origin_canvas_palette_palette_entries' ) ) {
+if ( ! function_exists( 'origin_canvas_palette_preset_specs' ) ) {
 	/**
-	 * The palette entries of a settings level's color object that hold a string colour, in every
-	 * origin (a plain list, or theme, custom and default lists). Core prints an entry's colour as
-	 * its preset variable's value, so var(--wp--preset--color--text-muted) on a user's swatch is a
-	 * reference, read and renamed as one; the slug and name are not touched here. Keyed by
-	 * "<origin>.<index>" ("list" for a plain list).
+	 * The preset values core reads as CSS and prints as preset variables, from
+	 * WP_Theme_JSON::PRESETS_METADATA: each preset list's path and the fields of an entry that hold
+	 * its value (value_key; for font sizes, which core reads through a function, the size and the
+	 * fluid min and max). Duotone is not one: core parses its colours and prints no var(). One list
+	 * for the Global Styles hits, the Global Styles rewrite and the child theme.json reader
+	 * (origin_canvas_palette_json_field()), so they read the same fields.
 	 *
-	 * @param mixed $color The level's color object.
-	 * @return array<string, stdClass>
+	 * @return array List of array( path (two keys), fields (dotted, below an entry) ).
 	 */
-	function origin_canvas_palette_palette_entries( $color ) {
-		$out  = array();
-		$node = is_object( $color ) && isset( $color->palette ) ? $color->palette : null;
-		$lists = is_array( $node ) ? array( 'list' => $node ) : ( is_object( $node ) ? get_object_vars( $node ) : array() );
-		foreach ( $lists as $origin => $list ) {
-			if ( ! is_array( $list ) ) {
-				continue;
-			}
-			foreach ( $list as $i => $e ) {
-				if ( is_object( $e ) && isset( $e->color ) && is_string( $e->color ) ) {
-					$out[ $origin . '.' . $i ] = $e;
-				}
+	function origin_canvas_palette_preset_specs() {
+		$out = array();
+		foreach ( WP_Theme_JSON::PRESETS_METADATA as $m ) {
+			if ( isset( $m['value_key'] ) ) {
+				$out[] = array( $m['path'], array( $m['value_key'] ) );
+			} elseif ( array( 'typography', 'fontSizes' ) === $m['path'] ) {
+				$out[] = array( $m['path'], array( 'size', 'fluid.min', 'fluid.max' ) );
 			}
 		}
 		return $out;
 	}
 }
 
-if ( ! function_exists( 'origin_canvas_palette_typography_values' ) ) {
+if ( ! function_exists( 'origin_canvas_palette_preset_values' ) ) {
 	/**
-	 * The typography settings core reads as CSS values and prints as preset variables: each font
-	 * family's fontFamily, and each font size's size and fluid min and max, in every origin. Not a
-	 * fontFace (its src is a literal URL or file path, its fontFamily a font name), a name or a
-	 * slug. Keyed by the path below typography; each is array( object, key ).
+	 * The string preset values of a settings level (origin_canvas_palette_preset_specs()), in every
+	 * origin (a plain list, or theme, custom and default lists). Core prints each as its preset
+	 * variable's value, so var(--wp--preset--color--text-muted) in a user's swatch or shadow is a
+	 * reference, read and renamed as one; a slug or a name is not. Keyed by the path below the
+	 * level ("shadow.presets.custom.0.shadow"); each is array( object, key ).
 	 *
-	 * @param mixed $typography The level's typography object.
+	 * @param mixed    $level Settings level.
+	 * @param string[] $skip  Preset paths ("spacing.spacingSizes") the caller reads whole.
 	 * @return array<string, array>
 	 */
-	function origin_canvas_palette_typography_values( $typography ) {
-		$out   = array();
-		$specs = array(
-			'fontFamilies' => array( 'fontFamily' ),
-			'fontSizes'    => array( 'size' ),
-		);
-		foreach ( $specs as $key => $fields ) {
-			$node  = is_object( $typography ) && isset( $typography->$key ) ? $typography->$key : null;
-			$lists = is_array( $node ) ? array( '' => $node ) : ( is_object( $node ) ? get_object_vars( $node ) : array() );
+	function origin_canvas_palette_preset_values( $level, $skip = array() ) {
+		$out = array();
+		foreach ( origin_canvas_palette_preset_specs() as $spec ) {
+			list( $path, $fields ) = $spec;
+			$name                  = implode( '.', $path );
+			if ( in_array( $name, $skip, true ) ) {
+				continue;
+			}
+			$parent = origin_canvas_palette_obj( $level, $path[0] );
+			$node   = $parent && isset( $parent->{$path[1]} ) ? $parent->{$path[1]} : null;
+			$lists  = is_array( $node ) ? array( '' => $node ) : ( is_object( $node ) ? get_object_vars( $node ) : array() );
 			foreach ( $lists as $origin => $list ) {
 				if ( ! is_array( $list ) ) {
 					continue;
 				}
 				foreach ( $list as $i => $e ) {
-					if ( ! is_object( $e ) ) {
-						continue;
-					}
-					$at = $key . ( '' === $origin ? '' : '.' . $origin ) . '.' . $i;
 					foreach ( $fields as $f ) {
-						if ( isset( $e->$f ) && is_string( $e->$f ) ) {
-							$out[ $at . '.' . $f ] = array( $e, $f );
+						$keys = explode( '.', $f );
+						$last = array_pop( $keys );
+						$obj  = $e;
+						foreach ( $keys as $k ) {
+							$obj = origin_canvas_palette_obj( $obj, $k );
 						}
-					}
-					$fluid = 'fontSizes' === $key && isset( $e->fluid ) && is_object( $e->fluid ) ? $e->fluid : null;
-					foreach ( array( 'min', 'max' ) as $f ) {
-						if ( $fluid && isset( $fluid->$f ) && is_string( $fluid->$f ) ) {
-							$out[ $at . '.fluid.' . $f ] = array( $fluid, $f );
+						if ( is_object( $obj ) && isset( $obj->$last ) && is_string( $obj->$last ) ) {
+							$out[ $name . ( '' === $origin ? '' : '.' . $origin ) . '.' . $i . '.' . $f ] = array( $obj, $last );
 						}
 					}
 				}
@@ -660,23 +655,21 @@ if ( ! function_exists( 'origin_canvas_palette_typography_values' ) ) {
 
 if ( ! function_exists( 'origin_canvas_palette_rename_settings_strings' ) ) {
 	/**
-	 * Rename references in the strings of a settings level's palette colours, gradients,
-	 * typography, spacing and custom settings.
+	 * Rename references in the strings of a settings level's preset values
+	 * (origin_canvas_palette_preset_values()), gradients, spacing and custom settings.
 	 *
 	 * @param stdClass $level Settings level.
 	 * @param array    $extra Collision map.
 	 * @return void
 	 */
 	function origin_canvas_palette_rename_settings_strings( $level, $extra ) {
-		$color = origin_canvas_palette_obj( $level, 'color' );
-		foreach ( origin_canvas_palette_palette_entries( $color ) as $e ) {
-			$e->color = origin_canvas_palette_rename_refs( $e->color, $extra );
+		// Gradients and spacing are renamed whole below.
+		foreach ( origin_canvas_palette_preset_values( $level, array( 'color.gradients', 'spacing.spacingSizes' ) ) as $slot ) {
+			$slot[0]->{$slot[1]} = origin_canvas_palette_rename_refs( $slot[0]->{$slot[1]}, $extra );
 		}
+		$color = origin_canvas_palette_obj( $level, 'color' );
 		if ( $color && isset( $color->gradients ) ) {
 			$color->gradients = origin_canvas_palette_deep_rename( $color->gradients, $extra, 'gradients' );
-		}
-		foreach ( origin_canvas_palette_typography_values( origin_canvas_palette_obj( $level, 'typography' ) ) as $slot ) {
-			$slot[0]->{$slot[1]} = origin_canvas_palette_rename_refs( $slot[0]->{$slot[1]}, $extra );
 		}
 		foreach ( array( 'spacing', 'custom' ) as $key ) {
 			if ( isset( $level->$key ) ) {
@@ -886,15 +879,12 @@ if ( ! function_exists( 'origin_canvas_palette_global_styles_hits' ) ) {
 		}
 		foreach ( origin_canvas_palette_levels( $data ) as $name => $level ) {
 			$at    = '' === $name ? 'settings' : 'settings.blocks.' . $name;
-			$color = origin_canvas_palette_obj( $level, 'color' );
-			foreach ( origin_canvas_palette_palette_entries( $color ) as $where => $e ) {
-				origin_canvas_palette_string_hits( $e->color, $at . '.color.palette.' . $where . '.color', 'color', $out['fixable'] );
+			foreach ( origin_canvas_palette_preset_values( $level, array( 'color.gradients', 'spacing.spacingSizes' ) ) as $where => $slot ) {
+				origin_canvas_palette_string_hits( $slot[0]->{$slot[1]}, $at . '.' . $where, $slot[1], $out['fixable'] );
 			}
+			$color = origin_canvas_palette_obj( $level, 'color' );
 			if ( $color && isset( $color->gradients ) ) {
 				origin_canvas_palette_string_hits( $color->gradients, $at . '.color.gradients', 'gradients', $out['fixable'] );
-			}
-			foreach ( origin_canvas_palette_typography_values( origin_canvas_palette_obj( $level, 'typography' ) ) as $where => $slot ) {
-				origin_canvas_palette_string_hits( $slot[0]->{$slot[1]}, $at . '.typography.' . $where, $slot[1], $out['fixable'] );
 			}
 			foreach ( array( 'spacing', 'custom' ) as $key ) {
 				if ( isset( $level->$key ) ) {

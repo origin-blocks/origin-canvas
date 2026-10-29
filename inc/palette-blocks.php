@@ -1506,10 +1506,12 @@ if ( ! function_exists( 'origin_canvas_palette_json_field' ) ) {
 	/**
 	 * Whether a path in a decoded theme.json (a child theme.json or style variation) is a field
 	 * the rewrite reads as a style value: under styles, a value below a color, spacing or shadow
-	 * key or a typography lineHeight (the Global Styles reader renames every style value, a shadow
-	 * too); under settings or settings.blocks.<block>, a palette entry's color, a
-	 * gradient entry's gradient, and the spacing and custom values. Prose (a title, a description,
-	 * an entry's name, outside settings custom) and other style values (a fontFamily) are not.
+	 * key, a border or dimensions value, or a typography lineHeight (the Global Styles reader
+	 * renames every style value, a shadow too); under settings or settings.blocks.<block>, a preset
+	 * entry's value as the Global Styles reader reads it (origin_canvas_palette_preset_specs(): a
+	 * palette colour, a gradient, a font size and its fluid min and max, a shadow, a radius or
+	 * dimension size), and the spacing and custom values. Prose (a title, a description, an entry's
+	 * name, outside settings custom) and other style values (a fontFamily) are not.
 	 *
 	 * @param array $path Keys from the root.
 	 * @return bool
@@ -1527,7 +1529,7 @@ if ( ! function_exists( 'origin_canvas_palette_json_field' ) ) {
 		}
 		if ( 'styles' === $path[0] ) {
 			for ( $i = 1; $i < $n; $i++ ) {
-				if ( 'color' === $path[ $i ] || 'spacing' === $path[ $i ] || 'shadow' === $path[ $i ] || ( 'typography' === $path[ $i ] && 'lineHeight' === ( $path[ $i + 1 ] ?? '' ) ) ) {
+				if ( in_array( $path[ $i ], array( 'color', 'spacing', 'shadow', 'border', 'dimensions' ), true ) || ( 'typography' === $path[ $i ] && 'lineHeight' === ( $path[ $i + 1 ] ?? '' ) ) ) {
 					return true;
 				}
 			}
@@ -1541,8 +1543,21 @@ if ( ! function_exists( 'origin_canvas_palette_json_field' ) ) {
 		if ( 'custom' === $k || 'spacing' === $k ) {
 			return true;
 		}
-		$list = $path[ $i + 1 ] ?? '';
-		return 'color' === $k && ( ( 'palette' === $list && 'color' === $path[ $n - 1 ] ) || ( 'gradients' === $list && 'gradient' === $path[ $n - 1 ] ) );
+		// A preset entry's value: <list path>[.<origin>].<index>.<field>.
+		foreach ( origin_canvas_palette_preset_specs() as $spec ) {
+			list( $list, $fields ) = $spec;
+			if ( array_slice( $path, $i, 2 ) !== $list ) {
+				continue;
+			}
+			$rest = array_slice( $path, $i + 2 );
+			if ( $rest && ! ctype_digit( $rest[0] ) ) {
+				array_shift( $rest );
+			}
+			if ( $rest && ctype_digit( $rest[0] ) && in_array( implode( '.', array_slice( $rest, 1 ) ), $fields, true ) ) {
+				return true;
+			}
+		}
+		return false;
 	}
 }
 
