@@ -170,12 +170,20 @@ if ( ! function_exists( 'origin_canvas_palette_rules' ) ) {
 			),
 			// Blocks that store rich text in a string attribute core prints as HTML, Highlight marks
 			// included (navigation-link.php renders the label through wp_kses_post(), which keeps
-			// class and style on mark): attribute names, read and renamed as markup.
+			// class and style on mark): attribute names, read and renamed as markup. Each is a
+			// dynamic block, so the JSON is its only source. Tags in any other block's attribute
+			// string (a third-party label) are read as alias hits only.
 			'html_attrs'        => array(
-				'core/navigation-link'    => array( 'label' ),
-				'core/navigation-submenu' => array( 'label' ),
-				'core/home-link'          => array( 'label' ),
-				'core/read-more'          => array( 'content' ),
+				'core/navigation-link'      => array( 'label' ),
+				'core/navigation-submenu'   => array( 'label' ),
+				'core/home-link'            => array( 'label' ),
+				'core/read-more'            => array( 'content' ),
+				'core/post-terms'           => array( 'prefix', 'suffix' ),
+				'core/search'               => array( 'label', 'buttonText' ),
+				'core/post-excerpt'         => array( 'moreText' ),
+				'core/post-navigation-link' => array( 'label' ),
+				'core/categories'           => array( 'label' ),
+				'core/post-author'          => array( 'byline' ),
 			),
 			'unreachable'       => array( 'core/html', 'core/freeform' ),
 			'types'             => array( 'post', 'page', 'wp_template', 'wp_template_part', 'wp_block', 'wp_navigation' ),

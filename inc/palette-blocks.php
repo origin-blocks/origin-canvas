@@ -896,6 +896,21 @@ if ( ! function_exists( 'origin_canvas_palette_html_codes' ) ) {
 	}
 }
 
+if ( ! function_exists( 'origin_canvas_palette_is_html_attr' ) ) {
+	/**
+	 * Whether an attribute path of a named block is one of its HTML attributes
+	 * (origin_canvas_palette_rules()['html_attrs']), read and renamed as markup.
+	 *
+	 * @param string $name Block name.
+	 * @param array  $p    Path.
+	 * @return bool
+	 */
+	function origin_canvas_palette_is_html_attr( $name, $p ) {
+		$rules = origin_canvas_palette_rules();
+		return 1 === count( $p ) && isset( $rules['html_attrs'][ $name ] ) && in_array( $p[0], $rules['html_attrs'][ $name ], true );
+	}
+}
+
 if ( ! function_exists( 'origin_canvas_palette_rename_attr' ) ) {
 	/**
 	 * Rename old references in one attribute string value of a named block: an HTML attribute of
@@ -910,8 +925,7 @@ if ( ! function_exists( 'origin_canvas_palette_rename_attr' ) ) {
 	 * @return string|null The new value, or null when unchanged.
 	 */
 	function origin_canvas_palette_rename_attr( $name, $p, $v, &$seen, $extra ) {
-		$rules = origin_canvas_palette_rules();
-		if ( 1 === count( $p ) && isset( $rules['html_attrs'][ $name ] ) && in_array( $p[0], $rules['html_attrs'][ $name ], true ) ) {
+		if ( origin_canvas_palette_is_html_attr( $name, $p ) ) {
 			$out = origin_canvas_palette_html_codes( $v, $extra )[0];
 			return $out === $v ? null : $out;
 		}
@@ -1300,6 +1314,13 @@ if ( ! function_exists( 'origin_canvas_palette_content_hits' ) ) {
 					$s = origin_canvas_palette_new_seen();
 					if ( null !== origin_canvas_palette_rename_attr( $name, $q, $v, $s, $extra ) ) {
 						$into[] = $p . '.' . implode( '.', $q ) . '=' . $v;
+					} elseif ( ! origin_canvas_palette_is_html_attr( $name, $q ) && false !== strpos( $v, '<' ) ) {
+						// Tags in any other attribute string (a third-party block's rich-text label), read
+						// as the HTML attributes are: the rewrite does not know the block, so only the
+						// aliases carry them, as for core/html.
+						foreach ( origin_canvas_palette_html_codes( $v, $extra )[1] as $c ) {
+							$alias[] = $p . '.' . implode( '.', $q ) . '.html.' . ( '' !== $c['class'] ? 'class=' . $c['class'] : 'style~' . ( 'color' === $c['kind'] ? '' : $c['kind'] . '-' ) . $c['slug'] );
+						}
 					}
 					// An old variable core prints in the block's CSS that the bytes cannot rename (a }
 					// inside the reference): only the aliases carry it.
