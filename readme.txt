@@ -180,6 +180,55 @@ The check icon used by the Check list block style is sourced from [Lucide](https
 
 The quotation-mark glyph used by the testimonial patterns (embedded as a data-URI mask in assets/styles/core-group.css) is original artwork created for Origin Canvas, released by Origin under GPLv3.
 
+== Upgrading from 1.3.1 ==
+
+This version gives the theme's colors, one spacing size and one line-height value new names. Classes and variables take the new names too, so `has-text-muted-color` becomes `has-contrast-3-color` and `--wp--preset--color--text-muted` becomes `--wp--preset--color--contrast-3`. Primary keeps its name.
+
+= New Names =
+
+Colors:
+
+* `surface-base` is now `base`
+* `surface-muted` is now `base-2`
+* `on-dark` is now `base-2`
+* `surface-subtle` is now `base-3`
+* `surface-subtle-hover` is now `base-4`
+* `border` is now `base-5`
+* `input-border` is now `base-6`
+* `text-muted` is now `contrast-3`
+* `text-body` is now `contrast-2`
+* `text-heading` is now `contrast`
+
+Spacing:
+
+* `compact` is now `small-medium`
+
+Line height:
+
+* `body` is now `normal`
+
+= Sites Updated in Place =
+
+Apart from the changes below, a site updated in place keeps rendering the same through compatibility styles, which the theme loads only on sites that ran it before this version. Those styles cover the front end, the Block Editor and the Site Editor, and saved content keeps the old names.
+
+In the default palette, body and muted text are also one step darker in this version, separately from the rename: `contrast-3` is #4B5563 where `text-muted` was #6B7280, and `contrast-2` is #374151 where `text-body` was #4B5563.
+
+Three cases render differently:
+
+* CSS in a child theme or in Additional CSS that targets an old class name doesn't reach newly inserted blocks, which carry the new class, so add the new class beside the old one in each selector.
+* Text set to the old Border color loses that color, because its class, `has-border-color`, is also the class WordPress adds to any block with a border color, so clear the text color in the editor and choose Base 5.
+* A custom color saved under a slug the theme now uses, such as `base` or `contrast`, overrides the theme's color of that name, so give the custom color a new slug and choose it again on the blocks that used it.
+
+= Known Limits =
+
+The theme treats a site as new when it activates on this version, and as updated when this version loads with no activation. That leaves three known limits:
+
+* A site that ran 1.3.1, switched to another theme and comes back after this update counts as new, so it loads no compatibility styles.
+* A site activated on 1.3.1 with no page load before this update also counts as new, so content with old names imported during that activation doesn't get compatibility styles.
+* A site whose theme is set without an activation, or that previews the theme before activating it, counts as updated and loads compatibility styles it never uses.
+
+A tool that moves saved content to the new names is available on request from support.
+
 == Changelog ==
 
 = 1.3.1 - 1 September 2026 =
