@@ -5,12 +5,10 @@
 # is saved in someone's content. A rename or a removal breaks that content without a
 # warning (a wp:pattern reference renders nothing, a preset var resolves to nothing, a
 # class loses its look), so it needs a render-time shim, CSS or a render_block filter,
-# with a sunset note. Never a $wpdb query or a content change, except the #116 migration the
-# owner ruled on (the Global Styles rewrite on the first admin load and the Update colours
-# action), whose prepared queries live in inc/palette-detect.php and inc/palette-migrate.php
-# only (bin/check-palette-names.sh holds that boundary). A renamed preset passes while
-# inc/palette-map.php maps it to a preset the tree still has. A shipped pattern slug is never
-# renamed.
+# with a sunset note. Never a $wpdb query or a content change in the theme: the #116 migration
+# lives in a separate plugin (bin/check-palette-names.sh holds that boundary). A renamed preset
+# passes while inc/palette-map.php maps it to a preset the tree still has. A shipped pattern
+# slug is never renamed.
 #
 # This compares the working tree with every release tag and fails on any value a release
 # had that the tree has lost:

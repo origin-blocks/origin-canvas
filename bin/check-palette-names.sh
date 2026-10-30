@@ -1,13 +1,12 @@
 #!/usr/bin/env bash
 #
 # The palette rename (#116) holds: no old colour, spacing or line height code is left in the
-# theme outside the compatibility layer, and the migration's direct queries stay in its two
-# files.
+# theme outside the compatibility layer, and the theme runs no direct queries.
 #
 # The codes were renamed, not only the labels (owner ruling, #116). Saved 1.3.1 sites keep
-# rendering through the generated aliases in inc/palette-aliases.php, and Update colours moves
-# their content; the theme's own files use the new codes only. The old codes are read from
-# inc/palette-map.php, the one map.
+# rendering through the aliases in inc/palette-aliases.php and assets/css/palette-aliases.css;
+# the theme's own files use the new codes only. The old codes are read from inc/palette-map.php,
+# the one map.
 #
 # Fails on, in every tracked file except inc/palette-*.php, assets/css/palette-aliases.css (the
 # built twin rules, which name the old classes on purpose), bin/ and readme.txt (its changelog is
@@ -19,8 +18,7 @@
 #   theme.json, while "textColor": "border" is a value), var:preset|spacing|compact,
 #   --wp--preset--spacing--compact, var:custom|line-height|body and
 #   --wp--custom--line-height--body.
-# And on $wpdb in any PHP file but inc/palette-detect.php and inc/palette-migrate.php: the
-# #116 migration's prepared queries live there only (bin/check-shipped-values.sh, header).
+# And on $wpdb in any PHP file: the content migration lives in a separate plugin.
 #
 # Run from the theme root:  bash bin/check-palette-names.sh
 
@@ -76,7 +74,7 @@ for path in filter(None, files):
             hits.append('%s: %s' % (path, m.group(0)))
 
 for path in filter(None, files):
-    if not path.endswith('.php') or path in ('inc/palette-detect.php', 'inc/palette-migrate.php'):
+    if not path.endswith('.php'):
         continue
     for n, row in enumerate(open(path, encoding='utf-8', errors='replace'), 1):
         if '$wpdb' in row:
@@ -87,5 +85,5 @@ if hits:
     for h in hits:
         print('  ✗  ' + h)
     sys.exit(1)
-print('Palette names (#116):\n  ✓  no old colour, spacing or line height code outside the compatibility layer; $wpdb only in inc/palette-detect.php and inc/palette-migrate.php')
+print('Palette names (#116):\n  ✓  no old colour, spacing or line height code outside the compatibility layer; no $wpdb')
 PY

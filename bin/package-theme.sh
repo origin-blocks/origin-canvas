@@ -29,8 +29,7 @@ bash "$SCRIPT_DIR/check-layout-widths.sh"
 bash "$SCRIPT_DIR/check-image-slots.sh"
 bash "$SCRIPT_DIR/check-post-card-twins.sh"
 bash "$SCRIPT_DIR/check-page-h1.sh"
-# No old palette code outside the compatibility layer, and $wpdb only in the migration's
-# two files (#116).
+# No old palette code outside the compatibility layer, and no $wpdb (#116).
 bash "$SCRIPT_DIR/check-palette-names.sh"
 # The built twin rules match the map and the stylesheets they come from (#116).
 bash "$SCRIPT_DIR/check-palette-aliases.sh"

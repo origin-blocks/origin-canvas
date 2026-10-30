@@ -624,8 +624,8 @@ html {
 /* The theme's dark grounds: the custom.dark.bg fill the dark patterns use, and the
    contrast palette fill. Every form peaks at the ruled 10%; a fade keeps its
    masks, so fade to centre scales from 10% at the top edge. Content saved before the
-   #116 rename still holds the old Text Heading fill class; the twin rules generated in
-   inc/palette-aliases.php match it. */
+   #116 rename still holds the old Text Heading fill class; the twin rules in
+   assets/css/palette-aliases.css match it. */
 :is(.origin-canvas-dots, .origin-canvas-dots-fade-centre, .origin-canvas-dots-fade-down):is(.has-contrast-background-color, [style*="--wp--custom--dark--bg"]) {
 	--origin-canvas-dots-ink: var(--wp--preset--color--base-2);
 	--origin-canvas-dots-alpha: 10%;
