@@ -1,5 +1,6 @@
 /**
- * Origin Canvas: old colour names in the editors until Update colours moves them (#116).
+ * Origin Canvas: hands a block's edit component the new colour slug on a pre-rename site (#116).
+ * A tool that moves saved content is separate.
  *
  * A block's edit component looks a colour slug up in the palette (core's withColors), so an old
  * slug the palette no longer holds renders with no colour: a Cover's overlay, for one. Edit
