@@ -20,6 +20,9 @@ jobs:
         with:
           persist-credentials: false
 
+      - name: Check the palette aliases match their sources
+        run: bash bin/check-palette-aliases.sh
+
       - name: Set up Node.js
         uses: actions/setup-node@v5
         with:
