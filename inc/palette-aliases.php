@@ -7,7 +7,7 @@
  * assets/css/palette-aliases.css, built by bin/build-palette-aliases.php, and the declarations here,
  * which depend on the site's own palette. Those fill only names the effective palette lacks:
  * forward (an old name reads its new one), reverse (a new name reads the old one a saved palette
- * or a child theme still defines), or, at the root, the theme's value for a new name with neither.
+ * or a child theme still defines), or, at the root, the theme's value for a new name no release had.
  * In the editors, assets/js/editor-palette.js hands edit components the new slug.
  *
  * @package Origin_Canvas
@@ -213,11 +213,15 @@ if ( ! function_exists( 'origin_canvas_palette_mix' ) ) {
 
 if ( ! function_exists( 'origin_canvas_palette_fill_decls' ) ) {
 	/**
-	 * The root declarations for new slugs that nothing defines. A saved palette list replaces the
+	 * The root declarations for the new slugs no release had. A saved palette list replaces the
 	 * theme's, so on that site Base 7, Contrast 5 and Contrast 4, which have no old name in any
 	 * release, read an undefined variable, and a border on one resolves to no border at all. Each
 	 * slug takes the parent theme.json's value, or its `mix` of the site's own colours where both
 	 * are hex, the values the Global Styles rewrite would store. An empty list fills nothing.
+	 *
+	 * Only these three. A slug with a shipped old name stays undefined on a list that holds neither
+	 * name, such as a child palette that leaves out Text Muted: that name was undefined on 1.3.1
+	 * too, so its text inherits, and a value here would change its colour.
 	 *
 	 * @param array    $present From origin_canvas_palette_present(), the root level.
 	 * @param string[] $covered The slugs the alias declarations already define.
@@ -229,7 +233,7 @@ if ( ! function_exists( 'origin_canvas_palette_fill_decls' ) ) {
 			'decls'   => array(),
 			'aliased' => array(),
 		);
-		$lacks = array_diff( $rules['order'], array_keys( $present['color'] ), $covered );
+		$lacks = array_diff( array( 'base-7', 'contrast-5', 'contrast-4' ), array_keys( $present['color'] ), $covered );
 		if ( ! $present['color'] || ! $lacks ) {
 			return $out;
 		}
