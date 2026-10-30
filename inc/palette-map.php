@@ -11,7 +11,8 @@ if ( ! function_exists( 'origin_canvas_palette_map' ) ) {
 	 *
 	 * The #116 ruling: the codes are renamed, not only the labels; every value stays as it was,
 	 * and Primary keeps its slug and name. Surface Muted and On Dark both become Base 2 (the
-	 * merge): they held the same value in every release, and Surface Muted's entry wins.
+	 * merge). At 1.3.1 they hold one value in theme.json and the colour variations, but Editorial,
+	 * Expressive and Refined Sans give Surface Muted its own. Surface Muted's entry wins.
 	 *
 	 * Collisions: a saved palette entry on a destination slug (base, base-2 … contrast), in a list
 	 * that also holds the old slug that maps to it, is the user's own swatch. It keeps its value
