@@ -9,8 +9,9 @@
 # their content; the theme's own files use the new codes only. The old codes are read from
 # inc/palette-map.php, the one map.
 #
-# Fails on, in every tracked file except inc/palette-*.php, bin/ and readme.txt (its changelog
-# is history):
+# Fails on, in every tracked file except inc/palette-*.php, assets/css/palette-aliases.css (the
+# built twin rules, which name the old classes on purpose), bin/ and readme.txt (its changelog is
+# history):
 #   var:preset|color|<old>, --wp--preset--color--<old> (raw or with "--" encoded as core saves
 #   it in block attributes), has-<old>-color|background-color|border-color (never core's
 #   generic has-border-color), an old slug as a value in a block comment's attribute JSON
@@ -60,7 +61,7 @@ COMMENT = re.compile(r'<!--\s+/?wp:[a-z][a-z0-9_/-]*\s+(\{.*?\})\s+/?-->', re.S)
 files = subprocess.run(['git', 'ls-files'], capture_output=True, text=True, check=True).stdout.split('\n')
 hits = []
 for path in filter(None, files):
-    if path.startswith('bin/') or path == 'readme.txt' or re.match(r'inc/palette-[^/]*\.php$', path):
+    if path.startswith('bin/') or path in ('readme.txt', 'assets/css/palette-aliases.css') or re.match(r'inc/palette-[^/]*\.php$', path):
         continue
     try:
         body = open(path, encoding='utf-8').read()
