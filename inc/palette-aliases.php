@@ -264,6 +264,7 @@ if ( ! function_exists( 'origin_canvas_palette_enqueue_aliases' ) ) {
 		if ( 'enqueue_block_assets' === current_filter() && ! is_admin() ) {
 			return;
 		}
+		origin_canvas_palette_mark_legacy();
 		if ( ! origin_canvas_palette_aliases_on() ) {
 			return;
 		}
