@@ -11,7 +11,7 @@ if ( ! defined( 'ORIGIN_CANVAS_VERSION' ) ) {
 	define( 'ORIGIN_CANVAS_VERSION', $origin_canvas_theme->get( 'Version' ) );
 }
 
-// The palette rename (#116): the map, the migration and the compatibility aliases.
+// The palette rename (#116): the map, the pre-rename mark and the aliases; the content migration lives in a separate plugin.
 require_once get_template_directory() . '/inc/palette-map.php';
 require_once get_template_directory() . '/inc/palette-state.php';
 require_once get_template_directory() . '/inc/palette-aliases.php';
