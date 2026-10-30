@@ -7,7 +7,7 @@
  * assets/css/palette-aliases.css, built by bin/build-palette-aliases.php, and the declarations here,
  * which depend on the site's own palette. Those fill only names the effective palette lacks:
  * forward (an old name reads its new one) or reverse (a new name reads the old one a child theme
- * still defines).
+ * still defines). In the editors, assets/js/editor-palette.js hands edit components the new slug.
  *
  * @package Origin_Canvas
  */
@@ -299,3 +299,38 @@ if ( ! function_exists( 'origin_canvas_palette_aliases_first' ) ) {
 	}
 }
 add_action( 'wp_print_styles', 'origin_canvas_palette_aliases_first', 9 );
+
+if ( ! function_exists( 'origin_canvas_palette_enqueue_editor_names' ) ) {
+	/**
+	 * Both editors: edit components that look a colour slug up in the palette get the new slug
+	 * for an old one the palette lacks (assets/js/editor-palette.js). Stored attributes stay.
+	 *
+	 * The post editor fires this hook before enqueue_block_assets, so the mark is set here too.
+	 *
+	 * @return void
+	 */
+	function origin_canvas_palette_enqueue_editor_names() {
+		origin_canvas_palette_mark_legacy();
+		if ( ! origin_canvas_palette_aliases_on() ) {
+			return;
+		}
+		$path  = get_theme_file_path( 'assets/js/editor-palette.js' );
+		$mtime = file_exists( $path ) ? filemtime( $path ) : false;
+		wp_enqueue_script(
+			'origin-canvas-editor-palette',
+			get_theme_file_uri( 'assets/js/editor-palette.js' ),
+			array( 'wp-hooks', 'wp-compose', 'wp-element', 'wp-block-editor' ),
+			$mtime ? $mtime : ORIGIN_CANVAS_VERSION,
+			false
+		);
+		wp_localize_script(
+			'origin-canvas-editor-palette',
+			'originCanvasEditorPalette',
+			array(
+				'map'   => origin_canvas_palette_map()['color'],
+				'attrs' => array_keys( origin_canvas_palette_rules()['slug_attrs'] ),
+			)
+		);
+	}
+}
+add_action( 'enqueue_block_editor_assets', 'origin_canvas_palette_enqueue_editor_names' );
