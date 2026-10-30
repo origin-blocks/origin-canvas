@@ -211,13 +211,15 @@ Line height:
 
 Apart from the changes below, a site updated in place keeps rendering the same through compatibility styles, which the theme loads only on sites that ran it before this version. Those styles cover the front end, the Block Editor and the Site Editor, and saved content keeps the old names.
 
-In the default palette, body and muted text are also one step darker in this version, separately from the rename: `contrast-3` is #4B5563 where `text-muted` was #6B7280, and `contrast-2` is #374151 where `text-body` was #4B5563.
+In the default palette, body and muted text are also one step darker in this version, separately from the rename: `contrast-3` is #4B5563 where `text-muted` was #6B7280, and `contrast-2` is #374151 where `text-body` was #4B5563. Field and Outline button borders are darker too, also separately from the rename: a field border is #828B98 where it was #D1D5DB, and an Outline button border is #6B7280 where it was #E5E7EB.
 
-Three cases render differently:
+Five cases render differently:
 
 * CSS in a child theme or in Additional CSS that targets an old class name doesn't reach newly inserted blocks, which carry the new class, so add the new class beside the old one in each selector.
+* Additional CSS that overrides an old variable at `:root`, such as `--wp--preset--color--text-heading`, still recolors saved content on that name but no longer reaches the theme's own styling, which reads the new name, so change the override to the new name.
 * Text set to the old Border color loses that color, because its class, `has-border-color`, is also the class WordPress adds to any block with a border color, so clear the text color in the editor and choose Base 5.
 * A custom color saved under a slug the theme now uses, such as `base` or `contrast`, overrides the theme's color of that name, so give the custom color a new slug and choose it again on the blocks that used it.
+* On a site whose saved Styles replaced the palette, the theme's dark bands and dark menus use Base 2 where 1.3.1 used On Dark, and the theme takes Base 2 from Surface Muted. If a style variation or a user set Surface Muted and On Dark to different colors, as Editorial, Expressive and Refined Sans do in 1.3.1, the bands and menus show the Surface Muted color. Content set to On Dark keeps its color.
 
 = Known Limits =
 
