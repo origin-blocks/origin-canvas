@@ -6,8 +6,9 @@
  * classes keep rendering in the front end and both editors. Two parts load: the twin rules in
  * assets/css/palette-aliases.css, built by bin/build-palette-aliases.php, and the declarations here,
  * which depend on the site's own palette. Those fill only names the effective palette lacks:
- * forward (an old name reads its new one) or reverse (a new name reads the old one a child theme
- * still defines). In the editors, assets/js/editor-palette.js hands edit components the new slug.
+ * forward (an old name reads its new one), reverse (a new name reads the old one a saved palette
+ * or a child theme still defines), or, at the root, the theme's value for a new name with neither.
+ * In the editors, assets/js/editor-palette.js hands edit components the new slug.
  *
  * @package Origin_Canvas
  */
@@ -177,6 +178,119 @@ if ( ! function_exists( 'origin_canvas_palette_alias_levels' ) ) {
 	}
 }
 
+if ( ! function_exists( 'origin_canvas_palette_hex' ) ) {
+	/**
+	 * Channels of a #RRGGBB colour, or null.
+	 *
+	 * @param mixed $c Colour.
+	 * @return int[]|null
+	 */
+	function origin_canvas_palette_hex( $c ) {
+		if ( ! is_string( $c ) || ! preg_match( '/^#([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})$/D', $c, $m ) ) {
+			return null;
+		}
+		return array( hexdec( $m[1] ), hexdec( $m[2] ), hexdec( $m[3] ) );
+	}
+}
+
+if ( ! function_exists( 'origin_canvas_palette_mix' ) ) {
+	/**
+	 * round( p% × a + (100 − p)% × b ) per channel, as #RRGGBB.
+	 *
+	 * @param int[] $a First colour.
+	 * @param int[] $b Second colour.
+	 * @param int   $p Percent of the first.
+	 * @return string
+	 */
+	function origin_canvas_palette_mix( $a, $b, $p ) {
+		$out = '#';
+		for ( $i = 0; $i < 3; $i++ ) {
+			$out .= sprintf( '%02X', (int) round( ( $p * $a[ $i ] + ( 100 - $p ) * $b[ $i ] ) / 100 ) );
+		}
+		return $out;
+	}
+}
+
+if ( ! function_exists( 'origin_canvas_palette_fill_decls' ) ) {
+	/**
+	 * The root declarations for new slugs that nothing defines. A saved palette list replaces the
+	 * theme's, so on that site Base 7, Contrast 5 and Contrast 4, which have no old name in any
+	 * release, read an undefined variable, and a border on one resolves to no border at all. Each
+	 * slug takes the parent theme.json's value, or its `mix` of the site's own colours where both
+	 * are hex, the values the Global Styles rewrite would store. An empty list fills nothing.
+	 *
+	 * @param array    $present From origin_canvas_palette_present(), the root level.
+	 * @param string[] $covered The slugs the alias declarations already define.
+	 * @return array{decls: string[], aliased: string[]}
+	 */
+	function origin_canvas_palette_fill_decls( $present, $covered ) {
+		$rules = origin_canvas_palette_rules();
+		$out   = array(
+			'decls'   => array(),
+			'aliased' => array(),
+		);
+		$lacks = array_diff( $rules['order'], array_keys( $present['color'] ), $covered );
+		if ( ! $present['color'] || ! $lacks ) {
+			return $out;
+		}
+		$theme  = wp_json_file_decode( get_parent_theme_file_path( 'theme.json' ), array( 'associative' => true ) );
+		$parent = array();
+		if ( isset( $theme['settings']['color']['palette'] ) && is_array( $theme['settings']['color']['palette'] ) ) {
+			foreach ( $theme['settings']['color']['palette'] as $e ) {
+				if ( is_array( $e ) && isset( $e['slug'], $e['color'] ) ) {
+					$parent[ (string) $e['slug'] ] = (string) $e['color'];
+				}
+			}
+		}
+		// The site's own colours, a custom entry over a theme one, as core prints them.
+		$palette = wp_get_global_settings( array( 'color', 'palette' ) );
+		$saved   = array();
+		foreach ( array( 'theme', 'custom' ) as $origin ) {
+			if ( ! isset( $palette[ $origin ] ) || ! is_array( $palette[ $origin ] ) ) {
+				continue;
+			}
+			foreach ( $palette[ $origin ] as $e ) {
+				if ( is_array( $e ) && isset( $e['slug'], $e['color'] ) && is_string( $e['slug'] ) ) {
+					$saved[ $e['slug'] ] = $e['color'];
+				}
+			}
+		}
+		// Each new slug's value: its own entry, or the first old slug in the map's order, the one
+		// its reverse alias reads.
+		$map     = origin_canvas_palette_map();
+		$colours = array();
+		foreach ( $rules['order'] as $slug ) {
+			foreach ( array_merge( array( $slug ), array_keys( $map['color'], $slug, true ) ) as $name ) {
+				if ( isset( $saved[ $name ] ) ) {
+					$colours[ $slug ] = $saved[ $name ];
+					break;
+				}
+			}
+		}
+		foreach ( $rules['order'] as $slug ) {
+			if ( ! in_array( $slug, $lacks, true ) ) {
+				continue;
+			}
+			$colour = isset( $parent[ $slug ] ) ? $parent[ $slug ] : '';
+			if ( isset( $rules['mix'][ $slug ] ) ) {
+				list( $a_slug, $b_slug, $p ) = $rules['mix'][ $slug ];
+				$a                           = isset( $colours[ $a_slug ] ) ? origin_canvas_palette_hex( $colours[ $a_slug ] ) : null;
+				$b                           = isset( $colours[ $b_slug ] ) ? origin_canvas_palette_hex( $colours[ $b_slug ] ) : null;
+				if ( $a && $b ) {
+					$colour = origin_canvas_palette_mix( $a, $b, $p );
+				}
+			}
+			if ( '' === $colour ) {
+				continue;
+			}
+			$colours[ $slug ] = $colour;
+			$out['decls'][]   = '--wp--preset--color--' . $slug . ': ' . $colour . ';';
+			$out['aliased'][] = $slug;
+		}
+		return $out;
+	}
+}
+
 if ( ! function_exists( 'origin_canvas_palette_alias_css' ) ) {
 	/**
 	 * The alias CSS: one :root rule of alias variables, the root classes of every aliased colour
@@ -196,12 +310,14 @@ if ( ! function_exists( 'origin_canvas_palette_alias_css' ) ) {
 		}
 		$levels = origin_canvas_palette_alias_levels();
 
-		$root = origin_canvas_palette_alias_decls( $levels['root'], array( 'color', 'spacing', 'lineHeight' ) );
-		$css  = "/* origin-canvas palette aliases */\n";
-		if ( $root['decls'] ) {
-			$css .= ':root{' . implode( '', $root['decls'] ) . "}\n";
+		$root  = origin_canvas_palette_alias_decls( $levels['root'], array( 'color', 'spacing', 'lineHeight' ) );
+		$fill  = origin_canvas_palette_fill_decls( $levels['root'], $root['aliased'] );
+		$decls = array_merge( $root['decls'], $fill['decls'] );
+		$css   = "/* origin-canvas palette aliases */\n";
+		if ( $decls ) {
+			$css .= ':root{' . implode( '', $decls ) . "}\n";
 		}
-		foreach ( $root['aliased'] as $slug ) {
+		foreach ( array_merge( $root['aliased'], $fill['aliased'] ) as $slug ) {
 			$var = 'var(--wp--preset--color--' . $slug . ')';
 			if ( 'has-' . $slug . '-color' !== 'has-border-color' ) {
 				$css .= '.has-' . $slug . '-color{color: ' . $var . " !important;}\n";
