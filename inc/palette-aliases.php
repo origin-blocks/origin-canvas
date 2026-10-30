@@ -302,8 +302,8 @@ add_action( 'wp_print_styles', 'origin_canvas_palette_aliases_first', 9 );
 
 if ( ! function_exists( 'origin_canvas_palette_enqueue_editor_names' ) ) {
 	/**
-	 * Both editors: edit components that look a colour slug up in the palette get the new slug
-	 * for an old one the palette lacks (assets/js/editor-palette.js). Stored attributes stay.
+	 * Both editors: edit components that look a colour slug up in the palette get the name it holds
+	 * for a slug it lacks, old or new (assets/js/editor-palette.js). Stored attributes stay.
 	 *
 	 * The post editor fires this hook before enqueue_block_assets, so the mark is set here too.
 	 *
