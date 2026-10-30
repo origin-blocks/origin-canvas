@@ -1,12 +1,13 @@
 <?php
 /**
- * The palette rename (#116): generated alias CSS and the twin rules, and their delivery.
+ * The palette rename (#116): the compatibility aliases and their loader.
  *
- * Aliases keep old variables and classes rendering, in the front end and both editors, on any
- * site ever detected as upgraded: until Update colours moves the site's content, and for good for
- * what it cannot reach (child themes, Additional CSS, third-party markup). They fill only names the
- * effective palette lacks: forward (an old name reads its new one) or reverse (a new name reads
- * the old one a child theme still defines).
+ * On a site that existed before the rename (the mark in inc/palette-state.php), old variables and
+ * classes keep rendering in the front end and both editors. Two parts load: the twin rules in
+ * assets/css/palette-aliases.css, built by bin/build-palette-aliases.php, and the declarations here,
+ * which depend on the site's own palette. Those fill only names the effective palette lacks:
+ * forward (an old name reads its new one) or reverse (a new name reads the old one a child theme
+ * still defines).
  *
  * @package Origin_Canvas
  */
@@ -194,12 +195,6 @@ if ( ! function_exists( 'origin_canvas_palette_alias_css' ) ) {
 			return $memo[ $site ];
 		}
 		$levels = origin_canvas_palette_alias_levels();
-		$key    = md5( ORIGIN_CANVAS_VERSION . '|' . get_stylesheet() . '|' . wp_json_encode( $levels ) );
-		$cached = get_transient( 'origin_canvas_palette_aliases' );
-		if ( is_array( $cached ) && isset( $cached['key'], $cached['css'] ) && $cached['key'] === $key ) {
-			$memo[ $site ] = (string) $cached['css'];
-			return $memo[ $site ];
-		}
 
 		$root = origin_canvas_palette_alias_decls( $levels['root'], array( 'color', 'spacing', 'lineHeight' ) );
 		$css  = "/* origin-canvas palette aliases */\n";
@@ -233,325 +228,49 @@ if ( ! function_exists( 'origin_canvas_palette_alias_css' ) ) {
 				$css .= $selector . '{' . implode( '', $decls ) . "}\n";
 			}
 		}
-		set_transient(
-			'origin_canvas_palette_aliases',
-			array(
-				'key' => $key,
-				'css' => $css,
-			)
-		);
 		$memo[ $site ] = $css;
 		return $css;
 	}
 }
 
-if ( ! function_exists( 'origin_canvas_palette_twins_for' ) ) {
-	/**
-	 * Twin CSS of one stylesheet file, cached per file and direction.
-	 *
-	 * @param string $file      Absolute path.
-	 * @param string $direction 'theme' (new => old classes) or 'child' (old => new, declaration twins).
-	 * @return string
-	 */
-	function origin_canvas_palette_twins_for( $file, $direction ) {
-		static $memo = array();
-		$real = realpath( $file );
-		if ( ! $real || ! is_readable( $real ) ) {
-			return '';
-		}
-		// One transient per file and direction, so an edited file or a theme update replaces its
-		// row instead of adding one; the file's state is kept inside the value.
-		$key   = md5( $real . '|' . $direction );
-		$stamp = filemtime( $real ) . '|' . filesize( $real ) . '|' . ORIGIN_CANVAS_VERSION;
-		if ( isset( $memo[ $key ] ) ) {
-			return $memo[ $key ];
-		}
-		$cached = get_transient( 'origin_canvas_palette_twins_' . $key );
-		if ( is_array( $cached ) && isset( $cached['stamp'], $cached['css'] ) && $cached['stamp'] === $stamp && is_string( $cached['css'] ) ) {
-			$memo[ $key ] = $cached['css'];
-			return $cached['css'];
-		}
-		$text = (string) file_get_contents( $real ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- a local theme file.
-		if ( 'theme' === $direction ) {
-			$css = origin_canvas_palette_css_twins( $text, origin_canvas_palette_rules()['twins']['classes'] );
-		} else {
-			$css = origin_canvas_palette_css_twins( $text, origin_canvas_palette_old_classes(), true );
-		}
-		set_transient(
-			'origin_canvas_palette_twins_' . $key,
-			array(
-				'stamp' => $stamp,
-				'css'   => $css,
-			)
-		);
-		$memo[ $key ] = $css;
-		return $css;
-	}
-}
-
-if ( ! function_exists( 'origin_canvas_palette_editor_twin_css' ) ) {
-	/**
-	 * Child twins as the editors take them: each selector item one class stronger, through a
-	 * :not() of a class no element holds, so what it matches is unchanged. Once per nesting chain:
-	 * a rule with declarations of its own, or with no nested rule, takes it, and its nested rules
-	 * inherit it through &; a rule that holds only nested rules (the shadow's parent of a nested
-	 * twin) keeps its selector as the child wrote it, and its nested rules take it in turn. A
-	 * nested at-rule is part of its parent's chain: its declarations count as the parent's own,
-	 * and its style rules take the :not() as nested rules do. The editors print
-	 * core's global styles after every theme style and canvas asset (editor.js
-	 * useGlobalStylesRenderer: [ ...nonGlobalStyles, ...styles ]), so core's colour class (0-1-0,
-	 * !important) and its :root variables would win over a twin that wins by order on the front
-	 * end, where the child sheet prints after global-styles.
-	 *
-	 * @param string $css Child twin CSS.
-	 * @return string
-	 */
-	function origin_canvas_palette_editor_twin_css( $css ) {
-		$twin = static function ( $prelude ) {
-			$items = array();
-			foreach ( origin_canvas_palette_css_split_items( $prelude ) as $item ) {
-				// Before a pseudo-element, which must end the selector; before a trailing comment.
-				$at      = origin_canvas_palette_css_append_at( $item );
-				$items[] = substr( $item, 0, $at ) . ':not(.origin-canvas-editor-twin)' . substr( $item, $at );
-			}
-			return implode( ',', $items );
-		};
-		$own     = static function ( $parts ) use ( &$own ) {
-			foreach ( $parts as $p ) {
-				if ( isset( $p['text'] ) ? strlen( $p['text'] ) > origin_canvas_palette_css_skip_blank( $p['text'], 0 ) : isset( $p['at'] ) && $own( (array) origin_canvas_palette_css_body_parts( $p['body'] ) ) ) {
-					return true;
-				}
-			}
-			return false;
-		};
-		$nests   = static function ( $parts ) use ( &$nests ) {
-			foreach ( $parts as $p ) {
-				if ( isset( $p['sel'] ) || ( isset( $p['at'] ) && $nests( (array) origin_canvas_palette_css_body_parts( $p['body'] ) ) ) ) {
-					return true;
-				}
-			}
-			return false;
-		};
-		$descend = static function ( $parts ) use ( &$descend, &$rule ) {
-			$out = '';
-			foreach ( $parts as $p ) {
-				if ( isset( $p['text'] ) ) {
-					$out .= $p['text'];
-				} elseif ( isset( $p['at'] ) ) {
-					$out .= $p['lead'] . $p['at'] . '{' . $descend( (array) origin_canvas_palette_css_body_parts( $p['body'] ) ) . '}';
-				} else {
-					$r    = $rule( $p['sel'], $p['body'] );
-					$out .= $p['lead'] . $r['prelude'] . $r['body'];
-				}
-			}
-			return $out;
-		};
-		$rule    = static function ( $prelude, $body ) use ( $own, $nests, $descend, $twin ) {
-			$parts = origin_canvas_palette_css_body_parts( $body );
-			if ( null === $parts || $own( $parts ) || ! $nests( $parts ) ) {
-				return array(
-					'prelude' => $twin( $prelude ),
-					'body'    => $body,
-					'flat'    => true,
-				);
-			}
-			return array(
-				'prelude' => $prelude,
-				'body'    => '{' . $descend( $parts ) . '}',
-				'flat'    => true,
-			);
-		};
-		return origin_canvas_palette_css_scan( (string) $css, $rule, true );
-	}
-}
-
-if ( ! function_exists( 'origin_canvas_palette_twin_css' ) ) {
-	/**
-	 * The theme's twins of one of its own files: its rules keyed on a new class, for content that
-	 * still holds the old class.
-	 *
-	 * @param string $file Absolute path.
-	 * @return string
-	 */
-	function origin_canvas_palette_twin_css( $file ) {
-		return origin_canvas_palette_twins_for( $file, 'theme' );
-	}
-}
-
-if ( ! function_exists( 'origin_canvas_palette_served_file' ) ) {
-	/**
-	 * The file a queued style handle serves: its src, else its path data, else its inlined_src
-	 * data (core sets src false when it inlines a sheet, script-loader.php:3192-3195). '' unless it
-	 * is a .css file of at most 1 MB inside the theme or child theme directory.
-	 *
-	 * @param string $handle Style handle.
-	 * @return string Real path, or ''.
-	 */
-	function origin_canvas_palette_served_file( $handle ) {
-		$styles = wp_styles();
-		if ( ! isset( $styles->registered[ $handle ] ) ) {
-			return '';
-		}
-		$src       = $styles->registered[ $handle ]->src;
-		$candidate = '';
-		if ( is_string( $src ) && '' !== $src ) {
-			$url  = strtok( $src, '?' );
-			$dirs = array(
-				trailingslashit( get_stylesheet_directory_uri() ) => trailingslashit( get_stylesheet_directory() ),
-				trailingslashit( get_template_directory_uri() )   => trailingslashit( get_template_directory() ),
-			);
-			foreach ( $dirs as $uri => $dir ) {
-				if ( 0 === strpos( (string) $url, $uri ) ) {
-					$candidate = $dir . substr( (string) $url, strlen( $uri ) );
-					break;
-				}
-			}
-		} else {
-			$path = $styles->get_data( $handle, 'path' );
-			if ( ! is_string( $path ) || '' === $path ) {
-				$path = $styles->get_data( $handle, 'inlined_src' );
-			}
-			$candidate = is_string( $path ) ? $path : '';
-		}
-		if ( '' === $candidate ) {
-			return '';
-		}
-		$real = realpath( $candidate );
-		if ( ! $real || '.css' !== substr( $real, -4 ) || ! is_file( $real ) || filesize( $real ) > MB_IN_BYTES ) {
-			return '';
-		}
-		foreach ( array( get_stylesheet_directory(), get_template_directory() ) as $dir ) {
-			$root = realpath( $dir );
-			if ( $root && 0 === strpos( $real, trailingslashit( $root ) ) ) {
-				return $real;
-			}
-		}
-		return '';
-	}
-}
-
-if ( ! function_exists( 'origin_canvas_palette_attach_handle_twins' ) ) {
-	/**
-	 * Attach the twins of the file one handle serves, inline after it, once per handle in each
-	 * WP_Styles instance: the theme's twins for its style.css and core-navigation.css, the child
-	 * twins for a child file. Core prints the editor canvas assets from a WP_Styles of its own
-	 * (_wp_get_iframed_editor_assets()), so a handle done there is done again in the page's own
-	 * instance, where a non-iframed editor prints it. The instances are held, so an ID is never
-	 * reused; twins a shared registration already holds are not added twice.
-	 *
-	 * @param string $handle     Style handle.
-	 * @param bool   $child_only Only a child file's twins (the editors get the theme's own twins
-	 *                           through their settings).
-	 * @return void
-	 */
-	function origin_canvas_palette_attach_handle_twins( $handle, $child_only = false ) {
-		static $done = null;
-		if ( null === $done ) {
-			$done = new SplObjectStorage();
-		}
-		$styles  = wp_styles();
-		$handles = $done->contains( $styles ) ? $done[ $styles ] : array();
-		if ( isset( $handles[ $handle ] ) ) {
-			return;
-		}
-		$handles[ $handle ] = true;
-		$done[ $styles ]    = $handles;
-		$file               = origin_canvas_palette_served_file( $handle );
-		if ( '' === $file ) {
-			return;
-		}
-		$css = '';
-		foreach ( $child_only ? array() : array_keys( origin_canvas_palette_rules()['twins']['files'] ) as $relative ) {
-			$own = realpath( get_template_directory() . '/' . $relative );
-			if ( $own && $own === $file ) {
-				$css = origin_canvas_palette_twin_css( $file );
-				break;
-			}
-		}
-		if ( '' === $css && is_child_theme() ) {
-			$child = realpath( get_stylesheet_directory() );
-			if ( $child && 0 === strpos( $file, trailingslashit( $child ) ) ) {
-				$css = origin_canvas_palette_twins_for( $file, 'child' );
-				if ( $child_only && '' !== $css ) {
-					$css = origin_canvas_palette_editor_twin_css( $css );
-				}
-			}
-		}
-		if ( '' !== $css && ! in_array( $css, (array) $styles->get_data( $handle, 'after' ), true ) ) {
-			wp_add_inline_style( $handle, $css );
-		}
-	}
-}
-
 if ( ! function_exists( 'origin_canvas_palette_aliases_on' ) ) {
 	/**
-	 * Whether this site loads the aliases: from its first detection of an old code on, for good.
+	 * Whether this site loads the aliases: the pre-rename mark, unless a plugin decides otherwise.
 	 *
 	 * @return bool
 	 */
 	function origin_canvas_palette_aliases_on() {
-		return (bool) origin_canvas_palette_state()['palette_detected'];
-	}
-}
+		$mark = (bool) get_option( 'origin_canvas_palette_legacy', false );
 
-if ( ! function_exists( 'origin_canvas_palette_attach_twins' ) ) {
-	/**
-	 * The twins of every queued style handle, by the file it serves. Runs inside wp_print_styles(),
-	 * after core has inlined small sheets: on the front end, and in the admin where core prints the
-	 * editor canvas assets enqueued on enqueue_block_assets (block-editor.php:342-369). There a
-	 * child theme's sheet gets its child twins; the theme's own twins reach the editors through
-	 * their settings.
-	 *
-	 * @return void
-	 */
-	function origin_canvas_palette_attach_twins() {
-		if ( ! origin_canvas_palette_aliases_on() ) {
-			return;
-		}
-		foreach ( (array) wp_styles()->queue as $handle ) {
-			origin_canvas_palette_attach_handle_twins( $handle, is_admin() );
-		}
+		/**
+		 * Filters whether this site loads the palette aliases.
+		 *
+		 * @param bool $mark The pre-rename mark.
+		 */
+		return (bool) apply_filters( 'origin_canvas_palette_aliases_on', $mark );
 	}
 }
-add_action( 'wp_print_styles', 'origin_canvas_palette_attach_twins', 10 );
-
-if ( ! function_exists( 'origin_canvas_palette_navigation_twins' ) ) {
-	/**
-	 * The navigation block's stylesheet is enqueued when the block renders; attach its twins then.
-	 *
-	 * @param string $content Block content.
-	 * @param array  $block   Parsed block.
-	 * @return string
-	 */
-	function origin_canvas_palette_navigation_twins( $content, $block ) {
-		if ( ! is_admin() && isset( $block['blockName'] ) && 'core/navigation' === $block['blockName'] && origin_canvas_palette_aliases_on() ) {
-			$handle = origin_canvas_palette_rules()['twins']['files']['assets/styles/core-navigation.css'];
-			if ( wp_style_is( $handle, 'enqueued' ) ) {
-				origin_canvas_palette_attach_handle_twins( $handle );
-			}
-		}
-		return $content;
-	}
-}
-add_filter( 'render_block', 'origin_canvas_palette_navigation_twins', 11, 2 );
 
 if ( ! function_exists( 'origin_canvas_palette_enqueue_aliases' ) ) {
 	/**
-	 * Print the aliases in their own handle: on the front end before core's global-styles (so a
-	 * user's Additional CSS, printed inside global-styles, still wins at equal specificity), and
-	 * in both editor canvases through enqueue_block_assets.
+	 * Load the aliases in their own handle: the built file, then the declarations right after it,
+	 * on the front end before core's global-styles (so a colour the site's own palette defines at
+	 * any level, and a user's Additional CSS, printed inside global-styles, win by core's own
+	 * order), and in both editor canvases through enqueue_block_assets.
 	 *
 	 * @return void
 	 */
 	function origin_canvas_palette_enqueue_aliases() {
-		if ( ! origin_canvas_palette_aliases_on() ) {
-			return;
-		}
 		if ( 'enqueue_block_assets' === current_filter() && ! is_admin() ) {
 			return;
 		}
+		if ( ! origin_canvas_palette_aliases_on() ) {
+			return;
+		}
 		if ( ! wp_style_is( 'origin-canvas-palette-aliases', 'registered' ) ) {
-			wp_register_style( 'origin-canvas-palette-aliases', false, array(), ORIGIN_CANVAS_VERSION );
+			$path  = get_parent_theme_file_path( 'assets/css/palette-aliases.css' );
+			$mtime = file_exists( $path ) ? filemtime( $path ) : false;
+			wp_register_style( 'origin-canvas-palette-aliases', get_parent_theme_file_uri( 'assets/css/palette-aliases.css' ), array(), $mtime ? $mtime : ORIGIN_CANVAS_VERSION );
 			wp_add_inline_style( 'origin-canvas-palette-aliases', origin_canvas_palette_alias_css() );
 		}
 		wp_enqueue_style( 'origin-canvas-palette-aliases' );
@@ -579,81 +298,3 @@ if ( ! function_exists( 'origin_canvas_palette_aliases_first' ) ) {
 	}
 }
 add_action( 'wp_print_styles', 'origin_canvas_palette_aliases_first', 9 );
-
-if ( ! function_exists( 'origin_canvas_palette_editor_twins' ) ) {
-	/**
-	 * Both editors: the theme's twins, and the child twins of every child theme file the editors
-	 * load as an editor style, as one theme style of the canvas, beside the child's own file. The
-	 * child twins take the editor form (origin_canvas_palette_editor_twin_css()).
-	 *
-	 * @param array $settings Editor settings.
-	 * @return array
-	 */
-	function origin_canvas_palette_editor_twins( $settings ) {
-		global $editor_styles;
-		if ( ! origin_canvas_palette_aliases_on() ) {
-			return $settings;
-		}
-		$css = '';
-		foreach ( array_keys( origin_canvas_palette_rules()['twins']['files'] ) as $relative ) {
-			$css .= origin_canvas_palette_twin_css( get_template_directory() . '/' . $relative );
-		}
-		$child = is_child_theme() ? realpath( get_stylesheet_directory() ) : false;
-		if ( $child && is_array( $editor_styles ) && current_theme_supports( 'editor-styles' ) ) {
-			$seen = array();
-			// Resolved as core does (get_block_editor_theme_styles()): the child's file when it has one.
-			foreach ( $editor_styles as $style ) {
-				if ( ! is_string( $style ) || preg_match( '~^(https?:)?//~', $style ) ) {
-					continue;
-				}
-				$file = realpath( get_theme_file_path( $style ) );
-				if ( $file && ! isset( $seen[ $file ] ) && 0 === strpos( $file, trailingslashit( $child ) ) ) {
-					$seen[ $file ] = true;
-					$css          .= origin_canvas_palette_editor_twin_css( origin_canvas_palette_twins_for( $file, 'child' ) );
-				}
-			}
-		}
-		if ( '' !== $css ) {
-			$settings['styles']   = isset( $settings['styles'] ) && is_array( $settings['styles'] ) ? $settings['styles'] : array();
-			$settings['styles'][] = array(
-				'css'            => $css,
-				'__unstableType' => 'theme',
-				'isGlobalStyles' => false,
-			);
-		}
-		return $settings;
-	}
-}
-add_filter( 'block_editor_settings_all', 'origin_canvas_palette_editor_twins' );
-
-if ( ! function_exists( 'origin_canvas_palette_enqueue_editor_names' ) ) {
-	/**
-	 * Both editors: edit components that look a colour slug up in the palette get the new slug
-	 * for an old one the palette lacks (assets/js/editor-palette.js). Stored attributes stay.
-	 *
-	 * @return void
-	 */
-	function origin_canvas_palette_enqueue_editor_names() {
-		if ( ! origin_canvas_palette_aliases_on() ) {
-			return;
-		}
-		$path  = get_theme_file_path( 'assets/js/editor-palette.js' );
-		$mtime = file_exists( $path ) ? filemtime( $path ) : false;
-		wp_enqueue_script(
-			'origin-canvas-editor-palette',
-			get_theme_file_uri( 'assets/js/editor-palette.js' ),
-			array( 'wp-hooks', 'wp-compose', 'wp-element', 'wp-block-editor' ),
-			$mtime ? $mtime : ORIGIN_CANVAS_VERSION,
-			false
-		);
-		wp_localize_script(
-			'origin-canvas-editor-palette',
-			'originCanvasEditorPalette',
-			array(
-				'map'   => origin_canvas_palette_map()['color'],
-				'attrs' => array_keys( origin_canvas_palette_rules()['slug_attrs'] ),
-			)
-		);
-	}
-}
-add_action( 'enqueue_block_editor_assets', 'origin_canvas_palette_enqueue_editor_names' );
