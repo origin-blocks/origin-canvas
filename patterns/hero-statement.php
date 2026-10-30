@@ -2,7 +2,7 @@
 /**
  * Title: Hero Statement
  * Slug: origin-canvas/hero-statement
- * Description: An eyebrow, a large centred heading, a short lead and one button.
+ * Description: An eyebrow, a large centered heading, a short lead and one button.
  * Categories: origin-canvas/hero
  * Keywords: about page, introduction, masthead, mission, banner
  * Viewport Width: 1500

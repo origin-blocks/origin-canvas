@@ -238,7 +238,7 @@ A tool that moves saved content to the new names is available on request from su
 * Widened the tracking on the section eyebrows and seated each one with the heading it introduces.
 * Refined the style-variations and token-system showcase patterns: specimens sit on a shared baseline, group headers sit with the cards they label, and the status chips carry their size on the block where the editor's size control can reach it.
 * Fixed the icon bubbles rendering as ovals, and collapsing when their background color was removed.
-* Fixed the feature cards centring their icons above left-aligned text, evened out the rule spacing in the feature list with image, and gave the same client the same role in both testimonials.
+* Fixed the feature cards centering their icons above left-aligned text, evened out the rule spacing in the feature list with image, and gave the same client the same role in both testimonials.
 * Fixed the landing hero asking for a weight heavier than the bundled fonts provide, which the browser had been faking.
 
 = 1.3.0 - 7 August 2026 =

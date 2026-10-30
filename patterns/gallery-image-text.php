@@ -67,7 +67,7 @@
 
 <!-- wp:group {"style":{"spacing":{"blockGap":"0"}},"layout":{"type":"default"}} -->
 <div class="wp-block-group"><!-- wp:image {"width":"100%","height":"auto","aspectRatio":"16/9","scale":"cover","sizeSlug":"large","linkDestination":"none","className":"is-style-rounded"} -->
-<figure class="wp-block-image size-large is-resized is-style-rounded"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/desk-notebook-overhead.webp" alt="<?php esc_attr_e( 'A pencil wireframe of the Northgate Cycle Works home page taped to a grey table, with a pink sticky note, a pencil and an eraser.', 'origin-canvas' ); ?>" style="aspect-ratio:16/9;object-fit:cover;width:100%;height:auto"/></figure>
+<figure class="wp-block-image size-large is-resized is-style-rounded"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/desk-notebook-overhead.webp" alt="<?php esc_attr_e( 'A pencil wireframe of the Northgate Cycle Works home page taped to a gray table, with a pink sticky note, a pencil and an eraser.', 'origin-canvas' ); ?>" style="aspect-ratio:16/9;object-fit:cover;width:100%;height:auto"/></figure>
 <!-- /wp:image -->
 
 <!-- wp:columns {"style":{"spacing":{"margin":{"top":"var:preset|spacing|large"},"blockGap":{"top":"var:preset|spacing|small-medium","left":"var:preset|spacing|jumbo"}}}} -->
