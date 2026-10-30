@@ -430,11 +430,11 @@ if ( ! function_exists( 'origin_canvas_palette_enqueue_editor_names' ) ) {
 		if ( ! origin_canvas_palette_aliases_on() ) {
 			return;
 		}
-		$path  = get_theme_file_path( 'assets/js/editor-palette.js' );
+		$path  = get_parent_theme_file_path( 'assets/js/editor-palette.js' );
 		$mtime = file_exists( $path ) ? filemtime( $path ) : false;
 		wp_enqueue_script(
 			'origin-canvas-editor-palette',
-			get_theme_file_uri( 'assets/js/editor-palette.js' ),
+			get_parent_theme_file_uri( 'assets/js/editor-palette.js' ),
 			array( 'wp-hooks', 'wp-compose', 'wp-element', 'wp-block-editor' ),
 			$mtime ? $mtime : ORIGIN_CANVAS_VERSION,
 			false

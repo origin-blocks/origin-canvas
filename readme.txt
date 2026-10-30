@@ -225,9 +225,9 @@ Five cases render differently:
 
 The theme treats a site as new when it activates on this version, and as updated when this version loads with no activation. That leaves three known limits:
 
-* A site that ran 1.3.1, switched to another theme and comes back after this update counts as new, so it loads no compatibility styles.
+* A site that ran 1.3.1, switched to another theme, or from this theme to its child, and comes back after this update counts as new, so it loads no compatibility styles.
 * A site activated on 1.3.1 with no page load before this update also counts as new, so content with old names imported during that activation doesn't get compatibility styles.
-* A site whose theme is set without an activation, or that previews the theme before activating it, counts as updated and loads compatibility styles it never uses.
+* A site whose theme is set without an activation counts as updated and loads compatibility styles it never uses.
 
 A tool that moves saved content to the new names is available on request from support.
 
