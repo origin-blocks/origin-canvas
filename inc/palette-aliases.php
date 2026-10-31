@@ -238,6 +238,9 @@ if ( ! function_exists( 'origin_canvas_palette_fill_decls' ) ) {
 		if ( ! $present['color'] || ! $lacks ) {
 			return $out;
 		}
+		// The value is the theme's own file: a child's theme.json does not reach this path, and only
+		// code on a path filter could move it. It prints as read, with no hex check, so a non-hex value
+		// such as color-mix() would print as valid CSS.
 		$theme  = wp_json_file_decode( get_parent_theme_file_path( 'theme.json' ), array( 'associative' => true ) );
 		$parent = array();
 		if ( isset( $theme['settings']['color']['palette'] ) && is_array( $theme['settings']['color']['palette'] ) ) {
@@ -343,8 +346,9 @@ if ( ! function_exists( 'origin_canvas_palette_alias_css' ) ) {
 	 * last of all. So they outrank it instead: html:root against core's :root, on all three surfaces.
 	 * Additional CSS on the new name loses to them too, on a site that holds such a swatch.
 	 *
-	 * The per-request memo is kept per site and stylesheet: a multisite request that prints styles
-	 * for two sites through switch_to_blog() gives each site its own aliases.
+	 * The per-request memo is kept per site and stylesheet, but the loader attaches this CSS once per
+	 * handle registration, so one request serves one site. No core path prints two sites' front-end
+	 * styles in one request.
 	 *
 	 * @return string
 	 */
