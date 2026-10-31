@@ -14,6 +14,11 @@
  * - A site activated on 1.3.1 whose first load comes only after the update is marked 0, a false 0
  *   if content with old names was imported during the activation request itself.
  * - A site whose theme is set without an activation is marked 1 and loads a file it never uses.
+ * - A site updated in place whose first load is a preview of the active theme, such as the
+ *   Customizer's, stays unmarked on that request, so that one preview renders without the aliases.
+ *   The next load outside a preview marks it.
+ * - A site that activates this version and then imports a 1.3.1 export is marked 0, so its old
+ *   names get no aliases.
  *
  * The content update plugin is the remedy for a site marked 0 that holds old names.
  *

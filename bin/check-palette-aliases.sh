@@ -11,6 +11,8 @@
 #   a stylesheet and the aliases are for saved content;
 #   a selector on a renamed class outside the twin list: the rule gets no twin, so saved content
 #   on the old class misses it. Add the file to the twin list and rebuild.
+# It reads every `css` string in theme.json and styles/**/*.json the same way. Core prints those in
+# global-styles and the build reads none of them, so a renamed class there has no twin and fails too.
 # Comments are skipped. The built file is the one stylesheet that names the old classes.
 #
 # Run from the theme root:  bash bin/check-palette-aliases.sh
@@ -57,27 +59,57 @@ foreach ( new RecursiveIteratorIterator( new RecursiveDirectoryIterator( 'assets
 sort( $files );
 
 $hits = array();
-foreach ( $files as $file ) {
+// $fix says what to do about a renamed class here; null on the twin list, where the build covers it.
+$scan = static function ( $where, $css, $fix ) use ( $old, $new, &$hits ) {
 	// A comment becomes spaces and keeps its newlines, so each line number stays true.
 	$css = preg_replace_callback(
 		'~/\*.*?(?:\*/|$)~s',
 		static function ( $m ) {
 			return preg_replace( '/[^\n]/', ' ', $m[0] );
 		},
-		file_get_contents( $file )
+		$css
 	);
 	foreach ( explode( "\n", $css ) as $i => $line ) {
 		if ( preg_match_all( $old, $line, $m ) ) {
 			foreach ( $m[0] as $name ) {
-				$hits[] = sprintf( '%s:%d: %s is an old name; use the new one', $file, $i + 1, $name );
+				$hits[] = sprintf( '%s:%d: %s is an old name; use the new one', $where, $i + 1, $name );
 			}
 		}
-		if ( ! isset( $twins[ $file ] ) && preg_match_all( $new, $line, $m ) ) {
+		if ( null !== $fix && preg_match_all( $new, $line, $m ) ) {
 			foreach ( $m[0] as $name ) {
-				$hits[] = sprintf( '%s:%d: %s gets no twin; add the file to the twin list in inc/palette-map.php', $file, $i + 1, $name );
+				$hits[] = sprintf( '%s:%d: %s gets no twin; %s', $where, $i + 1, $name, $fix );
 			}
 		}
 	}
+};
+foreach ( $files as $file ) {
+	$scan( $file, file_get_contents( $file ), isset( $twins[ $file ] ) ? null : 'add the file to the twin list in inc/palette-map.php' );
+}
+
+// Every css string in theme.json and the style variations, named by its path in the file.
+$walk = static function ( $node, $where ) use ( &$walk, $scan ) {
+	foreach ( $node as $key => $value ) {
+		if ( is_array( $value ) ) {
+			$walk( $value, $where . '.' . $key );
+		} elseif ( 'css' === $key && is_string( $value ) ) {
+			$scan( $where . '.css', $value, 'move the rule to a stylesheet on the twin list' );
+		}
+	}
+};
+$json = array( 'theme.json' );
+foreach ( new RecursiveIteratorIterator( new RecursiveDirectoryIterator( 'styles', FilesystemIterator::SKIP_DOTS ) ) as $file ) {
+	if ( 'json' === $file->getExtension() ) {
+		$json[] = $file->getPathname();
+	}
+}
+sort( $json );
+foreach ( $json as $file ) {
+	$data = json_decode( file_get_contents( $file ), true );
+	if ( ! is_array( $data ) ) {
+		$hits[] = sprintf( '%s: not valid JSON, so its css strings cannot be read', $file );
+		continue;
+	}
+	$walk( $data, $file );
 }
 
 if ( $hits ) {
@@ -91,4 +123,4 @@ PHP
 
 echo 'Palette aliases (#116):'
 echo '  ✓  assets/css/palette-aliases.css matches the map and the theme stylesheets'
-echo '  ✓  no old class or variable in a stylesheet, and no renamed class outside the twin list'
+echo '  ✓  no old class or variable in a stylesheet or a css string, and no renamed class outside the twin list'
