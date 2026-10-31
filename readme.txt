@@ -209,13 +209,13 @@ Line height:
 
 = Sites Updated in Place =
 
-Apart from the changes below, a site updated in place keeps rendering the same through compatibility styles, which the theme loads only on sites that ran it before this version. Those styles cover the front end, the Block Editor and the Site Editor, and saved content keeps the old names.
+On a site updated in place, compatibility styles keep the renamed colors, spacing and line height rendering the same, except in the five cases and the known limits below. The theme loads those styles only on sites that ran it before this version, on the front end, in the Block Editor and in the Site Editor. Saved content keeps the old names. This version's design changes are separate from the rename, and the changelog lists them.
 
 In the default palette, body and muted text are also one step darker in this version, separately from the rename: `contrast-3` is #4B5563 where `text-muted` was #6B7280, and `contrast-2` is #374151 where `text-body` was #4B5563. Field and Outline button borders are darker too, also separately from the rename: a field border is #828B98 where it was #D1D5DB, and an Outline button border is #6B7280 where it was #E5E7EB. Fields now read Contrast 5 and Outline buttons read Contrast 4, so a site that set Input Border or Border in Styles no longer sees those colors on fields and Outline buttons.
 
 Five cases render differently:
 
-* CSS in a child theme or in Additional CSS that targets an old class name doesn't reach newly inserted blocks, which carry the new class, so add the new class beside the old one in each selector.
+* CSS in a child theme or in Additional CSS that targets an old class name doesn't reach newly inserted blocks, which carry the new class, so list the new class as its own selector beside the old one, as in `.has-surface-muted-background-color, .has-base-2-background-color`.
 * Additional CSS that overrides an old variable at `:root`, such as `--wp--preset--color--text-heading`, still recolors saved content on that name but no longer reaches the theme's own styling, which reads the new name. Add a declaration for the new name beside the old one, since saved content still reads the old one.
 * Text set to the old Border color loses that color, because its class, `has-border-color`, is also the class WordPress adds to any block with a border color, so clear the text color in the editor and choose Base 5. If your palette still lists Border, choosing it saves the same name, so choose another text color or ask support for the tool that moves saved content to the new names.
 * A custom color saved under a slug the theme now uses, such as `base` or `contrast`, overrides the theme's color of that name, so rename the custom color in Styles, which gives it a new slug, and choose it again on the blocks that used it.
