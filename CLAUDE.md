@@ -166,9 +166,9 @@ font-size preset slug. The theme's scales are fluid (`clamp()`); hardcoding px i
 silently opts that value out of fluid type/spacing and out of every style variation.
 
 - Inline hex is permitted ONLY for sanctioned per-product identity marks.
-- Dark bands write no hex. `custom.dark.bg` is `text-heading` and `custom.dark.text` is
-  `on-dark`, so a variation's ink reaches every dark pattern; new dark patterns use the
-  `text-heading` and `on-dark` presets directly. Secondary text is `on-dark` at 72%, hover
+- Dark bands write no hex. `custom.dark.bg` is `contrast` and `custom.dark.text` is
+  `base-2`, so a variation's ink reaches every dark pattern; new dark patterns use the
+  `contrast` and `base-2` presets directly. Secondary text is `base-2` at 72%, hover
   fills 8% and lines 12%, each a `color-mix` of `var(--wp--custom--dark--text)` (#127).
 - **If a design hands you a value that isn't on the scale, do NOT hardcode it.** Snap it to
   the nearest scale step and tell the designer to update their board, or file a `theme.json`
@@ -332,11 +332,11 @@ on (owner ruling, Oct 5):
 
 | Surface | Style |
 |---|---|
-| White (`surface-base`, or no fill) | core `is-style-outline` |
-| Tinted (`surface-muted`, `surface-subtle`) | core `is-style-outline` |
+| White (`base`, or no fill) | core `is-style-outline` |
+| Tinted (`base-2`, `base-3`) | core `is-style-outline` |
 | Dark (`#111827`, `custom.dark.bg`, a dark cover) | `is-style-origin-canvas-outline-light` |
 
-Outline carries the `border-strong` border (#6B7280), which holds on white and on a tint. Outline Strong is
+Outline carries the `contrast-4` border (#6B7280), which holds on white and on a tint. Outline Strong is
 retired: it is out of the Styles picker, and `assets/styles/core-button.css` keeps saved
 buttons with its class looking the same. No pattern uses it. The surface is the nearest
 block that sets a fill. `bin/check-button-surfaces.sh` enforces the table.

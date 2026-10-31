@@ -11,6 +11,11 @@ if ( ! defined( 'ORIGIN_CANVAS_VERSION' ) ) {
 	define( 'ORIGIN_CANVAS_VERSION', $origin_canvas_theme->get( 'Version' ) );
 }
 
+// The palette rename (#116): the map, the pre-rename mark and the aliases; the content migration lives in a separate plugin.
+require_once get_template_directory() . '/inc/palette-map.php';
+require_once get_template_directory() . '/inc/palette-state.php';
+require_once get_template_directory() . '/inc/palette-aliases.php';
+
 if ( ! function_exists( 'origin_canvas_setup' ) ) {
 	/**
 	 * Register core theme supports.
@@ -283,8 +288,8 @@ if ( ! function_exists( 'origin_canvas_register_block_styles' ) ) {
 						'elements' => array(
 							'link' => array(
 								'color'      => array(
-									'text'       => 'var:preset|color|text-heading',
-									'background' => 'var:preset|color|surface-muted',
+									'text'       => 'var:preset|color|contrast',
+									'background' => 'var:preset|color|base-2',
 								),
 								'border'     => array(
 									'radius' => 'var:custom|radius|medium',
@@ -302,7 +307,7 @@ if ( ! function_exists( 'origin_canvas_register_block_styles' ) ) {
 								),
 								':hover'     => array(
 									'color' => array(
-										'background' => 'var:preset|color|border',
+										'background' => 'var:preset|color|base-5',
 									),
 								),
 							),
@@ -314,12 +319,12 @@ if ( ! function_exists( 'origin_canvas_register_block_styles' ) ) {
 					'label'      => __( 'Inline', 'origin-canvas' ),
 					'style_data' => array(
 						'color'    => array(
-							'text' => 'var:preset|color|text-body',
+							'text' => 'var:preset|color|contrast-2',
 						),
 						'elements' => array(
 							'link' => array(
 								'color'      => array(
-									'text' => 'var:preset|color|text-heading',
+									'text' => 'var:preset|color|contrast',
 								),
 								'typography' => array(
 									'textDecoration' => 'none',

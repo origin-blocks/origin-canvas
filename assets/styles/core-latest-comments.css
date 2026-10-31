@@ -20,7 +20,7 @@
  * link or text colour set on the block still wins.
  */
 :root :where(.wp-block-latest-comments:not(.has-text-color) .wp-block-latest-comments__comment-author) {
-	color: var(--wp--preset--color--text-heading);
+	color: var(--wp--preset--color--contrast);
 }
 
 .wp-block-latest-comments .wp-block-latest-comments__comment-excerpt p {

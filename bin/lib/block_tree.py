@@ -63,16 +63,16 @@ def class_names(node):
 # Fills by surface: white, tinted or dark. Shared by the checks that follow the ground a
 # block sits on (secondary buttons, stat figures).
 SLUGS = {
-    'surface-base': 'white',
-    'surface-muted': 'tinted', 'surface-subtle': 'tinted',
-    'surface-subtle-hover': 'tinted', 'border': 'tinted', 'on-dark': 'tinted',
-    'text-heading': 'dark', 'text-body': 'dark', 'text-muted': 'dark',
+    'base': 'white',
+    'base-2': 'tinted', 'base-3': 'tinted',
+    'base-4': 'tinted', 'base-5': 'tinted',
+    'contrast': 'dark', 'contrast-2': 'dark', 'contrast-3': 'dark',
 }
 RAW = {
-    '#fff': 'white', '#ffffff': 'white', 'var(--wp--preset--color--surface-base)': 'white',
-    '#f3f4f6': 'tinted', 'var(--wp--preset--color--surface-muted)': 'tinted',
+    '#fff': 'white', '#ffffff': 'white', 'var(--wp--preset--color--base)': 'white',
+    '#f3f4f6': 'tinted', 'var(--wp--preset--color--base-2)': 'tinted',
     '#111827': 'dark', 'var(--wp--custom--dark--bg)': 'dark',
-    'var(--wp--preset--color--text-heading)': 'dark',
+    'var(--wp--preset--color--contrast)': 'dark',
 }
 
 

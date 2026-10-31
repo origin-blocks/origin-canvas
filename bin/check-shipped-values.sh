@@ -5,8 +5,10 @@
 # is saved in someone's content. A rename or a removal breaks that content without a
 # warning (a wp:pattern reference renders nothing, a preset var resolves to nothing, a
 # class loses its look), so it needs a render-time shim, CSS or a render_block filter,
-# with a sunset note. Never a $wpdb query or a content change (theme review rules). A
-# shipped pattern slug is never renamed.
+# with a sunset note. Never a $wpdb query or a content change in the theme: the #116 migration
+# lives in a separate plugin (bin/check-palette-names.sh holds that boundary). A renamed preset
+# passes while inc/palette-map.php maps it to a preset the tree still has. A shipped pattern
+# slug is never renamed.
 #
 # This compares the working tree with every release tag and fails on any value a release
 # had that the tree has lost:
@@ -115,6 +117,17 @@ PRESETS = {
     'shadow': ('shadow', 'presets'),
 }
 
+def palette_map():
+    """The #116 rename: kind -> {old: new}, from inc/palette-map.php (one 'old' => 'new' per line)."""
+    out = {}
+    text = open('inc/palette-map.php').read() if os.path.exists('inc/palette-map.php') else ''
+    for kind in ('color', 'spacing'):
+        m = re.search(r"'%s'\s*=>\s*array\((.*?)\)," % kind, text, re.S)
+        out[kind] = dict(re.findall(r"'([a-z0-9-]+)'\s*=>\s*'([a-z0-9-]+)',", m.group(1))) if m else {}
+    return out
+
+RENAMED = palette_map()
+
 class Tree:
     """The theme's files at a tag, or on disk when ref is None."""
     def __init__(self, ref):
@@ -175,6 +188,11 @@ print('Shipped values (releases %s to %s):' % (tags[0], tags[-1]))
 for value in sorted(set(shipped) - now):
     if value.startswith('style ') and 'class is-style-' + value[6:] in now:
         print('  ✓  %s left the Styles list; its class is still styled' % value)
+    elif (value.split(' ')[0] == 'preset' and value.split(' ')[1] in RENAMED
+          and value.split(' ')[2] in RENAMED[value.split(' ')[1]]
+          and 'preset %s %s' % (value.split(' ')[1], RENAMED[value.split(' ')[1]][value.split(' ')[2]]) in now):
+        kind, old = value.split(' ')[1], value.split(' ')[2]
+        print('  ✓  preset %s %s is renamed to %s; inc/palette-map.php maps it (#116)' % (kind, old, RENAMED[kind][old]))
     elif value in RELEASED and shipped[value] != tags[-1]:
         released += 1
     elif value in RETIRED:

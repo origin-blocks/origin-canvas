@@ -80,5 +80,5 @@ ul.wp-block-list:is(.is-style-origin-canvas-list-check-circle, .is-style-origin-
    pseudo-element that no color control reaches, so the style sets the variable both
    shapes read (settings.custom.list.checkColor in theme.json, primary by default). */
 ul.wp-block-list:is(.is-style-origin-canvas-list-check-neutral, .is-style-origin-canvas-list-check-circle-neutral) {
-	--wp--custom--list--check-color: var(--wp--preset--color--text-heading);
+	--wp--custom--list--check-color: var(--wp--preset--color--contrast);
 }

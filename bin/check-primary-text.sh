@@ -2,12 +2,12 @@
 #
 # Primary colors three roles at rest: eyebrows, stat figures and step numbers (the
 # ordinal role), on light and dark grounds. A stat figure is primary only on a dark band
-# (stat-band, stat-band-dark); on a light ground, white or tinted, it is text-heading and
+# (stat-band, stat-band-dark); on a light ground, white or tinted, it is contrast and
 # keeps the figure class (owner ruling, Oct 9; ODS RULES.md). The ground is the nearest
 # fill: the figure's own, else its nearest ancestor's, classified as in
 # check-button-surfaces.sh. A list index, such as the work-index row
-# numbers, is not a step number: it stays text-muted with no role class. A step number
-# at the display preset or larger (display, display-xl, display-2xl) is pale input-border
+# numbers, is not a step number: it stays contrast-3 with no role class. A step number
+# at the display preset or larger (display, display-xl, display-2xl) is pale base-6
 # in place of primary; it keeps the ordinal class. The preset decides, never the rendered
 # size (owner ruling, Oct 9; ODS RULES.md). Reading text (body, headings,
 # UI) and links keep their text roles (owner ruling, Oct 8; ODS RULES.md, "Primary:
@@ -18,8 +18,8 @@
 #
 # Fails on:
 #   - a block or tag with a role class whose text is not primary, except a display-size
-#     step number, which must be input-border (and never primary), and a stat figure on a
-#     light ground, which must be text-heading (and never primary)
+#     step number, which must be base-6 (and never primary), and a stat figure on a
+#     light ground, which must be contrast (and never primary)
 #   - a stat figure on a fill this check cannot classify
 #   - primary text without a role class, set as textColor, style.color.text, a
 #     has-primary-color class or an inline color on a block, or on an a, p, h1-h6, span
@@ -51,11 +51,11 @@ sys.path.insert(0, 'bin/lib')
 from block_tree import parse, walk, class_names, ground
 
 ROLES = ('origin-canvas-eyebrow', 'origin-canvas-figure', 'origin-canvas-ordinal')
-# A step number at one of these presets is input-border, not primary.
+# A step number at one of these presets is base-6, not primary.
 DISPLAY = ('display', 'display-xl', 'display-2xl')
-PALE = 'input-border'
+PALE = 'base-6'
 # A stat figure on a light ground is heading ink, not primary.
-INK = 'text-heading'
+INK = 'contrast'
 # (file, label): the featured tier's state label. It marks the tier, with its frame and
 # button, so it is an indicator, not resting text. Tier names are headings in heading ink.
 ALLOW = {
@@ -215,14 +215,14 @@ FIXTURES = {
                    '"origin-canvas-eyebrow has-primary-color" href="#">Work</a></p>\n'
                    '<!-- /wp:paragraph -->\n',
     'navigation': '<!-- wp:navigation {"textColor":"primary"} /-->\n',
-    'ordinal-muted': '<!-- wp:paragraph {"className":"origin-canvas-ordinal","textColor":"text-muted"} -->\n'
-                     '<p class="origin-canvas-ordinal has-text-muted-color has-text-color">01</p>\n'
+    'ordinal-muted': '<!-- wp:paragraph {"className":"origin-canvas-ordinal","textColor":"contrast-3"} -->\n'
+                     '<p class="origin-canvas-ordinal has-contrast-3-color has-text-color">01</p>\n'
                      '<!-- /wp:paragraph -->\n',
     'ordinal-display-primary': '<!-- wp:paragraph {"className":"origin-canvas-ordinal","textColor":"primary",'
                                '"fontSize":"display-xl"} -->\n<p class="origin-canvas-ordinal has-primary-color '
                                'has-text-color has-display-xl-font-size">01</p>\n<!-- /wp:paragraph -->\n',
-    'ordinal-small-pale': '<!-- wp:paragraph {"className":"origin-canvas-ordinal","textColor":"input-border",'
-                          '"fontSize":"extra-small"} -->\n<p class="origin-canvas-ordinal has-input-border-color '
+    'ordinal-small-pale': '<!-- wp:paragraph {"className":"origin-canvas-ordinal","textColor":"base-6",'
+                          '"fontSize":"extra-small"} -->\n<p class="origin-canvas-ordinal has-base-6-color '
                           'has-text-color has-extra-small-font-size">01</p>\n<!-- /wp:paragraph -->\n',
     'a-class': '<!-- wp:paragraph -->\n<p><a class="has-primary-color" href="#">Work</a></p>\n'
                '<!-- /wp:paragraph -->\n',
@@ -233,19 +233,19 @@ FIXTURES = {
                '<!-- /wp:button -->\n',
     'card-category': '<!-- wp:post-terms {"term":"category","textColor":"primary"} /-->\n',
     'card-category-link': '<!-- wp:post-terms {"term":"category","style":{"elements":{"link":'
-                          '{"color":{"text":"var:preset|color|primary"}}}},"textColor":"text-muted"} /-->\n',
+                          '{"color":{"text":"var:preset|color|primary"}}}},"textColor":"contrast-3"} /-->\n',
     'figure-light-primary': '<!-- wp:paragraph {"className":"origin-canvas-figure","textColor":"primary"} -->\n'
                             '<p class="origin-canvas-figure has-primary-color has-text-color">38</p>\n'
                             '<!-- /wp:paragraph -->\n',
-    'figure-dark-ink': '<!-- wp:group {"backgroundColor":"text-heading"} -->\n<div class="wp-block-group '
-                       'has-text-heading-background-color has-background"><!-- wp:paragraph {"className":'
-                       '"origin-canvas-figure","textColor":"text-heading"} -->\n<p class="origin-canvas-figure '
-                       'has-text-heading-color has-text-color">38</p>\n<!-- /wp:paragraph --></div>\n'
+    'figure-dark-ink': '<!-- wp:group {"backgroundColor":"contrast"} -->\n<div class="wp-block-group '
+                       'has-contrast-background-color has-background"><!-- wp:paragraph {"className":'
+                       '"origin-canvas-figure","textColor":"contrast"} -->\n<p class="origin-canvas-figure '
+                       'has-contrast-color has-text-color">38</p>\n<!-- /wp:paragraph --></div>\n'
                        '<!-- /wp:group -->\n',
-    'figure-white-on-dark-primary': '<!-- wp:group {"backgroundColor":"text-heading"} -->\n<div class="wp-block-group '
-                                    'has-text-heading-background-color has-background"><!-- wp:paragraph {"className":'
-                                    '"origin-canvas-figure","backgroundColor":"surface-base","textColor":"primary"} -->\n'
-                                    '<p class="origin-canvas-figure has-primary-color has-surface-base-background-color '
+    'figure-white-on-dark-primary': '<!-- wp:group {"backgroundColor":"contrast"} -->\n<div class="wp-block-group '
+                                    'has-contrast-background-color has-background"><!-- wp:paragraph {"className":'
+                                    '"origin-canvas-figure","backgroundColor":"base","textColor":"primary"} -->\n'
+                                    '<p class="origin-canvas-figure has-primary-color has-base-background-color '
                                     'has-text-color has-background">38</p>\n<!-- /wp:paragraph --></div>\n'
                                     '<!-- /wp:group -->\n',
     'single-tags': ('patterns/hidden-single.php',
@@ -257,24 +257,24 @@ FIXTURES = {
 # primary on a dark band.
 VALID = {
     'ordinal-%s-pale' % slug: '<!-- wp:paragraph {"className":"origin-canvas-ordinal","textColor":'
-    '"input-border","fontSize":"%s"} -->\n<p class="origin-canvas-ordinal has-input-border-color '
+    '"base-6","fontSize":"%s"} -->\n<p class="origin-canvas-ordinal has-base-6-color '
     'has-text-color has-%s-font-size">01</p>\n<!-- /wp:paragraph -->\n' % (slug, cls)
     for slug, cls in (('display', 'display'), ('display-xl', 'display-xl'),
                       ('display-2xl', 'display-2-xl'))
 }
 VALID.update({
-    'figure-white-ink': '<!-- wp:paragraph {"className":"origin-canvas-figure","textColor":"text-heading"} -->\n'
-                        '<p class="origin-canvas-figure has-text-heading-color has-text-color">38</p>\n'
+    'figure-white-ink': '<!-- wp:paragraph {"className":"origin-canvas-figure","textColor":"contrast"} -->\n'
+                        '<p class="origin-canvas-figure has-contrast-color has-text-color">38</p>\n'
                         '<!-- /wp:paragraph -->\n',
-    'figure-tinted-ink': '<!-- wp:group {"backgroundColor":"surface-muted"} -->\n<div class="wp-block-group '
-                         'has-surface-muted-background-color has-background"><!-- wp:paragraph {"className":'
-                         '"origin-canvas-figure","textColor":"text-heading"} -->\n<p class="origin-canvas-figure '
-                         'has-text-heading-color has-text-color">38</p>\n<!-- /wp:paragraph --></div>\n'
+    'figure-tinted-ink': '<!-- wp:group {"backgroundColor":"base-2"} -->\n<div class="wp-block-group '
+                         'has-base-2-background-color has-background"><!-- wp:paragraph {"className":'
+                         '"origin-canvas-figure","textColor":"contrast"} -->\n<p class="origin-canvas-figure '
+                         'has-contrast-color has-text-color">38</p>\n<!-- /wp:paragraph --></div>\n'
                          '<!-- /wp:group -->\n',
-    'figure-white-on-dark-ink': '<!-- wp:group {"backgroundColor":"text-heading"} -->\n<div class="wp-block-group '
-                                'has-text-heading-background-color has-background"><!-- wp:paragraph {"className":'
-                                '"origin-canvas-figure","backgroundColor":"surface-base","textColor":"text-heading"} -->\n'
-                                '<p class="origin-canvas-figure has-text-heading-color has-surface-base-background-color '
+    'figure-white-on-dark-ink': '<!-- wp:group {"backgroundColor":"contrast"} -->\n<div class="wp-block-group '
+                                'has-contrast-background-color has-background"><!-- wp:paragraph {"className":'
+                                '"origin-canvas-figure","backgroundColor":"base","textColor":"contrast"} -->\n'
+                                '<p class="origin-canvas-figure has-contrast-color has-base-background-color '
                                 'has-text-color has-background">38</p>\n<!-- /wp:paragraph --></div>\n'
                                 '<!-- /wp:group -->\n',
     'figure-dark-primary': '<!-- wp:group {"style":{"color":{"background":"var(--wp--custom--dark--bg)"}}} -->\n'

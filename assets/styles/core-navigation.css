@@ -132,7 +132,7 @@
 }
 
 :is(.wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container {
-	background: var(--wp--preset--color--surface-base);
+	background: var(--wp--preset--color--base);
 	border: none;
 	/* 12px: a container of hover-filled controls; the item radius 4 nests in it (12 - 8 padding) */
 	border-radius: var(--wp--custom--radius--medium-large);
@@ -390,31 +390,32 @@
 }
 
 /**
- * Navigation on a dark band: a nav whose text color is on-dark. Core marks it
- * with has-on-dark-color, so the rules key on that and follow the block's own
- * setting on any dark band. A nav saved with the origin-canvas-nav-dark class
+ * Navigation on a dark band: a nav whose text color is base-2. Core marks it
+ * with has-base-2-color, so the rules key on that and follow the block's own
+ * setting on any dark band. A nav saved before the #116 rename still holds the
+ * old On Dark text class; the twin rules in assets/css/palette-aliases.css match it. A nav saved with the origin-canvas-nav-dark class
  * matches too, whatever its text color. The flyout's dark ground is the block's "Submenu &
  * overlay background" setting; the card rule above still supplies radius,
- * padding, width, type, shadow and z-index. Ink on ink, the 12% on-dark hairline
+ * padding, width, type, shadow and z-index. Ink on ink, the 12% base-2 hairline
  * is what separates a nested card from its parent. The Hover Pill style's 4% of
  * currentColor is too faint on ink, so its top-level badge and flyout row fill
- * at 8% on-dark (#43). Each selector is the rule it overrides with the color
+ * at 8% base-2 (#43). Each selector is the rule it overrides with the color
  * class added, so it outranks that rule by one class.
  */
-:is(.wp-block-navigation:is(.has-on-dark-color, .origin-canvas-nav-dark) .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation:is(.has-on-dark-color, .origin-canvas-nav-dark):not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container {
-	border: 1px solid color-mix(in srgb, var(--wp--preset--color--on-dark) 12%, transparent);
+:is(.wp-block-navigation:is(.has-base-2-color, .origin-canvas-nav-dark) .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation:is(.has-base-2-color, .origin-canvas-nav-dark):not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container {
+	border: 1px solid color-mix(in srgb, var(--wp--preset--color--base-2) 12%, transparent);
 }
 
-:is(.wp-block-navigation:is(.has-on-dark-color, .origin-canvas-nav-dark).is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation:is(.has-on-dark-color, .origin-canvas-nav-dark).is-style-origin-canvas-hover-pill:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item::before {
-	background-color: color-mix(in srgb, var(--wp--preset--color--on-dark) 8%, transparent);
+:is(.wp-block-navigation:is(.has-base-2-color, .origin-canvas-nav-dark).is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation:is(.has-base-2-color, .origin-canvas-nav-dark).is-style-origin-canvas-hover-pill:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item::before {
+	background-color: color-mix(in srgb, var(--wp--preset--color--base-2) 8%, transparent);
 }
 
-:is(.wp-block-navigation:is(.has-on-dark-color, .origin-canvas-nav-dark).is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation:is(.has-on-dark-color, .origin-canvas-nav-dark).is-style-origin-canvas-hover-pill:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container .wp-block-navigation-item:hover,
-:is(.wp-block-navigation:is(.has-on-dark-color, .origin-canvas-nav-dark).is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation:is(.has-on-dark-color, .origin-canvas-nav-dark).is-style-origin-canvas-hover-pill:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container .wp-block-navigation-item:focus-within,
-:is(.wp-block-navigation:is(.has-on-dark-color, .origin-canvas-nav-dark).is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation:is(.has-on-dark-color, .origin-canvas-nav-dark).is-style-origin-canvas-hover-pill:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container .wp-block-navigation-item.current-menu-item,
-:is(.wp-block-navigation:is(.has-on-dark-color, .origin-canvas-nav-dark).is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation:is(.has-on-dark-color, .origin-canvas-nav-dark).is-style-origin-canvas-hover-pill:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container .wp-block-navigation-item.current-menu-ancestor,
-:is(.wp-block-navigation:is(.has-on-dark-color, .origin-canvas-nav-dark).is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation:is(.has-on-dark-color, .origin-canvas-nav-dark).is-style-origin-canvas-hover-pill:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container .wp-block-navigation-item.origin-canvas-current {
-	background-color: color-mix(in srgb, var(--wp--preset--color--on-dark) 8%, transparent);
+:is(.wp-block-navigation:is(.has-base-2-color, .origin-canvas-nav-dark).is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation:is(.has-base-2-color, .origin-canvas-nav-dark).is-style-origin-canvas-hover-pill:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container .wp-block-navigation-item:hover,
+:is(.wp-block-navigation:is(.has-base-2-color, .origin-canvas-nav-dark).is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation:is(.has-base-2-color, .origin-canvas-nav-dark).is-style-origin-canvas-hover-pill:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container .wp-block-navigation-item:focus-within,
+:is(.wp-block-navigation:is(.has-base-2-color, .origin-canvas-nav-dark).is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation:is(.has-base-2-color, .origin-canvas-nav-dark).is-style-origin-canvas-hover-pill:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container .wp-block-navigation-item.current-menu-item,
+:is(.wp-block-navigation:is(.has-base-2-color, .origin-canvas-nav-dark).is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation:is(.has-base-2-color, .origin-canvas-nav-dark).is-style-origin-canvas-hover-pill:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container .wp-block-navigation-item.current-menu-ancestor,
+:is(.wp-block-navigation:is(.has-base-2-color, .origin-canvas-nav-dark).is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation:is(.has-base-2-color, .origin-canvas-nav-dark).is-style-origin-canvas-hover-pill:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container .wp-block-navigation-item.origin-canvas-current {
+	background-color: color-mix(in srgb, var(--wp--preset--color--base-2) 8%, transparent);
 }
 
 /**
@@ -424,7 +425,7 @@
  * block setting wins.
  */
 :is(.wp-block-navigation.origin-canvas-nav-dark .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.origin-canvas-nav-dark:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container:not(.has-background) {
-	background-color: var(--wp--preset--color--text-heading);
+	background-color: var(--wp--preset--color--contrast);
 }
 
 /**
@@ -527,7 +528,7 @@
 /* Uniform dark ink for every label + chevron at every depth. */
 .origin-canvas-mobile-nav .wp-block-navigation-item__label,
 .origin-canvas-mobile-nav .wp-block-navigation__submenu-icon {
-	color: var(--wp--preset--color--text-heading);
+	color: var(--wp--preset--color--contrast);
 }
 
 .origin-canvas-mobile-nav .wp-block-navigation-item__label {
@@ -570,7 +571,7 @@
 }
 
 .origin-canvas-mobile-nav .wp-block-navigation-item__content::after {
-	border-bottom: 1px solid var(--wp--preset--color--border);
+	border-bottom: 1px solid var(--wp--preset--color--base-5);
 	bottom: 0;
 	content: "";
 	inset-inline: -100vw;
@@ -629,7 +630,7 @@
  */
 .origin-canvas-mobile-menu .wp-block-navigation-overlay-close {
 	border-radius: var(--wp--custom--radius--medium);
-	color: var(--wp--preset--color--text-heading);
+	color: var(--wp--preset--color--contrast);
 	height: 44px;
 	margin-inline-end: -10px;
 	position: relative;
@@ -645,7 +646,7 @@
 
 .origin-canvas-mobile-menu .wp-block-navigation-overlay-close:hover,
 .origin-canvas-mobile-menu .wp-block-navigation-overlay-close:focus-visible {
-	background-color: var(--wp--preset--color--surface-muted);
+	background-color: var(--wp--preset--color--base-2);
 }
 
 .origin-canvas-mobile-menu .wp-block-navigation-overlay-close svg {
@@ -657,25 +658,25 @@
  * Dark overlay (parts/mobile-menu-dark.html). The part's root group carries the
  * ground, text and link colours as block attributes; only the four values the
  * overlay rules above hardcode need a dark counterpart: the row label and chevron
- * (text-heading), the ✕ (text-heading, surface-muted hover fill) and the row divider
- * (border). Each override adds one class so it outranks the shipped rule; the
+ * (contrast), the ✕ (contrast, base-2 hover fill) and the row divider
+ * (base-5). Each override adds one class so it outranks the shipped rule; the
  * :hover label rule (0,4,0) still wins, so row hover stays primary. 8% and 12%
- * on-dark are the rulings on #43 — the light side's ✕ fill is ≈5% ink, and 12% is
+ * base-2 are the rulings on #43 — the light side's ✕ fill is ≈5% ink, and 12% is
  * footer-dark's divider.
  */
 .origin-canvas-mobile-menu-dark .origin-canvas-mobile-nav .wp-block-navigation-item__label,
 .origin-canvas-mobile-menu-dark .origin-canvas-mobile-nav .wp-block-navigation__submenu-icon,
 .origin-canvas-mobile-menu.origin-canvas-mobile-menu-dark .wp-block-navigation-overlay-close {
-	color: var(--wp--preset--color--on-dark);
+	color: var(--wp--preset--color--base-2);
 }
 
 .origin-canvas-mobile-menu-dark .origin-canvas-mobile-nav .wp-block-navigation-item__content::after {
-	border-bottom-color: color-mix(in srgb, var(--wp--preset--color--on-dark) 12%, transparent);
+	border-bottom-color: color-mix(in srgb, var(--wp--preset--color--base-2) 12%, transparent);
 }
 
 .origin-canvas-mobile-menu.origin-canvas-mobile-menu-dark .wp-block-navigation-overlay-close:hover,
 .origin-canvas-mobile-menu.origin-canvas-mobile-menu-dark .wp-block-navigation-overlay-close:focus-visible {
-	background-color: color-mix(in srgb, var(--wp--preset--color--on-dark) 8%, transparent);
+	background-color: color-mix(in srgb, var(--wp--preset--color--base-2) 8%, transparent);
 }
 
 /**

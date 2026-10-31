@@ -3,8 +3,8 @@
 # A secondary button takes its outline style from the surface it sits on (CLAUDE.md
 # rule 10):
 #
-#   white (surface-base, or no fill)   core is-style-outline
-#   tinted (surface-muted, -subtle)    core is-style-outline
+#   white (base, or no fill)           core is-style-outline
+#   tinted (base-2, base-3)            core is-style-outline
 #   dark (#111827, dark--bg, a cover)  is-style-origin-canvas-outline-light
 #
 # Outline's #6B7280 border holds on white and on a tint, and vanishes on dark. Outline

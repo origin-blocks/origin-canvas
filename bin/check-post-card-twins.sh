@@ -80,8 +80,8 @@ category = first(nodes, lambda n: n['name'] == 'paragraph' and n['attrs'].get('s
                  'uppercase category paragraph', card_path)
 text = first(group['children'], lambda n: n['name'] == 'group', 'text Group in the card', card_path)
 title = first(nodes, lambda n: n['name'] == 'heading', 'Heading', card_path)
-excerpt = first(nodes, lambda n: n['name'] == 'paragraph' and n['attrs'].get('textColor') == 'text-body',
-                'text-body excerpt paragraph', card_path)
+excerpt = first(nodes, lambda n: n['name'] == 'paragraph' and n['attrs'].get('textColor') == 'contrast-2',
+                'contrast-2 excerpt paragraph', card_path)
 card = {
     'card fill': group['attrs']['backgroundColor'],
     'inset top, right, bottom, left': (

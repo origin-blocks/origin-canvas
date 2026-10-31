@@ -125,26 +125,26 @@ function oc_demo_pl_template() {
 
 	$nav = '';
 	foreach ( $groups as $label => $group ) {
-		$nav .= '<li><a href="#' . esc_attr( $group['id'] ) . '">' . esc_html( $label ) . '</a> <span class="has-text-muted-color has-text-color">' . count( $group['patterns'] ) . '</span></li>';
+		$nav .= '<li><a href="#' . esc_attr( $group['id'] ) . '">' . esc_html( $label ) . '</a> <span class="has-contrast-3-color has-text-color">' . count( $group['patterns'] ) . '</span></li>';
 	}
 
 	$html  = '<!-- wp:template-part {"slug":"header","area":"header"} /-->' . "\n";
 	$html .= '<!-- wp:group {"className":"ocpl","style":{"spacing":{"blockGap":"0","margin":{"top":"0","bottom":"0"}}},"layout":{"type":"default"}} -->' . "\n";
 	$html .= '<div class="wp-block-group ocpl" style="margin-top:0;margin-bottom:0">';
 	$html .= '<header class="ocpl-head has-global-padding">'
-		. '<p class="ocpl-kicker has-text-heading-color has-text-color has-extra-small-font-size">Pattern library · private</p>'
+		. '<p class="ocpl-kicker has-contrast-color has-text-color has-extra-small-font-size">Pattern library · private</p>'
 		. '<h1 class="has-display-font-size">Patterns</h1>'
-		. '<p class="has-text-body-color has-text-color has-regular-font-size">' . (int) $total . ' registered patterns from <code>' . esc_html( get_stylesheet() ) . '</code>, style <code>' . esc_html( $variation ) . '</code>, rendered as this request has them.</p>'
+		. '<p class="has-contrast-2-color has-text-color has-regular-font-size">' . (int) $total . ' registered patterns from <code>' . esc_html( get_stylesheet() ) . '</code>, style <code>' . esc_html( $variation ) . '</code>, rendered as this request has them.</p>'
 		. '<nav aria-label="Categories"><ul class="ocpl-nav has-small-font-size">' . $nav . '</ul></nav>'
 		. '</header>';
 
 	foreach ( $groups as $label => $group ) {
-		$html .= '<h2 id="' . esc_attr( $group['id'] ) . '" class="ocpl-cat has-global-padding has-large-font-size">' . esc_html( $label ) . ' <span class="has-text-muted-color has-text-color">' . count( $group['patterns'] ) . '</span></h2>';
+		$html .= '<h2 id="' . esc_attr( $group['id'] ) . '" class="ocpl-cat has-global-padding has-large-font-size">' . esc_html( $label ) . ' <span class="has-contrast-3-color has-text-color">' . count( $group['patterns'] ) . '</span></h2>';
 		foreach ( $group['patterns'] as $pattern ) {
 			$ref   = '<!-- wp:pattern ' . wp_json_encode( array( 'slug' => $pattern['name'] ) ) . ' /-->';
 			$html .= '<p id="' . esc_attr( 'ocpl-' . substr( $pattern['name'], strlen( 'origin-canvas/' ) ) ) . '" class="ocpl-label has-global-padding has-small-font-size">'
-				. '<strong class="has-text-heading-color has-text-color">' . esc_html( $pattern['title'] ) . '</strong> '
-				. '<code class="has-text-muted-color has-text-color">' . esc_html( $pattern['name'] ) . '</code></p>' . "\n";
+				. '<strong class="has-contrast-color has-text-color">' . esc_html( $pattern['title'] ) . '</strong> '
+				. '<code class="has-contrast-3-color has-text-color">' . esc_html( $pattern['name'] ) . '</code></p>' . "\n";
 			$html .= empty( $group['hidden'] )
 				? '<!-- wp:group {"layout":{"type":"constrained"}} -->' . "\n" . '<div class="wp-block-group">' . $ref . '</div>' . "\n" . '<!-- /wp:group -->' . "\n"
 				: $ref . "\n";

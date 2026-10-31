@@ -18,8 +18,8 @@
 <h1 class="wp-block-heading has-text-align-center alignwide has-display-xl-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'A small studio for brand and web work.', 'origin-canvas' ); ?></h1>
 <!-- /wp:heading -->
 
-<!-- wp:paragraph {"style":{"typography":{"textAlign":"center"}},"textColor":"text-body","fontSize":"regular-plus"} -->
-<p class="has-text-align-center has-text-body-color has-text-color has-regular-plus-font-size"><?php echo esc_html__( 'We&#8217;ve made brands, websites and the words on them for small businesses since 2018.', 'origin-canvas' ); ?></p>
+<!-- wp:paragraph {"style":{"typography":{"textAlign":"center"}},"textColor":"contrast-2","fontSize":"regular-plus"} -->
+<p class="has-text-align-center has-contrast-2-color has-text-color has-regular-plus-font-size"><?php echo esc_html__( 'We&#8217;ve made brands, websites and the words on them for small businesses since 2018.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group --></section>
 <!-- /wp:group -->
