@@ -8,6 +8,7 @@
  * which depend on the site's own palette. Those fill only names the effective palette lacks:
  * forward (an old name reads its new one), reverse (a new name reads the old one a saved palette
  * or a child theme still defines), or, at the root, the theme's value for a new name no release had.
+ * One rule replaces a name the palette has: a custom swatch on an old name takes back its new name.
  * In the editors, assets/js/editor-palette.js hands edit components the new slug.
  *
  * @package Origin_Canvas
@@ -295,11 +296,52 @@ if ( ! function_exists( 'origin_canvas_palette_fill_decls' ) ) {
 	}
 }
 
+if ( ! function_exists( 'origin_canvas_palette_swatch_decls' ) ) {
+	/**
+	 * The reverse aliases a level's custom swatches need. A custom entry on an old slug beats the
+	 * theme's entry of that name, so on 1.3.1 the theme's styling on that name took it. That styling
+	 * now reads the new slug, which the theme origin defines, so the old and the new name both read as
+	 * present and neither alias prints: the new name reads the swatch here. A new slug the custom origin
+	 * defines itself stays as it is, and a merged new slug reads only the merge winner, so a custom On
+	 * Dark does not repaint what was Surface Muted.
+	 *
+	 * @param mixed $palette The level's palette, by origin.
+	 * @return array{decls: string[], aliased: string[]}
+	 */
+	function origin_canvas_palette_swatch_decls( $palette ) {
+		$out   = array(
+			'decls'   => array(),
+			'aliased' => array(),
+		);
+		$slugs = array();
+		foreach ( array( 'theme', 'custom' ) as $origin ) {
+			$list             = isset( $palette[ $origin ] ) ? array( $origin => $palette[ $origin ] ) : array();
+			$slugs[ $origin ] = origin_canvas_palette_present( array( 'color' => array( 'palette' => $list ) ) )['color'];
+		}
+		$merge = origin_canvas_palette_rules()['merge'];
+		foreach ( origin_canvas_palette_map()['color'] as $old => $new ) {
+			if ( isset( $merge[ $new ] ) && $old !== $merge[ $new ][0] ) {
+				continue;
+			}
+			if ( isset( $slugs['custom'][ $old ], $slugs['theme'][ $new ] ) && ! isset( $slugs['custom'][ $new ] ) ) {
+				$out['decls'][]   = '--wp--preset--color--' . $new . ': var(--wp--preset--color--' . $old . ');';
+				$out['aliased'][] = $new;
+			}
+		}
+		return $out;
+	}
+}
+
 if ( ! function_exists( 'origin_canvas_palette_alias_css' ) ) {
 	/**
 	 * The alias CSS: one :root rule of alias variables, the root classes of every aliased colour
 	 * (core's shape, never has-border-color), and per block the alias variables on the selector
 	 * core prints that block's own variables on.
+	 *
+	 * A custom swatch's reverse aliases must beat core's own declaration of the new name, and no
+	 * position prints after core's in the Site Editor, where the global styles the editor builds come
+	 * last of all. So they outrank it instead: html:root against core's :root, on all three surfaces.
+	 * Additional CSS on the new name loses to them too, on a site that holds such a swatch.
 	 *
 	 * The per-request memo is kept per site and stylesheet: a multisite request that prints styles
 	 * for two sites through switch_to_blog() gives each site its own aliases.
@@ -321,7 +363,11 @@ if ( ! function_exists( 'origin_canvas_palette_alias_css' ) ) {
 		if ( $decls ) {
 			$css .= ':root{' . implode( '', $decls ) . "}\n";
 		}
-		foreach ( array_merge( $root['aliased'], $fill['aliased'] ) as $slug ) {
+		$swatch = origin_canvas_palette_swatch_decls( wp_get_global_settings( array( 'color', 'palette' ) ) );
+		if ( $swatch['decls'] ) {
+			$css .= 'html:root{' . implode( '', $swatch['decls'] ) . "}\n";
+		}
+		foreach ( array_merge( $root['aliased'], $fill['aliased'], $swatch['aliased'] ) as $slug ) {
 			$var = 'var(--wp--preset--color--' . $slug . ')';
 			if ( 'has-' . $slug . '-color' !== 'has-border-color' ) {
 				$css .= '.has-' . $slug . '-color{color: ' . $var . " !important;}\n";
@@ -332,7 +378,7 @@ if ( ! function_exists( 'origin_canvas_palette_alias_css' ) ) {
 		// Block level: core prints a block's own preset variables on its feature selector and its
 		// custom variables on its default selector; an alias declared at the root would read the
 		// root value there.
-		foreach ( $levels['blocks'] as $block ) {
+		foreach ( $levels['blocks'] as $name => $block ) {
 			$by_selector = array();
 			foreach ( array( 'color', 'spacing', 'lineHeight' ) as $kind ) {
 				$selector = $block['selectors'][ $kind ];
@@ -346,6 +392,12 @@ if ( ! function_exists( 'origin_canvas_palette_alias_css' ) ) {
 			}
 			foreach ( $by_selector as $selector => $decls ) {
 				$css .= $selector . '{' . implode( '', $decls ) . "}\n";
+			}
+			if ( '' !== $block['selectors']['color'] ) {
+				$decls = origin_canvas_palette_swatch_decls( wp_get_global_settings( array( 'blocks', $name, 'color', 'palette' ) ) )['decls'];
+				if ( $decls ) {
+					$css .= 'html:root :is(' . $block['selectors']['color'] . '){' . implode( '', $decls ) . "}\n";
+				}
 			}
 		}
 		$memo[ $site ] = $css;
