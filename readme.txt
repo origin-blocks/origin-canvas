@@ -230,6 +230,8 @@ The theme treats a site as new when it activates on this version, and as updated
 * A site whose theme is set without an activation counts as updated and loads compatibility styles it never uses.
 * A site updated in place whose first load after this update is a Customizer preview of the active theme shows that one preview without compatibility styles. The next page load outside the preview adds them.
 
+One more limit sits in the Site Editor: on a site whose saved Styles hold the old palette, choosing a style variation changes the palette at once while the compatibility styles stay as they loaded, so a block saved on an old name can show no color in the canvas until you reload the editor; the front end isn't affected.
+
 A tool that moves saved content to the new names is available on request from support.
 
 == Changelog ==
