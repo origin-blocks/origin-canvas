@@ -58,6 +58,8 @@ stay.
   `/about/`, `/services/`, `/pricing/`, `/contact/`, `/landing/`.
 - Blog: the posts page, with nine posts in three categories, featured images from the theme, and
   comments from the studio team.
+- Careers, from the Job Openings pattern, and Privacy policy, a short policy for the demo studio
+  that WordPress is told about. Both off the menu; the footer links to them.
 - Primary menu: Home, About, Services, Pricing, Blog, Contact. Each menu label is the page
   pattern's role (`page-about-01` is About); the pages themselves keep the pattern's title. The
   landing page and the editorial cover are pages too, off the menu.

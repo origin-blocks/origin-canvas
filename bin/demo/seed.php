@@ -192,6 +192,54 @@ $blog = oc_demo_insert(
 	)
 );
 $menu[] = array( 'Blog', $blog );
+
+/* Two pages the footer links to and the menu leaves out: Careers, the theme's Job Openings
+   pattern under the page title with its apply links pointed at the contact page, and the
+   privacy policy, which WordPress is told about so the login and comment forms can link to
+   it. Both use the default page template, so the title is the page's h1. */
+
+$careers = oc_demo_insert(
+	array(
+		'post_type'    => 'page',
+		'post_status'  => 'publish',
+		'post_title'   => 'Careers',
+		'post_name'    => 'careers',
+		'post_content' => preg_replace(
+			'/href="#"(><span aria-hidden="true">Apply)/',
+			'href="' . esc_url( get_permalink( $by_role['contact'] ) ) . '"$1',
+			WP_Block_Patterns_Registry::get_instance()->get_registered( 'origin-canvas/job-openings' )['content']
+		), // The three Apply links go to the contact page; "View all open roles" is this page.
+		'post_author'  => $authors['claire'],
+		'menu_order'   => $order + 1,
+	)
+);
+
+$privacy_paragraphs = array(
+	'The studio collects little when you use this site. Here is what, and what happens to it.',
+	'When you write to us through the contact page, we keep your name, your email address and your message so we can reply.',
+	'A comment on a post stays with the name, email address and site you give, the comment itself and the address your browser used. The comment shows your name and, if you give one, your site. You can ask us to remove a comment at any time.',
+	'The site sets a cookie when you ask it to remember your details for your next comment. It carries no advertising.',
+	'Our host keeps the usual server logs, which record the pages requested and the addresses they came from. We read them when something breaks.',
+	'We do not sell or pass on any of this. Our email provider carries the mail we send and receive, as any email provider does.',
+	'Write to us at the address on the contact page to see what we hold about you, to correct it, or to have it deleted.',
+);
+$privacy_content = '';
+foreach ( $privacy_paragraphs as $paragraph ) {
+	$privacy_content .= "<!-- wp:paragraph -->\n<p>" . esc_html( $paragraph ) . "</p>\n<!-- /wp:paragraph -->\n";
+}
+
+$privacy = oc_demo_insert(
+	array(
+		'post_type'    => 'page',
+		'post_status'  => 'publish',
+		'post_title'   => 'Privacy policy',
+		'post_name'    => 'privacy-policy',
+		'post_content' => $privacy_content,
+		'post_author'  => $authors['claire'],
+		'menu_order'   => $order + 2,
+	)
+);
+update_option( 'wp_page_for_privacy_policy', $privacy );
 if ( isset( $by_role['contact'] ) ) {
 	$menu[] = array( 'Contact', $by_role['contact'] );
 }
@@ -488,7 +536,7 @@ oc_demo_insert(
 	)
 );
 
-WP_CLI::success( sprintf( 'Seeded %d pages, %d posts and the primary menu.', $pages + 1, count( $post_ids ) ) );
+WP_CLI::success( sprintf( 'Seeded %d pages, %d posts and the primary menu.', $pages + 3, count( $post_ids ) ) );
 
 /* The private design system page, for administrators. Not in the menu. */
 
