@@ -106,3 +106,27 @@ bash bin/check-tracking-render.sh ~/Sites/canvas-demo
   block, a recovery prompt or a block the editor rewrites on load.
 - `check-tracking-render.sh` renders every pattern at 1440 and 390, under every style variation,
   and checks letter spacing against font size.
+
+## Public demo
+
+The public demo is site 2 of the multisite at `demo.originblocks.dev`, served at
+`https://demo.originblocks.dev/canvas/` (the path was `/origin-canvas/` until 2026-11-01; the domain
+already says Origin). It is a copy of the local demo, with a logo header on top.
+
+- **Theme files.** `wp-content/themes/origin-canvas` on the server is a copy of `develop`, put there
+  with `git archive develop` and rsync, so the demo shows what is being built. A release zip uploaded
+  through the network admin replaces it the same way. The folder is owned by `demo-originblocks`.
+- **Content.** `public-demo.sh` empties the subsite and runs the seed, then builds the header part
+  with the logo (`public-demo-header.py`). The seed folder is copied to `/root/origin-canvas-demo/bin/demo`
+  because the zip leaves `bin/` out; the logo PNG sits in `/root/origin-canvas-demo/assets`.
+- **What is not in the theme.** The logo header is a template part saved in the demo's database,
+  not a theme file; the theme's own header has no logo block. A rebuild recreates it.
+- **Updating.** Copy the theme and the seed, then run the script:
+
+  ```
+  git archive develop | ssh root@demo 'rm -rf /tmp/oc && mkdir -p /tmp/oc && tar -x -C /tmp/oc && rsync -a --delete /tmp/oc/ /var/www/demo.originblocks.dev/public/wp-content/themes/origin-canvas/ && chown -R demo-originblocks:demo-originblocks /var/www/demo.originblocks.dev/public/wp-content/themes/origin-canvas'
+  rsync -a bin/demo/ root@demo:/root/origin-canvas-demo/bin/demo/
+  ssh root@demo 'bash /root/origin-canvas-demo/bin/demo/public-demo.sh https://demo.originblocks.dev/canvas/'
+  ```
+
+  Nothing saved on the demo survives a rebuild. The server's address is in the owner's notes, not here.
