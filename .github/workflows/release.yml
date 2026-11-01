@@ -52,3 +52,15 @@ jobs:
     with:
       theme-name: origin-canvas
       node-version: '22'
+
+  # After the release exists, ship the same tag to the public demo and rebuild its content,
+  # through the shared workflow in origin-blocks/.github (its README names the secrets). It
+  # runs only after verify-master and the release, so a tag off master never reaches the demo.
+  deploy-demo:
+    needs: release
+    uses: origin-blocks/.github/.github/workflows/deploy.yml@v1
+    with:
+      live: deploy-canvas-demo
+      live-tags: true
+      live-branches: ''
+    secrets: inherit

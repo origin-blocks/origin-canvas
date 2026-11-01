@@ -48,7 +48,7 @@ hand: a manual one races the workflow. A tag is never moved; a wrong release get
    workflow's first job runs `bin/package-theme.sh` on the tagged tree, so the byte budget
    (5,000,000 bytes) gates the release before it is created; still read the asset's size
    against the previous release's, since a jump is an anomaly to explain before announcing.
-8. The same tag push runs `.github/workflows/deploy.yml`, which ships the release to the public
-   demo and rebuilds its content through the shared workflow in `origin-blocks/.github`. Watch
-   that run too (`gh run list --workflow deploy.yml`); the demo should show the release.
+8. The same run's last job, `deploy-demo`, ships the release to the public demo and rebuilds its
+   content through the shared workflow in `origin-blocks/.github`, after the release is created.
+   Check it in the run's jobs; the demo should show the release.
 9. Check the docs site (branch `gh-pages`) against the entry and list what needs an update.
