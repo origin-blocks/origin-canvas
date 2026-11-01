@@ -25,7 +25,7 @@ update_option( 'default_ping_status', 'closed' );
 update_option( 'default_pingback_flag', 0 );
 update_option( 'thread_comments', 1 );
 update_option( 'page_comments', 0 );
-update_option( 'posts_per_page', 10 );
+update_option( 'posts_per_page', 6 ); // Nine posts: a second page, so the demo shows pagination.
 
 /* Helpers. */
 
