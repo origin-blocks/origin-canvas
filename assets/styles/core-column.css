@@ -3,7 +3,12 @@
 	border-radius: 8px;
 	box-shadow: var(--wp--preset--shadow--small);
 	padding: var(--wp--preset--spacing--large);
-	transition: box-shadow 120ms ease;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	.is-style-origin-canvas-column-box-shadow {
+		transition: box-shadow 120ms ease;
+	}
 }
 
 .is-style-origin-canvas-column-box-shadow:hover {

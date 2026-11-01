@@ -2,8 +2,9 @@
 /**
  * Title: CTA Newsletter
  * Slug: origin-canvas/cta-newsletter
+ * Description: A centered heading and lead over a sample email field drawn as text, a sign-up button and a short note.
  * Categories: call-to-action
- * Keywords: email, subscribe, signup, conversion
+ * Keywords: subscribe, signup, conversion
  * Block Types: core/post-content
  * Inserter: true
  *
@@ -16,33 +17,33 @@
 
 ?>
 <!-- wp:group {"tagName":"section","align":"full","style":{"spacing":{"padding":{"top":"var:preset|spacing|colossal","bottom":"var:preset|spacing|colossal"}}},"layout":{"type":"constrained"}} -->
-<section class="wp-block-group alignfull" style="padding-top:var(--wp--preset--spacing--colossal);padding-bottom:var(--wp--preset--spacing--colossal)"><!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|large"}},"layout":{"type":"constrained","contentSize":"640px"}} -->
-<div class="wp-block-group"><!-- wp:heading {"textAlign":"center","level":2,"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"fontSize":"display"} -->
+<section class="wp-block-group alignfull" style="padding-top:var(--wp--preset--spacing--colossal);padding-bottom:var(--wp--preset--spacing--colossal)"><!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|large"}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group"><!-- wp:heading {"level":2,"style":{"spacing":{"margin":{"top":"0","bottom":"0"}},"typography":{"textAlign":"center"}},"fontSize":"display"} -->
 <h2 class="wp-block-heading has-display-font-size has-text-align-center" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Studio notes, four times a year', 'origin-canvas' ); ?></h2>
 <!-- /wp:heading -->
 
-<!-- wp:paragraph {"align":"center","textColor":"text-body","fontSize":"regular-plus"} -->
-<p class="has-text-align-center has-text-body-color has-text-color has-regular-plus-font-size"><?php echo esc_html__( 'One letter at the end of every quarter. Honest write-ups of what we made, what we learned, and what we&#8217;d change. No spam, no upsells.', 'origin-canvas' ); ?></p>
+<!-- wp:paragraph {"style":{"typography":{"textAlign":"center"}},"textColor":"contrast-2","fontSize":"regular-plus"} -->
+<p class="has-text-align-center has-contrast-2-color has-text-color has-regular-plus-font-size"><?php echo esc_html__( 'One letter at the end of every quarter. Honest write-ups of what we made, what we learned, and what we&#8217;d change. No spam, no upsells.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
 <!-- wp:columns {"verticalAlignment":"center","style":{"spacing":{"margin":{"top":"var:preset|spacing|medium"}}}} -->
 <div class="wp-block-columns are-vertically-aligned-center" style="margin-top:var(--wp--preset--spacing--medium)"><!-- wp:column {"verticalAlignment":"center","width":"66.66%"} -->
-<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:66.66%"><!-- wp:paragraph {"style":{"border":{"radius":"999px","style":"solid","width":"2px"},"spacing":{"padding":{"top":"var:preset|spacing|compact","bottom":"var:preset|spacing|compact","left":"var:preset|spacing|extra-large","right":"var:preset|spacing|extra-large"},"margin":{"top":"0","bottom":"0"}}},"backgroundColor":"surface-base","borderColor":"input-border","textColor":"text-muted","fontSize":"regular"} -->
-<p class="has-border-color has-input-border-border-color has-text-muted-color has-surface-base-background-color has-text-color has-background has-regular-font-size" style="border-style:solid;border-width:2px;border-radius:999px;margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--compact);padding-right:var(--wp--preset--spacing--extra-large);padding-bottom:var(--wp--preset--spacing--compact);padding-left:var(--wp--preset--spacing--extra-large)"><?php echo esc_html__( 'you@yourbusiness.com', 'origin-canvas' ); ?></p>
+<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:66.66%"><!-- wp:paragraph {"style":{"border":{"radius":"var:custom|radius|medium","style":"solid","width":"1px"},"spacing":{"padding":{"top":"var:preset|spacing|small-medium","bottom":"var:preset|spacing|small-medium","left":"var:preset|spacing|medium","right":"var:preset|spacing|medium"},"margin":{"top":"0","bottom":"0"}}},"backgroundColor":"base","borderColor":"contrast-5","textColor":"contrast-3","fontSize":"regular"} -->
+<p class="has-border-color has-contrast-5-border-color has-contrast-3-color has-base-background-color has-text-color has-background has-regular-font-size" style="border-style:solid;border-width:1px;border-radius:var(--wp--custom--radius--medium);margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--small-medium);padding-right:var(--wp--preset--spacing--medium);padding-bottom:var(--wp--preset--spacing--small-medium);padding-left:var(--wp--preset--spacing--medium)"><?php echo esc_html__( 'you@yourbusiness.com', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column -->
 
 <!-- wp:column {"verticalAlignment":"center","width":"33.33%"} -->
-<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:33.33%"><!-- wp:buttons {"layout":{"type":"flex","justifyContent":"left"}} -->
-<div class="wp-block-buttons"><!-- wp:button -->
+<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:33.33%"><!-- wp:buttons {"className":"origin-canvas-cta-newsletter-action","layout":{"type":"flex","justifyContent":"left"}} -->
+<div class="wp-block-buttons origin-canvas-cta-newsletter-action"><!-- wp:button -->
 <div class="wp-block-button"><a class="wp-block-button__link wp-element-button"><?php echo esc_html__( 'Subscribe', 'origin-canvas' ); ?></a></div>
 <!-- /wp:button --></div>
 <!-- /wp:buttons --></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns -->
 
-<!-- wp:paragraph {"align":"center","className":"origin-canvas-links-plain","style":{"elements":{"link":{"color":{"text":"var:preset|color|text-body"},":hover":{"color":{"text":"var:preset|color|text-muted"}}}}},"textColor":"text-muted","fontSize":"small"} -->
-<p class="origin-canvas-links-plain has-text-align-center has-text-muted-color has-text-color has-link-color has-small-font-size"><?php printf(
+<!-- wp:paragraph {"style":{"typography":{"textAlign":"center"}},"textColor":"contrast-3","fontSize":"small"} -->
+<p class="has-text-align-center has-contrast-3-color has-text-color has-small-font-size"><?php printf(
 	/* translators: %s: link to the privacy policy */
 	esc_html__( 'We care about your data. Read our %s.', 'origin-canvas' ),
 	'<a href="#">' . esc_html__( 'Privacy Policy', 'origin-canvas' ) . '</a>'

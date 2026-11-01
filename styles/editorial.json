@@ -3,6 +3,14 @@
 	"version": 3,
 	"title": "Editorial",
 	"settings": {
+		"custom": {
+			"letterSpacing": {
+				"display": "-0.02em",
+				"large": "-0.02em",
+				"medium": "-0.02em",
+				"base": "-0.02em"
+			}
+		},
 		"color": {
 			"palette": [
 				{
@@ -11,54 +19,64 @@
 					"color": "#E8456B"
 				},
 				{
-					"slug": "surface-base",
-					"name": "Surface Base",
+					"slug": "base",
+					"name": "Base",
 					"color": "#FAFAF8"
 				},
 				{
-					"slug": "surface-muted",
-					"name": "Surface Muted",
+					"slug": "base-2",
+					"name": "Base 2",
 					"color": "#F5F3EF"
 				},
 				{
-					"slug": "surface-subtle",
-					"name": "Surface Subtle",
+					"slug": "base-3",
+					"name": "Base 3",
 					"color": "#EFEDE8"
 				},
 				{
-					"slug": "surface-subtle-hover",
-					"name": "Surface Subtle Hover",
+					"slug": "base-4",
+					"name": "Base 4",
 					"color": "#E8E5DF"
 				},
 				{
-					"slug": "border",
-					"name": "Border",
+					"slug": "base-5",
+					"name": "Base 5",
 					"color": "#E7E5E4"
 				},
 				{
-					"slug": "input-border",
-					"name": "Input Border",
+					"slug": "base-6",
+					"name": "Base 6",
 					"color": "#D6D3D1"
 				},
 				{
-					"slug": "text-heading",
-					"name": "Text Heading",
-					"color": "#1C1917"
+					"slug": "base-7",
+					"name": "Base 7",
+					"color": "#B8B6B3"
 				},
 				{
-					"slug": "text-body",
-					"name": "Text Body",
+					"slug": "contrast-5",
+					"name": "Contrast 5",
+					"color": "#828B98"
+				},
+				{
+					"slug": "contrast-4",
+					"name": "Contrast 4",
+					"color": "#6B7280"
+				},
+				{
+					"slug": "contrast-3",
+					"name": "Contrast 3",
+					"color": "#57534E"
+				},
+				{
+					"slug": "contrast-2",
+					"name": "Contrast 2",
 					"color": "#44403C"
 				},
 				{
-					"slug": "text-muted",
-					"name": "Text Muted",
-					"color": "#78716C"
-				},
-				{
-					"slug": "on-dark",
-					"name": "On Dark",
-					"color": "#F3F4F6"
+					"slug": "contrast",
+					"name": "Contrast",
+					"color": "#1C1917"
 				}
 			]
 		},
@@ -156,6 +174,15 @@
 							"src": [
 								"file:./assets/fonts/source-serif/SourceSerif4-700.woff2"
 							]
+						},
+						{
+							"fontDisplay": "swap",
+							"fontFamily": "'Source Serif 4'",
+							"fontStyle": "normal",
+							"fontWeight": "600",
+							"src": [
+								"file:./assets/fonts/source-serif/SourceSerif4-600.woff2"
+							]
 						}
 					]
 				}
@@ -170,9 +197,7 @@
 			"heading": {
 				"typography": {
 					"fontFamily": "var(--wp--preset--font-family--source-serif)",
-					"fontWeight": "700",
-					"lineHeight": "1.2",
-					"letterSpacing": "-0.02em"
+					"lineHeight": "1.2"
 				}
 			}
 		}

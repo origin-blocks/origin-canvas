@@ -1,6 +1,6 @@
 <?php
 /**
- * Title: Studio Page
+ * Title: Home: Editorial Cover
  * Slug: origin-canvas/page-studio
  * Description: A single-page design for a small studio or portfolio: featured work, process, and a call to action. Insert into a Page and set it as your static front page.
  * Categories: origin-canvas/page
@@ -15,7 +15,7 @@
 
 ?>
 <!-- wp:pattern {"slug":"origin-canvas/hero-cover"} /-->
-<!-- wp:pattern {"slug":"origin-canvas/breath-statement"} /-->
+<!-- wp:pattern {"slug":"origin-canvas/features-band-grid"} /-->
 <!-- wp:pattern {"slug":"origin-canvas/work-index"} /-->
 <!-- wp:pattern {"slug":"origin-canvas/stat-band"} /-->
 <!-- wp:pattern {"slug":"origin-canvas/process-numbered"} /-->

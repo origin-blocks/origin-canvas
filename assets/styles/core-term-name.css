@@ -1,0 +1,11 @@
+/**
+ * Term names are chrome - a category or tag, never prose - so they carry no
+ * underline. The block renders as a paragraph, which puts core's
+ * `:root :where(p a)` rule on the link; theme.json cannot win that (its block
+ * styles match at the same specificity but load earlier), so the opt-out lives
+ * here. A decoration the owner sets on the block is written as an inline style
+ * on the paragraph, and the link inherits it; with none set, it inherits none.
+ */
+.wp-block-term-name a {
+	text-decoration: inherit;
+}

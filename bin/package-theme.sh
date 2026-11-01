@@ -22,6 +22,20 @@ fi
 # than in a release nobody can amend.
 bash "$SCRIPT_DIR/check-pattern-counts.sh"
 bash "$SCRIPT_DIR/check-heading-pins.sh"
+bash "$SCRIPT_DIR/check-variation-twins.sh"
+bash "$SCRIPT_DIR/check-logo-widths.sh"
+bash "$SCRIPT_DIR/check-column-splits.sh"
+bash "$SCRIPT_DIR/check-layout-widths.sh"
+bash "$SCRIPT_DIR/check-image-slots.sh"
+bash "$SCRIPT_DIR/check-post-card-twins.sh"
+bash "$SCRIPT_DIR/check-page-h1.sh"
+# No old palette code outside the compatibility layer, and no $wpdb (#116).
+bash "$SCRIPT_DIR/check-palette-names.sh"
+# The built twin rules match the map and the stylesheets they come from (#116).
+bash "$SCRIPT_DIR/check-palette-aliases.sh"
+# A shipped value removed since the last release must have its shim or ruling before the
+# package is built: pending removals fail here.
+bash "$SCRIPT_DIR/check-shipped-values.sh" --release
 
 mkdir -p "$ROOT/dist"
 git -C "$ROOT" archive --format=zip --prefix=origin-canvas/ -o "$ZIP_PATH" HEAD

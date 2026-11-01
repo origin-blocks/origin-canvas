@@ -1,0 +1,32 @@
+/**
+ * The commenter name and the post link are navigation, never prose. Inside post
+ * content, core's content-link underline rule (theme.json, core/post-content)
+ * ties a block-level theme.json rule on specificity and wins on source order,
+ * so the exclusion is decisive here. Links inside the comment body itself are
+ * content links and keep the underline.
+ */
+.wp-block-post-content .wp-block-latest-comments a.wp-block-latest-comments__comment-author,
+.wp-block-post-content .wp-block-latest-comments a.wp-block-latest-comments__comment-link {
+	text-decoration: none;
+}
+
+/**
+ * theme.json sets the block root's font size, weight and line height; these
+ * rules cover what a root value cannot reach. Core sizes the date and excerpt in em of the
+ * root, so the doubled block class outranks those inner rules in any stylesheet
+ * order. The date keeps core's relative size but never drops below the theme's
+ * smallest preset. A commenter without a URL renders as a span, which no link
+ * rule reaches, so the name takes the heading colour here for both forms; a
+ * link or text colour set on the block still wins.
+ */
+:root :where(.wp-block-latest-comments:not(.has-text-color) .wp-block-latest-comments__comment-author) {
+	color: var(--wp--preset--color--contrast);
+}
+
+.wp-block-latest-comments .wp-block-latest-comments__comment-excerpt p {
+	font-size: inherit;
+}
+
+.wp-block-latest-comments .wp-block-latest-comments__comment-date {
+	font-size: max(0.75em, var(--wp--preset--font-size--extra-small));
+}

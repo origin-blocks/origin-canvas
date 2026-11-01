@@ -1,31 +1,86 @@
-/* Navigation hover style variations for desktop, non-overlay menus. */
-.wp-block-navigation.is-style-origin-canvas-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-navigation-item > .wp-block-navigation-item__content,
-.wp-block-navigation.is-style-origin-canvas-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-navigation-item > .wp-block-navigation-submenu__toggle,
-.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-navigation-item > .wp-block-navigation-item__content,
-.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-navigation-item > .wp-block-navigation-submenu__toggle {
-	transition: color 0.15s ease;
+/**
+ * Navigation hover style variations for desktop, non-overlay menus.
+ *
+ * Top-level items are direct children of .wp-block-navigation__container, except
+ * when the menu resolves to a Page List (core's fallback for a Navigation block
+ * with no menu, or a Page List placed in a menu): those items sit one level down,
+ * inside ul.wp-block-page-list. Each top-level rule therefore names the parent as
+ * :is(container, :where(container > page-list)). The :where() branch has zero
+ * specificity, so the alias weighs exactly what the bare container class did and
+ * every rule keeps its cascade position for menus of either shape.
+ *
+ * Desktop rules are guarded by an alias of two branches, one per Navigation shape:
+ * a responsive menu (overlayMenu mobile/always) wraps its items in
+ * .wp-block-navigation__responsive-container, and the :not(.is-menu-open) branch
+ * steps aside while that overlay is open; a menu with overlayMenu:never has no such
+ * wrapper (core renders the list straight inside the block), so the second branch
+ * keys on the block itself, .wp-block-navigation:not(.is-responsive). Core copies the
+ * block's classes onto the inner <ul>, so :not(.is-responsive) also keeps a responsive
+ * menu's list out of that branch. Its :where() exclusions cost no specificity: a
+ * navigation inside .wp-block-navigation__overlay-container (an overlay template part
+ * on the front end) and inside .origin-canvas-mobile-nav (the theme's overlay part,
+ * also when edited standalone in the editor) is never a desktop flyout. Both branches
+ * weigh (0,2,0), so a rule's cascade position does not depend on which branch matched
+ * and core's own flyout rules rank the same against either. The hover-style rules carry the block and its style
+ * class inside each branch because :is() cannot place a descendant combinator between
+ * a block and itself.
+ *
+ * origin-canvas-current marks the item whose section is in view (set on the front
+ * end by assets/js/anchor-navigation.js) and is styled wherever the current page item
+ * is: the two states share every current-menu-ancestor rule list below. It takes the
+ * link's 200ms colour fade, so the cue changes smoothly while the page scrolls; a
+ * colour change is not motion, and nothing here moves.
+ */
+:is(.wp-block-navigation.is-style-origin-canvas-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.is-style-origin-canvas-hover-accent:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item > .wp-block-navigation-item__content,
+:is(.wp-block-navigation.is-style-origin-canvas-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.is-style-origin-canvas-hover-accent:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item > .wp-block-navigation-submenu__toggle,
+:is(.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.is-style-origin-canvas-hover-pill:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item > .wp-block-navigation-item__content,
+:is(.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.is-style-origin-canvas-hover-pill:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item > .wp-block-navigation-submenu__toggle {
 }
 
-.wp-block-navigation.is-style-origin-canvas-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-navigation-item:hover > .wp-block-navigation-item__content,
-.wp-block-navigation.is-style-origin-canvas-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-navigation-item:hover > .wp-block-navigation-submenu__toggle,
-.wp-block-navigation.is-style-origin-canvas-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-navigation-item:focus-within > .wp-block-navigation-item__content,
-.wp-block-navigation.is-style-origin-canvas-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-navigation-item:focus-within > .wp-block-navigation-submenu__toggle,
-.wp-block-navigation.is-style-origin-canvas-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-navigation-item.current-menu-item > .wp-block-navigation-item__content,
-.wp-block-navigation.is-style-origin-canvas-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-navigation-item.current-menu-item > .wp-block-navigation-submenu__toggle,
-.wp-block-navigation.is-style-origin-canvas-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-navigation-item.current-menu-ancestor > .wp-block-navigation-item__content,
-.wp-block-navigation.is-style-origin-canvas-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-navigation-item.current-menu-ancestor > .wp-block-navigation-submenu__toggle,
-.wp-block-navigation.is-style-origin-canvas-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-navigation-item > .wp-block-navigation-item__content:focus-visible,
-.wp-block-navigation.is-style-origin-canvas-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-navigation-item > .wp-block-navigation-submenu__toggle:focus-visible {
+@media (prefers-reduced-motion: no-preference) {
+	:is(.wp-block-navigation.is-style-origin-canvas-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.is-style-origin-canvas-hover-accent:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item > .wp-block-navigation-item__content,
+	:is(.wp-block-navigation.is-style-origin-canvas-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.is-style-origin-canvas-hover-accent:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item > .wp-block-navigation-submenu__toggle,
+	:is(.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.is-style-origin-canvas-hover-pill:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item > .wp-block-navigation-item__content,
+	:is(.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.is-style-origin-canvas-hover-pill:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item > .wp-block-navigation-submenu__toggle {
+		transition: color 200ms ease;
+	}
+}
+
+:is(.wp-block-navigation.is-style-origin-canvas-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.is-style-origin-canvas-hover-accent:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item:hover > .wp-block-navigation-item__content,
+:is(.wp-block-navigation.is-style-origin-canvas-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.is-style-origin-canvas-hover-accent:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item:hover > .wp-block-navigation-submenu__toggle,
+:is(.wp-block-navigation.is-style-origin-canvas-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.is-style-origin-canvas-hover-accent:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item:focus-within > .wp-block-navigation-item__content,
+:is(.wp-block-navigation.is-style-origin-canvas-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.is-style-origin-canvas-hover-accent:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item:focus-within > .wp-block-navigation-submenu__toggle,
+:is(.wp-block-navigation.is-style-origin-canvas-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.is-style-origin-canvas-hover-accent:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item.current-menu-item > .wp-block-navigation-item__content,
+:is(.wp-block-navigation.is-style-origin-canvas-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.is-style-origin-canvas-hover-accent:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item.current-menu-item > .wp-block-navigation-submenu__toggle,
+:is(.wp-block-navigation.is-style-origin-canvas-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.is-style-origin-canvas-hover-accent:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item.current-menu-ancestor > .wp-block-navigation-item__content,
+:is(.wp-block-navigation.is-style-origin-canvas-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.is-style-origin-canvas-hover-accent:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item.origin-canvas-current > .wp-block-navigation-item__content,
+:is(.wp-block-navigation.is-style-origin-canvas-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.is-style-origin-canvas-hover-accent:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item.current-menu-ancestor > .wp-block-navigation-submenu__toggle,
+:is(.wp-block-navigation.is-style-origin-canvas-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.is-style-origin-canvas-hover-accent:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item.origin-canvas-current > .wp-block-navigation-submenu__toggle,
+:is(.wp-block-navigation.is-style-origin-canvas-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.is-style-origin-canvas-hover-accent:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item > .wp-block-navigation-item__content:focus-visible,
+:is(.wp-block-navigation.is-style-origin-canvas-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.is-style-origin-canvas-hover-accent:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item > .wp-block-navigation-submenu__toggle:focus-visible {
 	color: var(--wp--preset--color--primary);
 }
 
-.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-navigation-item {
+:is(.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.is-style-origin-canvas-hover-pill:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item {
 	border-radius: 999px;
 	isolation: isolate;
 	position: relative;
 }
 
-.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-navigation-item::before {
+/**
+ * The isolated item confines the flyout's z-index: 20 to itself, so page
+ * content positioned later in the document (a post-card figure, a page
+ * title) would paint over an open dropdown. The open item takes that level
+ * itself; items at rest stay at auto so they never cover a neighbour's open
+ * flyout. Core focuses the toggle on click and closes on focusout, so
+ * :focus-within covers click-opened menus too.
+ */
+:is(.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.is-style-origin-canvas-hover-pill:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item.has-child:hover,
+:is(.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.is-style-origin-canvas-hover-pill:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item.has-child:focus-within {
+	z-index: 20;
+}
+
+:is(.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.is-style-origin-canvas-hover-pill:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item::before {
 	background-color: rgba(17, 24, 39, 0.04);
 	background-color: color-mix(in srgb, currentColor 4%, transparent);
 	border-radius: inherit;
@@ -34,44 +89,53 @@
 	opacity: 0;
 	pointer-events: none;
 	position: absolute;
-	transition: opacity 0.15s ease;
 	z-index: 0;
 }
 
-.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-navigation-item:hover::before,
-.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-navigation-item:focus-within::before,
-.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-navigation-item.current-menu-item::before,
-.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-navigation-item.current-menu-ancestor::before {
+@media (prefers-reduced-motion: no-preference) {
+	:is(.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.is-style-origin-canvas-hover-pill:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item::before {
+		transition: opacity 200ms ease;
+	}
+}
+
+:is(.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.is-style-origin-canvas-hover-pill:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item:hover::before,
+:is(.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.is-style-origin-canvas-hover-pill:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item:focus-within::before,
+:is(.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.is-style-origin-canvas-hover-pill:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item.current-menu-item::before,
+:is(.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.is-style-origin-canvas-hover-pill:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item.current-menu-ancestor::before,
+:is(.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.is-style-origin-canvas-hover-pill:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item.origin-canvas-current::before {
 	opacity: 1;
 }
 
-.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-navigation-item > .wp-block-navigation-item__content,
-.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-navigation-item > .wp-block-navigation-submenu__toggle {
+:is(.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.is-style-origin-canvas-hover-pill:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item > .wp-block-navigation-item__content,
+:is(.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.is-style-origin-canvas-hover-pill:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item > .wp-block-navigation-submenu__toggle {
 	position: relative;
 	z-index: 1;
 }
 
-.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-navigation-item:hover > .wp-block-navigation-item__content,
-.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-navigation-item:hover > .wp-block-navigation-submenu__toggle,
-.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-navigation-item:focus-within > .wp-block-navigation-item__content,
-.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-navigation-item:focus-within > .wp-block-navigation-submenu__toggle,
-.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-navigation-item.current-menu-item > .wp-block-navigation-item__content,
-.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-navigation-item.current-menu-item > .wp-block-navigation-submenu__toggle,
-.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-navigation-item.current-menu-ancestor > .wp-block-navigation-item__content,
-.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-navigation-item.current-menu-ancestor > .wp-block-navigation-submenu__toggle {
+:is(.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.is-style-origin-canvas-hover-pill:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item:hover > .wp-block-navigation-item__content,
+:is(.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.is-style-origin-canvas-hover-pill:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item:hover > .wp-block-navigation-submenu__toggle,
+:is(.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.is-style-origin-canvas-hover-pill:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item:focus-within > .wp-block-navigation-item__content,
+:is(.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.is-style-origin-canvas-hover-pill:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item:focus-within > .wp-block-navigation-submenu__toggle,
+:is(.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.is-style-origin-canvas-hover-pill:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item.current-menu-item > .wp-block-navigation-item__content,
+:is(.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.is-style-origin-canvas-hover-pill:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item.current-menu-item > .wp-block-navigation-submenu__toggle,
+:is(.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.is-style-origin-canvas-hover-pill:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item.current-menu-ancestor > .wp-block-navigation-item__content,
+:is(.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.is-style-origin-canvas-hover-pill:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item.origin-canvas-current > .wp-block-navigation-item__content,
+:is(.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.is-style-origin-canvas-hover-pill:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item.current-menu-ancestor > .wp-block-navigation-submenu__toggle,
+:is(.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.is-style-origin-canvas-hover-pill:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item.origin-canvas-current > .wp-block-navigation-submenu__toggle {
 	color: inherit;
 	text-decoration: none;
 }
 
 /* Navigation submenu presentation is outside current block/theme.json controls. */
-.wp-block-navigation__responsive-container:not(.is-menu-open) {
+:is(.wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) {
 	--origin-canvas-navigation-nested-submenu-offset: 6px;
 }
 
-.wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container {
-	background: var(--wp--preset--color--surface-base);
+:is(.wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container {
+	background: var(--wp--preset--color--base);
 	border: none;
-	border-radius: 8px;
+	/* 12px: a container of hover-filled controls; the item radius 4 nests in it (12 - 8 padding) */
+	border-radius: var(--wp--custom--radius--medium-large);
 	box-shadow: var(--wp--preset--shadow--medium);
 	font-size: var(--wp--preset--font-size--small);
 	min-width: 200px;
@@ -85,11 +149,11 @@
  * (no layout gap), and a transparent ::before bridges the visual gap so hover
  * stays continuous (no dead-zone).
  */
-.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-navigation-item > .wp-block-navigation__submenu-container {
+:is(.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.is-style-origin-canvas-hover-pill:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item > .wp-block-navigation__submenu-container {
 	transform: translateY(0.65em);
 }
 
-.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-navigation-item > .wp-block-navigation__submenu-container::before {
+:is(.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.is-style-origin-canvas-hover-pill:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item > .wp-block-navigation__submenu-container::before {
 	content: "";
 	bottom: 100%;
 	height: 0.65em;
@@ -98,32 +162,42 @@
 	right: 0;
 }
 
-.wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-item__content {
-	border-radius: 6px;
+:is(.wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container .wp-block-navigation-item__content {
+	border-radius: var(--wp--custom--radius--small);
 	padding: var(--wp--preset--spacing--small) var(--wp--preset--spacing--medium);
-	transition: color 0.15s ease;
 }
 
-.wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-submenu__toggle {
+@media (prefers-reduced-motion: no-preference) {
+	:is(.wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container .wp-block-navigation-item__content {
+		transition: color 200ms ease;
+	}
+}
+
+:is(.wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container .wp-block-navigation-submenu__toggle {
 	align-items: center;
-	border-radius: 6px;
+	border-radius: var(--wp--custom--radius--small);
 	display: inline-flex;
 	gap: var(--wp--preset--spacing--extra-small);
 	padding: var(--wp--preset--spacing--small);
-	transition: color 0.15s ease;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	:is(.wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container .wp-block-navigation-submenu__toggle {
+		transition: color 200ms ease;
+	}
 }
 
 /**
  * Desktop caret box. The swapped Lucide glyph is cropped tight to its arrow, so
  * it fills this box; keep the desktop caret compact (smaller than mobile's 20px).
  */
-.wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-icon {
+:is(.wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-icon {
 	height: 9px;
 	margin-bottom: 0.1em;
 	width: 9px;
 }
 
-.wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-icon svg {
+:is(.wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-icon svg {
 	stroke-width: 2;
 }
 
@@ -134,7 +208,12 @@
  */
 .wp-block-navigation .wp-block-navigation__submenu-icon svg {
 	transform-origin: center;
-	transition: transform 0.26s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	.wp-block-navigation .wp-block-navigation__submenu-icon svg {
+		transition: transform 200ms ease-out;
+	}
 }
 
 .wp-block-navigation-submenu__toggle[aria-expanded="true"] .wp-block-navigation__submenu-icon svg,
@@ -143,68 +222,79 @@
 }
 
 /* Submenu hover text inherits by default; style variants override below. */
-.wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-item:hover > .wp-block-navigation-item__content,
-.wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-item:hover > .wp-block-navigation-submenu__toggle,
-.wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-item:focus-within > .wp-block-navigation-item__content,
-.wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-item:focus-within > .wp-block-navigation-submenu__toggle,
-.wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-item.current-menu-item > .wp-block-navigation-item__content,
-.wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-item.current-menu-item > .wp-block-navigation-submenu__toggle,
-.wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-item.current-menu-ancestor > .wp-block-navigation-item__content,
-.wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-item.current-menu-ancestor > .wp-block-navigation-submenu__toggle,
-.wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-item__content:hover,
-.wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-submenu__toggle:hover,
-.wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-submenu__toggle:hover .wp-block-navigation__submenu-icon,
-.wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-submenu__toggle:focus-visible,
-.wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-submenu__toggle:focus-visible .wp-block-navigation__submenu-icon {
+:is(.wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container .wp-block-navigation-item:hover > .wp-block-navigation-item__content,
+:is(.wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container .wp-block-navigation-item:hover > .wp-block-navigation-submenu__toggle,
+:is(.wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container .wp-block-navigation-item:focus-within > .wp-block-navigation-item__content,
+:is(.wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container .wp-block-navigation-item:focus-within > .wp-block-navigation-submenu__toggle,
+:is(.wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container .wp-block-navigation-item.current-menu-item > .wp-block-navigation-item__content,
+:is(.wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container .wp-block-navigation-item.current-menu-item > .wp-block-navigation-submenu__toggle,
+:is(.wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container .wp-block-navigation-item.current-menu-ancestor > .wp-block-navigation-item__content,
+:is(.wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container .wp-block-navigation-item.origin-canvas-current > .wp-block-navigation-item__content,
+:is(.wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container .wp-block-navigation-item.current-menu-ancestor > .wp-block-navigation-submenu__toggle,
+:is(.wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container .wp-block-navigation-item.origin-canvas-current > .wp-block-navigation-submenu__toggle,
+:is(.wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container .wp-block-navigation-item__content:hover,
+:is(.wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container .wp-block-navigation-submenu__toggle:hover,
+:is(.wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container .wp-block-navigation-submenu__toggle:hover .wp-block-navigation__submenu-icon,
+:is(.wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container .wp-block-navigation-submenu__toggle:focus-visible,
+:is(.wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container .wp-block-navigation-submenu__toggle:focus-visible .wp-block-navigation__submenu-icon {
 	color: inherit;
 	text-decoration: none;
 }
 
-.wp-block-navigation.is-style-origin-canvas-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-item:hover > .wp-block-navigation-item__content,
-.wp-block-navigation.is-style-origin-canvas-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-item:hover > .wp-block-navigation-submenu__toggle,
-.wp-block-navigation.is-style-origin-canvas-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-item:focus-within > .wp-block-navigation-item__content,
-.wp-block-navigation.is-style-origin-canvas-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-item:focus-within > .wp-block-navigation-submenu__toggle,
-.wp-block-navigation.is-style-origin-canvas-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-item.current-menu-item > .wp-block-navigation-item__content,
-.wp-block-navigation.is-style-origin-canvas-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-item.current-menu-item > .wp-block-navigation-submenu__toggle,
-.wp-block-navigation.is-style-origin-canvas-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-item.current-menu-ancestor > .wp-block-navigation-item__content,
-.wp-block-navigation.is-style-origin-canvas-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-item.current-menu-ancestor > .wp-block-navigation-submenu__toggle,
-.wp-block-navigation.is-style-origin-canvas-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-item__content:hover,
-.wp-block-navigation.is-style-origin-canvas-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-submenu__toggle:hover,
-.wp-block-navigation.is-style-origin-canvas-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-submenu__toggle:hover .wp-block-navigation__submenu-icon,
-.wp-block-navigation.is-style-origin-canvas-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-submenu__toggle:focus-visible,
-.wp-block-navigation.is-style-origin-canvas-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-submenu__toggle:focus-visible .wp-block-navigation__submenu-icon {
+:is(.wp-block-navigation.is-style-origin-canvas-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.is-style-origin-canvas-hover-accent:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container .wp-block-navigation-item:hover > .wp-block-navigation-item__content,
+:is(.wp-block-navigation.is-style-origin-canvas-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.is-style-origin-canvas-hover-accent:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container .wp-block-navigation-item:hover > .wp-block-navigation-submenu__toggle,
+:is(.wp-block-navigation.is-style-origin-canvas-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.is-style-origin-canvas-hover-accent:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container .wp-block-navigation-item:focus-within > .wp-block-navigation-item__content,
+:is(.wp-block-navigation.is-style-origin-canvas-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.is-style-origin-canvas-hover-accent:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container .wp-block-navigation-item:focus-within > .wp-block-navigation-submenu__toggle,
+:is(.wp-block-navigation.is-style-origin-canvas-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.is-style-origin-canvas-hover-accent:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container .wp-block-navigation-item.current-menu-item > .wp-block-navigation-item__content,
+:is(.wp-block-navigation.is-style-origin-canvas-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.is-style-origin-canvas-hover-accent:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container .wp-block-navigation-item.current-menu-item > .wp-block-navigation-submenu__toggle,
+:is(.wp-block-navigation.is-style-origin-canvas-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.is-style-origin-canvas-hover-accent:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container .wp-block-navigation-item.current-menu-ancestor > .wp-block-navigation-item__content,
+:is(.wp-block-navigation.is-style-origin-canvas-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.is-style-origin-canvas-hover-accent:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container .wp-block-navigation-item.origin-canvas-current > .wp-block-navigation-item__content,
+:is(.wp-block-navigation.is-style-origin-canvas-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.is-style-origin-canvas-hover-accent:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container .wp-block-navigation-item.current-menu-ancestor > .wp-block-navigation-submenu__toggle,
+:is(.wp-block-navigation.is-style-origin-canvas-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.is-style-origin-canvas-hover-accent:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container .wp-block-navigation-item.origin-canvas-current > .wp-block-navigation-submenu__toggle,
+:is(.wp-block-navigation.is-style-origin-canvas-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.is-style-origin-canvas-hover-accent:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container .wp-block-navigation-item__content:hover,
+:is(.wp-block-navigation.is-style-origin-canvas-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.is-style-origin-canvas-hover-accent:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container .wp-block-navigation-submenu__toggle:hover,
+:is(.wp-block-navigation.is-style-origin-canvas-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.is-style-origin-canvas-hover-accent:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container .wp-block-navigation-submenu__toggle:hover .wp-block-navigation__submenu-icon,
+:is(.wp-block-navigation.is-style-origin-canvas-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.is-style-origin-canvas-hover-accent:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container .wp-block-navigation-submenu__toggle:focus-visible,
+:is(.wp-block-navigation.is-style-origin-canvas-hover-accent .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.is-style-origin-canvas-hover-accent:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container .wp-block-navigation-submenu__toggle:focus-visible .wp-block-navigation__submenu-icon {
 	color: var(--wp--preset--color--primary);
 }
 
-.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation-submenu__toggle,
-.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation-submenu__toggle:hover,
-.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation-submenu__toggle:focus,
-.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation-submenu__toggle:focus-visible {
+:is(.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.is-style-origin-canvas-hover-pill:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation-submenu__toggle,
+:is(.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.is-style-origin-canvas-hover-pill:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation-submenu__toggle:hover,
+:is(.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.is-style-origin-canvas-hover-pill:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation-submenu__toggle:focus,
+:is(.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.is-style-origin-canvas-hover-pill:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation-submenu__toggle:focus-visible {
 	background: transparent;
 	border: none;
 	box-shadow: none;
 	color: inherit;
 }
 
-.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-item {
-	border-radius: 8px;
-	transition: background-color 0.15s ease;
+:is(.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.is-style-origin-canvas-hover-pill:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container .wp-block-navigation-item {
+	/* 4px: nests in the 12px submenu card */
+	border-radius: var(--wp--custom--radius--small);
 }
 
-.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-item:hover,
-.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-item:focus-within,
-.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-item.current-menu-item,
-.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation-item.current-menu-ancestor {
+@media (prefers-reduced-motion: no-preference) {
+	:is(.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.is-style-origin-canvas-hover-pill:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container .wp-block-navigation-item {
+		transition: background-color 200ms ease;
+	}
+}
+
+:is(.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.is-style-origin-canvas-hover-pill:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container .wp-block-navigation-item:hover,
+:is(.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.is-style-origin-canvas-hover-pill:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container .wp-block-navigation-item:focus-within,
+:is(.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.is-style-origin-canvas-hover-pill:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container .wp-block-navigation-item.current-menu-item,
+:is(.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.is-style-origin-canvas-hover-pill:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container .wp-block-navigation-item.current-menu-ancestor,
+:is(.wp-block-navigation.is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.is-style-origin-canvas-hover-pill:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container .wp-block-navigation-item.origin-canvas-current {
 	background-color: rgba(17, 24, 39, 0.04);
 	background-color: color-mix(in srgb, currentColor 4%, transparent);
 }
 
-.wp-block-navigation__responsive-container:not(.is-menu-open) .has-child {
+:is(.wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .has-child {
 	position: relative;
 }
 
-/* Shared by default Navigation, Hover Accent, and Hover Pill variants. */
-.wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation__submenu-container {
+/* Shared by default Navigation, Hover Primary, and Hover Pill variants. */
+:is(.wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container .wp-block-navigation__submenu-container {
 	left: 100%;
 	margin-left: var(--origin-canvas-navigation-nested-submenu-offset);
 	margin-top: calc(var(--wp--preset--spacing--small) * -1);
@@ -214,14 +304,32 @@
 	visibility: hidden;
 }
 
-.wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .has-child:focus-within > .wp-block-navigation__submenu-container,
-.wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .has-child:hover > .wp-block-navigation__submenu-container {
+/**
+ * Right-justified menu: core opens the nested flyout leftward (left:auto;
+ * right:100%, and a full-width box below 782px), so mirror the offset to that
+ * side, and move core's transparent ::before hover bridge with it so the pointer
+ * can cross the gap without dropping :hover on the item.
+ */
+:is(.wp-block-navigation.items-justified-right .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.items-justified-right:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container .wp-block-navigation__submenu-container {
+	left: auto;
+	margin-left: 0;
+	margin-right: var(--origin-canvas-navigation-nested-submenu-offset);
+	right: 100%;
+}
+
+:is(.wp-block-navigation.items-justified-right .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.items-justified-right:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container .wp-block-navigation__submenu-container::before {
+	left: 100%;
+	right: auto;
+}
+
+:is(.wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container .has-child:focus-within > .wp-block-navigation__submenu-container,
+:is(.wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container .has-child:hover > .wp-block-navigation__submenu-container {
 	opacity: 1;
 	pointer-events: auto;
 	visibility: visible;
 }
 
-.wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .has-child {
+:is(.wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container .has-child {
 	align-items: center;
 	display: flex;
 	flex-wrap: nowrap;
@@ -229,21 +337,21 @@
 	padding-right: 0;
 }
 
-.wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .has-child > .wp-block-navigation-item__content {
+:is(.wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container .has-child > .wp-block-navigation-item__content {
 	flex: 1;
 }
 
-.wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .has-child > .wp-block-navigation-submenu__toggle {
+:is(.wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container .has-child > .wp-block-navigation-submenu__toggle {
 	background: transparent;
 	border: none;
 	padding: var(--wp--preset--spacing--small);
 }
 
-.wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .has-child > .wp-block-navigation-submenu__toggle .wp-block-navigation__submenu-icon {
+:is(.wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container .has-child > .wp-block-navigation-submenu__toggle .wp-block-navigation__submenu-icon {
 	transform: rotate(-90deg);
 }
 
-.wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation__submenu-icon svg path {
+:is(.wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container .wp-block-navigation__submenu-icon svg path {
 	stroke: currentColor !important;
 }
 
@@ -269,13 +377,55 @@
 }
 
 /**
- * Lift the main-nav submenu flyout above adjacent page content (e.g. a hero
- * below the sticky header) so the dropdown is never occluded. Scoped to the
- * main nav so unrelated navigations are unaffected.
+ * Core clears navigation links with :where(a), at zero weight, but inside
+ * post-content (a header or footer pattern placed on a page) the
+ * content-link underline rule ties it on specificity and wins on source
+ * order. Same guard as site-title/page-list (see those files). The :not()
+ * pair steps aside for a decoration the owner sets on the block, which core
+ * paints through the same modifier classes at lower weight.
  */
-.origin-canvas-main-nav .wp-block-navigation__submenu-container {
-	position: relative;
-	z-index: 20;
+.wp-block-post-content .wp-block-navigation:not(.has-text-decoration-underline):not(.has-text-decoration-line-through) .wp-block-navigation-item__content,
+.wp-block-post-content .wp-block-navigation:not(.has-text-decoration-underline):not(.has-text-decoration-line-through) .wp-block-navigation-submenu__toggle {
+	text-decoration: none;
+}
+
+/**
+ * Navigation on a dark band: a nav whose text color is base-2. Core marks it
+ * with has-base-2-color, so the rules key on that and follow the block's own
+ * setting on any dark band. A nav saved before the #116 rename still holds the
+ * old On Dark text class; the twin rules in assets/css/palette-aliases.css match it. A nav saved with the origin-canvas-nav-dark class
+ * matches too, whatever its text color. The flyout's dark ground is the block's "Submenu &
+ * overlay background" setting; the card rule above still supplies radius,
+ * padding, width, type, shadow and z-index. Ink on ink, the 12% base-2 hairline
+ * is what separates a nested card from its parent. The Hover Pill style's 4% of
+ * currentColor is too faint on ink, so its top-level badge and flyout row fill
+ * at 8% base-2 (#43). Each selector is the rule it overrides with the color
+ * class added, so it outranks that rule by one class.
+ */
+:is(.wp-block-navigation:is(.has-base-2-color, .origin-canvas-nav-dark) .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation:is(.has-base-2-color, .origin-canvas-nav-dark):not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container {
+	border: 1px solid color-mix(in srgb, var(--wp--preset--color--base-2) 12%, transparent);
+}
+
+:is(.wp-block-navigation:is(.has-base-2-color, .origin-canvas-nav-dark).is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation:is(.has-base-2-color, .origin-canvas-nav-dark).is-style-origin-canvas-hover-pill:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) :is(.wp-block-navigation__container, :where(.wp-block-navigation__container > .wp-block-page-list)) > .wp-block-navigation-item::before {
+	background-color: color-mix(in srgb, var(--wp--preset--color--base-2) 8%, transparent);
+}
+
+:is(.wp-block-navigation:is(.has-base-2-color, .origin-canvas-nav-dark).is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation:is(.has-base-2-color, .origin-canvas-nav-dark).is-style-origin-canvas-hover-pill:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container .wp-block-navigation-item:hover,
+:is(.wp-block-navigation:is(.has-base-2-color, .origin-canvas-nav-dark).is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation:is(.has-base-2-color, .origin-canvas-nav-dark).is-style-origin-canvas-hover-pill:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container .wp-block-navigation-item:focus-within,
+:is(.wp-block-navigation:is(.has-base-2-color, .origin-canvas-nav-dark).is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation:is(.has-base-2-color, .origin-canvas-nav-dark).is-style-origin-canvas-hover-pill:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container .wp-block-navigation-item.current-menu-item,
+:is(.wp-block-navigation:is(.has-base-2-color, .origin-canvas-nav-dark).is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation:is(.has-base-2-color, .origin-canvas-nav-dark).is-style-origin-canvas-hover-pill:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container .wp-block-navigation-item.current-menu-ancestor,
+:is(.wp-block-navigation:is(.has-base-2-color, .origin-canvas-nav-dark).is-style-origin-canvas-hover-pill .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation:is(.has-base-2-color, .origin-canvas-nav-dark).is-style-origin-canvas-hover-pill:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container .wp-block-navigation-item.origin-canvas-current {
+	background-color: color-mix(in srgb, var(--wp--preset--color--base-2) 8%, transparent);
+}
+
+/**
+ * A nav saved with the origin-canvas-nav-dark class and no submenu background
+ * gets the dark flyout ground here. Once the block has a Submenu background,
+ * core marks each flyout has-background and this rule no longer matches, so the
+ * block setting wins.
+ */
+:is(.wp-block-navigation.origin-canvas-nav-dark .wp-block-navigation__responsive-container:not(.is-menu-open), .wp-block-navigation.origin-canvas-nav-dark:not(.is-responsive):where(:not(.wp-block-navigation__overlay-container *, .origin-canvas-mobile-nav, .origin-canvas-mobile-nav *))) .wp-block-navigation__submenu-container:not(.has-background) {
+	background-color: var(--wp--preset--color--contrast);
 }
 
 /**
@@ -378,7 +528,7 @@
 /* Uniform dark ink for every label + chevron at every depth. */
 .origin-canvas-mobile-nav .wp-block-navigation-item__label,
 .origin-canvas-mobile-nav .wp-block-navigation__submenu-icon {
-	color: var(--wp--preset--color--text-heading);
+	color: var(--wp--preset--color--contrast);
 }
 
 .origin-canvas-mobile-nav .wp-block-navigation-item__label {
@@ -421,7 +571,7 @@
 }
 
 .origin-canvas-mobile-nav .wp-block-navigation-item__content::after {
-	border-bottom: 1px solid var(--wp--preset--color--border);
+	border-bottom: 1px solid var(--wp--preset--color--base-5);
 	bottom: 0;
 	content: "";
 	inset-inline: -100vw;
@@ -444,30 +594,26 @@
 }
 
 /**
- * Reveal motion — Option B. Core toggles display:none->flex (the global collapse
- * rules above), so height snaps; we layer a fade + slight slide so the open still
- * reads as motion. A true grid-height animation is not achievable on core markup.
+ * Reveal motion. Core toggles display:none->flex (the global collapse rules above),
+ * so height snaps; a fade plus a 4px slide makes the open read as motion. It runs
+ * 200ms ease-out, the timing of the chevron's spin in the shared base above, so the
+ * panel and its chevron move as one. A true grid-height animation is not achievable
+ * on core markup. With reduced motion the panel simply appears.
  */
-.origin-canvas-mobile-nav .wp-block-navigation-submenu__toggle ~ .wp-block-navigation__submenu-container {
-	opacity: 0;
-	transform: translateY(-4px);
-	transition: opacity 0.22s ease, transform 0.22s ease;
-}
+@media (prefers-reduced-motion: no-preference) {
+	.origin-canvas-mobile-nav .wp-block-navigation-submenu__toggle ~ .wp-block-navigation__submenu-container {
+		opacity: 0;
+		transform: translateY(-4px);
+		transition: opacity 200ms ease-out, transform 200ms ease-out;
+	}
 
-.origin-canvas-mobile-nav .wp-block-navigation-submenu__toggle[aria-expanded="true"] ~ .wp-block-navigation__submenu-container {
-	opacity: 1;
-	transform: translateY(0);
-}
+	.origin-canvas-mobile-nav .wp-block-navigation-submenu__toggle[aria-expanded="true"] ~ .wp-block-navigation__submenu-container {
+		opacity: 1;
+		transform: translateY(0);
+	}
 
-.origin-canvas-mobile-nav .wp-block-navigation-item__label {
-	transition: color 0.12s ease;
-}
-
-@media (prefers-reduced-motion: reduce) {
-	.origin-canvas-mobile-nav .wp-block-navigation__submenu-icon svg,
-	.origin-canvas-mobile-nav .wp-block-navigation-submenu__toggle ~ .wp-block-navigation__submenu-container,
 	.origin-canvas-mobile-nav .wp-block-navigation-item__label {
-		transition: none;
+		transition: color 200ms ease;
 	}
 }
 
@@ -483,24 +629,54 @@
  * size and centring while the glyph lands exactly on the hamburger's axis.
  */
 .origin-canvas-mobile-menu .wp-block-navigation-overlay-close {
-	border-radius: 10px;
-	color: var(--wp--preset--color--text-heading);
+	border-radius: var(--wp--custom--radius--medium);
+	color: var(--wp--preset--color--contrast);
 	height: 44px;
 	margin-inline-end: -10px;
 	position: relative;
 	top: -2px;
-	transition: background-color 0.15s ease;
 	width: 44px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	.origin-canvas-mobile-menu .wp-block-navigation-overlay-close {
+		transition: background-color 200ms ease;
+	}
 }
 
 .origin-canvas-mobile-menu .wp-block-navigation-overlay-close:hover,
 .origin-canvas-mobile-menu .wp-block-navigation-overlay-close:focus-visible {
-	background-color: var(--wp--preset--color--surface-muted);
+	background-color: var(--wp--preset--color--base-2);
 }
 
 .origin-canvas-mobile-menu .wp-block-navigation-overlay-close svg {
 	height: 24px;
 	width: 24px;
+}
+
+/**
+ * Dark overlay (parts/mobile-menu-dark.html). The part's root group carries the
+ * ground, text and link colours as block attributes; only the four values the
+ * overlay rules above hardcode need a dark counterpart: the row label and chevron
+ * (contrast), the ✕ (contrast, base-2 hover fill) and the row divider
+ * (base-5). Each override adds one class so it outranks the shipped rule; the
+ * :hover label rule (0,4,0) still wins, so row hover stays primary. 8% and 12%
+ * base-2 are the rulings on #43 — the light side's ✕ fill is ≈5% ink, and 12% is
+ * footer-dark's divider.
+ */
+.origin-canvas-mobile-menu-dark .origin-canvas-mobile-nav .wp-block-navigation-item__label,
+.origin-canvas-mobile-menu-dark .origin-canvas-mobile-nav .wp-block-navigation__submenu-icon,
+.origin-canvas-mobile-menu.origin-canvas-mobile-menu-dark .wp-block-navigation-overlay-close {
+	color: var(--wp--preset--color--base-2);
+}
+
+.origin-canvas-mobile-menu-dark .origin-canvas-mobile-nav .wp-block-navigation-item__content::after {
+	border-bottom-color: color-mix(in srgb, var(--wp--preset--color--base-2) 12%, transparent);
+}
+
+.origin-canvas-mobile-menu.origin-canvas-mobile-menu-dark .wp-block-navigation-overlay-close:hover,
+.origin-canvas-mobile-menu.origin-canvas-mobile-menu-dark .wp-block-navigation-overlay-close:focus-visible {
+	background-color: color-mix(in srgb, var(--wp--preset--color--base-2) 8%, transparent);
 }
 
 /**
@@ -597,7 +773,8 @@ body.block-editor-iframe__body .origin-canvas-mobile-nav .has-child.open-always 
  * editor as a floating gap above every nested submenu block that the front
  * end never shows (.open-on-click never matches .has-child.open-always
  * there, so this core rule is simply absent). Zeroed to match the theme's
- * own front-end-targeting gap:0 (core-navigation.css:320), which is lower
+ * own front-end-targeting gap:0 (the .origin-canvas-mobile-nav
+ * .wp-block-navigation__container rule), which is lower
  * specificity than core's compound and loses in the editor the same way
  * the width rules above did.
  */
@@ -610,7 +787,8 @@ body.block-editor-iframe__body .origin-canvas-mobile-nav .has-child.open-always 
  * Nested .has-child rows only: once the fix above gives a parent row's own
  * __content flex-grow:1 on its .has-child.open-always row (flex-wrap:wrap,
  * two children: __content + its .wp-block-navigation__submenu-container,
- * flex-basis:100% per core-navigation.css:361-363), __content consumes the
+ * flex-basis:100% per the .origin-canvas-mobile-nav .has-child >
+ * .wp-block-navigation__submenu-container rule), __content consumes the
  * full first flex line and the submenu-container wraps to its own line. Live
  * DOM testing (getBoundingClientRect + forced inline style overrides in the
  * actual editor iframe — repeated after each change to rule out stylesheet
@@ -625,7 +803,8 @@ body.block-editor-iframe__body .origin-canvas-mobile-nav .has-child.open-always 
  * calculation, so it isn't subject to the same resolution gap. Also zeroes
  * this same submenu-container's OWN gap (core sets it a second time, between
  * sibling items inside the container) to match the theme's front-end-
- * targeting gap:0 (core-navigation.css:343), for the same reason as above.
+ * targeting gap:0 (the .origin-canvas-mobile-nav .wp-block-navigation
+ * .wp-block-navigation__submenu-container rule), for the same reason as above.
  */
 body.editor-styles-wrapper .origin-canvas-mobile-nav .has-child.open-always > .wp-block-navigation__submenu-container,
 body.block-editor-iframe__body .origin-canvas-mobile-nav .has-child.open-always > .wp-block-navigation__submenu-container {

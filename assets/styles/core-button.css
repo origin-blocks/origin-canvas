@@ -1,0 +1,56 @@
+/* Outline Strong is retired. Outline now carries its border-strong border, so the
+   style left the Styles picker, and theme.json drops the CSS of a style that is not
+   registered.
+   These rules keep buttons saved with the class looking as they did. The values are
+   the ones Outline uses in theme.json; change both together. */
+.wp-block-button.is-style-origin-canvas-outline-strong > .wp-block-button__link {
+	background-color: transparent;
+	border: 2px solid var(--wp--preset--color--contrast-4);
+	color: var(--wp--preset--color--contrast);
+	font-size: var(--wp--preset--font-size--regular);
+	font-weight: 500;
+	padding: calc(var(--wp--preset--spacing--small-medium) - 2px) calc(var(--wp--preset--spacing--extra-large) - 2px);
+}
+
+.wp-block-button.is-style-origin-canvas-outline-strong > .wp-block-button__link:hover,
+.wp-block-button.is-style-origin-canvas-outline-strong > .wp-block-button__link:focus-visible {
+	background-color: color-mix(in srgb, var(--wp--preset--color--contrast) 6%, transparent);
+	box-shadow: none;
+}
+
+.wp-block-button.is-style-origin-canvas-outline-strong > .wp-block-button__link:active {
+	background-color: var(--wp--preset--color--base-4);
+	border-color: var(--wp--preset--color--contrast);
+}
+
+/* Every button fades its color, background and border in 200ms on hover and keyboard
+   focus. theme.json holds the state values but has no transition property, and cannot
+   hold a media query.
+   Filled buttons, the default and Fill Primary, also lift 1px. theme.json holds the
+   color step and the medium shadow; no block support sets a transform. The lift and
+   shadow keep 120ms. The hover lift needs a pointer that can hover, so a tap never
+   leaves a button raised. A press drops the lift. With reduced motion every state
+   changes at once and the button never moves. The outline styles do not lift. */
+@media (prefers-reduced-motion: no-preference) {
+	.wp-block-button > .wp-block-button__link {
+		transition: color 200ms ease, background-color 200ms ease, border-color 200ms ease;
+	}
+
+	.wp-block-button:not(.is-style-outline, .is-style-origin-canvas-outline-light, .is-style-origin-canvas-outline-strong) > .wp-block-button__link {
+		transition: color 200ms ease, background-color 200ms ease, border-color 200ms ease, transform 120ms ease, box-shadow 120ms ease;
+	}
+
+	.wp-block-button:not(.is-style-outline, .is-style-origin-canvas-outline-light, .is-style-origin-canvas-outline-strong) > .wp-block-button__link:focus-visible {
+		transform: translateY(-1px);
+	}
+
+	.wp-block-button:not(.is-style-outline, .is-style-origin-canvas-outline-light, .is-style-origin-canvas-outline-strong) > .wp-block-button__link:active {
+		transform: none;
+	}
+}
+
+@media (prefers-reduced-motion: no-preference) and (hover: hover) {
+	.wp-block-button:not(.is-style-outline, .is-style-origin-canvas-outline-light, .is-style-origin-canvas-outline-strong) > .wp-block-button__link:hover:not(:active) {
+		transform: translateY(-1px);
+	}
+}

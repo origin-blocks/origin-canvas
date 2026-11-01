@@ -1,9 +1,10 @@
 <?php
 /**
- * Title: Feature Split
+ * Title: Features Band Split With Image
  * Slug: origin-canvas/feature-split
+ * Description: A photo beside a heading, text, a button and a small quote card, on a tinted band.
  * Categories: origin-canvas/features
- * Keywords: quote, image, testimonial, alternating
+ * Keywords: testimonial, alternating, media
  * Block Types: core/post-content
  * Viewport Width: 1500
  * Inserter: true
@@ -12,47 +13,47 @@
  */
 
 ?>
-<!-- wp:group {"tagName":"section","align":"full","backgroundColor":"surface-muted","style":{"spacing":{"margin":{"top":"0","bottom":"0"},"padding":{"top":"var:preset|spacing|colossal","bottom":"var:preset|spacing|colossal"}}},"layout":{"type":"constrained"}} -->
-<section class="wp-block-group alignfull has-surface-muted-background-color has-background" style="margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--colossal);padding-bottom:var(--wp--preset--spacing--colossal)"><!-- wp:columns {"align":"wide","verticalAlignment":"center","style":{"spacing":{"blockGap":{"top":"var:preset|spacing|huge","left":"var:preset|spacing|colossal"}}}} -->
-<div class="wp-block-columns alignwide are-vertically-aligned-center"><!-- wp:column {"verticalAlignment":"center","width":"48%"} -->
-<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:48%"><!-- wp:group {"style":{"border":{"radius":"var:custom|radius|medium"},"shadow":"var:preset|shadow|medium","spacing":{"padding":{"top":"0","right":"0","bottom":"0","left":"0"}}},"layout":{"type":"constrained"}} -->
-<div class="wp-block-group" style="border-radius:var(--wp--custom--radius--medium);padding-top:0;padding-right:0;padding-bottom:0;padding-left:0;box-shadow:var(--wp--preset--shadow--medium)"><!-- wp:image {"aspectRatio":"4/5","scale":"cover","sizeSlug":"full","linkDestination":"none","style":{"border":{"radius":"var:custom|radius|medium"}}} -->
-<figure class="wp-block-image size-full has-custom-border"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/hartwell-tea-detail.webp" alt="<?php esc_attr_e( 'A range of labelled tea caddies and paper pouches beside a dish of loose leaves.', 'origin-canvas' ); ?>" style="border-radius:var(--wp--custom--radius--medium);aspect-ratio:4/5;object-fit:cover"/></figure>
+<!-- wp:group {"tagName":"section","align":"full","backgroundColor":"base-2","style":{"spacing":{"margin":{"top":"0","bottom":"0"},"padding":{"top":"var:preset|spacing|colossal","bottom":"var:preset|spacing|colossal"}}},"layout":{"type":"constrained"}} -->
+<section class="wp-block-group alignfull has-base-2-background-color has-background" style="margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--colossal);padding-bottom:var(--wp--preset--spacing--colossal)"><!-- wp:columns {"align":"wide","verticalAlignment":"center","style":{"spacing":{"blockGap":{"top":"var:preset|spacing|huge","left":"var:preset|spacing|colossal"}}}} -->
+<div class="wp-block-columns alignwide are-vertically-aligned-center"><!-- wp:column {"verticalAlignment":"center","width":"50%"} -->
+<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:50%"><!-- wp:group {"style":{"border":{"radius":"var:custom|radius|medium"},"spacing":{"padding":{"top":"0","right":"0","bottom":"0","left":"0"}}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group" style="border-radius:var(--wp--custom--radius--medium);padding-top:0;padding-right:0;padding-bottom:0;padding-left:0"><!-- wp:image {"aspectRatio":"4/5","scale":"cover","sizeSlug":"full","linkDestination":"none","className":"is-style-rounded"} -->
+<figure class="wp-block-image size-full is-style-rounded"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/feature-split-calder.webp" alt="<?php esc_attr_e( 'The teal Calder Veterinary sign on a stone base, with the brick clinic behind in late sun.', 'origin-canvas' ); ?>" style="aspect-ratio:4/5;object-fit:cover"/></figure>
 <!-- /wp:image --></div>
 <!-- /wp:group --></div>
 <!-- /wp:column -->
 
-<!-- wp:column {"verticalAlignment":"center","width":"52%"} -->
-<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:52%"><!-- wp:paragraph {"style":{"typography":{"textTransform":"uppercase","fontWeight":"600","letterSpacing":"0.08em"},"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|medium"}}},"textColor":"primary","fontSize":"extra-small"} -->
-<p class="has-primary-color has-text-color has-extra-small-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--medium);font-weight:600;letter-spacing:0.08em;text-transform:uppercase"><?php echo esc_html__( 'In their words', 'origin-canvas' ); ?></p>
+<!-- wp:column {"verticalAlignment":"center","width":"50%"} -->
+<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:50%"><!-- wp:paragraph {"className":"origin-canvas-eyebrow","style":{"typography":{"textTransform":"uppercase","fontWeight":"600","letterSpacing":"0.06em"},"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|medium"}}},"textColor":"primary","fontSize":"extra-small"} -->
+<p class="origin-canvas-eyebrow has-primary-color has-text-color has-extra-small-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--medium);font-weight:600;letter-spacing:0.06em;text-transform:uppercase"><?php echo esc_html__( 'In their words', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
-<!-- wp:heading {"level":2,"style":{"typography":{"lineHeight":"1.15"},"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|medium"}}},"fontSize":"display"} -->
-<h2 class="wp-block-heading has-display-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--medium);line-height:1.15"><?php echo esc_html__( '&ldquo;They asked the questions our last designer didn&#8217;t.&rdquo;', 'origin-canvas' ); ?></h2>
+<!-- wp:heading {"level":2,"style":{"typography":{"lineHeight":"1.15"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"fontSize":"display"} -->
+<h2 class="wp-block-heading has-display-font-size" style="margin-top:0;margin-bottom:0;line-height:1.15"><?php echo esc_html__( '&ldquo;Our front desk updates the site themselves now.&rdquo;', 'origin-canvas' ); ?></h2>
 <!-- /wp:heading -->
 
-<!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|large"}}},"textColor":"text-body","fontSize":"regular-plus"} -->
-<p class="has-text-body-color has-text-color has-regular-plus-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--large)"><?php echo esc_html__( 'The site finally feels like ours, not a template we tried to make fit. Six weeks, three rounds, and a brand we can grow into.', 'origin-canvas' ); ?></p>
+<!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"var:preset|spacing|small-medium","bottom":"var:preset|spacing|large"}}},"textColor":"contrast-2","fontSize":"regular-plus"} -->
+<p class="has-contrast-2-color has-text-color has-regular-plus-font-size" style="margin-top:var(--wp--preset--spacing--small-medium);margin-bottom:var(--wp--preset--spacing--large)"><?php echo esc_html__( 'The booking page finally feels like ours, not a template we tried to make fit. Six weeks, three rounds, and a site we can grow into.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
 <!-- wp:buttons {"style":{"spacing":{"margin":{"bottom":"var:preset|spacing|large"}}},"layout":{"type":"flex","justifyContent":"left"}} -->
-<div class="wp-block-buttons is-content-justification-flex-start is-layout-flex" style="margin-bottom:var(--wp--preset--spacing--large)"><!-- wp:button {"className":"is-style-origin-canvas-outline-strong"} -->
-<div class="wp-block-button is-style-origin-canvas-outline-strong"><a class="wp-block-button__link wp-element-button"><?php echo esc_html__( 'Read the case study', 'origin-canvas' ); ?> &rarr;</a></div>
+<div class="wp-block-buttons" style="margin-bottom:var(--wp--preset--spacing--large)"><!-- wp:button {"className":"is-style-outline","url":"#"} -->
+<div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button" href="#"><?php echo esc_html__( 'Read the case study', 'origin-canvas' ); ?> &rarr;</a></div>
 <!-- /wp:button --></div>
 <!-- /wp:buttons -->
 
-<!-- wp:group {"backgroundColor":"surface-base","style":{"border":{"radius":"var:custom|radius|medium"},"spacing":{"padding":{"top":"var:preset|spacing|large","right":"var:preset|spacing|large","bottom":"var:preset|spacing|large","left":"var:preset|spacing|large"},"blockGap":"var:preset|spacing|medium"}},"layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"top"}} -->
-<div class="wp-block-group has-surface-base-background-color has-background" style="border-radius:var(--wp--custom--radius--medium);padding-top:var(--wp--preset--spacing--large);padding-right:var(--wp--preset--spacing--large);padding-bottom:var(--wp--preset--spacing--large);padding-left:var(--wp--preset--spacing--large)"><!-- wp:image {"aspectRatio":"1","width":"48px","height":"48px","sizeSlug":"full","linkDestination":"none","className":"is-style-origin-canvas-rounded-full"} -->
-<figure class="wp-block-image size-full is-resized is-style-origin-canvas-rounded-full"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/card-testimonial-1.webp" alt="<?php esc_attr_e( 'Hands holding a cup of tea beside simple tea packaging and loose leaves.', 'origin-canvas' ); ?>" style="aspect-ratio:1;width:48px;height:48px"/></figure>
+<!-- wp:group {"backgroundColor":"base","style":{"border":{"radius":"var:custom|radius|medium"},"spacing":{"padding":{"top":"var:preset|spacing|large","right":"var:preset|spacing|large","bottom":"var:preset|spacing|large","left":"var:preset|spacing|large"},"blockGap":"var:preset|spacing|medium"}},"layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"top"}} -->
+<div class="wp-block-group has-base-background-color has-background" style="border-radius:var(--wp--custom--radius--medium);padding-top:var(--wp--preset--spacing--large);padding-right:var(--wp--preset--spacing--large);padding-bottom:var(--wp--preset--spacing--large);padding-left:var(--wp--preset--spacing--large)"><!-- wp:image {"aspectRatio":"1","width":"48px","height":"48px","sizeSlug":"full","linkDestination":"none","className":"is-style-origin-canvas-rounded-full"} -->
+<figure class="wp-block-image size-full is-resized is-style-origin-canvas-rounded-full"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/avatar-ruth-mason.webp" alt="<?php esc_attr_e( 'Portrait of Ruth Mason, Practice Manager at Calder Veterinary Clinic.', 'origin-canvas' ); ?>" style="aspect-ratio:1;width:48px;height:48px"/></figure>
 <!-- /wp:image -->
 
 <!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|small"}},"layout":{"type":"constrained"}} -->
-<div class="wp-block-group"><!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-heading","fontSize":"regular"} -->
-<p class="has-text-heading-color has-text-color has-regular-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( '&ldquo;They were easy to brief and easier to live with. They sent invoices in plain English.&rdquo;', 'origin-canvas' ); ?></p>
+<div class="wp-block-group"><!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"contrast","fontSize":"regular"} -->
+<p class="has-contrast-color has-text-color has-regular-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( '&ldquo;They were easy to brief and easier to live with. They sent invoices in plain English.&rdquo;', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
-<!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"text-muted","fontSize":"small"} -->
-<p class="has-text-muted-color has-text-color has-small-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( '&mdash; Sarah Jenkins, Hartwell Tea Co.', 'origin-canvas' ); ?></p>
+<!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"contrast-3","fontSize":"small"} -->
+<p class="has-contrast-3-color has-text-color has-small-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Ruth Mason, Calder Veterinary Clinic', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group --></div>
 <!-- /wp:group --></div>

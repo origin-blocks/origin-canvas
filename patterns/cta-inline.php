@@ -1,7 +1,8 @@
 <?php
 /**
- * Title: CTA Inline
+ * Title: CTA Split
  * Slug: origin-canvas/cta-inline
+ * Description: A heading and text beside one button, with no fill.
  * Categories: call-to-action
  * Keywords: conversion, horizontal, prompt, compact
  * Block Types: core/post-content
@@ -13,19 +14,19 @@
 ?>
 <!-- wp:group {"tagName":"section","align":"full","style":{"spacing":{"padding":{"top":"var:preset|spacing|colossal","bottom":"var:preset|spacing|colossal"}}},"layout":{"type":"constrained"}} -->
 <section class="wp-block-group alignfull" style="padding-top:var(--wp--preset--spacing--colossal);padding-bottom:var(--wp--preset--spacing--colossal)"><!-- wp:columns {"align":"wide","verticalAlignment":"center"} -->
-<div class="wp-block-columns alignwide are-vertically-aligned-center"><!-- wp:column {"verticalAlignment":"center","width":"66.66%"} -->
-<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:66.66%"><!-- wp:heading {"level":2,"style":{"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|small"}}},"fontSize":"display"} -->
-<h2 class="wp-block-heading has-display-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--small)"><?php echo esc_html__( 'Want our quarterly notes?', 'origin-canvas' ); ?></h2>
+<div class="wp-block-columns alignwide are-vertically-aligned-center"><!-- wp:column {"verticalAlignment":"center","width":"50%"} -->
+<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:50%"><!-- wp:heading {"level":2,"style":{"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|small"}}},"fontSize":"huge"} -->
+<h2 class="wp-block-heading has-huge-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--small)"><?php echo esc_html__( 'Quarterly notes from the studio', 'origin-canvas' ); ?></h2>
 <!-- /wp:heading -->
 
-<!-- wp:paragraph {"textColor":"text-body","fontSize":"regular-plus"} -->
-<p class="has-text-body-color has-text-color has-regular-plus-font-size"><?php echo esc_html__( 'Four short letters a year about what we&#8217;re learning, what we made, and what we&#8217;d do differently.', 'origin-canvas' ); ?></p>
+<!-- wp:paragraph {"textColor":"contrast-2","fontSize":"regular-plus"} -->
+<p class="has-contrast-2-color has-text-color has-regular-plus-font-size"><?php echo esc_html__( 'Four short letters a year about what we&#8217;re learning, what we made, and what we&#8217;d do differently.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column -->
 
-<!-- wp:column {"verticalAlignment":"center","width":"33.33%"} -->
-<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:33.33%"><!-- wp:buttons {"layout":{"type":"flex","justifyContent":"right"}} -->
-<div class="wp-block-buttons"><!-- wp:button -->
+<!-- wp:column {"verticalAlignment":"center","width":"50%"} -->
+<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:50%"><!-- wp:buttons {"className":"origin-canvas-cta-inline-action","layout":{"type":"flex","justifyContent":"right"}} -->
+<div class="wp-block-buttons origin-canvas-cta-inline-action"><!-- wp:button -->
 <div class="wp-block-button"><a class="wp-block-button__link wp-element-button"><?php echo esc_html__( 'Subscribe', 'origin-canvas' ); ?></a></div>
 <!-- /wp:button --></div>
 <!-- /wp:buttons --></div>

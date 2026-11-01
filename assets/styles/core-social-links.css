@@ -1,0 +1,7 @@
+/* Social Links in a footer keep their size on hover. Core scales each icon to 1.1 on
+   hover, the largest movement on a Canvas page, and no block support can turn it off.
+   Every Canvas footer is a `footer` element, so the rule leaves Social Links placed
+   elsewhere to core. A rule that removes motion needs no reduced-motion query. */
+footer .wp-block-social-link:hover {
+	transform: none;
+}

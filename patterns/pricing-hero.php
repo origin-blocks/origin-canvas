@@ -1,0 +1,201 @@
+<?php
+/**
+ * Title: Pricing Hero
+ * Slug: origin-canvas/pricing-hero
+ * Description: A large centered heading over three price cards, a currency and tax note, and a line of client logos in gray.
+ * Categories: origin-canvas/hero
+ * Keywords: plans, rates, packages, cost, masthead, brands
+ * Viewport Width: 1500
+ * Block Types:
+ * Post Types:
+ * Inserter: true
+ *
+ * @package Origin
+ */
+
+?>
+<!-- wp:group {"tagName":"section","align":"full","style":{"spacing":{"margin":{"top":"0","bottom":"0"},"padding":{"top":"var:preset|spacing|colossal","bottom":"var:preset|spacing|colossal"}}},"layout":{"type":"constrained"}} -->
+<section class="wp-block-group alignfull" style="margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--colossal);padding-bottom:var(--wp--preset--spacing--colossal)"><!-- wp:group {"align":"wide","style":{"spacing":{"blockGap":"var:preset|spacing|medium"}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group alignwide"><!-- wp:paragraph {"className":"origin-canvas-eyebrow","style":{"typography":{"textTransform":"uppercase","fontWeight":"600","letterSpacing":"0.06em","textAlign":"center"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"primary","fontSize":"small"} -->
+<p class="origin-canvas-eyebrow has-text-align-center has-primary-color has-text-color has-small-font-size" style="margin-top:0;margin-bottom:0;font-weight:600;letter-spacing:0.06em;text-transform:uppercase"><?php echo esc_html__( 'Pricing', 'origin-canvas' ); ?></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":1,"align":"wide","className":"origin-canvas-text-balance","style":{"spacing":{"margin":{"top":"0","bottom":"0"}},"typography":{"textAlign":"center"}},"fontSize":"display-xl"} -->
+<h1 class="wp-block-heading has-text-align-center alignwide origin-canvas-text-balance has-display-xl-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Fixed prices, agreed up front', 'origin-canvas' ); ?></h1>
+<!-- /wp:heading -->
+
+<!-- wp:group {"layout":{"type":"constrained"}} -->
+<div class="wp-block-group"><!-- wp:paragraph {"style":{"typography":{"textAlign":"center"}},"textColor":"contrast-2","fontSize":"regular-plus"} -->
+<p class="has-text-align-center has-contrast-2-color has-text-color has-regular-plus-font-size"><?php echo esc_html__( 'Every engagement is scoped in writing before we begin, so the invoice never surprises you.', 'origin-canvas' ); ?></p>
+<!-- /wp:paragraph --></div>
+<!-- /wp:group --></div>
+<!-- /wp:group -->
+
+<!-- wp:columns {"align":"wide","verticalAlignment":"stretch","style":{"spacing":{"margin":{"top":"var:preset|spacing|huge"},"blockGap":{"top":"var:preset|spacing|large","left":"var:preset|spacing|large"}}}} -->
+<div class="wp-block-columns alignwide are-vertically-aligned-stretch" style="margin-top:var(--wp--preset--spacing--huge)"><!-- wp:column {"verticalAlignment":"stretch","backgroundColor":"base","borderColor":"base-6","style":{"border":{"radius":"var:custom|radius|medium","style":"solid","width":"1px"},"spacing":{"padding":{"top":"var:preset|spacing|extra-large","right":"var:preset|spacing|extra-large","bottom":"var:preset|spacing|extra-large","left":"var:preset|spacing|extra-large"}}}} -->
+<div class="wp-block-column is-vertically-aligned-stretch has-border-color has-base-6-border-color has-base-background-color has-background" style="border-style:solid;border-width:1px;border-radius:var(--wp--custom--radius--medium);padding-top:var(--wp--preset--spacing--extra-large);padding-right:var(--wp--preset--spacing--extra-large);padding-bottom:var(--wp--preset--spacing--extra-large);padding-left:var(--wp--preset--spacing--extra-large)"><!-- wp:group {"style":{"spacing":{"blockGap":"0"}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group"><!-- wp:heading {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"contrast","fontSize":"large"} -->
+<h2 class="wp-block-heading has-contrast-color has-text-color has-large-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Starter', 'origin-canvas' ); ?></h2>
+<!-- /wp:heading -->
+
+<!-- wp:group {"style":{"dimensions":{"minHeight":"4.8rem"},"spacing":{"margin":{"top":"var:preset|spacing|small-medium","bottom":"0"}},"@tablet":{"dimensions":{"minHeight":"0"}},"@mobile":{"dimensions":{"minHeight":"0"}}},"layout":{"type":"default"}} -->
+<div class="wp-block-group" style="min-height:4.8rem;margin-top:var(--wp--preset--spacing--small-medium);margin-bottom:0"><!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"contrast-2","fontSize":"regular"} -->
+<p class="has-contrast-2-color has-text-color has-regular-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'A focused site for a small business that knows what it wants to say.', 'origin-canvas' ); ?></p>
+<!-- /wp:paragraph --></div>
+<!-- /wp:group -->
+
+<!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"var:preset|spacing|large","bottom":"0"}},"typography":{"fontWeight":"700","lineHeight":"1"}},"textColor":"contrast","fontSize":"huge"} -->
+<p class="has-contrast-color has-text-color has-huge-font-size" style="margin-top:var(--wp--preset--spacing--large);margin-bottom:0;font-weight:700;line-height:1"><?php echo wp_kses_post( __( '$2,500 <span style="font-size:var(--wp--preset--font-size--regular);font-weight:400;letter-spacing:normal;color:var(--wp--preset--color--contrast-3);">one-time</span>', 'origin-canvas' ) ); ?></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:buttons {"style":{"spacing":{"margin":{"top":"var:preset|spacing|large","bottom":"0"}}}} -->
+<div class="wp-block-buttons" style="margin-top:var(--wp--preset--spacing--large);margin-bottom:0"><!-- wp:button {"width":100,"className":"is-style-outline"} -->
+<div class="wp-block-button has-custom-width wp-block-button__width-100 is-style-outline"><a class="wp-block-button__link wp-element-button"><?php echo esc_html__( 'Get started', 'origin-canvas' ); ?></a></div>
+<!-- /wp:button --></div>
+<!-- /wp:buttons -->
+
+<!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"var:preset|spacing|large","bottom":"0"}},"typography":{"fontWeight":"600"}},"textColor":"contrast","fontSize":"small"} -->
+<p class="has-contrast-color has-text-color has-small-font-size" style="margin-top:var(--wp--preset--spacing--large);margin-bottom:0;font-weight:600"><?php echo esc_html__( 'Includes', 'origin-canvas' ); ?></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list {"className":"is-style-origin-canvas-list-check-neutral","style":{"spacing":{"margin":{"top":"var:preset|spacing|small-medium","bottom":"0"}}},"textColor":"contrast-2","fontSize":"regular"} -->
+<ul class="wp-block-list is-style-origin-canvas-list-check-neutral has-contrast-2-color has-text-color has-regular-font-size" style="margin-top:var(--wp--preset--spacing--small-medium);margin-bottom:0"><!-- wp:list-item --><li><?php echo esc_html__( 'Up to five pages', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
+<!-- wp:list-item --><li><?php echo esc_html__( 'Logo refresh', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
+<!-- wp:list-item --><li><?php echo esc_html__( 'Two rounds of revisions', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
+<!-- wp:list-item --><li><?php echo esc_html__( 'Three-week delivery', 'origin-canvas' ); ?></li><!-- /wp:list-item --></ul>
+<!-- /wp:list --></div>
+<!-- /wp:group --></div>
+<!-- /wp:column -->
+
+<!-- wp:column {"verticalAlignment":"stretch","backgroundColor":"base","borderColor":"contrast-4","style":{"border":{"radius":"var:custom|radius|medium","style":"solid","width":"2px"},"spacing":{"padding":{"top":"var:preset|spacing|extra-large","right":"var:preset|spacing|extra-large","bottom":"var:preset|spacing|extra-large","left":"var:preset|spacing|extra-large"}}}} -->
+<div class="wp-block-column is-vertically-aligned-stretch has-border-color has-contrast-4-border-color has-base-background-color has-background" style="border-style:solid;border-width:2px;border-radius:var(--wp--custom--radius--medium);padding-top:var(--wp--preset--spacing--extra-large);padding-right:var(--wp--preset--spacing--extra-large);padding-bottom:var(--wp--preset--spacing--extra-large);padding-left:var(--wp--preset--spacing--extra-large)"><!-- wp:group {"style":{"spacing":{"blockGap":"0"}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group"><!-- wp:group {"className":"origin-canvas-align-baseline","style":{"spacing":{"blockGap":"var:preset|spacing|small-medium"}},"layout":{"type":"flex","flexWrap":"wrap","justifyContent":"space-between"}} -->
+<div class="wp-block-group origin-canvas-align-baseline"><!-- wp:heading {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"contrast","fontSize":"large"} -->
+<h2 class="wp-block-heading has-contrast-color has-text-color has-large-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Studio', 'origin-canvas' ); ?></h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph {"style":{"typography":{"textTransform":"uppercase","fontWeight":"600","letterSpacing":"0.06em"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"primary","fontSize":"extra-small"} -->
+<p class="has-primary-color has-text-color has-extra-small-font-size" style="margin-top:0;margin-bottom:0;font-weight:600;letter-spacing:0.06em;text-transform:uppercase"><?php echo esc_html__( 'Most chosen', 'origin-canvas' ); ?></p>
+<!-- /wp:paragraph --></div>
+<!-- /wp:group -->
+
+<!-- wp:group {"style":{"dimensions":{"minHeight":"4.8rem"},"spacing":{"margin":{"top":"var:preset|spacing|small-medium","bottom":"0"}},"@tablet":{"dimensions":{"minHeight":"0"}},"@mobile":{"dimensions":{"minHeight":"0"}}},"layout":{"type":"default"}} -->
+<div class="wp-block-group" style="min-height:4.8rem;margin-top:var(--wp--preset--spacing--small-medium);margin-bottom:0"><!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"contrast-2","fontSize":"regular"} -->
+<p class="has-contrast-2-color has-text-color has-regular-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Our standard engagement: brand work, site, and a hand-written launch checklist.', 'origin-canvas' ); ?></p>
+<!-- /wp:paragraph --></div>
+<!-- /wp:group -->
+
+<!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"var:preset|spacing|large","bottom":"0"}},"typography":{"fontWeight":"700","lineHeight":"1"}},"textColor":"contrast","fontSize":"huge"} -->
+<p class="has-contrast-color has-text-color has-huge-font-size" style="margin-top:var(--wp--preset--spacing--large);margin-bottom:0;font-weight:700;line-height:1"><?php echo wp_kses_post( __( '$8,000 <span style="font-size:var(--wp--preset--font-size--regular);font-weight:400;letter-spacing:normal;color:var(--wp--preset--color--contrast-3);">one-time</span>', 'origin-canvas' ) ); ?></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:buttons {"style":{"spacing":{"margin":{"top":"var:preset|spacing|large","bottom":"0"}}}} -->
+<div class="wp-block-buttons" style="margin-top:var(--wp--preset--spacing--large);margin-bottom:0"><!-- wp:button {"width":100,"className":"is-style-origin-canvas-fill-primary"} -->
+<div class="wp-block-button has-custom-width wp-block-button__width-100 is-style-origin-canvas-fill-primary"><a class="wp-block-button__link wp-element-button"><?php echo esc_html__( 'Talk to us', 'origin-canvas' ); ?></a></div>
+<!-- /wp:button --></div>
+<!-- /wp:buttons -->
+
+<!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"var:preset|spacing|large","bottom":"0"}},"typography":{"fontWeight":"600"}},"textColor":"contrast","fontSize":"small"} -->
+<p class="has-contrast-color has-text-color has-small-font-size" style="margin-top:var(--wp--preset--spacing--large);margin-bottom:0;font-weight:600"><?php echo esc_html__( 'Everything in Starter, plus', 'origin-canvas' ); ?></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list {"className":"is-style-origin-canvas-list-check-neutral","style":{"spacing":{"margin":{"top":"var:preset|spacing|small-medium","bottom":"0"}}},"textColor":"contrast-2","fontSize":"regular"} -->
+<ul class="wp-block-list is-style-origin-canvas-list-check-neutral has-contrast-2-color has-text-color has-regular-font-size" style="margin-top:var(--wp--preset--spacing--small-medium);margin-bottom:0"><!-- wp:list-item --><li><?php echo esc_html__( 'Up to eight pages', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
+<!-- wp:list-item --><li><?php echo esc_html__( 'Full identity (mark, color, type)', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
+<!-- wp:list-item --><li><?php echo esc_html__( 'Photography direction', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
+<!-- wp:list-item --><li><?php echo esc_html__( 'Eight-week delivery', 'origin-canvas' ); ?></li><!-- /wp:list-item --></ul>
+<!-- /wp:list --></div>
+<!-- /wp:group --></div>
+<!-- /wp:column -->
+
+<!-- wp:column {"verticalAlignment":"stretch","backgroundColor":"base","borderColor":"base-6","style":{"border":{"radius":"var:custom|radius|medium","style":"solid","width":"1px"},"spacing":{"padding":{"top":"var:preset|spacing|extra-large","right":"var:preset|spacing|extra-large","bottom":"var:preset|spacing|extra-large","left":"var:preset|spacing|extra-large"}}}} -->
+<div class="wp-block-column is-vertically-aligned-stretch has-border-color has-base-6-border-color has-base-background-color has-background" style="border-style:solid;border-width:1px;border-radius:var(--wp--custom--radius--medium);padding-top:var(--wp--preset--spacing--extra-large);padding-right:var(--wp--preset--spacing--extra-large);padding-bottom:var(--wp--preset--spacing--extra-large);padding-left:var(--wp--preset--spacing--extra-large)"><!-- wp:group {"style":{"spacing":{"blockGap":"0"}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group"><!-- wp:heading {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"contrast","fontSize":"large"} -->
+<h2 class="wp-block-heading has-contrast-color has-text-color has-large-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Retained', 'origin-canvas' ); ?></h2>
+<!-- /wp:heading -->
+
+<!-- wp:group {"style":{"dimensions":{"minHeight":"4.8rem"},"spacing":{"margin":{"top":"var:preset|spacing|small-medium","bottom":"0"}},"@tablet":{"dimensions":{"minHeight":"0"}},"@mobile":{"dimensions":{"minHeight":"0"}}},"layout":{"type":"default"}} -->
+<div class="wp-block-group" style="min-height:4.8rem;margin-top:var(--wp--preset--spacing--small-medium);margin-bottom:0"><!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"contrast-2","fontSize":"regular"} -->
+<p class="has-contrast-2-color has-text-color has-regular-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'For clients who treat their site like a living thing, not a one-time project.', 'origin-canvas' ); ?></p>
+<!-- /wp:paragraph --></div>
+<!-- /wp:group -->
+
+<!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"var:preset|spacing|large","bottom":"0"}},"typography":{"fontWeight":"700","lineHeight":"1"}},"textColor":"contrast","fontSize":"huge"} -->
+<p class="has-contrast-color has-text-color has-huge-font-size" style="margin-top:var(--wp--preset--spacing--large);margin-bottom:0;font-weight:700;line-height:1"><?php echo wp_kses_post( __( '$1,800 <span style="font-size:var(--wp--preset--font-size--regular);font-weight:400;letter-spacing:normal;color:var(--wp--preset--color--contrast-3);">per month</span>', 'origin-canvas' ) ); ?></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:buttons {"style":{"spacing":{"margin":{"top":"var:preset|spacing|large","bottom":"0"}}}} -->
+<div class="wp-block-buttons" style="margin-top:var(--wp--preset--spacing--large);margin-bottom:0"><!-- wp:button {"width":100,"className":"is-style-outline"} -->
+<div class="wp-block-button has-custom-width wp-block-button__width-100 is-style-outline"><a class="wp-block-button__link wp-element-button"><?php echo esc_html__( 'Inquire', 'origin-canvas' ); ?></a></div>
+<!-- /wp:button --></div>
+<!-- /wp:buttons -->
+
+<!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"var:preset|spacing|large","bottom":"0"}},"typography":{"fontWeight":"600"}},"textColor":"contrast","fontSize":"small"} -->
+<p class="has-contrast-color has-text-color has-small-font-size" style="margin-top:var(--wp--preset--spacing--large);margin-bottom:0;font-weight:600"><?php echo esc_html__( 'Each month', 'origin-canvas' ); ?></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list {"className":"is-style-origin-canvas-list-check-neutral","style":{"spacing":{"margin":{"top":"var:preset|spacing|small-medium","bottom":"0"}}},"textColor":"contrast-2","fontSize":"regular"} -->
+<ul class="wp-block-list is-style-origin-canvas-list-check-neutral has-contrast-2-color has-text-color has-regular-font-size" style="margin-top:var(--wp--preset--spacing--small-medium);margin-bottom:0"><!-- wp:list-item --><li><?php echo esc_html__( 'Up to two days of work', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
+<!-- wp:list-item --><li><?php echo esc_html__( 'A quarterly review call', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
+<!-- wp:list-item --><li><?php echo esc_html__( 'A reply within a business day', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
+<!-- wp:list-item --><li><?php echo esc_html__( 'Six-month minimum', 'origin-canvas' ); ?></li><!-- /wp:list-item --></ul>
+<!-- /wp:list --></div>
+<!-- /wp:group --></div>
+<!-- /wp:column --></div>
+<!-- /wp:columns -->
+
+<!-- wp:group {"align":"wide","style":{"spacing":{"margin":{"top":"var:preset|spacing|large"},"blockGap":{"top":"var:preset|spacing|small","left":"var:preset|spacing|large"}}},"layout":{"type":"flex","flexWrap":"wrap","justifyContent":"center"}} -->
+<div class="wp-block-group alignwide" style="margin-top:var(--wp--preset--spacing--large)"><!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"contrast-3","fontSize":"regular"} -->
+<p class="has-contrast-3-color has-text-color has-regular-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'All prices in USD, before tax.', 'origin-canvas' ); ?></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph {"style":{"typography":{"fontWeight":"600"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"contrast","fontSize":"regular"} -->
+<p class="has-contrast-color has-text-color has-regular-font-size" style="margin-top:0;margin-bottom:0;font-weight:600"><a href="mailto:hello@example.com" style="text-decoration:none"><?php echo esc_html__( 'Need something else? Let&#8217;s talk', 'origin-canvas' ); ?> <span aria-hidden="true">&rarr;</span></a></p>
+<!-- /wp:paragraph --></div>
+<!-- /wp:group -->
+
+<!-- wp:group {"align":"wide","style":{"spacing":{"margin":{"top":"var:preset|spacing|jumbo"}}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group alignwide" style="margin-top:var(--wp--preset--spacing--jumbo)"><!-- wp:paragraph {"style":{"typography":{"textTransform":"uppercase","letterSpacing":"0.06em","fontWeight":"600","textAlign":"center"},"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|extra-large"}}},"textColor":"contrast-2","fontSize":"extra-small"} -->
+<p class="has-text-align-center has-contrast-2-color has-text-color has-extra-small-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--extra-large);font-weight:600;letter-spacing:0.06em;text-transform:uppercase"><?php echo esc_html__( 'Trusted by', 'origin-canvas' ); ?></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:group {"align":"wide","style":{"spacing":{"blockGap":"var:preset|spacing|large"}},"layout":{"type":"grid","columnCount":6,"minimumColumnWidth":"8rem"}} -->
+<div class="wp-block-group alignwide"><!-- wp:group {"layout":{"type":"flex","justifyContent":"center","verticalAlignment":"center"}} -->
+<div class="wp-block-group"><!-- wp:image {"width":"137px","height":"auto","sizeSlug":"full","linkDestination":"none","style":{"color":{"duotone":"var:preset|duotone|logo-gray"}}} -->
+<figure class="wp-block-image size-full is-resized"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/logo-westmount.png" alt="<?php esc_attr_e( 'Westmount Realty', 'origin-canvas' ); ?>" style="width:137px;height:auto"/></figure>
+<!-- /wp:image --></div>
+<!-- /wp:group -->
+
+<!-- wp:group {"layout":{"type":"flex","justifyContent":"center","verticalAlignment":"center"}} -->
+<div class="wp-block-group"><!-- wp:image {"width":"149px","height":"auto","sizeSlug":"full","linkDestination":"none","style":{"color":{"duotone":"var:preset|duotone|logo-gray"}}} -->
+<figure class="wp-block-image size-full is-resized"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/logo-ashby-rowe.png" alt="<?php esc_attr_e( 'Ashby &amp; Rowe Law', 'origin-canvas' ); ?>" style="width:149px;height:auto"/></figure>
+<!-- /wp:image --></div>
+<!-- /wp:group -->
+
+<!-- wp:group {"layout":{"type":"flex","justifyContent":"center","verticalAlignment":"center"}} -->
+<div class="wp-block-group"><!-- wp:image {"width":"119px","height":"auto","sizeSlug":"full","linkDestination":"none","style":{"color":{"duotone":"var:preset|duotone|logo-gray"}}} -->
+<figure class="wp-block-image size-full is-resized"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/logo-kestrel.png" alt="<?php esc_attr_e( 'Kestrel Physical Therapy', 'origin-canvas' ); ?>" style="width:119px;height:auto"/></figure>
+<!-- /wp:image --></div>
+<!-- /wp:group -->
+
+<!-- wp:group {"layout":{"type":"flex","justifyContent":"center","verticalAlignment":"center"}} -->
+<div class="wp-block-group"><!-- wp:image {"width":"122px","height":"auto","sizeSlug":"full","linkDestination":"none","style":{"color":{"duotone":"var:preset|duotone|logo-gray"}}} -->
+<figure class="wp-block-image size-full is-resized"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/logo-northgate.png" alt="<?php esc_attr_e( 'Northgate Cycle Works', 'origin-canvas' ); ?>" style="width:122px;height:auto"/></figure>
+<!-- /wp:image --></div>
+<!-- /wp:group -->
+
+<!-- wp:group {"metadata":{"blockVisibility":{"viewport":{"mobile":false}}},"layout":{"type":"flex","justifyContent":"center","verticalAlignment":"center"}} -->
+<div class="wp-block-group"><!-- wp:image {"width":"162px","height":"auto","sizeSlug":"full","linkDestination":"none","style":{"color":{"duotone":"var:preset|duotone|logo-gray"}}} -->
+<figure class="wp-block-image size-full is-resized"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/logo-clearwater.png" alt="<?php esc_attr_e( 'Clearwater Accounting', 'origin-canvas' ); ?>" style="width:162px;height:auto"/></figure>
+<!-- /wp:image --></div>
+<!-- /wp:group -->
+
+<!-- wp:group {"metadata":{"blockVisibility":{"viewport":{"mobile":false}}},"layout":{"type":"flex","justifyContent":"center","verticalAlignment":"center"}} -->
+<div class="wp-block-group"><!-- wp:image {"width":"91px","height":"auto","sizeSlug":"full","linkDestination":"none","style":{"color":{"duotone":"var:preset|duotone|logo-gray"}}} -->
+<figure class="wp-block-image size-full is-resized"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/logo-fairview.png" alt="<?php esc_attr_e( 'Fairview Architects', 'origin-canvas' ); ?>" style="width:91px;height:auto"/></figure>
+<!-- /wp:image --></div>
+<!-- /wp:group --></div>
+<!-- /wp:group --></div>
+<!-- /wp:group -->
+</section>
+<!-- /wp:group -->

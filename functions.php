@@ -11,6 +11,11 @@ if ( ! defined( 'ORIGIN_CANVAS_VERSION' ) ) {
 	define( 'ORIGIN_CANVAS_VERSION', $origin_canvas_theme->get( 'Version' ) );
 }
 
+// The palette rename (#116): the map, the pre-rename mark and the aliases; the content migration lives in a separate plugin.
+require_once get_template_directory() . '/inc/palette-map.php';
+require_once get_template_directory() . '/inc/palette-state.php';
+require_once get_template_directory() . '/inc/palette-aliases.php';
+
 if ( ! function_exists( 'origin_canvas_setup' ) ) {
 	/**
 	 * Register core theme supports.
@@ -29,10 +34,43 @@ if ( ! function_exists( 'origin_canvas_enqueue_styles' ) ) {
 	 * Enqueue the base stylesheet so classic scripts inherit typography defaults.
 	 */
 	function origin_canvas_enqueue_styles() {
-		wp_enqueue_style( 'origin-canvas-style', get_stylesheet_uri(), array(), ORIGIN_CANVAS_VERSION );
+		// Version by mtime, as the block-style loader does, so a changed style.css
+		// gets a fresh URL instead of a stale cached copy.
+		$file  = get_stylesheet_directory() . '/style.css';
+		$mtime = file_exists( $file ) ? filemtime( $file ) : false;
+
+		wp_enqueue_style( 'origin-canvas-style', get_stylesheet_uri(), array(), $mtime ? $mtime : ORIGIN_CANVAS_VERSION );
 	}
 }
 add_action( 'wp_enqueue_scripts', 'origin_canvas_enqueue_styles' );
+
+if ( ! function_exists( 'origin_canvas_enqueue_scripts' ) ) {
+	/**
+	 * Enqueue the anchor-navigation script: smooth same-page scrolling below the
+	 * sticky chrome and the current-section navigation marker. Front end only.
+	 *
+	 * The `origin_canvas_enqueue_anchor_navigation` filter switches the script off.
+	 * The `scroll-padding-top` rules in style.css stay in place either way, like the
+	 * sticky-header rule they accompany.
+	 */
+	function origin_canvas_enqueue_scripts() {
+		if ( ! apply_filters( 'origin_canvas_enqueue_anchor_navigation', true ) ) {
+			return;
+		}
+
+		$path  = get_theme_file_path( 'assets/js/anchor-navigation.js' );
+		$mtime = file_exists( $path ) ? filemtime( $path ) : false;
+
+		wp_enqueue_script(
+			'origin-canvas-anchor-navigation',
+			get_theme_file_uri( 'assets/js/anchor-navigation.js' ),
+			array(),
+			$mtime ? $mtime : ORIGIN_CANVAS_VERSION,
+			array( 'strategy' => 'defer' )
+		);
+	}
+}
+add_action( 'wp_enqueue_scripts', 'origin_canvas_enqueue_scripts' );
 
 if ( ! function_exists( 'origin_canvas_register_custom_patterns' ) ) {
 	/**
@@ -62,7 +100,7 @@ if ( ! function_exists( 'origin_canvas_register_custom_patterns' ) ) {
 				'file' => 'patterns/process-numbered.php',
 			),
 			'origin-canvas/cta-band' => array(
-				'title' => __( 'CTA Band', 'origin-canvas' ),
+				'title' => __( 'CTA Card Split', 'origin-canvas' ),
 				'inserter' => true,
 				'categories' => array( 'call-to-action' ),
 				'file' => 'patterns/cta-band.php',
@@ -117,6 +155,8 @@ if ( ! function_exists( 'origin_canvas_register_pattern_categories' ) ) {
 			'origin-canvas/pricing'  => array( 'label' => __( 'Pricing', 'origin-canvas' ) ),
 			'origin-canvas/card'     => array( 'label' => __( 'Cards', 'origin-canvas' ) ),
 			'origin-canvas/faq'      => array( 'label' => __( 'FAQ', 'origin-canvas' ) ),
+			'origin-canvas/logos'    => array( 'label' => __( 'Logos', 'origin-canvas' ) ),
+			'origin-canvas/author'   => array( 'label' => __( 'Author', 'origin-canvas' ) ),
 		);
 
 		foreach ( $categories as $slug => $props ) {
@@ -219,16 +259,17 @@ if ( ! function_exists( 'origin_canvas_register_block_styles' ) ) {
 				array( 'name' => 'origin-canvas-accordion-minimal', 'label' => __( 'Minimal', 'origin-canvas' ) ),
 			),
 			'core/button'        => array(
-				array( 'name' => 'origin-canvas-outline-strong', 'label' => __( 'Outline Strong', 'origin-canvas' ) ),
 				array( 'name' => 'origin-canvas-outline-light', 'label' => __( 'Outline Light', 'origin-canvas' ) ),
 				array( 'name' => 'origin-canvas-fill-primary', 'label' => __( 'Fill Primary', 'origin-canvas' ) ),
 			),
 			'core/list'          => array(
-				array( 'name' => 'origin-canvas-list-check', 'label' => __( 'Check', 'origin-canvas' ) ),
-				array( 'name' => 'origin-canvas-list-check-circle', 'label' => __( 'Check Circle', 'origin-canvas' ) ),
+				array( 'name' => 'origin-canvas-list-check', 'label' => __( 'Check Primary', 'origin-canvas' ) ),
+				array( 'name' => 'origin-canvas-list-check-circle', 'label' => __( 'Check Circle Primary', 'origin-canvas' ) ),
+				array( 'name' => 'origin-canvas-list-check-neutral', 'label' => __( 'Check Neutral', 'origin-canvas' ) ),
+				array( 'name' => 'origin-canvas-list-check-circle-neutral', 'label' => __( 'Check Circle Neutral', 'origin-canvas' ) ),
 			),
 			'core/navigation'    => array(
-				array( 'name' => 'origin-canvas-hover-accent', 'label' => __( 'Hover Accent', 'origin-canvas' ) ),
+				array( 'name' => 'origin-canvas-hover-accent', 'label' => __( 'Hover Primary', 'origin-canvas' ) ),
 				array( 'name' => 'origin-canvas-hover-pill', 'label' => __( 'Hover Pill', 'origin-canvas' ) ),
 			),
 			'core/separator'     => array(
@@ -247,8 +288,8 @@ if ( ! function_exists( 'origin_canvas_register_block_styles' ) ) {
 						'elements' => array(
 							'link' => array(
 								'color'      => array(
-									'text'       => 'var:preset|color|text-heading',
-									'background' => 'var:preset|color|surface-muted',
+									'text'       => 'var:preset|color|contrast',
+									'background' => 'var:preset|color|base-2',
 								),
 								'border'     => array(
 									'radius' => 'var:custom|radius|medium',
@@ -266,7 +307,7 @@ if ( ! function_exists( 'origin_canvas_register_block_styles' ) ) {
 								),
 								':hover'     => array(
 									'color' => array(
-										'background' => 'var:preset|color|border',
+										'background' => 'var:preset|color|base-5',
 									),
 								),
 							),
@@ -278,12 +319,12 @@ if ( ! function_exists( 'origin_canvas_register_block_styles' ) ) {
 					'label'      => __( 'Inline', 'origin-canvas' ),
 					'style_data' => array(
 						'color'    => array(
-							'text' => 'var:preset|color|text-body',
+							'text' => 'var:preset|color|contrast-2',
 						),
 						'elements' => array(
 							'link' => array(
 								'color'      => array(
-									'text' => 'var:preset|color|text-heading',
+									'text' => 'var:preset|color|contrast',
 								),
 								'typography' => array(
 									'textDecoration' => 'none',
@@ -402,41 +443,6 @@ if ( ! function_exists( 'origin_canvas_add_block_editor_styles' ) ) {
 }
 add_action( 'after_setup_theme', 'origin_canvas_add_block_editor_styles' );
 
-if ( ! function_exists( 'origin_canvas_rewrite_legacy_card_image_paths' ) ) {
-	/**
-	 * TRANSITIONAL back-compat shim — REMOVE IN 1.3.0.
-	 *
-	 * Card pattern images moved from /assets/images/cards/ to /patterns/images/
-	 * (commit 1de024e). core/image and core/cover are static blocks, so sites that
-	 * inserted these patterns under the previously-published 1.0.4 have the OLD
-	 * absolute URL frozen in their post content and would show broken images after
-	 * the move ships.
-	 *
-	 * Rewrites the legacy path to the new one at RENDER time only. It does NOT touch
-	 * the database / user content (non-destructive, reversible) and does NOT
-	 * resurrect the old directory. Scoped to the only two block types that carry
-	 * these URLs (image + cover) — not a generic render_block filter — to stay well
-	 * inside theme territory. Sunset: delete this function + the two add_filter calls
-	 * below in 1.3.0, by which point affected content will have re-saved or moved on.
-	 *
-	 * @param string $block_content Rendered block HTML.
-	 * @return string Block HTML with the legacy card-image path rewritten.
-	 */
-	function origin_canvas_rewrite_legacy_card_image_paths( $block_content ) {
-		if ( false === strpos( $block_content, '/assets/images/cards/' ) ) {
-			return $block_content;
-		}
-
-		return str_replace(
-			'/assets/images/cards/',
-			'/patterns/images/',
-			$block_content
-		);
-	}
-}
-add_filter( 'render_block_core/image', 'origin_canvas_rewrite_legacy_card_image_paths' );
-add_filter( 'render_block_core/cover', 'origin_canvas_rewrite_legacy_card_image_paths' );
-
 if ( ! function_exists( 'origin_canvas_swap_nav_chevron' ) ) {
 	/**
 	 * Replace core's submenu caret SVG with the Lucide `chevron-down` glyph.
@@ -471,6 +477,74 @@ if ( ! function_exists( 'origin_canvas_swap_nav_chevron' ) ) {
 	}
 }
 add_filter( 'render_block_core/navigation', 'origin_canvas_swap_nav_chevron', 10, 2 );
+
+if ( ! function_exists( 'origin_canvas_scope_overlay_nav_context' ) ) {
+	/**
+	 * Give the navigation inside a custom overlay part its own overlay context.
+	 *
+	 * The header navigation sets `overlay` to a template part, and core renders
+	 * that part inside its own responsive container. Core forces the part's
+	 * navigation to `overlayMenu: never` and, because a non-responsive navigation
+	 * is not an overlay, gives its wrapper no `data-wp-context`. Its submenu
+	 * toggles are still bound to `state.isSubmenuOpen`, which reads
+	 * `overlayOpenedBy` from the nearest context — the HEADER navigation's, one
+	 * level up. While the hamburger is open that reads true, so every toggle
+	 * in the overlay renders aria-expanded="true" and a tap never changes it.
+	 *
+	 * Shadow that one key on the part's navigation wrapper. Its submenus then
+	 * see an overlay nobody has opened and fall through to their own state, so
+	 * the toggle, the chevron rotation and the collapse rules all work. The
+	 * overlay close button lives outside this wrapper and keeps inheriting the
+	 * header's context, which is the context it closes.
+	 *
+	 * Upstream fix: Gutenberg PR #82596 (24.1) adds `hasCustomOverlay` to the
+	 * overlay context and makes the getter ignore `overlayOpenedBy` under a
+	 * custom overlay; this shadow is then a no-op. Remove it once the theme's
+	 * WordPress floor includes that change.
+	 *
+	 * @param string $block_content Rendered navigation block HTML.
+	 * @param array  $block         Parsed block; core marks a navigation rendered
+	 *                              inside an overlay part with
+	 *                              `_isWithinOverlayTemplatePart`.
+	 * @return string Navigation HTML, with the context on the wrapper when the
+	 *                block is inside an overlay part and the wrapper has none.
+	 */
+	function origin_canvas_scope_overlay_nav_context( $block_content, $block = array() ) {
+		if ( empty( $block['attrs']['_isWithinOverlayTemplatePart'] ) ) {
+			return $block_content;
+		}
+
+		$tags = new WP_HTML_Tag_Processor( $block_content );
+
+		// The block wrapper is the first tag. Anything else means core changed
+		// its markup, and the shadow would land on the wrong element.
+		if ( ! $tags->next_tag() || ! $tags->has_class( 'wp-block-navigation' ) ) {
+			return $block_content;
+		}
+
+		// A wrapper that already carries a context has been given one by core;
+		// defer to it.
+		if ( null !== $tags->get_attribute( 'data-wp-context' ) ) {
+			return $block_content;
+		}
+
+		$tags->set_attribute(
+			'data-wp-context',
+			'core/navigation::' . wp_json_encode(
+				array(
+					'overlayOpenedBy' => array(
+						'click' => false,
+						'hover' => false,
+						'focus' => false,
+					),
+				)
+			)
+		);
+
+		return $tags->get_updated_html();
+	}
+}
+add_filter( 'render_block_core/navigation', 'origin_canvas_scope_overlay_nav_context', 10, 2 );
 
 if ( ! function_exists( 'origin_canvas_comment_author_badge' ) ) {
 	/**

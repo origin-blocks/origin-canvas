@@ -1,9 +1,10 @@
 <?php
 /**
- * Title: CTA Buttons
+ * Title: CTA Band Tinted
  * Slug: origin-canvas/cta-buttons
+ * Description: A tinted band with a centered heading, a short lead and two buttons.
  * Categories: call-to-action
- * Keywords: conversion, centered, signup, prompt
+ * Keywords: conversion, signup, prompt
  * Block Types: core/post-content
  * Inserter: true
  *
@@ -11,23 +12,23 @@
  */
 
 ?>
-<!-- wp:group {"tagName":"section","align":"full","backgroundColor":"surface-muted","style":{"spacing":{"padding":{"top":"var:preset|spacing|colossal","bottom":"var:preset|spacing|colossal"}}},"layout":{"type":"constrained"}} -->
-<section class="wp-block-group alignfull has-surface-muted-background-color has-background" style="padding-top:var(--wp--preset--spacing--colossal);padding-bottom:var(--wp--preset--spacing--colossal)"><!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|large"}},"layout":{"type":"constrained","contentSize":"720px"}} -->
-<div class="wp-block-group"><!-- wp:heading {"textAlign":"center","level":2,"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"fontSize":"display"} -->
+<!-- wp:group {"tagName":"section","align":"full","backgroundColor":"base-2","style":{"spacing":{"padding":{"top":"var:preset|spacing|colossal","bottom":"var:preset|spacing|colossal"}}},"layout":{"type":"constrained"}} -->
+<section class="wp-block-group alignfull has-base-2-background-color has-background" style="padding-top:var(--wp--preset--spacing--colossal);padding-bottom:var(--wp--preset--spacing--colossal)"><!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|large"}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group"><!-- wp:heading {"level":2,"style":{"spacing":{"margin":{"top":"0","bottom":"0"}},"typography":{"textAlign":"center"}},"fontSize":"display"} -->
 <h2 class="wp-block-heading has-display-font-size has-text-align-center" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Ready when you are', 'origin-canvas' ); ?></h2>
 <!-- /wp:heading -->
 
-<!-- wp:paragraph {"align":"center","textColor":"text-body","fontSize":"regular-plus"} -->
-<p class="has-text-align-center has-text-body-color has-text-color has-regular-plus-font-size"><?php echo esc_html__( 'A short conversation tells us most of what we need to know. No pitch decks, no fee until we agree on scope.', 'origin-canvas' ); ?></p>
+<!-- wp:paragraph {"style":{"typography":{"textAlign":"center"}},"textColor":"contrast-2","fontSize":"regular-plus"} -->
+<p class="has-text-align-center has-contrast-2-color has-text-color has-regular-plus-font-size"><?php echo esc_html__( 'A short conversation tells us most of what we need to know. No pitch decks, no fee until we agree on scope.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
-<!-- wp:buttons {"style":{"spacing":{"blockGap":"var:preset|spacing|compact","margin":{"top":"var:preset|spacing|extra-large"}}},"layout":{"type":"flex","justifyContent":"center","orientation":"horizontal"}} -->
-<div class="wp-block-buttons is-content-justification-center is-layout-flex" style="margin-top:var(--wp--preset--spacing--extra-large)"><!-- wp:button -->
+<!-- wp:buttons {"style":{"spacing":{"blockGap":"var:preset|spacing|small-medium","margin":{"top":"var:preset|spacing|extra-large"}}},"layout":{"type":"flex","justifyContent":"center","orientation":"horizontal"}} -->
+<div class="wp-block-buttons" style="margin-top:var(--wp--preset--spacing--extra-large)"><!-- wp:button -->
 <div class="wp-block-button"><a class="wp-block-button__link wp-element-button"><?php echo esc_html__( 'Email us', 'origin-canvas' ); ?></a></div>
 <!-- /wp:button -->
 
-<!-- wp:button {"className":"is-style-origin-canvas-outline-strong"} -->
-<div class="wp-block-button is-style-origin-canvas-outline-strong"><a class="wp-block-button__link wp-element-button"><?php echo esc_html__( 'Book a call', 'origin-canvas' ); ?></a></div>
+<!-- wp:button {"className":"is-style-outline"} -->
+<div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button"><?php echo esc_html__( 'Book a call', 'origin-canvas' ); ?></a></div>
 <!-- /wp:button --></div>
 <!-- /wp:buttons --></div>
 <!-- /wp:group --></section>

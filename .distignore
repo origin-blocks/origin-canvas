@@ -6,6 +6,7 @@
 /.github/
 /.gitignore
 /CONTRIBUTING.md
+/RELEASE.md
 /CLAUDE.md
 /bin/
 /build/
@@ -18,3 +19,7 @@
 /.idea/
 /.vscode/
 *.swp
+/tests/
+/playwright.config.js
+/test-results/
+/playwright-report/

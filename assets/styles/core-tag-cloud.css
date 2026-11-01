@@ -6,9 +6,9 @@
 }
 
 .is-style-origin-canvas-tag-chip a {
-	background: var(--wp--preset--color--surface-muted);
+	background: var(--wp--preset--color--base-2);
 	border-radius: var(--wp--custom--radius--medium);
-	color: var(--wp--preset--color--text-heading);
+	color: var(--wp--preset--color--contrast);
 	display: inline-flex;
 	/**
 	 * Core renders an inline font-size:Npt per tag (count-weighted); the chip
@@ -17,15 +17,26 @@
 	font-size: var(--wp--preset--font-size--extra-small) !important;
 	padding: 6px 8px;
 	text-decoration: none;
-	transition: background 120ms ease, color 120ms ease;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	.is-style-origin-canvas-tag-chip a {
+		transition: background 120ms ease, color 120ms ease;
+	}
 }
 
 .is-style-origin-canvas-tag-chip a:hover {
-	background: var(--wp--preset--color--border);
+	background: var(--wp--preset--color--base-5);
 }
 
 /* Same in-content guard as term-chip: the base rule above only ties
    post-content's underline on specificity, so make the exclusion decisive. */
 .wp-block-tag-cloud.is-style-origin-canvas-tag-chip a {
+	text-decoration: none;
+}
+
+/* A tag link is a term-archive link in every style, so inside post content the
+   content-link underline is excluded for the block as a whole, not only the chip. */
+.wp-block-post-content .wp-block-tag-cloud a {
 	text-decoration: none;
 }

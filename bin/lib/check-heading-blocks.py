@@ -18,16 +18,15 @@ PROPS = ('fontWeight', 'letterSpacing')
 CSS_NAME = {'fontWeight': 'font-weight', 'letterSpacing': 'letter-spacing'}
 
 # The statement register keeps exactly what it already carries — file, property AND
-# value, so changing 500 to 800 fails like any other new pin. The two files differ.
+# value, so changing 500 to 800 fails like any other new pin. Three files pin weight and
+# nothing else; tracking follows size. CLAUDE.md rule 7 lists the same pins.
 #
-# Keyed to the FIRST heading in each file, not the file at large: both contain exactly
+# Keyed to the FIRST heading in each file, not the file at large: each contains exactly
 # one heading, and a second one added later must not inherit the exemption.
 EXEMPT = {
     ('breath-statement.php', 'fontWeight', '500'),
     ('text-large-statement.php', 'fontWeight', '500'),
-    ('text-large-statement.php', 'letterSpacing', '-0.01em'),
     ('lead-statement.php', 'fontWeight', '500'),
-    ('lead-statement.php', 'letterSpacing', '-0.01em'),
 }
 EXEMPT_FILES = {name for name, _, _ in EXEMPT}
 

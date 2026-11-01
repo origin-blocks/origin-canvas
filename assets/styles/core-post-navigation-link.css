@@ -8,9 +8,14 @@
 }
 
 .is-style-origin-canvas-postnav-stacked a {
-	color: var(--wp--preset--color--text-heading);
+	color: var(--wp--preset--color--contrast);
 	text-decoration: none;
-	transition: color 120ms ease;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	.is-style-origin-canvas-postnav-stacked a {
+		transition: color 120ms ease;
+	}
 }
 
 .is-style-origin-canvas-postnav-stacked a:hover {
@@ -28,13 +33,13 @@
 
 /* Modifier: uppercase eyebrow */
 .is-style-origin-canvas-postnav-stacked.oc-postnav--caps .post-navigation-link__label {
-	letter-spacing: 0.04em;
+	letter-spacing: 0.06em;
 	text-transform: uppercase;
 }
 
 /* Modifier: muted eyebrow */
 .is-style-origin-canvas-postnav-stacked.oc-postnav--muted-label .post-navigation-link__label {
-	color: var(--wp--preset--color--text-muted);
+	color: var(--wp--preset--color--contrast-3);
 }
 
 /* Alignment */

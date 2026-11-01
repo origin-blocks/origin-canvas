@@ -1,0 +1,30 @@
+/**
+ * Page links are navigation, never prose, and a list of pages sits on the same rhythm as the
+ * theme's other term lists. Size, weight, line height and link colour come from theme.json, so
+ * they stay editable in Global Styles; this file carries only what a block node cannot express.
+ */
+
+/* A Page List can also BE a navigation menu, and the block node above reaches it there and
+   would shrink it. The menu takes its type back by inheriting whatever the Navigation block is
+   set to, so a setting made on that block still governs. */
+.wp-block-navigation .wp-block-page-list {
+	font-size: inherit;
+	font-weight: inherit;
+	line-height: inherit;
+}
+
+/* The block has no gap support, so the row step is a margin — at every depth, since a child
+   list renders as a submenu container even outside a Navigation block. Navigation spaces its
+   own items and is left alone. */
+:where(.wp-block-page-list:not(.wp-block-navigation *)) li + li,
+:where(.wp-block-page-list:not(.wp-block-navigation *)) li > ul {
+	margin-block-start: var(--wp--preset--spacing--small);
+}
+
+/* The content-link underline is itself a block-level rule, so this exclusion has to outrank it
+   rather than sit at zero weight. It needs no exception for a decoration set on the block: a
+   decoration is painted by the list and propagates to the text inside it, so clearing the
+   anchor's own value removes the content underline without removing the author's. */
+.wp-block-post-content .wp-block-page-list:not(.wp-block-navigation *) a {
+	text-decoration: none;
+}
