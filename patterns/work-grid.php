@@ -34,7 +34,7 @@
 <!-- wp:group {"align":"wide","style":{"spacing":{"blockGap":{"top":"var:preset|spacing|huge","left":"var:preset|spacing|large"}}},"layout":{"type":"grid","minimumColumnWidth":"28rem"}} -->
 <div class="wp-block-group alignwide"><!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|medium"}},"layout":{"type":"default"}} -->
 <div class="wp-block-group"><!-- wp:image {"aspectRatio":"3/2","scale":"cover","sizeSlug":"full","linkDestination":"none","className":"is-style-rounded"} -->
-<figure class="wp-block-image size-full is-style-rounded"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/card-image-text-northgate.webp" alt="<?php esc_attr_e( 'The open roll-up door of the Northgate Cycle Works shop, with a road bike in a repair stand inside.', 'origin-canvas' ); ?>" style="aspect-ratio:3/2;object-fit:cover"/></figure>
+<figure class="wp-block-image size-full is-style-rounded"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/shop-front.webp" alt="<?php esc_attr_e( 'The open roll-up door of the Northgate Cycle Works shop, with a road bike in a repair stand inside.', 'origin-canvas' ); ?>" style="aspect-ratio:3/2;object-fit:cover"/></figure>
 <!-- /wp:image -->
 
 <!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|small-medium"}},"layout":{"type":"default"}} -->
@@ -74,7 +74,7 @@
 
 <!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|medium"}},"layout":{"type":"default"}} -->
 <div class="wp-block-group"><!-- wp:image {"aspectRatio":"3/2","scale":"cover","sizeSlug":"full","linkDestination":"none","className":"is-style-rounded"} -->
-<figure class="wp-block-image size-full is-style-rounded"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/card-image-text-mercer-street.webp" alt="<?php esc_attr_e( 'Brass, walnut and black frame corners around a black-and-white landscape print on a framer&#8217;s counter, with a wall of corner samples behind.', 'origin-canvas' ); ?>" style="aspect-ratio:3/2;object-fit:cover"/></figure>
+<figure class="wp-block-image size-full is-style-rounded"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/frame-samples.webp" alt="<?php esc_attr_e( 'Brass, walnut and black frame corners around a black-and-white landscape print on a framer&#8217;s counter, with a wall of corner samples behind.', 'origin-canvas' ); ?>" style="aspect-ratio:3/2;object-fit:cover"/></figure>
 <!-- /wp:image -->
 
 <!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|small-medium"}},"layout":{"type":"default"}} -->
