@@ -146,11 +146,11 @@ $page_args = static fn( $title, $content, $order ) => array(
 
 $pattern_ref = static fn( $slug ) => '<!-- wp:pattern {"slug":"' . $slug . '"} /-->';
 
-$home = oc_demo_insert( $page_args( 'Home', $pattern_ref( 'origin-canvas/page-studio' ), 0 ) );
+$home = oc_demo_insert( $page_args( 'Home', $pattern_ref( 'origin-canvas/page-home-02' ), 0 ) );
 
 $page_patterns = array();
 foreach ( WP_Block_Patterns_Registry::get_instance()->get_all_registered() as $pattern ) {
-	if ( preg_match( '#^origin-canvas/page-#', $pattern['name'] ) && 'origin-canvas/page-studio' !== $pattern['name'] ) {
+	if ( preg_match( '#^origin-canvas/page-#', $pattern['name'] ) && 'origin-canvas/page-home-02' !== $pattern['name'] ) {
 		$title                              = html_entity_decode( $pattern['title'], ENT_QUOTES, 'UTF-8' );
 		$page_patterns[ $pattern['name'] ] = trim( preg_replace( '/^Page:\s*/i', '', $title ) );
 	}

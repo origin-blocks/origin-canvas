@@ -52,7 +52,7 @@ stay.
 
 ## Content
 
-- Home: the `page-studio` pattern, set as the front page.
+- Home: the `page-home-02` pattern (Home: Logos and Cards), set as the front page.
 - One page for every other `origin-canvas/page-*` pattern, titled with the pattern's title, using
   the **Page (Full Width, No Title)** template.
 - Blog: the posts page, with nine posts in three categories, featured images from the theme, and
