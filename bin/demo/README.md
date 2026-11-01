@@ -54,7 +54,8 @@ stay.
 
 - Home: the `page-home-02` pattern (Home: Logos and Cards), set as the front page.
 - One page for every other `origin-canvas/page-*` pattern, titled with the pattern's title, using
-  the **Page (Full Width, No Title)** template.
+  the **Page (Full Width, No Title)** template. A page with a role gets the role as its address:
+  `/about/`, `/services/`, `/pricing/`, `/contact/`, `/landing/`.
 - Blog: the posts page, with nine posts in three categories, featured images from the theme, and
   comments from the studio team.
 - Primary menu: Home, About, Services, Pricing, Blog, Contact. Each menu label is the page

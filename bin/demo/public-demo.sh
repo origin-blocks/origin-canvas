@@ -38,7 +38,7 @@ $W rewrite flush --quiet
 lid=$($W media import "$DEMO_HOME/assets/origin-canvas-logo.png" --title="Origin Canvas logo" --porcelain)
 $W option update site_logo "$lid" --quiet
 menu=$($W post list --post_type=wp_navigation --field=ID | head -1)
-contact=$($W post list --post_type=page --name=contact-write-to-the-studio --field=url)
+contact=$($W post list --post_type=page --name=contact --field=url)
 $W eval 'echo WP_Block_Patterns_Registry::get_instance()->get_registered("origin-canvas/header-marketing")["content"];' > "$DEMO_HOME/header.html"
 python3 "$DIR/public-demo-header.py" "$DEMO_HOME/header.html" "$menu" "$contact"
 pid=$($W post create --post_type=wp_template_part --post_status=publish --post_name=header --post_title=Header --post_content="$(cat "$DEMO_HOME/header.html")" --porcelain)

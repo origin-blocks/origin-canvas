@@ -162,10 +162,15 @@ $order   = 1;
 $by_role = array();
 $pages   = 1;
 foreach ( $page_patterns as $slug => $title ) {
-	$id = oc_demo_insert( $page_args( $title, $pattern_ref( $slug ), $order++ ) );
+	$args = $page_args( $title, $pattern_ref( $slug ), $order++ );
+	$role = preg_match( '#^origin-canvas/page-([a-z]+)-\d+$#', $slug, $m ) ? $m[1] : '';
+	if ( $role ) {
+		$args['post_name'] = $role; // A client site's address: /about/, /pricing/, not the pattern's title.
+	}
+	$id = oc_demo_insert( $args );
 	++$pages;
-	if ( preg_match( '#^origin-canvas/page-([a-z]+)-\d+$#', $slug, $m ) ) {
-		$by_role[ $m[1] ] = $id;
+	if ( $role ) {
+		$by_role[ $role ] = $id;
 	}
 }
 
