@@ -139,13 +139,15 @@ if os.path.exists(seed):
     if not table:
         bad('%s has no image table under "/* Images from the theme. */"; the check cannot read it' % seed)
     else:
-        for m in re.finditer(r'=>\s*array\(\s*([^,]+),', table.group(1)):
-            arg = m.group(1).strip()
-            lit = re.fullmatch(r'''(['"])(.*)\1''', arg)
+        # Every `'key' =>` entry counts, whether written array( ... ) or [ ... ], and the
+        # first argument must be a quoted literal; anything else fails as unreadable.
+        for m in re.finditer(r"'[a-z_]+'\s*=>\s*(.*?),", table.group(1)):
+            head = m.group(1).strip()
+            lit = re.fullmatch(r'''(?:array\(|\[)\s*(['"])(.*)\1''', head)
             if lit:
                 refs.setdefault(lit.group(2), set()).add(seed)
             else:
-                bad('%s image table entry %s is not a quoted file name; the check cannot read it' % (seed, arg))
+                bad('%s image table entry "%s" does not open with a quoted file name; the check cannot read it' % (seed, head))
 for name, where in sorted(refs.items()):
     if not NAME.match(name):
         bad('%s/%s, named by %s, is not a well-formed image name' % (IMAGES, name, ', '.join(sorted(where))))
@@ -173,6 +175,6 @@ for name in STABILITY_EXCEPTIONS:
 if fail:
     sys.exit(1)
 print('Image names:')
-print('  ✓  %d of %d names pass the grammar (%d pre-rule names excepted until 2.0.0), %d referenced names are well formed and exist, every name shipped in %s to %s is present'
-      % (checked, len(files), len(GRAMMAR_EXCEPTIONS), len(refs), tags[0], tags[-1]))
+print('  ✓  %d of %d names pass the grammar (%d pre-rule names excepted until 2.0.0), %d referenced names are well formed and exist, every name shipped in %s to %s is present or named in the exception table (%d)'
+      % (checked, len(files), len(GRAMMAR_EXCEPTIONS), len(refs), tags[0], tags[-1], len(STABILITY_EXCEPTIONS)))
 PY
