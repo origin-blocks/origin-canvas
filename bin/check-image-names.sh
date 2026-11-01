@@ -5,13 +5,15 @@
 # named gallery-proof-wall is welded to one pattern; the same photo named exercise-room
 # can serve any pattern. Three things are checked:
 #
-#   1. Grammar. Lowercase kebab-case, .webp or .png. The name is split on "-" and no
-#      token may be the first word of a pattern slug (read from patterns/*.php), a
-#      category slug, or a slot word. "avatar", "portrait" and "logo" are kind prefixes,
-#      allowed only as the first token.
-#   2. References. Every patterns/images/ file named by a pattern, template, part, the
-#      demo seed or a readme credit exists, so a mistyped path fails here and not on a
-#      visitor's screen.
+#   1. Grammar. Lowercase kebab-case; logos are .png and everything else .webp. The name is
+#      split on "-" and no token may be the first word of a pattern slug (read from the
+#      Slug header of every patterns/*.php), a category slug, or a slot word. "avatar",
+#      "portrait" and "logo" are kind prefixes, allowed only as the first token and only
+#      with a subject after them. Whether a name fits its picture is a reviewer's read.
+#   2. References. Every patterns/images/ path written in a pattern, template, part or
+#      readme credit is a well-formed name of a file that exists, so a mistyped path
+#      fails here and not on a visitor's screen. The demo seed's quoted file names are
+#      checked for existence (a malformed name there cannot be told from any other string).
 #   3. Stability. Every name that any release tag shipped in patterns/images/ still
 #      exists at HEAD: a user's saved content points at the theme's image URL, so a
 #      shipped name never changes before a major version (CONTRIBUTING.md, asset paths).
@@ -72,10 +74,33 @@ CATEGORY_WORDS = {'hero', 'card', 'features', 'pricing', 'stats', 'faq', 'logos'
                   'page', 'header', 'footer', 'call', 'action', 'text', 'testimonials',
                   'team', 'posts', 'contact', 'gallery', 'hidden'}
 SLOT_WORDS = {'gallery', 'card', 'portrait', 'avatar', 'hero', 'cover'}
-PATTERN_WORDS = {os.path.basename(p).split('-')[0].replace('.php', '')
-                 for p in glob.glob('patterns/*.php')}
+SLUG = re.compile(r'^[ \t*]*Slug:\s*origin-canvas/([a-z0-9]+)', re.M)
+PATTERN_WORDS = set()
+for p in glob.glob('patterns/*.php'):
+    m = SLUG.search(open(p).read())
+    if m:
+        PATTERN_WORDS.add(m.group(1))
 FORBIDDEN = CATEGORY_WORDS | SLOT_WORDS | PATTERN_WORDS
 NAME = re.compile(r'^[a-z0-9]+(?:-[a-z0-9]+)*\.(?:webp|png)$')
+
+def grammar(name):
+    """The reason a name breaks the grammar, or None."""
+    if not NAME.match(name):
+        return 'is not lowercase kebab-case .webp or .png'
+    stem, ext = name.rsplit('.', 1)
+    tokens = stem.split('-')
+    if tokens[0] == 'logo' and ext != 'png':
+        return 'is a logo, which is .png'
+    if tokens[0] != 'logo' and ext != 'webp':
+        return 'is a photo, which is .webp'
+    if tokens[0] in KIND_PREFIXES and len(tokens) < 2:
+        return 'is a kind prefix with no subject after it'
+    for i, token in enumerate(tokens):
+        if token in KIND_PREFIXES and i == 0:
+            continue
+        if token in FORBIDDEN or token in KIND_PREFIXES:
+            return 'carries "%s", a pattern, slot or category word; name the subject' % token
+    return None
 
 fail = False
 def bad(msg):
@@ -86,33 +111,31 @@ def bad(msg):
 files = sorted(os.listdir(IMAGES))
 
 # 1. Grammar.
+checked = 0
 for name in files:
     if name in GRAMMAR_EXCEPTIONS:
         continue
-    if not NAME.match(name):
-        bad('%s/%s is not lowercase kebab-case .webp or .png' % (IMAGES, name))
-        continue
-    tokens = name.rsplit('.', 1)[0].split('-')
-    for i, token in enumerate(tokens):
-        if token in KIND_PREFIXES and i == 0:
-            continue
-        if token in FORBIDDEN or token in KIND_PREFIXES:
-            bad('%s/%s carries "%s", a pattern, slot or category word; name the subject'
-                % (IMAGES, name, token))
-            break
+    checked += 1
+    reason = grammar(name)
+    if reason:
+        bad('%s/%s %s' % (IMAGES, name, reason))
 
-# 2. References.
+# 2. References. The path is taken up to the next quote, whitespace or bracket, so a
+# trailing typo (timber-stack.webp2) or a wrong extension (.wepb) is the whole name and
+# fails the grammar instead of matching a real file by prefix.
 present = set(files)
 refs = {}
 for path in glob.glob('patterns/*.php') + glob.glob('templates/*') + glob.glob('parts/*') + ['readme.txt']:
-    for m in re.finditer(r'patterns/images/([A-Za-z0-9_.-]+\.(?:webp|png))', open(path).read()):
+    for m in re.finditer(r'patterns/images/([^"\'\s<>()]+)', open(path).read()):
         refs.setdefault(m.group(1), set()).add(path)
 seed = 'bin/demo/seed.php'
 if os.path.exists(seed):
-    for m in re.finditer(r"'([A-Za-z0-9_.-]+\.(?:webp|png))'", open(seed).read()):
+    for m in re.finditer(r"'([a-z0-9-]+\.(?:webp|png))'", open(seed).read()):
         refs.setdefault(m.group(1), set()).add(seed)
 for name, where in sorted(refs.items()):
-    if name not in present:
+    if not NAME.match(name):
+        bad('%s/%s, named by %s, is not a well-formed image name' % (IMAGES, name, ', '.join(sorted(where))))
+    elif name not in present:
         bad('%s/%s is named by %s but does not exist' % (IMAGES, name, ', '.join(sorted(where))))
 
 # 3. Stability.
@@ -136,6 +159,6 @@ for name in STABILITY_EXCEPTIONS:
 if fail:
     sys.exit(1)
 print('Image names:')
-print('  ✓  %d files named for their subject, %d references resolve, every name shipped in %s to %s is present'
-      % (len(files), len(refs), tags[0], tags[-1]))
+print('  ✓  %d of %d names pass the grammar (%d pre-rule names excepted until 2.0.0), %d referenced names are well formed and exist, every name shipped in %s to %s is present'
+      % (checked, len(files), len(GRAMMAR_EXCEPTIONS), len(refs), tags[0], tags[-1]))
 PY

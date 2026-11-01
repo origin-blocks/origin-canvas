@@ -26,6 +26,13 @@ jobs:
           tag_commit="$(git rev-parse "${GITHUB_REF_NAME}^{commit}")"
           git merge-base --is-ancestor "$tag_commit" origin/master
 
+      # The same preflight RELEASE.md runs before the tag: every repo check and the package
+      # byte budget, on the tagged tree, so an oversized or broken package never reaches the
+      # release job below.
+      - name: Preflight the package
+        shell: bash
+        run: bash bin/package-theme.sh
+
   release:
     needs: verify-master
     uses: origin-blocks/theme-workflows/.github/workflows/build-release.yml@v1

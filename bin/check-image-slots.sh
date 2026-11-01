@@ -9,8 +9,7 @@
 #            origin-canvas/card), which must also crop at aspectRatio 3/2
 #   gallery  760 × 507 px (3:2): an Image block at aspectRatio 3/2 in a gallery pattern
 #            (category gallery). Gallery Grid shows three columns of the 1200 px wide
-#            width, about 380 px each, so 760 is 2x (owner ruling, 2026-11-01; 1.4.0
-#            shipped 1536 × 1024, four times the pixels drawn)
+#            width, about 380 px each, so 760 is 2x
 #   portrait 1120 × 1400 px (4:5): an Image block at aspectRatio 4/5 outside a team
 #            pattern; team portraits are people, cut at 480 × 600, and not ruled here.
 #            1120 is 2x of a half-width column of the wide width
