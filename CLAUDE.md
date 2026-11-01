@@ -23,8 +23,9 @@ wins. The shared design principles live outside this repo, not in the business p
 - The shared design principles are private and live outside this repo.
 - Canvas design decisions live in the code, in `bin/check-*.sh` and in this repo's GitHub issues.
 - Mechanical rules are enforced by `bin/check-*.sh`. Among them: `check-column-splits.sh`,
-  `check-layout-widths.sh`, `check-image-slots.sh`, `check-post-card-twins.sh`,
-  `check-page-h1.sh`, `check-roster-names.sh` (reads the roster from the writing guide clone) and
+  `check-layout-widths.sh`, `check-image-slots.sh`, `check-image-names.sh` (compares with every
+  release tag), `check-post-card-twins.sh`, `check-page-h1.sh`, `check-roster-names.sh` (reads the
+  roster from the writing guide clone) and
   `check-shipped-values.sh` (compares with every release tag). `bin/package-theme.sh` runs the
   repo-only ones, the shipped-values check with `--release`, so a pending removal stops the package.
 - Record a new trap as a check, a code comment or an issue. Private detail goes in a private issue
@@ -107,6 +108,18 @@ never reuse one, retired slugs included. `page-home-01` shipped in 1.0.0–1.1.0
 `page-studio`, so the first new home page is `page-home-02`. The Title describes the page and
 never carries the number ("Home: Centered Hero"); site type, tone and layout go in Keywords.
 `page-studio` and `page-landing-01` keep their shipped slugs.
+
+### 3b. Image file names — the subject, never the pattern
+A file in `patterns/images/` is named for what it shows, so any pattern can place it:
+`exercise-room.webp`, `yard-sign.webp`, `timber-stack.webp`. Never the pattern, slot or
+category that first used it, in any position: `gallery-proof-wall` and `hero-cover-boards` weld
+a photo to one pattern. The only prefixes are the kinds `avatar-`, `portrait-` and `logo-`,
+followed by the person or client. Lowercase kebab-case, `.webp` for photos, `.png` for logos.
+A shipped name never changes before a major version: users' saved content points at the
+theme's image URL (CONTRIBUTING.md, asset paths). `bin/check-image-names.sh` enforces the
+grammar, that every referenced image exists, and that every name a release shipped is still
+present; its exception table names the pre-rule files kept until 2.0.0, each with the reason.
+Whether a name fits its picture is the reviewer's read, not the check's.
 
 ### 4. Full-page patterns compose via `wp:pattern` refs only
 A page pattern's body is **only** `<!-- wp:pattern {"slug":"origin-canvas/…"} /-->` references —

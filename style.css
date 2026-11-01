@@ -7,7 +7,7 @@ Description: Start closer to finished with a free WordPress block theme: templat
 Requires at least: 7.0
 Tested up to: 7.1
 Requires PHP: 7.4
-Version: 1.4.0
+Version: 1.4.1
 License: GNU General Public License v3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 Text Domain: origin-canvas
@@ -487,7 +487,7 @@ html {
 	inherits: false;
 }
 
-/* The element ladder: h1 60, h2 36, h3 30 are display; h4 24 large; h5 20 medium.
+/* The element ladder: h1 48, h2 36, h3 30 are display; h4 24 large; h5 20 medium.
    h6 18 takes the base fallback. Only the variable is set, never letter-spacing. */
 :where(h1, h2, h3) {
 	--origin-canvas-letter-spacing: var(--wp--custom--letter-spacing--display);

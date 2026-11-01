@@ -7,12 +7,14 @@
 #            up to 180 px
 #   card     1200 × 800 px (3:2): any other Image block in a card pattern (category
 #            origin-canvas/card), which must also crop at aspectRatio 3/2
-#   gallery  1536 × 1024 px (3:2): an Image block at aspectRatio 3/2 in a gallery
-#            pattern (category gallery)
+#   gallery  760 × 507 px (3:2): an Image block at aspectRatio 3/2 in a gallery pattern
+#            (category gallery). Gallery Grid shows three columns of the 1200 px wide
+#            width, about 380 px each, so 760 is 2x
 #   portrait 1120 × 1400 px (4:5): an Image block at aspectRatio 4/5 outside a team
-#            pattern; team portraits are people, cut at 480 × 600, and not ruled here
-# The gallery and portrait slots take the sizes their images shipped at (orchestrator
-# decision, #130).
+#            pattern; team portraits are people, cut at 480 × 600, and not ruled here.
+#            1120 is 2x of a half-width column of the wide width
+# A gallery photo that another pattern also places in a wider slot keeps the wider size;
+# GALLERY_EXCEPTIONS names each with the reason.
 # The img src of an image in a slot must be a theme file in patterns/images/, so its size
 # can be read.
 #
@@ -29,7 +31,12 @@ import glob, re, struct, sys
 sys.path.insert(0, 'bin/lib')
 from block_tree import parse, walk, class_names
 
-CARD, AVATAR, GALLERY, PORTRAIT = (1200, 800), (480, 480), (1536, 1024), (1120, 1400)
+CARD, AVATAR, GALLERY, PORTRAIT = (1200, 800), (480, 480), (760, 507), (1120, 1400)
+GALLERY_EXCEPTIONS = {
+    # Also fills the half-width 4/3 slot in coming-soon-split, so it takes the portrait
+    # slot's width at 3:2.
+    'exercise-room.webp': (1120, 747),
+}
 SRC = re.compile(r'<img\b[^>]*?\ssrc="([^"]*)"')
 IMAGE = re.compile(r'/patterns/images/([A-Za-z0-9_.-]+\.(?:webp|png))$')
 CATEGORY = re.compile(r'^[ \t*]*Categories:\s*(\S+)', re.M)
@@ -86,6 +93,8 @@ for path in files:
             fail = True
             continue
         got = size('patterns/images/' + m.group(1))
+        if slot == 'gallery':
+            want = GALLERY_EXCEPTIONS.get(m.group(1), want)
         if got != want:
             print('  ✗  %s:%d %s in the %s slot is %s; that slot takes %d × %d px'
                   % (path, node['line'], m.group(1), slot,
