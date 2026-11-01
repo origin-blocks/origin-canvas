@@ -30,6 +30,7 @@ wins. The shared design principles live outside this repo, not in the business p
 - Record a new trap as a check, a code comment or an issue. Private detail goes in a private issue
   outside this repo, never in a file here.
 - Never commit design notes or lessons to the repo.
+- A release follows `RELEASE.md`; read it before any tag, version or changelog work.
 - Report verification honestly: name the method of each check, and list any check not done.
 
 ## A handoff is checked against these rules before any of it is built
