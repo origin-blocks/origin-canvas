@@ -140,7 +140,7 @@ Pattern image "Ashby & Rowe stationery" (patterns/images/studio-worktable.webp),
 
 Pattern image "Calder Veterinary appointment card" (patterns/images/studio-review.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
-The ten images below are no longer used by any pattern. They are kept so that content created with earlier versions of the theme keeps its images, and each one now holds a copy of a current image of the same size.
+The six images below are no longer used by any pattern. They are kept so that content created with earlier versions of the theme keeps its images, and each one now holds a copy of a current image of the same size.
 
 Pattern image "Retired case-study image, now a copy of the Northgate Cycle Works shop front" (patterns/images/card-image-text-1.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
@@ -150,17 +150,9 @@ Pattern image "Retired testimonial portrait, now a copy of the Owen Parker testi
 
 Pattern image "Retired testimonial avatar image, now a 512 px copy of the Helen Marsh testimonial portrait" (patterns/images/card-testimonial-1.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
-Pattern image "Retired highlight avatar image, now a 512 px copy of the Michael Hughes testimonial portrait" (patterns/images/testimonial-highlight-1.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
-
 Pattern image "Retired case-study image, now a copy of the Mercer Street Framing case-study image" (patterns/images/card-image-text-3.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
-Pattern image "Retired case-study image, now a copy of the Mercer Street Framing case-study image" (patterns/images/card-image-text-linden-lark.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
-
 Pattern image "Retired testimonial portrait, now a copy of the Rachel Moore testimonial portrait" (patterns/images/avatar-emma-whitaker.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
-
-Demo client logo "Retired demo client logo, now a copy of the Mercer Street Framing logo" (patterns/images/logo-linden-lark.png): made for Origin Canvas, GPL-2.0-or-later.
-
-Demo client logo "Retired demo client logo, now a copy of the Ash & Pine Woodworks logo" (patterns/images/logo-thistle-pine.png): made for Origin Canvas, GPL-2.0-or-later.
 
 == Fonts ==
 
