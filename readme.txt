@@ -228,6 +228,10 @@ A tool that moves saved content to the new names is available on request from su
 
 == Changelog ==
 
+= 1.4.1 - 1 November 2026 =
+* Optimized the pattern photos. Each is now cut to the size it is drawn at, so pages that use Gallery Grid, Hero Split With Image, CTA Band Split With Image or Gallery List load faster.
+* Set page and post titles to 48px, down from 60px, one step on the type scale. A site with its own heading size in Global Styles keeps it, and the Expressive and Space Grotesk styles keep their own title size.
+
 = 1.4.0 - 1 November 2026 =
 * Renamed the colors by tone. Surface Base, Surface Muted, Surface Subtle, Surface Subtle Hover, Border and Input Border are now Base to Base 6, Text Heading, Text Body and Text Muted are Contrast, Contrast 2 and Contrast 3, On Dark folds into Base 2 and Primary keeps its name; Base 7, Contrast 4 and Contrast 5 join the palette. The Compact spacing size is now Small Medium and the custom line height `body` is now `normal`. A site updated from 1.3.1 loads compatibility styles that keep saved content rendering the same, except in the cases and known limits the Upgrading from 1.3.1 section above lists.
 * Added 38 new patterns, taking the library to 93 in 18 categories, with Contact, Gallery, Logos and Author new: five full pages (Home: Logos and Cards, About, Services, Pricing and Contact) built from section patterns; Hero Centered Logos, Hero Grid, Hero Statement, Hero Split With Contact Details and Pricing Hero; Header Dark, Header With Button, Header Marketing and Footer Minimal with a dark mobile menu part; contact, gallery, logos, stats, team, work, process, features, author and coming-soon sections; Divider With Text and Job Openings. The theme's own showcase sections and Statement With Eyebrow leave the inserter; the landing page still places the showcase sections, and saved copies are unchanged.
