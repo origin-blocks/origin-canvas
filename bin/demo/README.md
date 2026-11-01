@@ -57,7 +57,7 @@ stay.
   the **Page (Full Width, No Title)** template.
 - Blog: the posts page, with nine posts in three categories, featured images from the theme, and
   comments from the studio team.
-- Primary menu: Home, the page-pattern pages, Blog.
+- Primary menu: Home, About, Services, Pricing, Blog, Contact, each page named for its role. The landing page and the editorial cover are pages too, off the menu.
 
 Each page holds a reference to its pattern, so it renders the pattern as the active theme has it
 now. A change to an existing page pattern shows on reload, also under `?octheme=`.

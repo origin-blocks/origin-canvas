@@ -157,11 +157,24 @@ foreach ( WP_Block_Patterns_Registry::get_instance()->get_all_registered() as $p
 }
 asort( $page_patterns );
 
-$menu  = array( array( 'Home', $home ) );
-$order = 1;
+$menu    = array( array( 'Home', $home ) );
+$order   = 1;
+$by_role = array();
+$pages   = 1;
 foreach ( $page_patterns as $slug => $title ) {
-	$id     = oc_demo_insert( $page_args( $title, $pattern_ref( $slug ), $order++ ) );
-	$menu[] = array( $title, $id );
+	$id = oc_demo_insert( $page_args( $title, $pattern_ref( $slug ), $order++ ) );
+	++$pages;
+	if ( preg_match( '#^origin-canvas/page-([a-z]+)-\d+$#', $slug, $m ) ) {
+		$by_role[ $m[1] ] = $id;
+	}
+}
+
+/* The menu reads like a client site's: the page's role, not the pattern's title. The landing
+   page and the editorial cover have no role here, so they are reachable but off the menu. */
+foreach ( array( 'about' => 'About', 'services' => 'Services', 'pricing' => 'Pricing' ) as $role => $label ) {
+	if ( isset( $by_role[ $role ] ) ) {
+		$menu[] = array( $label, $by_role[ $role ] );
+	}
 }
 
 $blog = oc_demo_insert(
@@ -174,6 +187,9 @@ $blog = oc_demo_insert(
 	)
 );
 $menu[] = array( 'Blog', $blog );
+if ( isset( $by_role['contact'] ) ) {
+	$menu[] = array( 'Contact', $by_role['contact'] );
+}
 
 update_option( 'show_on_front', 'page' );
 update_option( 'page_on_front', $home );
@@ -467,7 +483,7 @@ oc_demo_insert(
 	)
 );
 
-WP_CLI::success( sprintf( 'Seeded %d pages, %d posts and the primary menu.', count( $menu ), count( $post_ids ) ) );
+WP_CLI::success( sprintf( 'Seeded %d pages, %d posts and the primary menu.', $pages + 1, count( $post_ids ) ) );
 
 /* The private design system page, for administrators. Not in the menu. */
 
