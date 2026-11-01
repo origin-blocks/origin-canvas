@@ -106,3 +106,22 @@ bash bin/check-tracking-render.sh ~/Sites/canvas-demo
   block, a recovery prompt or a block the editor rewrites on load.
 - `check-tracking-render.sh` renders every pattern at 1440 and 390, under every style variation,
   and checks letter spacing against font size.
+
+## Public demo
+
+The public demo is one subsite of a multisite, a copy of the local demo with a logo header on top.
+The server, its paths and the subsite URL are in the owner's private notes, never in this repo.
+
+- **Theme files.** The theme folder on the server is a copy of `develop`, put there with
+  `git archive develop` and rsync, so the demo shows what is being built. A release zip uploaded
+  through the network admin replaces it the same way.
+- **Content.** `public-demo.sh` empties the subsite and runs the seed, then builds the header part
+  with the logo (`public-demo-header.py`). The seed folder is copied to the server because the zip
+  leaves `bin/` out; the logo PNG, 400 px wide from the brand SVG, sits beside it in `assets/`.
+- **Guard.** The script only touches a subsite whose option `oc_demo_site` is `yes`, set once by hand;
+  on any other site it refuses and changes nothing, as `reset.sh` does with its marker file.
+- **What is not in the theme.** The logo header is a template part saved in the demo's database,
+  not a theme file; the theme's own header has no logo block. A rebuild recreates it.
+- **Updating.** Three steps, each spelled out with the real paths in the owner's notes: copy the
+  theme (`git archive develop`, rsync, chown), copy `bin/demo/`, run `public-demo.sh` with the
+  subsite URL. Nothing saved on the demo survives a rebuild.
