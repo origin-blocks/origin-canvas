@@ -42,4 +42,14 @@ bash "$SCRIPT_DIR/check-shipped-values.sh" --release
 mkdir -p "$ROOT/dist"
 git -C "$ROOT" archive --format=zip --prefix=origin-canvas/ -o "$ZIP_PATH" HEAD
 
-printf 'Created %s\n' "$ZIP_PATH"
+# The zip is uploaded through the WordPress admin, so it is subject to the host's PHP upload
+# limit; 5 MB is the mark the owner set (2026-11-01, after 1.4.0 shipped at 5.9 MB). The
+# override exists for the mutation test only.
+BUDGET="${ORIGIN_CANVAS_PACKAGE_BUDGET:-5000000}"
+bytes=$(stat -f%z "$ZIP_PATH" 2>/dev/null || stat -c%s "$ZIP_PATH")
+if [ "$bytes" -gt "$BUDGET" ]; then
+	echo "Package is $bytes bytes, over the $BUDGET byte budget. Cut images before releasing." >&2
+	exit 1
+fi
+
+printf 'Created %s (%s bytes, budget %s)\n' "$ZIP_PATH" "$bytes" "$BUDGET"

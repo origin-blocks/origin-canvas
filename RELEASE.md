@@ -44,5 +44,7 @@ hand: a manual one races the workflow. A tag is never moved; a wrong release get
 6. `git push --atomic origin develop master X.Y.Z`.
 7. Find the Release run for the tag (`gh run list --workflow release.yml`), watch it, then
    check the release: the title is `X.Y.Z`, the body equals the entry's bullets, and the one
-   asset, `origin-canvas.X.Y.Z.zip`, unpacks to the same files as `git archive X.Y.Z`.
+   asset, `origin-canvas.X.Y.Z.zip`, unpacks to the same files as `git archive X.Y.Z` and is
+   under the byte budget in `bin/package-theme.sh` (5,000,000 bytes). Compare the asset's
+   size with the previous release's: a jump is an anomaly to explain before announcing.
 8. Check the docs site (branch `gh-pages`) against the entry and list what needs an update.
