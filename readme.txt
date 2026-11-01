@@ -46,7 +46,7 @@ You should have received a copy of the GNU General Public License along with thi
 
 == Theme Screenshot ==
 
-Theme screenshot image "Ash & Pine Woodworks timber stack" (patterns/images/hero-cover-thistle-pine.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+Theme screenshot image "Ash & Pine Woodworks timber stack" (patterns/images/timber-stack.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
 == Images ==
 
@@ -80,11 +80,11 @@ Pattern image "Ben Carter team card portrait" (patterns/images/portrait-ben-cart
 
 Pattern image "Fairview Architects house" (patterns/images/architecture-interior.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
-Pattern image "Ash & Pine Woodworks timber stack" (patterns/images/hero-cover-thistle-pine.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+Pattern image "Ash & Pine Woodworks timber stack" (patterns/images/timber-stack.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
-Pattern image "Northgate Cycle Works shop front" (patterns/images/card-image-text-northgate.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+Pattern image "Northgate Cycle Works shop front" (patterns/images/shop-front.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
-Pattern image "Calder Veterinary Clinic sign" (patterns/images/feature-split-calder.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+Pattern image "Calder Veterinary Clinic sign" (patterns/images/clinic-sign.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
 Pattern image "Catherine Rowe testimonial portrait" (patterns/images/avatar-catherine-rowe.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
@@ -98,23 +98,23 @@ Pattern image "Helen Marsh testimonial portrait" (patterns/images/avatar-helen-m
 
 Pattern image "Kestrel website wireframes" (patterns/images/studio-wireframe-review.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
-Pattern image "Mercer Street Framing case-study image" (patterns/images/card-image-text-mercer-street.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+Pattern image "Mercer Street Framing case-study image" (patterns/images/frame-samples.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
 Pattern image "Studio one project" (patterns/images/studio-one-project.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
 Pattern image "Mercer Street Framing wordmark tests" (patterns/images/studio-type-proofs.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
-Pattern image "Kestrel Physical Therapy exercise room" (patterns/images/gallery-proof-wall.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+Pattern image "Kestrel Physical Therapy exercise room" (patterns/images/exercise-room.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
-Pattern image "Ashby & Rowe front door" (patterns/images/gallery-paper-stock.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+Pattern image "Ashby & Rowe front door" (patterns/images/front-door.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
-Pattern image "Clearwater Accounting tax folder" (patterns/images/gallery-guidelines.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+Pattern image "Clearwater Accounting tax folder" (patterns/images/tax-folder.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
-Pattern image "Westmount Realty yard sign" (patterns/images/gallery-screen-review.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+Pattern image "Westmount Realty yard sign" (patterns/images/yard-sign.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
-Pattern image "Northgate Cycle Works service menus on the studio shelf" (patterns/images/gallery-studio-shelf.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+Pattern image "Northgate Cycle Works service menus on the studio shelf" (patterns/images/service-menus.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
-Pattern image "Fairview Architects site visit" (patterns/images/gallery-meeting-table.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+Pattern image "Fairview Architects site visit" (patterns/images/site-visit.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
 Demo client logo "Westmount Realty" (patterns/images/logo-westmount.png): made for Origin Canvas, GPL-2.0-or-later.
 
