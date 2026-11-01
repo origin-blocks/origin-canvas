@@ -57,14 +57,16 @@ stay.
   the **Page (Full Width, No Title)** template.
 - Blog: the posts page, with nine posts in three categories, featured images from the theme, and
   comments from the studio team.
-- Primary menu: Home, About, Services, Pricing, Blog, Contact, each page named for its role. The landing page and the editorial cover are pages too, off the menu.
+- Primary menu: Home, About, Services, Pricing, Blog, Contact. Each menu label is the page
+  pattern's role (`page-about-01` is About); the pages themselves keep the pattern's title. The
+  landing page and the editorial cover are pages too, off the menu.
 
 Each page holds a reference to its pattern, so it renders the pattern as the active theme has it
 now. A change to an existing page pattern shows on reload, also under `?octheme=`.
 
 To add a page pattern, add `patterns/page-<role>-NN.php` to the theme, then run the reset. The
-seed finds every registered `origin-canvas/page-*` pattern, makes a page for it and adds it to the
-menu.
+seed finds every registered `origin-canvas/page-*` pattern and makes a page for it. Only the about,
+services, pricing and contact roles reach the menu; add a role to the list in `seed.php` to show it.
 
 ## Switches
 
