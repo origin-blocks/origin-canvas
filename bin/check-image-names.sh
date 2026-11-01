@@ -12,8 +12,8 @@
 #      with a subject after them. Whether a name fits its picture is a reviewer's read.
 #   2. References. Every patterns/images/ path written in a pattern, template, part or
 #      readme credit is a well-formed name of a file that exists, so a mistyped path
-#      fails here and not on a visitor's screen. The demo seed's quoted file names are
-#      checked for existence (a malformed name there cannot be told from any other string).
+#      fails here and not on a visitor's screen. The demo seed's image table is read the
+#      same way: the first string of each entry is a file name, however it is spelled.
 #   3. Stability. Every name that any release tag shipped in patterns/images/ still
 #      exists at HEAD: a user's saved content points at the theme's image URL, so a
 #      shipped name never changes before a major version (CONTRIBUTING.md, asset paths).
@@ -126,12 +126,20 @@ for name in files:
 present = set(files)
 refs = {}
 for path in glob.glob('patterns/*.php') + glob.glob('templates/*') + glob.glob('parts/*') + ['readme.txt']:
-    for m in re.finditer(r'patterns/images/([^"\'\s<>()]+)', open(path).read()):
-        refs.setdefault(m.group(1), set()).add(path)
+    for m in re.finditer(r'patterns/images/([^"\'\s<>()]*)', open(path).read()):
+        token = m.group(1).rstrip('.,;:')
+        if token:  # prose such as "the files in patterns/images/, which" names no file
+            refs.setdefault(token, set()).add(path)
+# The seed's image table: every entry is `'key' => array( '<file>', '<alt>' )`, so the first
+# quoted string of each entry is a file name, whatever it is spelled like.
 seed = 'bin/demo/seed.php'
 if os.path.exists(seed):
-    for m in re.finditer(r"'([a-z0-9-]+\.(?:webp|png))'", open(seed).read()):
-        refs.setdefault(m.group(1), set()).add(seed)
+    table = re.search(r'/\* Images from the theme\. \*/(.*?)\) as \$key => \$image \)', open(seed).read(), re.S)
+    if not table:
+        bad('%s has no image table under "/* Images from the theme. */"; the check cannot read it' % seed)
+    else:
+        for m in re.finditer(r"=>\s*array\(\s*'([^']*)'", table.group(1)):
+            refs.setdefault(m.group(1), set()).add(seed)
 for name, where in sorted(refs.items()):
     if not NAME.match(name):
         bad('%s/%s, named by %s, is not a well-formed image name' % (IMAGES, name, ', '.join(sorted(where))))

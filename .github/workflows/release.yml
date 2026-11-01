@@ -33,6 +33,19 @@ jobs:
         shell: bash
         run: bash bin/package-theme.sh
 
+      # The release job builds its zip with rsync and zip -r, not git archive, so the asset
+      # it publishes is measured the same way here, against the budget the script holds.
+      - name: Measure the zip the release job will publish
+        shell: bash
+        run: |
+          budget="$(sed -n 's/^BUDGET_DEFAULT=//p' bin/package-theme.sh)"
+          mkdir -p /tmp/measure/origin-canvas
+          rsync -a --exclude-from=.distignore ./ /tmp/measure/origin-canvas/
+          (cd /tmp/measure && zip -rq origin-canvas.zip origin-canvas/)
+          bytes="$(stat -c%s /tmp/measure/origin-canvas.zip)"
+          echo "release zip would be $bytes bytes, budget $budget"
+          [ "$bytes" -le "$budget" ]
+
   release:
     needs: verify-master
     uses: origin-blocks/theme-workflows/.github/workflows/build-release.yml@v1
