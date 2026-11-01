@@ -120,26 +120,32 @@ for name in files:
     if reason:
         bad('%s/%s %s' % (IMAGES, name, reason))
 
-# 2. References. The path is taken up to the next quote, whitespace or bracket, so a
-# trailing typo (timber-stack.webp2) or a wrong extension (.wepb) is the whole name and
-# fails the grammar instead of matching a real file by prefix.
+# 2. References. In markup the path runs to the closing quote, so any trailing typo
+# (timber-stack.webp2, timber-stack.webp.) or wrong extension (.wepb) is the whole name and
+# fails the grammar instead of matching a real file by prefix. In the readme only a credit's
+# "(patterns/images/<file>)" is a reference; prose that mentions the folder names no file.
 present = set(files)
 refs = {}
-for path in glob.glob('patterns/*.php') + glob.glob('templates/*') + glob.glob('parts/*') + ['readme.txt']:
-    for m in re.finditer(r'patterns/images/([^"\'\s<>()]*)', open(path).read()):
-        token = m.group(1).rstrip('.,;:')
-        if token:  # prose such as "the files in patterns/images/, which" names no file
-            refs.setdefault(token, set()).add(path)
-# The seed's image table: every entry is `'key' => array( '<file>', '<alt>' )`, so the first
-# quoted string of each entry is a file name, whatever it is spelled like.
+for path in glob.glob('patterns/*.php') + glob.glob('templates/*') + glob.glob('parts/*'):
+    for m in re.finditer(r'patterns/images/([^"\']*)["\']', open(path).read()):
+        refs.setdefault(m.group(1), set()).add(path)
+for m in re.finditer(r'\(patterns/images/([^)]*)\)', open('readme.txt').read()):
+    refs.setdefault(m.group(1), set()).add('readme.txt')
+# The seed's image table: every entry is `'key' => array( '<file>', '<alt>' )`. The first
+# argument must be a quoted literal, so the name can be read however it is spelled.
 seed = 'bin/demo/seed.php'
 if os.path.exists(seed):
     table = re.search(r'/\* Images from the theme\. \*/(.*?)\) as \$key => \$image \)', open(seed).read(), re.S)
     if not table:
         bad('%s has no image table under "/* Images from the theme. */"; the check cannot read it' % seed)
     else:
-        for m in re.finditer(r"=>\s*array\(\s*'([^']*)'", table.group(1)):
-            refs.setdefault(m.group(1), set()).add(seed)
+        for m in re.finditer(r'=>\s*array\(\s*([^,]+),', table.group(1)):
+            arg = m.group(1).strip()
+            lit = re.fullmatch(r'''(['"])(.*)\1''', arg)
+            if lit:
+                refs.setdefault(lit.group(2), set()).add(seed)
+            else:
+                bad('%s image table entry %s is not a quoted file name; the check cannot read it' % (seed, arg))
 for name, where in sorted(refs.items()):
     if not NAME.match(name):
         bad('%s/%s, named by %s, is not a well-formed image name' % (IMAGES, name, ', '.join(sorted(where))))
