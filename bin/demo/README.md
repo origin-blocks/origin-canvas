@@ -52,19 +52,24 @@ stay.
 
 ## Content
 
-- Home: the `page-studio` pattern, set as the front page.
+- Home: the `page-home-02` pattern (Home: Logos and Cards), set as the front page.
 - One page for every other `origin-canvas/page-*` pattern, titled with the pattern's title, using
-  the **Page (Full Width, No Title)** template.
+  the **Page (Full Width, No Title)** template. A page with a role gets the role as its address:
+  `/about/`, `/services/`, `/pricing/`, `/contact/`, `/landing/`.
 - Blog: the posts page, with nine posts in three categories, featured images from the theme, and
   comments from the studio team.
-- Primary menu: Home, the page-pattern pages, Blog.
+- Careers, from the Job Openings pattern, and Privacy policy, a short policy for the demo studio
+  that WordPress is told about. Both off the menu; the footer links to them.
+- Primary menu: Home, About, Services, Pricing, Blog, Contact. Each menu label is the page
+  pattern's role (`page-about-01` is About); the pages themselves keep the pattern's title. The
+  landing page and the editorial cover are pages too, off the menu.
 
 Each page holds a reference to its pattern, so it renders the pattern as the active theme has it
 now. A change to an existing page pattern shows on reload, also under `?octheme=`.
 
 To add a page pattern, add `patterns/page-<role>-NN.php` to the theme, then run the reset. The
-seed finds every registered `origin-canvas/page-*` pattern, makes a page for it and adds it to the
-menu.
+seed finds every registered `origin-canvas/page-*` pattern and makes a page for it. Only the about,
+services, pricing and contact roles reach the menu; add a role to the list in `seed.php` to show it.
 
 ## Switches
 
@@ -104,3 +109,7 @@ bash bin/check-tracking-render.sh ~/Sites/canvas-demo
   block, a recovery prompt or a block the editor rewrites on load.
 - `check-tracking-render.sh` renders every pattern at 1440 and 390, under every style variation,
   and checks letter spacing against font size.
+
+## Public demo
+
+The public demo is rebuilt from this seed by a script kept in the private server repo.

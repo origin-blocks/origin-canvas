@@ -228,6 +228,9 @@ A tool that moves saved content to the new names is available on request from su
 
 == Changelog ==
 
+= 1.4.2 - 1 November 2026 =
+* Balanced the Hero Centered Logos heading, so its two lines run to near-equal lengths at the wide width instead of one long line and a short one.
+
 = 1.4.1 - 1 November 2026 =
 * Optimized the pattern photos. Each is now cut to the size it is drawn at, so pages that use Gallery Grid, Hero Split With Image, CTA Band Split With Image or Gallery List load faster.
 * Set page and post titles to 48px, down from 60px, one step on the type scale. A site with its own heading size in Global Styles keeps it, and the Expressive and Space Grotesk styles keep their own title size.

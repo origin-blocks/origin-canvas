@@ -25,7 +25,7 @@ update_option( 'default_ping_status', 'closed' );
 update_option( 'default_pingback_flag', 0 );
 update_option( 'thread_comments', 1 );
 update_option( 'page_comments', 0 );
-update_option( 'posts_per_page', 10 );
+update_option( 'posts_per_page', 6 ); // Nine posts: a second page, so the demo shows pagination.
 
 /* Helpers. */
 
@@ -146,22 +146,40 @@ $page_args = static fn( $title, $content, $order ) => array(
 
 $pattern_ref = static fn( $slug ) => '<!-- wp:pattern {"slug":"' . $slug . '"} /-->';
 
-$home = oc_demo_insert( $page_args( 'Home', $pattern_ref( 'origin-canvas/page-studio' ), 0 ) );
+$home = oc_demo_insert( $page_args( 'Home', $pattern_ref( 'origin-canvas/page-home-02' ), 0 ) );
 
 $page_patterns = array();
 foreach ( WP_Block_Patterns_Registry::get_instance()->get_all_registered() as $pattern ) {
-	if ( preg_match( '#^origin-canvas/page-#', $pattern['name'] ) && 'origin-canvas/page-studio' !== $pattern['name'] ) {
+	if ( preg_match( '#^origin-canvas/page-#', $pattern['name'] ) && 'origin-canvas/page-home-02' !== $pattern['name'] ) {
 		$title                              = html_entity_decode( $pattern['title'], ENT_QUOTES, 'UTF-8' );
 		$page_patterns[ $pattern['name'] ] = trim( preg_replace( '/^Page:\s*/i', '', $title ) );
 	}
 }
 asort( $page_patterns );
 
-$menu  = array( array( 'Home', $home ) );
-$order = 1;
+$menu    = array( array( 'Home', $home ) );
+$order   = 1;
+$by_role = array();
+$pages   = 1;
 foreach ( $page_patterns as $slug => $title ) {
-	$id     = oc_demo_insert( $page_args( $title, $pattern_ref( $slug ), $order++ ) );
-	$menu[] = array( $title, $id );
+	$args = $page_args( $title, $pattern_ref( $slug ), $order++ );
+	$role = preg_match( '#^origin-canvas/page-([a-z]+)-\d+$#', $slug, $m ) ? $m[1] : '';
+	if ( $role ) {
+		$args['post_name'] = $role; // A client site's address: /about/, /pricing/, not the pattern's title.
+	}
+	$id = oc_demo_insert( $args );
+	++$pages;
+	if ( $role ) {
+		$by_role[ $role ] = $id;
+	}
+}
+
+/* The menu reads like a client site's: the page's role, not the pattern's title. The landing
+   page and the editorial cover have no role here, so they are reachable but off the menu. */
+foreach ( array( 'about' => 'About', 'services' => 'Services', 'pricing' => 'Pricing' ) as $role => $label ) {
+	if ( isset( $by_role[ $role ] ) ) {
+		$menu[] = array( $label, $by_role[ $role ] );
+	}
 }
 
 $blog = oc_demo_insert(
@@ -174,6 +192,57 @@ $blog = oc_demo_insert(
 	)
 );
 $menu[] = array( 'Blog', $blog );
+
+/* Two pages the footer links to and the menu leaves out: Careers, the theme's Job Openings
+   pattern under the page title with its apply links pointed at the contact page, and the
+   privacy policy, which WordPress is told about so the login and comment forms can link to
+   it. Both use the default page template, so the title is the page's h1. */
+
+$careers = oc_demo_insert(
+	array(
+		'post_type'    => 'page',
+		'post_status'  => 'publish',
+		'post_title'   => 'Careers',
+		'post_name'    => 'careers',
+		'post_content' => preg_replace(
+			'/href="#"(><span aria-hidden="true">Apply)/',
+			'href="' . esc_url( get_permalink( $by_role['contact'] ) ) . '"$1',
+			WP_Block_Patterns_Registry::get_instance()->get_registered( 'origin-canvas/job-openings' )['content']
+		), // The three Apply links go to the contact page; "View all open roles" is this page.
+		'post_author'  => $authors['claire'],
+		'menu_order'   => $order + 1,
+	)
+);
+
+$privacy_paragraphs = array(
+	'The studio collects little when you use this site. Here is what, and what happens to it.',
+	'When you write to us through the contact page, we keep your name, your email address and your message so we can reply.',
+	'A comment on a post stays with the name, email address and site you give, the comment itself and the address your browser used. The comment shows your name and, if you give one, your site. You can ask us to remove a comment at any time.',
+	'The site sets a cookie when you ask it to remember your details for your next comment. It carries no advertising.',
+	'Our host keeps the usual server logs, which record the pages requested and the addresses they came from. We read them when something breaks.',
+	'We do not sell or pass on any of this. Our email provider carries the mail we send and receive, as any email provider does.',
+	'Write to us at the address on the contact page to see what we hold about you, to correct it, or to have it deleted.',
+);
+$privacy_content = '';
+foreach ( $privacy_paragraphs as $paragraph ) {
+	$privacy_content .= "<!-- wp:paragraph -->\n<p>" . esc_html( $paragraph ) . "</p>\n<!-- /wp:paragraph -->\n";
+}
+
+$privacy = oc_demo_insert(
+	array(
+		'post_type'    => 'page',
+		'post_status'  => 'publish',
+		'post_title'   => 'Privacy policy',
+		'post_name'    => 'privacy-policy',
+		'post_content' => $privacy_content,
+		'post_author'  => $authors['claire'],
+		'menu_order'   => $order + 2,
+	)
+);
+update_option( 'wp_page_for_privacy_policy', $privacy );
+if ( isset( $by_role['contact'] ) ) {
+	$menu[] = array( 'Contact', $by_role['contact'] );
+}
 
 update_option( 'show_on_front', 'page' );
 update_option( 'page_on_front', $home );
@@ -467,7 +536,7 @@ oc_demo_insert(
 	)
 );
 
-WP_CLI::success( sprintf( 'Seeded %d pages, %d posts and the primary menu.', count( $menu ), count( $post_ids ) ) );
+WP_CLI::success( sprintf( 'Seeded %d pages, %d posts and the primary menu.', $pages + 3, count( $post_ids ) ) );
 
 /* The private design system page, for administrators. Not in the menu. */
 
