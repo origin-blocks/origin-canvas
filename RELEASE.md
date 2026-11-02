@@ -1,7 +1,8 @@
 # Releasing Origin Canvas
 
-Read this before any tag, version or changelog work. The theme is not on wordpress.org. It
-ships as a zip on a GitHub release, and pushing a version tag is what publishes it.
+Read this before any tag, version or changelog work. The theme is on wordpress.org (since
+1.3.1) and on GitHub. Pushing a version tag publishes the GitHub release and its zip; the owner
+then uploads that same zip to wordpress.org, which is where most sites update from.
 
 ## What publishes
 
@@ -51,4 +52,8 @@ hand: a manual one races the workflow. A tag is never moved; a wrong release get
 8. The same run's last job, `deploy-demo`, ships the release to the public demo and rebuilds its
    content through the shared workflow in `origin-blocks/.github`, after the release is created.
    Check it in the run's jobs; the demo should show the release.
-9. Check the docs site (branch `gh-pages`) against the entry and list what needs an update.
+9. The owner uploads the release asset to wordpress.org (Themes, Upload). The zip is the GitHub
+   asset, downloaded, never a local build. When
+   `https://downloads.wordpress.org/theme/origin-canvas.X.Y.Z.zip` returns 200, download it and
+   `diff -rq` its contents against the asset's: it must print nothing.
+10. Check the docs site (branch `gh-pages`) against the entry and list what needs an update.
