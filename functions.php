@@ -463,15 +463,16 @@ if ( ! function_exists( 'origin_canvas_rewrite_legacy_card_image_paths' ) ) {
 	 * @return string Block HTML with the legacy card-image path rewritten.
 	 */
 	function origin_canvas_rewrite_legacy_card_image_paths( $block_content ) {
-		if ( false === strpos( $block_content, '/assets/images/cards/' ) ) {
+		// Scoped to this theme's own directory path, whatever the scheme or host the URL was
+		// saved with, so an image under another theme's or a plugin's assets/images/cards/ is
+		// left alone.
+		$theme_path = (string) wp_parse_url( get_template_directory_uri(), PHP_URL_PATH );
+		$old        = $theme_path . '/assets/images/cards/';
+		if ( false === strpos( $block_content, $old ) ) {
 			return $block_content;
 		}
 
-		return str_replace(
-			'/assets/images/cards/',
-			'/patterns/images/',
-			$block_content
-		);
+		return str_replace( $old, $theme_path . '/patterns/images/', $block_content );
 	}
 }
 add_filter( 'render_block_core/image', 'origin_canvas_rewrite_legacy_card_image_paths' );
