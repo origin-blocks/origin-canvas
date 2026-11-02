@@ -12,7 +12,9 @@ without, in the SAME release, shipping a render-time rewrite shim (old path → 
 to the affected block types) AND documenting a sunset version for that shim. The reference
 implementation is the shim for the 1.0.x → `patterns/images/` card-image move: added in
 commits `62f9ac4` and `6cc1ee7` (1.1.0; scoped to `render_block_core/image` +
-`render_block_core/cover`, non-destructive, sunset 1.3.0) and removed after that sunset.
+`render_block_core/cover`, non-destructive), removed in 1.4.0 after its 1.3.0 sunset, and
+restored in 1.4.3 because wordpress.org distributed 1.0.x and those sites still update. Its
+sunset is now 2.0.0, the first version allowed to change a shipped asset name.
 
 This applies with extra force to the **Home pattern under the user-owned front-page model**:
 the front page is now a user-owned Page seeded from `page-studio` (no `front-page.html`
