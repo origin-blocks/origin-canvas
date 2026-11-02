@@ -443,6 +443,40 @@ if ( ! function_exists( 'origin_canvas_add_block_editor_styles' ) ) {
 }
 add_action( 'after_setup_theme', 'origin_canvas_add_block_editor_styles' );
 
+if ( ! function_exists( 'origin_canvas_rewrite_legacy_card_image_paths' ) ) {
+	/**
+	 * Back-compat shim for card images inserted under 1.0.x. Sunset: 2.0.0.
+	 *
+	 * Versions 1.0.0 to 1.0.4 shipped the card images under /assets/images/cards/; 1.1.0 moved
+	 * them to /patterns/images/ (commit 1de024e). Image and Cover are static blocks, so a site that
+	 * inserted a card pattern under 1.0.x holds the old absolute URL in its saved content, and
+	 * wordpress.org distributed those versions. The rewrite happens at render time only: the
+	 * database is not touched and the old folder is not brought back. Scoped to the two block
+	 * types that carry these URLs. card-team-1.webp is not covered: it left the theme in 1.3.0
+	 * (commit 4415891) and has no file to point at.
+	 *
+	 * The shim shipped in 1.1.0 with a 1.3.0 sunset, was removed in 1.4.0, and is restored in
+	 * 1.4.3 because 1.0.x sites are still updating from wordpress.org. A shipped asset name now
+	 * changes only at a major version (CLAUDE.md, 3b), so the shim leaves with 2.0.0.
+	 *
+	 * @param string $block_content Rendered block HTML.
+	 * @return string Block HTML with the legacy card-image path rewritten.
+	 */
+	function origin_canvas_rewrite_legacy_card_image_paths( $block_content ) {
+		if ( false === strpos( $block_content, '/assets/images/cards/' ) ) {
+			return $block_content;
+		}
+
+		return str_replace(
+			'/assets/images/cards/',
+			'/patterns/images/',
+			$block_content
+		);
+	}
+}
+add_filter( 'render_block_core/image', 'origin_canvas_rewrite_legacy_card_image_paths' );
+add_filter( 'render_block_core/cover', 'origin_canvas_rewrite_legacy_card_image_paths' );
+
 if ( ! function_exists( 'origin_canvas_swap_nav_chevron' ) ) {
 	/**
 	 * Replace core's submenu caret SVG with the Lucide `chevron-down` glyph.
