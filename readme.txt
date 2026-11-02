@@ -10,7 +10,7 @@ Requires PHP: 7.4
 License: GNU General Public License v3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-Start closer to finished with a free WordPress block theme: templates, patterns and 12 style variations, ready to edit in the Site Editor.
+Build your WordPress site with Origin Canvas. Start with ready-made templates and patterns, customize every page with core blocks, and change styles across your site in the Site Editor.
 
 == Description ==
 
