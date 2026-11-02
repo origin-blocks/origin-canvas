@@ -228,6 +228,10 @@ A tool that moves saved content to the new names is available on request from su
 
 == Changelog ==
 
+= 1.4.3 - 2 November 2026 =
+* Restored the display of card images inserted under 1.0.x. Those versions kept the card images in a folder that 1.1.0 moved, and 1.4.0 stopped pointing the saved image addresses at the new folder, so a page built on 1.0.x lost its card images on update. The saved addresses work again, for Image and Cover blocks only, until 2.0.0.
+* Set the Hero Centered Logos "Trusted by" label closer to its logos and further from the buttons, so the buttons read with the text above them and the label with the logos below.
+
 = 1.4.2 - 1 November 2026 =
 * Balanced the Hero Centered Logos heading, so its two lines run to near-equal lengths at the wide width instead of one long line and a short one.
 

@@ -1,54 +1,31 @@
 # Releasing Origin Canvas
 
-Read this before any tag, version or changelog work. The theme is not on wordpress.org. It
-ships as a zip on a GitHub release, and pushing a version tag is what publishes it.
+The git-flow steps are the pipeline's `templates/release-gate.md`. This file holds only what
+Canvas does differently; where the two differ, this file wins.
 
-## What publishes
-
-`.github/workflows/release.yml` runs on a pushed tag shaped `X.Y.Z`. It checks that the tag
-is on `master`, then calls `origin-blocks/theme-workflows/.github/workflows/build-release.yml@v1`,
-which builds `origin-canvas.X.Y.Z.zip` from `.distignore`, cuts the release body from the
-`= X.Y.Z` entry in `readme.txt`, and creates the GitHub release. Never create the release by
-hand: a manual one races the workflow. A tag is never moved; a wrong release gets a follow-up.
-
-## Where the version lives
-
-`style.css` (`Version:`), `package.json` (`version`) and the two root `version` values in
-`package-lock.json`. `functions.php` reads `ORIGIN_CANVAS_VERSION` from `style.css`.
-
-## The steps
-
-1. In the main checkout on `develop`, with a clean tree and `develop` and `master` level with
-   `origin`. The owner names the version.
-2. `git flow release start X.Y.Z`.
-3. Write the `readme.txt` entry against the last tag (`git log --merges --first-parent
-   <tag>..develop`), following the writing guide's changelog rules, and set the four version
-   strings. `bin/check-pattern-counts.sh` reads every "N patterns" in `readme.txt` as the
-   library total, so a count of added or changed patterns needs a word between the number and
-   "patterns". Leave the edits uncommitted until the owner has read `git diff` and said
-   "commit".
-4. Commit. `bash bin/package-theme.sh` builds `dist/origin-canvas.zip` as a preflight: list it
-   (no `bin/`, `docs/`, `tests/`, `.github/`, `CLAUDE.md`, `CONTRIBUTING.md` or `RELEASE.md`),
-   check the version strings inside, and compare its contents with `git archive HEAD`. Then
-   diff its file list against the previous release's zip (`gh release download <last tag>
-   --pattern '*.zip'`): every added or removed path must be one the changelog accounts for,
-   and nothing from the excluded folders may appear. Build the zip once more the way the
-   workflow does, from a fresh clone of the release head so no untracked file rides along
-   (`rsync -a --exclude-from=.distignore ./ dist/origin-canvas/`, then `zip -r`), and confirm
-   it unpacks to the same files as the preflight. The workflow runs only on the
-   pushed tag, so these three compares are the last look before anything is public.
-5. With the owner's go: `git flow release finish -m "X.Y.Z" X.Y.Z` (git-flow AVH 1.12.3).
-   Before pushing, check that `git merge-base --is-ancestor master develop` succeeds,
-   `git log --oneline develop..master` is empty, `git diff --stat master develop` is empty,
-   and the tag's commit equals `master`.
-6. `git push --atomic origin develop master X.Y.Z`.
-7. Find the Release run for the tag (`gh run list --workflow release.yml`), watch it, then
-   check the release: the title is `X.Y.Z`, the body equals the entry's bullets, and the one
-   asset, `origin-canvas.X.Y.Z.zip`, unpacks to the same files as `git archive X.Y.Z`. The
-   workflow's first job runs `bin/package-theme.sh` on the tagged tree, so the byte budget
-   (5,000,000 bytes) gates the release before it is created; still read the asset's size
-   against the previous release's, since a jump is an anomaly to explain before announcing.
-8. The same run's last job, `deploy-demo`, ships the release to the public demo and rebuilds its
-   content through the shared workflow in `origin-blocks/.github`, after the release is created.
-   Check it in the run's jobs; the demo should show the release.
-9. Check the docs site (branch `gh-pages`) against the entry and list what needs an update.
+- **What publishes.** The theme is on wordpress.org (since 1.3.1) and GitHub. Pushing a tag
+  `X.Y.Z` runs `.github/workflows/release.yml`: `verify-master` (the tag is on `master`,
+  `bin/package-theme.sh` passes, the zip is under 5,000,000 bytes), `release` (the shared
+  `origin-blocks/theme-workflows` build makes `origin-canvas.X.Y.Z.zip` and the GitHub release
+  from the `= X.Y.Z` entry in `readme.txt`) and `deploy-demo` (ships the tag to the public demo).
+  Never create the release by hand, and never move a tag: a wrong release gets a follow-up.
+- **Version strings.** `style.css` (`Version:`), `package.json` and the two root `version`
+  values in `package-lock.json`. There is no `changelog.txt` and no stable tag; the entry is
+  written against the last tag (`git log --merges --first-parent <tag>..develop`).
+  `bin/check-pattern-counts.sh` reads every "N patterns" in `readme.txt` as the library total,
+  so a count of added or changed patterns needs a word between the number and "patterns".
+- **Preflight, in place of the gate's build step.** On the release branch after the commit:
+  `bash bin/package-theme.sh`, list `dist/origin-canvas.zip` (no `bin/`, `docs/`, `tests/`,
+  `.github/`, `CLAUDE.md`, `CONTRIBUTING.md` or `RELEASE.md`), compare it with `git archive HEAD`,
+  diff its file list against the previous release's asset (`gh release download <tag>
+  --pattern '*.zip'`; every difference is one the entry accounts for), and build once more from a
+  fresh clone the way the workflow does (`rsync -a --exclude-from=.distignore`, then `zip -r`).
+- **Order.** Finish, then `git push --atomic origin develop master X.Y.Z`. Watch the run
+  (`gh run list --workflow release.yml`). Check the release: title `X.Y.Z`, body equal to the
+  entry's bullets, the one asset unpacking to the same files as `git archive X.Y.Z`, and its size
+  read against the previous release's. Check the demo shows the release. The gate's demo gate and
+  hand-made GitHub release do not apply.
+- **wordpress.org.** The owner uploads the GitHub asset (downloaded, never a local build). When
+  `https://downloads.wordpress.org/theme/origin-canvas.X.Y.Z.zip` returns 200, `diff -rq` its
+  contents against the asset's: it must print nothing.
+- **Docs.** Check the docs site (branch `gh-pages`) against the entry and list what needs an update.
