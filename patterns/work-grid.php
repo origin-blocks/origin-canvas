@@ -83,7 +83,7 @@
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"style":{"spacing":{"margin":{"bottom":"var:preset|spacing|medium"}}},"textColor":"contrast-2","fontSize":"regular"} -->
-<p class="has-contrast-2-color has-text-color has-regular-font-size" style="margin-bottom:var(--wp--preset--spacing--medium)"><?php echo esc_html__( 'A four-week rebrand for a neighborhood frame shop. New mark, new business cards, and a single-page site that takes framing quotes.', 'origin-canvas' ); ?></p>
+<p class="has-contrast-2-color has-text-color has-regular-font-size" style="margin-bottom:var(--wp--preset--spacing--medium)"><?php echo esc_html__( 'A weekend rebrand for a neighborhood frame shop. New mark, new business cards, and a single-page site that takes framing quotes.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"style":{"typography":{"fontWeight":"600"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"contrast","fontSize":"regular"} -->
