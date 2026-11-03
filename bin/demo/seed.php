@@ -94,7 +94,7 @@ function oc_demo_insert( $args ) {
 
 $authors = array();
 foreach ( array(
-	'claire' => array( 'Claire Bennett', 'Co-founder. Twelve years in agencies before going small. Most days she&#8217;s in a discovery call or pushing back on a brief.' ),
+	'claire' => array( 'Claire Bennett', 'Co-founder. Twelve years in agencies before going small. She writes about type, color, and the craft of making sites that look designed rather than assembled.' ),
 	'marcus' => array( 'Marcus Holloway', 'Co-founder and Designer. Started the studio with Claire after ten years in print. Still checks every page twice before it goes out.' ),
 	'hannah' => array( 'Hannah Wright', 'Brand Strategist. Works out what a business is actually saying before anyone draws a page. Runs the first week of every project.' ),
 	'ben'    => array( 'Ben Carter', 'Developer. Builds every site and runs the launch. Tests it all on the oldest phone in the office.' ),
