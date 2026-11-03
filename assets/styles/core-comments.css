@@ -201,48 +201,13 @@
 	gap: var(--wp--preset--spacing--small-medium);
 }
 
+/* The consent checkbox is the browser's own control in the theme's primary, as every
+   checkbox is (style.css). */
 .wp-block-comments .wp-block-post-comments-form .comment-form-cookies-consent input[type="checkbox"]#wp-comment-cookies-consent {
-	appearance: none;
-	-webkit-appearance: none;
-	background: var(--wp--preset--color--base);
-	border: 1px solid var(--wp--preset--color--contrast-5);
-	border-radius: var(--wp--custom--radius--small);
+	accent-color: var(--wp--preset--color--primary);
 	cursor: pointer;
 	flex: 0 0 auto;
-	height: 20px;
 	margin: 0;
-	position: relative;
-	width: 20px;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-	.wp-block-comments .wp-block-post-comments-form .comment-form-cookies-consent input[type="checkbox"]#wp-comment-cookies-consent {
-		transition: background 120ms ease, border-color 120ms ease;
-	}
-}
-
-.wp-block-comments .wp-block-post-comments-form .comment-form-cookies-consent input[type="checkbox"]#wp-comment-cookies-consent:checked {
-	background: var(--wp--preset--color--primary);
-	border-color: var(--wp--preset--color--primary);
-}
-
-/* Checkmark */
-.wp-block-comments .wp-block-post-comments-form .comment-form-cookies-consent input[type="checkbox"]#wp-comment-cookies-consent:checked::after {
-	border: solid #fff;
-	border-width: 0 2px 2px 0;
-	content: "";
-	height: 9px;
-	left: 6px;
-	position: absolute;
-	top: 3px;
-	transform: rotate(45deg);
-	width: 5px;
-}
-
-.wp-block-comments .wp-block-post-comments-form .comment-form-cookies-consent input[type="checkbox"]#wp-comment-cookies-consent:focus-visible {
-	border-color: var(--wp--preset--color--primary);
-	box-shadow: 0 0 0 var(--wp--preset--spacing--extra-small) color-mix(in srgb, var(--wp--preset--color--primary) 25%, transparent);
-	outline: none;
 }
 
 /* Consent label */
