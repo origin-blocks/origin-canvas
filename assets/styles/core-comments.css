@@ -245,6 +245,13 @@
 	outline: none;
 }
 
+/* Checked, the border is already primary, so focus adds the outline in the text color, as
+   style.css gives every checked checkbox and radio (#138). */
+.wp-block-comments .wp-block-post-comments-form .comment-form-cookies-consent input[type="checkbox"]#wp-comment-cookies-consent:checked:focus-visible {
+	outline: 2px solid currentColor;
+	outline-offset: 2px;
+}
+
 /* Consent label */
 .wp-block-comments .wp-block-post-comments-form .comment-form-cookies-consent label {
 	color: var(--wp--preset--color--contrast-2);

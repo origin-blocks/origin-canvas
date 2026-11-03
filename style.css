@@ -268,6 +268,15 @@ input[type="radio"]:focus-visible {
 	outline: none;
 }
 
+/* A checked control's border is already primary, so the ring alone reads at about 1.4:1
+   (#138). Keyboard focus on a checked control adds an outline in the text color, offset
+   from the ring: dark on a light ground, light on a dark band, so it clears 3:1 on both. */
+input[type="checkbox"]:checked:focus-visible,
+input[type="radio"]:checked:focus-visible {
+	outline: 2px solid currentColor;
+	outline-offset: 2px;
+}
+
 @media (prefers-reduced-motion: reduce) {
 	* {
 		animation-duration: 0.01ms !important;
