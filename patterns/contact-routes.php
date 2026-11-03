@@ -2,7 +2,7 @@
 /**
  * Title: Contact Routes
  * Slug: origin-canvas/contact-routes
- * Description: A contact section with a panel of three routes, each with a link: email to start a project, book a call, or get help as a client; a form plugin's block can replace the contents of the group named Contact panel.
+ * Description: A contact section with a panel of four routes, each with a link: email to start a project, book a call, get help as a client, or apply for a role; a form plugin's block can replace the contents of the group named Contact panel.
  * Categories: contact
  * Keywords: inquiry, hire, reach, mailto, support
  * Viewport Width: 1500
@@ -64,8 +64,8 @@
 <!-- /wp:paragraph --></div>
 <!-- /wp:group -->
 
-<!-- wp:group {"style":{"border":{"top":{"color":"var:preset|color|base-5","style":"solid","width":"1px"}},"spacing":{"padding":{"top":"var:preset|spacing|medium","bottom":"0"},"blockGap":{"top":"var:preset|spacing|small","left":"var:preset|spacing|large"}}},"layout":{"type":"flex","flexWrap":"wrap","justifyContent":"space-between"}} -->
-<div class="wp-block-group" style="border-top-color:var(--wp--preset--color--base-5);border-top-style:solid;border-top-width:1px;padding-top:var(--wp--preset--spacing--medium);padding-bottom:0"><!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|extra-small"},"layout":{"selfStretch":"fixed","flexSize":"24rem"}},"layout":{"type":"flex","orientation":"vertical"}} -->
+<!-- wp:group {"style":{"border":{"top":{"color":"var:preset|color|base-5","style":"solid","width":"1px"}},"spacing":{"padding":{"top":"var:preset|spacing|medium","bottom":"var:preset|spacing|medium"},"blockGap":{"top":"var:preset|spacing|small","left":"var:preset|spacing|large"}}},"layout":{"type":"flex","flexWrap":"wrap","justifyContent":"space-between"}} -->
+<div class="wp-block-group" style="border-top-color:var(--wp--preset--color--base-5);border-top-style:solid;border-top-width:1px;padding-top:var(--wp--preset--spacing--medium);padding-bottom:var(--wp--preset--spacing--medium)"><!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|extra-small"},"layout":{"selfStretch":"fixed","flexSize":"24rem"}},"layout":{"type":"flex","orientation":"vertical"}} -->
 <div class="wp-block-group"><!-- wp:heading {"level":3,"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"fontSize":"regular-plus"} -->
 <h3 class="wp-block-heading has-regular-plus-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Existing client', 'origin-canvas' ); ?></h3>
 <!-- /wp:heading -->
@@ -77,6 +77,22 @@
 
 <!-- wp:paragraph {"className":"origin-canvas-no-shrink","style":{"typography":{"fontWeight":"600"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"contrast","fontSize":"small"} -->
 <p class="origin-canvas-no-shrink has-contrast-color has-text-color has-small-font-size" style="margin-top:0;margin-bottom:0;font-weight:600"><a href="#" style="text-decoration:none"><?php echo esc_html__( 'Get help', 'origin-canvas' ); ?> <span aria-hidden="true">&rarr;</span></a></p>
+<!-- /wp:paragraph --></div>
+<!-- /wp:group -->
+
+<!-- wp:group {"anchor":"applying-for-a-role","style":{"border":{"top":{"color":"var:preset|color|base-5","style":"solid","width":"1px"}},"spacing":{"padding":{"top":"var:preset|spacing|medium","bottom":"0"},"blockGap":{"top":"var:preset|spacing|small","left":"var:preset|spacing|large"}}},"layout":{"type":"flex","flexWrap":"wrap","justifyContent":"space-between"}} -->
+<div class="wp-block-group" id="applying-for-a-role" style="border-top-color:var(--wp--preset--color--base-5);border-top-style:solid;border-top-width:1px;padding-top:var(--wp--preset--spacing--medium);padding-bottom:0"><!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|extra-small"},"layout":{"selfStretch":"fixed","flexSize":"24rem"}},"layout":{"type":"flex","orientation":"vertical"}} -->
+<div class="wp-block-group"><!-- wp:heading {"level":3,"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"fontSize":"regular-plus"} -->
+<h3 class="wp-block-heading has-regular-plus-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Applying for a role', 'origin-canvas' ); ?></h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"contrast-3","fontSize":"small"} -->
+<p class="has-contrast-3-color has-text-color has-small-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Send a short note, a link to your work and the role you mean. We reply within two business days.', 'origin-canvas' ); ?></p>
+<!-- /wp:paragraph --></div>
+<!-- /wp:group -->
+
+<!-- wp:paragraph {"className":"origin-canvas-no-shrink","style":{"typography":{"fontWeight":"600"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"contrast","fontSize":"small"} -->
+<p class="origin-canvas-no-shrink has-contrast-color has-text-color has-small-font-size" style="margin-top:0;margin-bottom:0;font-weight:600"><a href="mailto:hello@example.com" style="text-decoration:none"><?php echo esc_html__( 'Email us', 'origin-canvas' ); ?> <span aria-hidden="true">&rarr;</span></a></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group --></div>
 <!-- /wp:group --></div>
