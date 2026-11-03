@@ -207,6 +207,95 @@ input[type="radio"] {
 	margin: 0;
 }
 
+/* Labels, control rows and fieldsets (#137). theme.json has no label, input or fieldset
+   element and core has no stable Form block, so these are CSS. Each selector is its
+   structure inside :where() plus one element, so every rule weighs exactly one element:
+   enough to follow the element reset above it, and under any class a plugin writes. A label looks like the comment form's: small, 500, the heading
+   color. A field inside or after its label sits 8px below it, whichever way the markup
+   nests (a plain label and field, or Contact Form 7's label around a span around the
+   field). A label that holds a checkbox or radio is a row: the control on the first line
+   of the text with an 8px gap, the text at body size and weight, 8px between stacked rows.
+   A fieldset is a plain group and its legend is a label. */
+:where(label, legend):is(label, legend) {
+	color: var(--wp--preset--color--contrast);
+	font-size: var(--wp--preset--font-size--small);
+	font-weight: 500;
+}
+
+/* A label that holds its field, or stands before it, is a block at the comment form's line
+   height, so the label-to-field and field-to-next-label distances are the comment form's. */
+:where(label:has(> :is(input:not([type="checkbox"], [type="radio"], [type="submit"], [type="button"], [type="reset"], [type="hidden"]), select, textarea)), label:has(> span > :is(input:not([type="checkbox"], [type="radio"], [type="submit"], [type="button"], [type="reset"], [type="hidden"]), select, textarea)), label:has(+ :is(input:not([type="checkbox"], [type="radio"], [type="submit"], [type="button"], [type="reset"], [type="hidden"]), select, textarea))):is(label) {
+	display: block;
+	line-height: var(--wp--custom--line-height--normal);
+}
+
+:where(label :is(input:not([type="checkbox"], [type="radio"], [type="submit"], [type="button"], [type="reset"], [type="hidden"]), select, textarea), label + :is(input:not([type="checkbox"], [type="radio"], [type="submit"], [type="button"], [type="reset"], [type="hidden"]), select, textarea)):is(input, select, textarea) {
+	margin-top: var(--wp--preset--spacing--small);
+}
+
+:where(label:has(> input[type="checkbox"], > input[type="radio"])):is(label) {
+	align-items: start;
+	color: var(--wp--preset--color--contrast-2);
+	display: inline-grid;
+	font-size: var(--wp--preset--font-size--regular);
+	font-weight: 400;
+	gap: var(--wp--preset--spacing--small);
+	grid-template-columns: auto 1fr;
+}
+
+:where(label:has(> input[type="checkbox"], > input[type="radio"]) > :is(input[type="checkbox"], input[type="radio"])):is(input) {
+	margin-top: 0.35em;
+}
+
+:where(label:has(> input[type="checkbox"], > input[type="radio"]) ~ label:has(> input[type="checkbox"], > input[type="radio"])):is(label),
+:where(.wpcf7-list-item + .wpcf7-list-item):is(span) {
+	margin-top: var(--wp--preset--spacing--small);
+}
+
+/* A field, a fieldset or a control row is followed by a medium gap before the next label
+   or group, so a form built from bare labels and fields, or from paragraphs as Contact
+   Form 7 writes them, reads in rows. The Search block lays its field and button out
+   itself, so it is left alone. */
+:where(form:not(.wp-block-search) :is(input:not([type="checkbox"], [type="radio"], [type="submit"], [type="button"], [type="reset"], [type="hidden"]), select, textarea, fieldset)):is(input, select, textarea, fieldset) {
+	margin-bottom: var(--wp--preset--spacing--medium);
+}
+
+:where(form p + p):is(p) {
+	margin-top: var(--wp--preset--spacing--medium);
+}
+
+/* Later than the rule above and at the same zero specificity, so it wins: a field inside a
+   paragraph takes the paragraph gap only. */
+:where(form p :is(input:not([type="checkbox"], [type="radio"], [type="submit"], [type="button"], [type="reset"], [type="hidden"]), select, textarea, fieldset)):is(input, select, textarea, fieldset) {
+	margin-bottom: 0;
+}
+
+:where(form label:has(> input[type="checkbox"], > input[type="radio"]) + :is(p, button, input[type="submit"], input[type="button"])):is(p, button, input) {
+	margin-top: var(--wp--preset--spacing--medium);
+}
+
+:where(fieldset):is(fieldset) {
+	border: 0;
+	margin: 0;
+	margin-bottom: var(--wp--preset--spacing--medium);
+	min-width: 0;
+	padding: 0;
+}
+
+:where(fieldset > label:has(> input[type="checkbox"], > input[type="radio"])):is(label) {
+	display: grid;
+}
+
+:where(legend):is(legend) {
+	display: block;
+	margin-bottom: var(--wp--preset--spacing--small);
+	padding: 0;
+}
+
+:where(legend + label:has(> input[type="checkbox"], > input[type="radio"])):is(label) {
+	margin-top: 0;
+}
+
 @media (prefers-reduced-motion: reduce) {
 	* {
 		animation-duration: 0.01ms !important;
