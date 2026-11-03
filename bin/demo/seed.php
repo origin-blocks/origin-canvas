@@ -207,9 +207,9 @@ $menu[] = array( 'Blog', $blog );
    policy uses the default template, so the title is the page's h1. */
 
 /**
- * The Careers page: the five section patterns in order, with exactly eight changed occurrences.
+ * The Careers page: the five section patterns in order, with exactly nine changed occurrences.
  * Three Apply links and the closer's button go to the contact page's applicant route; the team
- * intro, Ben's bio and the two story lines, written for clients on the About page, read for a job
+ * intro, Ben's bio and the story row's heading and two lines, written for clients on the About page, read for a job
  * seeker here. A count that is off means a pattern changed under the seed, so the seed stops.
  *
  * @param string $contact_url The contact page's permalink.
@@ -231,8 +231,9 @@ function oc_demo_careers_content( $contact_url ) {
 		array( '<a class="wp-block-button__link wp-element-button" href="#">Write to the studio', '<a class="wp-block-button__link wp-element-button" href="' . $apply . '">Write to the studio', 1 ),
 		array( 'Two founders, a strategist and a developer. Whoever you meet on the first call stays on your project until launch day.', 'Two founders, a strategist and a developer. You join a project at kickoff and stay on it to launch day.', 1 ),
 		array( 'Builds every site and runs the launch. Tests it all on the oldest phone in the office.', 'Builds the sites and runs every launch. Tests it all on the oldest phone in the office.', 1 ),
-		array( 'We plan the work before we promise a date, so you know when to expect it.', 'We plan the work before we promise a date: one big project at a time, eight weeks from kickoff to launch on a standard project.', 1 ),
-		array( 'Most of our clients are shops, studios, and practices between five and fifty people. They come to us because they want the site to sound like them.', 'One named lead runs each project from kickoff to launch, with a weekly client call and the words written beside the design. You join that rhythm, not a queue.', 1 ),
+		array( 'Why the schedule holds', 'The clients you would work for', 1 ),
+		array( 'We plan the work before we promise a date, so you know when to expect it.', 'A neighborhood frame shop that needed a new mark, business cards and a one-page site that takes framing quotes, over one weekend. A law firm&#8217;s identity and website. A bike repair shop&#8217;s service menu. A veterinary clinic&#8217;s appointment flow.', 1 ),
+		array( 'Most of our clients are shops, studios, and practices between five and fifty people. They come to us because they want the site to sound like them.', 'Small businesses whose owners care how their work looks and reads, and who stay with us after launch. On a standard project you meet them in the first week and stay with them until launch day.', 1 ),
 	);
 	foreach ( $swaps as $swap ) {
 		list( $from, $to, $expected ) = $swap;
