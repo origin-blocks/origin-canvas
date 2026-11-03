@@ -251,7 +251,7 @@ function oc_demo_careers_content( $contact_url, $home_url, $blog_url ) {
 		array( '<a class="wp-block-button__link wp-element-button" href="#">Write to the studio', '<a class="wp-block-button__link wp-element-button" href="' . $apply . '">Write to the studio', 1 ),
 		array( 'Two founders, a strategist and a developer. Whoever you meet on the first call stays on your project until launch day.', 'Two founders, a strategist and a developer. You join a project at kickoff and stay on it to launch day.', 1 ),
 		array( 'Builds every site and runs the launch. Tests it all on the oldest phone in the office.', 'Builds the sites and runs every launch. Tests it all on the oldest phone in the office.', 1 ),
-		array( 'Selected work', 'The work you would do', 1 ),
+		array( 'Selected work', 'The kind of work you would do', 1 ),
 	);
 	foreach ( $swaps as $swap ) {
 		list( $from, $to, $expected ) = $swap;
