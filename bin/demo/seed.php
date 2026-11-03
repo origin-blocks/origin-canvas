@@ -207,16 +207,20 @@ $menu[] = array( 'Blog', $blog );
    policy uses the default template, so the title is the page's h1. */
 
 /**
- * The Careers page: the five section patterns in order, with exactly seven changed occurrences.
- * Three Apply links and the closer's button go to the contact page's applicant route; the team
- * intro and Ben's bio, written for clients on the About page, read for a job seeker here, and the
- * work grid's heading names the work for them, and the grid loses its muted ground, since the rows
- * either side of it are muted. A count that is off means a pattern changed under the seed, so the seed stops.
+ * The Careers page: the five section patterns in order. Seven counted replacements point the
+ * three Apply links and the closer's button at the contact page's applicant route and give the
+ * team intro, Ben's bio and the work grid's heading their job-seeker lines. The work grid also
+ * loses its muted ground, since the rows either side of it are muted, and its View all work and
+ * Read the latest links go to the home page and the blog; the three case study links stay "#",
+ * as on the home page, because the demo has no case study pages. A count that is off means a
+ * pattern changed under the seed, so the seed stops.
  *
  * @param string $contact_url The contact page's permalink.
+ * @param string $home_url    The home page's permalink.
+ * @param string $blog_url    The blog page's permalink.
  * @return string Block markup.
  */
-function oc_demo_careers_content( $contact_url ) {
+function oc_demo_careers_content( $contact_url, $home_url, $blog_url ) {
 	$registry = WP_Block_Patterns_Registry::get_instance();
 	$content  = '';
 	foreach ( array( 'hero-hiring', 'job-openings', 'work-grid', 'team-grid', 'cta-hiring-card' ) as $slug ) {
@@ -226,12 +230,17 @@ function oc_demo_careers_content( $contact_url ) {
 		}
 		$part = $pattern['content'];
 		if ( 'work-grid' === $slug ) {
-			// The grid sits between two muted rows here, so its own muted ground comes off: a page
-			// never puts two fills together.
-			$part = str_replace( '{"tagName":"section","align":"full","backgroundColor":"base-2",', '{"tagName":"section","align":"full",', $part, $count );
-			$part = str_replace( '<section class="wp-block-group alignfull has-base-2-background-color has-background"', '<section class="wp-block-group alignfull"', $part, $count2 );
-			if ( 1 !== $count || 1 !== $count2 ) {
-				WP_CLI::error( 'The Careers page expected one muted section at the top of the Work Grid pattern.' );
+			$grid = array(
+				array( '{"tagName":"section","align":"full","backgroundColor":"base-2",', '{"tagName":"section","align":"full",' ),
+				array( '<section class="wp-block-group alignfull has-base-2-background-color has-background"', '<section class="wp-block-group alignfull"' ),
+				array( '<a href="#" style="text-decoration:none">View all work', '<a href="' . esc_url( $home_url ) . '" style="text-decoration:none">View all work' ),
+				array( '<a href="#" style="text-decoration:none">Read the latest', '<a href="' . esc_url( $blog_url ) . '" style="text-decoration:none">Read the latest' ),
+			);
+			foreach ( $grid as $swap ) {
+				$part = str_replace( $swap[0], $swap[1], $part, $count );
+				if ( 1 !== $count ) {
+					WP_CLI::error( "The Careers page expected one of: {$swap[0]}; found $count." );
+				}
 			}
 		}
 		$content .= $part;
@@ -260,7 +269,7 @@ $careers = oc_demo_insert(
 		'post_status'   => 'publish',
 		'post_title'    => 'Careers',
 		'post_name'     => 'careers',
-		'post_content'  => oc_demo_careers_content( get_permalink( $by_role['contact'] ) ),
+		'post_content'  => oc_demo_careers_content( get_permalink( $by_role['contact'] ), get_permalink( $home ), get_permalink( $blog ) ),
 		'post_author'   => $authors['claire'],
 		'menu_order'    => $order + 1,
 		'page_template' => 'page-no-title',
