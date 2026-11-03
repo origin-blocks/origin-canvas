@@ -210,7 +210,8 @@ $menu[] = array( 'Blog', $blog );
  * The Careers page: the five section patterns in order, with exactly seven changed occurrences.
  * Three Apply links and the closer's button go to the contact page's applicant route; the team
  * intro and Ben's bio, written for clients on the About page, read for a job seeker here, and the
- * work grid's heading names the work for them. A count that is off means a pattern changed under the seed, so the seed stops.
+ * work grid's heading names the work for them, and the grid loses its muted ground, since the rows
+ * either side of it are muted. A count that is off means a pattern changed under the seed, so the seed stops.
  *
  * @param string $contact_url The contact page's permalink.
  * @return string Block markup.
@@ -223,7 +224,17 @@ function oc_demo_careers_content( $contact_url ) {
 		if ( ! $pattern ) {
 			WP_CLI::error( "The Careers page needs the origin-canvas/$slug pattern." );
 		}
-		$content .= $pattern['content'];
+		$part = $pattern['content'];
+		if ( 'work-grid' === $slug ) {
+			// The grid sits between two muted rows here, so its own muted ground comes off: a page
+			// never puts two fills together.
+			$part = str_replace( '{"tagName":"section","align":"full","backgroundColor":"base-2",', '{"tagName":"section","align":"full",', $part, $count );
+			$part = str_replace( '<section class="wp-block-group alignfull has-base-2-background-color has-background"', '<section class="wp-block-group alignfull"', $part, $count2 );
+			if ( 1 !== $count || 1 !== $count2 ) {
+				WP_CLI::error( 'The Careers page expected one muted section at the top of the Work Grid pattern.' );
+			}
+		}
+		$content .= $part;
 	}
 	$apply = esc_url( $contact_url . '#applying-for-a-role' );
 	$swaps = array(
