@@ -232,7 +232,7 @@ function oc_demo_careers_content( $contact_url ) {
 		array( 'Two founders, a strategist and a developer. Whoever you meet on the first call stays on your project until launch day.', 'Two founders, a strategist and a developer. You join a project at kickoff and stay on it to launch day.', 1 ),
 		array( 'Builds every site and runs the launch. Tests it all on the oldest phone in the office.', 'Builds the sites and runs every launch. Tests it all on the oldest phone in the office.', 1 ),
 		array( 'Why the schedule holds', 'The clients you would work for', 1 ),
-		array( 'We plan the work before we promise a date, so you know when to expect it.', 'A neighborhood frame shop that needed a new mark, business cards and a one-page site that takes framing quotes, over one weekend. A law firm&#8217;s identity and website. A bike repair shop&#8217;s service menu. A veterinary clinic&#8217;s appointment flow.', 1 ),
+		array( 'We plan the work before we promise a date, so you know when to expect it.', 'A neighborhood frame shop that needed a new mark, business cards and a one-page site that takes framing quotes. A law firm&#8217;s identity and website. A bike repair shop&#8217;s service menu. A veterinary clinic&#8217;s appointment flow.', 1 ),
 		array( 'Most of our clients are shops, studios, and practices between five and fifty people. They come to us because they want the site to sound like them.', 'Small businesses whose owners care how their work looks and reads, and who stay with us after launch. On a standard project you meet them in the first week and stay with them until launch day.', 1 ),
 	);
 	foreach ( $swaps as $swap ) {
