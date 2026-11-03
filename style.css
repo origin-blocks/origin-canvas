@@ -197,75 +197,14 @@ textarea:disabled {
 	cursor: not-allowed;
 }
 
-/* Checkboxes and radios. Checked, a checkbox is a primary fill with a white check and a radio
-   is a primary border and dot: a tiny checked marker reads as a bullet, not an action. On
-   focus-visible both take the field's border and ring, since they are form inputs (#119). */
+/* Checkboxes and radios are the browser's own controls, drawn in the theme's primary: no
+   custom box, check, dot or focus ring, so they look and behave as the visitor's platform
+   draws them, as Ollie leaves them. */
 input[type="checkbox"],
 input[type="radio"] {
-	appearance: none;
-	-webkit-appearance: none;
-	background: var(--wp--preset--color--base);
-	border: 1px solid var(--wp--preset--color--contrast-5);
+	accent-color: var(--wp--preset--color--primary);
 	cursor: pointer;
-	height: 20px;
 	margin: 0;
-	position: relative;
-	width: 20px;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-	input[type="checkbox"],
-	input[type="radio"] {
-		transition: background 120ms ease, border-color 120ms ease, box-shadow 120ms ease;
-	}
-}
-
-input[type="checkbox"] {
-	border-radius: var(--wp--custom--radius--small);
-}
-
-input[type="radio"] {
-	border-radius: 50%;
-}
-
-input[type="checkbox"]:checked {
-	background: var(--wp--preset--color--primary);
-	border-color: var(--wp--preset--color--primary);
-}
-
-input[type="radio"]:checked {
-	border-color: var(--wp--preset--color--primary);
-}
-
-input[type="checkbox"]:checked::after {
-	border: solid #fff;
-	border-width: 0 2px 2px 0;
-	content: "";
-	height: 9px;
-	left: 6px;
-	position: absolute;
-	top: 3px;
-	transform: rotate(45deg);
-	width: 5px;
-}
-
-input[type="radio"]:checked::after {
-	background: var(--wp--preset--color--primary);
-	border-radius: 50%;
-	content: "";
-	height: 8px;
-	left: 50%;
-	position: absolute;
-	top: 50%;
-	transform: translate(-50%, -50%);
-	width: 8px;
-}
-
-input[type="checkbox"]:focus-visible,
-input[type="radio"]:focus-visible {
-	border-color: var(--wp--preset--color--primary);
-	box-shadow: 0 0 0 var(--wp--preset--spacing--extra-small) color-mix(in srgb, var(--wp--preset--color--primary) 25%, transparent);
-	outline: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
