@@ -31,11 +31,13 @@ if ! wp core is-installed 2>/dev/null; then
 	exit 1
 fi
 
+# The seed writes US English content and matches the theme's English strings, so the site's
+# effective language must be English (United States), read the way WordPress reads it.
+locale="$(wp eval 'echo get_locale();' 2>/dev/null)" || refuse "Could not read the site language."
+[ "$locale" = "en_US" ] || refuse "The site language is ${locale:-unknown}; the seed writes US English content, so set it to English (United States) first."
+
 mkdir -p "$WP_PATH/wp-content/mu-plugins"
 cp "$DIR/oc-demo-switches.php" "$WP_PATH/wp-content/mu-plugins/oc-demo-switches.php"
-
-lang="$(wp option get WPLANG 2>/dev/null || true)"
-[ -z "$lang" ] || [ "$lang" = "en_US" ] || refuse "The site language is $lang; the seed writes US English content, so set it to English (United States) first."
 
 wp theme activate origin-canvas --quiet
 wp site empty --uploads --yes --quiet
