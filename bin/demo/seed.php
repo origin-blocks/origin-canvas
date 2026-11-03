@@ -12,6 +12,13 @@ if ( ! defined( 'WP_CLI' ) ) {
 	return;
 }
 
+/* The seed writes US English content and the Careers page matches the theme's English strings,
+   which the registry translates at registration, so another site language cannot seed. */
+if ( 'en_US' !== get_locale() ) {
+	WP_CLI::error( 'The demo seed needs the site language set to English (United States); it writes US English content and matches the theme\'s English strings.' );
+}
+
+
 require_once ABSPATH . 'wp-admin/includes/file.php';
 require_once ABSPATH . 'wp-admin/includes/media.php';
 require_once ABSPATH . 'wp-admin/includes/image.php';
@@ -132,12 +139,6 @@ foreach ( array(
 	$img[ $key ] = oc_demo_import_image( $image[0], $image[1] );
 }
 
-/* The seed writes US English content and the Careers page matches the theme's English strings,
-   which the registry translates at registration, so another site language cannot seed. */
-if ( 'en_US' !== get_locale() ) {
-	WP_CLI::error( 'The demo seed needs the site language set to English (United States); it writes US English content and matches the theme\'s English strings.' );
-}
-
 /* Pages: Home, one page for every other page pattern, and Blog. */
 
 $page_args = static fn( $title, $content, $order ) => array(
@@ -228,7 +229,7 @@ function oc_demo_careers_content( $contact_url ) {
 	$swaps = array(
 		array( '<a href="#"><span aria-hidden="true">Apply</span>', '<a href="' . $apply . '"><span aria-hidden="true">Apply</span>', 3 ),
 		array( '<a class="wp-block-button__link wp-element-button" href="#">Write to the studio', '<a class="wp-block-button__link wp-element-button" href="' . $apply . '">Write to the studio', 1 ),
-		array( 'Two founders, a strategist and a developer. Whoever you meet on the first call stays on your project until launch day.', 'Two founders, a strategist and a developer. Whoever you start a project with sees it through to launch day.', 1 ),
+		array( 'Two founders, a strategist and a developer. Whoever you meet on the first call stays on your project until launch day.', 'Two founders, a strategist and a developer. You join a project at kickoff and stay on it to launch day.', 1 ),
 		array( 'Builds every site and runs the launch. Tests it all on the oldest phone in the office.', 'Builds the sites and runs every launch. Tests it all on the oldest phone in the office.', 1 ),
 		array( 'We plan the work before we promise a date, so you know when to expect it.', 'We plan the work before we promise a date: one big project at a time, eight weeks from kickoff to launch on a standard project.', 1 ),
 		array( 'Most of our clients are shops, studios, and practices between five and fifty people. They come to us because they want the site to sound like them.', 'One named lead runs each project from kickoff to launch, with a weekly client call and the words written beside the design. You join that rhythm, not a queue.', 1 ),

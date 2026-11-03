@@ -34,6 +34,9 @@ fi
 mkdir -p "$WP_PATH/wp-content/mu-plugins"
 cp "$DIR/oc-demo-switches.php" "$WP_PATH/wp-content/mu-plugins/oc-demo-switches.php"
 
+lang="$(wp option get WPLANG 2>/dev/null || true)"
+[ -z "$lang" ] || [ "$lang" = "en_US" ] || refuse "The site language is $lang; the seed writes US English content, so set it to English (United States) first."
+
 wp theme activate origin-canvas --quiet
 wp site empty --uploads --yes --quiet
 wp option delete theme_mods_origin-canvas --quiet >/dev/null 2>&1 || true

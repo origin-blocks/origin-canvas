@@ -45,7 +45,7 @@
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"var:preset|spacing|extra-small","bottom":"0"}}},"textColor":"contrast-2","fontSize":"regular"} -->
-<p class="has-contrast-2-color has-text-color has-regular-font-size" style="margin-top:var(--wp--preset--spacing--extra-small);margin-bottom:0"><?php echo esc_html__( 'Build and launch client sites with Ben, and keep them fast after launch.', 'origin-canvas' ); ?></p>
+<p class="has-contrast-2-color has-text-color has-regular-font-size" style="margin-top:var(--wp--preset--spacing--extra-small);margin-bottom:0"><?php echo esc_html__( 'Build and launch client sites with Ben, our developer, and keep them fast after launch.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column -->
 
@@ -75,7 +75,7 @@ printf(
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"var:preset|spacing|extra-small","bottom":"0"}}},"textColor":"contrast-2","fontSize":"regular"} -->
-<p class="has-contrast-2-color has-text-color has-regular-font-size" style="margin-top:var(--wp--preset--spacing--extra-small);margin-bottom:0"><?php echo esc_html__( 'Work with Marcus from the first sketch to the last check, on identities and sites.', 'origin-canvas' ); ?></p>
+<p class="has-contrast-2-color has-text-color has-regular-font-size" style="margin-top:var(--wp--preset--spacing--extra-small);margin-bottom:0"><?php echo esc_html__( 'Work with Marcus, our designer, from the first sketch to the last check, on identities and sites.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column -->
 
