@@ -216,7 +216,7 @@ $menu[] = array( 'Blog', $blog );
  * pattern changed under the seed, so the seed stops.
  *
  * @param string $contact_url The contact page's permalink.
- * @param string $home_url    The home page's permalink.
+ * @param string $home_url    The site's front page address (the home page becomes the static front page after this insert).
  * @param string $blog_url    The blog page's permalink.
  * @return string Block markup.
  */
@@ -269,7 +269,7 @@ $careers = oc_demo_insert(
 		'post_status'   => 'publish',
 		'post_title'    => 'Careers',
 		'post_name'     => 'careers',
-		'post_content'  => oc_demo_careers_content( get_permalink( $by_role['contact'] ), get_permalink( $home ), get_permalink( $blog ) ),
+		'post_content'  => oc_demo_careers_content( get_permalink( $by_role['contact'] ), home_url( '/' ), get_permalink( $blog ) ),
 		'post_author'   => $authors['claire'],
 		'menu_order'    => $order + 1,
 		'page_template' => 'page-no-title',
