@@ -5,6 +5,7 @@
  * Description: An eyebrow, large heading, lead and two buttons beside a photo.
  * Categories: origin-canvas/hero
  * Keywords: landing page, introduction, masthead, media
+ * Viewport Width: 1500
  * Block Types: core/post-content
  * Inserter: true
  *

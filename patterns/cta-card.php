@@ -5,6 +5,7 @@
  * Description: A tinted rounded card with a centered heading, a short lead and one button.
  * Categories: call-to-action
  * Keywords: conversion, surface, prompt
+ * Viewport Width: 1500
  * Block Types: core/post-content
  * Inserter: true
  *

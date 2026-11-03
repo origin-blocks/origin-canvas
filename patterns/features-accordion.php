@@ -5,6 +5,7 @@
  * Description: A centered heading over a stacked list of services that expand to reveal a short description beside a list of what is included, the time and price, and a text link.
  * Categories: origin-canvas/features
  * Keywords: expandable, collapsible, offerings, capabilities, toggle
+ * Viewport Width: 1500
  * Block Types:
  * Post Types:
  * Inserter: true

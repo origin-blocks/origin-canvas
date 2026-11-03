@@ -5,6 +5,7 @@
  * Description: One team member, centered: a round portrait over the name, role, a short bio and social links.
  * Categories: team
  * Keywords: profile, person, staff, headshot
+ * Viewport Width: 1500
  * Block Types: core/post-content
  * Inserter: true
  *

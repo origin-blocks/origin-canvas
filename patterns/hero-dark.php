@@ -5,6 +5,7 @@
  * Description: A centered eyebrow, large heading, short lead and two buttons on a dark band.
  * Categories: origin-canvas/hero
  * Keywords: landing page, introduction, inverted
+ * Viewport Width: 1500
  * Block Types: core/post-content
  * Inserter: true
  *

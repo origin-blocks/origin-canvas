@@ -6,7 +6,7 @@
  * Categories: origin-canvas/features
  * Keywords: method, stages, workflow
  * Block Types: core/post-content
- * Viewport Width: 1200
+ * Viewport Width: 1500
  * Inserter: true
  *
  * @package Origin

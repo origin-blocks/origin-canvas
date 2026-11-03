@@ -5,6 +5,7 @@
  * Description: A heading and a link above four cards in two columns, each with a picture, a title, text and a link, on a tinted band.
  * Categories: origin-canvas/card
  * Keywords: articles, content, media
+ * Viewport Width: 1500
  * Block Types: core/post-content
  * Inserter: true
  *

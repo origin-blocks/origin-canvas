@@ -5,6 +5,7 @@
  * Description: A vertical run of colleagues, each with a circular photo beside their role and bio.
  * Categories: team
  * Keywords: staff, people, members, about page, headshots
+ * Viewport Width: 1500
  * Block Types:
  * Post Types:
  * Inserter: true

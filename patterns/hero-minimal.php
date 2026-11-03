@@ -5,6 +5,7 @@
  * Description: A large centered heading and a short lead, with no buttons.
  * Categories: origin-canvas/hero
  * Keywords: landing page, introduction, restraint, sparse
+ * Viewport Width: 1500
  * Block Types: core/post-content
  * Inserter: true
  *

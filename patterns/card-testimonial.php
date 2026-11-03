@@ -5,6 +5,7 @@
  * Description: One quote on a tinted card, with a small portrait beside the name and role.
  * Categories: testimonials
  * Keywords: endorsement, review, client, praise
+ * Viewport Width: 1500
  * Block Types: core/post-content
  * Inserter: true
  *
