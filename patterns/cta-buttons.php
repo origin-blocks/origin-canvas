@@ -5,6 +5,7 @@
  * Description: A tinted band with a centered heading, a short lead and two buttons.
  * Categories: call-to-action
  * Keywords: conversion, signup, prompt
+ * Viewport Width: 1500
  * Block Types: core/post-content
  * Inserter: true
  *

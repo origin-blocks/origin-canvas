@@ -5,6 +5,7 @@
  * Description: Four figures in one line, each over a short label, on a tinted band.
  * Categories: origin-canvas/card
  * Keywords: stats, numbers, metrics, four column, kpi
+ * Viewport Width: 1500
  * Block Types: core/post-content
  * Inserter: true
  *

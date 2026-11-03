@@ -5,6 +5,7 @@
  * Description: A dark band with a large heading beside one button.
  * Categories: call-to-action
  * Keywords: conversion, prompt, strip
+ * Viewport Width: 1500
  * Block Types: core/post-content
  * Inserter: true
  *

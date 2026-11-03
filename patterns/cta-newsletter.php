@@ -5,6 +5,7 @@
  * Description: A centered heading and lead over a sample email field drawn as text, a sign-up button and a short note.
  * Categories: call-to-action
  * Keywords: subscribe, signup, conversion
+ * Viewport Width: 1500
  * Block Types: core/post-content
  * Inserter: true
  *

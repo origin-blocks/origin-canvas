@@ -5,6 +5,7 @@
  * Description: A heading and lead above three price cards in a row on a tinted band; the middle card has a colored top bar.
  * Categories: origin-canvas/pricing
  * Keywords: plans, tiered, featured
+ * Viewport Width: 1500
  * Block Types: core/post-content
  * Inserter: true
  *

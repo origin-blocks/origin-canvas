@@ -5,6 +5,7 @@
  * Description: A heading and text beside one button, with no fill.
  * Categories: call-to-action
  * Keywords: conversion, horizontal, prompt, compact
+ * Viewport Width: 1500
  * Block Types: core/post-content
  * Inserter: true
  *

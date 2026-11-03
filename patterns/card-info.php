@@ -5,6 +5,7 @@
  * Description: A heading and lead above six tinted cards in three columns, each with an icon above a title and text.
  * Categories: origin-canvas/card
  * Keywords: icons, grid, services, benefits
+ * Viewport Width: 1500
  * Block Types: core/post-content
  * Inserter: true
  *

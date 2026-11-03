@@ -5,6 +5,7 @@
  * Description: A heading and lead above four tinted cards in two columns, each with an icon beside a title and text.
  * Categories: origin-canvas/card
  * Keywords: icons, features, horizontal
+ * Viewport Width: 1500
  * Block Types: core/post-content
  * Inserter: true
  *

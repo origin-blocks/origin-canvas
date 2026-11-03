@@ -5,6 +5,7 @@
  * Description: A photo filling the left half of the screen beside an eyebrow, large heading, lead and two buttons on a tinted half.
  * Categories: origin-canvas/hero
  * Keywords: landing page, introduction, image, fullbleed
+ * Viewport Width: 1500
  * Block Types: core/post-content
  * Inserter: true
  *

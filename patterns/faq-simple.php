@@ -5,6 +5,7 @@
  * Description: A stacked list of questions that expand to reveal their answers.
  * Categories: origin-canvas/faq
  * Keywords: accordion, disclosure, support, help, toggle
+ * Viewport Width: 1500
  * Block Types:
  * Post Types:
  * Inserter: true

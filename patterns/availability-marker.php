@@ -5,6 +5,7 @@
  * Description: A small accent-color dot and a short line of text that says when the studio can take new work.
  * Categories: text
  * Keywords: status, badge, capacity
+ * Viewport Width: 1500
  * Block Types: core/post-content
  * Inserter: true
  *
