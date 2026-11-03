@@ -23,6 +23,7 @@ fi
 bash "$SCRIPT_DIR/check-pattern-counts.sh"
 bash "$SCRIPT_DIR/check-heading-pins.sh"
 bash "$SCRIPT_DIR/check-button-hover.sh"
+bash "$SCRIPT_DIR/check-asset-provenance.sh"
 bash "$SCRIPT_DIR/check-variation-twins.sh"
 bash "$SCRIPT_DIR/check-logo-widths.sh"
 bash "$SCRIPT_DIR/check-column-splits.sh"
