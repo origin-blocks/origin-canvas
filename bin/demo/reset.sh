@@ -34,9 +34,15 @@ fi
 # The seed writes US English content and matches the theme's English strings, so the site's
 # effective language under the theme that will seed it must be English (United States). A theme
 # can filter the locale, so the theme is activated first; a refusal puts the previous theme back.
-previous="$(wp theme list --status=active --field=name 2>/dev/null || true)"
+previous="$(wp theme list --status=active --field=name 2>/dev/null)" || refuse "Could not read the active theme."
+[ -n "$previous" ] || refuse "Could not read the active theme."
 wp theme activate origin-canvas --quiet
-restore_theme() { [ -n "$previous" ] && [ "$previous" != "origin-canvas" ] && wp theme activate "$previous" --quiet; }
+restore_theme() {
+	if [ "$previous" != "origin-canvas" ]; then
+		wp theme activate "$previous" --quiet
+	fi
+	return 0
+}
 locale="$(wp eval 'echo get_locale();' 2>/dev/null)" || { restore_theme; refuse "Could not read the site language."; }
 [ "$locale" = "en_US" ] || { restore_theme; refuse "The site language is ${locale:-unknown}; the seed writes US English content, so set it to English (United States) first."; }
 
