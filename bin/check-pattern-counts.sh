@@ -99,9 +99,16 @@ check() {
 	fi
 }
 
+# Style variations: the default style plus one file per variation under styles/, the color and
+# typography presets in their subfolders included. The Stat Band Dark
+# figure sits in a block of its own, apart from its label, so this check cannot read it; it is
+# updated by hand with the others.
+variations=$(( $(find styles -name '*.json' | wc -l | tr -d ' ') + 1 ))
+
 echo "Pattern inventory:"
 check patterns   "$patterns"
 check categories "$categories"
+check "style variations" "$variations"
 
 if [ "$status" -ne 0 ]; then
 	echo
