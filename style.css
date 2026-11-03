@@ -100,8 +100,9 @@ a {
 }
 
 /* Every link fades its colour in 200ms on hover and focus, the nav link and button timing.
-   theme.json holds the hover colours but has no transition property. Nav links, buttons,
-   chips and the other links with their own transition rule are more specific and keep it. */
+   theme.json holds the link hover colours but has no transition property; a button's states
+   are the state layer in core-button.css. Nav links, buttons, chips and the other links with
+   their own transition rule are more specific and keep it. */
 @media (prefers-reduced-motion: no-preference) {
 	a {
 		transition: color 200ms ease;
