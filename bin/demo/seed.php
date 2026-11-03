@@ -132,6 +132,12 @@ foreach ( array(
 	$img[ $key ] = oc_demo_import_image( $image[0], $image[1] );
 }
 
+/* The seed writes US English content and the Careers page matches the theme's English strings,
+   which the registry translates at registration, so another site language cannot seed. */
+if ( 'en_US' !== get_locale() ) {
+	WP_CLI::error( 'The demo seed needs the site language set to English (United States); it writes US English content and matches the theme\'s English strings.' );
+}
+
 /* Pages: Home, one page for every other page pattern, and Blog. */
 
 $page_args = static fn( $title, $content, $order ) => array(
@@ -193,24 +199,60 @@ $blog = oc_demo_insert(
 );
 $menu[] = array( 'Blog', $blog );
 
-/* Two pages the footer links to and the menu leaves out: Careers, the theme's Job Openings
-   pattern under the page title with its apply links pointed at the contact page, and the
-   privacy policy, which WordPress is told about so the login and comment forms can link to
-   it. Both use the default page template, so the title is the page's h1. */
+/* Two pages the footer links to and the menu leaves out: Careers, composed from five section
+   patterns with its links pointed at the contact page's applicant route and its reused rows given
+   job-seeker lines, and the privacy policy, which WordPress is told about so the login and comment
+   forms can link to it. Careers uses the no-title template, as the page patterns do; the privacy
+   policy uses the default template, so the title is the page's h1. */
+
+/**
+ * The Careers page: the five section patterns in order, with exactly eight changed occurrences.
+ * Three Apply links and the closer's button go to the contact page's applicant route; the team
+ * intro, Ben's bio and the two story lines, written for clients on the About page, read for a job
+ * seeker here. A count that is off means a pattern changed under the seed, so the seed stops.
+ *
+ * @param string $contact_url The contact page's permalink.
+ * @return string Block markup.
+ */
+function oc_demo_careers_content( $contact_url ) {
+	$registry = WP_Block_Patterns_Registry::get_instance();
+	$content  = '';
+	foreach ( array( 'hero-hiring', 'job-openings', 'text-image-side', 'team-grid', 'cta-hiring-card' ) as $slug ) {
+		$pattern = $registry->get_registered( 'origin-canvas/' . $slug );
+		if ( ! $pattern ) {
+			WP_CLI::error( "The Careers page needs the origin-canvas/$slug pattern." );
+		}
+		$content .= $pattern['content'];
+	}
+	$apply = esc_url( $contact_url . '#applying-for-a-role' );
+	$swaps = array(
+		array( '<a href="#"><span aria-hidden="true">Apply</span>', '<a href="' . $apply . '"><span aria-hidden="true">Apply</span>', 3 ),
+		array( '<a class="wp-block-button__link wp-element-button" href="#">Write to the studio', '<a class="wp-block-button__link wp-element-button" href="' . $apply . '">Write to the studio', 1 ),
+		array( 'Two founders, a strategist and a developer. Whoever you meet on the first call stays on your project until launch day.', 'Two founders, a strategist and a developer. Whoever you start a project with sees it through to launch day.', 1 ),
+		array( 'Builds every site and runs the launch. Tests it all on the oldest phone in the office.', 'Builds the sites and runs every launch. Tests it all on the oldest phone in the office.', 1 ),
+		array( 'We plan the work before we promise a date, so you know when to expect it.', 'We plan the work before we promise a date: one big project at a time, eight weeks from kickoff to launch on a standard project.', 1 ),
+		array( 'Most of our clients are shops, studios, and practices between five and fifty people. They come to us because they want the site to sound like them.', 'One named lead runs each project from kickoff to launch, with a weekly client call and the words written beside the design. You join that rhythm, not a queue.', 1 ),
+	);
+	foreach ( $swaps as $swap ) {
+		list( $from, $to, $expected ) = $swap;
+		$content = str_replace( $from, $to, $content, $count );
+		if ( $count !== $expected ) {
+			WP_CLI::error( "The Careers page expected $expected of: $from; found $count." );
+		}
+	}
+	return $content;
+}
 
 $careers = oc_demo_insert(
 	array(
-		'post_type'    => 'page',
-		'post_status'  => 'publish',
-		'post_title'   => 'Careers',
-		'post_name'    => 'careers',
-		'post_content' => preg_replace(
-			'/href="#"(><span aria-hidden="true">Apply)/',
-			'href="' . esc_url( get_permalink( $by_role['contact'] ) ) . '"$1',
-			WP_Block_Patterns_Registry::get_instance()->get_registered( 'origin-canvas/job-openings' )['content']
-		), // The three Apply links go to the contact page; "View all open roles" is this page.
-		'post_author'  => $authors['claire'],
-		'menu_order'   => $order + 1,
+		'post_type'     => 'page',
+		'post_status'   => 'publish',
+		'post_title'    => 'Careers',
+		'post_name'     => 'careers',
+		'post_content'  => oc_demo_careers_content( get_permalink( $by_role['contact'] ) ),
+		'post_author'   => $authors['claire'],
+		'menu_order'    => $order + 1,
+		'page_template' => 'page-no-title',
 	)
 );
 
