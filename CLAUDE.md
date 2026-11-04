@@ -321,19 +321,6 @@ Corollary for spacing: when a raw value has an exact equivalent on the scale, to
 a no-op and always correct. When it does not, do **not** snap it silently — a near-miss token
 changes the rendering. Report the gap and get a ruling.
 
-### 9. Build from the approved design
-- **A new pattern** is built from the option the owner picked in its design round. Existing
-  patterns supply single tokens only, never a layout, a row structure or a set of block
-  attributes.
-- **A change to a shipped pattern** keeps every shipped setting and changes only what the owner
-  approved.
-- **A setting the approved design leaves open** takes the token the theme already uses for that
-  element, such as the eyebrow's type preset. Copy that one setting, never the pattern around
-  it. A value off the scale follows rule 6.
-- **Copy** comes from the approved design and the writing guide's demo content file. Write none
-  of your own: where the design has none, keep the shipped copy and list the gap.
-- The owner's rulings win over the design.
-
 ### 10. Secondary buttons follow the surface
 A secondary (outline) button takes its style from the fill of the section or card it sits
 on (owner ruling, Oct 5):
