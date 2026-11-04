@@ -26,8 +26,8 @@
 <!-- /wp:social-links --></div>
 <!-- /wp:group -->
 
-<!-- wp:columns {"align":"wide","style":{"spacing":{"blockGap":{"top":"var:preset|spacing|large","left":"var:preset|spacing|large"}}}} -->
-<div class="wp-block-columns alignwide"><!-- wp:column -->
+<!-- wp:columns {"align":"wide","style":{"spacing":{"blockGap":{"top":"var:preset|spacing|large","left":"var:preset|spacing|large"},"margin":{"top":"var:preset|spacing|jumbo"}}}} -->
+<div class="wp-block-columns alignwide" style="margin-top:var(--wp--preset--spacing--jumbo)"><!-- wp:column -->
 <div class="wp-block-column"><!-- wp:group {"style":{"spacing":{"blockGap":"0"}},"layout":{"type":"default"}} -->
 <div class="wp-block-group"><!-- wp:paragraph {"style":{"typography":{"textTransform":"uppercase","fontWeight":"600","letterSpacing":"0.06em"},"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|small"}}},"textColor":"contrast-3","fontSize":"extra-small"} -->
 <p class="has-contrast-3-color has-text-color has-extra-small-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--small);font-weight:600;letter-spacing:0.06em;text-transform:uppercase"><?php echo esc_html__( 'Address', 'origin-canvas' ); ?></p>
