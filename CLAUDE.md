@@ -185,7 +185,7 @@ silently opts that value out of fluid type/spacing and out of every style variat
   `contrast` and `base-2` presets directly. Secondary text is `base-2` at 72%, hover
   fills 8% and lines 12%, each a `color-mix` of `var(--wp--custom--dark--text)` (#127).
 - **If a design hands you a value that isn't on the scale, do NOT hardcode it.** Snap it to
-  the nearest scale step and tell the designer to update their board, or file a `theme.json`
+  the nearest scale step and say so in the PR, or file a `theme.json`
   change to add the step. Those are the only two options.
 - Font-size scale (px): 13 · 14 · 16 · 18 · 20 · 24 · 30 · 36 · 48 · 60 · 72
   (`extra-small` · `small` · `regular` · `regular-plus` · `medium` · `large` · `extra-large` ·
@@ -321,24 +321,18 @@ Corollary for spacing: when a raw value has an exact equivalent on the scale, to
 a no-op and always correct. When it does not, do **not** snap it silently — a near-miss token
 changes the rendering. Report the gap and get a ruling.
 
-### 9. Copy, don't invent
-Every value in a new or changed pattern has a source. Take it from the first that has it:
-
-1. **The approved board** in the handoff folder (`page-*-1440.html`, `page-*-390.html`)
-   and its `PROMPT.md`. Match every padding, gap, size, weight, color, radius and line.
-2. **Claude Design's notes**, the `design.md` in the handoff folder (buttons, eyebrows,
-   tracking, the per-pattern rulings).
-3. **The nearest existing pattern**: the same job on the same kind of section (white,
-   tinted or dark). Copy its block attributes as they are.
-
-- Map each board value to a preset or token. Where none exists, use the nearest token by
-  the summed error at 1440 and 390, and list the value as NO TOKEN in the handoff with a
-  proposed token. Never hardcode it.
-- Name the source in the commit message: "the board", or "eyebrow from features-grid".
-- Any difference from the source needs a stated reason in the commit message.
-- Use Claude Design's copy word for word. Write no copy of your own: where the board has
-  none, leave the shipped copy and list the gap for design.
-- The owner's rulings win over the board (rule 10 buttons, "business days").
+### 9. Build from the approved design
+- **A new pattern** is built from the option the owner picked in its design round. Existing
+  patterns supply single tokens only, never a layout, a row structure or a set of block
+  attributes.
+- **A change to a shipped pattern** keeps every shipped setting and changes only what the owner
+  approved.
+- **A setting the approved design leaves open** takes the token the theme already uses for that
+  element, such as the eyebrow's type preset. Copy that one setting, never the pattern around
+  it. A value off the scale follows rule 6.
+- **Copy** comes from the approved design and the writing guide's demo content file. Write none
+  of your own: where the design has none, keep the shipped copy and list the gap.
+- The owner's rulings win over the design.
 
 ### 10. Secondary buttons follow the surface
 A secondary (outline) button takes its style from the fill of the section or card it sits
