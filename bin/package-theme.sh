@@ -29,6 +29,7 @@ bash "$SCRIPT_DIR/check-logo-widths.sh"
 bash "$SCRIPT_DIR/check-column-splits.sh"
 bash "$SCRIPT_DIR/check-layout-widths.sh"
 bash "$SCRIPT_DIR/check-image-slots.sh"
+bash "$SCRIPT_DIR/check-image-metadata.sh"
 # Image names describe the subject, every referenced image exists, and no shipped name is gone.
 bash "$SCRIPT_DIR/check-image-names.sh"
 bash "$SCRIPT_DIR/check-post-card-twins.sh"
