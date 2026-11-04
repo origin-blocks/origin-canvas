@@ -365,6 +365,8 @@ rewrite and names the pattern and block.
   with `height:auto`.
 - Text alignment on Paragraph, Heading and Post Terms is `style.typography.textAlign`, never the
   old `align` or `textAlign` attribute.
+  One exception: the single post's category eyebrow in `hidden-single.php` also carries the old
+  `textAlign`, for the wordpress.org preview's Gutenberg build; the comment there says why (#159).
 - A Buttons block saves no `is-layout-flex` or `is-content-justification-*` class. WordPress adds
   them when it renders.
 - Button `width` and the `textAlign` of Site Title, Post Title and Query Title keep the old
