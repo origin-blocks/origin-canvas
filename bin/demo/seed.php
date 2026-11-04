@@ -231,7 +231,7 @@ function oc_demo_careers_content( $contact_url, $home_url, $blog_url ) {
 		$part = $pattern['content'];
 		if ( 'work-grid' === $slug ) {
 			$grid = array(
-				array( '{"tagName":"section","align":"full","backgroundColor":"base-2",', '{"tagName":"section","align":"full",' ),
+				array( '"blockGap":"var:preset|spacing|large"}},"backgroundColor":"base-2","layout"', '"blockGap":"var:preset|spacing|large"}},"layout"' ),
 				array( '<section class="wp-block-group alignfull has-base-2-background-color has-background"', '<section class="wp-block-group alignfull"' ),
 				array( '<a href="#" style="text-decoration:none">View all work', '<a href="' . esc_url( $home_url ) . '" style="text-decoration:none">View all work' ),
 				array( '<a href="#" style="text-decoration:none">Read the latest', '<a href="' . esc_url( $blog_url ) . '" style="text-decoration:none">Read the latest' ),
