@@ -8,13 +8,17 @@
  * @package Origin
  */
 
+// The category eyebrow carries its centering twice: "textAlign" at the top level and
+// style.typography.textAlign. Core 7.0 to 7.2 read the second. The wordpress.org theme preview
+// runs a Gutenberg plugin build (19.9) whose Post Terms block reads only the first, so without
+// it the eyebrow sits left under a centered title there. The editor keeps both on save (#159).
 ?>
 <!-- wp:template-part {"slug":"header","theme":"origin-canvas","area":"header"} /-->
 
 <!-- wp:group {"tagName":"main","style":{"spacing":{"blockGap":"var:preset|spacing|extra-large","margin":{"top":"var:preset|spacing|colossal","bottom":"var:preset|spacing|massive"}}},"layout":{"type":"default"}} -->
 <main class="wp-block-group" style="margin-top:var(--wp--preset--spacing--colossal);margin-bottom:var(--wp--preset--spacing--massive)"><!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|small-medium"}},"layout":{"type":"constrained"}} -->
 <div class="wp-block-group">
-<!-- wp:post-terms {"term":"category","style":{"elements":{"link":{"color":{"text":"var:preset|color|primary"},":hover":{"color":{"text":"var:preset|color|contrast-2"}}}},"typography":{"fontStyle":"normal","fontWeight":"600","textTransform":"uppercase","letterSpacing":"0.06em","textAlign":"center"},"spacing":{"margin":{"bottom":"var:preset|spacing|small-medium"}}},"textColor":"primary","fontSize":"extra-small"} /-->
+<!-- wp:post-terms {"term":"category","textAlign":"center","style":{"elements":{"link":{"color":{"text":"var:preset|color|primary"},":hover":{"color":{"text":"var:preset|color|contrast-2"}}}},"typography":{"fontStyle":"normal","fontWeight":"600","textTransform":"uppercase","letterSpacing":"0.06em","textAlign":"center"},"spacing":{"margin":{"bottom":"var:preset|spacing|small-medium"}}},"textColor":"primary","fontSize":"extra-small"} /-->
 <!-- wp:post-title {"textAlign":"center","level":1,"style":{"spacing":{"margin":{"bottom":"var:preset|spacing|medium"}}}} /-->
 <!-- wp:group {"style":{"typography":{"fontSize":"var:preset|font-size|small"},"spacing":{"blockGap":"var:preset|spacing|small","margin":{"top":"0","bottom":"var:preset|spacing|huge"}}},"textColor":"contrast-2","layout":{"type":"flex","flexWrap":"wrap","justifyContent":"center"}} -->
 <div class="wp-block-group has-contrast-2-color has-text-color" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--huge);font-size:var(--wp--preset--font-size--small)">
