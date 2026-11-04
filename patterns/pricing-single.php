@@ -14,7 +14,7 @@
  */
 
 ?>
-<!-- wp:group {"tagName":"section","align":"full","backgroundColor":"base-2","style":{"spacing":{"padding":{"top":"var:preset|spacing|colossal","bottom":"var:preset|spacing|colossal"}}},"layout":{"type":"constrained"}} -->
+<!-- wp:group {"tagName":"section","align":"full","style":{"spacing":{"padding":{"top":"var:preset|spacing|colossal","bottom":"var:preset|spacing|colossal"}}},"backgroundColor":"base-2","layout":{"type":"constrained"}} -->
 <section class="wp-block-group alignfull has-base-2-background-color has-background" style="padding-top:var(--wp--preset--spacing--colossal);padding-bottom:var(--wp--preset--spacing--colossal)"><!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|small","margin":{"bottom":"var:preset|spacing|extra-large"}}},"layout":{"type":"constrained"}} -->
 <div class="wp-block-group" style="margin-bottom:var(--wp--preset--spacing--extra-large)"><!-- wp:heading {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}},"typography":{"textAlign":"center"}},"fontSize":"display"} -->
 <h2 class="wp-block-heading has-text-align-center has-display-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'A whole site, in six weeks', 'origin-canvas' ); ?></h2>
@@ -25,12 +25,12 @@
 <!-- /wp:paragraph --></div>
 <!-- /wp:group -->
 
-<!-- wp:group {"backgroundColor":"base","style":{"border":{"radius":"var:custom|radius|medium","top":{"color":"var:preset|color|primary","width":"4px"}},"spacing":{"padding":{"top":"calc(var(--wp--preset--spacing--extra-large) - 4px)","right":"var:preset|spacing|large","bottom":"var:preset|spacing|extra-large","left":"var:preset|spacing|large"},"blockGap":"var:preset|spacing|small"}},"layout":{"type":"constrained"}} -->
-<div class="wp-block-group has-base-background-color has-background" style="border-top-color:var(--wp--preset--color--primary);border-top-width:4px;border-radius:var(--wp--custom--radius--medium);padding-top:calc(var(--wp--preset--spacing--extra-large) - 4px);padding-right:var(--wp--preset--spacing--large);padding-bottom:var(--wp--preset--spacing--extra-large);padding-left:var(--wp--preset--spacing--large)"><!-- wp:paragraph {"textColor":"contrast","fontSize":"extra-small","style":{"typography":{"textTransform":"uppercase","letterSpacing":"0.06em","fontWeight":"500","textAlign":"center"},"spacing":{"margin":{"top":"0","bottom":"0"}}}} -->
+<!-- wp:group {"style":{"border":{"radius":"var:custom|radius|medium","top":{"color":"var:preset|color|primary","width":"4px"}},"spacing":{"padding":{"top":"calc(var(\u002d\u002dwp\u002d\u002dpreset\u002d\u002dspacing\u002d\u002dextra-large) - 4px)","right":"var:preset|spacing|large","bottom":"var:preset|spacing|extra-large","left":"var:preset|spacing|large"},"blockGap":"var:preset|spacing|small"}},"backgroundColor":"base","layout":{"type":"constrained"}} -->
+<div class="wp-block-group has-base-background-color has-background" style="border-radius:var(--wp--custom--radius--medium);border-top-color:var(--wp--preset--color--primary);border-top-width:4px;padding-top:calc(var(--wp--preset--spacing--extra-large) - 4px);padding-right:var(--wp--preset--spacing--large);padding-bottom:var(--wp--preset--spacing--extra-large);padding-left:var(--wp--preset--spacing--large)"><!-- wp:paragraph {"style":{"typography":{"textTransform":"uppercase","letterSpacing":"0.06em","fontWeight":"500","textAlign":"center"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"contrast","fontSize":"extra-small"} -->
 <p class="has-text-align-center has-contrast-color has-text-color has-extra-small-font-size" style="margin-top:0;margin-bottom:0;font-weight:500;letter-spacing:0.06em;text-transform:uppercase"><?php echo esc_html__( 'The Website', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
-<!-- wp:paragraph {"textColor":"contrast","fontSize":"huge","style":{"spacing":{"margin":{"top":"0","bottom":"0"}},"typography":{"fontWeight":"700","lineHeight":"1","textAlign":"center"}}} -->
+<!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}},"typography":{"fontWeight":"700","lineHeight":"1","textAlign":"center"}},"textColor":"contrast","fontSize":"huge"} -->
 <p class="has-text-align-center has-contrast-color has-text-color has-huge-font-size" style="margin-top:0;margin-bottom:0;font-weight:700;line-height:1"><?php echo wp_kses_post( __( '$4,500 <span style="font-size:var(--wp--preset--font-size--regular);font-weight:400;letter-spacing:normal;color:var(--wp--preset--color--contrast-2);">one-time</span>', 'origin-canvas' ) ); ?></p>
 <!-- /wp:paragraph -->
 
@@ -44,17 +44,33 @@
 <div class="wp-block-group" style="margin-top:var(--wp--preset--spacing--large)"><!-- wp:columns {"style":{"spacing":{"blockGap":{"top":"var:preset|spacing|small","left":"var:preset|spacing|large"}}}} -->
 <div class="wp-block-columns"><!-- wp:column -->
 <div class="wp-block-column"><!-- wp:list {"className":"is-style-origin-canvas-list-check-neutral","style":{"spacing":{"blockGap":"var:preset|spacing|small","margin":{"top":"0","bottom":"0"}}},"fontSize":"small"} -->
-<ul class="wp-block-list is-style-origin-canvas-list-check-neutral has-small-font-size" style="margin-top:0;margin-bottom:0"><!-- wp:list-item --><li><?php echo esc_html__( 'Up to eight pages, one clear story', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
-<!-- wp:list-item --><li><?php echo esc_html__( 'Works with your existing brand', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
-<!-- wp:list-item --><li><?php echo esc_html__( 'Copy polish on every page', 'origin-canvas' ); ?></li><!-- /wp:list-item --></ul>
+<ul style="margin-top:0;margin-bottom:0" class="wp-block-list is-style-origin-canvas-list-check-neutral has-small-font-size"><!-- wp:list-item -->
+<li><?php echo esc_html__( 'Up to eight pages, one clear story', 'origin-canvas' ); ?></li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><?php echo esc_html__( 'Works with your existing brand', 'origin-canvas' ); ?></li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><?php echo esc_html__( 'Copy polish on every page', 'origin-canvas' ); ?></li>
+<!-- /wp:list-item --></ul>
 <!-- /wp:list --></div>
 <!-- /wp:column -->
 
 <!-- wp:column -->
 <div class="wp-block-column"><!-- wp:list {"className":"is-style-origin-canvas-list-check-neutral","style":{"spacing":{"blockGap":"var:preset|spacing|small","margin":{"top":"0","bottom":"0"}}},"fontSize":"small"} -->
-<ul class="wp-block-list is-style-origin-canvas-list-check-neutral has-small-font-size" style="margin-top:0;margin-bottom:0"><!-- wp:list-item --><li><?php echo esc_html__( 'Two rounds of revisions', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
-<!-- wp:list-item --><li><?php echo esc_html__( 'Hand-written launch checklist', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
-<!-- wp:list-item --><li><?php echo esc_html__( 'Launch-day support on call', 'origin-canvas' ); ?></li><!-- /wp:list-item --></ul>
+<ul style="margin-top:0;margin-bottom:0" class="wp-block-list is-style-origin-canvas-list-check-neutral has-small-font-size"><!-- wp:list-item -->
+<li><?php echo esc_html__( 'Two rounds of revisions', 'origin-canvas' ); ?></li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><?php echo esc_html__( 'Hand-written launch checklist', 'origin-canvas' ); ?></li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><?php echo esc_html__( 'Launch-day support on call', 'origin-canvas' ); ?></li>
+<!-- /wp:list-item --></ul>
 <!-- /wp:list --></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns --></div>
@@ -66,7 +82,7 @@
 <!-- /wp:button --></div>
 <!-- /wp:buttons -->
 
-<!-- wp:paragraph {"textColor":"contrast-3","fontSize":"small","style":{"spacing":{"margin":{"top":"var:preset|spacing|small-medium","bottom":"0"}},"typography":{"textAlign":"center"}}} -->
+<!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"var:preset|spacing|small-medium","bottom":"0"}},"typography":{"textAlign":"center"}},"textColor":"contrast-3","fontSize":"small"} -->
 <p class="has-text-align-center has-contrast-3-color has-text-color has-small-font-size" style="margin-top:var(--wp--preset--spacing--small-medium);margin-bottom:0"><?php echo esc_html__( 'Most projects start with a single email.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group --></section>

@@ -15,8 +15,13 @@
 
 ?>
 <!-- wp:pattern {"slug":"origin-canvas/hero-statement"} /-->
+
 <!-- wp:pattern {"slug":"origin-canvas/team-grid"} /-->
+
 <!-- wp:pattern {"slug":"origin-canvas/text-image-side"} /-->
+
 <!-- wp:pattern {"slug":"origin-canvas/testimonial-with-image"} /-->
+
 <!-- wp:pattern {"slug":"origin-canvas/card-info"} /-->
+
 <!-- wp:pattern {"slug":"origin-canvas/cta-band-dark"} /-->

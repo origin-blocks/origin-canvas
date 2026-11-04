@@ -20,7 +20,7 @@
 <div class="wp-block-group"><!-- wp:site-title {"level":0,"style":{"spacing":{"margin":{"bottom":"0px","top":"0px"}},"elements":{"link":{"color":{"text":"var:preset|color|contrast"},":hover":{"color":{"text":"var:preset|color|primary"}}}}},"textColor":"contrast"} /--></div>
 <!-- /wp:group -->
 
-<!-- wp:navigation {"overlay":"mobile-menu","textColor":"contrast","className":"origin-canvas-main-nav is-style-origin-canvas-hover-pill","style":{"spacing":{"blockGap":"var:preset|spacing|extra-large"},"typography":{"fontWeight":"500","fontStyle":"normal"}},"fontSize":"small","layout":{"type":"flex","justifyContent":"center","flexWrap":"wrap"}} /-->
+<!-- wp:navigation {"textColor":"contrast","overlay":"mobile-menu","className":"origin-canvas-main-nav is-style-origin-canvas-hover-pill","style":{"spacing":{"blockGap":"var:preset|spacing|extra-large"},"typography":{"fontWeight":"500","fontStyle":"normal"}},"fontSize":"small","layout":{"type":"flex","justifyContent":"center","flexWrap":"wrap"}} /-->
 
 <!-- wp:buttons {"layout":{"type":"flex","flexWrap":"nowrap"}} -->
 <div class="wp-block-buttons"><!-- wp:button {"style":{"spacing":{"padding":{"top":"var:preset|spacing|small-medium","right":"var:preset|spacing|large","bottom":"var:preset|spacing|small-medium","left":"var:preset|spacing|large"}}},"fontSize":"small"} -->

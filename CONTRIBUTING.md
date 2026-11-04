@@ -31,6 +31,16 @@ will break every site that has the Home page saved.
    follow-up.
 4. Keep the old directory deleted — the shim heals at output; it does not resurrect paths.
 
+## Pattern markup is what the editor saves
+
+After editing a pattern, run `bash bin/normalize-patterns.sh` (a local demo site with the
+`DEMO-SITE.md` marker, WP-CLI, `npm install` and Playwright's Chromium, as
+`bin/check-block-validity.sh` needs). It sends every pattern body through the editor's own parse
+and serialize in a real editor page and writes the result back, with each PHP call and each
+block kept in its WordPress 7.0 form left untouched, so the file holds what the editor saves:
+class order, attribute order, defaults left out. `--check` writes nothing and fails when a file
+would change. `bin/check-block-validity.sh` stays the safety net at merge.
+
 ## Running the JavaScript tests
 
 The theme's one front-end script, `assets/js/anchor-navigation.js`, has a Playwright suite

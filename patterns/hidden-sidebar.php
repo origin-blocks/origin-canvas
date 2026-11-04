@@ -15,7 +15,7 @@
 <h2 class="wp-block-heading has-contrast-color has-text-color has-extra-small-font-size" style="margin-top:0;margin-bottom:0;text-transform:uppercase"><?php echo esc_html__( 'Search', 'origin-canvas' ); ?></h2>
 <!-- /wp:heading -->
 
-<!-- wp:search {"label":"Search","showLabel":false,"width":100,"widthUnit":"%","buttonText":"Search","className":"origin-canvas-search-compact","fontSize":"small","style":{"spacing":{"blockGap":"var:preset|spacing|small"}}} /--></div>
+<!-- wp:search {"label":"Search","showLabel":false,"width":100,"widthUnit":"%","buttonText":"Search","className":"origin-canvas-search-compact","style":{"spacing":{"blockGap":"var:preset|spacing|small"}},"fontSize":"small"} /--></div>
 <!-- /wp:group -->
 
 <!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|small-medium"}},"layout":{"type":"constrained"}} -->
@@ -23,7 +23,7 @@
 <h2 class="wp-block-heading has-contrast-color has-text-color has-extra-small-font-size" style="margin-top:0;margin-bottom:0;text-transform:uppercase"><?php echo esc_html__( 'Recent posts', 'origin-canvas' ); ?></h2>
 <!-- /wp:heading -->
 
-<!-- wp:latest-posts {"postsToShow":3,"displayPostDate":true,"className":"origin-canvas-sidebar-posts","fontSize":"small","style":{"typography":{"fontWeight":"500","lineHeight":"1.4"},"spacing":{"margin":{"top":"var:preset|spacing|small-medium"}},"elements":{"link":{"color":{"text":"var:preset|color|contrast-2"},":hover":{"color":{"text":"var:preset|color|primary"}}}}}} /--></div>
+<!-- wp:latest-posts {"postsToShow":3,"displayPostDate":true,"className":"origin-canvas-sidebar-posts","style":{"typography":{"fontWeight":"500","lineHeight":"1.4"},"spacing":{"margin":{"top":"var:preset|spacing|small-medium"}},"elements":{"link":{"color":{"text":"var:preset|color|contrast-2"},":hover":{"color":{"text":"var:preset|color|primary"}}}}},"fontSize":"small"} /--></div>
 <!-- /wp:group -->
 
 <!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|small-medium"}},"layout":{"type":"constrained"}} -->
@@ -34,9 +34,9 @@
 <!-- wp:terms-query {"termQuery":{"perPage":10,"taxonomy":"category","order":"desc","orderBy":"count","hideEmpty":true},"className":"origin-canvas-sidebar-categories"} -->
 <div class="wp-block-terms-query origin-canvas-sidebar-categories"><!-- wp:term-template {"style":{"spacing":{"blockGap":"var:preset|spacing|small"}}} -->
 <!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|small"}},"layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"space-between"}} -->
-<div class="wp-block-group"><!-- wp:term-name {"isLink":true,"fontSize":"small","style":{"typography":{"fontWeight":"500"},"elements":{"link":{"color":{"text":"var:preset|color|contrast-2"},":hover":{"color":{"text":"var:preset|color|primary"}}}}},"textColor":"contrast-2"} /-->
+<div class="wp-block-group"><!-- wp:term-name {"isLink":true,"style":{"typography":{"fontWeight":"500"},"elements":{"link":{"color":{"text":"var:preset|color|contrast-2"},":hover":{"color":{"text":"var:preset|color|primary"}}}}},"textColor":"contrast-2","fontSize":"small"} /-->
 
-<!-- wp:term-count {"bracketType":"none","className":"origin-canvas-no-shrink","fontSize":"extra-small","textColor":"contrast-3"} /--></div>
+<!-- wp:term-count {"bracketType":"none","className":"origin-canvas-no-shrink","textColor":"contrast-3","fontSize":"extra-small"} /--></div>
 <!-- /wp:group -->
 <!-- /wp:term-template --></div>
 <!-- /wp:terms-query --></div>
@@ -47,6 +47,6 @@
 <h2 class="wp-block-heading has-contrast-color has-text-color has-extra-small-font-size" style="margin-top:0;margin-bottom:0;text-transform:uppercase"><?php echo esc_html__( 'Tags', 'origin-canvas' ); ?></h2>
 <!-- /wp:heading -->
 
-<!-- wp:tag-cloud {"numberOfTags":10,"showTagCounts":false,"className":"is-style-origin-canvas-tag-chip","style":{"elements":{"link":{"color":{"text":"var:preset|color|contrast"}}}},"textColor":"contrast"} /--></div>
+<!-- wp:tag-cloud {"numberOfTags":10,"className":"is-style-origin-canvas-tag-chip","style":{"elements":{"link":{"color":{"text":"var:preset|color|contrast"}}}}} /--></div>
 <!-- /wp:group --></div>
 <!-- /wp:group -->

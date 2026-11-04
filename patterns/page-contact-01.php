@@ -15,6 +15,9 @@
 
 ?>
 <!-- wp:pattern {"slug":"origin-canvas/hero-contact"} /-->
+
 <!-- wp:pattern {"slug":"origin-canvas/team-cards"} /-->
+
 <!-- wp:pattern {"slug":"origin-canvas/contact-routes"} /-->
+
 <!-- wp:pattern {"slug":"origin-canvas/cta-band-dark"} /-->

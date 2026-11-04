@@ -14,13 +14,13 @@
  */
 
 ?>
-<!-- wp:group {"tagName":"section","align":"full","backgroundColor":"base-2","style":{"spacing":{"margin":{"top":"0","bottom":"0"},"padding":{"top":"var:preset|spacing|colossal","bottom":"var:preset|spacing|colossal"}}},"layout":{"type":"constrained"}} -->
+<!-- wp:group {"tagName":"section","align":"full","style":{"spacing":{"margin":{"top":"0","bottom":"0"},"padding":{"top":"var:preset|spacing|colossal","bottom":"var:preset|spacing|colossal"}}},"backgroundColor":"base-2","layout":{"type":"constrained"}} -->
 <section class="wp-block-group alignfull has-base-2-background-color has-background" style="margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--colossal);padding-bottom:var(--wp--preset--spacing--colossal)"><!-- wp:group {"align":"wide","layout":{"type":"constrained","justifyContent":"center"}} -->
 <div class="wp-block-group alignwide"><!-- wp:paragraph {"className":"origin-canvas-eyebrow","style":{"typography":{"textTransform":"uppercase","fontWeight":"600","letterSpacing":"0.06em","textAlign":"center"},"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|medium"}}},"textColor":"primary","fontSize":"extra-small"} -->
-<p class="origin-canvas-eyebrow has-text-align-center has-primary-color has-text-color has-extra-small-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--medium);font-weight:600;letter-spacing:0.06em;text-transform:uppercase"><?php echo esc_html__( 'What you get', 'origin-canvas' ); ?></p>
+<p class="has-text-align-center origin-canvas-eyebrow has-primary-color has-text-color has-extra-small-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--medium);font-weight:600;letter-spacing:0.06em;text-transform:uppercase"><?php echo esc_html__( 'What you get', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
-<!-- wp:heading {"level":2,"align":"wide","style":{"spacing":{"margin":{"top":"0","bottom":"0"}},"typography":{"textAlign":"center"}},"fontSize":"display"} -->
+<!-- wp:heading {"align":"wide","style":{"spacing":{"margin":{"top":"0","bottom":"0"}},"typography":{"textAlign":"center"}},"fontSize":"display"} -->
 <h2 class="wp-block-heading has-text-align-center alignwide has-display-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'A written scope and price up front', 'origin-canvas' ); ?></h2>
 <!-- /wp:heading -->
 
@@ -54,15 +54,25 @@
 <div class="wp-block-column" style="flex-basis:66.66%"><!-- wp:columns {"style":{"spacing":{"blockGap":{"top":"var:preset|spacing|small","left":"var:preset|spacing|large"}}}} -->
 <div class="wp-block-columns"><!-- wp:column -->
 <div class="wp-block-column"><!-- wp:list {"className":"is-style-origin-canvas-list-check-neutral","style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"contrast-2","fontSize":"regular"} -->
-<ul class="wp-block-list is-style-origin-canvas-list-check-neutral has-contrast-2-color has-text-color has-regular-font-size" style="margin-top:0;margin-bottom:0"><!-- wp:list-item --><li><?php echo esc_html__( 'A mark and a wordmark', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
-<!-- wp:list-item --><li><?php echo esc_html__( 'Colors and type for print and screen', 'origin-canvas' ); ?></li><!-- /wp:list-item --></ul>
+<ul style="margin-top:0;margin-bottom:0" class="wp-block-list is-style-origin-canvas-list-check-neutral has-contrast-2-color has-text-color has-regular-font-size"><!-- wp:list-item -->
+<li><?php echo esc_html__( 'A mark and a wordmark', 'origin-canvas' ); ?></li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><?php echo esc_html__( 'Colors and type for print and screen', 'origin-canvas' ); ?></li>
+<!-- /wp:list-item --></ul>
 <!-- /wp:list --></div>
 <!-- /wp:column -->
 
 <!-- wp:column -->
 <div class="wp-block-column"><!-- wp:list {"className":"is-style-origin-canvas-list-check-neutral","style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"contrast-2","fontSize":"regular"} -->
-<ul class="wp-block-list is-style-origin-canvas-list-check-neutral has-contrast-2-color has-text-color has-regular-font-size" style="margin-top:0;margin-bottom:0"><!-- wp:list-item --><li><?php echo esc_html__( 'A one-page guide your team can follow', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
-<!-- wp:list-item --><li><?php echo esc_html__( 'Files for signs, invoices and social posts', 'origin-canvas' ); ?></li><!-- /wp:list-item --></ul>
+<ul style="margin-top:0;margin-bottom:0" class="wp-block-list is-style-origin-canvas-list-check-neutral has-contrast-2-color has-text-color has-regular-font-size"><!-- wp:list-item -->
+<li><?php echo esc_html__( 'A one-page guide your team can follow', 'origin-canvas' ); ?></li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><?php echo esc_html__( 'Files for signs, invoices and social posts', 'origin-canvas' ); ?></li>
+<!-- /wp:list-item --></ul>
 <!-- /wp:list --></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns --></div>
@@ -94,15 +104,25 @@
 <div class="wp-block-column" style="flex-basis:66.66%"><!-- wp:columns {"style":{"spacing":{"blockGap":{"top":"var:preset|spacing|small","left":"var:preset|spacing|large"}}}} -->
 <div class="wp-block-columns"><!-- wp:column -->
 <div class="wp-block-column"><!-- wp:list {"className":"is-style-origin-canvas-list-check-neutral","style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"contrast-2","fontSize":"regular"} -->
-<ul class="wp-block-list is-style-origin-canvas-list-check-neutral has-contrast-2-color has-text-color has-regular-font-size" style="margin-top:0;margin-bottom:0"><!-- wp:list-item --><li><?php echo esc_html__( 'Pages designed around your copy', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
-<!-- wp:list-item --><li><?php echo esc_html__( 'Checks on phones and desktops', 'origin-canvas' ); ?></li><!-- /wp:list-item --></ul>
+<ul style="margin-top:0;margin-bottom:0" class="wp-block-list is-style-origin-canvas-list-check-neutral has-contrast-2-color has-text-color has-regular-font-size"><!-- wp:list-item -->
+<li><?php echo esc_html__( 'Pages designed around your copy', 'origin-canvas' ); ?></li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><?php echo esc_html__( 'Checks on phones and desktops', 'origin-canvas' ); ?></li>
+<!-- /wp:list-item --></ul>
 <!-- /wp:list --></div>
 <!-- /wp:column -->
 
 <!-- wp:column -->
 <div class="wp-block-column"><!-- wp:list {"className":"is-style-origin-canvas-list-check-neutral","style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"contrast-2","fontSize":"regular"} -->
-<ul class="wp-block-list is-style-origin-canvas-list-check-neutral has-contrast-2-color has-text-color has-regular-font-size" style="margin-top:0;margin-bottom:0"><!-- wp:list-item --><li><?php echo esc_html__( 'An hour of training for your team', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
-<!-- wp:list-item --><li><?php echo esc_html__( 'Domains and accounts in your name', 'origin-canvas' ); ?></li><!-- /wp:list-item --></ul>
+<ul style="margin-top:0;margin-bottom:0" class="wp-block-list is-style-origin-canvas-list-check-neutral has-contrast-2-color has-text-color has-regular-font-size"><!-- wp:list-item -->
+<li><?php echo esc_html__( 'An hour of training for your team', 'origin-canvas' ); ?></li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><?php echo esc_html__( 'Domains and accounts in your name', 'origin-canvas' ); ?></li>
+<!-- /wp:list-item --></ul>
 <!-- /wp:list --></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns --></div>
@@ -134,15 +154,25 @@
 <div class="wp-block-column" style="flex-basis:66.66%"><!-- wp:columns {"style":{"spacing":{"blockGap":{"top":"var:preset|spacing|small","left":"var:preset|spacing|large"}}}} -->
 <div class="wp-block-columns"><!-- wp:column -->
 <div class="wp-block-column"><!-- wp:list {"className":"is-style-origin-canvas-list-check-neutral","style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"contrast-2","fontSize":"regular"} -->
-<ul class="wp-block-list is-style-origin-canvas-list-check-neutral has-contrast-2-color has-text-color has-regular-font-size" style="margin-top:0;margin-bottom:0"><!-- wp:list-item --><li><?php echo esc_html__( 'A call to hear how you talk about your work', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
-<!-- wp:list-item --><li><?php echo esc_html__( 'Headlines, page copy and button labels', 'origin-canvas' ); ?></li><!-- /wp:list-item --></ul>
+<ul style="margin-top:0;margin-bottom:0" class="wp-block-list is-style-origin-canvas-list-check-neutral has-contrast-2-color has-text-color has-regular-font-size"><!-- wp:list-item -->
+<li><?php echo esc_html__( 'A call to hear how you talk about your work', 'origin-canvas' ); ?></li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><?php echo esc_html__( 'Headlines, page copy and button labels', 'origin-canvas' ); ?></li>
+<!-- /wp:list-item --></ul>
 <!-- /wp:list --></div>
 <!-- /wp:column -->
 
 <!-- wp:column -->
 <div class="wp-block-column"><!-- wp:list {"className":"is-style-origin-canvas-list-check-neutral","style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"contrast-2","fontSize":"regular"} -->
-<ul class="wp-block-list is-style-origin-canvas-list-check-neutral has-contrast-2-color has-text-color has-regular-font-size" style="margin-top:0;margin-bottom:0"><!-- wp:list-item --><li><?php echo esc_html__( 'Your comments on each draft before it is final', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
-<!-- wp:list-item --><li><?php echo esc_html__( 'Copy ready to paste into your site', 'origin-canvas' ); ?></li><!-- /wp:list-item --></ul>
+<ul style="margin-top:0;margin-bottom:0" class="wp-block-list is-style-origin-canvas-list-check-neutral has-contrast-2-color has-text-color has-regular-font-size"><!-- wp:list-item -->
+<li><?php echo esc_html__( 'Your comments on each draft before it is final', 'origin-canvas' ); ?></li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><?php echo esc_html__( 'Copy ready to paste into your site', 'origin-canvas' ); ?></li>
+<!-- /wp:list-item --></ul>
 <!-- /wp:list --></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns --></div>
@@ -174,15 +204,25 @@
 <div class="wp-block-column" style="flex-basis:66.66%"><!-- wp:columns {"style":{"spacing":{"blockGap":{"top":"var:preset|spacing|small","left":"var:preset|spacing|large"}}}} -->
 <div class="wp-block-columns"><!-- wp:column -->
 <div class="wp-block-column"><!-- wp:list {"className":"is-style-origin-canvas-list-check-neutral","style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"contrast-2","fontSize":"regular"} -->
-<ul class="wp-block-list is-style-origin-canvas-list-check-neutral has-contrast-2-color has-text-color has-regular-font-size" style="margin-top:0;margin-bottom:0"><!-- wp:list-item --><li><?php echo esc_html__( 'Up to two days of work a month', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
-<!-- wp:list-item --><li><?php echo esc_html__( 'Updates, fixes and new pages', 'origin-canvas' ); ?></li><!-- /wp:list-item --></ul>
+<ul style="margin-top:0;margin-bottom:0" class="wp-block-list is-style-origin-canvas-list-check-neutral has-contrast-2-color has-text-color has-regular-font-size"><!-- wp:list-item -->
+<li><?php echo esc_html__( 'Up to two days of work a month', 'origin-canvas' ); ?></li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><?php echo esc_html__( 'Updates, fixes and new pages', 'origin-canvas' ); ?></li>
+<!-- /wp:list-item --></ul>
 <!-- /wp:list --></div>
 <!-- /wp:column -->
 
 <!-- wp:column -->
 <div class="wp-block-column"><!-- wp:list {"className":"is-style-origin-canvas-list-check-neutral","style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"contrast-2","fontSize":"regular"} -->
-<ul class="wp-block-list is-style-origin-canvas-list-check-neutral has-contrast-2-color has-text-color has-regular-font-size" style="margin-top:0;margin-bottom:0"><!-- wp:list-item --><li><?php echo esc_html__( 'A review call every quarter', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
-<!-- wp:list-item --><li><?php echo esc_html__( 'Priority response', 'origin-canvas' ); ?></li><!-- /wp:list-item --></ul>
+<ul style="margin-top:0;margin-bottom:0" class="wp-block-list is-style-origin-canvas-list-check-neutral has-contrast-2-color has-text-color has-regular-font-size"><!-- wp:list-item -->
+<li><?php echo esc_html__( 'A review call every quarter', 'origin-canvas' ); ?></li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><?php echo esc_html__( 'Priority response', 'origin-canvas' ); ?></li>
+<!-- /wp:list-item --></ul>
 <!-- /wp:list --></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns --></div>
