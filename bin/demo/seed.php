@@ -326,7 +326,7 @@ foreach ( array(
 $long = implode(
 	"\n\n",
 	array(
-		oc_demo_p( 'A website project with us takes six weeks, from the first call to a site the client can edit on their own. Most clients ask what happens in those weeks before they sign, so here is the plan we send them, with the parts that tend to move.' ),
+		oc_demo_p( 'A website project with us takes six weeks, from kickoff to a site the client can edit on their own. Most clients ask what happens in those weeks before they sign, so here is the plan we send them, with the parts that tend to move.' ),
 		oc_demo_h( 'Week one: questions and a site map' ),
 		oc_demo_p( 'We start with a 90-minute call and a shared folder. By the end of the week the client has a one-page brief and a site map they have approved, and we have every login we need.' ),
 		oc_demo_list(
@@ -351,7 +351,7 @@ $long = implode(
 			),
 			true
 		),
-		oc_demo_quote( 'We had a site we could edit ourselves six weeks after the first call, and the booking form has not needed a change since.', 'Owen Parker, Clinic Director, Kestrel Physical Therapy' ),
+		oc_demo_quote( 'We had a site we could edit ourselves six weeks after kickoff, and the booking form has not needed a change since.', 'Owen Parker, Clinic Director, Kestrel Physical Therapy' ),
 		oc_demo_h( 'Week six: launch' ),
 		oc_demo_p( 'Launch week is mostly checks. The step clients forget is the old site: links in emails, on business cards and in search results still point at its pages. We keep a redirect map from the first call and add it to the server the day before launch.' ),
 		oc_demo_code( "# Old addresses to new pages, added the day before launch\nRedirect 301 /services.html /what-we-do/\nRedirect 301 /about-us.html /about/\nRedirect 301 /contact.php /contact/\nRedirect 301 /book-online /book/" ),
