@@ -15,12 +15,21 @@
 
 ?>
 <!-- wp:pattern {"slug":"origin-canvas/hero-canvas"} /-->
+
 <!-- wp:pattern {"slug":"origin-canvas/lead-statement"} /-->
+
 <!-- wp:pattern {"slug":"origin-canvas/pattern-showcase"} /-->
+
 <!-- wp:pattern {"slug":"origin-canvas/style-variations"} /-->
+
 <!-- wp:pattern {"slug":"origin-canvas/stat-band-dark"} /-->
+
 <!-- wp:pattern {"slug":"origin-canvas/template-showcase"} /-->
+
 <!-- wp:pattern {"slug":"origin-canvas/token-system"} /-->
+
 <!-- wp:pattern {"slug":"origin-canvas/testimonial-highlight"} /-->
+
 <!-- wp:pattern {"slug":"origin-canvas/product-grid"} /-->
+
 <!-- wp:pattern {"slug":"origin-canvas/cta-closing"} /-->

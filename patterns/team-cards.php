@@ -14,19 +14,19 @@
  */
 
 ?>
-<!-- wp:group {"tagName":"section","align":"full","backgroundColor":"base-2","style":{"spacing":{"margin":{"top":"0","bottom":"0"},"padding":{"top":"var:preset|spacing|colossal","bottom":"var:preset|spacing|colossal"}}},"layout":{"type":"constrained"}} -->
+<!-- wp:group {"tagName":"section","align":"full","style":{"spacing":{"margin":{"top":"0","bottom":"0"},"padding":{"top":"var:preset|spacing|colossal","bottom":"var:preset|spacing|colossal"}}},"backgroundColor":"base-2","layout":{"type":"constrained"}} -->
 <section class="wp-block-group alignfull has-base-2-background-color has-background" style="margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--colossal);padding-bottom:var(--wp--preset--spacing--colossal)"><!-- wp:group {"align":"wide","className":"origin-canvas-align-baseline","style":{"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|large"},"blockGap":{"top":"var:preset|spacing|small","left":"var:preset|spacing|extra-large"}}},"layout":{"type":"flex","flexWrap":"wrap","justifyContent":"space-between"}} -->
-<div class="wp-block-group alignwide origin-canvas-align-baseline" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--large)"><!-- wp:heading {"level":2,"style":{"typography":{"lineHeight":"1.1"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"contrast","fontSize":"extra-large"} -->
+<div class="wp-block-group alignwide origin-canvas-align-baseline" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--large)"><!-- wp:heading {"style":{"typography":{"lineHeight":"1.1"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"contrast","fontSize":"extra-large"} -->
 <h2 class="wp-block-heading has-contrast-color has-text-color has-extra-large-font-size" style="margin-top:0;margin-bottom:0;line-height:1.1"><?php echo esc_html__( 'From first email to launch day', 'origin-canvas' ); ?></h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"className":"origin-canvas-no-shrink","style":{"typography":{"fontWeight":"600"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"contrast","fontSize":"regular"} -->
-<p class="origin-canvas-no-shrink has-contrast-color has-text-color has-regular-font-size" style="margin-top:0;margin-bottom:0;font-weight:600"><a href="#" style="text-decoration:none"><?php echo esc_html__( 'Meet the team', 'origin-canvas' ); ?> <span aria-hidden="true">&rarr;</span></a></p>
+<p class="origin-canvas-no-shrink has-contrast-color has-text-color has-regular-font-size" style="margin-top:0;margin-bottom:0;font-weight:600"><a href="#" style="text-decoration:none"><?php echo esc_html__( 'Meet the team', 'origin-canvas' ); ?> <span aria-hidden="true">→</span></a></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group -->
 
 <!-- wp:group {"align":"wide","style":{"spacing":{"blockGap":"var:preset|spacing|large"}},"layout":{"type":"grid","columnCount":4,"minimumColumnWidth":"14rem"}} -->
-<div class="wp-block-group alignwide"><!-- wp:group {"backgroundColor":"base","style":{"border":{"radius":"var:custom|radius|medium"},"spacing":{"padding":{"top":"var:preset|spacing|large","right":"var:preset|spacing|large","bottom":"var:preset|spacing|large","left":"var:preset|spacing|large"},"blockGap":"0"}},"layout":{"type":"default"}} -->
+<div class="wp-block-group alignwide"><!-- wp:group {"style":{"border":{"radius":"var:custom|radius|medium"},"spacing":{"padding":{"top":"var:preset|spacing|large","right":"var:preset|spacing|large","bottom":"var:preset|spacing|large","left":"var:preset|spacing|large"},"blockGap":"0"}},"backgroundColor":"base","layout":{"type":"default"}} -->
 <div class="wp-block-group has-base-background-color has-background" style="border-radius:var(--wp--custom--radius--medium);padding-top:var(--wp--preset--spacing--large);padding-right:var(--wp--preset--spacing--large);padding-bottom:var(--wp--preset--spacing--large);padding-left:var(--wp--preset--spacing--large)"><!-- wp:image {"aspectRatio":"4/5","scale":"cover","sizeSlug":"full","linkDestination":"none","className":"is-style-rounded","style":{"spacing":{"margin":{"top":"0","bottom":"0"}}}} -->
 <figure class="wp-block-image size-full is-style-rounded" style="margin-top:0;margin-bottom:0"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/portrait-claire-bennett.webp" alt="<?php esc_attr_e( 'Portrait of Claire Bennett, Co-founder.', 'origin-canvas' ); ?>" style="aspect-ratio:4/5;object-fit:cover"/></figure>
 <!-- /wp:image -->
@@ -44,7 +44,7 @@
 <!-- /wp:paragraph --></div>
 <!-- /wp:group -->
 
-<!-- wp:group {"backgroundColor":"base","style":{"border":{"radius":"var:custom|radius|medium"},"spacing":{"padding":{"top":"var:preset|spacing|large","right":"var:preset|spacing|large","bottom":"var:preset|spacing|large","left":"var:preset|spacing|large"},"blockGap":"0"}},"layout":{"type":"default"}} -->
+<!-- wp:group {"style":{"border":{"radius":"var:custom|radius|medium"},"spacing":{"padding":{"top":"var:preset|spacing|large","right":"var:preset|spacing|large","bottom":"var:preset|spacing|large","left":"var:preset|spacing|large"},"blockGap":"0"}},"backgroundColor":"base","layout":{"type":"default"}} -->
 <div class="wp-block-group has-base-background-color has-background" style="border-radius:var(--wp--custom--radius--medium);padding-top:var(--wp--preset--spacing--large);padding-right:var(--wp--preset--spacing--large);padding-bottom:var(--wp--preset--spacing--large);padding-left:var(--wp--preset--spacing--large)"><!-- wp:image {"aspectRatio":"4/5","scale":"cover","sizeSlug":"full","linkDestination":"none","className":"is-style-rounded","style":{"spacing":{"margin":{"top":"0","bottom":"0"}}}} -->
 <figure class="wp-block-image size-full is-style-rounded" style="margin-top:0;margin-bottom:0"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/portrait-marcus-holloway.webp" alt="<?php esc_attr_e( 'Portrait of Marcus Holloway.', 'origin-canvas' ); ?>" style="aspect-ratio:4/5;object-fit:cover"/></figure>
 <!-- /wp:image -->
@@ -62,7 +62,7 @@
 <!-- /wp:paragraph --></div>
 <!-- /wp:group -->
 
-<!-- wp:group {"backgroundColor":"base","style":{"border":{"radius":"var:custom|radius|medium"},"spacing":{"padding":{"top":"var:preset|spacing|large","right":"var:preset|spacing|large","bottom":"var:preset|spacing|large","left":"var:preset|spacing|large"},"blockGap":"0"}},"layout":{"type":"default"}} -->
+<!-- wp:group {"style":{"border":{"radius":"var:custom|radius|medium"},"spacing":{"padding":{"top":"var:preset|spacing|large","right":"var:preset|spacing|large","bottom":"var:preset|spacing|large","left":"var:preset|spacing|large"},"blockGap":"0"}},"backgroundColor":"base","layout":{"type":"default"}} -->
 <div class="wp-block-group has-base-background-color has-background" style="border-radius:var(--wp--custom--radius--medium);padding-top:var(--wp--preset--spacing--large);padding-right:var(--wp--preset--spacing--large);padding-bottom:var(--wp--preset--spacing--large);padding-left:var(--wp--preset--spacing--large)"><!-- wp:image {"aspectRatio":"4/5","scale":"cover","sizeSlug":"full","linkDestination":"none","className":"is-style-rounded","style":{"spacing":{"margin":{"top":"0","bottom":"0"}}}} -->
 <figure class="wp-block-image size-full is-style-rounded" style="margin-top:0;margin-bottom:0"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/portrait-hannah-wright.webp" alt="<?php esc_attr_e( 'Portrait of Hannah Wright.', 'origin-canvas' ); ?>" style="aspect-ratio:4/5;object-fit:cover"/></figure>
 <!-- /wp:image -->
@@ -80,7 +80,7 @@
 <!-- /wp:paragraph --></div>
 <!-- /wp:group -->
 
-<!-- wp:group {"backgroundColor":"base","style":{"border":{"radius":"var:custom|radius|medium"},"spacing":{"padding":{"top":"var:preset|spacing|large","right":"var:preset|spacing|large","bottom":"var:preset|spacing|large","left":"var:preset|spacing|large"},"blockGap":"0"}},"layout":{"type":"default"}} -->
+<!-- wp:group {"style":{"border":{"radius":"var:custom|radius|medium"},"spacing":{"padding":{"top":"var:preset|spacing|large","right":"var:preset|spacing|large","bottom":"var:preset|spacing|large","left":"var:preset|spacing|large"},"blockGap":"0"}},"backgroundColor":"base","layout":{"type":"default"}} -->
 <div class="wp-block-group has-base-background-color has-background" style="border-radius:var(--wp--custom--radius--medium);padding-top:var(--wp--preset--spacing--large);padding-right:var(--wp--preset--spacing--large);padding-bottom:var(--wp--preset--spacing--large);padding-left:var(--wp--preset--spacing--large)"><!-- wp:image {"aspectRatio":"4/5","scale":"cover","sizeSlug":"full","linkDestination":"none","className":"is-style-rounded","style":{"spacing":{"margin":{"top":"0","bottom":"0"}}}} -->
 <figure class="wp-block-image size-full is-style-rounded" style="margin-top:0;margin-bottom:0"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/portrait-ben-carter.webp" alt="<?php esc_attr_e( 'Portrait of Ben Carter.', 'origin-canvas' ); ?>" style="aspect-ratio:4/5;object-fit:cover"/></figure>
 <!-- /wp:image -->

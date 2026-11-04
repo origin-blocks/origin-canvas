@@ -15,7 +15,11 @@
 
 ?>
 <!-- wp:pattern {"slug":"origin-canvas/hero-grid"} /-->
+
 <!-- wp:pattern {"slug":"origin-canvas/pricing-band-list"} /-->
+
 <!-- wp:pattern {"slug":"origin-canvas/features-numbered"} /-->
+
 <!-- wp:pattern {"slug":"origin-canvas/testimonial-single"} /-->
+
 <!-- wp:pattern {"slug":"origin-canvas/cta-band-split-dark"} /-->

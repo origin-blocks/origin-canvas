@@ -17,7 +17,7 @@
 <!-- wp:group {"tagName":"section","align":"full","style":{"spacing":{"margin":{"top":"0","bottom":"0"},"padding":{"top":"var:preset|spacing|colossal","bottom":"var:preset|spacing|colossal"}}},"layout":{"type":"constrained"}} -->
 <section class="wp-block-group alignfull" style="margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--colossal);padding-bottom:var(--wp--preset--spacing--colossal)"><!-- wp:columns {"align":"wide","className":"origin-canvas-faq-sticky","style":{"spacing":{"blockGap":{"top":"var:preset|spacing|extra-large","left":"var:preset|spacing|jumbo"}}}} -->
 <div class="wp-block-columns alignwide origin-canvas-faq-sticky"><!-- wp:column {"width":"50%"} -->
-<div class="wp-block-column" style="flex-basis:50%"><!-- wp:heading {"level":2,"style":{"typography":{"lineHeight":"1.1"},"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|medium"}}},"textColor":"contrast","fontSize":"huge"} -->
+<div class="wp-block-column" style="flex-basis:50%"><!-- wp:heading {"style":{"typography":{"lineHeight":"1.1"},"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|medium"}}},"textColor":"contrast","fontSize":"huge"} -->
 <h2 class="wp-block-heading has-contrast-color has-text-color has-huge-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--medium);line-height:1.1"><?php echo esc_html__( 'How the money works', 'origin-canvas' ); ?></h2>
 <!-- /wp:heading -->
 
@@ -27,8 +27,7 @@
 <!-- /wp:column -->
 
 <!-- wp:column {"width":"50%","style":{"spacing":{"blockGap":"0"}}} -->
-<div class="wp-block-column" style="flex-basis:50%">
-<!-- wp:accordion {"className":"is-style-origin-canvas-accordion-minimal","style":{"border":{"top":{"color":"var:preset|color|base-5","style":"solid","width":"1px"}}}} -->
+<div class="wp-block-column" style="flex-basis:50%"><!-- wp:accordion {"className":"is-style-origin-canvas-accordion-minimal","style":{"border":{"top":{"color":"var:preset|color|base-5","style":"solid","width":"1px"}}}} -->
 <div role="group" class="wp-block-accordion is-style-origin-canvas-accordion-minimal" style="border-top-color:var(--wp--preset--color--base-5);border-top-style:solid;border-top-width:1px"><!-- wp:accordion-item {"openByDefault":true} -->
 <div class="wp-block-accordion-item is-open"><!-- wp:accordion-heading {"level":3,"style":{"typography":{"lineHeight":"1.4"}},"textColor":"contrast","fontSize":"regular-plus"} -->
 <h3 class="wp-block-accordion-heading has-icon has-icon-right has-contrast-color has-text-color has-regular-plus-font-size" style="line-height:1.4"><button type="button" class="wp-block-accordion-heading__toggle"><span class="wp-block-accordion-heading__toggle-title"><?php echo esc_html__( 'How do you take payment?', 'origin-canvas' ); ?></span><span class="wp-block-accordion-heading__toggle-icon" aria-hidden="true">+</span></button></h3>
@@ -112,8 +111,7 @@
 <!-- /wp:paragraph --></div>
 <!-- /wp:accordion-panel --></div>
 <!-- /wp:accordion-item --></div>
-<!-- /wp:accordion -->
-</div>
+<!-- /wp:accordion --></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns --></section>
 <!-- /wp:group -->

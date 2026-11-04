@@ -13,8 +13,8 @@
  */
 
 ?>
-<!-- wp:group {"metadata":{"patternName":"origin-canvas/cta-band","name":"CTA Card Split","categories":["call-to-action"]},"tagName":"section","align":"full","style":{"spacing":{"margin":{"top":"0","bottom":"0"},"padding":{"top":"var:preset|spacing|colossal","bottom":"var:preset|spacing|colossal"}}},"layout":{"type":"constrained"}} -->
-<section class="wp-block-group alignfull" style="margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--colossal);padding-bottom:var(--wp--preset--spacing--colossal)"><!-- wp:group {"align":"wide","backgroundColor":"base-2","style":{"border":{"radius":"var:custom|radius|large"},"spacing":{"padding":{"top":"var:preset|spacing|extra-large","right":"var:preset|spacing|extra-large","bottom":"var:preset|spacing|extra-large","left":"var:preset|spacing|extra-large"}}},"layout":{"type":"default"}} -->
+<!-- wp:group {"tagName":"section","metadata":{"patternName":"origin-canvas/cta-band","name":"CTA Card Split","categories":["call-to-action"]},"align":"full","style":{"spacing":{"margin":{"top":"0","bottom":"0"},"padding":{"top":"var:preset|spacing|colossal","bottom":"var:preset|spacing|colossal"}}},"layout":{"type":"constrained"}} -->
+<section class="wp-block-group alignfull" style="margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--colossal);padding-bottom:var(--wp--preset--spacing--colossal)"><!-- wp:group {"align":"wide","style":{"border":{"radius":"var:custom|radius|large"},"spacing":{"padding":{"top":"var:preset|spacing|extra-large","right":"var:preset|spacing|extra-large","bottom":"var:preset|spacing|extra-large","left":"var:preset|spacing|extra-large"}}},"backgroundColor":"base-2","layout":{"type":"default"}} -->
 <div class="wp-block-group alignwide has-base-2-background-color has-background" style="border-radius:var(--wp--custom--radius--large);padding-top:var(--wp--preset--spacing--extra-large);padding-right:var(--wp--preset--spacing--extra-large);padding-bottom:var(--wp--preset--spacing--extra-large);padding-left:var(--wp--preset--spacing--extra-large)"><!-- wp:columns {"verticalAlignment":"center","style":{"spacing":{"blockGap":{"top":"var:preset|spacing|large","left":"var:preset|spacing|large"}}}} -->
 <div class="wp-block-columns are-vertically-aligned-center"><!-- wp:column {"verticalAlignment":"center","width":"42%"} -->
 <div class="wp-block-column is-vertically-aligned-center" style="flex-basis:42%"><!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|extra-small","margin":{"top":"0","bottom":"0"}}},"layout":{"type":"constrained"}} -->
@@ -37,10 +37,9 @@
 <!-- /wp:column -->
 
 <!-- wp:column {"verticalAlignment":"center","width":"24%"} -->
-<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:24%">
-<!-- wp:buttons {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"layout":{"type":"flex","justifyContent":"right"}} -->
-<div class="wp-block-buttons" style="margin-top:0;margin-bottom:0"><!-- wp:button {"style":{"spacing":{"padding":{"top":"var:preset|spacing|small-medium","right":"var:preset|spacing|large","bottom":"var:preset|spacing|small-medium","left":"var:preset|spacing|large"}}},"fontSize":"small","url":"#"} -->
-<div class="wp-block-button"><a class="wp-block-button__link has-small-font-size has-custom-font-size wp-element-button" href="#" style="padding-top:var(--wp--preset--spacing--small-medium);padding-right:var(--wp--preset--spacing--large);padding-bottom:var(--wp--preset--spacing--small-medium);padding-left:var(--wp--preset--spacing--large)"><?php echo esc_html__( 'Start a conversation', 'origin-canvas' ); ?> &rarr;</a></div>
+<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:24%"><!-- wp:buttons {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"layout":{"type":"flex","justifyContent":"right"}} -->
+<div class="wp-block-buttons" style="margin-top:0;margin-bottom:0"><!-- wp:button {"style":{"spacing":{"padding":{"top":"var:preset|spacing|small-medium","right":"var:preset|spacing|large","bottom":"var:preset|spacing|small-medium","left":"var:preset|spacing|large"}}},"fontSize":"small"} -->
+<div class="wp-block-button"><a class="wp-block-button__link has-small-font-size has-custom-font-size wp-element-button" href="#" style="padding-top:var(--wp--preset--spacing--small-medium);padding-right:var(--wp--preset--spacing--large);padding-bottom:var(--wp--preset--spacing--small-medium);padding-left:var(--wp--preset--spacing--large)"><?php echo esc_html__( 'Start a conversation', 'origin-canvas' ); ?> →</a></div>
 <!-- /wp:button --></div>
 <!-- /wp:buttons --></div>
 <!-- /wp:column --></div>
