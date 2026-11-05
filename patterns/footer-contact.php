@@ -92,8 +92,8 @@
 <!-- /wp:column --></div>
 <!-- /wp:columns -->
 
-<!-- wp:group {"align":"wide","style":{"spacing":{"margin":{"top":"var:preset|spacing|jumbo"}}},"layout":{"type":"flex","flexWrap":"wrap","justifyContent":"space-between","verticalAlignment":"center"}} -->
-<div class="wp-block-group alignwide" style="margin-top:var(--wp--preset--spacing--jumbo)"><!-- wp:paragraph {"textColor":"contrast-2","fontSize":"small"} -->
+<!-- wp:group {"align":"wide","style":{"spacing":{"margin":{"top":"var:preset|spacing|colossal"}}},"layout":{"type":"flex","flexWrap":"wrap","justifyContent":"space-between","verticalAlignment":"center"}} -->
+<div class="wp-block-group alignwide" style="margin-top:var(--wp--preset--spacing--colossal)"><!-- wp:paragraph {"textColor":"contrast-2","fontSize":"small"} -->
 <p class="has-contrast-2-color has-text-color has-small-font-size"><?php echo esc_html__( '&copy; 2026. All rights reserved.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
