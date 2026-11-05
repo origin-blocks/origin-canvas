@@ -100,6 +100,8 @@ Pattern image "Kestrel website wireframes" (patterns/images/studio-wireframe-rev
 
 Pattern image "Mercer Street Framing case-study image" (patterns/images/frame-samples.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
+Pattern image "Studio at the end of the day" (patterns/images/studio-end-of-day.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+
 Pattern image "Studio one project" (patterns/images/studio-one-project.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
 Pattern image "Mercer Street Framing wordmark tests" (patterns/images/studio-type-proofs.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
