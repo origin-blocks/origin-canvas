@@ -16,8 +16,10 @@
 # names one category, so the page test cannot be dodged with a list.
 #
 # Headers are read as WordPress reads them: every .php file under patterns/, recursively;
-# the first 8 KB; the field name in any case; the rest of the line up to `*/` or `?>`; then
-# split on commas and whitespace (get_file_data, _cleanup_header_comment, wp_parse_list).
+# the first 8 KB as bytes, CR read as a line end; the field name in any case; the rest of
+# the line up to `*/` or `?>`; then split on commas and whitespace (get_file_data,
+# _cleanup_header_comment, wp_parse_list). Whitespace means PHP's: ASCII only, so a
+# no-break space stays part of a value, as it does in WordPress.
 #
 # Run from the theme root:  bash bin/check-block-types.sh
 
@@ -56,15 +58,17 @@ BOUND = {
         'origin-canvas/footer-*'),
 }
 
+PHP_TRIM = ' \t\n\r\0\x0b'
+
 def header(text, name):
     m = re.search(r'^(?:[ \t]*<\?(?:php)?)?[ \t/*#@]*' + re.escape(name) + r':(.*)$',
-                  text, re.M | re.I)
+                  text, re.M | re.I | re.A)
     if not m:
         return ''
-    return re.sub(r'\s*(?:\*/|\?>).*', '', m.group(1)).strip()
+    return re.sub(r'\s*(?:\*/|\?>).*', '', m.group(1), flags=re.A).strip(PHP_TRIM)
 
 def parse_list(value):
-    return [v for v in re.split(r'[\s,]+', value) if v]
+    return [v for v in re.split(r'[\s,]+', value, flags=re.A) if v]
 
 files = sorted(glob.glob('patterns/**/*.php', recursive=True))
 fail = False
@@ -76,8 +80,8 @@ def report(path, message):
     fail = True
 
 for path in files:
-    with open(path, encoding='utf-8', errors='replace') as f:
-        text = f.read(8192)
+    with open(path, 'rb') as f:
+        text = f.read(8192).decode('utf-8', errors='replace').replace('\r', '\n')
     slug = header(text, 'Slug')
     if not slug:
         continue
