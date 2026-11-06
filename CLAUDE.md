@@ -141,13 +141,8 @@ variation.
 - Outside the rule: a `max-width` reading measure, and element dimensions (an avatar, an icon
   bubble, a fixed media column), which have no scale. Where patterns share a dimension, put it
   in a class so they cannot drift (`.origin-canvas-quote-mark`).
-- **Never inline an `<svg>` in pattern content.** `<svg>` is not in WordPress's KSES
-  allowlist, so it is stripped on insert for any user without `unfiltered_html` — Editors,
-  Authors, and most multisite roles would get the pattern with the graphic missing. Ship
-  decorative glyphs from the theme layer instead: a data-URI `mask-image` on an empty group,
-  coloured with `background-color: var(--wp--preset--color--primary)` so it tracks the
-  palette. `core-list.css` (check icon) and `core-group.css` (quote mark) are the reference
-  implementations.
+- Icons use the core Icon block; a decorative glyph the Icon block can't draw comes from the
+  theme's CSS.
 
 ### 6b. Pattern CSS is a last resort
 A change to an existing block rule made so one pattern lands is never the fix. Exhaust core
