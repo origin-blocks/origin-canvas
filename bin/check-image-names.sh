@@ -5,11 +5,11 @@
 # named gallery-proof-wall is welded to one pattern; the same photo named exercise-room
 # can serve any pattern. Three things are checked:
 #
-#   1. Grammar. Lowercase kebab-case; logos are .png and everything else .webp. The name is
-#      split on "-" and no token may be the first word of a pattern slug (read from the
-#      Slug header of every patterns/*.php), a category slug, or a slot word. "avatar",
+#   1. Grammar. Lowercase kebab-case; logos are .png and everything else .webp. "avatar",
 #      "portrait" and "logo" are kind prefixes, allowed only as the first token and only
-#      with a subject after them. Whether a name fits its picture is a reviewer's read.
+#      with a subject after them. Whether a name fits its picture, and does not name a
+#      pattern, is a reviewer's read: a word list cannot tell a photo of a team from the
+#      Team pattern, and each new pattern would ban its first word from every image.
 #   2. References. Every patterns/images/ path written in a pattern, template, part or
 #      readme credit is a well-formed name of a file that exists, so a mistyped path
 #      fails here and not on a visitor's screen. The demo seed's image table is read the
@@ -35,9 +35,9 @@ import glob, os, re, subprocess, sys
 
 IMAGES = 'patterns/images'
 
-# Names that break the grammar but shipped before the rule existed (1.1.0 to 1.3.1).
+# Names that carry the pattern that first used them and shipped before the rule existed.
 # Users' saved content points at them, so they are renamed at 2.0.0, not before.
-GRAMMAR_EXCEPTIONS = {
+RENAME_AT_MAJOR = {
     'card-image-text-1.webp': 'shipped 1.0.0 to 1.4.0; renamed at 2.0.0',
     'card-image-text-2.webp': 'shipped 1.0.0 to 1.4.0; renamed at 2.0.0',
     'card-image-text-3.webp': 'shipped 1.0.0 to 1.4.0; renamed at 2.0.0',
@@ -70,17 +70,6 @@ STABILITY_EXCEPTIONS = {
 }
 
 KIND_PREFIXES = {'avatar', 'portrait', 'logo'}
-CATEGORY_WORDS = {'hero', 'card', 'features', 'pricing', 'stats', 'faq', 'logos', 'author',
-                  'page', 'header', 'footer', 'call', 'action', 'text', 'testimonials',
-                  'team', 'posts', 'contact', 'gallery', 'hidden'}
-SLOT_WORDS = {'gallery', 'card', 'portrait', 'avatar', 'hero', 'cover'}
-SLUG = re.compile(r'^[ \t*]*Slug:\s*origin-canvas/([a-z0-9]+)', re.M)
-PATTERN_WORDS = set()
-for p in glob.glob('patterns/*.php'):
-    m = SLUG.search(open(p).read())
-    if m:
-        PATTERN_WORDS.add(m.group(1))
-FORBIDDEN = CATEGORY_WORDS | SLOT_WORDS | PATTERN_WORDS
 NAME = re.compile(r'^[a-z0-9]+(?:-[a-z0-9]+)*\.(?:webp|png)$')
 
 def grammar(name):
@@ -95,11 +84,9 @@ def grammar(name):
         return 'is a photo, which is .webp'
     if tokens[0] in KIND_PREFIXES and len(tokens) < 2:
         return 'is a kind prefix with no subject after it'
-    for i, token in enumerate(tokens):
-        if token in KIND_PREFIXES and i == 0:
-            continue
-        if token in FORBIDDEN or token in KIND_PREFIXES:
-            return 'carries "%s", a pattern, slot or category word; name the subject' % token
+    for token in tokens[1:]:
+        if token in KIND_PREFIXES:
+            return 'carries the kind prefix "%s" after the first word' % token
     return None
 
 fail = False
@@ -113,8 +100,6 @@ files = sorted(os.listdir(IMAGES))
 # 1. Grammar.
 checked = 0
 for name in files:
-    if name in GRAMMAR_EXCEPTIONS:
-        continue
     checked += 1
     reason = grammar(name)
     if reason:
@@ -167,6 +152,9 @@ for name, tag in sorted(shipped.items()):
     if name not in present and name not in STABILITY_EXCEPTIONS:
         bad('%s/%s shipped in %s and is gone; a shipped name never changes before a major version'
             % (IMAGES, name, tag))
+for name in RENAME_AT_MAJOR:
+    if name not in present:
+        bad('%s/%s is listed to rename at 2.0.0 but is gone; drop it from the table' % (IMAGES, name))
 for name in STABILITY_EXCEPTIONS:
     if name in present:
         bad('%s/%s is listed as renamed or deleted but still exists; drop it from the exception table'
@@ -175,6 +163,8 @@ for name in STABILITY_EXCEPTIONS:
 if fail:
     sys.exit(1)
 print('Image names:')
-print('  ✓  %d of %d names pass the grammar (%d pre-rule names excepted until 2.0.0), %d referenced names are well formed and exist, every name shipped in %s to %s is present or named in the exception table (%d)'
-      % (checked, len(files), len(GRAMMAR_EXCEPTIONS), len(refs), tags[0], tags[-1], len(STABILITY_EXCEPTIONS)))
+for name, why in sorted(RENAME_AT_MAJOR.items()):
+    print('  ~  %s/%s names its pattern: %s' % (IMAGES, name, why))
+print('  ✓  %d of %d names pass the grammar, %d referenced names are well formed and exist, every name shipped in %s to %s is present or named in the exception table (%d)'
+      % (checked, len(files), len(refs), tags[0], tags[-1], len(STABILITY_EXCEPTIONS)))
 PY
