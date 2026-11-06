@@ -6,7 +6,7 @@
  * Categories: origin-canvas/author
  * Keywords: byline, writer, profile, contributor
  * Viewport Width: 1500
- * Block Types: core/post-content
+ * Block Types:
  * Post Types:
  * Inserter: true
  *

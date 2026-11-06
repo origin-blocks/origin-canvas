@@ -5,7 +5,7 @@
  * Description: A tinted rounded card the width of the content, with a heading and text beside an availability line and one button.
  * Categories: call-to-action
  * Keywords: conversion, banner, prompt
- * Block Types: core/post-content
+ * Block Types:
  * Viewport Width: 1500
  * Inserter: true
  *

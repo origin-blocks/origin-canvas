@@ -5,7 +5,7 @@
  * Description: A photo beside a heading, text, a button and a small quote card, on a tinted band.
  * Categories: origin-canvas/features
  * Keywords: testimonial, alternating, media
- * Block Types: core/post-content
+ * Block Types:
  * Viewport Width: 1500
  * Inserter: true
  *

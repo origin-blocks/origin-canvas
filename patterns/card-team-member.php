@@ -6,7 +6,7 @@
  * Categories: team
  * Keywords: profile, person, staff, headshot
  * Viewport Width: 1500
- * Block Types: core/post-content
+ * Block Types:
  * Inserter: true
  *
  * @package Origin

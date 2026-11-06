@@ -5,7 +5,7 @@
  * Description: A centered heading and lead above four numbered steps on tinted cards in two columns.
  * Categories: origin-canvas/features
  * Keywords: method, stages, workflow
- * Block Types: core/post-content
+ * Block Types:
  * Viewport Width: 1500
  * Inserter: true
  *

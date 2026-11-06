@@ -6,7 +6,7 @@
  * Categories: origin-canvas/page
  * Keywords: offerings, rates, agency, freelance, layout
  * Viewport Width: 1500
- * Block Types:
+ * Block Types: core/post-content
  * Post Types:
  * Inserter: true
  *

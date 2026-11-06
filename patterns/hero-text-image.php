@@ -6,7 +6,7 @@
  * Categories: origin-canvas/hero
  * Keywords: landing page, introduction, masthead, media
  * Viewport Width: 1500
- * Block Types: core/post-content
+ * Block Types:
  * Inserter: true
  *
  * @package Origin

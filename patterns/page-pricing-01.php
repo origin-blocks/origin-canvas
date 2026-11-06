@@ -6,7 +6,7 @@
  * Categories: origin-canvas/page
  * Keywords: layout, agency, freelance, business, rates, packages
  * Viewport Width: 1500
- * Block Types:
+ * Block Types: core/post-content
  * Post Types:
  * Inserter: true
  *

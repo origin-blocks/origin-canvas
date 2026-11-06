@@ -6,7 +6,7 @@
  * Categories: testimonials
  * Keywords: endorsement, review, client, praise
  * Viewport Width: 1500
- * Block Types: core/post-content
+ * Block Types:
  * Inserter: true
  *
  * @package Origin

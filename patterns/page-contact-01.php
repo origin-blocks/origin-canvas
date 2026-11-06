@@ -6,7 +6,7 @@
  * Categories: origin-canvas/page
  * Keywords: layout, agency, freelance, inquiry, reach, team
  * Viewport Width: 1500
- * Block Types:
+ * Block Types: core/post-content
  * Post Types:
  * Inserter: true
  *

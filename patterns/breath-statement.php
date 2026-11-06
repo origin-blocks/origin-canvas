@@ -5,7 +5,7 @@
  * Description: One large centered sentence under a short eyebrow, with no fill.
  * Categories: text
  * Keywords: editorial, manifesto, headline
- * Block Types: core/post-content
+ * Block Types:
  * Viewport Width: 1500
  * Inserter: false
  *

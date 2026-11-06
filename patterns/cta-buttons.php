@@ -6,7 +6,7 @@
  * Categories: call-to-action
  * Keywords: conversion, signup, prompt
  * Viewport Width: 1500
- * Block Types: core/post-content
+ * Block Types:
  * Inserter: true
  *
  * @package Origin

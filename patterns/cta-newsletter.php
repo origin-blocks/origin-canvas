@@ -6,7 +6,7 @@
  * Categories: call-to-action
  * Keywords: subscribe, signup, conversion
  * Viewport Width: 1500
- * Block Types: core/post-content
+ * Block Types:
  * Inserter: true
  *
  * Note: The "email input" is a styled paragraph placeholder for visual layout only.

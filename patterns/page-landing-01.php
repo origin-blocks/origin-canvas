@@ -6,7 +6,7 @@
  * Categories: origin-canvas/page
  * Keywords: home, composition, fullpage, product
  * Viewport Width: 1500
- * Block Types:
+ * Block Types: core/post-content
  * Post Types:
  * Inserter: true
  *

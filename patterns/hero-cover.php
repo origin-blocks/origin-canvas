@@ -5,7 +5,7 @@
  * Description: A rounded photo the width of the content with two small cards over it, and an availability line below.
  * Categories: origin-canvas/hero
  * Keywords: editorial, home page, background, banner
- * Block Types: core/post-content
+ * Block Types:
  * Viewport Width: 1500
  * Inserter: true
  *
