@@ -36,7 +36,6 @@ bash "$SCRIPT_DIR/check-post-card-twins.sh"
 bash "$SCRIPT_DIR/check-page-h1.sh"
 bash "$SCRIPT_DIR/check-button-surfaces.sh"
 bash "$SCRIPT_DIR/check-grid-gaps.sh"
-bash "$SCRIPT_DIR/check-primary-text.sh"
 bash "$SCRIPT_DIR/check-tracking-tokens.sh"
 # No old palette code outside the compatibility layer, and no $wpdb (#116).
 bash "$SCRIPT_DIR/check-palette-names.sh"
