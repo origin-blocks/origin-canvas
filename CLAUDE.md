@@ -119,13 +119,9 @@ Copy the header of `patterns/page-studio.php` and change only the variable field
   landing page's own showcase sections (`pattern-showcase`, `style-variations`,
   `template-showcase`, `token-system`, `product-grid`) and retired patterns
   (`breath-statement`), which keep their file and slug until a major version.
-- **Keywords:** 3–6 comma-separated terms a user might *type* that are **not already** in the
-  Title, Slug, Description, or Category — synonyms, alternate names, content words and true
-  use words (rule 3). Never repeat a word that already appears in those fields: WordPress joins
-  title, description, keywords and category into ONE searched string and scores it all-or-nothing (see
-  `getItemSearchRank`), so a repeat cannot improve ranking — it only spends the budget. A
-  pattern titled "Hero Centered" is already found by "hero"; its keywords should buy
-  "banner", "masthead", "introduction".
+- **Keywords:** 3–6 words a user might type that the title, slug and description lack:
+  synonyms, content words, true use words (rule 3), and the category word if none of them has
+  it.
 
 ### 6. Tokens over hardcodes
 Every colour, spacing and font size is a preset from `theme.json`. The scales are fluid
