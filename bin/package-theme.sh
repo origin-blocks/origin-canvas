@@ -36,6 +36,8 @@ bash "$SCRIPT_DIR/check-page-h1.sh"
 bash "$SCRIPT_DIR/check-button-surfaces.sh"
 bash "$SCRIPT_DIR/check-grid-gaps.sh"
 bash "$SCRIPT_DIR/check-tracking-tokens.sh"
+# Block Types: pages set core/post-content, sections set nothing, bound patterns pass their block's test (#130).
+bash "$SCRIPT_DIR/check-block-types.sh"
 # No old palette code outside the compatibility layer, and no $wpdb (#116).
 bash "$SCRIPT_DIR/check-palette-names.sh"
 # The built twin rules match the map and the stylesheets they come from (#116).
