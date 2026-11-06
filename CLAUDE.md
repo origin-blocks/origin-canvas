@@ -6,10 +6,6 @@ and whose body is block markup. This file's rules are BINDING — read them befo
 renaming, or recategorizing any pattern.
 
 ## Who the design is for
-The business plan's `brand.md` (private, outside this repo) is the one source for who the
-design is for and the brand's character; this summary follows it, and where they differ it
-wins. The shared design principles live outside this repo, not in the business plan.
-
 - **Audience:** solo builders, freelancers and small teams who build WordPress sites, for
   clients or for themselves; small agencies are next.
 - **Surfaces:** the theme's frame, setup and docs are judged for that builder. Demo pages and
@@ -20,34 +16,22 @@ wins. The shared design principles live outside this repo, not in the business p
   the real page, and say what the reader gains. Fitting a scale is not a reason.
 
 ## Where rules and notes live
-- The shared design principles are private and live outside this repo.
 - Canvas design decisions live in the code, in `bin/check-*.sh` and in this repo's GitHub issues.
-- Mechanical rules are enforced by `bin/check-*.sh`. Among them: `check-column-splits.sh`,
-  `check-layout-widths.sh`, `check-image-slots.sh`, `check-image-names.sh` (compares with every
-  release tag), `check-post-card-twins.sh`, `check-page-h1.sh`, `check-roster-names.sh` (reads the
-  roster from the writing guide clone) and
-  `check-shipped-values.sh` (compares with every release tag). `bin/package-theme.sh` runs the
-  repo-only ones, the shipped-values check with `--release`, so a pending removal stops the package.
-- Record a new trap as a check, a code comment or an issue. Private detail goes in a private issue
-  outside this repo, never in a file here.
+- Some rules have a check in `bin/check-*.sh`; a rule with no check is held only by review.
+  `bin/package-theme.sh` runs every check that needs nothing outside this repo, the
+  shipped-values check with `--release`, so a pending removal stops the package. Run
+  `check-block-validity.sh` (needs WordPress), `check-tracking-render.sh` (needs a browser) and
+  `check-roster-names.sh` (needs the writing guide clone) before a merge.
+- Record a new trap as a check, a code comment or an issue. Never commit private detail.
 - Never commit design notes or lessons to the repo.
 - A release follows `RELEASE.md`; read it before any tag, version or changelog work.
 - Report verification honestly: name the method of each check, and list any check not done.
 
-## A handoff is checked against these rules before any of it is built
-A design handoff states intent; this file states what the theme allows. Before a handoff line
-becomes a step, check it against every rule here. Where they agree, build it. Where they
-conflict, the rule holds and the conflict goes back to the owner as a question. It is never
-settled by building the handoff's version, and never by quietly building a third thing. A
-handoff saying "Layer: `style.css`", "add a class" or "register a style" is a proposal, not a
-ruling.
-
 ## Pattern conventions
 
 ### 1. Namespace
-Every user-facing pattern **slug** and every **custom category** is `origin-canvas/<kebab-slug>`.
-The business-plan docs sometimes use an `origin/` namespace — that is aspirational and **NOT
-shipped**; do not use it. Hidden template scaffolds use slugs `origin-canvas/hidden-*`.
+Every user-facing pattern **slug** and every **custom category** is `origin-canvas/<kebab-slug>`,
+never `origin/`. Hidden template scaffolds use slugs `origin-canvas/hidden-*`.
 
 ### 2. Categories — role-based, from a FIXED set, exactly ONE per pattern
 Assign every pattern **exactly one** category (no comma-separated multi-category lines).
@@ -184,9 +168,9 @@ silently opts that value out of fluid type/spacing and out of every style variat
   `base-2`, so a variation's ink reaches every dark pattern; new dark patterns use the
   `contrast` and `base-2` presets directly. Secondary text is `base-2` at 72%, hover
   fills 8% and lines 12%, each a `color-mix` of `var(--wp--custom--dark--text)` (#127).
-- **If a design hands you a value that isn't on the scale, do NOT hardcode it.** Snap it to
-  the nearest scale step and say so in the PR, or file a `theme.json`
-  change to add the step. Those are the only two options.
+- **If a design hands you a value that isn't on the scale, do NOT hardcode it and do not snap
+  it.** A near step changes the rendering. Report the gap and get a ruling: use an existing step, or
+  add one to `theme.json`.
 - Font-size scale (px): 13 · 14 · 16 · 18 · 20 · 24 · 30 · 36 · 48 · 60 · 72
   (`extra-small` · `small` · `regular` · `regular-plus` · `medium` · `large` · `extra-large` ·
   `huge` · `display` · `display-xl` · `display-2xl`). There is no 15, 19, 22, 23 or 34.
@@ -272,8 +256,7 @@ rendered page, at 1440 and 390 under every style variation, before a branch merg
 
 An inline `fontWeight` on a block emits a `style="…"` attribute, which beats every
 `:root :where(…)` rule a variation can emit. One pinned heading is a heading the user cannot
-restyle — and "eleven style variations, one click to reskin" is a claim on our own landing
-page.
+restyle, and our own landing page sells one-click style variations.
 
 Every heading surface, and who owns its weight:
 
@@ -357,17 +340,13 @@ rewrite and names the pattern and block.
 Copy markup from the editor's Code editor, never from the rendered page.
 
 ## Writing
-Every user-visible string follows the house writing guide in the private repo `Misplon/writing`
-(local clone `~/Projects/writing`). Pattern demo copy follows `brands/origin-patterns.md`; the
-readme, guides and docs follow `voice.md` and `docs.md`; names follow `brands/origin.md`. The
-pattern title, description, keyword and category rules in this file stay here. Add writing rules
-to the guide, never here.
+Every user-visible string follows the house writing guide. The pattern title, description,
+keyword and category rules in this file stay here. Add writing rules to the guide, never here.
 
 ## Every design decision becomes code, a check or an issue
 A round is not done until every design decision in it (the owner's, or one made under the owner's
 standing instructions) lives in the code, in a check, or in a GitHub issue in this repo, in the
-same step as the change. Private rationale goes in a private
-issue outside this repo.
+same step as the change.
 
 - No decision lives only in a scratch folder, a chat or an agent's memory.
 - An issue that holds a rule closes only when the rule lives in a check in `bin/` (its exceptions
@@ -376,13 +355,6 @@ issue outside this repo.
 - Merge gate: before any branch merges, the reviewer matches every commit that cites a ruling or
   decision against the code, check or issue that holds it. If none does, the merge stops.
 - Never commit design notes, lessons or an archive to this repo.
-
-## Sources of truth
-Pattern roadmap: GitHub issues labelled `pattern`, grouped by batch milestone at
-https://github.com/origin-blocks/origin-canvas/milestones. One issue per unbuilt pattern.
-Metadata / roles / AI-facing tags: `origin-business-plan/plans/patterns-strategy.md`.
-The original batch plan, `origin-business-plan/theme/master-pattern-library.md`, is archived
-history. The rules above restate the binding parts so agents don't need either.
 
 ## Extending the fixed category set
 Any addition to the category list requires updating this `CLAUDE.md` AND adding the matching
