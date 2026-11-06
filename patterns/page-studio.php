@@ -2,7 +2,7 @@
 /**
  * Title: Home: Editorial Cover
  * Slug: origin-canvas/page-studio
- * Description: A single-page design for a small studio or portfolio: featured work, process, and a call to action. Insert into a Page and set it as your static front page.
+ * Description: A single-page design for a small studio or portfolio: featured work, process, and a call to action. Insert into a Page and set it as your static front page. Use with the Full Width, No Title template.
  * Categories: origin-canvas/page
  * Keywords: layout, template, home, agency
  * Viewport Width: 1500
