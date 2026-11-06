@@ -41,7 +41,7 @@
 
 <!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|small"}},"layout":{"type":"constrained"}} -->
 <div class="wp-block-group"><!-- wp:heading {"level":3,"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"fontSize":"medium"} -->
-<h3 class="wp-block-heading has-medium-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Send us a note', 'origin-canvas' ); ?></h3>
+<h3 class="wp-block-heading has-medium-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Get in touch', 'origin-canvas' ); ?></h3>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"textColor":"contrast-2","fontSize":"regular"} -->
@@ -61,7 +61,7 @@
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"textColor":"contrast-2","fontSize":"regular"} -->
-<p class="has-contrast-2-color has-text-color has-regular-font-size"><?php echo esc_html__( 'Identity and website together take eight weeks, with the identity settled first so the site is built on it.', 'origin-canvas' ); ?></p>
+<p class="has-contrast-2-color has-text-color has-regular-font-size"><?php echo esc_html__( 'Identity and website together take eight weeks: we do the logo and colors first, then the site.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group --></div>
 <!-- /wp:group -->
@@ -77,7 +77,7 @@
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"textColor":"contrast-2","fontSize":"regular"} -->
-<p class="has-contrast-2-color has-text-color has-regular-font-size"><?php echo esc_html__( 'The people who answer your first email are the ones who see the job through, and once the site is live we cover 30 days of fixes.', 'origin-canvas' ); ?></p>
+<p class="has-contrast-2-color has-text-color has-regular-font-size"><?php echo esc_html__( 'The people you talk to at the start are the ones who build the site, and we cover 30 days of fixes after it goes live.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group --></div>
 <!-- /wp:group -->
