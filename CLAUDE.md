@@ -114,13 +114,6 @@ Copy the header of `patterns/page-studio.php` and change only the variable field
 ```
 
 - **Viewport Width:** `1500`, unless there is a deliberate reason.
-- **Block Types:** LEAVE EMPTY for standalone section/page patterns. Populate ONLY when the
-  pattern is bound to a block context: `core/post-content` (content-area patterns),
-  `core/query` (loops), `core/template-part/header|footer` (parts). A marketing/features/
-  testimonial/hero SECTION is standalone → **empty**, NOT `core/post-content`. (`core/post-content`
-  binds the pattern to the post-content inserter only; a section is inserted anywhere, so binding it
-  is wrong.) NOTE: several existing section patterns still carry a stray `core/post-content` — that is
-  known drift to be stripped, not a convention to copy.
 - **Post Types:** leave empty.
 - **Inserter:** `true`, except hidden template scaffolds (registered in `functions.php`), the
   landing page's own showcase sections (`pattern-showcase`, `style-variations`,
