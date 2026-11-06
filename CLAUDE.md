@@ -113,8 +113,6 @@ Copy the header of `patterns/page-studio.php` and change only the variable field
 ?>
 ```
 
-- **Viewport Width:** `1500`, unless there is a deliberate reason.
-- **Post Types:** leave empty.
 - **Inserter:** `true`, except hidden template scaffolds (registered in `functions.php`), the
   landing page's own showcase sections (`pattern-showcase`, `style-variations`,
   `template-showcase`, `token-system`, `product-grid`) and retired patterns
