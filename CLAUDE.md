@@ -1,9 +1,8 @@
 # Origin Canvas — theme repo guide
 
-Origin Canvas is a WordPress Full Site Editing (FSE) block theme. User-facing block
-patterns live in `patterns/*.php`; each is a PHP file whose doc-block header registers it
-and whose body is block markup. This file's rules are BINDING — read them before creating,
-renaming, or recategorizing any pattern.
+Origin Canvas is a WordPress block theme. Patterns live in `patterns/*.php`: a doc-block header
+registers each one and the body is block markup. Read these rules before creating, renaming or
+recategorizing a pattern.
 
 ## Who the design is for
 - **Audience:** solo builders, freelancers and small teams who build WordPress sites, for
@@ -15,103 +14,86 @@ renaming, or recategorizing any pattern.
 - **Before changing a visual value:** name the reader and the surface, look at the change on
   the real page, and say what the reader gains. Fitting a scale is not a reason.
 
-## Where rules and notes live
-- Canvas design decisions live in the code, in `bin/check-*.sh` and in this repo's GitHub issues.
-- Some rules have a check in `bin/check-*.sh`; a rule with no check is held only by review.
-  `bin/package-theme.sh` runs every check that needs nothing outside this repo, the
-  shipped-values check with `--release`, so a pending removal stops the package. Run
-  `check-block-validity.sh` (needs WordPress), `check-tracking-render.sh` (needs a browser) and
-  `check-roster-names.sh` (needs the writing guide clone) before a merge.
-- Record a new trap as a check, a code comment or an issue. Never commit private detail.
-- Never commit design notes or lessons to the repo.
+## Where rules live
+- Every design decision lives in the code, in a `bin/check-*.sh` or in a GitHub issue in this
+  repo, in the same step as the change, never only in a scratch folder, a chat or an agent's
+  memory. Record a new trap the same way. Never commit private detail, design notes, lessons or
+  an archive.
+- Some rules have a check; a rule with no check is held only by review. `bin/package-theme.sh`
+  runs every check that needs nothing outside this repo, the shipped-values check with
+  `--release`, so a pending removal stops the package. Run `check-block-validity.sh` (needs
+  WordPress), `check-tracking-render.sh` (needs a browser) and `check-roster-names.sh` (needs
+  the writing guide clone) before a merge.
+- An issue that holds a rule closes only when the rule lives in a check (its exceptions named
+  there, each with a reason) or in a code comment next to the code it governs, or is dropped on
+  purpose with the reason on the issue. A closed issue is history, not a rule.
+- Merge gate: the reviewer matches every commit that cites a ruling or decision against the
+  code, check or issue that holds it. If none does, the merge stops.
 - A release follows `RELEASE.md`; read it before any tag, version or changelog work.
 - Report verification honestly: name the method of each check, and list any check not done.
+- Every user-visible string follows the house writing guide. The pattern title, description,
+  keyword and category rules stay in this file; add writing rules to the guide, never here.
 
-## Pattern conventions
+## Pattern rules
 
 ### 1. Namespace
-Every user-facing pattern **slug** and every **custom category** is `origin-canvas/<kebab-slug>`,
-never `origin/`. Hidden template scaffolds use slugs `origin-canvas/hidden-*`.
+Every pattern slug and custom category is `origin-canvas/<kebab-slug>`, never `origin/`. Hidden
+template scaffolds use `origin-canvas/hidden-*`.
 
-### 2. Categories — role-based, from a FIXED set, exactly ONE per pattern
-Assign every pattern **exactly one** category (no comma-separated multi-category lines).
-The set is fixed — **never invent a new category** (no `landing`, no page-scoped buckets):
+### 2. Categories: exactly one, from a fixed set
+Give each pattern one category: the first match in this list. It runs specific to generic, so
+two people reach the same answer (a hero with a CTA is `hero`, a pricing table with stats is
+`pricing`). Bare slugs are core's; `origin-canvas/` ones are registered in `functions.php` →
+`origin_canvas_register_pattern_categories()`.
 
-**Never invent a category WordPress already provides.** Core registers `text`,
-`testimonials`, `team`, `posts`, `contact`, `gallery`, `header`, `footer`, `call-to-action`,
-`banner`, `query` and more — registering an `origin-canvas/` twin puts two near-identical
-entries in the inserter for the same thing. Check with
-`WP_Block_Pattern_Categories_Registry::get_instance()->is_registered( 'slug' )` before adding one.
-
-Core slugs (used bare, no prefix, no registration): `header`, `footer`, `call-to-action`,
-`text`, `testimonials`, `team`, `posts`, `contact`, `gallery`.
-Ours (all `origin-canvas/`, registered in `functions.php` — these have no core equivalent):
-`hero`, `card`, `features`, `pricing`, `stats`, `faq`, `logos`, `author`, `page`.
-
-To choose the one category, test in this numbered order and take the **first match**.
-**Tie-breaker: when a pattern could plausibly fit more than one, the earliest-numbered entry
-wins** (the list is frozen specific→generic so two people reach the same answer — e.g. a hero
-that contains a CTA is `hero` (1), not `call-to-action` (14); a pricing table with stats is
-`pricing` (3), not `stats` (4)):
-
-1. `origin-canvas/hero` — a hero: the main heading at the largest size, with a lead or buttons
-2. `testimonials` — a quote / review (core slug, used bare)
-3. `origin-canvas/pricing` — a pricing table / tier
-4. `origin-canvas/stats` — a metrics / numbers band
-5. `team` — people / team cards (core slug, used bare)
-6. `origin-canvas/features` — a feature grid / list
+1. `origin-canvas/hero` — the main heading at the largest size, with a lead or buttons
+2. `testimonials` — a quote or review
+3. `origin-canvas/pricing` — a pricing table or tier
+4. `origin-canvas/stats` — a metrics or numbers band
+5. `team` — people or team cards
+6. `origin-canvas/features` — a feature grid or list
 7. `origin-canvas/faq` — Q&A
-8. `contact` — a contact form / details (core slug, used bare)
-9. `gallery` — an image gallery (core slug, used bare)
+8. `contact` — a contact form or details
+9. `gallery` — an image gallery
 10. `origin-canvas/logos` — a logo strip
-11. `origin-canvas/author` — an author / byline card
+11. `origin-canvas/author` — an author or byline card
 12. `origin-canvas/card` — a generic reusable card
-13. `posts` — a query / blog loop (core slug, used bare)
-14. `call-to-action` — a conversion / CTA section (newsletter signup counts here; core slug, used bare)
-15. `text` — text / editorial content with no more-specific role (core slug, used bare)
+13. `posts` — a query or blog loop
+14. `call-to-action` — a conversion section (a newsletter signup counts)
+15. `text` — editorial content with no more specific role
 16. `origin-canvas/page` — a full-page composition only
 
-`header` / `footer` patterns use the bare core slugs. Custom categories are registered in
-`functions.php` → `origin_canvas_register_pattern_categories()`, and **only** when a batch
-introduces them — registering or using a category outside this fixed set is forbidden.
+Header and footer patterns use the bare `header` and `footer`; template scaffolds use `hidden`.
+Never invent a category, least of all one WordPress already registers (`banner`, `query` and
+the core slugs above): a twin puts two entries in the inserter for one thing. Check with
+`WP_Block_Pattern_Categories_Registry::get_instance()->is_registered( 'slug' )`. Growing the
+set takes this list and a matching `category: <slug>` GitHub label, in the same change.
 
-### 3. Names — role-based, never page-scoped
-Section names, titles, descriptions and keywords follow this rule: job, then
-layout, then style, and never a position or page word in a name or description. Keywords may carry
-true use words ("about page", "introduction"). A shipped slug is never renamed.
+### 3. Names: role-based, never page-scoped
+Name a pattern for what it is, so any page can use it: `stat-band`, `features-grid`,
+`testimonial-single`, never `landing-*` or `<page>-<section>`. Names, titles, descriptions and
+keywords go job, then layout, then style, with no position or page word; keywords may carry true
+use words ("about page", "introduction"). A shipped slug is never renamed.
 
-Name a pattern for what it **is**, so it's reusable on any page: `stat-band`, `features-grid`,
-`testimonial-single`. **Never** `landing-*` or any `<page>-<section>` form. A section pattern
-welded to one page ("landing-cta") is wrong; it's a `cta-*` that any page can use.
+Page patterns are `page-<role>-NN`: the role is the page's job (home, about, pricing, contact,
+services) and the number tells versions apart. Never renumber or reuse a number, retired ones
+included (`page-home-01` became `page-studio`). The title describes the page without the number
+("Home: Centered Hero"); site type, tone and layout go in keywords. `page-studio` and
+`page-landing-01` keep their shipped slugs.
 
-**Page patterns** (category `origin-canvas/page`) are named `page-<role>-NN`: `page-home-02`,
-`page-about-01`, `page-pricing-01`. The role is the page's job on a site (home, about, pricing,
-contact, services); the number tells versions of the same role apart, so the theme and Patterns
-Pro can ship any number of home or about pages. Numbers are permanent: never renumber one and
-never reuse one, retired slugs included. `page-home-01` shipped in 1.0.0–1.1.0 and was renamed
-`page-studio`, so the first new home page is `page-home-02`. The Title describes the page and
-never carries the number ("Home: Centered Hero"); site type, tone and layout go in Keywords.
-`page-studio` and `page-landing-01` keep their shipped slugs.
+### 3b. Image file names: the subject, never the pattern
+Name a file in `patterns/images/` for what it shows (`exercise-room.webp`), never for the pattern
+or slot that first used it. The only prefixes are `avatar-`, `portrait-` and `logo-`, followed
+by the person or client. A shipped name stays until a major version, because saved content
+points at its URL. `bin/check-image-names.sh` holds the grammar and its exceptions; whether a
+name fits its picture is the reviewer's read.
 
-### 3b. Image file names — the subject, never the pattern
-A file in `patterns/images/` is named for what it shows, so any pattern can place it:
-`exercise-room.webp`, `yard-sign.webp`, `timber-stack.webp`. Never the pattern, slot or
-category that first used it, in any position: `gallery-proof-wall` and `hero-cover-boards` weld
-a photo to one pattern. The only prefixes are the kinds `avatar-`, `portrait-` and `logo-`,
-followed by the person or client. Lowercase kebab-case, `.webp` for photos, `.png` for logos.
-A shipped name never changes before a major version: users' saved content points at the
-theme's image URL (CONTRIBUTING.md, asset paths). `bin/check-image-names.sh` enforces the
-grammar, that every referenced image exists, and that every name a release shipped is still
-present; its exception table names the pre-rule files kept until 2.0.0, each with the reason.
-Whether a name fits its picture is the reviewer's read, not the check's.
+### 4. Page patterns are `wp:pattern` references only
+A page pattern's body is only `<!-- wp:pattern {"slug":"origin-canvas/…"} /-->` references.
+Model: `patterns/page-studio.php`.
 
-### 4. Full-page patterns compose via `wp:pattern` refs only
-A page pattern's body is **only** `<!-- wp:pattern {"slug":"origin-canvas/…"} /-->` references —
-no inlined section markup. Model: `patterns/page-studio.php`. Category: `origin-canvas/page`.
-
-### 5. Pattern-header doc-block
-Every pattern file opens with this header (copy `patterns/page-studio.php` verbatim and change
-only the variable fields):
+### 5. Pattern header
+Copy the header of `patterns/page-studio.php` and change only the variable fields:
 
 ```php
 <?php
@@ -131,232 +113,86 @@ only the variable fields):
 ?>
 ```
 
-Per-field rules:
-- **Categories:** exactly ONE value (rule 2). Custom = `origin-canvas/<cat>`; core patterns use
-  bare `header` / `footer` / `call-to-action`; template scaffolds use bare `hidden` (their SLUG
-  is still `origin-canvas/hidden-*`).
-- **Description:** required, one sentence.
-- **Viewport Width:** `1500` is the standard; deviate only with a deliberate reason.
-- **Block Types:** LEAVE EMPTY for standalone section/page patterns. Populate ONLY when the
-  pattern is bound to a block context: `core/post-content` (content-area patterns),
-  `core/query` (loops), `core/template-part/header|footer` (parts). A marketing/features/
-  testimonial/hero SECTION is standalone → **empty**, NOT `core/post-content`. (`core/post-content`
-  binds the pattern to the post-content inserter only; a section is inserted anywhere, so binding it
-  is wrong.) NOTE: several existing section patterns still carry a stray `core/post-content` — that is
-  known drift to be stripped, not a convention to copy.
-- **Post Types:** leave empty.
-- **Inserter:** `true` for all user-facing patterns; `false` only for hidden template scaffolds
-  (registered via `register_block_pattern` in `functions.php`) and the theme landing page's own
-  showcase sections (`pattern-showcase`, `style-variations`, `template-showcase`, `token-system`,
-  `product-grid`), which only `page-landing-01` places, and retired patterns (`breath-statement`),
-  which keep their file and slug until a major version deletes them.
-- **Keywords:** 3–6 comma-separated terms a user might *type* that are **not already** in the
-  Title, Slug, Description, or Category — synonyms, alternate names, content words and true
-  use words (rule 3). Never repeat a word that already appears in those fields: WordPress joins
-  title, description, keywords and category into ONE searched string and scores it all-or-nothing (see
-  `getItemSearchRank`), so a repeat cannot improve ranking — it only spends the budget. A
-  pattern titled "Hero Centered" is already found by "hero"; its keywords should buy
-  "banner", "masthead", "introduction".
+- **Inserter:** `true`, except hidden template scaffolds (registered in `functions.php`), the
+  landing page's own showcase sections (`pattern-showcase`, `style-variations`,
+  `template-showcase`, `token-system`, `product-grid`) and retired patterns
+  (`breath-statement`), which keep their file and slug until a major version.
+- **Keywords:** 3–6 words a user might type that the title, slug and description lack:
+  synonyms, content words, true use words (rule 3), and the category word if none of them has
+  it.
 
-### 6. Tokens over hardcodes — NEVER put bespoke px in a pattern
-Every **colour** = palette slug. Every **spacing** = spacing preset slug. Every **font size** =
-font-size preset slug. The theme's scales are fluid (`clamp()`); hardcoding px in a pattern
-silently opts that value out of fluid type/spacing and out of every style variation.
+### 6. Tokens over hardcodes
+Every colour, spacing and font size is a preset from `theme.json`. The scales are fluid
+(`clamp()`), so a hardcoded px opts out of fluid type and spacing and out of every style
+variation.
 
-- Inline hex is permitted ONLY for sanctioned per-product identity marks.
-- Dark bands write no hex. `custom.dark.bg` is `contrast` and `custom.dark.text` is
-  `base-2`, so a variation's ink reaches every dark pattern; new dark patterns use the
-  `contrast` and `base-2` presets directly. Secondary text is `base-2` at 72%, hover
-  fills 8% and lines 12%, each a `color-mix` of `var(--wp--custom--dark--text)` (#127).
+- Inline hex only for sanctioned per-product identity marks.
+- Dark bands write no hex. `custom.dark.bg` is `contrast` and `custom.dark.text` is `base-2`, so
+  a variation's ink reaches every dark pattern; new dark patterns use the `contrast` and
+  `base-2` presets directly. Secondary text is `base-2` at 72%, hover fills 8% and lines 12%,
+  each a `color-mix` of `var(--wp--custom--dark--text)` (#127).
 - **If a design hands you a value that isn't on the scale, do NOT hardcode it and do not snap
-  it.** A near step changes the rendering. Report the gap and get a ruling: use an existing step, or
-  add one to `theme.json`.
-- Font-size scale (px): 13 · 14 · 16 · 18 · 20 · 24 · 30 · 36 · 48 · 60 · 72
-  (`extra-small` · `small` · `regular` · `regular-plus` · `medium` · `large` · `extra-large` ·
-  `huge` · `display` · `display-xl` · `display-2xl`). There is no 15, 19, 22, 23 or 34.
-- Spacing presets are fluid ranges — pick the token whose max matches the design value; do not
-  replace a token with a flat px to hit a number exactly.
-- A `max-width` **measure** (reading-line cap on a heading/body) is the exception: it is a
-  typographic constraint, not a responsive gap, and may be a flat value.
-- **Element dimensions are also outside this rule.** The rule governs *design tokens* —
-  colour, spacing, type. It does not govern the intrinsic size of a thing: an avatar
-  (48/64/180px), an icon bubble, a wireframe box, a fixed media column. Those are layout
-  dimensions, not scale steps, and there is no token scale for them. Where several patterns
-  share a dimension, put it in a class so they cannot drift apart (see
-  `.origin-canvas-quote-mark`), rather than repeating the number in each pattern.
-- **Never inline an `<svg>` in pattern content.** `<svg>` is not in WordPress's KSES
-  allowlist, so it is stripped on insert for any user without `unfiltered_html` — Editors,
-  Authors, and most multisite roles would get the pattern with the graphic missing. Ship
-  decorative glyphs from the theme layer instead: a data-URI `mask-image` on an empty group,
-  coloured with `background-color: var(--wp--preset--color--primary)` so it tracks the
-  palette. `core-list.css` (check icon) and `core-group.css` (quote mark) are the reference
-  implementations.
+  it.** A near step changes the rendering. Report the gap and get a ruling: use an existing
+  step, or add one to `theme.json`.
+- Spacing presets are fluid ranges: pick the token whose max matches the design value, never a
+  flat px to hit a number.
+- Outside the rule: a `max-width` reading measure, and element dimensions (an avatar, an icon
+  bubble, a fixed media column), which have no scale. Where patterns share a dimension, put it
+  in a class so they cannot drift (`.origin-canvas-quote-mark`).
+- Icons use the core Icon block; a decorative glyph the Icon block can't draw comes from the
+  theme's CSS.
 
 ### 6b. Pattern CSS is a last resort
-A change to an existing block rule made so one pattern lands is never the fix.
+A change to an existing block rule made so one pattern lands is never the fix. Exhaust core
+first: Row, Stack and Grid child sizing (Fill, Fit, Fixed), the block styles core ships, the
+colour, border and spacing supports, and per-viewport Hide. `divider-with-text` is the
+reference: two separators set to Fill and a label at Fit, with no pattern CSS. While 7.0 is the
+minimum, Fixed is saved as `"fixed"` plus the `origin-canvas-no-shrink` utility (`style.css`
+says why).
 
-Before concluding a pattern needs CSS, exhaust what core already does: Row, Stack and Grid
-child sizing (Fill, Fit, Fixed), the block styles core ships (`is-style-wide`), the colour,
-border and spacing supports, and the Hide setting (block visibility per viewport). Note the
-child-sizing values: WordPress 7.1's **Fixed** saves `selfStretch: "fixedNoShrink"` (emits
-`flex-shrink: 0`), but 7.0, the theme's minimum, only knows `"fixed"`, which lets the item
-shrink. Pattern markup uses `"fixed"` plus the `origin-canvas-no-shrink` utility until the
-minimum is 7.1. `divider-with-text` is the reference: a Row with two separators set
-to Fill and the label left at Fit sizes the label to its text, with no pattern CSS.
+A job core cannot do but more than one pattern needs becomes a utility, named for the job, in
+the Utilities section of `style.css`. Add one only for a real second use. Anything else goes
+where it loads least: the `core-<block>.css` of a block most pages lack (Cover, Accordion), or
+else the "Pattern CSS" section at the end of `style.css`, one commented section per pattern. A
+class is the hook: core has no per-pattern loader, and Additional CSS rules are stripped when an
+Author saves. Ask the owner before adding pattern CSS.
 
-A job that core cannot do but more than one pattern needs becomes a **utility**: a class named for
-the job, not the pattern, in the Utilities section of `style.css`, applied through Additional CSS
-Classes. Today: `origin-canvas-no-shrink` (a flex child that keeps its size),
-`origin-canvas-align-baseline` (a Row on a shared text baseline) and `origin-canvas-text-balance`
-(lines broken to near-equal lengths). Add one only for
-a generic job with a real second use.
+### 7. Pattern headings pin size, never weight or tracking
+Every `wp:heading` in a pattern sets `fontSize` and the matching `has-<preset>-font-size` class.
+A bare heading takes the `theme.json` element ladder, which is tuned for authored prose, and a
+ladder change must never move a shipped pattern.
 
-What core still cannot do goes where it loads least. If the pattern always contains a block that
-is not on most pages (Cover, Accordion), its rules go in that block's `core-<block>.css`, which
-loads only where the block renders. Otherwise they go at the end of `style.css`, under the
-"Pattern CSS" heading, one commented section per pattern that names it: moving them there from a
-block that is on nearly every page (Group, Paragraph) costs nothing and keeps that block's file
-about the block. Core has no per-pattern loader, and CSS rules in a block's Additional CSS field
-are stripped when an Author saves, so a class is the hook. Adding pattern CSS is a question for
-the owner first, not a default.
+Weight belongs to the style variation, at `styles.elements.heading`. An inline `fontWeight`
+emits a `style` attribute that beats every variation, and our landing page sells one-click
+style variations. For a new block: if it renders as `h1`–`h6`, the variation owns its weight; if
+it renders a `<p>` (the site title at `level: 0`), the block is the only lever and a pin is
+correct. The comment reply title is pinned in both `theme.json` and `core-comments.css`: change
+both or neither. The statement register (`breath-statement`, `text-large-statement`,
+`lead-statement`) pins `fontWeight: 500` and nothing else: lighter than the voice is its
+identity. `bin/check-heading-pins.sh` and `bin/lib/check-heading-blocks.py` hold every
+exemption.
 
-### 7. Every heading inside a pattern carries an explicit `fontSize` preset
-A `wp:heading` in a pattern must always set `"fontSize"` (and the matching
-`has-<preset>-font-size` class on the tag). **Never** leave a pattern heading bare.
-
-Bare headings are for **authored content only** — they inherit `styles.elements.h1…h6` from
-`theme.json`, which is tuned for someone typing prose into the editor. A pattern is designed
-composition: its heading sizes are a design decision, not an authoring default.
-
-The consequence of getting this wrong is silent and wide: changing an element default in
-`theme.json` restyles every bare pattern heading at once. A heading-ladder change intended
-for authored content must **never** move a shipped pattern's rendering.
-
-**The other half of the rule: patterns pin size, and NEVER weight or tracking.**
-
-Size is composition — our decision, and it must survive a change to the element ladder.
-Weight is **voice** — the site owner's decision, made once by choosing a style variation. It
-lives at `styles.elements.heading`, the single lever.
-
-Tracking follows size. `settings.custom.letterSpacing` holds one token per size band:
-`display` (extra-large and up, −0.03em), `large` (−0.025em), `medium` (−0.02em) and `base`
-(regular-plus and below, −0.012em). `style.css` maps the font-size preset classes from `medium`
-up to these tokens, so a heading or paragraph set at a preset size gets that size's tracking.
-Heading tracking is still ONE value, at `styles.elements.heading`:
-`var(--origin-canvas-letter-spacing, var(--wp--custom--letter-spacing--base))`. The preset
-class sets the variable; a heading with no size class takes its level's token (h1–h3
-`display`, h4 `large`, h5 `medium`, h6 `base`) from `style.css`, which sets only the variable.
-Never set tracking per level (`h1`–`h6`) or on a heading block, in `theme.json`, a variation
-or CSS: it would stop a Global Styles "Headings" letter spacing from reaching every level. A
-style variation with another face overrides the tokens or the one heading value, nothing else.
-A pattern never sets `letterSpacing` on a heading or statement; positive tracking on eyebrows
-and labels stays, at 0.06em (numbers set as labels too). `bin/check-tracking-tokens.sh` checks every block letter
-spacing against the band of the size it sits on; `bin/check-tracking-render.sh` checks the
-rendered page, at 1440 and 390 under every style variation, before a branch merges.
-
-An inline `fontWeight` on a block emits a `style="…"` attribute, which beats every
-`:root :where(…)` rule a variation can emit. One pinned heading is a heading the user cannot
-restyle, and our own landing page sells one-click style variations.
-
-Every heading surface, and who owns its weight:
-
-| Surface | Weight owner |
-|---|---|
-| `wp:heading` | variation |
-| `wp:accordion-heading` | variation |
-| `wp:query-title` | variation |
-| `wp:post-title` | variation |
-| `core/comments-title` | variation |
-| `core/site-title` | **the block node** — renders `<p>` at `level: 0`, so `elements.heading` cannot reach it |
-| `.comment-reply-title` | **the block node** — form furniture; pinned in `theme.json` AND `core-comments.css`, change both or neither |
-| Note in brackets after a Minimal accordion title (the inline colour mark in the title span) | **`core-accordion.css`**, one rule reading `settings.custom.accordion.noteWeight` (400), so a variation can change it; the title keeps the variation's weight. The guard exempts that exact selector and variable only |
-| Sidebar section labels (`patterns/hidden-sidebar.php`) | **`style.css`**, one rule, `.origin-canvas-sidebar :where(h2)` (0.06em, 600): eyebrow labels, not voice. Low specificity, so each heading's own Typography settings still win; the guard exempts that exact selector only |
-
-**The test for a new case: does it render as `h1`–`h6`?** If yes, `elements.heading` reaches
-it and weight belongs to the variation. If it renders as a `<p>` — as the site title does at
-`level: 0` — the block node is the only lever and a deliberate pin is correct.
-
-**500 speaks, at display size — the statement register.** Being *lighter* than the theme's
-voice is its identity; following the swing would make it just another big heading. This is the
-weight-by-job rule (500 speaks), not an exception to it: the register only opts out of the
-variation's weight. Each file pins weight and nothing else; all three take tracking from size
-like any other text.
-
-| Pattern | Pins |
-|---|---|
-| `breath-statement` | `fontWeight: 500` only |
-| `text-large-statement` | `fontWeight: 500` only |
-| `lead-statement` | `fontWeight: 500` only |
-
-`bin/lib/check-heading-blocks.py` holds the same three files, property and value, so a fourth
-pin fails the guard.
+Tracking follows size: `settings.custom.letterSpacing` holds one token per size band, and
+`style.css` maps the preset classes and heading levels to them. Heading tracking is one value at
+`styles.elements.heading`. Never set it per level or on a heading block, in `theme.json`, a
+variation or CSS, or a Global Styles "Headings" letter spacing stops reaching every level. A
+variation with another face overrides only the tokens or that one value. A pattern never sets `letterSpacing` on a heading or statement; eyebrows and labels stay at
+0.06em. `bin/check-tracking-tokens.sh` and `bin/check-tracking-render.sh` hold the bands.
 
 ### 8. Shared components are judged against every page that uses them
-A change to a template part (header, footer) or to a widely-reused pattern must be justified
-against that component's **full usage across the theme** — never against one page composition.
-
-A value that is right for a single marketing layout is not thereby right for the component.
-A page can't restyle global chrome anyway: header and footer are template parts, so "the
-landing page wants a tighter header" is a request for a *different header*, not an edit to the
-shared one. Design the component family on its own terms first, then assign per template.
-
-Corollary for spacing: when a raw value has an exact equivalent on the scale, tokenising it is
-a no-op and always correct. When it does not, do **not** snap it silently — a near-miss token
-changes the rendering. Report the gap and get a ruling.
+A change to a template part or a widely reused pattern is justified against every page that
+uses it, never one composition. A page that wants a different header needs a different header,
+not an edit to the shared one: design the component family on its own terms, then assign it per
+template. A raw value with an exact token equivalent is tokenised; one
+without is reported for a ruling, never snapped (rule 6).
 
 ### 10. Secondary buttons follow the surface
-A secondary (outline) button takes its style from the fill of the section or card it sits
-on (owner ruling, Oct 5):
-
-| Surface | Style |
-|---|---|
-| White (`base`, or no fill) | core `is-style-outline` |
-| Tinted (`base-2`, `base-3`) | core `is-style-outline` |
-| Dark (`#111827`, `custom.dark.bg`, a dark cover) | `is-style-origin-canvas-outline-light` |
-
-Outline carries the `contrast-4` border (#6B7280), which holds on white and on a tint. Outline Strong is
-retired: it is out of the Styles picker, and `assets/styles/core-button.css` keeps saved
-buttons with its class looking the same. No pattern uses it. The surface is the nearest
-block that sets a fill. `bin/check-button-surfaces.sh` enforces the table.
+A secondary button is `is-style-outline` on a white or tinted surface and
+`is-style-origin-canvas-outline-light` on a dark one. The surface is the nearest block that sets
+a fill. `bin/check-button-surfaces.sh` holds the table. Outline Strong is retired; never use it.
 
 ### 11. Pattern markup is what the editor saves
-Write each block exactly as the editor saves it on WordPress 7.0 and 7.1, except the settings
-in the last item below. Other markup loads without a prompt, but the editor rewrites it, and
-the user's saved page then differs from the pattern. `bin/check-block-validity.sh` fails on a
-rewrite and names the pattern and block.
-
-- An Image block with a width and no height sets `"height":"auto"`, and its `<img>` style ends
-  with `height:auto`.
-- Text alignment on Paragraph, Heading and Post Terms is `style.typography.textAlign`, never the
-  old `align` or `textAlign` attribute.
-  One exception: the single post's category eyebrow in `hidden-single.php` also carries the old
-  `textAlign`, for the wordpress.org preview's Gutenberg build; the comment there says why (#159).
-- A Buttons block saves no `is-layout-flex` or `is-content-justification-*` class. WordPress adds
-  them when it renders.
-- Button `width` and the `textAlign` of Site Title, Post Title and Query Title keep the old
-  attribute: 7.0, the minimum, cannot read the new form. The check allows these until the
-  minimum is 7.1.
-
+After editing a pattern, run `bin/normalize-patterns.sh`: it writes the markup as the editor
+saves it and keeps the WordPress 7.0 forms the minimum still needs. Markup the editor rewrites
+makes the user's saved page differ from the pattern; `bin/check-block-validity.sh` fails on it.
 Copy markup from the editor's Code editor, never from the rendered page.
-
-## Writing
-Every user-visible string follows the house writing guide. The pattern title, description,
-keyword and category rules in this file stay here. Add writing rules to the guide, never here.
-
-## Every design decision becomes code, a check or an issue
-A round is not done until every design decision in it (the owner's, or one made under the owner's
-standing instructions) lives in the code, in a check, or in a GitHub issue in this repo, in the
-same step as the change.
-
-- No decision lives only in a scratch folder, a chat or an agent's memory.
-- An issue that holds a rule closes only when the rule lives in a check in `bin/` (its exceptions
-  named in the check, each with a reason) or in a code comment next to the code it governs, or is
-  dropped on purpose with the reason stated on the issue. A closed issue is history, not a rule.
-- Merge gate: before any branch merges, the reviewer matches every commit that cites a ruling or
-  decision against the code, check or issue that holds it. If none does, the merge stops.
-- Never commit design notes, lessons or an archive to this repo.
-
-## Extending the fixed category set
-Any addition to the category list requires updating this `CLAUDE.md` AND adding the matching
-`category: <slug>` label on GitHub in the same change. The "never invent a category" rule is
-absolute for ad-hoc additions; this dual-update is the only sanctioned way to grow the set.
