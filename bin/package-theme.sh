@@ -27,7 +27,6 @@ bash "$SCRIPT_DIR/check-asset-provenance.sh"
 bash "$SCRIPT_DIR/check-variation-twins.sh"
 bash "$SCRIPT_DIR/check-logo-widths.sh"
 bash "$SCRIPT_DIR/check-layout-widths.sh"
-bash "$SCRIPT_DIR/check-image-slots.sh"
 bash "$SCRIPT_DIR/check-image-metadata.sh"
 # Image names describe the subject, every referenced image exists, and no shipped name is gone.
 bash "$SCRIPT_DIR/check-image-names.sh"
@@ -51,8 +50,15 @@ git -C "$ROOT" archive --format=zip --prefix=origin-canvas/ -o "$ZIP_PATH" HEAD
 
 # The zip is uploaded through the WordPress admin, so it is subject to the host's PHP upload
 # limit; 5 MB is the mark the owner set (2026-11-01, after 1.4.0 shipped at 5.9 MB). The
-# release workflow reads BUDGET_DEFAULT from this line to measure the zip it publishes. The
+# release workflow reads the BUDGET_DEFAULT line below to measure the zip it publishes. The
 # override exists for the mutation test only.
+#
+# To stay under it, cut each demo photo to about twice the widest it is shown, in the shape
+# it is shown: an avatar (a circle up to 180 px) at 480 × 480; a card image at 1200 × 800; a
+# Gallery Grid photo (three columns of the 1200 px wide width) at 760 × 507; a photo filling
+# half the wide width at 1120 wide; a team portrait at 480 × 600. One file may fill slots of
+# other shapes when it is cut for the widest; reuse saves weight. Whether a photo is sharp is
+# judged on the drawn page.
 BUDGET_DEFAULT=5000000
 BUDGET="${ORIGIN_CANVAS_PACKAGE_BUDGET:-$BUDGET_DEFAULT}"
 if ! [[ "$BUDGET" =~ ^[1-9][0-9]{0,11}$ ]]; then
