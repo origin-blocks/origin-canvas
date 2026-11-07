@@ -7,7 +7,7 @@
  * Keywords: home, composition, fullpage, product
  * Viewport Width: 1500
  * Block Types: core/post-content
- * Post Types:
+ * Post Types: page, wp_template
  * Inserter: true
  *
  * @package Origin
