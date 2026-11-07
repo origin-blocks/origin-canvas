@@ -2,12 +2,12 @@
 /**
  * Title: Landing Page
  * Slug: origin-canvas/page-landing-01
- * Description: The theme&#8217;s own marketing landing page: hero, pattern library, style variations, stats, templates, ecosystem, and closing call to action.
+ * Description: The theme&#8217;s own marketing landing page: hero, pattern library, style variations, stats, templates, ecosystem, and closing call to action. Use with the Full Width, No Title template.
  * Categories: origin-canvas/page
  * Keywords: home, composition, fullpage, product
  * Viewport Width: 1500
- * Block Types:
- * Post Types:
+ * Block Types: core/post-content
+ * Post Types: page, wp_template
  * Inserter: true
  *
  * @package Origin

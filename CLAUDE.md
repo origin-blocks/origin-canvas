@@ -93,7 +93,7 @@ A page pattern's body is only `<!-- wp:pattern {"slug":"origin-canvas/…"} /-->
 Model: `patterns/page-studio.php`.
 
 ### 5. Pattern header
-Copy the header of `patterns/page-studio.php` and change only the variable fields:
+Every pattern opens with this header; change only the variable fields:
 
 ```php
 <?php

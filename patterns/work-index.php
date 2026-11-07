@@ -5,7 +5,7 @@
  * Description: A heading and a link above six ruled lines, each with a number, a project name, a line of text, a year and an arrow.
  * Categories: origin-canvas/features
  * Keywords: portfolio, projects, casestudies
- * Block Types: core/post-content
+ * Block Types:
  * Viewport Width: 1500
  * Inserter: true
  *

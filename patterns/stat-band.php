@@ -5,7 +5,7 @@
  * Description: A dark band with a short statement and three figures, each over a label.
  * Categories: origin-canvas/stats
  * Keywords: metrics, numbers, results
- * Block Types: core/post-content
+ * Block Types:
  * Viewport Width: 1500
  * Inserter: true
  *

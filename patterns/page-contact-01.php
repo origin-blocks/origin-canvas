@@ -6,8 +6,8 @@
  * Categories: origin-canvas/page
  * Keywords: layout, agency, freelance, inquiry, reach, team
  * Viewport Width: 1500
- * Block Types:
- * Post Types:
+ * Block Types: core/post-content
+ * Post Types: page, wp_template
  * Inserter: true
  *
  * @package Origin

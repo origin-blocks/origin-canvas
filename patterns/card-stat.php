@@ -6,7 +6,7 @@
  * Categories: origin-canvas/card
  * Keywords: stats, numbers, metrics, four column, kpi
  * Viewport Width: 1500
- * Block Types: core/post-content
+ * Block Types:
  * Inserter: true
  *
  * @package Origin

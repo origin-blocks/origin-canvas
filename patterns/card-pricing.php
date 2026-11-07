@@ -6,7 +6,7 @@
  * Categories: origin-canvas/pricing
  * Keywords: plans, tiered, featured
  * Viewport Width: 1500
- * Block Types: core/post-content
+ * Block Types:
  * Inserter: true
  *
  * @package Origin
