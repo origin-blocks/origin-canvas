@@ -1240,10 +1240,16 @@ ul.wp-block-list:is(.is-style-origin-canvas-list-check, .is-style-origin-canvas-
 /**
  * Footer Wordmark: the footer's bottom edge cuts the site's name.
  *
- * Core has no overflow control. The name's -0.25em bottom margin pulls the footer's edge
- * into its letters; hidden, not clip, so that margin stays inside the footer instead of
- * passing through it, and the edge cuts the lowest part of the letters at every width.
+ * Core has no overflow control. The name's line height of 0.8 fits its box to the letters
+ * and its -0.15em bottom margin pulls the footer's edge into them; hidden, not clip, so that
+ * margin stays inside the footer instead of passing through it, and the edge cuts the lowest
+ * part of the letters at every width. The tight box leaves the text's own area reaching above
+ * it, over the copyright line, so the name, which is not a link, lets the pointer through.
  */
 .origin-canvas-footer-wordmark {
 	overflow: hidden;
+}
+
+.origin-canvas-footer-wordmark .wp-block-site-title {
+	pointer-events: none;
 }

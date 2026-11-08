@@ -36,5 +36,5 @@
 <!-- /wp:paragraph --></div>
 <!-- /wp:group -->
 
-<!-- wp:site-title {"level":0,"isLink":false,"align":"full","style":{"color":{"text":"var(\u002d\u002dwp\u002d\u002dcustom\u002d\u002dwatermark\u002d\u002dcolor)"},"typography":{"fontWeight":"600","lineHeight":"1","letterSpacing":"var(\u002d\u002dwp\u002d\u002dcustom\u002d\u002dletter-spacing\u002d\u002ddisplay)"},"spacing":{"margin":{"top":"0.12em","bottom":"-0.25em"}}},"fitText":true} /--></footer>
+<!-- wp:site-title {"level":0,"isLink":false,"align":"full","style":{"color":{"text":"var(\u002d\u002dwp\u002d\u002dcustom\u002d\u002dwatermark\u002d\u002dcolor)"},"typography":{"fontWeight":"600","lineHeight":"0.8","letterSpacing":"var(\u002d\u002dwp\u002d\u002dcustom\u002d\u002dletter-spacing\u002d\u002ddisplay)"},"spacing":{"margin":{"top":"0","bottom":"-0.15em"}}},"fitText":true} /--></footer>
 <!-- /wp:group -->
