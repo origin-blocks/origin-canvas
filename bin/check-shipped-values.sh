@@ -10,9 +10,9 @@
 # pattern slug is never renamed.
 #
 # This compares the working tree with the latest release tag and fails on any value that
-# release had and the tree has lost. Every release passed this check against the one
-# before it, so the chain covers every release; what an older release lost is history,
-# not listed here.
+# release had and the tree has lost. The package runs it with --release, so each release
+# is checked against the one before it and the chain stays whole. What releases up to
+# 1.4.3 lost is history, not listed here.
 #   pattern     a Slug in patterns/
 #   template    a file in templates/, or a customTemplates name in theme.json
 #   part        a file in parts/, or a templateParts name in theme.json
