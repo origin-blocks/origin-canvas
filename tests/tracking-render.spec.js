@@ -1,5 +1,5 @@
 /**
- * Tracking follows size, as rendered (CLAUDE.md rule 7; ODS "Tracking follows size").
+ * Tracking follows size, as rendered (CLAUDE.md rule 7).
  *
  * bin/check-tracking-tokens.sh reads the block markup. This spec reads the page: an
  * inherited value, a CSS rule or a size class that loses to an inline pin only shows here.

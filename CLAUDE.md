@@ -27,7 +27,7 @@ recategorizing a pattern.
 - An issue that holds a rule closes only when the rule lives in a check (its exceptions named
   there, each with a reason) or in a code comment next to the code it governs, or is dropped on
   purpose with the reason on the issue. A closed issue is history, not a rule.
-- Merge gate: the reviewer matches every commit that cites a ruling or decision against the
+- Merge gate: the reviewer matches every commit that cites a decision against the
   code, check or issue that holds it. If none does, the merge stops.
 - A release follows `RELEASE.md`; read it before any tag, version or changelog work.
 - Report verification honestly: name the method of each check, and list any check not done.
@@ -132,7 +132,7 @@ variation.
   `base-2` presets directly. Secondary text is `base-2` at 72%, hover fills 8% and lines 12%,
   each a `color-mix` of `var(--wp--custom--dark--text)` (#127).
 - **If a design hands you a value that isn't on the scale, do NOT hardcode it and do not snap
-  it.** A near step changes the rendering. Report the gap and get a ruling: use an existing
+  it.** A near step changes the rendering. Report the gap and ask the owner: use an existing
   step, or add one to `theme.json`.
 - Spacing presets are fluid ranges: pick the token whose max matches the design value, never a
   flat px to hit a number.
@@ -184,7 +184,7 @@ A change to a template part or a widely reused pattern is justified against ever
 uses it, never one composition. A page that wants a different header needs a different header,
 not an edit to the shared one: design the component family on its own terms, then assign it per
 template. A raw value with an exact token equivalent is tokenised; one
-without is reported for a ruling, never snapped (rule 6).
+without is reported to the owner, never snapped (rule 6).
 
 ### 10. Secondary buttons follow the surface
 A secondary button is `is-style-outline` on a white or tinted surface and

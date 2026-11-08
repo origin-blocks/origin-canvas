@@ -661,7 +661,7 @@
  * (contrast), the ✕ (contrast, base-2 hover fill) and the row divider
  * (base-5). Each override adds one class so it outranks the shipped rule; the
  * :hover label rule (0,4,0) still wins, so row hover stays primary. 8% and 12%
- * base-2 are the rulings on #43 — the light side's ✕ fill is ≈5% ink, and 12% is
+ * base-2 come from #43 — the light side's ✕ fill is ≈5% ink, and 12% is
  * footer-dark's divider.
  */
 .origin-canvas-mobile-menu-dark .origin-canvas-mobile-nav .wp-block-navigation-item__label,
