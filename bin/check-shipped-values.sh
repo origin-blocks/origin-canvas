@@ -16,6 +16,8 @@
 #   template    a file in templates/, or a customTemplates name in theme.json
 #   part        a file in parts/, or a templateParts name in theme.json
 #   preset      a palette, gradient, duotone, font size, font family, spacing or shadow slug
+#   custom      a settings.custom value in theme.json, as the --wp--custom--… variable
+#               WordPress prints for it; pattern markup writes these into saved content
 #   style       a block style name registered in functions.php; a style dropped from the
 #               Styles list passes while its is-style- class is still styled (the shim)
 #   class       an origin-canvas- or is-style-origin-canvas- class styled in the theme's
@@ -50,6 +52,7 @@ tags = subprocess.run(['git', 'tag', '--list', '[0-9]*.[0-9]*.[0-9]*', '--sort=v
 # left two to five releases ago; restoring it now would change pages users have already
 # updated, so it stays gone (orchestrator decision, #130).
 RELEASED = {
+    'custom --wp--custom--ring--ink': '1.3.0, only the theme CSS used it; the field focus ring became 25% primary (#18)',
     'style blur-image-less': '1.0.2, block styles renamed with the origin-canvas- prefix',
     'style blur-image-more': '1.0.2, block styles renamed with the origin-canvas- prefix',
     'style dark-code': '1.0.2, block styles renamed with the origin-canvas- prefix',
@@ -117,11 +120,25 @@ PRESETS = {
     'shadow': ('shadow', 'presets'),
 }
 
+def kebab(key):
+    """WordPress's _wp_to_kebab_case: lineHeight -> line-height, medium-large stays."""
+    words = re.findall(r'[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+', key)
+    return '-'.join(w.lower() for w in words)
+
+def custom_vars(node, path=()):
+    """Every settings.custom leaf as the CSS variable WordPress prints for it."""
+    if isinstance(node, dict):
+        for k, v in node.items():
+            yield from custom_vars(v, path + (kebab(k),))
+    elif path:
+        yield '--wp--custom--' + '--'.join(path)
+
 def palette_map():
-    """The #116 rename: kind -> {old: new}, from inc/palette-map.php (one 'old' => 'new' per line)."""
+    """The #116 rename: kind -> {old: new}, from inc/palette-map.php (one 'old' => 'new' per line).
+    lineHeight names a settings.custom.lineHeight key."""
     out = {}
     text = open('inc/palette-map.php').read() if os.path.exists('inc/palette-map.php') else ''
-    for kind in ('color', 'spacing'):
+    for kind in ('color', 'spacing', 'lineHeight'):
         m = re.search(r"'%s'\s*=>\s*array\((.*?)\)," % kind, text, re.S)
         out[kind] = dict(re.findall(r"'([a-z0-9-]+)'\s*=>\s*'([a-z0-9-]+)',", m.group(1))) if m else {}
     return out
@@ -168,6 +185,7 @@ def values(tree):
     for kind, (group, key) in PRESETS.items():
         for preset in settings.get(group, {}).get(key, []) or []:
             found.add('preset %s %s' % (kind, preset['slug']))
+    found.update('custom ' + v for v in custom_vars(settings.get('custom', {})))
     found.update('part ' + p['name'] for p in theme.get('templateParts', []))
     found.update('template ' + t['name'] for t in theme.get('customTemplates', []))
     for block in theme.get('styles', {}).get('blocks', {}).values():
@@ -193,6 +211,11 @@ for value in sorted(set(shipped) - now):
           and 'preset %s %s' % (value.split(' ')[1], RENAMED[value.split(' ')[1]][value.split(' ')[2]]) in now):
         kind, old = value.split(' ')[1], value.split(' ')[2]
         print('  ✓  preset %s %s is renamed to %s; inc/palette-map.php maps it (#116)' % (kind, old, RENAMED[kind][old]))
+    elif (value.startswith('custom --wp--custom--line-height--')
+          and value[34:] in RENAMED['lineHeight']
+          and 'custom --wp--custom--line-height--' + RENAMED['lineHeight'][value[34:]] in now):
+        print('  ✓  custom %s is renamed to --wp--custom--line-height--%s; inc/palette-map.php maps it (#116)'
+              % (value[7:], RENAMED['lineHeight'][value[34:]]))
     elif value in RELEASED and shipped[value] != tags[-1]:
         released += 1
     elif value in RETIRED:
