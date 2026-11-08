@@ -21,7 +21,7 @@
 
 <!-- wp:column {"width":"66.66%"} -->
 <div class="wp-block-column" style="flex-basis:66.66%"><!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}},"typography":{"fontWeight":"600","lineHeight":"var(\u002d\u002dwp\u002d\u002dcustom\u002d\u002dline-height\u002d\u002dsnug)"}},"textColor":"contrast","fontSize":"large"} -->
-<p class="has-contrast-color has-text-color has-large-font-size" style="margin-top:0;margin-bottom:0;font-weight:600;line-height:var(--wp--custom--line-height--snug)"><?php echo esc_html__( 'A brand and web studio for small businesses. We design the identity, write the words and build the site ourselves.', 'origin-canvas' ); ?></p>
+<p class="has-contrast-color has-text-color has-large-font-size" style="margin-top:0;margin-bottom:0;font-weight:600;line-height:var(--wp--custom--line-height--snug)"><?php echo esc_html__( 'A small studio for brand and web work, built on the idea that fewer projects done properly beats more done quickly.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns -->
