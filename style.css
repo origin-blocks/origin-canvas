@@ -1245,8 +1245,8 @@ ul.wp-block-list:is(.is-style-origin-canvas-list-check, .is-style-origin-canvas-
  * margin stays inside the footer instead of passing through it, and the edge cuts the lowest
  * part of the letters at every width. The tight box leaves the text's own area reaching about
  * a fifth of its size above it, over the copyright line and on wide screens the menu, so the
- * blocks before the name sit in a positioned layer, which paints and takes the pointer above
- * that area while the name stays editable and clickable.
+ * blocks before the name stack above it, in the editor too, where every block is already
+ * positioned: they paint and take the pointer over that area, and the name stays editable.
  */
 .origin-canvas-footer-wordmark {
 	overflow: hidden;
@@ -1254,4 +1254,5 @@ ul.wp-block-list:is(.is-style-origin-canvas-list-check, .is-style-origin-canvas-
 
 .origin-canvas-footer-wordmark > :not(.wp-block-site-title) {
 	position: relative;
+	z-index: 1;
 }
