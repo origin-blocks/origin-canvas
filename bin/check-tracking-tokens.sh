@@ -9,11 +9,12 @@
 # The band of a size is read from theme.json: the extra-large preset and up is display, large
 # is large, medium is medium, and anything smaller is base. A block's size is its own
 # fontSize preset, or for a heading with none its level's size (styles.elements.h1-h6), or
-# the nearest parent's preset, or the body size. A full-width Site Title set to Fit Text has
-# no preset: the theme turns Fit Text on for Site Title so a footer can set the site's name
-# across the page width, where any realistic title fits well inside the display band, so it
-# reads as display. bin/check-tracking-render.sh checks the size it renders at. A Site Title
-# set to Fit Text at any other width, and other Fit Text blocks, keep the rule above.
+# the nearest parent's preset, or the body size. One block has no preset: the footer-wordmark
+# pattern's full-width Site Title set to Fit Text (the theme turns Fit Text on for Site Title
+# for it). It spans the page width, where any realistic title fits well inside the display
+# band, so it reads as display; bin/check-tracking-render.sh checks the size it renders at.
+# Keyed to that file, as the specimens below are, so a Fit Text title anywhere else, and
+# other Fit Text blocks, keep the rule above.
 #
 # Fails on a block letterSpacing that is:
 #   - set on a block whose size is raw (not a preset): the size has no band, so fix it first
@@ -83,11 +84,14 @@ def band(size):
     return 'base'
 
 
-def size_of(node):
+WORDMARK = 'patterns/footer-wordmark.php'
+
+
+def size_of(node, path=''):
     """(px, label) of the node's size, or (None, raw value) when the size is raw."""
-    if (node['name'] == 'site-title' and node['attrs'].get('fitText')
+    if (path == WORDMARK and node['name'] == 'site-title' and node['attrs'].get('fitText')
             and node['attrs'].get('align') == 'full'):
-        return PRESETS['extra-large'], 'a full-width Fit Text site title, display'
+        return PRESETS['extra-large'], 'the wordmark footer\'s Fit Text site title, display'
     for n in [node] + list(ancestors(node)):
         attrs = n['attrs']
         if attrs.get('fontSize') in PRESETS:
@@ -150,7 +154,7 @@ for path in files:
             bad(path, node, value, 'positive tracking is %s (labels and numbers set as '
                 'labels)' % LABEL)
             continue
-        size, label = size_of(node)
+        size, label = size_of(node, path)
         if size is None:
             bad(path, node, value, 'off-scale size %s: set a font-size preset first' % label)
             continue

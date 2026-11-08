@@ -199,6 +199,12 @@ test.describe( 'tracking follows size, as rendered', () => {
 					// at its block's own size, and its band would be read from that. Each one
 					// must also carry has-fit-text, which keeps it on one line while it is sized
 					// (functions.php adds it to the Site Title, which core leaves without it).
+					if ( await page.locator( '.octr--footer-wordmark' ).count() ) {
+						expect(
+							await page.locator( '.octr--footer-wordmark .wp-block-site-title[data-wp-init---core-fit-text]' ).count(),
+							`footer-wordmark's Site Title does not render with Fit Text on ${ url }`
+						).toBeGreaterThan( 0 );
+					}
 					await page.waitForFunction(
 						() => [ ...document.querySelectorAll( '[data-wp-init---core-fit-text]' ) ].every( ( el ) => el.style.fontSize ),
 						null,
