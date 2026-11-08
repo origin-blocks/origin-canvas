@@ -20,7 +20,7 @@
 <!-- /wp:paragraph -->
 
 <!-- wp:heading {"align":"wide","style":{"spacing":{"margin":{"top":"0","bottom":"0"}},"typography":{"textAlign":"center"}},"fontSize":"display"} -->
-<h2 class="wp-block-heading has-text-align-center alignwide has-display-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( '98 patterns. 18 categories. One design language.', 'origin-canvas' ); ?></h2>
+<h2 class="wp-block-heading has-text-align-center alignwide has-display-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( '99 patterns. 18 categories. One design language.', 'origin-canvas' ); ?></h2>
 <!-- /wp:heading -->
 
 <!-- wp:group {"style":{"spacing":{"margin":{"top":"var:preset|spacing|small-medium"}}},"layout":{"type":"constrained"}} -->
