@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Tracking follows size (CLAUDE.md rule 7; ODS "Tracking follows size"). theme.json holds one
+# Tracking follows size (CLAUDE.md rule 7). theme.json holds one
 # token per size band (settings.custom.letterSpacing), and style.css gives each font-size
 # preset its band's token. A letter spacing set on a block in a pattern overrides that, so
 # every one must agree with the size it sits on. A raw value also opts the text out of a style

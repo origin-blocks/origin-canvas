@@ -18,7 +18,7 @@
 #   - a written date, such as "Apr 18, 2026".
 # Allowed: the links under the Services label in footer-default and footer-dark, which
 # share two names with the demo categories. They are placeholder copy the user replaces
-# (orchestrator decision, #130).
+# (#130).
 #
 # Run from the theme root:  bash bin/check-roster-names.sh [files…]
 # The roster is read from $ORIGIN_PATTERNS_BRAND, by default
@@ -67,7 +67,7 @@ if not categories:
     sys.exit(1)
 copy = sorted(set(titles) | set(categories))
 
-# The footer Services links: placeholder copy (orchestrator decision, #130). Allowed only
+# The footer Services links: placeholder copy (#130). Allowed only
 # as a link under the Services label in these two files.
 ALLOWED = {(path, name) for path in ('patterns/footer-default.php', 'patterns/footer-dark.php')
            for name in ('Brand identity', 'Websites')}

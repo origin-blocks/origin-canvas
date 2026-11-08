@@ -47,22 +47,22 @@ RENAME_AT_MAJOR = {
 }
 
 # Names a release tag shipped that HEAD no longer has. 1.4.0 was published on GitHub on
-# 2026-11-01 and never reached wordpress.org; the owner accepted the saved-content risk
-# for that day's installs and ruled the rename without a shim (1.4.1 changelog).
+# 2026-11-01 and never reached wordpress.org; the saved-content risk for that day's
+# installs was accepted and its names were replaced without a shim (1.4.1 changelog).
 STABILITY_EXCEPTIONS = {
     # Removed on 2026-08-07 (4415891) as unused, before 1.3.0; the team patterns of 1.1.0 and
     # 1.2.0 placed it, so content saved from them lost the image then. Recorded, not repaired.
     'card-team-1.webp': 'removed before 1.3.0 as unused (4415891); shipped in 1.1.0 and 1.2.0',
-    'gallery-guidelines.webp': 'renamed tax-folder.webp in 1.4.1 (1.4.0 name, owner ruling)',
-    'gallery-meeting-table.webp': 'renamed site-visit.webp in 1.4.1 (1.4.0 name, owner ruling)',
-    'gallery-paper-stock.webp': 'renamed front-door.webp in 1.4.1 (1.4.0 name, owner ruling)',
-    'gallery-proof-wall.webp': 'renamed exercise-room.webp in 1.4.1 (1.4.0 name, owner ruling)',
-    'gallery-screen-review.webp': 'renamed yard-sign.webp in 1.4.1 (1.4.0 name, owner ruling)',
-    'gallery-studio-shelf.webp': 'renamed service-menus.webp in 1.4.1 (1.4.0 name, owner ruling)',
-    'hero-cover-thistle-pine.webp': 'renamed timber-stack.webp in 1.4.1 (1.4.0 name, owner ruling)',
-    'feature-split-calder.webp': 'renamed clinic-sign.webp in 1.4.1 (1.4.0 name, owner ruling)',
-    'card-image-text-northgate.webp': 'renamed shop-front.webp in 1.4.1 (1.4.0 name, owner ruling)',
-    'card-image-text-mercer-street.webp': 'renamed frame-samples.webp in 1.4.1 (1.4.0 name, owner ruling)',
+    'gallery-guidelines.webp': 'renamed tax-folder.webp in 1.4.1 (1.4.0 only, no shim)',
+    'gallery-meeting-table.webp': 'renamed site-visit.webp in 1.4.1 (1.4.0 only, no shim)',
+    'gallery-paper-stock.webp': 'renamed front-door.webp in 1.4.1 (1.4.0 only, no shim)',
+    'gallery-proof-wall.webp': 'renamed exercise-room.webp in 1.4.1 (1.4.0 only, no shim)',
+    'gallery-screen-review.webp': 'renamed yard-sign.webp in 1.4.1 (1.4.0 only, no shim)',
+    'gallery-studio-shelf.webp': 'renamed service-menus.webp in 1.4.1 (1.4.0 only, no shim)',
+    'hero-cover-thistle-pine.webp': 'renamed timber-stack.webp in 1.4.1 (1.4.0 only, no shim)',
+    'feature-split-calder.webp': 'renamed clinic-sign.webp in 1.4.1 (1.4.0 only, no shim)',
+    'card-image-text-northgate.webp': 'renamed shop-front.webp in 1.4.1 (1.4.0 only, no shim)',
+    'card-image-text-mercer-street.webp': 'renamed frame-samples.webp in 1.4.1 (1.4.0 only, no shim)',
     'card-image-text-linden-lark.webp': 'deleted in 1.4.1; no release ever placed it',
     'testimonial-highlight-1.webp': 'deleted in 1.4.1; no release ever placed it',
     'logo-thistle-pine.png': 'deleted in 1.4.1; no release ever placed it',

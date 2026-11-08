@@ -9,7 +9,7 @@ if ( ! function_exists( 'origin_canvas_palette_map' ) ) {
 	/**
 	 * Old code => new code, for colour slugs, the spacing slug and the custom line height key.
 	 *
-	 * The #116 ruling: the codes are renamed, not only the labels; every value stays as it was,
+	 * Decided on #116: the codes are renamed, not only the labels; every value stays as it was,
 	 * and Primary keeps its slug and name. Surface Muted and On Dark both become Base 2 (the
 	 * merge). At 1.3.1 they hold one value in theme.json and the colour variations, but Editorial,
 	 * Expressive and Refined Sans give Surface Muted its own. Surface Muted's entry wins.
@@ -17,7 +17,7 @@ if ( ! function_exists( 'origin_canvas_palette_map' ) ) {
 	 * Collisions: a saved palette entry on a destination slug (base, base-2 … contrast), in a list
 	 * that also holds the old slug that maps to it, is the user's own swatch. It keeps its value
 	 * under the first free `<slug>-legacy` slug; nothing is dropped but the merged On Dark entry,
-	 * which gets no legacy swatch, whatever its saved value (owner ruling, Oct 24).
+	 * which gets no legacy swatch, whatever its saved value (decided 2026-10-24).
 	 *
 	 * border-control and border-strong never shipped (develop only). They are mapped so a site
 	 * built from develop, and the checks that read this file, see one complete map.

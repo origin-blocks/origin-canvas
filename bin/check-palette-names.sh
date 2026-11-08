@@ -3,7 +3,7 @@
 # The palette rename (#116) holds: no old colour, spacing or line height code is left in the
 # theme outside the compatibility layer, and the theme runs no direct queries.
 #
-# The codes were renamed, not only the labels (owner ruling, #116). Saved 1.3.1 sites keep
+# The codes were renamed, not only the labels (#116). Saved 1.3.1 sites keep
 # rendering through the aliases in inc/palette-aliases.php and assets/css/palette-aliases.css;
 # the theme's own files use the new codes only. The old codes are read from inc/palette-map.php,
 # the one map.

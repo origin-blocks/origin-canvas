@@ -10,7 +10,7 @@
 # Outline's #6B7280 border holds on white and on a tint, and vanishes on dark. Outline
 # Strong is retired: its class only keeps saved buttons styled, so a pattern that uses
 # it fails. The surface is the nearest ancestor block that sets a fill. A fill this
-# script cannot classify is reported, so a new surface gets a ruling.
+# script cannot classify is reported, so a new surface joins the table on purpose.
 #
 # Run from the theme root:  bash bin/check-button-surfaces.sh
 

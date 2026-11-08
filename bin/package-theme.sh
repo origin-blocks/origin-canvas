@@ -41,7 +41,7 @@ bash "$SCRIPT_DIR/check-block-types.sh"
 bash "$SCRIPT_DIR/check-palette-names.sh"
 # The built twin rules match the map and the stylesheets they come from (#116).
 bash "$SCRIPT_DIR/check-palette-aliases.sh"
-# A shipped value removed since the last release must have its shim or ruling before the
+# A shipped value removed since the last release must have its shim or its reason before the
 # package is built: pending removals fail here.
 bash "$SCRIPT_DIR/check-shipped-values.sh" --release
 
