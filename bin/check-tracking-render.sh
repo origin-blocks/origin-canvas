@@ -79,4 +79,4 @@ print('Tracking, rendered: %d patterns, %d style passes (default + %d variations
          len(variations) - 1, ', theme ?octheme=' + octheme if octheme else ''))
 PY
 
-TRACKING_RENDER="$WORK/config.json" npx playwright test tests/tracking-render.spec.js --retries=0 --workers=4
+TRACKING_RENDER="$WORK/config.json" npx playwright test tests/tracking-render.spec.js --retries=0 --workers=1
