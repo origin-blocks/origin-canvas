@@ -6,30 +6,34 @@
 # warning (a wp:pattern reference renders nothing, a preset var resolves to nothing, a
 # class loses its look), so it needs a render-time shim, CSS or a render_block filter,
 # with a sunset note. Never a $wpdb query or a content change in the theme: the #116 migration
-# lives in a separate plugin (bin/check-palette-names.sh holds that boundary). A renamed preset
-# passes while inc/palette-map.php maps it to a preset the tree still has. A shipped pattern
-# slug is never renamed.
+# lives in a separate plugin (bin/check-palette-names.sh holds that boundary). A shipped
+# pattern slug is never renamed.
 #
-# This compares the working tree with every release tag and fails on any value a release
-# had that the tree has lost:
+# This compares the working tree with the latest release tag and fails on any value that
+# release had and the tree has lost. Every release passed this check against the one
+# before it, so the chain covers every release; what an older release lost is history,
+# not listed here.
 #   pattern     a Slug in patterns/
 #   template    a file in templates/, or a customTemplates name in theme.json
 #   part        a file in parts/, or a templateParts name in theme.json
-#   preset      a palette, gradient, duotone, font size, font family, spacing or shadow slug
+#   preset      a palette, gradient, duotone, font size, font family, spacing or shadow slug;
+#               a renamed one passes while inc/palette-map.php maps it to a preset the tree
+#               still has
 #   custom      a settings.custom value in theme.json, as the --wp--custom--… variable
-#               WordPress prints for it; pattern markup writes these into saved content
+#               WordPress prints for it; pattern markup writes these into saved content. A
+#               renamed line height passes as a renamed preset does
+#   rename      an old => new line in inc/palette-map.php: it keeps names from before the
+#               #116 rename working in saved content, so dropping one is a loss
 #   style       a block style name registered in functions.php; a style dropped from the
 #               Styles list passes while its is-style- class is still styled (the shim)
 #   class       an origin-canvas- or is-style-origin-canvas- class styled in the theme's
 #               CSS, or a block style variation in theme.json
-# Two lists hold the exceptions, each entry with its reason:
-#   RELEASED  removals that already shipped in a release, without a shim. Restoring them
-#             now would change pages users have already updated (orchestrator decision,
-#             #130).
-#   PENDING   removals on develop since the latest release that wait on a decision: a
-#             shim with a sunset, or a ruling that accepts the break. They pass day to day
-#             and fail with --release, so none ships undecided. A decided removal moves
-#             to RETIRED with its ruling.
+# Two lists hold removals since the latest release, each entry with its reason:
+#   RETIRED   decided: the owner accepted the break.
+#   PENDING   waiting on a decision: a shim with a sunset, or acceptance. They pass day to
+#             day and fail with --release, so none ships undecided.
+# An entry the latest release no longer has is history: the check fails until it is taken
+# off its list.
 #
 # Run from the theme root:  bash bin/check-shipped-values.sh [--release]
 
@@ -48,63 +52,8 @@ release = '--release' in sys.argv[1:]
 tags = subprocess.run(['git', 'tag', '--list', '[0-9]*.[0-9]*.[0-9]*', '--sort=v:refname'],
                       capture_output=True, text=True, check=True).stdout.split()
 
-# Removed in a release, without a shim: value -> the release it left, and why. Each one
-# left two to five releases ago; restoring it now would change pages users have already
-# updated, so it stays gone (orchestrator decision, #130).
-RELEASED = {
-    'custom --wp--custom--ring--ink': '1.3.0, only the theme CSS used it; the field focus ring became 25% primary (#18)',
-    'style blur-image-less': '1.0.2, block styles renamed with the origin-canvas- prefix',
-    'style blur-image-more': '1.0.2, block styles renamed with the origin-canvas- prefix',
-    'style dark-code': '1.0.2, block styles renamed with the origin-canvas- prefix',
-    'style excerpt-truncate-2': '1.0.2, block styles renamed with the origin-canvas- prefix',
-    'style excerpt-truncate-3': '1.0.2, block styles renamed with the origin-canvas- prefix',
-    'style list-check': '1.0.2, block styles renamed with the origin-canvas- prefix',
-    'style list-check-circle': '1.0.2, block styles renamed with the origin-canvas- prefix',
-    'style media-boxed': '1.0.2, block styles renamed with the origin-canvas- prefix',
-    'style outline-strong': '1.0.2, block styles renamed with the origin-canvas- prefix',
-    'style preformatted-dark': '1.0.2, block styles renamed with the origin-canvas- prefix',
-    'style rounded-full': '1.0.2, block styles renamed with the origin-canvas- prefix',
-    'style separator-dotted': '1.0.2, block styles renamed with the origin-canvas- prefix',
-    'style separator-thin': '1.0.2, block styles renamed with the origin-canvas- prefix',
-    'style term-button': '1.0.2, block styles renamed with the origin-canvas- prefix',
-    'class is-style-outline-strong': '1.0.2, block styles renamed with the origin-canvas- prefix',
-    'class is-style-wire': '1.0.2',
-    'class is-style-origin-canvas-icon-accessibility': '1.0.3',
-    'class is-style-origin-canvas-icon-compass': '1.0.3',
-    'class is-style-origin-canvas-icon-contrast': '1.0.3',
-    'class is-style-origin-canvas-icon-layers': '1.0.3',
-    'class is-style-origin-canvas-icon-layout-dashboard': '1.0.3',
-    'class is-style-origin-canvas-icon-monitor-smartphone': '1.0.3',
-    'class is-style-origin-canvas-icon-palette': '1.0.3',
-    'class is-style-origin-canvas-icon-ruler': '1.0.3',
-    'class is-style-origin-canvas-icon-type': '1.0.3',
-    'class is-style-origin-canvas-icon-zap': '1.0.3',
-    'template home': '1.0.4',
-    'class is-style-origin-canvas-term-button': '1.1.0',
-    'style origin-canvas-term-button': '1.1.0',
-    'pattern origin-canvas/hidden-home': '1.1.0, the front page became the user\'s own page',
-    'template front-page': '1.1.0, the front page became the user\'s own page',
-    'pattern origin-canvas/page-home-01': '1.2.0, renamed page-studio (CLAUDE.md rule 3)',
-    'class origin-canvas-post-grid-arrow': '1.2.0',
-    'class origin-canvas-post-grid-card': '1.2.0',
-    'class origin-canvas-post-grid-category': '1.2.0',
-    'class origin-canvas-post-grid-content': '1.2.0',
-    'class origin-canvas-post-grid-excerpt': '1.2.0',
-    'class origin-canvas-post-grid-footer': '1.2.0',
-    'class origin-canvas-post-grid-title': '1.2.0',
-    'preset font-family display': '1.3.0',
-}
-
-# Removed on develop since the latest release, decided: value -> the ruling.
-RETIRED = {
-    # Landing showcase only (Inserter false): the loss is accepted (orchestrator
-    # decision, #130).
-    'class origin-canvas-group-head': 'landing showcase only, loss accepted',
-    'class origin-canvas-type-ramp': 'landing showcase only, loss accepted',
-    # Its one rule never applied: core's position: absolute outranked it and the flyout
-    # card already sets the z-index (b50f5cb), so no saved page changes.
-    'class origin-canvas-main-nav': 'its rule had no effect, nothing to keep',
-}
+# Removed on develop since the latest release, decided: value -> the reason.
+RETIRED = {}
 
 # Removed on develop since the latest release, waiting on a decision: value -> what is
 # waiting.
@@ -133,17 +82,16 @@ def custom_vars(node, path=()):
     elif path:
         yield '--wp--custom--' + '--'.join(path)
 
-def palette_map():
+def palette_map(text):
     """The #116 rename: kind -> {old: new}, from inc/palette-map.php (one 'old' => 'new' per line).
     lineHeight names a settings.custom.lineHeight key."""
     out = {}
-    text = open('inc/palette-map.php').read() if os.path.exists('inc/palette-map.php') else ''
     for kind in ('color', 'spacing', 'lineHeight'):
         m = re.search(r"'%s'\s*=>\s*array\((.*?)\)," % kind, text, re.S)
         out[kind] = dict(re.findall(r"'([a-z0-9-]+)'\s*=>\s*'([a-z0-9-]+)',", m.group(1))) if m else {}
     return out
 
-RENAMED = palette_map()
+RENAMED = palette_map(open('inc/palette-map.php').read() if os.path.exists('inc/palette-map.php') else '')
 
 class Tree:
     """The theme's files at a tag, or on disk when ref is None."""
@@ -186,6 +134,8 @@ def values(tree):
         for preset in settings.get(group, {}).get(key, []) or []:
             found.add('preset %s %s' % (kind, preset['slug']))
     found.update('custom ' + v for v in custom_vars(settings.get('custom', {})))
+    for kind, pairs in palette_map(tree.read('inc/palette-map.php')).items():
+        found.update('rename %s %s' % (kind, old) for old in pairs)
     found.update('part ' + p['name'] for p in theme.get('templateParts', []))
     found.update('template ' + t['name'] for t in theme.get('customTemplates', []))
     for block in theme.get('styles', {}).get('blocks', {}).values():
@@ -195,47 +145,43 @@ def values(tree):
         found.update('style ' + s for s in re.findall(r"'name'\s*=>\s*'([a-z0-9-]+)'", m.group(0)))
     return found
 
-shipped = {}
-for tag in tags:
-    for value in values(Tree(tag)):
-        shipped[value] = tag  # the last release that had it
+latest = tags[-1]
+shipped = values(Tree(latest))
 now = values(Tree(None))
 fail = False
-released = 0
-print('Shipped values (releases %s to %s):' % (tags[0], tags[-1]))
-for value in sorted(set(shipped) - now):
-    if value.startswith('style ') and 'class is-style-' + value[6:] in now:
+print('Shipped values (release %s):' % latest)
+for value in sorted(shipped - now):
+    kind, _, name = value.partition(' ')
+    sub, _, old = name.partition(' ')
+    line_old = name[len('--wp--custom--line-height--'):]
+    if kind == 'style' and 'class is-style-' + name in now:
         print('  ✓  %s left the Styles list; its class is still styled' % value)
-    elif (value.split(' ')[0] == 'preset' and value.split(' ')[1] in RENAMED
-          and value.split(' ')[2] in RENAMED[value.split(' ')[1]]
-          and 'preset %s %s' % (value.split(' ')[1], RENAMED[value.split(' ')[1]][value.split(' ')[2]]) in now):
-        kind, old = value.split(' ')[1], value.split(' ')[2]
-        print('  ✓  preset %s %s is renamed to %s; inc/palette-map.php maps it (#116)' % (kind, old, RENAMED[kind][old]))
-    elif (value.startswith('custom --wp--custom--line-height--')
-          and value[34:] in RENAMED['lineHeight']
-          and 'custom --wp--custom--line-height--' + RENAMED['lineHeight'][value[34:]] in now):
+    elif kind == 'preset' and old in RENAMED.get(sub, {}) and 'preset %s %s' % (sub, RENAMED[sub][old]) in now:
+        print('  ✓  preset %s %s is renamed to %s; inc/palette-map.php maps it (#116)' % (sub, old, RENAMED[sub][old]))
+    elif (kind == 'custom' and name.startswith('--wp--custom--line-height--')
+          and line_old in RENAMED['lineHeight']
+          and 'custom --wp--custom--line-height--' + RENAMED['lineHeight'][line_old] in now):
         print('  ✓  custom %s is renamed to --wp--custom--line-height--%s; inc/palette-map.php maps it (#116)'
-              % (value[7:], RENAMED['lineHeight'][value[34:]]))
-    elif value in RELEASED and shipped[value] != tags[-1]:
-        released += 1
+              % (name, RENAMED['lineHeight'][line_old]))
     elif value in RETIRED:
-        print('  ~  %s last shipped in %s and is retired: %s' % (value, shipped[value],
-                                                               RETIRED[value]))
+        print('  ~  %s is retired: %s' % (value, RETIRED[value]))
     elif value in PENDING:
-        print('  %s  %s last shipped in %s and is gone: %s' % ('✗' if release else '!', value,
-                                                 shipped[value], PENDING[value]))
+        print('  %s  %s is gone: %s' % ('✗' if release else '!', value, PENDING[value]))
         fail = fail or release
     else:
         print('  ✗  %s shipped in %s and is gone: restore it, shim it, or list it with its '
-              'reason' % (value, shipped[value]))
+              'reason' % (value, latest))
         fail = True
-stale = sorted(v for v in list(RELEASED) + list(RETIRED) + list(PENDING) if v in now)
-for value in stale:
-    print('  ✗  %s is listed as gone but is back; take it off the list' % value)
-    fail = True
+for value in sorted(list(RETIRED) + list(PENDING)):
+    if value in now:
+        print('  ✗  %s is listed as gone but is back; take it off the list' % value)
+        fail = True
+    elif value not in shipped:
+        print('  ✗  %s is listed, but %s does not have it: it is history, take it off the list'
+              % (value, latest))
+        fail = True
 if fail:
     sys.exit(1)
-print('  ✓  %d values from the releases are still supported; %d left in a past release '
-      '(RELEASED)%s' % (len(set(shipped) & now), released,
-                        ', %d pending' % len(PENDING) if PENDING else ''))
+print('  ✓  %d values from %s are still supported%s' % (len(shipped & now), latest,
+      ', %d pending' % len(PENDING) if PENDING else ''))
 PY
