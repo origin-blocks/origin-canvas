@@ -629,3 +629,52 @@ if ( ! function_exists( 'origin_canvas_comment_author_badge' ) ) {
 	}
 }
 add_filter( 'render_block_core/comment-author-name', 'origin_canvas_comment_author_badge', 10, 3 );
+
+if ( ! function_exists( 'origin_canvas_site_title_fit_text' ) ) {
+	/**
+	 * Offer Fit Text on the Site Title block.
+	 *
+	 * Core gives Fit Text only to Paragraph and Heading. Footer Wordmark sets the site's own
+	 * name across the full width with it, so the footer follows the site title when the site
+	 * is renamed. The editor reads the support from the server's block definition, which wins
+	 * over the block's own script registration, so the control appears there too.
+	 *
+	 * @param array $metadata Block metadata read from block.json.
+	 * @return array Metadata with typography.fitText supported for core/site-title.
+	 */
+	function origin_canvas_site_title_fit_text( $metadata ) {
+		if ( isset( $metadata['name'] ) && 'core/site-title' === $metadata['name'] ) {
+			$metadata['supports']['typography']['fitText'] = true;
+		}
+		return $metadata;
+	}
+}
+add_filter( 'block_type_metadata', 'origin_canvas_site_title_fit_text' );
+
+if ( ! function_exists( 'origin_canvas_site_title_fit_text_class' ) ) {
+	/**
+	 * Add the has-fit-text class to a Site Title set to Fit Text on the front end.
+	 *
+	 * Core adds the class, which keeps the text on one line while it is sized, only in the
+	 * editor and in the saved markup of static blocks. Site Title renders on the server, so
+	 * without it a title of several words wraps and is fitted to its longest word.
+	 *
+	 * @param string $block_content Rendered Site Title HTML.
+	 * @param array  $block         Parsed block.
+	 * @return string Site Title HTML with has-fit-text on its wrapper when fitText is set.
+	 */
+	function origin_canvas_site_title_fit_text_class( $block_content, $block ) {
+		if ( empty( $block['attrs']['fitText'] ) ) {
+			return $block_content;
+		}
+
+		$processor = new WP_HTML_Tag_Processor( $block_content );
+		if ( ! $processor->next_tag() ) {
+			return $block_content;
+		}
+		$processor->add_class( 'has-fit-text' );
+
+		return $processor->get_updated_html();
+	}
+}
+add_filter( 'render_block_core/site-title', 'origin_canvas_site_title_fit_text_class', 10, 2 );

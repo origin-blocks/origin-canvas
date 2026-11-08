@@ -195,6 +195,27 @@ test.describe( 'tracking follows size, as rendered', () => {
 					}
 					await page.goto( url.toString(), { waitUntil: 'load', timeout: 120000 } );
 					await page.evaluate( () => document.fonts.ready );
+					// Fit Text sizes its text from a script after load; until then the text sits
+					// at its block's own size, and its band would be read from that. Each one
+					// must also carry has-fit-text, which keeps it on one line while it is sized
+					// (functions.php adds it to the Site Title, which core leaves without it).
+					// The page of every pattern must show footer-wordmark's Site Title fitted:
+					// it is the one Fit Text block the static check reads as display.
+					if ( target.roots.some( ( root ) => root.selector === '.octr' ) ) {
+						expect(
+							await page.locator( '.octr--footer-wordmark .wp-block-site-title[data-wp-init---core-fit-text]' ).count(),
+							`footer-wordmark's Site Title does not render with Fit Text on ${ url }`
+						).toBeGreaterThan( 0 );
+					}
+					await page.waitForFunction(
+						() => [ ...document.querySelectorAll( '[data-wp-init---core-fit-text]' ) ].every( ( el ) => el.style.fontSize ),
+						null,
+						{ timeout: 15000 }
+					);
+					expect(
+						await page.locator( '[data-wp-init---core-fit-text]:not(.has-fit-text)' ).count(),
+						`Fit Text without has-fit-text on ${ url }`
+					).toBe( 0 );
 					const { tokens, rows, scope } = await page.evaluate( measure, target.roots );
 					for ( const [ name, found ] of Object.entries( scope ) ) {
 						expect( found, `no ${ name } root on ${ url }` ).toBeGreaterThan( 0 );

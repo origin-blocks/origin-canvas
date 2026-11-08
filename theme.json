@@ -115,6 +115,9 @@
 				"markerColor": "var(--wp--preset--color--contrast)",
 				"noteWeight": "400"
 			},
+			"watermark": {
+				"color": "color-mix(in srgb, var(--wp--preset--color--contrast) 5%, transparent)"
+			},
 			"letterSpacing": {
 				"display": "-0.03em",
 				"large": "-0.025em",
