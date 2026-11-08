@@ -195,6 +195,13 @@ test.describe( 'tracking follows size, as rendered', () => {
 					}
 					await page.goto( url.toString(), { waitUntil: 'load', timeout: 120000 } );
 					await page.evaluate( () => document.fonts.ready );
+					// Fit Text sizes its text from a script after load; until then the text sits
+					// at its block's own size, and its band would be read from that.
+					await page.waitForFunction(
+						() => [ ...document.querySelectorAll( '.has-fit-text' ) ].every( ( el ) => el.style.fontSize ),
+						null,
+						{ timeout: 15000 }
+					);
 					const { tokens, rows, scope } = await page.evaluate( measure, target.roots );
 					for ( const [ name, found ] of Object.entries( scope ) ) {
 						expect( found, `no ${ name } root on ${ url }` ).toBeGreaterThan( 0 );
