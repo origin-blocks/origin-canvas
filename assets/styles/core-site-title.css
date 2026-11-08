@@ -7,3 +7,14 @@
 .wp-block-post-content .wp-block-site-title a {
 	text-decoration: none;
 }
+
+/**
+ * Fit Text on the Site Title (functions.php turns it on). In the editor the title's text sits
+ * in an inner editable span whose inline pre-wrap and break-word override the block's nowrap,
+ * so the text wraps, nothing overflows, and Fit Text grows it far past the width. Paragraph and
+ * Heading have no inner span; core's own .has-fit-text rule holds nowrap with !important too.
+ */
+.wp-block-site-title.has-fit-text .block-editor-rich-text__editable {
+	white-space: nowrap !important;
+	overflow-wrap: normal;
+}
