@@ -33,7 +33,7 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 
 python3 -B - "$@" <<'PY'
-import glob, json, re, sys
+import glob, json, os, re, sys
 sys.path.insert(0, 'bin/lib')
 from block_tree import parse, walk, ancestors
 
@@ -89,7 +89,8 @@ WORDMARK = 'patterns/footer-wordmark.php'
 
 def size_of(node, path=''):
     """(px, label) of the node's size, or (None, raw value) when the size is raw."""
-    if (path == WORDMARK and node['name'] == 'site-title' and node['attrs'].get('fitText')
+    if (os.path.relpath(os.path.abspath(path)) == WORDMARK and node['name'] == 'site-title'
+            and node['attrs'].get('fitText')
             and node['attrs'].get('align') == 'full'):
         return PRESETS['extra-large'], 'the wordmark footer\'s Fit Text site title, display'
     for n in [node] + list(ancestors(node)):
