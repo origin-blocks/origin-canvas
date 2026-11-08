@@ -9,7 +9,11 @@
 # The band of a size is read from theme.json: the extra-large preset and up is display, large
 # is large, medium is medium, and anything smaller is base. A block's size is its own
 # fontSize preset, or for a heading with none its level's size (styles.elements.h1-h6), or
-# the nearest parent's preset, or the body size.
+# the nearest parent's preset, or the body size. A Site Title set to Fit Text has no preset:
+# the theme turns Fit Text on for it so a footer can set the site's name across the page
+# width, where any realistic title fits well inside the display band, so it reads as display.
+# bin/check-tracking-render.sh checks the size it renders at. Other Fit Text blocks keep the
+# rule above.
 #
 # Fails on a block letterSpacing that is:
 #   - set on a block whose size is raw (not a preset): the size has no band, so fix it first
@@ -81,6 +85,8 @@ def band(size):
 
 def size_of(node):
     """(px, label) of the node's size, or (None, raw value) when the size is raw."""
+    if node['name'] == 'site-title' and node['attrs'].get('fitText'):
+        return PRESETS['extra-large'], 'a Fit Text site title, display'
     for n in [node] + list(ancestors(node)):
         attrs = n['attrs']
         if attrs.get('fontSize') in PRESETS:
