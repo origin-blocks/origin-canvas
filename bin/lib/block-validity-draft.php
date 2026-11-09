@@ -1,10 +1,16 @@
 <?php
 /**
  * Make the draft and the login that bin/check-block-validity.sh opens in the editor. Run with
- * WP-CLI:
+ * WP-CLI and the checks' hooks:
  *
- *   wp eval-file bin/lib/block-validity-draft.php make <out.json>
- *   wp eval-file bin/lib/block-validity-draft.php end <out.json>
+ *   wp --require=bin/lib/wp-cli-hooks.php eval-file bin/lib/block-validity-draft.php make <out.json>
+ *   wp --require=bin/lib/wp-cli-hooks.php eval-file bin/lib/block-validity-draft.php end <out.json>
+ *
+ * make first fails, naming each file, when a pattern file would not reach the list: no Slug or
+ * Title header (WordPress skips the file), a slug that is not origin-canvas/<kebab-slug> (the
+ * list holds only those), a slug another file repeats, a slug not registered, or a slug whose
+ * registered markup is not the file's (a plugin registered it first, so WordPress skipped the
+ * file, or registered it again after).
  *
  * make: one draft page, and the markup of every registered origin-canvas pattern, each inside
  * a Group whose class names it (`ocbv ocbv--<slug>`). The spec loads that markup into the
@@ -56,6 +62,65 @@ if ( ! EMPTY_TRASH_DAYS ) {
 }
 
 $oc_bv_registry = WP_Block_Patterns_Registry::get_instance();
+
+if ( ! function_exists( 'oc_check_pattern_files' ) || empty( $GLOBALS['oc_check_fresh_patterns'] ) ) {
+	fwrite( STDERR, "block-validity-draft.php: run it with --require=bin/lib/wp-cli-hooks.php, as the check scripts do. Nothing changed.\n" );
+	exit( 1 );
+}
+
+// The registry's stored entries, read before get_registered() applies block hooks to a copy: a
+// file path, or the markup an earlier read loaded from it, or the trimmed markup functions.php's
+// fallbacks register.
+try {
+	$oc_bv_stored = ( new ReflectionProperty( WP_Block_Patterns_Registry::class, 'registered_patterns' ) )->getValue( $oc_bv_registry );
+} catch ( ReflectionException $oc_bv_error ) {
+	fwrite( STDERR, 'block-validity-draft.php: WordPress no longer stores patterns where this check reads them (' . $oc_bv_error->getMessage() . "); update the check. Nothing changed.\n" );
+	exit( 1 );
+}
+
+/**
+ * Whether the registered entry holds this file's markup.
+ *
+ * @param array  $entry The registry's stored entry.
+ * @param string $file  Pattern file path.
+ */
+function oc_bv_from_file( $entry, $file ) {
+	// WordPress reads a stored content before the file path (get_content()).
+	if ( ! isset( $entry['content'] ) && isset( $entry['filePath'] ) ) {
+		return realpath( $entry['filePath'] ) === realpath( $file );
+	}
+	ob_start();
+	include $file;
+	return trim( (string) ( $entry['content'] ?? '' ) ) === trim( ob_get_clean() );
+}
+
+$oc_bv_root     = trailingslashit( wp_get_theme()->get_stylesheet_directory() );
+$oc_bv_seen     = array();
+$oc_bv_problems = array();
+foreach ( oc_check_pattern_files() as $oc_bv_file => $oc_bv_headers ) {
+	$oc_bv_name = substr( $oc_bv_file, strlen( $oc_bv_root ) );
+	$oc_bv_slug = $oc_bv_headers['slug'];
+	if ( ! $oc_bv_slug ) {
+		$oc_bv_problems[] = "$oc_bv_name has no Slug header, so WordPress skips it.";
+	} elseif ( ! preg_match( '#^origin-canvas/[a-z0-9-]+$#', $oc_bv_slug ) ) {
+		$oc_bv_problems[] = "$oc_bv_name: the slug $oc_bv_slug is not origin-canvas/<kebab-slug> (CLAUDE.md rule 1), so the check never lists it.";
+	} elseif ( isset( $oc_bv_seen[ $oc_bv_slug ] ) ) {
+		$oc_bv_problems[] = "$oc_bv_name repeats the slug $oc_bv_slug of {$oc_bv_seen[ $oc_bv_slug ]}; WordPress registers only one of them.";
+	} elseif ( ! $oc_bv_headers['title'] ) {
+		$oc_bv_problems[] = "$oc_bv_name has no Title header, so WordPress skips it.";
+	} elseif ( ! isset( $oc_bv_stored[ $oc_bv_slug ] ) ) {
+		$oc_bv_problems[] = "$oc_bv_name: the slug $oc_bv_slug is not registered.";
+	} elseif ( ! oc_bv_from_file( $oc_bv_stored[ $oc_bv_slug ], $oc_bv_file ) ) {
+		$oc_bv_problems[] = "$oc_bv_name: the slug $oc_bv_slug holds markup registered by something else, so the check would test that, not this file.";
+	}
+	if ( $oc_bv_slug && ! isset( $oc_bv_seen[ $oc_bv_slug ] ) ) {
+		$oc_bv_seen[ $oc_bv_slug ] = $oc_bv_name;
+	}
+}
+if ( $oc_bv_problems ) {
+	fwrite( STDERR, "block-validity-draft.php: pattern files the check would miss:\n  " . implode( "\n  ", $oc_bv_problems ) . "\nNothing changed.\n" );
+	exit( 1 );
+}
 
 /**
  * Pattern markup with every wp:pattern reference replaced by the markup it points to.

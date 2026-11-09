@@ -37,6 +37,8 @@ bash "$SCRIPT_DIR/check-roster-names.sh"
 bash "$SCRIPT_DIR/check-button-surfaces.sh"
 bash "$SCRIPT_DIR/check-grid-gaps.sh"
 bash "$SCRIPT_DIR/check-tracking-tokens.sh"
+# No color-mix where WordPress writes the CSS at render and strips it (#96).
+bash "$SCRIPT_DIR/check-color-mix.sh"
 # Block Types: pages set core/post-content, sections set nothing, bound patterns pass their block's test (#130).
 bash "$SCRIPT_DIR/check-block-types.sh"
 # No old palette code outside the compatibility layer, and no $wpdb (#116).
