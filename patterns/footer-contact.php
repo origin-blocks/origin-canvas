@@ -97,7 +97,7 @@
 <p class="has-contrast-2-color has-text-color has-small-font-size"><?php echo esc_html__( '&copy; 2026. All rights reserved.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
-<!-- wp:paragraph {"style":{"elements":{"link":{"color":{"text":"var:preset|color|contrast-2"},"typography":{"textDecoration":"none"},":hover":{"color":{"text":"var:preset|color|primary"}}}}},"textColor":"contrast-2","fontSize":"small"} -->
+<!-- wp:paragraph {"style":{"elements":{"link":{"color":{"text":"var:preset|color|contrast-2"},"typography":{"textDecoration":"none"},":hover":{"color":{"text":"var:preset|color|contrast"},"typography":{"textDecoration":"none"}}}}},"textColor":"contrast-2","fontSize":"small"} -->
 <p class="has-contrast-2-color has-text-color has-link-color has-small-font-size"><a href="#"><?php echo esc_html__( 'Privacy policy', 'origin-canvas' ); ?></a></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group --></footer>
