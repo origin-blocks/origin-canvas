@@ -85,7 +85,8 @@ try {
  * @param string $file  Pattern file path.
  */
 function oc_bv_from_file( $entry, $file ) {
-	if ( isset( $entry['filePath'] ) ) {
+	// WordPress reads a stored content before the file path (get_content()).
+	if ( ! isset( $entry['content'] ) && isset( $entry['filePath'] ) ) {
 		return realpath( $entry['filePath'] ) === realpath( $file );
 	}
 	ob_start();
