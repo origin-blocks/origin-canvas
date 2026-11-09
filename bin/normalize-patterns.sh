@@ -23,20 +23,19 @@ WP_PATH="$(cd "$WP_PATH" && pwd)"
 [ -d "$ROOT/node_modules/@playwright/test" ] || { echo "normalize-patterns.sh: run npm install and npx playwright install chromium first." >&2; exit 1; }
 WORK="$(mktemp -d)"
 STATE="$WORK/draft.json"
-WP_ARGS=(--path="$WP_PATH")
+# WP-CLI loads a worktree as the theme, so the draft holds this branch's markup, and reads the
+# pattern files afresh, not from core's cache (bin/lib/wp-cli-hooks.php).
+WP_ARGS=(--path="$WP_PATH" --require="$ROOT/bin/lib/wp-cli-hooks.php")
 THEME="origin-canvas"
+OC_CHECK_THEME=""
 if [ "$(basename "$(dirname "$ROOT")")" = "origin-canvas-worktrees" ]; then
 	THEME="origin-canvas-worktrees/$(basename "$ROOT")"
-	cat >"$WORK/theme.php" <<PHP
-<?php
-WP_CLI::add_wp_hook( 'pre_option_stylesheet', static fn() => '$THEME' );
-WP_CLI::add_wp_hook( 'pre_option_template', static fn() => '$THEME' );
-PHP
-	WP_ARGS+=(--require="$WORK/theme.php")
+	OC_CHECK_THEME="$THEME"
 fi
+export OC_CHECK_THEME
 cleanup() {
 	if [ -f "$STATE" ] && ! command wp "${WP_ARGS[@]}" eval-file "$ROOT/bin/lib/block-validity-draft.php" end "$STATE"; then
-		echo "  Clean-up failed. Retry: wp ${WP_ARGS[*]} eval-file $ROOT/bin/lib/block-validity-draft.php end $STATE" >&2
+		echo "  Clean-up failed. Retry: OC_CHECK_THEME=$OC_CHECK_THEME wp ${WP_ARGS[*]} eval-file $ROOT/bin/lib/block-validity-draft.php end $STATE" >&2
 		exit 1
 	fi
 	rm -rf "$WORK"
