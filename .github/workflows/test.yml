@@ -10,6 +10,23 @@ permissions:
   contents: read
 
 jobs:
+  checks:
+    name: Theme checks
+    runs-on: ubuntu-latest
+
+    steps:
+      # Full history: the shipped values check compares the tree with the latest release tag.
+      - name: Checkout theme repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      # Every check that needs nothing outside this repo, then the zip and its byte budget:
+      # the same run as a release preflight.
+      - name: Run the package script
+        run: bash bin/package-theme.sh
+
   javascript:
     name: JavaScript
     runs-on: ubuntu-latest
@@ -19,9 +36,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           persist-credentials: false
-
-      - name: Check the palette aliases match their sources
-        run: bash bin/check-palette-aliases.sh
 
       - name: Set up Node.js
         uses: actions/setup-node@v5
