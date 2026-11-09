@@ -20,8 +20,8 @@
 <p class="has-text-align-center origin-canvas-eyebrow has-primary-color has-text-color has-small-font-size" style="margin-bottom:var(--wp--preset--spacing--small);font-weight:600;letter-spacing:0.06em;text-transform:uppercase"><?php echo esc_html__( 'The Origin Canvas block theme', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
-<!-- wp:heading {"level":1,"align":"wide","className":"origin-canvas-text-balance","style":{"spacing":{"margin":{"top":"0","bottom":"0"}},"typography":{"lineHeight":"1.02","textAlign":"center"}},"fontSize":"display-2xl"} -->
-<h1 class="wp-block-heading has-text-align-center alignwide origin-canvas-text-balance has-display-2-xl-font-size" style="margin-top:0;margin-bottom:0;line-height:1.02"><?php echo esc_html__( 'Sites that look designed, not assembled.', 'origin-canvas' ); ?></h1>
+<!-- wp:heading {"level":1,"align":"wide","className":"origin-canvas-text-balance origin-canvas-display-measure","style":{"spacing":{"margin":{"top":"0","bottom":"0"}},"typography":{"lineHeight":"1.02","textAlign":"center"}},"fontSize":"display-2xl"} -->
+<h1 class="wp-block-heading has-text-align-center alignwide origin-canvas-text-balance origin-canvas-display-measure has-display-2-xl-font-size" style="margin-top:0;margin-bottom:0;line-height:1.02"><?php echo esc_html__( 'Sites that look designed, not assembled.', 'origin-canvas' ); ?></h1>
 <!-- /wp:heading -->
 
 <!-- wp:group {"layout":{"type":"constrained"}} -->

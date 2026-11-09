@@ -603,6 +603,15 @@ html {
 	text-wrap: balance;
 }
 
+/* A wide hero headline capped at 810px, a reading measure. Core gives a child only the
+   content width or the wide width, and a literal content width leaves the Layout control
+   (#130). At the wide width a long headline runs up to about 1,150px; capped and balanced
+   it reads in lines of about 20-30 characters, the range hero headlines run at. Set on an
+   h1 with align wide, which core still centres. */
+.is-layout-constrained > .origin-canvas-display-measure.alignwide {
+	max-width: 810px;
+}
+
 /* A dot texture on a section: 1px dots at a 20px pitch, contrast at 8% on a
    light ground, base-2 at 10% on the theme's dark grounds (ODS "Dot texture").
    Apply one class: even dots, fade to centre (strongest at the top and sides), or
