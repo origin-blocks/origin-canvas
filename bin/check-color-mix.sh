@@ -4,18 +4,21 @@
 # (safecss_filter_attr) keeps only var(), calc(), min(), max(), minmax(), clamp() and repeat()
 # among CSS functions, through 7.1. A block that saves its own HTML keeps its inline style as
 # saved, so the dark bands' color-mix text and borders render. Two places are written at render
-# instead, and a color-mix there vanishes without a warning (footer-wordmark's Site Title
-# rendered in full contrast, #96):
+# instead, and a color-mix there is dropped without a warning (a Site Title tint renders in
+# full contrast, #96):
 #   - every attribute of a block with no HTML of its own (Site Title, Navigation, Post
 #     Template, Template Part): WordPress builds its wrapper and styles from the attributes;
 #   - style.elements on any block: link, button and heading colours become a CSS rule.
 # It fails there also where WordPress ignores the value instead (a Template Part colour, a
-# :focus state) and inside a var() fallback, so it needs no list of what each block supports
-# (Nov 9). The fix is a theme.json settings.custom token read with var(), as
-# custom.watermark.color colours footer-wordmark's Site Title.
+# :focus state) and inside a var() fallback, so it needs no list of what each block supports.
+# The fix is a theme.json settings.custom token read with var(), as custom.watermark.color
+# colours footer-wordmark's Site Title.
 #
-# Such a block whose attributes hold PHP fails too, since PHP can print a value this file does
-# not show, and so does any block whose attributes do not parse.
+# PHP can print a value this file does not show, so these fail as unverifiable: PHP anywhere in
+# the attributes of a block the two rules cover, PHP that stands for a JSON value or key in any
+# block (it can add style.elements), and attributes that do not parse. PHP inside a string,
+# such as an image URL, passes in a block that saves its own HTML. PHP in a block's own markup
+# does not count as saved HTML.
 #
 # Run from the theme root:  bash bin/check-color-mix.sh [files…]
 
@@ -25,7 +28,7 @@ cd "$(dirname "$0")/.."
 python3 -B - "$@" <<'PY'
 import glob, re, sys
 sys.path.insert(0, 'bin/lib')
-from block_tree import parse, walk
+from block_tree import PHP, parse, walk
 
 COLOR_MIX = re.compile(r'color-mix\(', re.I)
 FIX = ('use a theme.json settings.custom token read with var() (custom.watermark.color is '
@@ -44,13 +47,14 @@ def found(value, path):
 
 
 def has_html(node, text):
-    """Whether the block's inner markup holds anything once its child blocks are cut out."""
+    """Whether the block's inner markup holds anything once its child blocks and PHP are cut
+    out."""
     pos, own = node['start'], []
     for child in node['children']:
         own.append(text[pos:child['outer_start']])
         pos = child['outer_end']
     own.append(text[pos:node['end']])
-    return bool(''.join(own).strip())
+    return bool(PHP.sub('', ''.join(own)).strip())
 
 
 files = sys.argv[1:] or sorted(glob.glob('patterns/**/*.php', recursive=True)
@@ -65,6 +69,11 @@ for path in files:
         if node['attrs_error']:
             print('  ✗  %s: its attributes do not parse, so a color-mix in them cannot be ruled '
                   'out' % where)
+            fail = True
+            continue
+        if node['php_outside_strings']:
+            print('  ✗  %s: PHP stands for part of its attributes, so it can add a value this '
+                  'file does not show; write the attributes without PHP' % where)
             fail = True
             continue
         style = node['attrs'].get('style')

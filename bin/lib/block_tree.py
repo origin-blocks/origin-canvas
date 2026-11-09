@@ -9,15 +9,17 @@ import json
 import re
 
 TOKEN = re.compile(r'<!--\s+(/)?wp:([a-z0-9/-]+)(\s+(\{.*?\}))?\s*(/)?-->', re.S)
-PHP = re.compile(r'<\?php.*?\?>', re.S)
+PHP = re.compile(r'<\?(?:php\b|=).*?\?>', re.S | re.I)
 
 
 def parse(path):
     """Return the root node of the file's block tree. Each node is a dict with name,
     attrs, children, parent, line, start and end: the offsets of its inner markup,
     outer_start and outer_end: the offsets of the whole block, comments included (a
-    self-closing block ends with its one comment), php_in_attrs, and attrs_error: the
-    attributes did not parse once PHP was blanked, so attrs is empty."""
+    self-closing block ends with its one comment), php_in_attrs, php_outside_strings: PHP
+    stands where JSON needs a value or a key, so it can add attributes this file does not
+    show, and attrs_error: the attributes did not parse once PHP was blanked, so attrs is
+    empty."""
     text = open(path).read()
     root = {'name': 'root', 'attrs': {}, 'children': [], 'parent': None, 'line': 0}
     stack = [root]
@@ -29,11 +31,17 @@ def parse(path):
                 node['end'] = m.start()
                 node['outer_end'] = m.end()
             continue
-        attrs_error = False
+        attrs_error = php_outside_strings = False
         try:
             attrs = json.loads(PHP.sub('', raw)) if raw else {}
         except ValueError:
             attrs, attrs_error = {}, True
+        if raw and PHP.search(raw):
+            # A bare @ is valid only inside a JSON string.
+            try:
+                json.loads(PHP.sub('@', raw))
+            except ValueError:
+                php_outside_strings = True
         node = {
             'name': name,
             'attrs': attrs,
@@ -45,6 +53,7 @@ def parse(path):
             'outer_start': m.start(),
             'outer_end': m.end(),
             'php_in_attrs': bool(raw and PHP.search(raw)),
+            'php_outside_strings': php_outside_strings,
             'attrs_error': attrs_error,
         }
         stack[-1]['children'].append(node)
