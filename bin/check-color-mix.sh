@@ -15,10 +15,11 @@
 # colours footer-wordmark's Site Title.
 #
 # PHP can print a value this file does not show, so these fail as unverifiable: PHP anywhere in
-# the attributes of a block the two rules cover, PHP that stands for a JSON value or key in any
-# block (it can add style.elements), and attributes that do not parse. PHP inside a string,
-# such as an image URL, passes in a block that saves its own HTML. PHP in a block's own markup
-# does not count as saved HTML.
+# the attributes of a block the two rules cover, PHP in any block's attributes that can add or
+# rename one (it can add style.elements), and attributes that do not parse. In a block that
+# saves its own HTML, PHP passes only as one escaped echo inside a string value, such as a
+# Cover's image URL (block_tree.php_shapes). PHP in a block's own markup does not count as
+# saved HTML.
 #
 # Run from the theme root:  bash bin/check-color-mix.sh [files…]
 
@@ -71,9 +72,9 @@ for path in files:
                   'out' % where)
             fail = True
             continue
-        if node['php_outside_strings']:
-            print('  ✗  %s: PHP stands for part of its attributes, so it can add a value this '
-                  'file does not show; write the attributes without PHP' % where)
+        if node['php_shapes_attrs']:
+            print('  ✗  %s: PHP in its attributes can add or rename one this file does not '
+                  'show; write them without PHP, or as one escaped echo in a value' % where)
             fail = True
             continue
         style = node['attrs'].get('style')
