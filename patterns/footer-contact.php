@@ -53,7 +53,7 @@
 <div class="wp-block-separator has-text-color has-base-5-color has-alpha-channel-opacity has-base-5-background-color has-background is-style-wide" style="margin-top:0;margin-bottom:0"></div>
 <!-- /wp:separator -->
 
-<!-- wp:paragraph {"style":{"elements":{"link":{"color":{"text":"var:preset|color|contrast-2"},":hover":{"color":{"text":"var:preset|color|primary"}}}},"spacing":{"margin":{"top":"var:preset|spacing|medium","bottom":"0"}}},"textColor":"contrast-2","fontSize":"small"} -->
+<!-- wp:paragraph {"style":{"elements":{"link":{"color":{"text":"var:preset|color|contrast-2"},":hover":{"color":{"text":"var:preset|color|primary"}},"typography":{"textDecoration":"none"}}},"spacing":{"margin":{"top":"var:preset|spacing|medium","bottom":"0"}}},"textColor":"contrast-2","fontSize":"small"} -->
 <p class="has-contrast-2-color has-text-color has-link-color has-small-font-size" style="margin-top:var(--wp--preset--spacing--medium);margin-bottom:0"><a href="tel:+16155550142"><?php echo esc_html__( '(615) 555-0142', 'origin-canvas' ); ?></a></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group --></div>
@@ -69,7 +69,7 @@
 <div class="wp-block-separator has-text-color has-base-5-color has-alpha-channel-opacity has-base-5-background-color has-background is-style-wide" style="margin-top:0;margin-bottom:0"></div>
 <!-- /wp:separator -->
 
-<!-- wp:paragraph {"style":{"elements":{"link":{"color":{"text":"var:preset|color|contrast-2"},":hover":{"color":{"text":"var:preset|color|primary"}}}},"spacing":{"margin":{"top":"var:preset|spacing|medium","bottom":"0"}}},"textColor":"contrast-2","fontSize":"small"} -->
+<!-- wp:paragraph {"style":{"elements":{"link":{"color":{"text":"var:preset|color|contrast-2"},":hover":{"color":{"text":"var:preset|color|primary"}},"typography":{"textDecoration":"none"}}},"spacing":{"margin":{"top":"var:preset|spacing|medium","bottom":"0"}}},"textColor":"contrast-2","fontSize":"small"} -->
 <p class="has-contrast-2-color has-text-color has-link-color has-small-font-size" style="margin-top:var(--wp--preset--spacing--medium);margin-bottom:0"><a href="mailto:hello@example.com"><?php echo esc_html__( 'hello@example.com', 'origin-canvas' ); ?></a></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group --></div>
