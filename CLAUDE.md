@@ -22,8 +22,7 @@ recategorizing a pattern.
 - Some rules have a check; a rule with no check is held only by review. `bin/package-theme.sh`
   runs every check that needs nothing outside this repo, the shipped-values check with
   `--release`, so a pending removal stops the package. Run `check-block-validity.sh` (needs
-  WordPress), `check-tracking-render.sh` (needs a browser) and `check-roster-names.sh` (needs
-  the writing guide clone) before a merge.
+  WordPress) and `check-tracking-render.sh` (needs a browser) before a merge.
 - An issue that holds a rule closes only when the rule lives in a check (its exceptions named
   there, each with a reason) or in a code comment next to the code it governs, or is dropped on
   purpose with the reason on the issue. A closed issue is history, not a rule.
