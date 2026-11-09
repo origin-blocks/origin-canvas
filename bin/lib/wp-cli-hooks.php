@@ -9,10 +9,8 @@
  * Core keeps a theme's list of pattern files in a transient for 30 minutes per theme version, and
  * skips it only in 'theme' development mode, so a pattern file added or changed since then is
  * missing or stale in the registry. The cache is deleted before core registers patterns, on
- * init at 10 (wp-includes/block-patterns.php), whose callback is added before any plugin's or
- * theme's. Just before that, the slugs of the theme's files that are already registered go in
- * $GLOBALS['oc_check_preregistered']: core skips a registered slug, so that file's markup would
- * never be checked. block-validity-draft.php fails on them.
+ * init at 10 (wp-includes/block-patterns.php), and $GLOBALS['oc_check_fresh_patterns'] says so
+ * to block-validity-draft.php.
  *
  * @package Origin
  */
@@ -60,21 +58,7 @@ WP_CLI::add_wp_hook(
 	'init',
 	static function () {
 		wp_get_theme()->delete_pattern_cache();
+		$GLOBALS['oc_check_fresh_patterns'] = true;
 	},
 	1
-);
-
-WP_CLI::add_wp_hook(
-	'init',
-	static function () {
-		$registry = WP_Block_Patterns_Registry::get_instance();
-
-		$GLOBALS['oc_check_preregistered'] = array();
-		foreach ( oc_check_pattern_files() as $file => $headers ) {
-			if ( $headers['slug'] && $registry->is_registered( $headers['slug'] ) ) {
-				$GLOBALS['oc_check_preregistered'][ $headers['slug'] ] = $file;
-			}
-		}
-	},
-	9
 );
