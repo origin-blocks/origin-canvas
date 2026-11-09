@@ -90,8 +90,13 @@ check() {
 		else
 			echo "  ✓  $file:$line — $actual $label"
 		fi
-	done < <(pattern_files | xargs grep -Eino "[0-9]+[[:space:]]+($label|$singular)" -- 2>/dev/null;
-		grep -Eino "[0-9]+[[:space:]]+($label|$singular)" readme.txt 2>/dev/null | sed 's|^|readme.txt:|')
+	# Each source may hold no claim; the subshell inherits errexit, so a grep that finds
+	# nothing must not end it before the next source is read.
+	done < <(pattern_files | xargs grep -Eino "[0-9]+[[:space:]]+($label|$singular)" -- 2>/dev/null || true;
+		grep -Eino "[0-9]+[[:space:]]+($label|$singular)" readme.txt 2>/dev/null | sed 's|^|readme.txt:|' || true;
+		grep -Eino "^Description:.*" style.css 2>/dev/null |
+			grep -Eio "^[0-9]+:|[0-9]+[[:space:]]+($label|$singular)" |
+			awk '/:$/ { n = $0; next } { print "style.css:" n $0 }' || true)
 
 	if [ "$found" -eq 0 ]; then
 		echo "  ?  no '$label' count found anywhere — did the copy change?"
@@ -105,10 +110,23 @@ check() {
 # updated by hand with the others.
 variations=$(( $(find styles -name '*.json' | wc -l | tr -d ' ') + 1 ))
 
+# Templates are the files under templates/; full-page layouts are the patterns a user can insert
+# from the Pages category.
+templates=$(find templates -name '*.html' | wc -l | tr -d ' ')
+layouts=0
+while IFS= read -r file; do
+	if registers_as_pattern "$file" && inserter_visible "$file" &&
+		header_field "$file" Categories | tr ',' '\n' | sed 's/^ *//;s/ *$//' | grep -qx 'origin-canvas/page'; then
+		layouts=$((layouts + 1))
+	fi
+done < <(pattern_files)
+
 echo "Pattern inventory:"
 check patterns   "$patterns"
 check categories "$categories"
 check "style variations" "$variations"
+check templates "$templates"
+check "full-page layouts" "$layouts"
 
 if [ "$status" -ne 0 ]; then
 	echo
