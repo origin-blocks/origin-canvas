@@ -10,7 +10,7 @@ Requires PHP: 7.4
 License: GNU General Public License v3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-Change the whole site's colors, type or both with one of 12 style variations. The theme is free and ships 100 patterns in 18 categories, 12 templates and 7 full-page layouts: two home pages, about, services, pricing, contact and a landing page. Every pattern is built from core blocks and uses the theme's presets, so sections line up from page to page, and you edit it all in the Site Editor with no page builder or other plugin. Pages stay ordinary WordPress blocks, so whoever runs the site can keep editing them. See it live in your browser, with nothing to install: https://playground.wordpress.net/?theme=origin-canvas
+Start closer to finished with Origin Canvas. Choose from 100 patterns in 18 categories, including 7 full-page designs. Customize your pages in the Site Editor, with no page builder or plugin needed. Use the 12 style variations to change colors, type or both, and Global Styles to adjust the design across your site. The patterns share color, type and spacing presets, so sections line up from page to page. Full demo: https://demo.originblocks.dev/canvas/
 
 == Description ==
 

@@ -110,7 +110,7 @@ check() {
 # updated by hand with the others.
 variations=$(( $(find styles -name '*.json' | wc -l | tr -d ' ') + 1 ))
 
-# Templates are the files under templates/; full-page layouts are the patterns a user can insert
+# Templates are the files under templates/; full-page designs are the patterns a user can insert
 # from the Pages category.
 templates=$(find templates -name '*.html' | wc -l | tr -d ' ')
 layouts=0
@@ -126,7 +126,7 @@ check patterns   "$patterns"
 check categories "$categories"
 check "style variations" "$variations"
 check templates "$templates"
-check "full-page layouts" "$layouts"
+check "full-page designs" "$layouts"
 
 if [ "$status" -ne 0 ]; then
 	echo
