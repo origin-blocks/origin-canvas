@@ -605,9 +605,9 @@ html {
 
 /* A wide hero headline capped at 810px, a reading measure. Core gives a child only the
    content width or the wide width, and a literal content width leaves the Layout control
-   (#130). At the wide width a long headline runs up to about 1,150px; capped, with the
-   balance utility, it breaks into even lines no wider than 810px. Set on an h1 with align
-   wide, which core still centres. */
+   (#130). At the wide width a long headline runs up to about 1,150px; this caps the
+   heading's box at 810px, and the balance utility evens its lines. Set on an h1 with
+   align wide, which core still centres. */
 .is-layout-constrained > .origin-canvas-display-measure.alignwide {
 	max-width: 810px;
 }
