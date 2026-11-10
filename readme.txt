@@ -2,7 +2,7 @@
 
 Contributors: originblocks
 
-Tags: blog, block-patterns, block-styles, custom-colors, custom-logo, custom-menu, editor-style, featured-images, full-site-editing, full-width-template, grid-layout, style-variations, threaded-comments, three-columns, translation-ready
+Tags: blog, block-patterns, block-styles, custom-colors, custom-logo, custom-menu, editor-style, featured-images, full-site-editing, full-width-template, grid-layout, one-column, style-variations, template-editing, threaded-comments, three-columns, translation-ready, two-columns, wide-blocks
 
 Requires at least: 7.0
 Tested up to: 7.1
@@ -10,7 +10,7 @@ Requires PHP: 7.4
 License: GNU General Public License v3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-Build your WordPress site with Origin Canvas. Start with ready-made templates and patterns, customize every page with core blocks, and change styles across your site in the Site Editor.
+Start closer to finished with Origin Canvas. Choose from 100 patterns in 18 categories, including 7 full-page designs. Customize your pages in the Site Editor, with no page builder or plugin needed. Use the 12 style variations to change colors, type or both, and Global Styles to adjust the design across your site. The patterns share color, type and spacing presets, so sections line up from page to page. Full demo: https://demo.originblocks.dev/canvas/
 
 == Description ==
 
