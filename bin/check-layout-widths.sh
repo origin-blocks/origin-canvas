@@ -9,9 +9,10 @@
 # to the wide width names the wide width's variable, var(--wp--style--global--wide-size), as
 # its contentSize (hidden-page-wide, #135).
 #
-# Fails on any block attribute whose value is theme.json's settings.layout.contentSize or
-# wideSize, read at run time, or a width those settings have shipped with (720px, 1200px),
-# so a literal left behind by a change to the presets still fails.
+# Fails on a layout contentSize or wideSize that is not a var(), whatever its value, so
+# 75rem fails as 1200px does. Also fails on any other block attribute whose value is
+# theme.json's settings.layout.contentSize or wideSize, read at run time, or a width those
+# settings have shipped with (720px, 1200px), such as a maxWidth of 1200px.
 #
 # Run from the theme root:  bash bin/check-layout-widths.sh [files…]
 
@@ -42,7 +43,15 @@ files = sys.argv[1:] or sorted(glob.glob('patterns/*.php') + glob.glob('parts/*.
 fail = False
 for path in files:
     for node in walk(parse(path)):
+        for key in ('contentSize', 'wideSize'):
+            value = (node['attrs'].get('layout') or {}).get(key)
+            if isinstance(value, str) and not value.strip().startswith('var('):
+                print('  ✗  %s:%d %s sets layout.%s to %s, a literal; Global Styles owns it, so '
+                      'write it by role' % (path, node['line'], node['name'], key, value))
+                fail = True
         for where, value in literals(node['attrs']):
+            if where in ('layout.contentSize', 'layout.wideSize'):
+                continue
             print('  ✗  %s:%d %s sets %s to %s, a %s from Global Styles; write it by role'
                   % (path, node['line'], node['name'], where, value, WIDTHS[value]))
             fail = True
@@ -50,6 +59,6 @@ for path in files:
 if fail:
     sys.exit(1)
 print('Layout widths:')
-print('  ✓  no block writes the content or wide width (%s) as a literal'
+print('  ✓  no layout writes a literal content or wide width, and no block writes %s'
       % ', '.join(sorted(WIDTHS)))
 PY

@@ -5,6 +5,7 @@
  * Description: A centered heading over a stacked list of services that expand to reveal a short description beside a list of what is included, the time and price, and a text link.
  * Categories: origin-canvas/features
  * Keywords: expandable, collapsible, offerings, capabilities, toggle
+ * Viewport Width: 1500
  * Block Types:
  * Post Types:
  * Inserter: true
@@ -16,10 +17,10 @@
 <!-- wp:group {"tagName":"section","align":"full","style":{"spacing":{"margin":{"top":"0","bottom":"0"},"padding":{"top":"var:preset|spacing|colossal","bottom":"var:preset|spacing|colossal"},"blockGap":"0"}},"layout":{"type":"constrained"}} -->
 <section class="wp-block-group alignfull" style="margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--colossal);padding-bottom:var(--wp--preset--spacing--colossal)"><!-- wp:group {"align":"wide","style":{"spacing":{"blockGap":"var:preset|spacing|medium","margin":{"bottom":"var:preset|spacing|huge"}}},"layout":{"type":"constrained"}} -->
 <div class="wp-block-group alignwide" style="margin-bottom:var(--wp--preset--spacing--huge)"><!-- wp:paragraph {"className":"origin-canvas-eyebrow","style":{"typography":{"textTransform":"uppercase","fontWeight":"600","letterSpacing":"0.06em","textAlign":"center"},"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|medium"}}},"textColor":"primary","fontSize":"extra-small"} -->
-<p class="origin-canvas-eyebrow has-text-align-center has-primary-color has-text-color has-extra-small-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--medium);font-weight:600;letter-spacing:0.06em;text-transform:uppercase"><?php echo esc_html__( 'What we do', 'origin-canvas' ); ?></p>
+<p class="has-text-align-center origin-canvas-eyebrow has-primary-color has-text-color has-extra-small-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--medium);font-weight:600;letter-spacing:0.06em;text-transform:uppercase"><?php echo esc_html__( 'What we do', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
-<!-- wp:heading {"level":2,"align":"wide","style":{"spacing":{"margin":{"top":"0","bottom":"0"}},"typography":{"textAlign":"center"}},"fontSize":"display"} -->
+<!-- wp:heading {"align":"wide","style":{"spacing":{"margin":{"top":"0","bottom":"0"}},"typography":{"textAlign":"center"}},"fontSize":"display"} -->
 <h2 class="wp-block-heading has-text-align-center alignwide has-display-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'We make brands and websites that fit', 'origin-canvas' ); ?></h2>
 <!-- /wp:heading -->
 
@@ -28,7 +29,7 @@
 <!-- /wp:paragraph --></div>
 <!-- /wp:group -->
 
-<!-- wp:accordion {"className":"is-style-origin-canvas-accordion-minimal","align":"wide"} -->
+<!-- wp:accordion {"align":"wide","className":"is-style-origin-canvas-accordion-minimal"} -->
 <div role="group" class="wp-block-accordion alignwide is-style-origin-canvas-accordion-minimal"><!-- wp:accordion-item -->
 <div class="wp-block-accordion-item"><!-- wp:accordion-heading {"level":3,"style":{"typography":{"lineHeight":"1.4"}},"textColor":"contrast","fontSize":"medium"} -->
 <h3 class="wp-block-accordion-heading has-icon has-icon-right has-contrast-color has-text-color has-medium-font-size" style="line-height:1.4"><button type="button" class="wp-block-accordion-heading__toggle"><span class="wp-block-accordion-heading__toggle-title"><?php echo esc_html__( 'Brand identity', 'origin-canvas' ); ?> <mark style="background-color:rgba(0, 0, 0, 0)" class="has-inline-color has-contrast-3-color"><?php echo esc_html__( '(mark, color and type)', 'origin-canvas' ); ?></mark></span><span class="wp-block-accordion-heading__toggle-icon" aria-hidden="true">+</span></button></h3>
@@ -62,7 +63,7 @@
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"style":{"typography":{"fontWeight":"600"}},"textColor":"contrast","fontSize":"regular"} -->
-<p class="has-contrast-color has-text-color has-regular-font-size" style="font-weight:600"><a href="#" style="text-decoration:none"><?php echo esc_html__( 'See identity work', 'origin-canvas' ); ?> <span aria-hidden="true">&rarr;</span></a></p>
+<p class="has-contrast-color has-text-color has-regular-font-size" style="font-weight:600"><a href="#" style="text-decoration:none"><?php echo esc_html__( 'See identity work', 'origin-canvas' ); ?> <span aria-hidden="true">→</span></a></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns --></div>
@@ -102,7 +103,7 @@
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"style":{"typography":{"fontWeight":"600"}},"textColor":"contrast","fontSize":"regular"} -->
-<p class="has-contrast-color has-text-color has-regular-font-size" style="font-weight:600"><a href="#" style="text-decoration:none"><?php echo esc_html__( 'See website work', 'origin-canvas' ); ?> <span aria-hidden="true">&rarr;</span></a></p>
+<p class="has-contrast-color has-text-color has-regular-font-size" style="font-weight:600"><a href="#" style="text-decoration:none"><?php echo esc_html__( 'See website work', 'origin-canvas' ); ?> <span aria-hidden="true">→</span></a></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns --></div>
@@ -142,7 +143,7 @@
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"style":{"typography":{"fontWeight":"600"}},"textColor":"contrast","fontSize":"regular"} -->
-<p class="has-contrast-color has-text-color has-regular-font-size" style="font-weight:600"><a href="#" style="text-decoration:none"><?php echo esc_html__( 'See copy samples', 'origin-canvas' ); ?> <span aria-hidden="true">&rarr;</span></a></p>
+<p class="has-contrast-color has-text-color has-regular-font-size" style="font-weight:600"><a href="#" style="text-decoration:none"><?php echo esc_html__( 'See copy samples', 'origin-canvas' ); ?> <span aria-hidden="true">→</span></a></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns --></div>
@@ -182,7 +183,7 @@
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"style":{"typography":{"fontWeight":"600"}},"textColor":"contrast","fontSize":"regular"} -->
-<p class="has-contrast-color has-text-color has-regular-font-size" style="font-weight:600"><a href="#" style="text-decoration:none"><?php echo esc_html__( 'See care plans', 'origin-canvas' ); ?> <span aria-hidden="true">&rarr;</span></a></p>
+<p class="has-contrast-color has-text-color has-regular-font-size" style="font-weight:600"><a href="#" style="text-decoration:none"><?php echo esc_html__( 'See care plans', 'origin-canvas' ); ?> <span aria-hidden="true">→</span></a></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns --></div>

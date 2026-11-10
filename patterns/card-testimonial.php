@@ -5,20 +5,21 @@
  * Description: One quote on a tinted card, with a small portrait beside the name and role.
  * Categories: testimonials
  * Keywords: endorsement, review, client, praise
- * Block Types: core/post-content
+ * Viewport Width: 1500
+ * Block Types:
  * Inserter: true
  *
  * @package Origin
  */
 
 ?>
-<!-- wp:group {"backgroundColor":"base-2","style":{"border":{"radius":"var:custom|radius|medium"},"spacing":{"padding":{"top":"var:preset|spacing|large","right":"var:preset|spacing|large","bottom":"var:preset|spacing|large","left":"var:preset|spacing|large"},"blockGap":"0"}},"layout":{"type":"constrained"}} -->
+<!-- wp:group {"style":{"border":{"radius":"var:custom|radius|medium"},"spacing":{"padding":{"top":"var:preset|spacing|large","right":"var:preset|spacing|large","bottom":"var:preset|spacing|large","left":"var:preset|spacing|large"},"blockGap":"0"}},"backgroundColor":"base-2","layout":{"type":"constrained"}} -->
 <div class="wp-block-group has-base-2-background-color has-background" style="border-radius:var(--wp--custom--radius--medium);padding-top:var(--wp--preset--spacing--large);padding-right:var(--wp--preset--spacing--large);padding-bottom:var(--wp--preset--spacing--large);padding-left:var(--wp--preset--spacing--large)"><!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|extra-large"}},"typography":{"fontWeight":"500"}},"textColor":"contrast","fontSize":"regular-plus"} -->
 <p class="has-contrast-color has-text-color has-regular-plus-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--extra-large);font-weight:500"><?php echo esc_html__( '&#8220;They built us an archive we actually keep up to date. Every project goes in the week it finishes.&#8221;', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
 <!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|small-medium"}},"layout":{"type":"flex","verticalAlignment":"center"}} -->
-<div class="wp-block-group"><!-- wp:image {"aspectRatio":"1","linkDestination":"none","width":"48px","height":"48px","className":"is-style-origin-canvas-rounded-full"} -->
+<div class="wp-block-group"><!-- wp:image {"width":"48px","height":"48px","aspectRatio":"1","linkDestination":"none","className":"is-style-origin-canvas-rounded-full"} -->
 <figure class="wp-block-image is-resized is-style-origin-canvas-rounded-full"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/avatar-helen-marsh.webp" alt="<?php esc_attr_e( 'Portrait of Helen Marsh, Principal of Fairview Architects.', 'origin-canvas' ); ?>" style="aspect-ratio:1;width:48px;height:48px"/></figure>
 <!-- /wp:image -->
 

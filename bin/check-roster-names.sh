@@ -10,47 +10,33 @@
 # Checked: parts/*.html, templates/*.html, and every pattern that holds a dynamic block
 # (a query, post, comment or term block) or is filed under header, footer or hidden, since
 # those become parts and templates. They must not hold:
-#   - a name or company from the roster (the Studio and Clients tables in the writing
-#     guide's brands/origin-patterns.md, read at run time so the list has one home);
+#   - a name or company from the roster (STUDIO, CLIENTS and COMPANIES below, copied from
+#     the roster in the house writing guide: a person added there is added here too);
 #   - a demo post title, category name, or tag name of two words or more, read from
 #     bin/demo/seed.php (case-insensitive for tags). A one-word tag, such as "launch", is
 #     an ordinary word and is not checked;
 #   - a written date, such as "Apr 18, 2026".
 # Allowed: the links under the Services label in footer-default and footer-dark, which
 # share two names with the demo categories. They are placeholder copy the user replaces
-# (orchestrator decision, #130).
+# (#130).
 #
 # Run from the theme root:  bash bin/check-roster-names.sh [files…]
-# The roster is read from $ORIGIN_PATTERNS_BRAND, by default
-# ~/Projects/writing/brands/origin-patterns.md.
 
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
-BRAND="${ORIGIN_PATTERNS_BRAND:-$HOME/Projects/writing/brands/origin-patterns.md}"
-[ -f "$BRAND" ] || {
-	echo "check-roster-names.sh: no roster at $BRAND. Clone the writing guide or set ORIGIN_PATTERNS_BRAND." >&2
-	exit 1
-}
-
-python3 -B - "$BRAND" "$@" <<'PY'
+python3 -B - "$@" <<'PY'
 import glob, re, sys
 
-brand, files = sys.argv[1], sys.argv[2:]
+files = sys.argv[1:]
 
-def table(text, heading):
-    """The rows of the first table under a ### heading, as lists of cells."""
-    m = re.search(r'^### %s\s*$(.*?)(?=^#)' % re.escape(heading), text, re.M | re.S)
-    rows = [[c.strip() for c in line.strip().strip('|').split('|')]
-            for line in (m.group(1) if m else '').splitlines() if line.startswith('|')]
-    return rows[2:]  # past the header row and the rule
-
-text = open(brand).read()
-studio, clients = table(text, 'The Studio'), table(text, 'The Clients')
-if not studio or not clients:
-    print('check-roster-names.sh: no Studio or Clients table in %s; update this check.' % brand)
-    sys.exit(1)
-names = sorted({r[0] for r in studio} | {r[0] for r in clients} | {r[2] for r in clients})
+STUDIO = ['Claire Bennett', 'Marcus Holloway', 'Hannah Wright', 'Ben Carter']
+CLIENTS = ['Michael Hughes', 'Rachel Moore', 'Catherine Rowe', 'Owen Parker', 'Simon Fletcher',
+           'Caleb Reid', 'Joanna Price', 'Ruth Mason', 'Helen Marsh']
+COMPANIES = ['Westmount Realty', 'Mercer Street Framing', 'Ashby & Rowe Law',
+             'Kestrel Physical Therapy', 'Northgate Cycle Works', 'Ash & Pine Woodworks',
+             'Clearwater Accounting', 'Calder Veterinary Clinic', 'Fairview Architects']
+names = sorted(set(STUDIO) | set(CLIENTS) | set(COMPANIES))
 
 seed = open('bin/demo/seed.php').read()
 titles = re.findall(r"^\t\t'title'\s*=>\s*'([^']+)'", seed, re.M)
@@ -67,7 +53,7 @@ if not categories:
     sys.exit(1)
 copy = sorted(set(titles) | set(categories))
 
-# The footer Services links: placeholder copy (orchestrator decision, #130). Allowed only
+# The footer Services links: placeholder copy (#130). Allowed only
 # as a link under the Services label in these two files.
 ALLOWED = {(path, name) for path in ('patterns/footer-default.php', 'patterns/footer-dark.php')
            for name in ('Brand identity', 'Websites')}

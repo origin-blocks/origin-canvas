@@ -5,7 +5,8 @@
  * Description: A large centered heading and a short lead, with no buttons.
  * Categories: origin-canvas/hero
  * Keywords: landing page, introduction, restraint, sparse
- * Block Types: core/post-content
+ * Viewport Width: 1500
+ * Block Types:
  * Inserter: true
  *
  * @package Origin
@@ -14,8 +15,8 @@
 ?>
 <!-- wp:group {"tagName":"section","align":"full","style":{"spacing":{"padding":{"top":"var:preset|spacing|massive","bottom":"var:preset|spacing|massive"}}},"layout":{"type":"constrained"}} -->
 <section class="wp-block-group alignfull" style="padding-top:var(--wp--preset--spacing--massive);padding-bottom:var(--wp--preset--spacing--massive)"><!-- wp:group {"align":"wide","style":{"spacing":{"blockGap":"var:preset|spacing|large"}},"layout":{"type":"constrained"}} -->
-<div class="wp-block-group alignwide"><!-- wp:heading {"level":1,"align":"wide","style":{"spacing":{"margin":{"top":"0","bottom":"0"}},"typography":{"textAlign":"center"}},"fontSize":"display-xl"} -->
-<h1 class="wp-block-heading has-text-align-center alignwide has-display-xl-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'A small studio for brand and web work.', 'origin-canvas' ); ?></h1>
+<div class="wp-block-group alignwide"><!-- wp:heading {"level":1,"align":"wide","className":"origin-canvas-text-balance origin-canvas-display-measure","style":{"spacing":{"margin":{"top":"0","bottom":"0"}},"typography":{"textAlign":"center"}},"fontSize":"display-xl"} -->
+<h1 class="wp-block-heading has-text-align-center alignwide origin-canvas-text-balance origin-canvas-display-measure has-display-xl-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'A small studio for brand and web work.', 'origin-canvas' ); ?></h1>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"style":{"typography":{"textAlign":"center"}},"textColor":"contrast-2","fontSize":"regular-plus"} -->

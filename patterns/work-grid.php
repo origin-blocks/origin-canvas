@@ -14,7 +14,7 @@
  */
 
 ?>
-<!-- wp:group {"tagName":"section","align":"full","backgroundColor":"base-2","style":{"spacing":{"padding":{"top":"var:preset|spacing|colossal","bottom":"var:preset|spacing|colossal"},"blockGap":"var:preset|spacing|large"}},"layout":{"type":"constrained"}} -->
+<!-- wp:group {"tagName":"section","align":"full","style":{"spacing":{"padding":{"top":"var:preset|spacing|colossal","bottom":"var:preset|spacing|colossal"},"blockGap":"var:preset|spacing|large"}},"backgroundColor":"base-2","layout":{"type":"constrained"}} -->
 <section class="wp-block-group alignfull has-base-2-background-color has-background" style="padding-top:var(--wp--preset--spacing--colossal);padding-bottom:var(--wp--preset--spacing--colossal)"><!-- wp:group {"align":"wide","className":"origin-canvas-align-baseline","style":{"spacing":{"blockGap":{"top":"var:preset|spacing|small","left":"var:preset|spacing|extra-large"}}},"layout":{"type":"flex","flexWrap":"wrap","justifyContent":"space-between"}} -->
 <div class="wp-block-group alignwide origin-canvas-align-baseline"><!-- wp:heading {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"fontSize":"huge"} -->
 <h2 class="wp-block-heading has-huge-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Selected work', 'origin-canvas' ); ?></h2>
@@ -26,7 +26,7 @@
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"className":"origin-canvas-no-shrink","style":{"typography":{"fontWeight":"600"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"contrast","fontSize":"small"} -->
-<p class="origin-canvas-no-shrink has-contrast-color has-text-color has-small-font-size" style="margin-top:0;margin-bottom:0;font-weight:600"><a href="#" style="text-decoration:none"><?php echo esc_html__( 'View all work', 'origin-canvas' ); ?> <span aria-hidden="true">&rarr;</span></a></p>
+<p class="origin-canvas-no-shrink has-contrast-color has-text-color has-small-font-size" style="margin-top:0;margin-bottom:0;font-weight:600"><a href="#" style="text-decoration:none"><?php echo esc_html__( 'View all work', 'origin-canvas' ); ?> <span aria-hidden="true">→</span></a></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group --></div>
 <!-- /wp:group -->
@@ -47,7 +47,7 @@
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"style":{"typography":{"fontWeight":"600"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"contrast","fontSize":"regular"} -->
-<p class="has-contrast-color has-text-color has-regular-font-size" style="margin-top:0;margin-bottom:0;font-weight:600"><a href="#" style="text-decoration:none"><?php echo esc_html__( 'View case study', 'origin-canvas' ); ?> <span aria-hidden="true">&rarr;</span></a></p>
+<p class="has-contrast-color has-text-color has-regular-font-size" style="margin-top:0;margin-bottom:0;font-weight:600"><a href="#" style="text-decoration:none"><?php echo esc_html__( 'View case study', 'origin-canvas' ); ?> <span aria-hidden="true">→</span></a></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group --></div>
 <!-- /wp:group -->
@@ -67,7 +67,7 @@
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"style":{"typography":{"fontWeight":"600"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"contrast","fontSize":"regular"} -->
-<p class="has-contrast-color has-text-color has-regular-font-size" style="margin-top:0;margin-bottom:0;font-weight:600"><a href="#" style="text-decoration:none"><?php echo esc_html__( 'View case study', 'origin-canvas' ); ?> <span aria-hidden="true">&rarr;</span></a></p>
+<p class="has-contrast-color has-text-color has-regular-font-size" style="margin-top:0;margin-bottom:0;font-weight:600"><a href="#" style="text-decoration:none"><?php echo esc_html__( 'View case study', 'origin-canvas' ); ?> <span aria-hidden="true">→</span></a></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group --></div>
 <!-- /wp:group -->
@@ -83,11 +83,11 @@
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"style":{"spacing":{"margin":{"bottom":"var:preset|spacing|medium"}}},"textColor":"contrast-2","fontSize":"regular"} -->
-<p class="has-contrast-2-color has-text-color has-regular-font-size" style="margin-bottom:var(--wp--preset--spacing--medium)"><?php echo esc_html__( 'A four-week rebrand for a neighborhood frame shop. New mark, new business cards, and a single-page site that takes framing quotes.', 'origin-canvas' ); ?></p>
+<p class="has-contrast-2-color has-text-color has-regular-font-size" style="margin-bottom:var(--wp--preset--spacing--medium)"><?php echo esc_html__( 'A weekend rebrand for a neighborhood frame shop. New mark, new business cards, and a single-page site that takes framing quotes.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"style":{"typography":{"fontWeight":"600"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"contrast","fontSize":"regular"} -->
-<p class="has-contrast-color has-text-color has-regular-font-size" style="margin-top:0;margin-bottom:0;font-weight:600"><a href="#" style="text-decoration:none"><?php echo esc_html__( 'View case study', 'origin-canvas' ); ?> <span aria-hidden="true">&rarr;</span></a></p>
+<p class="has-contrast-color has-text-color has-regular-font-size" style="margin-top:0;margin-bottom:0;font-weight:600"><a href="#" style="text-decoration:none"><?php echo esc_html__( 'View case study', 'origin-canvas' ); ?> <span aria-hidden="true">→</span></a></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group --></div>
 <!-- /wp:group -->
@@ -107,7 +107,7 @@
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"style":{"typography":{"fontWeight":"600"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"contrast","fontSize":"regular"} -->
-<p class="has-contrast-color has-text-color has-regular-font-size" style="margin-top:0;margin-bottom:0;font-weight:600"><a href="#" style="text-decoration:none"><?php echo esc_html__( 'Read the latest', 'origin-canvas' ); ?> <span aria-hidden="true">&rarr;</span></a></p>
+<p class="has-contrast-color has-text-color has-regular-font-size" style="margin-top:0;margin-bottom:0;font-weight:600"><a href="#" style="text-decoration:none"><?php echo esc_html__( 'Read the latest', 'origin-canvas' ); ?> <span aria-hidden="true">→</span></a></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group --></div>
 <!-- /wp:group --></div>

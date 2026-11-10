@@ -7,3 +7,13 @@
 .wp-block-post-content .wp-block-site-title a {
 	text-decoration: none;
 }
+
+/**
+ * Fit Text on the Site Title (functions.php turns it on) keeps the title on one line in the
+ * editor, where its text sits in an inner editable span with an inline pre-wrap: nowrap must
+ * reach that span, or Fit Text sizes wrapped text. Paragraph and Heading have no inner span,
+ * and core's own .has-fit-text rule holds nowrap with !important for the same reason.
+ */
+.wp-block-site-title.has-fit-text .block-editor-rich-text__editable {
+	white-space: nowrap !important;
+}

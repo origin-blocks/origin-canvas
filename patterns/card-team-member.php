@@ -5,7 +5,8 @@
  * Description: One team member, centered: a round portrait over the name, role, a short bio and social links.
  * Categories: team
  * Keywords: profile, person, staff, headshot
- * Block Types: core/post-content
+ * Viewport Width: 1500
+ * Block Types:
  * Inserter: true
  *
  * @package Origin
@@ -13,7 +14,7 @@
 
 ?>
 <!-- wp:group {"style":{"spacing":{"blockGap":"0","padding":{"top":"0","right":"0","bottom":"0","left":"0"}}},"layout":{"type":"constrained","justifyContent":"center"}} -->
-<div class="wp-block-group" style="padding-top:0;padding-right:0;padding-bottom:0;padding-left:0"><!-- wp:image {"aspectRatio":"1","linkDestination":"none","align":"center","width":"128px","height":"128px","className":"is-style-origin-canvas-rounded-full","style":{"spacing":{"margin":{"bottom":"var:preset|spacing|medium"}}}} -->
+<div class="wp-block-group" style="padding-top:0;padding-right:0;padding-bottom:0;padding-left:0"><!-- wp:image {"width":"128px","height":"128px","aspectRatio":"1","linkDestination":"none","align":"center","className":"is-style-origin-canvas-rounded-full","style":{"spacing":{"margin":{"bottom":"var:preset|spacing|medium"}}}} -->
 <figure class="wp-block-image aligncenter is-resized is-style-origin-canvas-rounded-full" style="margin-bottom:var(--wp--preset--spacing--medium)"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/avatar-claire-bennett.webp" alt="<?php esc_attr_e( 'Portrait of Claire Bennett, Co-founder.', 'origin-canvas' ); ?>" style="aspect-ratio:1;width:128px;height:128px"/></figure>
 <!-- /wp:image -->
 
@@ -30,6 +31,6 @@
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"className":"origin-canvas-links-plain","style":{"typography":{"fontWeight":"500","textAlign":"center"},"spacing":{"margin":{"top":"0","bottom":"0"}},"elements":{"link":{"color":{"text":"var:preset|color|contrast"},":hover":{"color":{"text":"var:preset|color|primary"}}}}},"textColor":"contrast-3","fontSize":"small"} -->
-<p class="origin-canvas-links-plain has-text-align-center has-contrast-3-color has-text-color has-link-color has-small-font-size" style="margin-top:0;margin-bottom:0;font-weight:500"><a href="#"><?php echo esc_html__( 'LinkedIn', 'origin-canvas' ); ?></a> &middot; <a href="#"><?php echo esc_html__( 'Twitter', 'origin-canvas' ); ?></a> &middot; <a href="#"><?php echo esc_html__( 'Email', 'origin-canvas' ); ?></a></p>
+<p class="has-text-align-center origin-canvas-links-plain has-contrast-3-color has-text-color has-link-color has-small-font-size" style="margin-top:0;margin-bottom:0;font-weight:500"><a href="#"><?php echo esc_html__( 'LinkedIn', 'origin-canvas' ); ?></a> · <a href="#"><?php echo esc_html__( 'Twitter', 'origin-canvas' ); ?></a> · <a href="#"><?php echo esc_html__( 'Email', 'origin-canvas' ); ?></a></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group -->

@@ -6,8 +6,8 @@
  * Categories: origin-canvas/page
  * Keywords: layout, agency, freelance, people, history, values
  * Viewport Width: 1500
- * Block Types:
- * Post Types:
+ * Block Types: core/post-content
+ * Post Types: page, wp_template
  * Inserter: true
  *
  * @package Origin
@@ -15,8 +15,13 @@
 
 ?>
 <!-- wp:pattern {"slug":"origin-canvas/hero-statement"} /-->
+
 <!-- wp:pattern {"slug":"origin-canvas/team-grid"} /-->
+
 <!-- wp:pattern {"slug":"origin-canvas/text-image-side"} /-->
+
 <!-- wp:pattern {"slug":"origin-canvas/testimonial-with-image"} /-->
+
 <!-- wp:pattern {"slug":"origin-canvas/card-info"} /-->
+
 <!-- wp:pattern {"slug":"origin-canvas/cta-band-dark"} /-->

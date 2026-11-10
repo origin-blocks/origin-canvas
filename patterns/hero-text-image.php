@@ -5,7 +5,8 @@
  * Description: An eyebrow, large heading, lead and two buttons beside a photo.
  * Categories: origin-canvas/hero
  * Keywords: landing page, introduction, masthead, media
- * Block Types: core/post-content
+ * Viewport Width: 1500
+ * Block Types:
  * Inserter: true
  *
  * @package Origin
@@ -13,14 +14,14 @@
 
 ?>
 <!-- wp:group {"tagName":"section","align":"full","style":{"spacing":{"padding":{"top":"var:preset|spacing|colossal","bottom":"var:preset|spacing|colossal"}}},"layout":{"type":"constrained"}} -->
-<section class="wp-block-group alignfull" style="padding-top:var(--wp--preset--spacing--colossal);padding-bottom:var(--wp--preset--spacing--colossal)"><!-- wp:columns {"align":"wide","verticalAlignment":"center"} -->
+<section class="wp-block-group alignfull" style="padding-top:var(--wp--preset--spacing--colossal);padding-bottom:var(--wp--preset--spacing--colossal)"><!-- wp:columns {"verticalAlignment":"center","align":"wide"} -->
 <div class="wp-block-columns alignwide are-vertically-aligned-center"><!-- wp:column {"verticalAlignment":"center","width":"50%"} -->
 <div class="wp-block-column is-vertically-aligned-center" style="flex-basis:50%"><!-- wp:paragraph {"className":"origin-canvas-eyebrow","style":{"typography":{"textTransform":"uppercase","fontWeight":"600","letterSpacing":"0.06em","textAlign":"left"},"spacing":{"margin":{"bottom":"var:preset|spacing|small"}}},"textColor":"primary","fontSize":"small"} -->
-<p class="origin-canvas-eyebrow has-text-align-left has-primary-color has-text-color has-small-font-size" style="margin-bottom:var(--wp--preset--spacing--small);font-weight:600;letter-spacing:0.06em;text-transform:uppercase"><?php echo esc_html__( 'BRAND & WEB', 'origin-canvas' ); ?> &middot; <?php echo esc_html__( 'SINCE 2018', 'origin-canvas' ); ?></p>
+<p class="has-text-align-left origin-canvas-eyebrow has-primary-color has-text-color has-small-font-size" style="margin-bottom:var(--wp--preset--spacing--small);font-weight:600;letter-spacing:0.06em;text-transform:uppercase"><?php echo esc_html__( 'BRAND & WEB', 'origin-canvas' ); ?> · <?php echo esc_html__( 'SINCE 2018', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading {"level":1,"style":{"spacing":{"margin":{"top":"0","bottom":"0"}},"typography":{"textAlign":"left"}},"fontSize":"display-xl"} -->
-<h1 class="wp-block-heading has-display-xl-font-size has-text-align-left" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Sites and identities that earn a second look.', 'origin-canvas' ); ?></h1>
+<h1 class="wp-block-heading has-text-align-left has-display-xl-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Sites and identities that earn a second look.', 'origin-canvas' ); ?></h1>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"style":{"typography":{"textAlign":"left"}},"textColor":"contrast-2","fontSize":"regular-plus"} -->

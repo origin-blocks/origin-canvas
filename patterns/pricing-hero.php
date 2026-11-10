@@ -17,11 +17,11 @@
 <!-- wp:group {"tagName":"section","align":"full","style":{"spacing":{"margin":{"top":"0","bottom":"0"},"padding":{"top":"var:preset|spacing|colossal","bottom":"var:preset|spacing|colossal"}}},"layout":{"type":"constrained"}} -->
 <section class="wp-block-group alignfull" style="margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--colossal);padding-bottom:var(--wp--preset--spacing--colossal)"><!-- wp:group {"align":"wide","style":{"spacing":{"blockGap":"var:preset|spacing|medium"}},"layout":{"type":"constrained"}} -->
 <div class="wp-block-group alignwide"><!-- wp:paragraph {"className":"origin-canvas-eyebrow","style":{"typography":{"textTransform":"uppercase","fontWeight":"600","letterSpacing":"0.06em","textAlign":"center"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"primary","fontSize":"small"} -->
-<p class="origin-canvas-eyebrow has-text-align-center has-primary-color has-text-color has-small-font-size" style="margin-top:0;margin-bottom:0;font-weight:600;letter-spacing:0.06em;text-transform:uppercase"><?php echo esc_html__( 'Pricing', 'origin-canvas' ); ?></p>
+<p class="has-text-align-center origin-canvas-eyebrow has-primary-color has-text-color has-small-font-size" style="margin-top:0;margin-bottom:0;font-weight:600;letter-spacing:0.06em;text-transform:uppercase"><?php echo esc_html__( 'Pricing', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
 
-<!-- wp:heading {"level":1,"align":"wide","className":"origin-canvas-text-balance","style":{"spacing":{"margin":{"top":"0","bottom":"0"}},"typography":{"textAlign":"center"}},"fontSize":"display-xl"} -->
-<h1 class="wp-block-heading has-text-align-center alignwide origin-canvas-text-balance has-display-xl-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Fixed prices, agreed up front', 'origin-canvas' ); ?></h1>
+<!-- wp:heading {"level":1,"align":"wide","className":"origin-canvas-text-balance origin-canvas-display-measure","style":{"spacing":{"margin":{"top":"0","bottom":"0"}},"typography":{"textAlign":"center"}},"fontSize":"display-xl"} -->
+<h1 class="wp-block-heading has-text-align-center alignwide origin-canvas-text-balance origin-canvas-display-measure has-display-xl-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Fixed prices, agreed up front', 'origin-canvas' ); ?></h1>
 <!-- /wp:heading -->
 
 <!-- wp:group {"layout":{"type":"constrained"}} -->
@@ -31,8 +31,8 @@
 <!-- /wp:group --></div>
 <!-- /wp:group -->
 
-<!-- wp:columns {"align":"wide","verticalAlignment":"stretch","style":{"spacing":{"margin":{"top":"var:preset|spacing|huge"},"blockGap":{"top":"var:preset|spacing|large","left":"var:preset|spacing|large"}}}} -->
-<div class="wp-block-columns alignwide are-vertically-aligned-stretch" style="margin-top:var(--wp--preset--spacing--huge)"><!-- wp:column {"verticalAlignment":"stretch","backgroundColor":"base","borderColor":"base-6","style":{"border":{"radius":"var:custom|radius|medium","style":"solid","width":"1px"},"spacing":{"padding":{"top":"var:preset|spacing|extra-large","right":"var:preset|spacing|extra-large","bottom":"var:preset|spacing|extra-large","left":"var:preset|spacing|extra-large"}}}} -->
+<!-- wp:columns {"verticalAlignment":"stretch","align":"wide","style":{"spacing":{"margin":{"top":"var:preset|spacing|huge"},"blockGap":{"top":"var:preset|spacing|large","left":"var:preset|spacing|large"}}}} -->
+<div class="wp-block-columns alignwide are-vertically-aligned-stretch" style="margin-top:var(--wp--preset--spacing--huge)"><!-- wp:column {"verticalAlignment":"stretch","style":{"border":{"radius":"var:custom|radius|medium","style":"solid","width":"1px"},"spacing":{"padding":{"top":"var:preset|spacing|extra-large","right":"var:preset|spacing|extra-large","bottom":"var:preset|spacing|extra-large","left":"var:preset|spacing|extra-large"}}},"backgroundColor":"base","borderColor":"base-6"} -->
 <div class="wp-block-column is-vertically-aligned-stretch has-border-color has-base-6-border-color has-base-background-color has-background" style="border-style:solid;border-width:1px;border-radius:var(--wp--custom--radius--medium);padding-top:var(--wp--preset--spacing--extra-large);padding-right:var(--wp--preset--spacing--extra-large);padding-bottom:var(--wp--preset--spacing--extra-large);padding-left:var(--wp--preset--spacing--extra-large)"><!-- wp:group {"style":{"spacing":{"blockGap":"0"}},"layout":{"type":"constrained"}} -->
 <div class="wp-block-group"><!-- wp:heading {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"contrast","fontSize":"large"} -->
 <h2 class="wp-block-heading has-contrast-color has-text-color has-large-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Starter', 'origin-canvas' ); ?></h2>
@@ -59,15 +59,26 @@
 <!-- /wp:paragraph -->
 
 <!-- wp:list {"className":"is-style-origin-canvas-list-check-neutral","style":{"spacing":{"margin":{"top":"var:preset|spacing|small-medium","bottom":"0"}}},"textColor":"contrast-2","fontSize":"regular"} -->
-<ul class="wp-block-list is-style-origin-canvas-list-check-neutral has-contrast-2-color has-text-color has-regular-font-size" style="margin-top:var(--wp--preset--spacing--small-medium);margin-bottom:0"><!-- wp:list-item --><li><?php echo esc_html__( 'Up to five pages', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
-<!-- wp:list-item --><li><?php echo esc_html__( 'Logo refresh', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
-<!-- wp:list-item --><li><?php echo esc_html__( 'Two rounds of revisions', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
-<!-- wp:list-item --><li><?php echo esc_html__( 'Three-week delivery', 'origin-canvas' ); ?></li><!-- /wp:list-item --></ul>
+<ul style="margin-top:var(--wp--preset--spacing--small-medium);margin-bottom:0" class="wp-block-list is-style-origin-canvas-list-check-neutral has-contrast-2-color has-text-color has-regular-font-size"><!-- wp:list-item -->
+<li><?php echo esc_html__( 'Up to five pages', 'origin-canvas' ); ?></li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><?php echo esc_html__( 'Logo refresh', 'origin-canvas' ); ?></li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><?php echo esc_html__( 'Two rounds of revisions', 'origin-canvas' ); ?></li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><?php echo esc_html__( 'Three-week delivery', 'origin-canvas' ); ?></li>
+<!-- /wp:list-item --></ul>
 <!-- /wp:list --></div>
 <!-- /wp:group --></div>
 <!-- /wp:column -->
 
-<!-- wp:column {"verticalAlignment":"stretch","backgroundColor":"base","borderColor":"contrast-4","style":{"border":{"radius":"var:custom|radius|medium","style":"solid","width":"2px"},"spacing":{"padding":{"top":"var:preset|spacing|extra-large","right":"var:preset|spacing|extra-large","bottom":"var:preset|spacing|extra-large","left":"var:preset|spacing|extra-large"}}}} -->
+<!-- wp:column {"verticalAlignment":"stretch","style":{"border":{"radius":"var:custom|radius|medium","style":"solid","width":"2px"},"spacing":{"padding":{"top":"var:preset|spacing|extra-large","right":"var:preset|spacing|extra-large","bottom":"var:preset|spacing|extra-large","left":"var:preset|spacing|extra-large"}}},"backgroundColor":"base","borderColor":"contrast-4"} -->
 <div class="wp-block-column is-vertically-aligned-stretch has-border-color has-contrast-4-border-color has-base-background-color has-background" style="border-style:solid;border-width:2px;border-radius:var(--wp--custom--radius--medium);padding-top:var(--wp--preset--spacing--extra-large);padding-right:var(--wp--preset--spacing--extra-large);padding-bottom:var(--wp--preset--spacing--extra-large);padding-left:var(--wp--preset--spacing--extra-large)"><!-- wp:group {"style":{"spacing":{"blockGap":"0"}},"layout":{"type":"constrained"}} -->
 <div class="wp-block-group"><!-- wp:group {"className":"origin-canvas-align-baseline","style":{"spacing":{"blockGap":"var:preset|spacing|small-medium"}},"layout":{"type":"flex","flexWrap":"wrap","justifyContent":"space-between"}} -->
 <div class="wp-block-group origin-canvas-align-baseline"><!-- wp:heading {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"contrast","fontSize":"large"} -->
@@ -100,15 +111,26 @@
 <!-- /wp:paragraph -->
 
 <!-- wp:list {"className":"is-style-origin-canvas-list-check-neutral","style":{"spacing":{"margin":{"top":"var:preset|spacing|small-medium","bottom":"0"}}},"textColor":"contrast-2","fontSize":"regular"} -->
-<ul class="wp-block-list is-style-origin-canvas-list-check-neutral has-contrast-2-color has-text-color has-regular-font-size" style="margin-top:var(--wp--preset--spacing--small-medium);margin-bottom:0"><!-- wp:list-item --><li><?php echo esc_html__( 'Up to eight pages', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
-<!-- wp:list-item --><li><?php echo esc_html__( 'Full identity (mark, color, type)', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
-<!-- wp:list-item --><li><?php echo esc_html__( 'Photography direction', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
-<!-- wp:list-item --><li><?php echo esc_html__( 'Eight-week delivery', 'origin-canvas' ); ?></li><!-- /wp:list-item --></ul>
+<ul style="margin-top:var(--wp--preset--spacing--small-medium);margin-bottom:0" class="wp-block-list is-style-origin-canvas-list-check-neutral has-contrast-2-color has-text-color has-regular-font-size"><!-- wp:list-item -->
+<li><?php echo esc_html__( 'Up to eight pages', 'origin-canvas' ); ?></li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><?php echo esc_html__( 'Full identity (mark, color, type)', 'origin-canvas' ); ?></li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><?php echo esc_html__( 'Photography direction', 'origin-canvas' ); ?></li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><?php echo esc_html__( 'Eight-week delivery', 'origin-canvas' ); ?></li>
+<!-- /wp:list-item --></ul>
 <!-- /wp:list --></div>
 <!-- /wp:group --></div>
 <!-- /wp:column -->
 
-<!-- wp:column {"verticalAlignment":"stretch","backgroundColor":"base","borderColor":"base-6","style":{"border":{"radius":"var:custom|radius|medium","style":"solid","width":"1px"},"spacing":{"padding":{"top":"var:preset|spacing|extra-large","right":"var:preset|spacing|extra-large","bottom":"var:preset|spacing|extra-large","left":"var:preset|spacing|extra-large"}}}} -->
+<!-- wp:column {"verticalAlignment":"stretch","style":{"border":{"radius":"var:custom|radius|medium","style":"solid","width":"1px"},"spacing":{"padding":{"top":"var:preset|spacing|extra-large","right":"var:preset|spacing|extra-large","bottom":"var:preset|spacing|extra-large","left":"var:preset|spacing|extra-large"}}},"backgroundColor":"base","borderColor":"base-6"} -->
 <div class="wp-block-column is-vertically-aligned-stretch has-border-color has-base-6-border-color has-base-background-color has-background" style="border-style:solid;border-width:1px;border-radius:var(--wp--custom--radius--medium);padding-top:var(--wp--preset--spacing--extra-large);padding-right:var(--wp--preset--spacing--extra-large);padding-bottom:var(--wp--preset--spacing--extra-large);padding-left:var(--wp--preset--spacing--extra-large)"><!-- wp:group {"style":{"spacing":{"blockGap":"0"}},"layout":{"type":"constrained"}} -->
 <div class="wp-block-group"><!-- wp:heading {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"contrast","fontSize":"large"} -->
 <h2 class="wp-block-heading has-contrast-color has-text-color has-large-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Retained', 'origin-canvas' ); ?></h2>
@@ -135,10 +157,21 @@
 <!-- /wp:paragraph -->
 
 <!-- wp:list {"className":"is-style-origin-canvas-list-check-neutral","style":{"spacing":{"margin":{"top":"var:preset|spacing|small-medium","bottom":"0"}}},"textColor":"contrast-2","fontSize":"regular"} -->
-<ul class="wp-block-list is-style-origin-canvas-list-check-neutral has-contrast-2-color has-text-color has-regular-font-size" style="margin-top:var(--wp--preset--spacing--small-medium);margin-bottom:0"><!-- wp:list-item --><li><?php echo esc_html__( 'Up to two days of work', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
-<!-- wp:list-item --><li><?php echo esc_html__( 'A quarterly review call', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
-<!-- wp:list-item --><li><?php echo esc_html__( 'A reply within a business day', 'origin-canvas' ); ?></li><!-- /wp:list-item -->
-<!-- wp:list-item --><li><?php echo esc_html__( 'Six-month minimum', 'origin-canvas' ); ?></li><!-- /wp:list-item --></ul>
+<ul style="margin-top:var(--wp--preset--spacing--small-medium);margin-bottom:0" class="wp-block-list is-style-origin-canvas-list-check-neutral has-contrast-2-color has-text-color has-regular-font-size"><!-- wp:list-item -->
+<li><?php echo esc_html__( 'Up to two days of work', 'origin-canvas' ); ?></li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><?php echo esc_html__( 'A quarterly review call', 'origin-canvas' ); ?></li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><?php echo esc_html__( 'A reply within a business day', 'origin-canvas' ); ?></li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><?php echo esc_html__( 'Six-month minimum', 'origin-canvas' ); ?></li>
+<!-- /wp:list-item --></ul>
 <!-- /wp:list --></div>
 <!-- /wp:group --></div>
 <!-- /wp:column --></div>
@@ -150,7 +183,7 @@
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"style":{"typography":{"fontWeight":"600"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"contrast","fontSize":"regular"} -->
-<p class="has-contrast-color has-text-color has-regular-font-size" style="margin-top:0;margin-bottom:0;font-weight:600"><a href="mailto:hello@example.com" style="text-decoration:none"><?php echo esc_html__( 'Need something else? Let&#8217;s talk', 'origin-canvas' ); ?> <span aria-hidden="true">&rarr;</span></a></p>
+<p class="has-contrast-color has-text-color has-regular-font-size" style="margin-top:0;margin-bottom:0;font-weight:600"><a href="mailto:hello@example.com" style="text-decoration:none"><?php echo esc_html__( 'Need something else? Let&#8217;s talk', 'origin-canvas' ); ?> <span aria-hidden="true">→</span></a></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group -->
 
@@ -196,6 +229,5 @@
 <!-- /wp:image --></div>
 <!-- /wp:group --></div>
 <!-- /wp:group --></div>
-<!-- /wp:group -->
-</section>
+<!-- /wp:group --></section>
 <!-- /wp:group -->

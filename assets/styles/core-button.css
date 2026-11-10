@@ -1,8 +1,9 @@
 /* Outline Strong is retired. Outline now carries its border-strong border, so the
    style left the Styles picker, and theme.json drops the CSS of a style that is not
    registered.
-   These rules keep buttons saved with the class looking as they did. The values are
-   the ones Outline uses in theme.json; change both together. */
+   This rule keeps buttons saved with the class looking as they did. The values are
+   the ones Outline uses in theme.json; change both together. Its states are the state
+   layer below, as Outline's are. */
 .wp-block-button.is-style-origin-canvas-outline-strong > .wp-block-button__link {
 	background-color: transparent;
 	border: 2px solid var(--wp--preset--color--contrast-4);
@@ -12,45 +13,74 @@
 	padding: calc(var(--wp--preset--spacing--small-medium) - 2px) calc(var(--wp--preset--spacing--extra-large) - 2px);
 }
 
-.wp-block-button.is-style-origin-canvas-outline-strong > .wp-block-button__link:hover,
-.wp-block-button.is-style-origin-canvas-outline-strong > .wp-block-button__link:focus-visible {
-	background-color: color-mix(in srgb, var(--wp--preset--color--contrast) 6%, transparent);
-	box-shadow: none;
+/* The state layer (#146). A button's hover, keyboard focus and press are its own label
+   color laid over its own fill: 12% on hover and focus and 20% on a press for a filled
+   button, 6% and 10% for an outline one. It depends on nothing but the button's two
+   colors, so it reads on any ground and with any color a user picks. theme.json holds
+   the rest values and no state, because its gradient state writes the background
+   shorthand, which erases the fill. The outline classes are matched on the wrapper or on
+   the link, since core saves is-style-outline on either; the filled rule excludes them on
+   both, so the two never meet. The press rules follow the hover rules, so a press wins
+   while the pointer still hovers. The hover is not gated on a hovering pointer: a mouse on
+   a touch-first device must still see it. */
+.wp-block-button > .wp-block-button__link {
+	isolation: isolate;
+	position: relative;
 }
 
-.wp-block-button.is-style-origin-canvas-outline-strong > .wp-block-button__link:active {
-	background-color: var(--wp--preset--color--base-4);
-	border-color: var(--wp--preset--color--contrast);
+.wp-block-button > .wp-block-button__link::after {
+	background-color: currentColor;
+	border-radius: inherit;
+	content: "";
+	inset: 0;
+	opacity: 0;
+	pointer-events: none;
+	position: absolute;
 }
 
-/* Every button fades its color, background and border in 200ms on hover and keyboard
-   focus. theme.json holds the state values but has no transition property, and cannot
-   hold a media query.
-   Filled buttons, the default and Fill Primary, also lift 1px. theme.json holds the
-   color step and the medium shadow; no block support sets a transform. The lift and
-   shadow keep 120ms. The hover lift needs a pointer that can hover, so a tap never
-   leaves a button raised. A press drops the lift. With reduced motion every state
-   changes at once and the button never moves. The outline styles do not lift. */
+.wp-block-button:not(.is-style-outline, .is-style-origin-canvas-outline-light, .is-style-origin-canvas-outline-strong) > .wp-block-button__link:not(.is-style-outline, .is-style-origin-canvas-outline-light, .is-style-origin-canvas-outline-strong):hover::after,
+.wp-block-button:not(.is-style-outline, .is-style-origin-canvas-outline-light, .is-style-origin-canvas-outline-strong) > .wp-block-button__link:not(.is-style-outline, .is-style-origin-canvas-outline-light, .is-style-origin-canvas-outline-strong):focus-visible::after {
+	opacity: 0.12;
+}
+
+.wp-block-button:not(.is-style-outline, .is-style-origin-canvas-outline-light, .is-style-origin-canvas-outline-strong) > .wp-block-button__link:not(.is-style-outline, .is-style-origin-canvas-outline-light, .is-style-origin-canvas-outline-strong):active::after {
+	opacity: 0.2;
+}
+
+.wp-block-button.is-style-outline > .wp-block-button__link:hover::after,
+.wp-block-button.is-style-origin-canvas-outline-light > .wp-block-button__link:hover::after,
+.wp-block-button.is-style-origin-canvas-outline-strong > .wp-block-button__link:hover::after,
+.wp-block-button > .wp-block-button__link.is-style-outline:hover::after,
+.wp-block-button > .wp-block-button__link.is-style-origin-canvas-outline-light:hover::after,
+.wp-block-button > .wp-block-button__link.is-style-origin-canvas-outline-strong:hover::after,
+.wp-block-button.is-style-outline > .wp-block-button__link:focus-visible::after,
+.wp-block-button.is-style-origin-canvas-outline-light > .wp-block-button__link:focus-visible::after,
+.wp-block-button.is-style-origin-canvas-outline-strong > .wp-block-button__link:focus-visible::after,
+.wp-block-button > .wp-block-button__link.is-style-outline:focus-visible::after,
+.wp-block-button > .wp-block-button__link.is-style-origin-canvas-outline-light:focus-visible::after,
+.wp-block-button > .wp-block-button__link.is-style-origin-canvas-outline-strong:focus-visible::after {
+	opacity: 0.06;
+}
+
+.wp-block-button.is-style-outline > .wp-block-button__link:active::after,
+.wp-block-button.is-style-origin-canvas-outline-light > .wp-block-button__link:active::after,
+.wp-block-button.is-style-origin-canvas-outline-strong > .wp-block-button__link:active::after,
+.wp-block-button > .wp-block-button__link.is-style-outline:active::after,
+.wp-block-button > .wp-block-button__link.is-style-origin-canvas-outline-light:active::after,
+.wp-block-button > .wp-block-button__link.is-style-origin-canvas-outline-strong:active::after {
+	opacity: 0.1;
+}
+
+
+/* Every button fades its color, background and border, and the state layer, in 200ms.
+   theme.json has no transition property and cannot hold a media query. With reduced
+   motion every state changes at once. */
 @media (prefers-reduced-motion: no-preference) {
 	.wp-block-button > .wp-block-button__link {
 		transition: color 200ms ease, background-color 200ms ease, border-color 200ms ease;
 	}
 
-	.wp-block-button:not(.is-style-outline, .is-style-origin-canvas-outline-light, .is-style-origin-canvas-outline-strong) > .wp-block-button__link {
-		transition: color 200ms ease, background-color 200ms ease, border-color 200ms ease, transform 120ms ease, box-shadow 120ms ease;
-	}
-
-	.wp-block-button:not(.is-style-outline, .is-style-origin-canvas-outline-light, .is-style-origin-canvas-outline-strong) > .wp-block-button__link:focus-visible {
-		transform: translateY(-1px);
-	}
-
-	.wp-block-button:not(.is-style-outline, .is-style-origin-canvas-outline-light, .is-style-origin-canvas-outline-strong) > .wp-block-button__link:active {
-		transform: none;
-	}
-}
-
-@media (prefers-reduced-motion: no-preference) and (hover: hover) {
-	.wp-block-button:not(.is-style-outline, .is-style-origin-canvas-outline-light, .is-style-origin-canvas-outline-strong) > .wp-block-button__link:hover:not(:active) {
-		transform: translateY(-1px);
+	.wp-block-button > .wp-block-button__link::after {
+		transition: opacity 200ms ease;
 	}
 }

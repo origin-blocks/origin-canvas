@@ -3,15 +3,15 @@ Theme Name: Origin Canvas
 Theme URI: https://origin-blocks.github.io/origin-canvas/
 Author: Origin
 Author URI: https://github.com/origin-blocks
-Description: Start closer to finished with a free WordPress block theme: templates, patterns and 12 style variations, ready to edit in the Site Editor.
+Description: Start closer to finished with Origin Canvas. Choose from 100 patterns in 18 categories, including 7 full-page designs. Customize your pages in the Site Editor, with no page builder or plugin needed. Use the 12 style variations to change colors, type or both, and Global Styles to adjust the design across your site. The patterns share color, type and spacing presets, so sections line up from page to page. Full demo: https://demo.originblocks.dev/canvas/
 Requires at least: 7.0
 Tested up to: 7.1
 Requires PHP: 7.4
-Version: 1.4.3
+Version: 1.5.0
 License: GNU General Public License v3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 Text Domain: origin-canvas
-Tags: blog, block-patterns, block-styles, custom-colors, custom-logo, custom-menu, editor-style, featured-images, full-site-editing, full-width-template, grid-layout, style-variations, threaded-comments, three-columns, translation-ready
+Tags: blog, block-patterns, block-styles, custom-colors, custom-logo, custom-menu, editor-style, featured-images, full-site-editing, full-width-template, grid-layout, one-column, style-variations, template-editing, threaded-comments, three-columns, translation-ready, two-columns, wide-blocks
 */
 
 /* Baseline reset keeps browser defaults predictable until block styles take over. */
@@ -100,8 +100,9 @@ a {
 }
 
 /* Every link fades its colour in 200ms on hover and focus, the nav link and button timing.
-   theme.json holds the hover colours but has no transition property. Nav links, buttons,
-   chips and the other links with their own transition rule are more specific and keep it. */
+   theme.json holds the link hover colours but has no transition property; a button's states
+   are the state layer in core-button.css. Nav links, buttons, chips and the other links with
+   their own transition rule are more specific and keep it. */
 @media (prefers-reduced-motion: no-preference) {
 	a {
 		transition: color 200ms ease;
@@ -196,75 +197,103 @@ textarea:disabled {
 	cursor: not-allowed;
 }
 
-/* Checkboxes and radios. Checked, a checkbox is a primary fill with a white check and a radio
-   is a primary border and dot: a tiny checked marker reads as a bullet, not an action. On
-   focus-visible both take the field's border and ring, since they are form inputs (#119). */
+/* Checkboxes and radios are the browser's own controls, drawn in the theme's primary: no
+   custom box, check, dot or focus ring, so they look and behave as the visitor's platform
+   draws them, as Ollie leaves them. */
 input[type="checkbox"],
 input[type="radio"] {
-	appearance: none;
-	-webkit-appearance: none;
-	background: var(--wp--preset--color--base);
-	border: 1px solid var(--wp--preset--color--contrast-5);
+	accent-color: var(--wp--preset--color--primary);
 	cursor: pointer;
-	height: 20px;
 	margin: 0;
-	position: relative;
-	width: 20px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-	input[type="checkbox"],
-	input[type="radio"] {
-		transition: background 120ms ease, border-color 120ms ease, box-shadow 120ms ease;
-	}
+/* Labels, control rows and fieldsets (#137). theme.json has no label, input or fieldset
+   element and core has no stable Form block, so these are CSS. Each selector is its
+   structure inside :where() plus one element, so every rule weighs exactly one element:
+   enough to follow the element reset above it, and under any class a plugin writes. A label looks like the comment form's: small, 500, the heading
+   color. A field inside or after its label sits 8px below it, whichever way the markup
+   nests (a plain label and field, or Contact Form 7's label around a span around the
+   field). A label that holds a checkbox or radio is a row: the control on the first line
+   of the text with an 8px gap, the text at body size and weight, 8px between stacked rows.
+   A fieldset is a plain group and its legend is a label. */
+:where(label, legend):is(label, legend) {
+	color: var(--wp--preset--color--contrast);
+	font-size: var(--wp--preset--font-size--small);
+	font-weight: 500;
 }
 
-input[type="checkbox"] {
-	border-radius: var(--wp--custom--radius--small);
+/* A label that holds its field, or stands before it, is a block at the comment form's line
+   height, so the label-to-field and field-to-next-label distances are the comment form's. */
+:where(label:has(> :is(input:not([type="checkbox"], [type="radio"], [type="submit"], [type="button"], [type="reset"], [type="hidden"]), select, textarea)), label:has(> span > :is(input:not([type="checkbox"], [type="radio"], [type="submit"], [type="button"], [type="reset"], [type="hidden"]), select, textarea)), label:has(+ :is(input:not([type="checkbox"], [type="radio"], [type="submit"], [type="button"], [type="reset"], [type="hidden"]), select, textarea))):is(label) {
+	display: block;
+	line-height: var(--wp--custom--line-height--normal);
 }
 
-input[type="radio"] {
-	border-radius: 50%;
+:where(label :is(input:not([type="checkbox"], [type="radio"], [type="submit"], [type="button"], [type="reset"], [type="hidden"]), select, textarea), label + :is(input:not([type="checkbox"], [type="radio"], [type="submit"], [type="button"], [type="reset"], [type="hidden"]), select, textarea)):is(input, select, textarea) {
+	margin-top: var(--wp--preset--spacing--small);
 }
 
-input[type="checkbox"]:checked {
-	background: var(--wp--preset--color--primary);
-	border-color: var(--wp--preset--color--primary);
+:where(label:has(> input[type="checkbox"], > input[type="radio"])):is(label) {
+	align-items: start;
+	color: var(--wp--preset--color--contrast-2);
+	display: inline-grid;
+	font-size: var(--wp--preset--font-size--regular);
+	font-weight: 400;
+	gap: var(--wp--preset--spacing--small);
+	grid-template-columns: auto 1fr;
 }
 
-input[type="radio"]:checked {
-	border-color: var(--wp--preset--color--primary);
+:where(label:has(> input[type="checkbox"], > input[type="radio"]) > :is(input[type="checkbox"], input[type="radio"])):is(input) {
+	margin-top: 0.35em;
 }
 
-input[type="checkbox"]:checked::after {
-	border: solid #fff;
-	border-width: 0 2px 2px 0;
-	content: "";
-	height: 9px;
-	left: 6px;
-	position: absolute;
-	top: 3px;
-	transform: rotate(45deg);
-	width: 5px;
+:where(label:has(> input[type="checkbox"], > input[type="radio"]) ~ label:has(> input[type="checkbox"], > input[type="radio"])):is(label),
+:where(.wpcf7-list-item + .wpcf7-list-item):is(span) {
+	margin-top: var(--wp--preset--spacing--small);
 }
 
-input[type="radio"]:checked::after {
-	background: var(--wp--preset--color--primary);
-	border-radius: 50%;
-	content: "";
-	height: 8px;
-	left: 50%;
-	position: absolute;
-	top: 50%;
-	transform: translate(-50%, -50%);
-	width: 8px;
+/* A field, a fieldset or a control row is followed by a medium gap before the next label
+   or group, so a form built from bare labels and fields, or from paragraphs as Contact
+   Form 7 writes them, reads in rows. The Search block lays its field and button out
+   itself, so it is left alone. */
+:where(form:not(.wp-block-search) :is(input:not([type="checkbox"], [type="radio"], [type="submit"], [type="button"], [type="reset"], [type="hidden"]), select, textarea, fieldset)):is(input, select, textarea, fieldset) {
+	margin-bottom: var(--wp--preset--spacing--medium);
 }
 
-input[type="checkbox"]:focus-visible,
-input[type="radio"]:focus-visible {
-	border-color: var(--wp--preset--color--primary);
-	box-shadow: 0 0 0 var(--wp--preset--spacing--extra-small) color-mix(in srgb, var(--wp--preset--color--primary) 25%, transparent);
-	outline: none;
+:where(form p + p):is(p) {
+	margin-top: var(--wp--preset--spacing--medium);
+}
+
+/* Later than the rule above and at the same zero specificity, so it wins: a field inside a
+   paragraph takes the paragraph gap only. */
+:where(form p :is(input:not([type="checkbox"], [type="radio"], [type="submit"], [type="button"], [type="reset"], [type="hidden"]), select, textarea, fieldset)):is(input, select, textarea, fieldset) {
+	margin-bottom: 0;
+}
+
+:where(form label:has(> input[type="checkbox"], > input[type="radio"]) + :is(p, button, input[type="submit"], input[type="button"])):is(p, button, input) {
+	margin-top: var(--wp--preset--spacing--medium);
+}
+
+:where(fieldset):is(fieldset) {
+	border: 0;
+	margin: 0;
+	margin-bottom: var(--wp--preset--spacing--medium);
+	min-width: 0;
+	padding: 0;
+}
+
+:where(fieldset > label:has(> input[type="checkbox"], > input[type="radio"])):is(label) {
+	display: grid;
+}
+
+:where(legend):is(legend) {
+	display: block;
+	margin-bottom: var(--wp--preset--spacing--small);
+	padding: 0;
+}
+
+:where(legend + label:has(> input[type="checkbox"], > input[type="radio"])):is(label) {
+	margin-top: 0;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -574,6 +603,15 @@ html {
 	text-wrap: balance;
 }
 
+/* A wide hero headline capped at 810px, a reading measure. Core gives a child only the
+   content width or the wide width, and a literal content width leaves the Layout control
+   (#130). At the wide width a long headline runs up to about 1,150px; this caps the
+   heading's box at 810px, and the balance utility evens its lines. Set on an h1 with
+   align wide, which core still centres. */
+.is-layout-constrained > .origin-canvas-display-measure.alignwide {
+	max-width: 810px;
+}
+
 /* A dot texture on a section: 1px dots at a 20px pitch, contrast at 8% on a
    light ground, base-2 at 10% on the theme's dark grounds (ODS "Dot texture").
    Apply one class: even dots, fade to centre (strongest at the top and sides), or
@@ -622,7 +660,7 @@ html {
 }
 
 /* The theme's dark grounds: the custom.dark.bg fill the dark patterns use, and the
-   contrast palette fill. Every form peaks at the ruled 10%; a fade keeps its
+   contrast palette fill. Every form peaks at 10%; a fade keeps its
    masks, so fade to centre scales from 10% at the top edge. Content saved before the
    #116 rename still holds the old Text Heading fill class; the twin rules in
    assets/css/palette-aliases.css match it. */
@@ -1206,4 +1244,24 @@ ul.wp-block-list:is(.is-style-origin-canvas-list-check, .is-style-origin-canvas-
 	.wp-block-buttons.is-layout-flex.origin-canvas-cta-inline-action {
 		justify-content: flex-start;
 	}
+}
+
+/**
+ * Footer Wordmark: the footer's bottom edge cuts the site's name.
+ *
+ * Core has no overflow control. The name's line height of 0.8 fits its box to the letters
+ * and its -0.15em bottom margin pulls the footer's edge into them; hidden, not clip, so that
+ * margin stays inside the footer instead of passing through it, and the edge cuts the lowest
+ * part of the letters at every width. The tight box leaves the text's own area reaching about
+ * a fifth of its size above it, over the copyright line and on wide screens the menu, so the
+ * blocks before the name stack above it, in the editor too, where every block is already
+ * positioned: they paint and take the pointer over that area, and the name stays editable.
+ */
+.origin-canvas-footer-wordmark {
+	overflow: hidden;
+}
+
+.origin-canvas-footer-wordmark > :not(.wp-block-site-title) {
+	position: relative;
+	z-index: 1;
 }

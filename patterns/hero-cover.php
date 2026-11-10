@@ -5,7 +5,7 @@
  * Description: A rounded photo the width of the content with two small cards over it, and an availability line below.
  * Categories: origin-canvas/hero
  * Keywords: editorial, home page, background, banner
- * Block Types: core/post-content
+ * Block Types:
  * Viewport Width: 1500
  * Inserter: true
  *
@@ -16,35 +16,38 @@
 <!-- wp:group {"tagName":"section","align":"full","style":{"spacing":{"margin":{"top":"0","bottom":"0"},"padding":{"top":"var:preset|spacing|colossal","bottom":"var:preset|spacing|colossal"}}},"layout":{"type":"constrained"}} -->
 <section class="wp-block-group alignfull" style="margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--colossal);padding-bottom:var(--wp--preset--spacing--colossal)"><!-- wp:group {"align":"wide","style":{"spacing":{"blockGap":"var:preset|spacing|medium"}},"layout":{"type":"default"}} -->
 <div class="wp-block-group alignwide"><!-- wp:cover {"url":"<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/timber-stack.webp","alt":"Oak and ash boards, one charred black, standing upright against a pale workshop wall, with chisels on a wall rack.","dimRatio":100,"customGradient":"linear-gradient(rgba(17,24,39,0.15),rgba(17,24,39,0.15))","isUserOverlayColor":false,"minHeight":600,"minHeightUnit":"px","isDark":false,"className":"origin-canvas-cover-story__frame","style":{"border":{"radius":"var:custom|radius|large"},"spacing":{"padding":{"top":"var:preset|spacing|large","right":"var:preset|spacing|large","bottom":"var:preset|spacing|large","left":"var:preset|spacing|large"}}},"layout":{"type":"default"}} -->
-<div class="wp-block-cover is-light origin-canvas-cover-story__frame" style="border-radius:var(--wp--custom--radius--large);padding-top:var(--wp--preset--spacing--large);padding-right:var(--wp--preset--spacing--large);padding-bottom:var(--wp--preset--spacing--large);padding-left:var(--wp--preset--spacing--large);min-height:600px"><img class="wp-block-cover__image-background" alt="<?php esc_attr_e( 'Oak and ash boards, one charred black, standing upright against a pale workshop wall, with chisels on a wall rack.', 'origin-canvas' ); ?>" src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/timber-stack.webp" data-object-fit="cover"/><span aria-hidden="true" class="wp-block-cover__background has-background-dim-100 has-background-dim wp-block-cover__gradient-background has-background-gradient" style="background:linear-gradient(rgba(17,24,39,0.15),rgba(17,24,39,0.15))"></span><div class="wp-block-cover__inner-container"><!-- wp:group {"className":"origin-canvas-cover-story__layout","layout":{"type":"default"}} -->
-<div class="wp-block-group origin-canvas-cover-story__layout"><!-- wp:group {"className":"origin-canvas-cover-story__card origin-canvas-cover-story__masthead","backgroundColor":"base","textColor":"contrast","style":{"border":{"radius":"var:custom|radius|medium"},"spacing":{"padding":{"top":"var:preset|spacing|large","right":"var:preset|spacing|large","bottom":"var:preset|spacing|large","left":"var:preset|spacing|large"}}},"layout":{"type":"constrained"}} -->
-<div class="wp-block-group origin-canvas-cover-story__card origin-canvas-cover-story__masthead has-contrast-color has-base-background-color has-text-color has-background" style="border-radius:var(--wp--custom--radius--medium);padding-top:var(--wp--preset--spacing--large);padding-right:var(--wp--preset--spacing--large);padding-bottom:var(--wp--preset--spacing--large);padding-left:var(--wp--preset--spacing--large)"><!-- wp:paragraph {"className":"origin-canvas-eyebrow","style":{"typography":{"textTransform":"uppercase","fontWeight":"600","letterSpacing":"0.06em"},"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|small"}}},"textColor":"primary","fontSize":"extra-small"} -->
+<div class="wp-block-cover is-light origin-canvas-cover-story__frame" style="border-radius:var(--wp--custom--radius--large);padding-top:var(--wp--preset--spacing--large);padding-right:var(--wp--preset--spacing--large);padding-bottom:var(--wp--preset--spacing--large);padding-left:var(--wp--preset--spacing--large);min-height:600px"><img class="wp-block-cover__image-background" alt="<?php esc_attr_e( 'Oak and ash boards, one charred black, standing upright against a pale workshop wall, with chisels on a wall rack.', 'origin-canvas' ); ?>" src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/timber-stack.webp" data-object-fit="cover"/><span aria-hidden="true" class="wp-block-cover__background has-background-dim-100 has-background-dim wp-block-cover__gradient-background has-background-gradient" style="background:linear-gradient(rgba(17,24,39,0.15),rgba(17,24,39,0.15))"></span><div class="wp-block-cover__inner-container">
+<!-- wp:group {"className":"origin-canvas-cover-story__layout","layout":{"type":"default"}} -->
+<div class="wp-block-group origin-canvas-cover-story__layout">
+<!-- wp:group {"className":"origin-canvas-cover-story__card origin-canvas-cover-story__masthead","backgroundColor":"base","textColor":"contrast","style":{"border":{"radius":"var:custom|radius|medium"},"spacing":{"padding":{"top":"var:preset|spacing|large","right":"var:preset|spacing|large","bottom":"var:preset|spacing|large","left":"var:preset|spacing|large"}}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group origin-canvas-cover-story__card origin-canvas-cover-story__masthead has-contrast-color has-base-background-color has-text-color has-background" style="border-radius:var(--wp--custom--radius--medium);padding-top:var(--wp--preset--spacing--large);padding-right:var(--wp--preset--spacing--large);padding-bottom:var(--wp--preset--spacing--large);padding-left:var(--wp--preset--spacing--large)">
+<!-- wp:paragraph {"className":"origin-canvas-eyebrow","style":{"typography":{"textTransform":"uppercase","fontWeight":"600","letterSpacing":"0.06em"},"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|small"}}},"textColor":"primary","fontSize":"extra-small"} -->
 <p class="origin-canvas-eyebrow has-primary-color has-text-color has-extra-small-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--small);font-weight:600;letter-spacing:0.06em;text-transform:uppercase"><?php echo esc_html__( 'Featured', 'origin-canvas' ); ?> &middot; <?php echo esc_html__( 'Spring 2026', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
-
 <!-- wp:heading {"level":3,"style":{"typography":{"lineHeight":"1.1"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"contrast","fontSize":"large"} -->
 <h3 class="wp-block-heading has-contrast-color has-text-color has-large-font-size" style="margin-top:0;margin-bottom:0;line-height:1.1"><?php echo esc_html__( 'Ash &amp; Pine Woodworks', 'origin-canvas' ); ?></h3>
 <!-- /wp:heading -->
-
 <!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"var:preset|spacing|small-medium"}}},"textColor":"contrast-2","fontSize":"regular"} -->
 <p class="has-contrast-2-color has-text-color has-regular-font-size" style="margin-top:var(--wp--preset--spacing--small-medium)"><?php echo esc_html__( 'Identity and a portfolio site for a two-person woodworking shop. Eight weeks, forty pieces photographed, one new wordmark.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph -->
-
 <!-- wp:paragraph {"className":"origin-canvas-links-plain","style":{"typography":{"fontWeight":"600"},"spacing":{"margin":{"top":"var:preset|spacing|medium","bottom":"0"}}},"textColor":"contrast","fontSize":"regular"} -->
 <p class="origin-canvas-links-plain has-contrast-color has-text-color has-regular-font-size" style="margin-top:var(--wp--preset--spacing--medium);margin-bottom:0;font-weight:600"><a href="#"><?php echo esc_html__( 'Read the case study', 'origin-canvas' ); ?> <span aria-hidden="true">&rarr;</span></a></p>
-<!-- /wp:paragraph --></div>
+<!-- /wp:paragraph -->
+</div>
 <!-- /wp:group -->
-
 <!-- wp:group {"className":"origin-canvas-cover-story__card origin-canvas-cover-story__studio-line","backgroundColor":"base","textColor":"contrast","style":{"border":{"radius":"var:custom|radius|medium"},"spacing":{"padding":{"top":"var:preset|spacing|large","right":"var:preset|spacing|large","bottom":"var:preset|spacing|large","left":"var:preset|spacing|large"}}},"layout":{"type":"constrained"}} -->
-<div class="wp-block-group origin-canvas-cover-story__card origin-canvas-cover-story__studio-line has-contrast-color has-base-background-color has-text-color has-background" style="border-radius:var(--wp--custom--radius--medium);padding-top:var(--wp--preset--spacing--large);padding-right:var(--wp--preset--spacing--large);padding-bottom:var(--wp--preset--spacing--large);padding-left:var(--wp--preset--spacing--large)"><!-- wp:heading {"level":1,"style":{"typography":{"lineHeight":"1.2"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"contrast","fontSize":"regular-plus"} -->
+<div class="wp-block-group origin-canvas-cover-story__card origin-canvas-cover-story__studio-line has-contrast-color has-base-background-color has-text-color has-background" style="border-radius:var(--wp--custom--radius--medium);padding-top:var(--wp--preset--spacing--large);padding-right:var(--wp--preset--spacing--large);padding-bottom:var(--wp--preset--spacing--large);padding-left:var(--wp--preset--spacing--large)">
+<!-- wp:heading {"level":1,"style":{"typography":{"lineHeight":"1.2"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"contrast","fontSize":"regular-plus"} -->
 <h1 class="wp-block-heading has-contrast-color has-text-color has-regular-plus-font-size" style="margin-top:0;margin-bottom:0;line-height:1.2"><?php echo esc_html__( 'An independent studio for brand identity and websites.', 'origin-canvas' ); ?></h1>
 <!-- /wp:heading -->
-
 <!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"var:preset|spacing|small","bottom":"0"}}},"textColor":"contrast-3","fontSize":"small"} -->
 <p class="has-contrast-3-color has-text-color has-small-font-size" style="margin-top:var(--wp--preset--spacing--small);margin-bottom:0"><?php echo esc_html__( 'Working with small businesses since 2018.', 'origin-canvas' ); ?></p>
-<!-- /wp:paragraph --></div>
-<!-- /wp:group --></div>
-<!-- /wp:group --></div></div>
+<!-- /wp:paragraph -->
+</div>
+<!-- /wp:group -->
+</div>
+<!-- /wp:group -->
+</div></div>
 <!-- /wp:cover -->
 
 <!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|medium"}},"textColor":"contrast-3","layout":{"type":"flex","flexWrap":"wrap","justifyContent":"space-between","verticalAlignment":"center"}} -->
@@ -56,12 +59,12 @@
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"className":"origin-canvas-links-plain","style":{"typography":{"fontWeight":"600"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"contrast","fontSize":"small"} -->
-<p class="origin-canvas-links-plain has-contrast-color has-text-color has-small-font-size" style="margin-top:0;margin-bottom:0;font-weight:600"><a href="#"><?php echo esc_html__( 'Book a call', 'origin-canvas' ); ?> <span aria-hidden="true">&rarr;</span></a></p>
+<p class="origin-canvas-links-plain has-contrast-color has-text-color has-small-font-size" style="margin-top:0;margin-bottom:0;font-weight:600"><a href="#"><?php echo esc_html__( 'Book a call', 'origin-canvas' ); ?> <span aria-hidden="true">→</span></a></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group -->
 
 <!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"fontSize":"small"} -->
-<p class="has-small-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Scroll for what we do', 'origin-canvas' ); ?> &darr;</p>
+<p class="has-small-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Scroll for what we do', 'origin-canvas' ); ?> ↓</p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group --></div>
 <!-- /wp:group --></section>

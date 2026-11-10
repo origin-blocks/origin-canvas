@@ -14,7 +14,7 @@
  */
 
 ?>
-<!-- wp:group {"backgroundColor":"base-2","style":{"border":{"radius":"var:custom|radius|medium"},"spacing":{"padding":{"top":"0","right":"0","bottom":"var:preset|spacing|extra-large","left":"0"},"blockGap":"var:preset|spacing|extra-large"}},"layout":{"type":"constrained"}} -->
+<!-- wp:group {"style":{"border":{"radius":"var:custom|radius|medium"},"spacing":{"padding":{"top":"0","right":"0","bottom":"var:preset|spacing|extra-large","left":"0"},"blockGap":"var:preset|spacing|extra-large"}},"backgroundColor":"base-2","layout":{"type":"constrained"}} -->
 <div class="wp-block-group has-base-2-background-color has-background" style="border-radius:var(--wp--custom--radius--medium);padding-top:0;padding-right:0;padding-bottom:var(--wp--preset--spacing--extra-large);padding-left:0"><!-- wp:image {"aspectRatio":"3/2","linkDestination":"none","style":{"border":{"radius":{"topLeft":"var:custom|radius|medium","topRight":"var:custom|radius|medium"}}}} -->
 <figure class="wp-block-image has-custom-border"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/patterns/images/card-blog-1.webp" alt="<?php esc_attr_e( 'A printed Kestrel Physical Therapy website brief on a clipboard, with blue pen notes and the clinic&#8217;s orange appointment card clipped to the corner.', 'origin-canvas' ); ?>" style="border-top-left-radius:var(--wp--custom--radius--medium);border-top-right-radius:var(--wp--custom--radius--medium);aspect-ratio:3/2"/></figure>
 <!-- /wp:image -->
@@ -33,7 +33,7 @@
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"contrast-3","fontSize":"small"} -->
-<p class="has-contrast-3-color has-text-color has-small-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Claire Bennett', 'origin-canvas' ); ?> &middot; <?php echo esc_html__( 'Apr 18, 2026', 'origin-canvas' ); ?> &middot; <?php echo esc_html__( '4 min read', 'origin-canvas' ); ?></p>
+<p class="has-contrast-3-color has-text-color has-small-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Claire Bennett', 'origin-canvas' ); ?> · <?php echo esc_html__( 'Apr 18, 2026', 'origin-canvas' ); ?> · <?php echo esc_html__( '4 min read', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group --></div>
 <!-- /wp:group -->

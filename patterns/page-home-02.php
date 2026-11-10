@@ -6,8 +6,8 @@
  * Categories: origin-canvas/page
  * Keywords: layout, agency, freelance, business, landing, portfolio
  * Viewport Width: 1500
- * Block Types:
- * Post Types:
+ * Block Types: core/post-content
+ * Post Types: page, wp_template
  * Inserter: true
  *
  * @package Origin
@@ -15,7 +15,11 @@
 
 ?>
 <!-- wp:pattern {"slug":"origin-canvas/hero-centered-logos"} /-->
+
 <!-- wp:pattern {"slug":"origin-canvas/work-grid"} /-->
+
 <!-- wp:pattern {"slug":"origin-canvas/features-accordion"} /-->
+
 <!-- wp:pattern {"slug":"origin-canvas/testimonial-highlight-dark"} /-->
+
 <!-- wp:pattern {"slug":"origin-canvas/cta-band"} /-->

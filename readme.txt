@@ -2,7 +2,7 @@
 
 Contributors: originblocks
 
-Tags: blog, block-patterns, block-styles, custom-colors, custom-logo, custom-menu, editor-style, featured-images, full-site-editing, full-width-template, grid-layout, style-variations, threaded-comments, three-columns, translation-ready
+Tags: blog, block-patterns, block-styles, custom-colors, custom-logo, custom-menu, editor-style, featured-images, full-site-editing, full-width-template, grid-layout, one-column, style-variations, template-editing, threaded-comments, three-columns, translation-ready, two-columns, wide-blocks
 
 Requires at least: 7.0
 Tested up to: 7.1
@@ -10,7 +10,7 @@ Requires PHP: 7.4
 License: GNU General Public License v3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-Start closer to finished with a free WordPress block theme: templates, patterns and 12 style variations, ready to edit in the Site Editor.
+Start closer to finished with Origin Canvas. Choose from 100 patterns in 18 categories, including 7 full-page designs. Customize your pages in the Site Editor, with no page builder or plugin needed. Use the 12 style variations to change colors, type or both, and Global Styles to adjust the design across your site. The patterns share color, type and spacing presets, so sections line up from page to page. Full demo: https://demo.originblocks.dev/canvas/
 
 == Description ==
 
@@ -100,7 +100,11 @@ Pattern image "Kestrel website wireframes" (patterns/images/studio-wireframe-rev
 
 Pattern image "Mercer Street Framing case-study image" (patterns/images/frame-samples.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
+Pattern image "Studio at the end of the day" (patterns/images/studio-end-of-day.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+
 Pattern image "Studio one project" (patterns/images/studio-one-project.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
+
+Pattern image "Studio printed layouts" (patterns/images/studio-printed-layouts.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
 Pattern image "Mercer Street Framing wordmark tests" (patterns/images/studio-type-proofs.webp), AI-generated for Origin Canvas using OpenAI/ChatGPT image generation. Released by Origin under GPLv3. Provider terms: OpenAI Terms of Use, https://openai.com/policies/terms-of-use/.
 
@@ -227,6 +231,21 @@ One more limit sits in the Site Editor: on a site whose saved Styles hold the ol
 A tool that moves saved content to the new names is available on request from support.
 
 == Changelog ==
+
+= 1.5.0 - 10 November 2026 =
+* Added 7 new patterns, taking the library to 100 patterns in 18 categories. Header Utility puts a thin bar with the phone number, email address and opening hours above the Header With Button row; on phones and tablets the email and hours are hidden, so the number stands alone, ready to tap. Footer With Contact Details sets the address, phone, email and hours in four labeled cells, with the copyright line and a Privacy policy link under them. Footer Oversized Title ends a page with the site's own name across the full width, very faint and cut by the footer's bottom edge. The name sits below a short menu, a one-sentence introduction and the copyright row; it is the Site Title block with Fit text, which the block now offers, so the name stays on one line at any width. Company Timeline tells a business's history in five dated rows beside a heading that holds its place while the rows scroll, until the columns stack on a narrow screen. Post Loop Text lists the five latest posts as title, excerpt and date, with no images, and links to the posts page, or to the homepage when it shows posts. Hero Hiring opens a careers page and CTA Hiring Card Tinted closes it with an open application; Job Openings gains a line on how to apply and one line per role, and Contact Routes gains a fourth route, Applying for a role, with its own anchor for a hiring page's Apply buttons. Set the Apply buttons' links and the two new footers' Privacy policy links yourself; they ship as placeholders.
+* Replaced the button hover with a wash of the button's own label color over its fill: 12% on hover and keyboard focus and 20% when pressed for a filled button, 6% and 10% for an outline button. The 1px lift and the hover shadow from 1.4.0 are gone. The state uses nothing but the button's two colors, so a button with its own label, fill or border color keeps that color in every state.
+* Set checkboxes and radio buttons to the browser's own controls, colored with the theme's primary, in place of the theme's drawn 20px box and ring. The comment form's consent checkbox follows, and the browser's own focus ring applies.
+* Styled plain HTML forms and the markup a form plugin writes. A label that holds its field, or stands before it, takes the comment form's line height, with the field 8px below. A label with a checkbox or radio as its direct child is a row, with the control on the first line of its text, 8px from it, and 8px between stacked rows. A fieldset is a plain group with its legend as a label. A field or fieldset that is not inside a paragraph is followed by a medium gap (16px to 20px), as is a control row before a paragraph or button; paragraphs in a form sit the same gap apart, so a field inside a paragraph takes that gap instead. The new selectors have element-level specificity, so a class a plugin sets still wins, and the Search block and the comment form keep their own rules.
+* Capped the headline of eight hero patterns at 810px, in balanced lines, where before it could run to the 1200px wide width: Hero Canvas, Hero Centered, Hero Centered Logos, Hero Centered Without Buttons, Hero Dark, Hero Grid, Hero Statement and Pricing Hero. The new Hero Hiring uses the same cap. The cap is a class on the pattern's heading, so a hero saved before this release keeps its width.
+* Set Footer Minimal to the spacing the other footers use, 64px to 96px above and below depending on the screen width, with the same gap before its copyright row, and removed the rule under its title row. Saved copies are unchanged.
+* Offered the 7 full-page patterns, and no section patterns, in the window that opens on a new page and in the inserter's Starter content category; before, 26 sections were offered there and no page. A page pattern is not offered in a post, and the sections stay in their own categories. Landing Page and Home: Editorial Cover now say, as the other five page patterns already did, to use the Page (Full Width, No Title) template, because the default template prints the page title above the pattern's own heading.
+* Set every inserter preview to 1500px wide; the previews of 21 of the patterns had no width set and Process Numbered used 1200px. Inserted content is unchanged.
+* Fixed the single post's category label sitting at the left edge under the centered title on the WordPress.org theme preview, which reads an older alignment attribute. On a site the post renders as before.
+* Fixed the landing page's showcase sections counting the style variations as 11; the theme has 12 style variations and the sections now say so.
+* Removed hidden metadata from six testimonial portraits and six client logos. The pictures are unchanged, and each portrait file is 22 to 36% smaller, so pages that show them download less.
+* Replaced the Features With Image photo with the studio at its long table, working through a client's printed pages, and recast its copy as an invitation to write: "Most projects start with one email.", three items on what happens when you write, and an Email us button that opens an email. Text Split on the About page now shows the team at the end of the day in place of hands over page layouts. A copy saved before this release keeps its photo.
+* Set the demo copy straight where pages disagreed: Claire Bennett has one bio in Team Grid and Team List, Mercer Street Framing is a weekend rebrand in Work Band Cards and Work Grid, Process Cards opens with "Four steps." and Stats List counts its eight weeks from kickoff to launch day, as the hero and the FAQ do.
 
 = 1.4.3 - 2 November 2026 =
 * Restored the display of card images inserted under 1.0.x. Those versions kept the card images in a folder that 1.1.0 moved, and 1.4.0 stopped pointing the saved image addresses at the new folder, so a page built on 1.0.x lost its card images on update. The saved addresses work again, for Image and Cover blocks only, until 2.0.0.

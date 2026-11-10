@@ -6,8 +6,8 @@
  * Categories: origin-canvas/page
  * Keywords: layout, agency, freelance, business, rates, packages
  * Viewport Width: 1500
- * Block Types:
- * Post Types:
+ * Block Types: core/post-content
+ * Post Types: page, wp_template
  * Inserter: true
  *
  * @package Origin
@@ -15,8 +15,13 @@
 
 ?>
 <!-- wp:pattern {"slug":"origin-canvas/pricing-hero"} /-->
+
 <!-- wp:pattern {"slug":"origin-canvas/features-checklist"} /-->
+
 <!-- wp:pattern {"slug":"origin-canvas/process-cards"} /-->
+
 <!-- wp:pattern {"slug":"origin-canvas/testimonial-highlight-dark"} /-->
+
 <!-- wp:pattern {"slug":"origin-canvas/faq-two-column"} /-->
+
 <!-- wp:pattern {"slug":"origin-canvas/cta-band-dark"} /-->

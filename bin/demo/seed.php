@@ -12,6 +12,13 @@ if ( ! defined( 'WP_CLI' ) ) {
 	return;
 }
 
+/* The seed writes US English content and the Careers page matches the theme's English strings,
+   which the registry translates at registration, so another site language cannot seed. */
+if ( 'en_US' !== get_locale() ) {
+	WP_CLI::error( 'The demo seed needs the site language set to English (United States); it writes US English content and matches the theme\'s English strings.' );
+}
+
+
 require_once ABSPATH . 'wp-admin/includes/file.php';
 require_once ABSPATH . 'wp-admin/includes/media.php';
 require_once ABSPATH . 'wp-admin/includes/image.php';
@@ -87,7 +94,7 @@ function oc_demo_insert( $args ) {
 
 $authors = array();
 foreach ( array(
-	'claire' => array( 'Claire Bennett', 'Co-founder. Twelve years in agencies before going small. Most days she&#8217;s in a discovery call or pushing back on a brief.' ),
+	'claire' => array( 'Claire Bennett', 'Co-founder. Twelve years in agencies before going small. She writes about type, color, and the craft of making sites that look designed rather than assembled.' ),
 	'marcus' => array( 'Marcus Holloway', 'Co-founder and Designer. Started the studio with Claire after ten years in print. Still checks every page twice before it goes out.' ),
 	'hannah' => array( 'Hannah Wright', 'Brand Strategist. Works out what a business is actually saying before anyone draws a page. Runs the first week of every project.' ),
 	'ben'    => array( 'Ben Carter', 'Developer. Builds every site and runs the launch. Tests it all on the oldest phone in the office.' ),
@@ -193,24 +200,79 @@ $blog = oc_demo_insert(
 );
 $menu[] = array( 'Blog', $blog );
 
-/* Two pages the footer links to and the menu leaves out: Careers, the theme's Job Openings
-   pattern under the page title with its apply links pointed at the contact page, and the
-   privacy policy, which WordPress is told about so the login and comment forms can link to
-   it. Both use the default page template, so the title is the page's h1. */
+/* Two pages the footer links to and the menu leaves out: Careers, composed from five section
+   patterns with its links pointed at the contact page's applicant route and its reused rows given
+   job-seeker lines, and the privacy policy, which WordPress is told about so the login and comment
+   forms can link to it. Careers uses the no-title template, as the page patterns do; the privacy
+   policy uses the default template, so the title is the page's h1. */
+
+/**
+ * The Careers page: the five section patterns in order. Seven counted replacements point the
+ * three Apply links and the closer's button at the contact page's applicant route and give the
+ * team intro, Ben's bio and the work grid's heading their job-seeker lines. The work grid also
+ * loses its muted ground, since the rows either side of it are muted, and its View all work and
+ * Read the latest links go to the home page and the blog; the three case study links stay "#",
+ * as on the home page, because the demo has no case study pages. A count that is off means a
+ * pattern changed under the seed, so the seed stops.
+ *
+ * @param string $contact_url The contact page's permalink.
+ * @param string $home_url    The site's front page address (the home page becomes the static front page after this insert).
+ * @param string $blog_url    The blog page's permalink.
+ * @return string Block markup.
+ */
+function oc_demo_careers_content( $contact_url, $home_url, $blog_url ) {
+	$registry = WP_Block_Patterns_Registry::get_instance();
+	$content  = '';
+	foreach ( array( 'hero-hiring', 'job-openings', 'work-grid', 'team-grid', 'cta-hiring-card' ) as $slug ) {
+		$pattern = $registry->get_registered( 'origin-canvas/' . $slug );
+		if ( ! $pattern ) {
+			WP_CLI::error( "The Careers page needs the origin-canvas/$slug pattern." );
+		}
+		$part = $pattern['content'];
+		if ( 'work-grid' === $slug ) {
+			$grid = array(
+				array( '"blockGap":"var:preset|spacing|large"}},"backgroundColor":"base-2","layout"', '"blockGap":"var:preset|spacing|large"}},"layout"' ),
+				array( '<section class="wp-block-group alignfull has-base-2-background-color has-background"', '<section class="wp-block-group alignfull"' ),
+				array( '<a href="#" style="text-decoration:none">View all work', '<a href="' . esc_url( $home_url ) . '" style="text-decoration:none">View all work' ),
+				array( '<a href="#" style="text-decoration:none">Read the latest', '<a href="' . esc_url( $blog_url ) . '" style="text-decoration:none">Read the latest' ),
+			);
+			foreach ( $grid as $swap ) {
+				$part = str_replace( $swap[0], $swap[1], $part, $count );
+				if ( 1 !== $count ) {
+					WP_CLI::error( "The Careers page expected one of: {$swap[0]}; found $count." );
+				}
+			}
+		}
+		$content .= $part;
+	}
+	$apply = esc_url( $contact_url . '#applying-for-a-role' );
+	$swaps = array(
+		array( '<a href="#"><span aria-hidden="true">Apply</span>', '<a href="' . $apply . '"><span aria-hidden="true">Apply</span>', 3 ),
+		array( '<a class="wp-block-button__link wp-element-button" href="#">Write to the studio', '<a class="wp-block-button__link wp-element-button" href="' . $apply . '">Write to the studio', 1 ),
+		array( 'Two founders, a strategist and a developer. Whoever you meet on the first call stays on your project until launch day.', 'Two founders, a strategist and a developer. You join a project at kickoff and stay on it to launch day.', 1 ),
+		array( 'Builds every site and runs the launch. Tests it all on the oldest phone in the office.', 'Builds the sites and runs every launch. Tests it all on the oldest phone in the office.', 1 ),
+		array( 'Selected work', 'The kind of work you would do', 1 ),
+	);
+	foreach ( $swaps as $swap ) {
+		list( $from, $to, $expected ) = $swap;
+		$content = str_replace( $from, $to, $content, $count );
+		if ( $count !== $expected ) {
+			WP_CLI::error( "The Careers page expected $expected of: $from; found $count." );
+		}
+	}
+	return $content;
+}
 
 $careers = oc_demo_insert(
 	array(
-		'post_type'    => 'page',
-		'post_status'  => 'publish',
-		'post_title'   => 'Careers',
-		'post_name'    => 'careers',
-		'post_content' => preg_replace(
-			'/href="#"(><span aria-hidden="true">Apply)/',
-			'href="' . esc_url( get_permalink( $by_role['contact'] ) ) . '"$1',
-			WP_Block_Patterns_Registry::get_instance()->get_registered( 'origin-canvas/job-openings' )['content']
-		), // The three Apply links go to the contact page; "View all open roles" is this page.
-		'post_author'  => $authors['claire'],
-		'menu_order'   => $order + 1,
+		'post_type'     => 'page',
+		'post_status'   => 'publish',
+		'post_title'    => 'Careers',
+		'post_name'     => 'careers',
+		'post_content'  => oc_demo_careers_content( get_permalink( $by_role['contact'] ), home_url( '/' ), get_permalink( $blog ) ),
+		'post_author'   => $authors['claire'],
+		'menu_order'    => $order + 1,
+		'page_template' => 'page-no-title',
 	)
 );
 
@@ -264,7 +326,7 @@ foreach ( array(
 $long = implode(
 	"\n\n",
 	array(
-		oc_demo_p( 'A website project with us takes six weeks, from the first call to a site the client can edit on their own. Most clients ask what happens in those weeks before they sign, so here is the plan we send them, with the parts that tend to move.' ),
+		oc_demo_p( 'A website project with us takes six weeks, from kickoff to a site the client can edit on their own. Most clients ask what happens in those weeks before they sign, so here is the plan we send them, with the parts that tend to move.' ),
 		oc_demo_h( 'Week one: questions and a site map' ),
 		oc_demo_p( 'We start with a 90-minute call and a shared folder. By the end of the week the client has a one-page brief and a site map they have approved, and we have every login we need.' ),
 		oc_demo_list(
@@ -289,7 +351,7 @@ $long = implode(
 			),
 			true
 		),
-		oc_demo_quote( 'We had a site we could edit ourselves six weeks after the first call, and the booking form has not needed a change since.', 'Owen Parker, Clinic Director, Kestrel Physical Therapy' ),
+		oc_demo_quote( 'We had a site we could edit ourselves six weeks after kickoff, and the booking form has not needed a change since.', 'Owen Parker, Clinic Director, Kestrel Physical Therapy' ),
 		oc_demo_h( 'Week six: launch' ),
 		oc_demo_p( 'Launch week is mostly checks. The step clients forget is the old site: links in emails, on business cards and in search results still point at its pages. We keep a redirect map from the first call and add it to the server the day before launch.' ),
 		oc_demo_code( "# Old addresses to new pages, added the day before launch\nRedirect 301 /services.html /what-we-do/\nRedirect 301 /about-us.html /about/\nRedirect 301 /contact.php /contact/\nRedirect 301 /book-online /book/" ),
