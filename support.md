@@ -16,7 +16,7 @@ Screenshots help when the issue is visual. Steps to reproduce help when the issu
 
 ## Before Opening an Issue
 
-Check that the site meets the theme's requirements: WordPress 7.0 or later and PHP 7.4 or later. Canvas 1.4.3 is tested up to WordPress 7.1.
+Check that the site meets the theme's requirements: WordPress 7.0 or later and PHP 7.4 or later. Canvas 1.5.0 is tested up to WordPress 7.1.
 
 When practical, test with only Canvas active and no plugins enabled.
 

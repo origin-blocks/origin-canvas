@@ -1,6 +1,6 @@
 # Getting Started
 
-Canvas installs from a ZIP file like any WordPress theme, and from then on you work in the Site Editor. Canvas 1.4.3 needs WordPress 7.0 or later and PHP 7.4 or later, and is tested up to WordPress 7.1.
+Canvas installs from a ZIP file like any WordPress theme, and from then on you work in the Site Editor. Canvas 1.5.0 needs WordPress 7.0 or later and PHP 7.4 or later, and is tested up to WordPress 7.1.
 
 ## Install Origin Canvas
 
@@ -24,7 +24,7 @@ The Site Editor is where you edit templates, template parts, styles and site-wid
 
 Start from a page pattern. Canvas ships seven: Home: Logos and Cards, Home: Editorial Cover, About: Small on Purpose, Services: A Brand and a Site, Pricing: Plans and FAQ, Contact: Write to the Studio and Landing Page. Each is built from the theme's section patterns, so you can swap any section for another from the same category.
 
-Insert a page pattern into a new page, and set the page's template to **Page (Full Width, No Title)** so the pattern's own hero opens the page. The page patterns carry the demo content of a four-person studio in Nashville. Replace the sample text, links and images with your own.
+Add a new page, and WordPress opens a window with the seven page patterns to choose from; the inserter's **Starter content** category holds them too. Set the page's template to **Page (Full Width, No Title)** so the pattern's own hero opens the page. Six of the page patterns carry the demo content of a four-person studio in Nashville, and Landing Page shows Canvas's own product page. Replace the sample text, links and images with your own.
 
 ## Updating from 1.3.1
 
