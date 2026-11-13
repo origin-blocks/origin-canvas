@@ -180,12 +180,14 @@ textarea:hover:not(:disabled):not(:focus) {
 	border-color: var(--wp--preset--color--contrast-5);
 }
 
+/* The transparent outline replaces the browser's and still paints in forced-colors mode, where
+   the ring is dropped, so a focused field keeps a visible edge. */
 input:not([type="button"]):not([type="reset"]):not([type="submit"]):not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="file"]):focus,
 select:focus,
 textarea:focus {
 	border-color: var(--wp--preset--color--primary);
 	box-shadow: 0 0 0 var(--wp--preset--spacing--extra-small) color-mix(in srgb, var(--wp--preset--color--primary) 25%, transparent);
-	outline: none;
+	outline: 2px solid transparent;
 }
 
 input:not([type="button"]):not([type="reset"]):not([type="submit"]):not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="file"]):disabled,
