@@ -185,13 +185,15 @@
 	box-shadow: var(--wp--preset--shadow--small);
 }
 
+/* The transparent outline replaces the browser's and still paints in forced-colors mode, where
+   the ring is dropped, so a focused field keeps a visible edge. */
 .wp-block-comments .wp-block-post-comments-form input[type="text"]:focus,
 .wp-block-comments .wp-block-post-comments-form input[type="email"]:focus,
 .wp-block-comments .wp-block-post-comments-form input[type="url"]:focus,
 .wp-block-comments .wp-block-post-comments-form textarea:focus {
 	border-color: var(--wp--preset--color--primary);
 	box-shadow: 0 0 0 var(--wp--preset--spacing--extra-small) color-mix(in srgb, var(--wp--preset--color--primary) 25%, transparent);
-	outline: none;
+	outline: 2px solid transparent;
 }
 
 /* Cookies consent */
