@@ -35,6 +35,8 @@ bash "$SCRIPT_DIR/check-page-h1.sh"
 # No demo name, post title or date in a part, template or dynamic pattern (#130).
 bash "$SCRIPT_DIR/check-roster-names.sh"
 bash "$SCRIPT_DIR/check-button-surfaces.sh"
+# Action links on their own line in a card or section are 600 (#121).
+bash "$SCRIPT_DIR/check-action-link-weights.sh"
 bash "$SCRIPT_DIR/check-grid-gaps.sh"
 bash "$SCRIPT_DIR/check-tracking-tokens.sh"
 # No color-mix where WordPress writes the CSS at render and strips it (#96).
