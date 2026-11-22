@@ -40,7 +40,7 @@
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"textColor":"contrast-2","fontSize":"regular"} -->
-<p class="has-contrast-2-color has-text-color has-regular-font-size"><?php echo esc_html__( 'Thirty minutes to hear what you&#8217;re making and whether we&#8217;re the right fit. No charge.', 'origin-canvas' ); ?></p>
+<p class="has-contrast-2-color has-text-color has-regular-font-size"><?php echo esc_html__( 'Twenty minutes to hear what you&#8217;re making and whether we&#8217;re the right fit. No charge.', 'origin-canvas' ); ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group -->
 
