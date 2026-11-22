@@ -2,7 +2,7 @@
 /**
  * Title: CTA Hiring Card Tinted
  * Slug: origin-canvas/cta-hiring-card
- * Description: A tinted rounded closing section for open applications: a centered heading, a short lead on what to send and one button.
+ * Description: A tinted rounded card for open applications: a centered heading, a short lead on what to send and one button.
  * Categories: call-to-action
  * Keywords: careers, jobs, recruit, join, write in
  * Viewport Width: 1500
