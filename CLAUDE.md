@@ -13,6 +13,8 @@ recategorizing a pattern.
   check contrasting real uses; never impose Origin's own look.
 - **Before changing a visual value:** name the reader and the surface, look at the change on
   the real page, and say what the reader gains. Fitting a scale is not a reason.
+- **A new look** for Canvas is a new style variation in `styles/`, never a change to the
+  default look.
 
 ## Where rules live
 - Every design decision lives in the code, in a `bin/check-*.sh` or in a GitHub issue in this
@@ -84,8 +86,10 @@ included (`page-home-01` became `page-studio`). The title describes the page wit
 Name a file in `patterns/images/` for what it shows (`exercise-room.webp`), never for the pattern
 or slot that first used it. The only prefixes are `avatar-`, `portrait-` and `logo-`, followed
 by the person or client. A shipped name stays until a major version, because saved content
-points at its URL. `bin/check-image-names.sh` holds the grammar and its exceptions; whether a
-name fits its picture is the reviewer's read.
+points at its URL. When no pattern uses an image any more, its file stays, overwritten with a
+copy of the image that now holds its slot, and its `readme.txt` credit says so (`390db7d`).
+`bin/check-image-names.sh` holds the grammar and its exceptions; whether a name fits its
+picture is the reviewer's read.
 
 ### 4. Page patterns are `wp:pattern` references only
 A page pattern's body is only `<!-- wp:pattern {"slug":"origin-canvas/…"} /-->` references.
@@ -182,8 +186,10 @@ variation with another face overrides only the tokens or that one value. A patte
 A change to a template part or a widely reused pattern is justified against every page that
 uses it, never one composition. A page that wants a different header needs a different header,
 not an edit to the shared one: design the component family on its own terms, then assign it per
-template. A raw value with an exact token equivalent is tokenised; one
-without is reported to the owner, never snapped (rule 6).
+template. To change a section's text for one page, copy the section into a new pattern and
+change the copy, because every page that references the section changes with it
+(`grep -rl 'origin-canvas/<slug>' patterns` finds them). A raw value with an exact token
+equivalent is tokenised; one without is reported to the owner, never snapped (rule 6).
 
 ### 10. Secondary buttons follow the surface
 A secondary button is `is-style-outline` on a white or tinted surface and
