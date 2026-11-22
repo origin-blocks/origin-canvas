@@ -2,13 +2,14 @@
 /**
  * Title: Contact Routes
  * Slug: origin-canvas/contact-routes
- * Description: A contact section with a panel of four routes, each with a link: email to start a project, book a call, get help as a client, or apply for a role; a form plugin's block can replace the contents of the group named Contact panel.
+ * Description: A contact section with a panel of four routes, each with a link: email to start a project, book a call, get help as a client, or apply for a role.
  * Categories: contact
  * Keywords: inquiry, hire, reach, mailto, support
  * Viewport Width: 1500
  * Block Types:
  * Post Types:
  * Inserter: true
+ * Note: To use a form plugin, replace the contents of the group named "Contact panel" with the plugin's block.
  *
  * @package Origin
  */
